@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.nmp.warp.components.WarpButton
-import com.nmp.warp.components.WarpButtonStyle
-import com.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.components.WarpButton
+import com.schibsted.nmp.warp.components.WarpButtonStyle
+import com.schibsted.nmp.warp.theme.WarpTheme
 
 
 class MainActivity : ComponentActivity() {
