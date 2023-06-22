@@ -43,22 +43,20 @@ class MainActivity : ComponentActivity() {
                         Text(
                             text = "Hello NMPeeps!",
                             color = WarpTheme.colors.primary,
-                            style = WarpTheme.typography.heading
+                            style = WarpTheme.typography.title4
                         )
                         Text(
                             text = "Whats up?",
                             color = WarpTheme.colors.primary,
-                            style = WarpTheme.typography.paragraph
+                            style = WarpTheme.typography.title4
                         )
                         WarpButton(
                             text = "Take me to NMP!",
-                            modifier = Modifier.padding(8.dp),
                             onClick = { },
                             buttonStyle = WarpButtonStyle.Primary
                         )
                         WarpButton(
                             text = "Sell your duck",
-                            modifier = Modifier.padding(8.dp),
                             onClick = { },
                             buttonStyle = WarpButtonStyle.Secondary
                         )

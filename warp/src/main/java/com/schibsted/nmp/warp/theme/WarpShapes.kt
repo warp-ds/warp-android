@@ -5,8 +5,7 @@ import androidx.compose.ui.graphics.Shape
 import com.schibsted.nmp.warp.brands.finn.FinnShapes
 
 interface WarpShapes {
-    val roundedCornerShape: Shape
-    val circleShape: Shape
+    val medium: Shape
 }
 
-internal val LocalShapes = staticCompositionLocalOf<WarpShapes> { FinnShapes() }
+internal val LocalShapes = staticCompositionLocalOf<WarpShapes> { FinnShapes(WarpDimensions()) }

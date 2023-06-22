@@ -10,6 +10,7 @@ fun WarpTheme(
     typography: WarpTypography,
     shapes: WarpShapes,
     resources: WarpResources,
+    dimensions: WarpDimensions,
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
@@ -17,6 +18,7 @@ fun WarpTheme(
         LocalTypography provides typography,
         LocalShapes provides shapes,
         LocalResources provides resources,
+        LocalDimensions provides dimensions,
         content = content
     )
 }
@@ -41,4 +43,9 @@ object WarpTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalResources.current
+
+    val dimensions: WarpDimensions
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalDimensions.current
 }

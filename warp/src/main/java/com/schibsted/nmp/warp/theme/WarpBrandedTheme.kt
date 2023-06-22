@@ -23,23 +23,27 @@ fun WarpBrandedTheme(
     when (getBrandFromFlavor(flavor)) {
         Brand.FINN -> {
             val colors = if (darkTheme) FinnDarkColors() else FinnColors()
+            val dimensions = WarpDimensions()
             WarpTheme(
                 colors = colors,
                 typography = FinnTypography(colors),
-                shapes = FinnShapes(),
+                shapes = FinnShapes(dimensions),
                 resources = FinnResources(),
-                content = content
+                content = content,
+                dimensions = dimensions
             )
         }
 
         Brand.TORI -> {
             val colors = if (darkTheme) ToriDarkColors() else ToriColors()
+            val dimensions = WarpDimensions()
             WarpTheme(
                 colors = colors,
                 typography = ToriTypography(colors),
-                shapes = ToriShapes(),
+                shapes = ToriShapes(dimensions),
                 resources = ToriResources(),
-                content = content
+                content = content,
+                dimensions = dimensions
             )
         }
     }

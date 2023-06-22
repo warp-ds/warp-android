@@ -18,16 +18,9 @@ private val FinnTypeLight = FontFamily(
 
 data class FinnTypography(
     val colors: WarpColors,
-    override val heading: TextStyle = TextStyle(
-        color = colors.primary,
+    override val title4: TextStyle = TextStyle(
         fontFamily = FinnTypeMedium,
-        fontSize = 34.sp,
-        lineHeight = 41.sp,
-    ),
-    override val paragraph: TextStyle = TextStyle(
-        color = colors.secondary,
-        fontFamily = FinnTypeLight,
         fontSize = 16.sp,
         lineHeight = 22.sp,
-    )
+    ),
 ) : WarpTypography

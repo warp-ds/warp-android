@@ -6,8 +6,7 @@ import com.schibsted.nmp.warp.brands.finn.FinnColors
 import com.schibsted.nmp.warp.brands.finn.FinnTypography
 
 interface WarpTypography {
-    val heading: TextStyle
-    val paragraph: TextStyle
+    val title4: TextStyle
 }
 
 internal val LocalTypography =

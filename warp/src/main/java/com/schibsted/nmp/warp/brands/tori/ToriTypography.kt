@@ -8,26 +8,35 @@ import com.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpTypography
 
-private val ToriTypeMedium = FontFamily(
-    Font(R.font.finntype_medium)
+private val ToriSansMedium = FontFamily(
+    Font(R.font.torisans_medium)
 )
 
-private val ToriTypeLight = FontFamily(
-    Font(R.font.finntype_light)
+private val ToriSansBold = FontFamily(
+    Font(R.font.torisans_bold)
+)
+
+private val ToriSansBoldItalic = FontFamily(
+    Font(R.font.torisans_bolditalic)
+)
+
+private val ToriSansItalic = FontFamily(
+    Font(R.font.torisans_italic)
+)
+
+private val ToriSansMediumItalic = FontFamily(
+    Font(R.font.torisans_mediumitalic)
+)
+
+private val ToriSansRegular = FontFamily(
+    Font(R.font.torisans_regular)
 )
 
 data class ToriTypography(
     val colors: WarpColors,
-    override val heading: TextStyle = TextStyle(
-        color = colors.primary,
-        fontFamily = ToriTypeMedium,
-        fontSize = 55.sp,
-        lineHeight = 41.sp,
-    ),
-    override val paragraph: TextStyle = TextStyle(
-        color = colors.secondary,
-        fontFamily = ToriTypeLight,
+    override val title4: TextStyle = TextStyle(
+        fontFamily = ToriSansBold,
         fontSize = 16.sp,
         lineHeight = 22.sp,
-    )
+    ),
 ) : WarpTypography

@@ -7,7 +7,7 @@ import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 @Composable
 fun BrandTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     WarpBrandedTheme(
-        flavor = "finn",
+        flavor = "tori",
         darkTheme = darkTheme,
         content = content
     )

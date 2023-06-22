@@ -20,10 +20,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
+import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
 import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
 
@@ -31,15 +33,42 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
 fun WarpButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     buttonStyle: WarpButtonStyle,
-    maxLines: Int = 1
+    maxLines: Int = 1,
+) {
+    WarpButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        buttonStyle = buttonStyle
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .semantics(properties = { contentDescription = text }),
+            overflow = TextOverflow.Ellipsis,
+            maxLines = maxLines,
+            style = typography.title4,
+            )
+    }
+}
+
+@Composable
+fun WarpButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    buttonStyle: WarpButtonStyle,
+    content: @Composable RowScope.() -> Unit
 ) {
     CompositionLocalProvider(
         LocalColors provides colors,
         LocalShapes provides shapes,
-        LocalTypography provides typography
+        LocalTypography provides typography,
+        LocalDimensions provides dimensions
     ) {
         val buttonModifier = Modifier
             .wrapContentWidth()
@@ -59,7 +88,7 @@ fun WarpButton(
             WarpButtonStyle.Secondary -> {
                 ButtonDefaults.buttonColors(
                     containerColor = colors.button.secondary.background.default,
-                    contentColor = colors.button.disabled.text,
+                    contentColor = colors.button.secondary.text,
                     disabledContainerColor = colors.button.disabled.background.default,
                     disabledContentColor = colors.button.disabled.text
                 )
@@ -68,46 +97,23 @@ fun WarpButton(
 
         val borderColor = when (buttonStyle) {
             WarpButtonStyle.Primary -> {
-                BorderStroke(2.dp, colors.button.primary.border.default)
+                BorderStroke(dimensions.space025.dp, colors.button.primary.border.default)
             }
 
             WarpButtonStyle.Secondary -> {
-                BorderStroke(2.dp, colors.button.secondary.border.default)
+                BorderStroke(dimensions.space025.dp, colors.button.secondary.border.default)
             }
-        }
-
-        val textColor = when (buttonStyle) {
-            WarpButtonStyle.Primary -> colors.button.primary.text
-            WarpButtonStyle.Secondary -> colors.button.secondary.text
-        }
-
-        val content: @Composable RowScope.() -> Unit = {
-            Text(
-                text = text,
-                color = textColor,
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .semantics(properties = { contentDescription = text }),
-                fontSize = typography.paragraph.fontSize,
-                fontStyle = typography.paragraph.fontStyle,
-                fontWeight = typography.paragraph.fontWeight,
-                fontFamily = typography.paragraph.fontFamily,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = maxLines,
-                style = typography.heading,
-
-                )
         }
 
         Button(
             modifier = buttonModifier,
             onClick = onClick,
             enabled = enabled,
-            shape = shapes.roundedCornerShape,
+            shape = shapes.medium,
             colors = buttonColors,
             border = borderColor,
             content = content,
-            contentPadding = PaddingValues(horizontal = 8.dp),
+            contentPadding = PaddingValues(horizontal = dimensions.space2.dp),
             elevation = ButtonDefaults.buttonElevation()
         )
     }
@@ -120,7 +126,7 @@ sealed class WarpButtonStyle {
 
 @Composable
 @Preview
-fun WarpButtonPreview() {
+fun WarpFinnButtonPreview() {
     WarpBrandedTheme(
         flavor = "finn",
         darkTheme = false
@@ -128,13 +134,33 @@ fun WarpButtonPreview() {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             WarpButton(
                 text = "Take me to NMP",
-                modifier = Modifier.padding(8.dp),
                 onClick = {},
                 buttonStyle = WarpButtonStyle.Primary
             )
             WarpButton(
                 text = "Buy a duck",
-                modifier = Modifier.padding(8.dp),
+                onClick = {},
+                buttonStyle = WarpButtonStyle.Secondary
+            )
+        }
+    }
+}
+
+@Composable
+@Preview
+fun WarpToriButtonPreview() {
+    WarpBrandedTheme(
+        flavor = "tori",
+        darkTheme = false
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            WarpButton(
+                text = "Take me to NMP",
+                onClick = {},
+                buttonStyle = WarpButtonStyle.Primary
+            )
+            WarpButton(
+                text = "Buy a duck",
                 onClick = {},
                 buttonStyle = WarpButtonStyle.Secondary
             )
