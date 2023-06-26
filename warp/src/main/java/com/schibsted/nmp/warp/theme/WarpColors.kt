@@ -14,12 +14,13 @@ interface WarpButtonColors {
     val primary: WarpButtonStyleColors
     val secondary: WarpButtonStyleColors
     val disabled: WarpButtonStyleColors
+    val quiet: WarpButtonStyleColors
 }
 
 interface WarpButtonStyleColors {
     val text: Color
     val background: WarpButtonElementColors
-    val border: WarpButtonElementColors
+    val border: WarpButtonElementColors?
 }
 
 interface WarpButtonElementColors {
