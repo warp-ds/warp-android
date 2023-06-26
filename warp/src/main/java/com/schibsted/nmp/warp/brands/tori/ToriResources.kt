@@ -1,6 +1,6 @@
 package com.schibsted.nmp.warp.brands.tori
 
-import com.nmp.warp.R
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpResources
 
 data class ToriResources(
