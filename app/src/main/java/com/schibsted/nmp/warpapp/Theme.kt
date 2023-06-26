@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 
 @Composable
-fun BrandTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun BrandTheme(darkTheme: Boolean = isSystemInDarkTheme(), flavor: String, content: @Composable () -> Unit) {
     WarpBrandedTheme(
-        flavor = "tori",
+        flavor = flavor,
         darkTheme = darkTheme,
         content = content
     )
