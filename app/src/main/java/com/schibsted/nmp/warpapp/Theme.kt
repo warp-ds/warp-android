@@ -1,4 +1,4 @@
-package com.nmp.warpapp
+package com.schibsted.nmp.warpapp
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable

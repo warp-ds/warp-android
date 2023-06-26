@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.nmp.warpapp'
+    namespace 'com.schibsted.nmp.warpapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.nmp.warpapp"
+        applicationId "com.schibsted.nmp.warpapp"
         minSdk 24
         targetSdk 33
         versionCode 1

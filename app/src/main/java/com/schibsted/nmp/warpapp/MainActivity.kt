@@ -1,4 +1,4 @@
-package com.nmp.warpapp
+package com.schibsted.nmp.warpapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

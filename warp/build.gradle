@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.nmp.warp'
+    namespace 'com.schibsted.nmp.warp'
     compileSdk 33
 
     defaultConfig {
