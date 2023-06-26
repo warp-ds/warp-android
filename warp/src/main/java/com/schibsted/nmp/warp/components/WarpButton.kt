@@ -101,12 +101,18 @@ fun WarpButton(
                     disabledContentColor = colors.button.disabled.text
                 )
             }
+            WarpButtonStyle.Critical -> {
+                ButtonDefaults.buttonColors(
+                    containerColor = colors.button.negative.background.default,
+                    contentColor = colors.button.negative.text,
+                    disabledContainerColor = colors.button.disabled.background.default,
+                    disabledContentColor = colors.button.disabled.text
+                )
+            }
         }
 
         val borderColor = when (buttonStyle) {
-            WarpButtonStyle.Primary -> {
-                null
-            }
+            WarpButtonStyle.Primary -> null
             WarpButtonStyle.Secondary -> {
                 colors.button.secondary.border?.default?.let {
                     BorderStroke(dimensions.space025.dp,
@@ -114,9 +120,8 @@ fun WarpButton(
                     )
                 }
             }
-            WarpButtonStyle.Tertiary -> {
-                null
-            }
+            WarpButtonStyle.Tertiary -> null
+            WarpButtonStyle.Critical -> null
         }
 
         Button(
@@ -137,6 +142,7 @@ sealed class WarpButtonStyle {
     object Primary : WarpButtonStyle()
     object Secondary : WarpButtonStyle()
     object Tertiary : WarpButtonStyle()
+    object Critical : WarpButtonStyle()
 }
 
 @Composable
@@ -161,6 +167,11 @@ fun WarpFinnButtonPreview() {
                 text = "Sell a duck",
                 onClick = {},
                 buttonStyle = WarpButtonStyle.Tertiary
+            )
+            WarpButton(
+                text = "This duck cannot be sold!",
+                onClick = {},
+                buttonStyle = WarpButtonStyle.Critical
             )
         }
     }
@@ -188,6 +199,11 @@ fun WarpToriButtonPreview() {
                 text = "Sell a duck",
                 onClick = {},
                 buttonStyle = WarpButtonStyle.Tertiary
+            )
+            WarpButton(
+                text = "This duck cannot be sold!",
+                onClick = {},
+                buttonStyle = WarpButtonStyle.Critical
             )
         }
     }

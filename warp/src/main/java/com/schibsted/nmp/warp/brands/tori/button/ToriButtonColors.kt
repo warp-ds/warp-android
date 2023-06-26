@@ -7,6 +7,8 @@ import com.schibsted.nmp.warp.brands.tori.Petroleum200
 import com.schibsted.nmp.warp.brands.tori.Petroleum300
 import com.schibsted.nmp.warp.brands.tori.Petroleum600
 import com.schibsted.nmp.warp.brands.tori.Petroleum800
+import com.schibsted.nmp.warp.brands.tori.Red600
+import com.schibsted.nmp.warp.brands.tori.Red800
 import com.schibsted.nmp.warp.brands.tori.Transparent
 import com.schibsted.nmp.warp.brands.tori.Watermelon600
 import com.schibsted.nmp.warp.brands.tori.Watermelon800
@@ -54,6 +56,14 @@ data class ToriButtonColors(
         background = ToriButtonElementColors(
             default = Transparent,
             active = Gray200
+        ),
+        border = null
+    ),
+    override val negative: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = White,
+        background = ToriButtonElementColors(
+            default = Red600,
+            active = Red800
         ),
         border = null
     )

@@ -76,6 +76,11 @@ class MainActivity : ComponentActivity() {
                             onClick = { },
                             buttonStyle = WarpButtonStyle.Tertiary
                         )
+                        WarpButton(
+                            text = "This duck cannot be sold!",
+                            onClick = {},
+                            buttonStyle = WarpButtonStyle.Critical
+                        )
                     }
                 }
             }
