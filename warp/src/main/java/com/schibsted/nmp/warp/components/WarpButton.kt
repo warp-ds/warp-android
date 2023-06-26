@@ -18,6 +18,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
@@ -38,12 +40,14 @@ fun WarpButton(
     enabled: Boolean = true,
     buttonStyle: WarpButtonStyle,
     maxLines: Int = 1,
+    loading: Boolean = false
 ) {
     WarpButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        buttonStyle = buttonStyle
+        buttonStyle = buttonStyle,
+        loading = loading
     ) {
         Text(
             text = text,
@@ -63,6 +67,7 @@ fun WarpButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     buttonStyle: WarpButtonStyle,
+    loading: Boolean = false,
     content: @Composable RowScope.() -> Unit
 ) {
     CompositionLocalProvider(
@@ -82,6 +87,9 @@ fun WarpButton(
             WarpButtonStyle.Tertiary -> colors.button.quiet
             WarpButtonStyle.Critical -> colors.button.negative
             WarpButtonStyle.CriticalQuiet -> colors.button.negativeQuiet
+            WarpButtonStyle.Utility -> colors.button.utility
+            WarpButtonStyle.UtilityOverlay -> colors.button.utilityOverlay
+            WarpButtonStyle.UtilityQuiet -> colors.button.utilityQuiet
         }
 
         val buttonColors = ButtonDefaults.buttonColors(
@@ -98,6 +106,8 @@ fun WarpButton(
             )
         }
 
+        val elevation = if (buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
+
         Button(
             modifier = buttonModifier,
             onClick = onClick,
@@ -107,7 +117,7 @@ fun WarpButton(
             border = borderStroke,
             content = content,
             contentPadding = PaddingValues(horizontal = dimensions.space2.dp),
-            elevation = ButtonDefaults.buttonElevation()
+            elevation = ButtonDefaults.buttonElevation(elevation)
         )
     }
 }
@@ -118,15 +128,27 @@ sealed class WarpButtonStyle {
     object Tertiary : WarpButtonStyle()
     object Critical : WarpButtonStyle()
     object CriticalQuiet : WarpButtonStyle()
+    object Utility : WarpButtonStyle()
+    object UtilityQuiet : WarpButtonStyle()
+    object UtilityOverlay : WarpButtonStyle()
+}
+
+internal class WarpButtonPreviewParameterProvider : PreviewParameterProvider<String> {
+    override val values: Sequence<String>
+        get() = sequenceOf("finn", "tori")
+
 }
 
 @Composable
 @Preview
-fun WarpFinnButtonPreview() {
+fun WarpButtonPreview(
+    @PreviewParameter(WarpButtonPreviewParameterProvider::class) flavor: String
+) {
     WarpBrandedTheme(
-        flavor = "finn",
+        flavor = flavor,
         darkTheme = false
-    ) {
+    )
+    {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             WarpButton(
                 text = "Take me to NMP",
@@ -153,42 +175,20 @@ fun WarpFinnButtonPreview() {
                 onClick = {},
                 buttonStyle = WarpButtonStyle.CriticalQuiet
             )
-        }
-    }
-}
-
-@Composable
-@Preview
-fun WarpToriButtonPreview() {
-    WarpBrandedTheme(
-        flavor = "tori",
-        darkTheme = false
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             WarpButton(
-                text = "Take me to NMP",
+                text = "Duck",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.Primary
+                buttonStyle = WarpButtonStyle.Utility
             )
             WarpButton(
-                text = "Buy a duck",
+                text = "Duck duck",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.Secondary
+                buttonStyle = WarpButtonStyle.UtilityQuiet
             )
             WarpButton(
-                text = "Sell a duck",
+                text = "Duck duck duck",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.Tertiary
-            )
-            WarpButton(
-                text = "This duck cannot be sold!",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.Critical
-            )
-            WarpButton(
-                text = "This duck was already sold!",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.CriticalQuiet
+                buttonStyle = WarpButtonStyle.UtilityOverlay
             )
         }
     }

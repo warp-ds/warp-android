@@ -3,6 +3,8 @@ package com.schibsted.nmp.warp.brands.tori.button
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.tori.Gray200
 import com.schibsted.nmp.warp.brands.tori.Gray300
+import com.schibsted.nmp.warp.brands.tori.Gray700
+import com.schibsted.nmp.warp.brands.tori.Gray800
 import com.schibsted.nmp.warp.brands.tori.Petroleum200
 import com.schibsted.nmp.warp.brands.tori.Petroleum300
 import com.schibsted.nmp.warp.brands.tori.Petroleum600
@@ -69,7 +71,34 @@ data class ToriButtonColors(
             active = Red200
         ),
         border = null
-    )
+    ),
+    override val utility: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Gray800,
+        background = ToriButtonElementColors(
+            default = White,
+            active = Gray200
+        ),
+        border = ToriButtonElementColors(
+            default = Gray300,
+            active = Gray800
+        )
+    ),
+    override val utilityQuiet: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Gray800,
+        background = ToriButtonElementColors(
+            default = Transparent,
+            active = Gray200
+        ),
+        border = null
+    ),
+    override val utilityOverlay: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Gray800,
+        background = ToriButtonElementColors(
+            default = White,
+            active = Gray200
+        ),
+        border = null
+    ),
 ) : WarpButtonColors
 
 data class ToriButtonStyleColors(

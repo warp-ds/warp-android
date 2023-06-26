@@ -4,8 +4,10 @@ import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.finn.Blue200
 import com.schibsted.nmp.warp.brands.finn.Blue600
 import com.schibsted.nmp.warp.brands.finn.Blue800
+import com.schibsted.nmp.warp.brands.finn.Bluegray200
 import com.schibsted.nmp.warp.brands.finn.Bluegray300
 import com.schibsted.nmp.warp.brands.finn.Gray200
+import com.schibsted.nmp.warp.brands.finn.Gray700
 import com.schibsted.nmp.warp.brands.finn.Red200
 import com.schibsted.nmp.warp.brands.finn.Red600
 import com.schibsted.nmp.warp.brands.finn.Red800
@@ -77,5 +79,32 @@ data class FinnButtonColors(
             active = Red200
         ),
         border = null
-    )
+    ),
+    override val utility: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Gray700,
+        background = FinnButtonElementColors(
+            default = White,
+            active = Gray200
+        ),
+        border = FinnButtonElementColors(
+            default = Bluegray300,
+            active = Gray700
+        )
+    ),
+    override val utilityOverlay: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Gray700,
+        background = FinnButtonElementColors(
+            default = White,
+            active = Gray200
+        ),
+        border = null
+    ),
+    override val utilityQuiet: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Gray700,
+        background = FinnButtonElementColors(
+            default = Transparent,
+            active = Bluegray200
+        ),
+        border = null
+    ),
 ) : WarpButtonColors

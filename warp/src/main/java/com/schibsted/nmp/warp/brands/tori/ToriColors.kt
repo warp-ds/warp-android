@@ -6,7 +6,7 @@ import com.schibsted.nmp.warp.theme.WarpColors
 
 data class ToriColors(
     override val primary: Color = Watermelon600,
-    override val secondary: Color = Petroleum600,
+    override val secondary: Color = White,
     override val button: ToriButtonColors = ToriButtonColors()
 ) : WarpColors
 

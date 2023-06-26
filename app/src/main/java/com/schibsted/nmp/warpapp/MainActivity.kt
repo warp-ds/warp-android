@@ -86,6 +86,21 @@ class MainActivity : ComponentActivity() {
                             onClick = {},
                             buttonStyle = WarpButtonStyle.CriticalQuiet
                         )
+                        WarpButton(
+                            text = "Duck",
+                            onClick = {},
+                            buttonStyle = WarpButtonStyle.Utility
+                        )
+                        WarpButton(
+                            text = "Duck duck",
+                            onClick = {},
+                            buttonStyle = WarpButtonStyle.UtilityQuiet
+                        )
+                        WarpButton(
+                            text = "Duck duck duck",
+                            onClick = {},
+                            buttonStyle = WarpButtonStyle.UtilityOverlay
+                        )
                     }
                 }
             }
