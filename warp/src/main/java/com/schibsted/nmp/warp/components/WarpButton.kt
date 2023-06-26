@@ -24,6 +24,7 @@ import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
 import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
+import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -52,7 +53,7 @@ fun WarpButton(
             overflow = TextOverflow.Ellipsis,
             maxLines = maxLines,
             style = typography.title4,
-            )
+        )
     }
 }
 
@@ -75,53 +76,26 @@ fun WarpButton(
             .wrapContentHeight()
             .then(modifier)
 
-        val buttonColors = when (buttonStyle) {
-            WarpButtonStyle.Primary -> {
-                ButtonDefaults.buttonColors(
-                    containerColor = colors.button.primary.background.default,
-                    contentColor = colors.button.primary.text,
-                    disabledContainerColor = colors.button.disabled.background.default,
-                    disabledContentColor = colors.button.disabled.text
-                )
-            }
-
-            WarpButtonStyle.Secondary -> {
-                ButtonDefaults.buttonColors(
-                    containerColor = colors.button.secondary.background.default,
-                    contentColor = colors.button.secondary.text,
-                    disabledContainerColor = colors.button.disabled.background.default,
-                    disabledContentColor = colors.button.disabled.text
-                )
-            }
-            WarpButtonStyle.Tertiary -> {
-                ButtonDefaults.buttonColors(
-                    containerColor = colors.button.quiet.background.default,
-                    contentColor = colors.button.quiet.text,
-                    disabledContainerColor = colors.button.disabled.background.default,
-                    disabledContentColor = colors.button.disabled.text
-                )
-            }
-            WarpButtonStyle.Critical -> {
-                ButtonDefaults.buttonColors(
-                    containerColor = colors.button.negative.background.default,
-                    contentColor = colors.button.negative.text,
-                    disabledContainerColor = colors.button.disabled.background.default,
-                    disabledContentColor = colors.button.disabled.text
-                )
-            }
+        val warpButtonColors: WarpButtonStyleColors = when (buttonStyle) {
+            WarpButtonStyle.Primary -> colors.button.primary
+            WarpButtonStyle.Secondary -> colors.button.secondary
+            WarpButtonStyle.Tertiary -> colors.button.quiet
+            WarpButtonStyle.Critical -> colors.button.negative
+            WarpButtonStyle.CriticalQuiet -> colors.button.negativeQuiet
         }
 
-        val borderColor = when (buttonStyle) {
-            WarpButtonStyle.Primary -> null
-            WarpButtonStyle.Secondary -> {
-                colors.button.secondary.border?.default?.let {
-                    BorderStroke(dimensions.space025.dp,
-                        it
-                    )
-                }
-            }
-            WarpButtonStyle.Tertiary -> null
-            WarpButtonStyle.Critical -> null
+        val buttonColors = ButtonDefaults.buttonColors(
+            containerColor = warpButtonColors.background.default,
+            contentColor = warpButtonColors.text,
+            disabledContainerColor = colors.button.disabled.background.default,
+            disabledContentColor = colors.button.disabled.text
+        )
+
+        val borderStroke = warpButtonColors.border?.default?.let {
+            BorderStroke(
+                dimensions.space025.dp,
+                it
+            )
         }
 
         Button(
@@ -130,7 +104,7 @@ fun WarpButton(
             enabled = enabled,
             shape = shapes.medium,
             colors = buttonColors,
-            border = borderColor,
+            border = borderStroke,
             content = content,
             contentPadding = PaddingValues(horizontal = dimensions.space2.dp),
             elevation = ButtonDefaults.buttonElevation()
@@ -143,6 +117,7 @@ sealed class WarpButtonStyle {
     object Secondary : WarpButtonStyle()
     object Tertiary : WarpButtonStyle()
     object Critical : WarpButtonStyle()
+    object CriticalQuiet : WarpButtonStyle()
 }
 
 @Composable
@@ -172,6 +147,11 @@ fun WarpFinnButtonPreview() {
                 text = "This duck cannot be sold!",
                 onClick = {},
                 buttonStyle = WarpButtonStyle.Critical
+            )
+            WarpButton(
+                text = "This duck was already sold!",
+                onClick = {},
+                buttonStyle = WarpButtonStyle.CriticalQuiet
             )
         }
     }
@@ -204,6 +184,11 @@ fun WarpToriButtonPreview() {
                 text = "This duck cannot be sold!",
                 onClick = {},
                 buttonStyle = WarpButtonStyle.Critical
+            )
+            WarpButton(
+                text = "This duck was already sold!",
+                onClick = {},
+                buttonStyle = WarpButtonStyle.CriticalQuiet
             )
         }
     }

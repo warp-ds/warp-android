@@ -6,6 +6,7 @@ import com.schibsted.nmp.warp.brands.finn.Blue600
 import com.schibsted.nmp.warp.brands.finn.Blue800
 import com.schibsted.nmp.warp.brands.finn.Bluegray300
 import com.schibsted.nmp.warp.brands.finn.Gray200
+import com.schibsted.nmp.warp.brands.finn.Red200
 import com.schibsted.nmp.warp.brands.finn.Red600
 import com.schibsted.nmp.warp.brands.finn.Red800
 import com.schibsted.nmp.warp.brands.finn.Transparent
@@ -51,10 +52,7 @@ data class FinnButtonColors(
             default = Bluegray300,
             active = Bluegray300
         ),
-        border = FinnButtonElementColors(
-            default = Bluegray300,
-            active = Bluegray300
-        )
+        border = null
     ),
     override val quiet: FinnButtonStyleColors = FinnButtonStyleColors(
         text = Blue600,
@@ -69,6 +67,14 @@ data class FinnButtonColors(
         background = FinnButtonElementColors(
             default = Red600,
             active = Red800
+        ),
+        border = null
+    ),
+    override val negativeQuiet: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Red600,
+        background = FinnButtonElementColors(
+            default = Transparent,
+            active = Red200
         ),
         border = null
     )
