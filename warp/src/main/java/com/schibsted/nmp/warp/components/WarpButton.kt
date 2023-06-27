@@ -1,5 +1,13 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.annotation.FloatRange
+import androidx.compose.animation.core.DurationBasedAnimationSpec
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +21,18 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -21,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.brands.finn.Gray200
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
@@ -76,7 +96,7 @@ fun WarpButton(
         LocalTypography provides typography,
         LocalDimensions provides dimensions
     ) {
-        val buttonModifier = Modifier
+        var buttonModifier = Modifier
             .wrapContentWidth()
             .wrapContentHeight()
             .then(modifier)
@@ -107,6 +127,34 @@ fun WarpButton(
         }
 
         val elevation = if (buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
+
+        if (loading) {
+            val transition = rememberInfiniteTransition()
+            val offset by transition.animateFloat(
+                initialValue = 0f,
+                targetValue = 24f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(500, easing = LinearEasing)
+                )
+            )
+
+            buttonModifier = buttonModifier.then(Modifier.drawWithContent {
+
+                clipRect() {
+                    val a = 4f
+                    val steps = IntProgression.fromClosedRange(-size.width.toInt(), size.width.toInt(), (a*6).toInt())
+                    for (x in steps) {
+                        drawLine(Gray200, Offset(x+a+offset, size.height+a), Offset(x+size.height+a+offset,0f), strokeWidth = 2*a)
+                    }
+                }
+
+                this.drawContent()
+            }
+            )
+
+        }
+
+
 
         Button(
             modifier = buttonModifier,
@@ -149,7 +197,9 @@ fun WarpButtonPreview(
         darkTheme = false
     )
     {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             WarpButton(
                 text = "Take me to NMP",
                 onClick = {},
@@ -190,6 +240,10 @@ fun WarpButtonPreview(
                 onClick = {},
                 buttonStyle = WarpButtonStyle.UtilityOverlay
             )
+            WarpButton(
+                text = "Loading",
+                loading = true,
+                onClick = {}, buttonStyle = WarpButtonStyle.UtilityQuiet)
         }
     }
 }
