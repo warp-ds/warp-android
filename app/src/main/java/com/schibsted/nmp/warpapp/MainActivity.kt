@@ -101,6 +101,12 @@ class MainActivity : ComponentActivity() {
                             onClick = {},
                             buttonStyle = WarpButtonStyle.UtilityOverlay
                         )
+                        WarpButton(
+                            text = "Loading ducks",
+                            loading = true,
+                            onClick = {},
+                            buttonStyle = WarpButtonStyle.UtilityQuiet
+                        )
                     }
                 }
             }

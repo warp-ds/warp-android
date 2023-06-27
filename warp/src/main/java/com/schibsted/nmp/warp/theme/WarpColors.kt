@@ -20,6 +20,7 @@ interface WarpButtonColors {
     val utility: WarpButtonStyleColors
     val utilityQuiet: WarpButtonStyleColors
     val utilityOverlay: WarpButtonStyleColors
+    val loading: WarpButtonStyleColors
 }
 
 interface WarpButtonStyleColors {
