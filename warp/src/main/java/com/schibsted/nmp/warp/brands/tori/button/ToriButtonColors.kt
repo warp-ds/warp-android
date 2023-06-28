@@ -1,9 +1,10 @@
 package com.schibsted.nmp.warp.brands.tori.button
 
 import androidx.compose.ui.graphics.Color
+import com.schibsted.nmp.warp.brands.tori.Gray100
 import com.schibsted.nmp.warp.brands.tori.Gray200
 import com.schibsted.nmp.warp.brands.tori.Gray300
-import com.schibsted.nmp.warp.brands.tori.Gray700
+import com.schibsted.nmp.warp.brands.tori.Gray500
 import com.schibsted.nmp.warp.brands.tori.Gray800
 import com.schibsted.nmp.warp.brands.tori.Petroleum200
 import com.schibsted.nmp.warp.brands.tori.Petroleum300
@@ -12,13 +13,13 @@ import com.schibsted.nmp.warp.brands.tori.Petroleum800
 import com.schibsted.nmp.warp.brands.tori.Red200
 import com.schibsted.nmp.warp.brands.tori.Red600
 import com.schibsted.nmp.warp.brands.tori.Red800
-import com.schibsted.nmp.warp.brands.tori.Transparent
 import com.schibsted.nmp.warp.brands.tori.Watermelon600
 import com.schibsted.nmp.warp.brands.tori.Watermelon800
-import com.schibsted.nmp.warp.brands.tori.White
+import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
+import com.schibsted.nmp.warp.theme.White
 
 data class ToriButtonColors(
     override val primary: ToriButtonStyleColors = ToriButtonStyleColors(
@@ -96,6 +97,14 @@ data class ToriButtonColors(
         background = ToriButtonElementColors(
             default = White,
             active = Gray200
+        ),
+        border = null
+    ),
+    override val loading: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Gray500,
+        background = ToriButtonElementColors(
+            default = Gray100,
+            active = Gray300
         ),
         border = null
     ),

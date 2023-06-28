@@ -1,6 +1,12 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,7 +19,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,6 +36,7 @@ import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
 import com.schibsted.nmp.warp.theme.LocalTypography
+import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -76,11 +88,6 @@ fun WarpButton(
         LocalTypography provides typography,
         LocalDimensions provides dimensions
     ) {
-        val buttonModifier = Modifier
-            .wrapContentWidth()
-            .wrapContentHeight()
-            .then(modifier)
-
         val warpButtonColors: WarpButtonStyleColors = when (buttonStyle) {
             WarpButtonStyle.Primary -> colors.button.primary
             WarpButtonStyle.Secondary -> colors.button.secondary
@@ -99,24 +106,34 @@ fun WarpButton(
             disabledContentColor = colors.button.disabled.text
         )
 
-        val borderStroke = warpButtonColors.border?.default?.let {
-            BorderStroke(
+        val loadingColors = ButtonDefaults.buttonColors(
+            containerColor = Transparent,
+            contentColor = colors.button.loading.text,
+            disabledContainerColor = colors.button.disabled.background.default,
+            disabledContentColor = colors.button.disabled.text
+        )
+
+        val borderStroke = warpButtonColors.border?.let {
+             BorderStroke(
                 dimensions.space025.dp,
-                it
+                it.default
             )
         }
 
         val elevation = if (buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
+
+        val buttonModifier = if (loading) modifier.then(LoadingAnimation()) else modifier
+        val colors = if(loading) loadingColors else buttonColors
 
         Button(
             modifier = buttonModifier,
             onClick = onClick,
             enabled = enabled,
             shape = shapes.medium,
-            colors = buttonColors,
+            colors = colors,
             border = borderStroke,
             content = content,
-            contentPadding = PaddingValues(horizontal = dimensions.space2.dp),
+            contentPadding = PaddingValues(horizontal = dimensions.space2.dp, vertical = dimensions.space1.dp),
             elevation = ButtonDefaults.buttonElevation(elevation)
         )
     }
@@ -131,6 +148,42 @@ sealed class WarpButtonStyle {
     object Utility : WarpButtonStyle()
     object UtilityQuiet : WarpButtonStyle()
     object UtilityOverlay : WarpButtonStyle()
+}
+
+@Composable
+fun LoadingAnimation(): Modifier {
+    val transition = rememberInfiniteTransition()
+    val offset by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 69f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing)
+        )
+    )
+
+    val loadingColors = colors.button.loading
+    return Modifier
+        .clip(shapes.medium)
+        .background(loadingColors.background.default, shapes.medium)
+        .drawWithContent {
+            clipRect {
+                val a = 8.5f
+                val steps = IntProgression.fromClosedRange(
+                    -size.width.toInt(),
+                    size.width.toInt(),
+                    (a * 8).toInt()
+                )
+                for (x in steps) {
+                    drawLine(
+                        loadingColors.background.active,
+                        Offset(x + a + offset, size.height + a),
+                        Offset(x + size.height + a + offset, -a),
+                        strokeWidth = 3 * a
+                    )
+                }
+            }
+            this.drawContent()
+        }
 }
 
 internal class WarpButtonPreviewParameterProvider : PreviewParameterProvider<String> {
@@ -149,7 +202,9 @@ fun WarpButtonPreview(
         darkTheme = false
     )
     {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             WarpButton(
                 text = "Take me to NMP",
                 onClick = {},
@@ -189,6 +244,12 @@ fun WarpButtonPreview(
                 text = "Duck duck duck",
                 onClick = {},
                 buttonStyle = WarpButtonStyle.UtilityOverlay
+            )
+            WarpButton(
+                text = "Loading",
+                loading = true,
+                onClick = {},
+                buttonStyle = WarpButtonStyle.UtilityQuiet
             )
         }
     }
