@@ -14,11 +14,11 @@ import com.schibsted.nmp.warp.brands.finn.Gray700
 import com.schibsted.nmp.warp.brands.finn.Red200
 import com.schibsted.nmp.warp.brands.finn.Red600
 import com.schibsted.nmp.warp.brands.finn.Red800
-import com.schibsted.nmp.warp.brands.finn.Transparent
-import com.schibsted.nmp.warp.brands.finn.White
+import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
+import com.schibsted.nmp.warp.theme.White
 
 data class FinnButtonStyleColors(
     override val text: Color,

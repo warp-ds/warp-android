@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp.brands.finn
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.finn.button.FinnButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
+import com.schibsted.nmp.warp.theme.White
 
 data class FinnColors(
     override val primary: Color = Blue600,
@@ -15,10 +16,6 @@ data class FinnDarkColors(
     override val secondary: Color = White,
     override val button: FinnButtonColors = FinnButtonColors() //todo darkmode color not defined yet
 ) : WarpColors
-
-internal val White = Color(0xFFFFFFFF)
-internal val Black = Color.Black
-internal val Transparent = Color.Transparent
 
 //Blue
 internal val Blue50 = Color(0xffeff5ff)

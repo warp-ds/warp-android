@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp.brands.tori
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.tori.button.ToriButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
+import com.schibsted.nmp.warp.theme.White
 
 data class ToriColors(
     override val primary: Color = Watermelon600,
@@ -15,10 +16,6 @@ data class ToriDarkColors(
     override val secondary: Color = White,
     override val button: ToriButtonColors = ToriButtonColors()
 ) : WarpColors
-
-internal val White = Color.White
-internal val Black = Color.Black
-internal val Transparent = Color.Transparent
 
 //Watermelon
 internal val Watermelon50 = Color(0xFFFFF3F2)

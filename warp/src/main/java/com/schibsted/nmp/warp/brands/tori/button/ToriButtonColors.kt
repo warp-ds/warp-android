@@ -13,13 +13,13 @@ import com.schibsted.nmp.warp.brands.tori.Petroleum800
 import com.schibsted.nmp.warp.brands.tori.Red200
 import com.schibsted.nmp.warp.brands.tori.Red600
 import com.schibsted.nmp.warp.brands.tori.Red800
-import com.schibsted.nmp.warp.brands.tori.Transparent
 import com.schibsted.nmp.warp.brands.tori.Watermelon600
 import com.schibsted.nmp.warp.brands.tori.Watermelon800
-import com.schibsted.nmp.warp.brands.tori.White
+import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
+import com.schibsted.nmp.warp.theme.White
 
 data class ToriButtonColors(
     override val primary: ToriButtonStyleColors = ToriButtonStyleColors(

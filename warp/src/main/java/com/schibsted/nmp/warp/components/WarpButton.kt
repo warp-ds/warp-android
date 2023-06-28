@@ -36,6 +36,7 @@ import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
 import com.schibsted.nmp.warp.theme.LocalTypography
+import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -87,11 +88,6 @@ fun WarpButton(
         LocalTypography provides typography,
         LocalDimensions provides dimensions
     ) {
-        val buttonModifier = Modifier
-            .wrapContentWidth()
-            .wrapContentHeight()
-            .then(modifier)
-
         val warpButtonColors: WarpButtonStyleColors = when (buttonStyle) {
             WarpButtonStyle.Primary -> colors.button.primary
             WarpButtonStyle.Secondary -> colors.button.secondary
@@ -110,6 +106,13 @@ fun WarpButton(
             disabledContentColor = colors.button.disabled.text
         )
 
+        val loadingColors = ButtonDefaults.buttonColors(
+            containerColor = Transparent,
+            contentColor = colors.button.loading.text,
+            disabledContainerColor = colors.button.disabled.background.default,
+            disabledContentColor = colors.button.disabled.text
+        )
+
         val borderStroke = warpButtonColors.border?.let {
              BorderStroke(
                 dimensions.space025.dp,
@@ -119,19 +122,18 @@ fun WarpButton(
 
         val elevation = if (buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
 
-        val modifier = if (loading) {
-            LoadingAnimation()
-        } else buttonModifier
+        val buttonModifier = if (loading) modifier.then(LoadingAnimation()) else modifier
+        val colors = if(loading) loadingColors else buttonColors
 
         Button(
-            modifier = modifier,
+            modifier = buttonModifier,
             onClick = onClick,
             enabled = enabled,
             shape = shapes.medium,
-            colors = buttonColors,
+            colors = colors,
             border = borderStroke,
             content = content,
-            contentPadding = PaddingValues(horizontal = dimensions.space2.dp),
+            contentPadding = PaddingValues(horizontal = dimensions.space2.dp, vertical = dimensions.space1.dp),
             elevation = ButtonDefaults.buttonElevation(elevation)
         )
     }

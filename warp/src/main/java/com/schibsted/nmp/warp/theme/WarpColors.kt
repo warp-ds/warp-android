@@ -34,4 +34,8 @@ interface WarpButtonElementColors {
     val active: Color
 }
 
+internal val White = Color.White
+internal val Black = Color.Black
+internal val Transparent = Color.Transparent
+
 internal val LocalColors = staticCompositionLocalOf<WarpColors> { FinnColors() }
