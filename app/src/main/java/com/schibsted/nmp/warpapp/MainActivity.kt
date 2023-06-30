@@ -34,6 +34,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //xml layout testing
+        //setContentView(R.layout.buttons)
 
         setContent {
             val flavor = viewModel.flavor.collectAsState()
@@ -77,57 +79,57 @@ class MainActivity : ComponentActivity() {
                             text = "Take me to NMP!",
                             loading = loading,
                             onClick = { loading = !loading },
-                            buttonStyle = WarpButtonStyle.Primary,
+                            buttonStyle = WarpButtonStyle.PRIMARY,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         WarpButton(
                             text = "Sell your duck",
                             onClick = { enabled = !enabled },
-                            buttonStyle = WarpButtonStyle.Secondary,
+                            buttonStyle = WarpButtonStyle.SECONDARY,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         WarpButton(
                             text = "Wanna buy a duck?",
                             enabled = enabled,
                             onClick = { },
-                            buttonStyle = WarpButtonStyle.Tertiary,
+                            buttonStyle = WarpButtonStyle.TERTIARY,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         WarpButton(
                             text = "This duck cannot be sold!",
                             onClick = {},
-                            buttonStyle = WarpButtonStyle.Critical,
+                            buttonStyle = WarpButtonStyle.CRITICAL,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         WarpButton(
                             text = "This duck was already sold!",
                             onClick = {},
-                            buttonStyle = WarpButtonStyle.CriticalQuiet,
+                            buttonStyle = WarpButtonStyle.CRITICAL_QUIET,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         WarpButton(
                             text = "Duck",
                             onClick = {},
-                            buttonStyle = WarpButtonStyle.Utility,
+                            buttonStyle = WarpButtonStyle.UTILITY,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         WarpButton(
                             text = "Duck duck",
                             onClick = {},
-                            buttonStyle = WarpButtonStyle.UtilityQuiet,
+                            buttonStyle = WarpButtonStyle.UTILITY_QUIET,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         WarpButton(
                             text = "Duck duck duck",
                             onClick = {},
-                            buttonStyle = WarpButtonStyle.UtilityOverlay,
+                            buttonStyle = WarpButtonStyle.UTILITY_OVERLAY,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         WarpButton(
                             text = "Loading ducks",
                             loading = loading,
                             onClick = {loading = !loading},
-                            buttonStyle = WarpButtonStyle.UtilityQuiet,
+                            buttonStyle = WarpButtonStyle.UTILITY_QUIET,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                     }

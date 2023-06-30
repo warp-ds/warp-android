@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -89,14 +87,14 @@ fun WarpButton(
         LocalDimensions provides dimensions
     ) {
         val warpButtonColors: WarpButtonStyleColors = when (buttonStyle) {
-            WarpButtonStyle.Primary -> colors.button.primary
-            WarpButtonStyle.Secondary -> colors.button.secondary
-            WarpButtonStyle.Tertiary -> colors.button.quiet
-            WarpButtonStyle.Critical -> colors.button.negative
-            WarpButtonStyle.CriticalQuiet -> colors.button.negativeQuiet
-            WarpButtonStyle.Utility -> colors.button.utility
-            WarpButtonStyle.UtilityOverlay -> colors.button.utilityOverlay
-            WarpButtonStyle.UtilityQuiet -> colors.button.utilityQuiet
+            WarpButtonStyle.PRIMARY -> colors.button.primary
+            WarpButtonStyle.SECONDARY -> colors.button.secondary
+            WarpButtonStyle.TERTIARY -> colors.button.quiet
+            WarpButtonStyle.CRITICAL -> colors.button.negative
+            WarpButtonStyle.CRITICAL_QUIET -> colors.button.negativeQuiet
+            WarpButtonStyle.UTILITY -> colors.button.utility
+            WarpButtonStyle.UTILITY_QUIET -> colors.button.utilityOverlay
+            WarpButtonStyle.UTILITY_OVERLAY -> colors.button.utilityQuiet
         }
 
         val buttonColors = ButtonDefaults.buttonColors(
@@ -120,7 +118,7 @@ fun WarpButton(
             )
         }
 
-        val elevation = if (buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
+        val elevation = if (buttonStyle == WarpButtonStyle.UTILITY_OVERLAY) dimensions.shadowSmall.dp else 0.dp
 
         val buttonModifier = if (loading) modifier.then(LoadingAnimation()) else modifier
         val colors = if(loading) loadingColors else buttonColors
@@ -139,15 +137,16 @@ fun WarpButton(
     }
 }
 
-sealed class WarpButtonStyle {
-    object Primary : WarpButtonStyle()
-    object Secondary : WarpButtonStyle()
-    object Tertiary : WarpButtonStyle()
-    object Critical : WarpButtonStyle()
-    object CriticalQuiet : WarpButtonStyle()
-    object Utility : WarpButtonStyle()
-    object UtilityQuiet : WarpButtonStyle()
-    object UtilityOverlay : WarpButtonStyle()
+enum class WarpButtonStyle {
+    PRIMARY,
+    SECONDARY,
+    TERTIARY,
+    CRITICAL,
+    CRITICAL_QUIET,
+    UTILITY,
+    UTILITY_QUIET,
+    UTILITY_OVERLAY
+
 }
 
 @Composable
@@ -208,48 +207,48 @@ fun WarpButtonPreview(
             WarpButton(
                 text = "Take me to NMP",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.Primary
+                buttonStyle = WarpButtonStyle.PRIMARY
             )
             WarpButton(
                 text = "Buy a duck",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.Secondary
+                buttonStyle = WarpButtonStyle.SECONDARY
             )
             WarpButton(
                 text = "Sell a duck",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.Tertiary
+                buttonStyle = WarpButtonStyle.TERTIARY
             )
             WarpButton(
                 text = "This duck cannot be sold!",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.Critical
+                buttonStyle = WarpButtonStyle.CRITICAL
             )
             WarpButton(
                 text = "This duck was already sold!",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.CriticalQuiet
+                buttonStyle = WarpButtonStyle.CRITICAL_QUIET
             )
             WarpButton(
                 text = "Duck",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.Utility
+                buttonStyle = WarpButtonStyle.UTILITY
             )
             WarpButton(
                 text = "Duck duck",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.UtilityQuiet
+                buttonStyle = WarpButtonStyle.UTILITY_QUIET
             )
             WarpButton(
                 text = "Duck duck duck",
                 onClick = {},
-                buttonStyle = WarpButtonStyle.UtilityOverlay
+                buttonStyle = WarpButtonStyle.UTILITY_OVERLAY
             )
             WarpButton(
                 text = "Loading",
                 loading = true,
                 onClick = {},
-                buttonStyle = WarpButtonStyle.UtilityQuiet
+                buttonStyle = WarpButtonStyle.UTILITY_QUIET
             )
         }
     }
