@@ -10,4 +10,4 @@ interface WarpTypography {
 }
 
 internal val LocalTypography =
-    staticCompositionLocalOf<WarpTypography> { FinnTypography(FinnColors()) }
+    staticCompositionLocalOf<WarpTypography> { FinnTypography(FinnColors) }

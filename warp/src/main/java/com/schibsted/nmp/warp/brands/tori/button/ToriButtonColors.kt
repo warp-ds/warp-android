@@ -21,7 +21,7 @@ import com.schibsted.nmp.warp.theme.WarpButtonElementColors
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.White
 
-data class ToriButtonColors(
+object ToriButtonColors : WarpButtonColors {
     override val primary: ToriButtonStyleColors = ToriButtonStyleColors(
         text = White,
         background = ToriButtonElementColors(
@@ -29,7 +29,7 @@ data class ToriButtonColors(
             active = Watermelon800
         ),
         border = null
-    ),
+    )
     override val secondary: ToriButtonStyleColors = ToriButtonStyleColors(
         text = Petroleum600,
         background = ToriButtonElementColors(
@@ -40,7 +40,7 @@ data class ToriButtonColors(
             default = Petroleum300,
             active = Petroleum800
         )
-    ),
+    )
     override val disabled: ToriButtonStyleColors = ToriButtonStyleColors(
         text = White,
         background = ToriButtonElementColors(
@@ -48,7 +48,7 @@ data class ToriButtonColors(
             active = Gray300
         ),
         border = null
-    ),
+    )
     override val quiet: ToriButtonStyleColors = ToriButtonStyleColors(
         text = Petroleum600,
         background = ToriButtonElementColors(
@@ -56,7 +56,7 @@ data class ToriButtonColors(
             active = Gray200
         ),
         border = null
-    ),
+    )
     override val negative: ToriButtonStyleColors = ToriButtonStyleColors(
         text = White,
         background = ToriButtonElementColors(
@@ -64,7 +64,7 @@ data class ToriButtonColors(
             active = Red800
         ),
         border = null
-    ),
+    )
     override val negativeQuiet: ToriButtonStyleColors = ToriButtonStyleColors(
         text = Red600,
         background = ToriButtonElementColors(
@@ -72,7 +72,7 @@ data class ToriButtonColors(
             active = Red200
         ),
         border = null
-    ),
+    )
     override val utility: ToriButtonStyleColors = ToriButtonStyleColors(
         text = Gray800,
         background = ToriButtonElementColors(
@@ -83,7 +83,7 @@ data class ToriButtonColors(
             default = Gray300,
             active = Gray800
         )
-    ),
+    )
     override val utilityQuiet: ToriButtonStyleColors = ToriButtonStyleColors(
         text = Gray800,
         background = ToriButtonElementColors(
@@ -91,7 +91,7 @@ data class ToriButtonColors(
             active = Gray200
         ),
         border = null
-    ),
+    )
     override val utilityOverlay: ToriButtonStyleColors = ToriButtonStyleColors(
         text = Gray800,
         background = ToriButtonElementColors(
@@ -99,7 +99,7 @@ data class ToriButtonColors(
             active = Gray200
         ),
         border = null
-    ),
+    )
     override val loading: ToriButtonStyleColors = ToriButtonStyleColors(
         text = Gray500,
         background = ToriButtonElementColors(
@@ -107,8 +107,8 @@ data class ToriButtonColors(
             active = Gray300
         ),
         border = null
-    ),
-) : WarpButtonColors
+    )
+}
 
 data class ToriButtonStyleColors(
     override val text: Color,
@@ -120,3 +120,4 @@ data class ToriButtonElementColors(
     override val default: Color,
     override val active: Color
 ) : WarpButtonElementColors
+

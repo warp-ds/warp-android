@@ -8,4 +8,4 @@ interface WarpShapes {
     val medium: Shape
 }
 
-internal val LocalShapes = staticCompositionLocalOf<WarpShapes> { FinnShapes(WarpDimensions()) }
+internal val LocalShapes = staticCompositionLocalOf<WarpShapes> { FinnShapes(WarpDimensions) }

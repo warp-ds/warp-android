@@ -8,6 +8,7 @@ interface WarpColors {
     val primary: Color
     val secondary: Color
     val button: WarpButtonColors
+    val box: WarpBoxColors
 }
 
 interface WarpButtonColors {
@@ -22,6 +23,17 @@ interface WarpButtonColors {
     val utilityOverlay: WarpButtonStyleColors
     val loading: WarpButtonStyleColors
 }
+
+interface WarpBoxColors {
+    val neutral: WarpComponentBackground
+    val info: WarpComponentBackground
+    val bordered: WarpComponentBackground
+}
+
+data class WarpComponentBackground(
+    val background: Color,
+    val border: Color?
+)
 
 interface WarpButtonStyleColors {
     val text: Color
@@ -38,4 +50,4 @@ internal val White = Color.White
 internal val Black = Color.Black
 internal val Transparent = Color.Transparent
 
-internal val LocalColors = staticCompositionLocalOf<WarpColors> { FinnColors() }
+internal val LocalColors = staticCompositionLocalOf<WarpColors> { FinnColors }

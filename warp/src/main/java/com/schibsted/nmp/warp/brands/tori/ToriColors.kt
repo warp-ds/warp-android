@@ -1,21 +1,26 @@
+@file:Suppress("unused")
+
 package com.schibsted.nmp.warp.brands.tori
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.tori.button.ToriButtonColors
+import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.White
 
-data class ToriColors(
-    override val primary: Color = Watermelon600,
-    override val secondary: Color = White,
-    override val button: ToriButtonColors = ToriButtonColors()
-) : WarpColors
+object ToriColors : WarpColors {
+    override val primary: Color = Watermelon600
+    override val secondary: Color = White
+    override val button: ToriButtonColors = ToriButtonColors
+    override val box: WarpBoxColors = ToriBoxColors
+}
 
-data class ToriDarkColors(
-    override val primary: Color = Petroleum600,
-    override val secondary: Color = White,
-    override val button: ToriButtonColors = ToriButtonColors()
-) : WarpColors
+object ToriDarkColors : WarpColors {
+    override val primary: Color = Petroleum600
+    override val secondary: Color = White
+    override val button: ToriButtonColors = ToriButtonColors
+    override val box: WarpBoxColors = ToriBoxColors
+}
 
 //Watermelon
 internal val Watermelon50 = Color(0xFFFFF3F2)
