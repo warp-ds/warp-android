@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -122,7 +120,7 @@ fun WarpButton(
 
         val elevation = if (buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
 
-        val buttonModifier = if (loading) modifier.then(LoadingAnimation()) else modifier
+        val buttonModifier = if (loading) modifier.then(loadingAnimation()) else modifier
         val colors = if(loading) loadingColors else buttonColors
 
         Button(
@@ -139,19 +137,19 @@ fun WarpButton(
     }
 }
 
-sealed class WarpButtonStyle {
-    object Primary : WarpButtonStyle()
-    object Secondary : WarpButtonStyle()
-    object Tertiary : WarpButtonStyle()
-    object Critical : WarpButtonStyle()
-    object CriticalQuiet : WarpButtonStyle()
-    object Utility : WarpButtonStyle()
-    object UtilityQuiet : WarpButtonStyle()
-    object UtilityOverlay : WarpButtonStyle()
+enum class WarpButtonStyle {
+    Primary,
+    Secondary,
+    Tertiary,
+    Critical,
+    CriticalQuiet,
+    Utility,
+    UtilityQuiet,
+    UtilityOverlay,
 }
 
 @Composable
-fun LoadingAnimation(): Modifier {
+fun loadingAnimation(): Modifier {
     val transition = rememberInfiniteTransition()
     val offset by transition.animateFloat(
         initialValue = 0f,
