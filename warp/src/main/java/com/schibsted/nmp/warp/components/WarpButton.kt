@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
@@ -118,10 +119,10 @@ fun WarpButton(
             )
         }
 
-        val elevation = if (buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
+        val elevation = if (!loading && buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
 
-        val buttonModifier = if (loading) modifier.then(loadingAnimation()) else modifier
-        val colors = if(loading) loadingColors else buttonColors
+        val buttonModifier = if (loading) modifier.loadingAnimation() else modifier
+        val colors = if (loading) loadingColors else buttonColors
 
         Button(
             modifier = buttonModifier,
@@ -148,10 +149,10 @@ enum class WarpButtonStyle {
     UtilityOverlay,
 }
 
-@Composable
-fun loadingAnimation(): Modifier {
+fun Modifier.loadingAnimation(): Modifier = composed {
     val transition = rememberInfiniteTransition()
     val offset by transition.animateFloat(
+        label = "LoadingAnimation",
         initialValue = 0f,
         targetValue = 69f,
         animationSpec = infiniteRepeatable(
@@ -160,7 +161,7 @@ fun loadingAnimation(): Modifier {
     )
 
     val loadingColors = colors.button.loading
-    return Modifier
+    this
         .clip(shapes.medium)
         .background(loadingColors.background.default, shapes.medium)
         .drawWithContent {
