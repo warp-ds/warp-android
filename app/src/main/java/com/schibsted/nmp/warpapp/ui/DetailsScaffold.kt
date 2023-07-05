@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.schibsted.nmp.warpapp.ui
 
@@ -15,8 +15,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.schibsted.nmp.warp.components.WarpTopAppBar
 import com.schibsted.nmp.warpapp.MainViewModel
 
 @Composable
@@ -31,10 +32,10 @@ internal fun DetailsScaffold(title: String, onUp: () -> Unit, content: @Composab
 
     val viewModel: MainViewModel = viewModel(LocalContext.current as ComponentActivity)
     var menuVisible by remember { mutableStateOf(false) }
-
+    val flavor = viewModel.flavor.collectAsState()
     Scaffold(
         topBar = {
-            TopAppBar(
+            WarpTopAppBar(
                 navigationIcon = {
                     IconButton(
                         onClick = onUp
@@ -43,7 +44,7 @@ internal fun DetailsScaffold(title: String, onUp: () -> Unit, content: @Composab
                     }
                 },
                 title = {
-                    Text(title)
+                    Text("$title (${flavor.value})")
                 },
                 actions = {
                     IconButton(onClick = { menuVisible = !menuVisible }) {

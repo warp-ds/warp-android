@@ -26,7 +26,7 @@ fun WarpBrandedTheme(
             val dimensions = WarpDimensions
             WarpTheme(
                 colors = colors,
-                typography = FinnTypography(colors),
+                typography = FinnTypography,
                 shapes = FinnShapes(dimensions),
                 resources = FinnResources(),
                 content = content,
@@ -39,7 +39,7 @@ fun WarpBrandedTheme(
             val dimensions = WarpDimensions
             WarpTheme(
                 colors = colors,
-                typography = ToriTypography(colors),
+                typography = ToriTypography,
                 shapes = ToriShapes(dimensions),
                 resources = ToriResources(),
                 content = content,

@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.theme
 
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -19,6 +20,7 @@ fun WarpTheme(
         LocalShapes provides shapes,
         LocalResources provides resources,
         LocalDimensions provides dimensions,
+        LocalTextStyle provides typography.body,
         content = content
     )
 }
