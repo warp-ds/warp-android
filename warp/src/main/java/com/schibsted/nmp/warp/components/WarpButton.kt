@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -38,6 +39,7 @@ import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
+import com.schibsted.nmp.warp.theme.WarpRippleTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -124,17 +126,21 @@ fun WarpButton(
         val buttonModifier = if (loading) modifier.loadingAnimation() else modifier
         val colors = if (loading) loadingColors else buttonColors
 
-        Button(
-            modifier = buttonModifier,
-            onClick = onClick,
-            enabled = enabled,
-            shape = shapes.medium,
-            colors = colors,
-            border = borderStroke,
-            content = content,
-            contentPadding = PaddingValues(horizontal = dimensions.space2.dp, vertical = dimensions.space1.dp),
-            elevation = ButtonDefaults.buttonElevation(elevation)
-        )
+        CompositionLocalProvider(
+            LocalRippleTheme provides WarpRippleTheme(warpButtonColors.background.active)
+        ) {
+            Button(
+                modifier = buttonModifier,
+                onClick = onClick,
+                enabled = enabled,
+                shape = shapes.medium,
+                colors = colors,
+                border = borderStroke,
+                content = content,
+                contentPadding = PaddingValues(horizontal = dimensions.space2.dp, vertical = dimensions.space1.dp),
+                elevation = ButtonDefaults.buttonElevation(elevation)
+            )
+        }
     }
 }
 

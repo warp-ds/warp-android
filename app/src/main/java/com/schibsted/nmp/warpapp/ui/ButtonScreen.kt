@@ -23,21 +23,27 @@ import com.schibsted.nmp.warpapp.BrandTheme
 @Composable
 fun ButtonScreen(onUp: () -> Unit) {
     DetailsScaffold(title = "Buttons", onUp = onUp) {
-        Column(
-            modifier = Modifier
+        ButtonScreenContent()
+    }
+}
+
+@Composable
+private fun ButtonScreenContent() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+            .padding(vertical = 16.dp)
+    ) {
+        for (style in WarpButtonStyle.values()) {
+            Text(style.name, modifier = Modifier.padding(top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp))
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-        ) {
-            for (style in WarpButtonStyle.values()) {
-                Text(style.name, modifier = Modifier.padding(top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp))
-                Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                ) {
-                    WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Click me!")
-                    WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Loading", loading = true)
-                    WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Disabled", enabled = false)
-                }
+                .padding(horizontal = 16.dp)
+            ) {
+                WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Click me")
+                WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Loading", loading = true)
+                WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Disabled", enabled = false)
             }
         }
     }
@@ -50,8 +56,6 @@ fun ButtonPreviews(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
     BrandTheme(flavor = flavor) {
-        ButtonScreen {
-
-        }
+        ButtonScreenContent()
     }
 }

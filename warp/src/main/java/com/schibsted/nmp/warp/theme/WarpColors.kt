@@ -1,5 +1,9 @@
 package com.schibsted.nmp.warp.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material.ripple.RippleTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.finn.FinnColors
@@ -44,6 +48,20 @@ interface WarpButtonStyleColors {
 interface WarpButtonElementColors {
     val default : Color
     val active: Color
+}
+
+internal class WarpRippleTheme(
+    private val rippleColor: Color
+) : RippleTheme {
+    @Composable
+    override fun defaultColor(): Color = rippleColor
+
+    @Composable
+    override fun rippleAlpha(): RippleAlpha =
+        RippleTheme.defaultRippleAlpha(
+            Color.Black,
+            !isSystemInDarkTheme()
+        )
 }
 
 internal val White = Color.White
