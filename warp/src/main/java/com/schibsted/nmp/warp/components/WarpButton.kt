@@ -30,7 +30,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
@@ -44,6 +43,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
+import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
 fun WarpButton(
@@ -90,28 +90,28 @@ fun WarpButton(
         LocalDimensions provides dimensions
     ) {
         val warpButtonColors: WarpButtonStyleColors = when (buttonStyle) {
-            WarpButtonStyle.Primary -> colors.button.primary
-            WarpButtonStyle.Secondary -> colors.button.secondary
-            WarpButtonStyle.Tertiary -> colors.button.quiet
-            WarpButtonStyle.Critical -> colors.button.negative
-            WarpButtonStyle.CriticalQuiet -> colors.button.negativeQuiet
-            WarpButtonStyle.Utility -> colors.button.utility
-            WarpButtonStyle.UtilityOverlay -> colors.button.utilityOverlay
-            WarpButtonStyle.UtilityQuiet -> colors.button.utilityQuiet
+            WarpButtonStyle.Primary -> colors.components.button.primary
+            WarpButtonStyle.Secondary -> colors.components.button.secondary
+            WarpButtonStyle.Tertiary -> colors.components.button.quiet
+            WarpButtonStyle.Critical -> colors.components.button.negative
+            WarpButtonStyle.CriticalQuiet -> colors.components.button.negativeQuiet
+            WarpButtonStyle.Utility -> colors.components.button.utility
+            WarpButtonStyle.UtilityOverlay -> colors.components.button.utilityOverlay
+            WarpButtonStyle.UtilityQuiet -> colors.components.button.utilityQuiet
         }
 
         val buttonColors = ButtonDefaults.buttonColors(
             containerColor = warpButtonColors.background.default,
             contentColor = warpButtonColors.text,
-            disabledContainerColor = colors.button.disabled.background.default,
-            disabledContentColor = colors.button.disabled.text
+            disabledContainerColor = colors.components.button.disabled.background.default,
+            disabledContentColor = colors.components.button.disabled.text
         )
 
         val loadingColors = ButtonDefaults.buttonColors(
             containerColor = Transparent,
-            contentColor = colors.button.loading.text,
-            disabledContainerColor = colors.button.disabled.background.default,
-            disabledContentColor = colors.button.disabled.text
+            contentColor = colors.components.button.loading.text,
+            disabledContainerColor = colors.components.button.disabled.background.default,
+            disabledContentColor = colors.components.button.disabled.text
         )
 
         val borderStroke = warpButtonColors.border?.let {
@@ -166,7 +166,7 @@ fun Modifier.loadingAnimation(): Modifier = composed {
         )
     )
 
-    val loadingColors = colors.button.loading
+    val loadingColors = colors.components.button.loading
     this
         .clip(shapes.medium)
         .background(loadingColors.background.default, shapes.medium)
@@ -191,16 +191,10 @@ fun Modifier.loadingAnimation(): Modifier = composed {
         }
 }
 
-internal class WarpButtonPreviewParameterProvider : PreviewParameterProvider<String> {
-    override val values: Sequence<String>
-        get() = sequenceOf("finn", "tori")
-
-}
-
 @Composable
 @Preview
 fun WarpButtonPreview(
-    @PreviewParameter(WarpButtonPreviewParameterProvider::class) flavor: String
+    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
     WarpBrandedTheme(
         flavor = flavor,

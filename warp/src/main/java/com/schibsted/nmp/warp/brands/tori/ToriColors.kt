@@ -5,21 +5,28 @@ package com.schibsted.nmp.warp.brands.tori
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.tori.button.ToriButtonColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
+import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
+import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.White
 
 object ToriColors : WarpColors {
     override val primary: Color = Watermelon600
     override val secondary: Color = White
-    override val button: ToriButtonColors = ToriButtonColors
+    override val components: WarpComponentColors = ToriComponentColors
+}
+
+object ToriComponentColors : WarpComponentColors {
+    override val button: WarpButtonColors = ToriButtonColors
     override val box: WarpBoxColors = ToriBoxColors
+    override val stepIndicator: WarpStepIndicatorColors = ToriStepIndicatorColors
 }
 
 object ToriDarkColors : WarpColors {
     override val primary: Color = Petroleum600
     override val secondary: Color = White
-    override val button: ToriButtonColors = ToriButtonColors
-    override val box: WarpBoxColors = ToriBoxColors
+    override val components: WarpComponentColors = ToriComponentColors
 }
 
 //Watermelon

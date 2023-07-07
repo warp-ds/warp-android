@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpBox
 import com.schibsted.nmp.warp.components.WarpBoxStyle
+import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 
 @Composable

@@ -30,9 +30,9 @@ fun WarpBox(
     ) {
 
         val style = when (boxStyle) {
-            WarpBoxStyle.NEUTRAL -> colors.box.neutral
-            WarpBoxStyle.INFO -> colors.box.info
-            WarpBoxStyle.BORDERED -> colors.box.bordered
+            WarpBoxStyle.NEUTRAL -> colors.components.box.neutral
+            WarpBoxStyle.INFO -> colors.components.box.info
+            WarpBoxStyle.BORDERED -> colors.components.box.bordered
         }
 
         Surface(

@@ -1,4 +1,4 @@
-package com.schibsted.nmp.warpapp.ui
+package com.schibsted.nmp.warp.utils
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 

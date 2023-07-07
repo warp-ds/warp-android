@@ -11,8 +11,13 @@ import com.schibsted.nmp.warp.brands.finn.FinnColors
 interface WarpColors {
     val primary: Color
     val secondary: Color
+    val components: WarpComponentColors
+}
+
+interface WarpComponentColors {
     val button: WarpButtonColors
     val box: WarpBoxColors
+    val stepIndicator: WarpStepIndicatorColors
 }
 
 interface WarpButtonColors {
@@ -32,6 +37,12 @@ interface WarpBoxColors {
     val neutral: WarpComponentBackground
     val info: WarpComponentBackground
     val bordered: WarpComponentBackground
+}
+
+interface WarpStepIndicatorColors {
+    val completed: Color
+    val unvisited: Color
+    val completedIconTint: Color
 }
 
 data class WarpComponentBackground(

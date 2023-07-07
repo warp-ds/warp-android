@@ -41,6 +41,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.schibsted.nmp.warp.components.WarpTopAppBar
+import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 import com.schibsted.nmp.warpapp.MainViewModel
 
@@ -70,6 +71,11 @@ fun MainScreen() {
             }
             composable("typography") {
                 TypographyScreen {
+                    navController.navigateUp()
+                }
+            }
+            composable("stepIndicator") {
+                StepIndicatorScreen {
                     navController.navigateUp()
                 }
             }
@@ -112,6 +118,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "buttons" to "WarpButton",
                         "box" to "WarpBox",
                         "typography" to "Typography",
+                        "stepIndicator" to "WarpStepIndicator"
                     ))
                 {
                     ElevatedCard(

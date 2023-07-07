@@ -5,21 +5,28 @@ package com.schibsted.nmp.warp.brands.finn
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.finn.button.FinnButtonColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
+import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
+import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.White
 
 object FinnColors : WarpColors {
     override val primary: Color = Blue600
     override val secondary: Color = White
-    override val button: FinnButtonColors = FinnButtonColors
+    override val components: WarpComponentColors = FinnComponentColors
+}
+
+object FinnComponentColors : WarpComponentColors {
+    override val button: WarpButtonColors = FinnButtonColors
     override val box: WarpBoxColors = FinnBoxColors
+    override val stepIndicator: WarpStepIndicatorColors = FinnStepIndicatorColors
 }
 
 object FinnDarkColors : WarpColors {
     override val primary: Color = Blue500 //todo darkmode for this color
     override val secondary: Color = White
-    override val button: FinnButtonColors = FinnButtonColors //todo darkmode color not defined yet
-    override val box: WarpBoxColors = FinnBoxColors
+    override val components: WarpComponentColors = FinnComponentColors // TODO darkmode variant
 }
 
 //Blue
