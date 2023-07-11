@@ -4,6 +4,8 @@ package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.finn.button.FinnButtonColors
+import com.schibsted.nmp.warp.theme.WarpAlertColors
+import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
@@ -20,8 +22,38 @@ object FinnColors : WarpColors {
 object FinnComponentColors : WarpComponentColors {
     override val button: WarpButtonColors = FinnButtonColors
     override val box: WarpBoxColors = FinnBoxColors
+    override val alert: WarpAlertColors = FinnAlertColors
     override val stepIndicator: WarpStepIndicatorColors = FinnStepIndicatorColors
 }
+
+object FinnAlertColors : WarpAlertColors {
+    override val info: WarpAlertStyleColors = FinnAlertStyleColors(
+        background = Aqua50,
+        leftBorder = Aqua600,
+        border = Aqua300
+    )
+    override val positive: WarpAlertStyleColors = FinnAlertStyleColors(
+    background = Green50,
+    leftBorder = Green600,
+    border = Green300
+    )
+    override val negative: WarpAlertStyleColors = FinnAlertStyleColors(
+        background = Red50,
+        leftBorder = Red600,
+        border = Red300
+    )
+    override val warning: WarpAlertStyleColors = FinnAlertStyleColors(
+        background = Yellow50,
+        leftBorder = Yellow600,
+        border = Yellow300
+    )
+}
+
+data class FinnAlertStyleColors(
+    override val background: Color,
+    override val leftBorder: Color,
+    override val border: Color
+) : WarpAlertStyleColors
 
 object FinnDarkColors : WarpColors {
     override val primary: Color = Blue500 //todo darkmode for this color

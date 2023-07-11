@@ -79,6 +79,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("alertBox") {
+                AlertScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -118,7 +123,8 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "buttons" to "WarpButton",
                         "box" to "WarpBox",
                         "typography" to "Typography",
-                        "stepIndicator" to "WarpStepIndicator"
+                        "stepIndicator" to "WarpStepIndicator",
+                        "alertBox" to "WarpAlertBox"
                     ))
                 {
                     ElevatedCard(

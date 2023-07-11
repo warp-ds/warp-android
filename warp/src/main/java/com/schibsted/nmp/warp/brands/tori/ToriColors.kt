@@ -4,6 +4,8 @@ package com.schibsted.nmp.warp.brands.tori
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.tori.button.ToriButtonColors
+import com.schibsted.nmp.warp.theme.WarpAlertColors
+import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
@@ -21,8 +23,37 @@ object ToriComponentColors : WarpComponentColors {
     override val button: WarpButtonColors = ToriButtonColors
     override val box: WarpBoxColors = ToriBoxColors
     override val stepIndicator: WarpStepIndicatorColors = ToriStepIndicatorColors
+    override val alert: WarpAlertColors = ToriAlertColors
 }
 
+object ToriAlertColors : WarpAlertColors {
+    override val info: WarpAlertStyleColors = ToriAlertStyleColors(
+        background = Petroleum50,
+        leftBorder = Petroleum600,
+        border = Petroleum300
+    )
+    override val positive: WarpAlertStyleColors = ToriAlertStyleColors(
+        background = Green50,
+        leftBorder = Green600,
+        border = Green300
+    )
+    override val negative: WarpAlertStyleColors = ToriAlertStyleColors(
+        background = Red50,
+        leftBorder = Red600,
+        border = Red300
+    )
+    override val warning: WarpAlertStyleColors = ToriAlertStyleColors(
+        background = Yellow50,
+        leftBorder = Yellow600,
+        border = Yellow300
+    )
+}
+
+data class ToriAlertStyleColors(
+    override val background: Color,
+    override val leftBorder: Color,
+    override val border: Color
+) : WarpAlertStyleColors
 object ToriDarkColors : WarpColors {
     override val primary: Color = Petroleum600
     override val secondary: Color = White

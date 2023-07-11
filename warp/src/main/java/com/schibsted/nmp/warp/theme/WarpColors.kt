@@ -18,7 +18,22 @@ interface WarpComponentColors {
     val button: WarpButtonColors
     val box: WarpBoxColors
     val stepIndicator: WarpStepIndicatorColors
+    val alert: WarpAlertColors
 }
+
+interface WarpAlertColors {
+    val info: WarpAlertStyleColors
+    val positive: WarpAlertStyleColors
+    val negative: WarpAlertStyleColors
+    val warning: WarpAlertStyleColors
+}
+
+interface WarpAlertStyleColors {
+    val background: Color
+    val leftBorder: Color
+    val border: Color
+}
+
 
 interface WarpButtonColors {
     val primary: WarpButtonStyleColors
