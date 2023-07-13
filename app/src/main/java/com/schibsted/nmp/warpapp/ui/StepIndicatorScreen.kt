@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.components.StepIndicatorState
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpStepIndicator
@@ -37,8 +36,8 @@ fun StepIndicatorScreen(onUp: () -> Unit) {
 
 @Composable
 private fun StepIndicatorScreenContent() {
-    var wState by remember { mutableStateOf(StepIndicatorState(5, 0)) }
-    var hState by remember { mutableStateOf(StepIndicatorState(3, 0)) }
+    var wState by remember { mutableStateOf(0) }
+    var hState by remember { mutableStateOf( 0) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,8 +47,9 @@ private fun StepIndicatorScreenContent() {
         Text("Horizontal", style = WarpTheme.typography.title3)
         WarpStepIndicator(
             modifier = Modifier.fillMaxWidth(),
-            state = hState,
-            onStepClicked = {hState = hState.copy(activeStep = it)},
+            steps = 3,
+            activeStep = hState,
+            onStepClicked = {hState = it},
             stepTitle = { Text("Step $it", style = WarpTheme.typography.title4) }
         ) {
             Text("Description", style = WarpTheme.typography.detail)
@@ -59,23 +59,24 @@ private fun StepIndicatorScreenContent() {
         WarpStepIndicator(
             modifier = Modifier.fillMaxWidth(),
             orientation = WarpStepIndicatorOrientation.Vertical,
-            state = wState,
-            onStepClicked = { wState = wState.copy(activeStep = it)},
+            steps = 5,
+            activeStep = wState,
+            onStepClicked = { wState = it},
             stepTitle = { Text(modifier = Modifier.padding(start = 16.dp), text = "Step $it", style = WarpTheme.typography.title4) }
         ) {
             Column(modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)) {
                 Text("Here we can have some text and maybe something else", style = WarpTheme.typography.body)
-                if (wState.activeStep == it) {
+                if (wState == it) {
                     WarpButton(
                         modifier = Modifier.padding(top = 8.dp, bottom = 24.dp),
-                        onClick = { wState = wState.copy(activeStep = it + 1) },
+                        onClick = { wState++},
                         buttonStyle = WarpButtonStyle.Primary,
                         text = "Finish step"
                     )
                 } else {
                     WarpButton(
                         modifier = Modifier.padding(top = 8.dp, bottom = 24.dp),
-                        onClick = { wState = wState.copy(activeStep = it) },
+                        onClick = { wState = it },
                         buttonStyle = WarpButtonStyle.Primary,
                         text = "Reset")
                 }

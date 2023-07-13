@@ -39,27 +39,36 @@ import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 /**
  * A component to show a user where they are in a user journey
  * For more info [see](https://warp-ds.github.io/tech-docs/components/steps/)
+ * @param modifier Modifier applied to the component
+ * @param steps Amount of steps
+ * @param activeStep Currently active step
+ * @param orientation Orientation to draw the steps in
+ * @param onStepClicked will be invoked if a step is clicked
+ * @param stepTitle Optional composable that will be drawn with the step
+ * @param stepDescription Optional composable that will be drawn below the title
  */
 @Composable
 fun WarpStepIndicator(
     modifier: Modifier = Modifier,
-    state: StepIndicatorState,
+    steps: Int = 3,
+    activeStep: Int = 0,
     orientation: WarpStepIndicatorOrientation = WarpStepIndicatorOrientation.Horizontal,
     onStepClicked: ((Int) -> Unit)?,
     stepTitle: @Composable (Int) -> Unit = {},
     stepDescription: @Composable (Int) -> Unit = {}
 ) {
     if (orientation == WarpStepIndicatorOrientation.Horizontal) {
-        HorizontalWarpStepIndicator(modifier, state, onStepClicked, stepTitle, stepDescription)
+        HorizontalWarpStepIndicator(modifier, steps, activeStep, onStepClicked, stepTitle, stepDescription)
     } else {
-        VerticalWarpStepIndicator(modifier, state, onStepClicked, stepTitle, stepDescription)
+        VerticalWarpStepIndicator(modifier, steps, activeStep, onStepClicked, stepTitle, stepDescription)
     }
 }
 
 @Composable
 internal fun VerticalWarpStepIndicator(
     modifier: Modifier,
-    state: StepIndicatorState,
+    steps: Int = 3,
+    activeStep: Int = 0,
     onStepClicked: ((Int) -> Unit)?,
     stepTitle: @Composable (Int) -> Unit,
     stepDescription: @Composable (Int) -> Unit
@@ -67,10 +76,10 @@ internal fun VerticalWarpStepIndicator(
     ConstraintLayout(modifier) {
         var previousDot: ConstrainedLayoutReference? = null
         var previousDescription: ConstrainedLayoutReference? = null
-        for (i in 0 until state.steps) {
+        for (i in 0 until steps) {
             val type = when {
-                i < state.activeStep -> StepState.Completed
-                i == state.activeStep -> StepState.Active
+                i < activeStep -> StepState.Completed
+                i == activeStep -> StepState.Active
                 else -> StepState.Unvisited
             }
             val (title, description, dot) = createRefs()
@@ -139,7 +148,8 @@ internal fun VerticalWarpStepIndicator(
 @Composable
 internal fun HorizontalWarpStepIndicator(
     modifier: Modifier,
-    state: StepIndicatorState,
+    steps: Int = 3,
+    activeStep: Int = 0,
     onStepClicked: ((Int) -> Unit)?,
     stepTitle: @Composable (Int) -> Unit,
     stepDescription: @Composable (Int) -> Unit
@@ -147,10 +157,10 @@ internal fun HorizontalWarpStepIndicator(
     ConstraintLayout(modifier = modifier) {
         val descriptions = arrayListOf<ConstrainedLayoutReference>()
         var previousDot: ConstrainedLayoutReference? = null
-        for (i in 0 until state.steps) {
+        for (i in 0 until steps) {
             val type = when {
-                i < state.activeStep -> StepState.Completed
-                i == state.activeStep -> StepState.Active
+                i < activeStep -> StepState.Completed
+                i == activeStep -> StepState.Active
                 else -> StepState.Unvisited
             }
             val (description, dot) = createRefs()
@@ -194,16 +204,6 @@ internal fun HorizontalWarpStepIndicator(
     }
 }
 
-data class StepIndicatorState(
-    val steps: Int = 3,
-    val activeStep: Int = 0,
-) {
-    init {
-        require(activeStep in 0 .. steps) {
-            "Active step ($activeStep) must be within bounds [0,${steps}]"
-        }
-    }
-}
 
 enum class StepState {
     Active,
@@ -270,7 +270,8 @@ internal fun HorizontalPreview(
     ) {
         WarpStepIndicator(
             modifier = Modifier,
-            state = StepIndicatorState(steps = 3, activeStep = active),
+            steps = 3,
+            activeStep = active,
             onStepClicked = { active = it },
             stepTitle = { Text("Step ${it + 1}", style = WarpTheme.typography.title5) },
             stepDescription = { Text("Description", style = WarpTheme.typography.detail) }
@@ -291,7 +292,8 @@ internal fun VerticalPreview(
         WarpStepIndicator(
             modifier = Modifier,
             orientation = WarpStepIndicatorOrientation.Vertical,
-            state = StepIndicatorState(steps = 3, activeStep = active),
+            steps = 3,
+            activeStep = active,
             onStepClicked = { active = it },
             stepTitle = { Text("Step ${it + 1}", style = WarpTheme.typography.title4) },
             stepDescription = { Text("Description", style = WarpTheme.typography.caption) }
