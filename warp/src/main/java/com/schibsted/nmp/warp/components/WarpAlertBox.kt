@@ -21,6 +21,14 @@ import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
+/**
+ * An inline component used to display different types of messages.
+ * For more information, look [here](https://warp-ds.github.io/tech-docs/components/alert/)
+ * @param modifier Modifier applied to the component
+ * @param type The type of alert, this decided the look and icon of the component
+ * @param title The title of the message
+ * @param body An optional text with more information
+ */
 @Composable
 fun WarpAlert(
     modifier: Modifier = Modifier,

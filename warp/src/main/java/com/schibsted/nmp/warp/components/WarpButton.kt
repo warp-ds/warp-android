@@ -45,6 +45,17 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
+/**
+ * A Button in the warp design system. The button supports a variety of styles and loading and disabled states.
+ * For more info, look [here](https://warp-ds.github.io/tech-docs/components/buttons/)
+ * @param text The text to be displayed on the button
+ * @param onClick lambda to be invoked when clicked
+ * @param enabled set to false to disable the button. default value is true
+ * @param modifer Modifier for the button. Default value is Modifier
+ * @param buttonStyle Controls the apperance of the button
+ * @param maxLines limits the lines of the text on the button
+ * @param loading set to true to enable the loading state
+ */
 @Composable
 fun WarpButton(
     text: String,
@@ -74,6 +85,16 @@ fun WarpButton(
     }
 }
 
+/**
+ * A Button in the warp design system. The button supports a variety of styles and loading and disabled states.
+ * For more info, look [here](https://warp-ds.github.io/tech-docs/components/buttons/)
+ * @param onClick lambda to be invoked when clicked
+ * @param enabled set to false to disable the button. default value is true
+ * @param modifer Modifier for the button. Default value is Modifier
+ * @param buttonStyle Controls the apperance of the button
+ * @param loading set to true to enable the loading state
+ * @param content The content to display inside the button
+ */
 @Composable
 fun WarpButton(
     onClick: () -> Unit,

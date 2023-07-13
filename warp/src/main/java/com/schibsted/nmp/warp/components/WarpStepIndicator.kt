@@ -36,6 +36,10 @@ import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
+/**
+ * A component to show a user where they are in a user journey
+ * For more info [see](https://warp-ds.github.io/tech-docs/components/steps/)
+ */
 @Composable
 fun WarpStepIndicator(
     modifier: Modifier = Modifier,

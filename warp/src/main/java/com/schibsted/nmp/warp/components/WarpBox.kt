@@ -22,6 +22,13 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
+/**
+ * A component for separating content areas on a screen.
+ * For more information, look [here](https://warp-ds.github.io/tech-docs/components/box/)
+ * @param modifier Modifier applied to the component
+ * @param boxStyle The style that will be applied to the component
+ * @param content The content that will be rendered inside the box
+ */
 @Composable
 fun WarpBox(
     modifier: Modifier = Modifier,
@@ -50,6 +57,9 @@ fun WarpBox(
     }
 }
 
+/**
+ * An enum representing the different styles of the WarpBox component
+ */
 enum class WarpBoxStyle {
     NEUTRAL,
     INFO,

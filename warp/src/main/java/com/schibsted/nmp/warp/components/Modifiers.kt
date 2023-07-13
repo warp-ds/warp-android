@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 
 /**
- * Draws a line on the left side
+ * Draws a background, border and a thicker line on the left side
  */
 internal fun Modifier.alertBorder(
     bigStrokeWidth: Dp,

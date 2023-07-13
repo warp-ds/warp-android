@@ -14,6 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.WarpTheme
 
+/**
+ * A wrapper around the regular [Scaffold] that changes the default background color to that of the [WarpTheme]
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpScaffold(
