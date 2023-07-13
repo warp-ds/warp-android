@@ -23,7 +23,6 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -40,6 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpTopAppBar
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
@@ -84,6 +84,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("textField") {
+                TextFieldScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -93,7 +98,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
     val viewModel: MainViewModel = viewModel(LocalContext.current as ComponentActivity)
     var menuVisible by remember { mutableStateOf(false) }
 
-    Scaffold(
+    WarpScaffold(
         topBar = {
             WarpTopAppBar(
                 title = {
@@ -124,7 +129,8 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "box" to "WarpBox",
                         "typography" to "Typography",
                         "stepIndicator" to "WarpStepIndicator",
-                        "alertBox" to "WarpAlertBox"
+                        "alertBox" to "WarpAlertBox",
+                        "textField" to "WarpTextField, not finished"
                     ))
                 {
                     ElevatedCard(

@@ -11,9 +11,11 @@ import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
+import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
 
 object FinnColors : WarpColors {
+    override val background: Color = White
     override val primary: Color = Blue600
     override val secondary: Color = White
     override val components: WarpComponentColors = FinnComponentColors
@@ -24,6 +26,24 @@ object FinnComponentColors : WarpComponentColors {
     override val box: WarpBoxColors = FinnBoxColors
     override val alert: WarpAlertColors = FinnAlertColors
     override val stepIndicator: WarpStepIndicatorColors = FinnStepIndicatorColors
+    override val textField: WarpTextFieldColors = FinnTextFieldColors
+}
+
+object FinnTextFieldColors : WarpTextFieldColors {
+    override val text: Color = Gray700
+    override val hintText: Color= Bluegray300
+    override val disabledText: Color = Bluegray300
+    override val errorText: Color = Gray700
+    override val readOnlyText: Color = Gray700
+    override val errorIconColor: Color = Red600
+    override val background: Color = White
+    override val disabledBackground: Color = Gray200
+    override val border: Color = Gray300
+    override val activeBorder: Color = Blue600
+    override val disabledBorder: Color = Bluegray300
+    override val errorBorder: Color = Red600
+    override val caret: Color = Blue600
+    override val iconTint: Color = Gray500
 }
 
 object FinnAlertColors : WarpAlertColors {
@@ -56,6 +76,7 @@ data class FinnAlertStyleColors(
 ) : WarpAlertStyleColors
 
 object FinnDarkColors : WarpColors {
+    override val background: Color = Blue500 // TODO darkmode theme
     override val primary: Color = Blue500 //todo darkmode for this color
     override val secondary: Color = White
     override val components: WarpComponentColors = FinnComponentColors // TODO darkmode variant

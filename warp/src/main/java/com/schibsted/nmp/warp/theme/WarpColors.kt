@@ -11,6 +11,7 @@ import com.schibsted.nmp.warp.brands.finn.FinnColors
 interface WarpColors {
     val primary: Color
     val secondary: Color
+    val background: Color
     val components: WarpComponentColors
 }
 
@@ -19,6 +20,26 @@ interface WarpComponentColors {
     val box: WarpBoxColors
     val stepIndicator: WarpStepIndicatorColors
     val alert: WarpAlertColors
+    val textField: WarpTextFieldColors
+}
+
+interface WarpTextFieldColors {
+    val text: Color
+    val hintText: Color
+    val disabledText: Color
+    val errorText: Color
+    val readOnlyText: Color
+
+    val errorIconColor: Color // TODO: check if we should have this?
+    val background: Color
+    val disabledBackground: Color
+
+    val border: Color
+    val activeBorder: Color
+    val disabledBorder: Color
+    val errorBorder: Color
+    val caret: Color
+    val iconTint: Color
 }
 
 interface WarpAlertColors {

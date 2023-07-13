@@ -20,33 +20,38 @@ fun BoxScreen(onUp: () -> Unit) {
         title = "WarpBox",
         onUp = onUp
     ) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)) {
-            WarpBox(
-                boxStyle = WarpBoxStyle.NEUTRAL,
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(modifier = Modifier.padding(16.dp), text = "Neutral")
-            }
-            WarpBox(
-                boxStyle = WarpBoxStyle.INFO,
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(modifier = Modifier.padding(16.dp), text = "Info")
-            }
-            WarpBox(
-                boxStyle = WarpBoxStyle.BORDERED,
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(modifier = Modifier.padding(16.dp), text = "Bordered")
-            }
+        BoxScreenContent()
+    }
+}
+
+@Composable
+private fun BoxScreenContent() {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp)) {
+        WarpBox(
+            boxStyle = WarpBoxStyle.NEUTRAL,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .fillMaxWidth()
+        ) {
+            Text(modifier = Modifier.padding(16.dp), text = "Neutral")
+        }
+        WarpBox(
+            boxStyle = WarpBoxStyle.INFO,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .fillMaxWidth()
+        ) {
+            Text(modifier = Modifier.padding(16.dp), text = "Info")
+        }
+        WarpBox(
+            boxStyle = WarpBoxStyle.BORDERED,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .fillMaxWidth()
+        ) {
+            Text(modifier = Modifier.padding(16.dp), text = "Bordered")
         }
     }
 }
@@ -57,8 +62,6 @@ internal fun PreviewBoxScreen(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
     BrandTheme(flavor = flavor) {
-        BoxScreen {
-
-        }
+        BoxScreenContent()
     }
 }
