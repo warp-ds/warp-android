@@ -89,6 +89,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("expandable") {
+                ExpandableScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -130,7 +135,8 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "typography" to "Typography",
                         "stepIndicator" to "WarpStepIndicator",
                         "alertBox" to "WarpAlertBox",
-                        "textField" to "WarpTextField, not finished"
+                        "textField" to "WarpTextField, not finished",
+                        "expandable" to "Expandable"
                     ))
                 {
                     ElevatedCard(

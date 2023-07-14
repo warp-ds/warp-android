@@ -1,6 +1,7 @@
 package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import androidx.constraintlayout.compose.Dimension
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
+
 
 /**
  * An inline component used to display different types of messages.
@@ -52,7 +54,8 @@ fun WarpAlert(
                     colors.background,
                     colors.leftBorder,
                     colors.border,
-                    WarpTheme.shapes.medium)
+                    WarpTheme.shapes.medium
+                )
                 .padding(WarpTheme.dimensions.space2.dp)
 
 
@@ -99,6 +102,35 @@ fun WarpAlert(
         }
     }
 }
+
+@Composable
+fun WarpAlert(
+    modifier: Modifier = Modifier,
+    type: WarpAlertType = WarpAlertType.Info,
+    content: @Composable () -> Unit
+) {
+    val colors = when (type) {
+        // TODO: Replace with correct icons once they are part of the theme
+        WarpAlertType.Info -> WarpTheme.colors.components.alert.info
+        WarpAlertType.Positive -> WarpTheme.colors.components.alert.positive
+        WarpAlertType.Negative -> WarpTheme.colors.components.alert.negative
+        WarpAlertType.Warning -> WarpTheme.colors.components.alert.warning
+    }
+
+    Box(
+        modifier = modifier
+            .alertBorder(
+                WarpTheme.dimensions.borderWidth3.dp,
+                WarpTheme.dimensions.borderWidth1.dp,
+                colors.background,
+                colors.leftBorder,
+                colors.border,
+                WarpTheme.shapes.medium)
+    ) {
+        content()
+    }
+}
+
 
 enum class WarpAlertType {
     Info,
