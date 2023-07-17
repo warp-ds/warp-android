@@ -21,8 +21,19 @@ interface WarpComponentColors {
     val stepIndicator: WarpStepIndicatorColors
     val alert: WarpAlertColors
     val textField: WarpTextFieldColors
+    val tabRow: WarpTabRowColors
+    val tab: WarpTabColors
 }
 
+interface WarpTabColors {
+    val selectedContent: Color
+    val unselectedContent: Color
+}
+interface WarpTabRowColors {
+    val container: Color
+    val content: Color
+    val indicator: Color
+}
 interface WarpTextFieldColors {
     val text: Color
     val hintText: Color

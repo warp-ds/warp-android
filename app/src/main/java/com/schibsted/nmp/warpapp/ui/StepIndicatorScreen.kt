@@ -78,12 +78,11 @@ private fun StepIndicatorScreenContent() {
                         modifier = Modifier.padding(top = 8.dp, bottom = 24.dp),
                         onClick = { wState = it },
                         buttonStyle = WarpButtonStyle.Primary,
-                        text = "Reset")
+                        text = "Reset"
+                    )
                 }
             }
-
         }
-
     }
 }
 

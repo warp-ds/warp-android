@@ -46,59 +46,55 @@ fun WarpAlert(
         WarpAlertType.Warning -> WarpTheme.colors.components.alert.warning to Icons.Filled.Warning
     }
 
-        ConstraintLayout(
-            modifier = modifier
-                .alertBorder(
-                    WarpTheme.dimensions.borderWidth3.dp,
-                    WarpTheme.dimensions.borderWidth1.dp,
-                    colors.background,
-                    colors.leftBorder,
-                    colors.border,
-                    WarpTheme.shapes.medium
-                )
-                .padding(WarpTheme.dimensions.space2.dp)
-
-
-        ) {
-
-            val (iconRef, titleRef, bodyRef) = createRefs()
-            Icon(
-                modifier = Modifier.constrainAs(iconRef) {
-                    start.linkTo(parent.start)
-                    top.linkTo(titleRef.top)
-                    bottom.linkTo(titleRef.bottom)
-                },
-                tint = colors.leftBorder,
-                imageVector = icon,
-                contentDescription = ""
+    ConstraintLayout(
+        modifier = modifier
+            .alertBorder(
+                WarpTheme.dimensions.borderWidth3.dp,
+                WarpTheme.dimensions.borderWidth1.dp,
+                colors.background,
+                colors.leftBorder,
+                colors.border,
+                WarpTheme.shapes.medium
             )
-            val margin = WarpTheme.dimensions.space1.dp
-            val endMargin = WarpTheme.dimensions.space2.dp
-            // TODO: check what style, margins and so on should be used
+            .padding(WarpTheme.dimensions.space2.dp)
+    ) {
+        val (iconRef, titleRef, bodyRef) = createRefs()
+        Icon(
+            modifier = Modifier.constrainAs(iconRef) {
+                start.linkTo(parent.start)
+                top.linkTo(titleRef.top)
+                bottom.linkTo(titleRef.bottom)
+            },
+            tint = colors.leftBorder,
+            imageVector = icon,
+            contentDescription = ""
+        )
+        val margin = WarpTheme.dimensions.space1.dp
+        val endMargin = WarpTheme.dimensions.space2.dp
+        // TODO: check what style, margins and so on should be used
+        Text(
+            modifier = Modifier
+                .constrainAs(titleRef) {
+                    start.linkTo(iconRef.end, margin = margin)
+                    end.linkTo(parent.end, margin = endMargin)
+                    top.linkTo(parent.top)
+                    width = Dimension.preferredWrapContent
+                },
+            text = title,
+            style = WarpTheme.typography.captionStrong
+        )
+        body?.let {
             Text(
                 modifier = Modifier
-                    .constrainAs(titleRef) {
+                    .constrainAs(bodyRef) {
                         start.linkTo(iconRef.end, margin = margin)
+                        top.linkTo(titleRef.bottom, margin = margin)
                         end.linkTo(parent.end, margin = endMargin)
-                        top.linkTo(parent.top)
-                        width = Dimension.preferredWrapContent
+                        width = Dimension.fillToConstraints
                     },
-                text = title,
-                style = WarpTheme.typography.captionStrong
+                text = body,
+                style = WarpTheme.typography.caption
             )
-            body?.let {
-                Text(
-                    modifier = Modifier
-                        .constrainAs(bodyRef) {
-                            start.linkTo(iconRef.end, margin = margin)
-                            top.linkTo(titleRef.bottom, margin = margin)
-                            end.linkTo(parent.end, margin = endMargin)
-                            width = Dimension.fillToConstraints
-                        },
-                    text = body,
-                    style = WarpTheme.typography.caption
-                )
-
         }
     }
 }
@@ -116,7 +112,6 @@ fun WarpAlert(
         WarpAlertType.Negative -> WarpTheme.colors.components.alert.negative
         WarpAlertType.Warning -> WarpTheme.colors.components.alert.warning
     }
-
     Box(
         modifier = modifier
             .alertBorder(

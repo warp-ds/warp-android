@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,11 +26,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
-@OptIn(ExperimentalAnimationApi::class)
+
+/**
+ * A component that can hide and show content. This version handles the expanded state internally
+ * @param modifier Modifier applied to the view
+ * @param initiallyExpanded state the view will start in
+ * @param title Text displayed next to the button
+ * @param expandedContent The content to display when the view is expanded
+ */
 @Composable
 fun Expandable(
     modifier: Modifier = Modifier,
@@ -36,8 +46,34 @@ fun Expandable(
     title: String,
     expandedContent: @Composable () -> Unit,
 ) {
-    var state by remember { mutableStateOf(initiallyExpanded) }
-    val transition = updateTransition(targetState = state, label = "expansionTransition")
+    var expanded by remember { mutableStateOf(initiallyExpanded) }
+    Expandable(
+        modifier = modifier,
+        expanded = expanded,
+        title = { Text(title, style = WarpTheme.typography.title4) },
+        expandedContent = expandedContent,
+        onExpandButtonClicked = { expanded = !expanded },
+    )
+}
+
+/**
+ * A version of Expandable that gives the user more control over the content and flow
+ * @param modifier Modifier applied to the view
+ * @param expanded State which the view should be in
+ * @param title Content displayed next to the button
+ * @param expandedContent Content displayed when expanded
+ * @param onExpandButtonClicked Invoked when the button to expand is clicked
+ */
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun Expandable(
+    modifier: Modifier = Modifier,
+    expanded: Boolean,
+    title: @Composable () -> Unit,
+    expandedContent: @Composable () -> Unit,
+    onExpandButtonClicked: () -> Unit
+) {
+    val transition = updateTransition(targetState = expanded, label = "expansionTransition")
     val rotation by transition.animateFloat(label = "iconRotation") { exp ->
         if (exp) -180f else 0f
     }
@@ -46,10 +82,10 @@ fun Expandable(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(title, style = WarpTheme.typography.title4)
-            IconButton(onClick = { state = !state }) {
+            title()
+            IconButton(onClick = onExpandButtonClicked) {
                 Icon(
-                     Icons.Filled.KeyboardArrowDown,
+                    Icons.Filled.KeyboardArrowDown,
                     "TODO content description",
                     modifier = Modifier.rotate(rotation)
                 )
@@ -74,8 +110,25 @@ private fun ExpandablePreview(
         flavor,
         isSystemInDarkTheme()
     ) {
-        Expandable(modifier = Modifier.fillMaxWidth(), false, "title") {
-            Text("body text")
+        Column {
+
+            Expandable(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp), false, "title"
+            ) {
+                Text("body text")
+            }
+            var expanded by remember { mutableStateOf(false) }
+            Expandable(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                expanded = expanded,
+                title = { Text("Here we can control the title more", style = WarpTheme.typography.title3) },
+                expandedContent = { Text("body text") },
+                onExpandButtonClicked = { expanded = !expanded}
+            )
         }
     }
 }

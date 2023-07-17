@@ -35,8 +35,8 @@ private fun ExpandableScreenContent() {
             Text("This is the hidden content")
         }
 
-        Text(modifier = Modifier.padding(top = 16.dp), text = "Expandable with box")
-        WarpBox(modifier = Modifier.padding(16.dp), boxStyle = WarpBoxStyle.BORDERED) {
+        Text(modifier = Modifier.padding(top = 16.dp), text = "Expandable inside box")
+        WarpBox(modifier = Modifier.padding(16.dp), boxStyle = WarpBoxStyle.INFO) {
             Expandable(
                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
                 title = "Title",
@@ -51,10 +51,10 @@ private fun ExpandableScreenContent() {
             }
         }
 
-        Text(modifier = Modifier.padding(top = 16.dp), text = "Expandable with alert")
+        Text(modifier = Modifier.padding(top = 16.dp), text = "Expandable inside alert")
         WarpAlert(
             modifier = Modifier.padding(16.dp),
-            type = WarpAlertType.Warning
+            type = WarpAlertType.Info
         ) {
             Expandable(
                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),

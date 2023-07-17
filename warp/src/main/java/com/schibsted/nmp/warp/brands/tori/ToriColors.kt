@@ -11,6 +11,8 @@ import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
+import com.schibsted.nmp.warp.theme.WarpTabColors
+import com.schibsted.nmp.warp.theme.WarpTabRowColors
 import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
 
@@ -27,6 +29,20 @@ object ToriComponentColors : WarpComponentColors {
     override val stepIndicator: WarpStepIndicatorColors = ToriStepIndicatorColors
     override val alert: WarpAlertColors = ToriAlertColors
     override val textField: WarpTextFieldColors = ToriTextFieldColors
+    override val tab: WarpTabColors = ToriTabColors
+    override val tabRow: WarpTabRowColors = ToriTabRowColors
+}
+
+object ToriTabColors : WarpTabColors {
+    override val selectedContent: Color = Petroleum600
+    override val unselectedContent: Color = Gray500
+}
+
+object ToriTabRowColors : WarpTabRowColors {
+    override val container: Color = White
+    override val content: Color = Petroleum600
+    override val indicator: Color = Petroleum600
+
 }
 
 object ToriTextFieldColors : WarpTextFieldColors {
