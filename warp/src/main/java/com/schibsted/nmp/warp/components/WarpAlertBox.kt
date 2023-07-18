@@ -56,7 +56,10 @@ fun WarpAlert(
                 colors.border,
                 WarpTheme.shapes.medium
             )
-            .padding(WarpTheme.dimensions.space2.dp)
+            .padding(
+                horizontal = WarpTheme.dimensions.space2.dp,
+                vertical = WarpTheme.dimensions.space25.dp
+            )
     ) {
         val (iconRef, titleRef, bodyRef) = createRefs()
         Icon(
@@ -70,30 +73,26 @@ fun WarpAlert(
             contentDescription = ""
         )
         val margin = WarpTheme.dimensions.space1.dp
-        val endMargin = WarpTheme.dimensions.space2.dp
-        // TODO: check what style, margins and so on should be used
         Text(
             modifier = Modifier
                 .constrainAs(titleRef) {
-                    start.linkTo(iconRef.end, margin = margin)
-                    end.linkTo(parent.end, margin = endMargin)
+                    linkTo(start = iconRef.end, end = parent.end, startMargin = margin, bias = 0f)
                     top.linkTo(parent.top)
                     width = Dimension.preferredWrapContent
                 },
             text = title,
-            style = WarpTheme.typography.captionStrong
+            style = WarpTheme.typography.title4
         )
         body?.let {
             Text(
                 modifier = Modifier
                     .constrainAs(bodyRef) {
-                        start.linkTo(iconRef.end, margin = margin)
+                        linkTo(start = iconRef.end, startMargin = margin, end = parent.end, bias = 0f)
                         top.linkTo(titleRef.bottom, margin = margin)
-                        end.linkTo(parent.end, margin = endMargin)
-                        width = Dimension.fillToConstraints
+                        width = Dimension.preferredWrapContent
                     },
                 text = body,
-                style = WarpTheme.typography.caption
+                style = WarpTheme.typography.body
             )
         }
     }
@@ -106,7 +105,6 @@ fun WarpAlert(
     content: @Composable () -> Unit
 ) {
     val colors = when (type) {
-        // TODO: Replace with correct icons once they are part of the theme
         WarpAlertType.Info -> WarpTheme.colors.components.alert.info
         WarpAlertType.Positive -> WarpTheme.colors.components.alert.positive
         WarpAlertType.Negative -> WarpTheme.colors.components.alert.negative
@@ -156,7 +154,13 @@ fun WarpAlertPreview(
             )
             WarpAlert(
                 modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
-                title = "This is the negative variant of the alert element",
+                title = "Negative variant",
+                body = "With an additional description",
+                type = WarpAlertType.Negative
+            )
+            WarpAlert(
+                modifier = Modifier.padding(WarpTheme.dimensions.space2.dp).fillMaxWidth(),
+                title = "Negative variant",
                 body = "With an additional description",
                 type = WarpAlertType.Negative
             )

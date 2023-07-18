@@ -8,6 +8,7 @@ object WarpDimensions {
     val space1: Int = 8
     val space15: Int = 12
     val space2: Int = 16
+    val space25: Int = 20
     val space3: Int = 24
     val space4: Int = 32
     val space5: Int = 40
