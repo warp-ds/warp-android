@@ -94,6 +94,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("tabs") {
+                TabsScreen() {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -136,7 +141,8 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "stepIndicator" to "WarpStepIndicator",
                         "alertBox" to "WarpAlertBox",
                         "textField" to "WarpTextField, not finished",
-                        "expandable" to "Expandable"
+                        "expandable" to "Expandable",
+                        "tabs" to "WarpTab and WarpTabGroup"
                     ))
                 {
                     ElevatedCard(
