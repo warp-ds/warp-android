@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WarpButton">
+        <attr name="warpButtonStyle" format="enum">
+            <enum name="primary" value="0" />
+            <enum name="secondary" value="1" />
+            <enum name="tertiary" value="2" />
+            <enum name="critical" value="3" />
+            <enum name="criticalQuiet" value="4" />
+            <enum name="utility" value="5" />
+            <enum name="utilityQuiet" value="6" />
+            <enum name="utilityOverlay" value="7" />
+        </attr>
+        <attr name="enabled" format="boolean" />
+        <attr name="loading" format="boolean" />
+        <attr name="text" format="reference|string" />
+    </declare-styleable>
+</resources>

@@ -1,5 +1,10 @@
 package com.schibsted.nmp.warp.components
 
+import android.content.Context
+import android.content.res.TypedArray
+import android.util.AttributeSet
+import android.util.TypedValue
+import android.view.View.OnClickListener
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -25,12 +30,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.core.content.withStyledAttributes
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
@@ -136,13 +144,14 @@ fun WarpButton(
         )
 
         val borderStroke = warpButtonColors.border?.let {
-             BorderStroke(
+            BorderStroke(
                 dimensions.space025.dp,
                 it.default
             )
         }
 
-        val elevation = if (!loading && buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
+        val elevation =
+            if (!loading && buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
 
         val buttonModifier = if (loading) modifier.loadingAnimation() else modifier
         val colors = if (loading) loadingColors else buttonColors
@@ -158,7 +167,10 @@ fun WarpButton(
                 colors = colors,
                 border = borderStroke,
                 content = content,
-                contentPadding = PaddingValues(horizontal = dimensions.space2.dp, vertical = dimensions.space1.dp),
+                contentPadding = PaddingValues(
+                    horizontal = dimensions.space2.dp,
+                    vertical = dimensions.space1.dp
+                ),
                 elevation = ButtonDefaults.buttonElevation(elevation)
             )
         }
@@ -211,6 +223,99 @@ fun Modifier.loadingAnimation(): Modifier = composed {
             this.drawContent()
         }
 }
+
+/**
+ * View class version of the composable WarpButton intended for use in legacy xml layouts.
+ * Can be declared in xml layouts as any other view component.
+ * Following custom attributes can be assigned through xml
+ * @param app:warpButtonStyle WarpButtonStyle as defined in the composable
+ * @param app:text the button text, string or reference id
+ * @param app:enabled sets the button in enabled or disabled mode
+ * @param app:loading sets the button in loading mode showing the loading animation
+ */
+class WarpButtonView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+) : AbstractComposeView(context, attrs, defStyle) {
+
+    private var style: WarpButtonStyle = WarpButtonStyle.Primary
+    private var text = ""
+    private var loading = false
+    private var buttonEnabled = true
+    private var clickListener = OnClickListener { }
+
+    override fun setOnClickListener(onCLick: OnClickListener?) {
+        onCLick?.let { clickListener = it }
+    }
+
+    fun setLoading(loading: Boolean) {
+        this.loading = loading
+        disposeComposition()
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        buttonEnabled = enabled
+        disposeComposition()
+    }
+
+    private var stylesList = listOf(
+        Pair(0, WarpButtonStyle.Primary),
+        Pair(1, WarpButtonStyle.Secondary),
+        Pair(2, WarpButtonStyle.Tertiary),
+        Pair(3, WarpButtonStyle.Critical),
+        Pair(4, WarpButtonStyle.CriticalQuiet),
+        Pair(5, WarpButtonStyle.Utility),
+        Pair(6, WarpButtonStyle.UtilityQuiet),
+        Pair(7, WarpButtonStyle.UtilityOverlay),
+    )
+
+    init {
+        context.withStyledAttributes(attrs, R.styleable.WarpButton) {
+            val styleInt = getInteger(R.styleable.WarpButton_warpButtonStyle, 0)
+            style = stylesList.first { it.first == styleInt }.second
+            text = getButtonText(this)
+            loading = getBoolean(R.styleable.WarpButton_loading, false)
+            buttonEnabled = getBoolean(R.styleable.WarpButton_enabled, true)
+        }
+    }
+
+    private fun getButtonText(typedArray: TypedArray): String {
+        return if (typedArray.hasValue(R.styleable.WarpButton_text)) {
+            when (typedArray.getType(R.styleable.WarpButton_text)) {
+                TypedValue.TYPE_STRING -> {
+                    typedArray.getString(R.styleable.WarpButton_text) ?: ""
+                }
+
+                TypedValue.TYPE_REFERENCE -> {
+                    val resourceId = typedArray.getResourceId(R.styleable.WarpButton_text, 0)
+                    if (resourceId != 0) {
+                        context.getString(resourceId)
+                    } else {
+                        ""
+                    }
+                }
+
+                else -> ""
+            }
+        } else {
+            ""
+        }
+    }
+
+    @Composable
+    override fun Content() {
+        WarpButton(
+            text = text,
+            onClick = { clickListener.onClick(this@WarpButtonView) },
+            buttonStyle = style,
+            loading = loading,
+            enabled = buttonEnabled
+        )
+    }
+}
+
 
 @Composable
 @Preview
