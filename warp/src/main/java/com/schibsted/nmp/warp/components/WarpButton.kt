@@ -108,7 +108,7 @@ fun WarpButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    buttonStyle: WarpButtonStyle,
+    buttonStyle: WarpButtonStyle = WarpButtonStyle.Primary,
     loading: Boolean = false,
     content: @Composable RowScope.() -> Unit
 ) {

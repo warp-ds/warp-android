@@ -16,10 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
+import com.schibsted.nmp.warp.components.VerticalWarpStepIndicator
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
-import com.schibsted.nmp.warp.components.WarpStepIndicator
-import com.schibsted.nmp.warp.components.WarpStepIndicatorOrientation
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
@@ -45,20 +45,17 @@ private fun StepIndicatorScreenContent() {
             .verticalScroll(rememberScrollState())
     ) {
         Text("Horizontal", style = WarpTheme.typography.title3)
-        WarpStepIndicator(
-            modifier = Modifier.fillMaxWidth(),
+        HorizontalWarpStepIndicator(
+            modifier = Modifier,
             steps = 3,
             activeStep = hState,
             onStepClicked = {hState = it},
-            stepTitle = { Text("Step $it", style = WarpTheme.typography.title4) }
-        ) {
-            Text("Description", style = WarpTheme.typography.detail)
-        }
+            label = { Text("Step $it", style = WarpTheme.typography.title4) }
+        )
 
         Text(modifier = Modifier.padding(top = 24.dp), text = "Vertical", style = WarpTheme.typography.title3)
-        WarpStepIndicator(
+        VerticalWarpStepIndicator(
             modifier = Modifier.fillMaxWidth(),
-            orientation = WarpStepIndicatorOrientation.Vertical,
             steps = 5,
             activeStep = wState,
             onStepClicked = { wState = it},
