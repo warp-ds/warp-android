@@ -87,9 +87,13 @@ interface WarpBoxColors {
 }
 
 interface WarpStepIndicatorColors {
-    val completed: Color
-    val unvisited: Color
-    val completedIconTint: Color
+    val background: Color
+    val backgroundActive: Color
+    val backgroundTrack: Color
+    val backgroundTrackActive: Color
+    val border: Color
+    val borderActive: Color
+    val icon: Color
 }
 
 data class WarpComponentBackground(
