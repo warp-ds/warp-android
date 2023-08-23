@@ -8,7 +8,6 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextField
 
 @Composable
@@ -58,56 +58,56 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(checked = showError, onCheckedChange = {showError = it})
-                Text("Show error")
+                WarpText("Show error")
             }
             Row(
                 modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(checked = showLabel, onCheckedChange = {showLabel = it})
-                Text("Show label")
+                WarpText("Show label")
             }
             Row(
                 modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(checked = showHint, onCheckedChange = {showHint = it})
-                Text("Show supporting text")
+                WarpText("Show supporting text")
             }
             Row(
                 modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(checked = showPlaceholder, onCheckedChange = {showPlaceholder = it})
-                Text("Show placeholder")
+                WarpText("Show placeholder")
             }
             Row(
                 modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(checked = showLeadingIcon, onCheckedChange = {showLeadingIcon = it})
-                Text("Show leading icon")
+                WarpText("Show leading icon")
             }
             Row(
                 modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(checked = showTrailingIcon, onCheckedChange = {showTrailingIcon = it})
-                Text("Show trailing icon")
+                WarpText("Show trailing icon")
             }
             Row(
                 modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(checked = disabled, onCheckedChange = {disabled = it})
-                Text("Disabled")
+                WarpText("Disabled")
             }
             Row(
                 modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(checked = readOnly, onCheckedChange = {readOnly = it})
-                Text("Set read only")
+                WarpText("Set read only")
             }
 
         }

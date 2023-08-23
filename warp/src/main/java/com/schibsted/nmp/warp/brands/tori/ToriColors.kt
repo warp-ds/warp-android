@@ -36,10 +36,10 @@ object ToriComponentColors : WarpComponentColors {
 }
 
 object ToriLabelColors: WarpLabelColors {
-    override val text: Color = Gray700
+    override val text: Color = Gray900
     override val negative: Color = Red600
-    override val optional: Color = Gray700
-    override val icon: Color = Gray500
+    override val optional: Color = Gray900
+    override val icon: Color = Gray900
 }
 
 object ToriButtonColors : WarpButtonColors {

@@ -32,9 +32,9 @@ import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
 fun WarpText(
-    modifier: Modifier = Modifier,
     text: String,
-    color: Color = colors.primary,
+    modifier: Modifier = Modifier,
+    color: Color = colors.components.label.text,
     style: WarpTextStyle = WarpTextStyle.Body,
     maxLines: Int = 1,
 ) {
@@ -147,7 +147,7 @@ class WarpTextView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
-        val textColor = if (color == 0) colors.primary else Color(color)
+        val textColor = if (color == 0) colors.components.label.text else Color(color)
         WarpText(text = text, style = style, color = textColor)
     }
 
@@ -166,9 +166,9 @@ fun WarpTextPreview(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             WarpText(
+                text = "Meow",
                 Modifier
                     .padding(vertical = 8.dp, horizontal = 16.dp),
-                text = "Meow",
                 style = WarpTextStyle.Display,
                 color = FinnColors.components.button.primary.text
             )

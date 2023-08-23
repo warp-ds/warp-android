@@ -8,6 +8,7 @@ import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpLabelColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.WarpTabColors
 import com.schibsted.nmp.warp.theme.WarpTabRowColors
@@ -27,6 +28,14 @@ object FinnComponentDarkColors : WarpComponentColors {
     override val textField: WarpTextFieldColors = FinnTextFieldDarkColors
     override val tabRow: WarpTabRowColors = FinnTabRowColors // Todo darkmode
     override val tab: WarpTabColors = FinnTabColors // Todo darkmode
+    override val label: WarpLabelColors = FinnLabelDarkColors
+}
+
+object FinnLabelDarkColors: WarpLabelColors {
+    override val text: Color = White
+    override val negative: Color = Red500
+    override val optional: Color = White
+    override val icon: Color = White
 }
 
 object FinnTextFieldDarkColors : WarpTextFieldColors {

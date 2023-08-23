@@ -39,7 +39,7 @@ object FinnLabelColors: WarpLabelColors {
     override val text: Color = Gray700
     override val negative: Color = Red600
     override val optional: Color = Gray700
-    override val icon: Color = Bluegray500
+    override val icon: Color = Gray700
 }
 
 object FinnButtonColors : WarpButtonColors {

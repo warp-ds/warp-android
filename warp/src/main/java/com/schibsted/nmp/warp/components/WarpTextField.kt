@@ -65,7 +65,7 @@ fun WarpTextField(
             textColor = colors.components.textField.text,
             containerColor = colors.components.textField.background,
             cursorColor = colors.components.textField.caret,
-            errorCursorColor = colors.components.textField.errorBorder, // TODO: should this be this color?
+            errorCursorColor = colors.components.textField.errorBorder,
             focusedBorderColor = colors.components.textField.activeBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
             disabledBorderColor = colors.components.textField.disabledBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
             errorBorderColor = colors.components.textField.errorBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
