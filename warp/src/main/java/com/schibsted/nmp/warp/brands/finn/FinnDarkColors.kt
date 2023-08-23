@@ -128,8 +128,8 @@ object FinnButtonDarkColors : WarpButtonColors {
     override val loading: FinnButtonStyleColors = FinnButtonStyleColors(
         text = Gray100,
         background = FinnButtonElementColors(
-            default = Gray900,
-            active = Bluegray900
+            default = Bluegray900,
+            active = Bluegray700
         ),
         border = null
     )

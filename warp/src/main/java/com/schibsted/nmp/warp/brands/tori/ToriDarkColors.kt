@@ -130,7 +130,7 @@ object ToriButtonDarkColors : WarpButtonColors {
         text = Gray100,
         background = ToriButtonElementColors(
             default = Gray900,
-            active = Gray900
+            active = Gray700
         ),
         border = null
     )
