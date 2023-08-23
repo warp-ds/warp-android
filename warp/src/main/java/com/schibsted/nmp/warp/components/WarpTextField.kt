@@ -10,14 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -25,9 +22,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.theme.LocalColors
+import com.schibsted.nmp.warp.theme.LocalDimensions
+import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
-import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
@@ -37,12 +39,12 @@ fun WarpTextField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = LocalTextStyle.current,
-    label: @Composable (() -> Unit)? = null,
-    placeholder: @Composable (() -> Unit)? = null,
+    textStyle: TextStyle = typography.body,
+    label: String? = null,
+    hintText: String? = null,
+    helpText: String? = null,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -52,55 +54,84 @@ fun WarpTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = TextFieldDefaults.outlinedShape
 ) {
-    val colors = TextFieldDefaults.outlinedTextFieldColors(
-        textColor = WarpTheme.colors.components.textField.text,
-        containerColor = WarpTheme.colors.components.textField.background,
-        cursorColor = WarpTheme.colors.components.textField.caret,
-        errorCursorColor = WarpTheme.colors.components.textField.errorBorder, // TODO: should this be this color?
+    CompositionLocalProvider(
+        LocalColors provides colors,
+        LocalTypography provides typography,
+        LocalDimensions provides dimensions
+    ) {
+        val labelColor = colors.components.label.text
+        val hintColor = colors.components.textField.hintText
+        val colors = TextFieldDefaults.outlinedTextFieldColors(
+            textColor = colors.components.textField.text,
+            containerColor = colors.components.textField.background,
+            cursorColor = colors.components.textField.caret,
+            errorCursorColor = colors.components.textField.errorBorder, // TODO: should this be this color?
+            focusedBorderColor = colors.components.textField.activeBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            disabledBorderColor = colors.components.textField.disabledBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            errorBorderColor = colors.components.textField.errorBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            errorLabelColor = colors.components.textField.errorText,
+            errorLeadingIconColor = colors.components.textField.errorIconColor,
+            disabledTextColor = colors.components.textField.disabledText,
+            disabledLabelColor = colors.components.textField.disabledText,
+            unfocusedBorderColor = colors.components.textField.border.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            unfocusedLabelColor = colors.components.textField.text,
+        )
 
-        focusedBorderColor = WarpTheme.colors.components.textField.activeBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
-        disabledBorderColor = WarpTheme.colors.components.textField.disabledBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
-        errorBorderColor = WarpTheme.colors.components.textField.errorBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
-        errorLabelColor = WarpTheme.colors.components.textField.errorText,
-        errorLeadingIconColor = WarpTheme.colors.components.textField.errorIconColor,
-        disabledTextColor = WarpTheme.colors.components.textField.disabledText,
-        disabledLabelColor = WarpTheme.colors.components.textField.disabledText,
-        unfocusedBorderColor = WarpTheme.colors.components.textField.border.ifTrueOtherwise(!readOnly) { Color.Transparent},
-        unfocusedLabelColor = WarpTheme.colors.components.textField.text,
-    )
 
-    // TODO: This is unfinished, need feedback from designers on where to place the labels
+        // TODO: This is unfinished, need feedback from designers on where to place the labels
 
-    Column(modifier) {
+        Column(modifier) {
 
-        label?.let {
-            Box(modifier.padding(start = TextFieldDefaults.textFieldWithLabelPadding().calculateLeftPadding(LayoutDirection.Ltr))) {
-                label.invoke()
+            label?.let {
+                Box(Modifier.padding(vertical = dimensions.space025.dp)) {
+                    WarpText(text = it, style = WarpTextStyle.Title5, color = labelColor)
+                }
             }
+
+            val hint: @Composable () -> Unit = {
+                hintText?.let {
+                    WarpText(
+                        text = it,
+                        style = WarpTextStyle.Body,
+                        color = hintColor
+                    )
+                }
+            }
+
+            val helpLabel: @Composable () -> Unit = {
+                helpText?.let {
+                    WarpText(
+                        text = it,
+                        style = WarpTextStyle.Detail,
+                        color = labelColor
+                    )
+                }
         }
 
-        OutlinedTextField(
-            value,
-            onValueChange,
-            modifier,
-            enabled,
-            readOnly,
-            textStyle,
-            null, // replace this with label if we want to use the built in one
-            placeholder,
-            leadingIcon,
-            trailingIcon,
-            supportingText,
-            isError,
-            visualTransformation,
-            keyboardOptions,
-            keyboardActions,
-            singleLine,
-            maxLines,
-            interactionSource,
-            shape,
-            colors)
+            OutlinedTextField(
+                value,
+                onValueChange,
+                modifier,
+                enabled,
+                readOnly,
+                textStyle,
+                null,
+                hint,
+                leadingIcon,
+                trailingIcon,
+                helpLabel,
+                isError,
+                visualTransformation,
+                keyboardOptions,
+                keyboardActions,
+                singleLine,
+                maxLines,
+                interactionSource,
+                shape,
+                colors
+            )
 
+        }
     }
 }
 

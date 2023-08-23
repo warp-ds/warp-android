@@ -34,9 +34,9 @@ fun TextFieldScreen(onUp: () -> Unit) {
             var showTrailingIcon by remember { mutableStateOf(false)}
             var readOnly by remember { mutableStateOf(false) }
             var disabled by remember { mutableStateOf(false) }
-            val label: @Composable () -> Unit = { Text("This is the label") }
-            val hint: @Composable () -> Unit = { Text("This is the supporting text") }
-            val placeholder: @Composable () -> Unit = { Text("This is the placeholder") }
+            val label = "This is the label"
+            val helpText = "This is the supporting text"
+            val hintText = "This is the placeholder"
             val trailingIcon: @Composable () -> Unit = { Icon(Icons.Filled.DateRange, contentDescription = "Content description for the trailing icon") }
             val leadingIcon: @Composable () -> Unit = { Icon(Icons.Filled.Email, contentDescription = "Content description for the leading icon") }
             WarpTextField(
@@ -44,8 +44,8 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 onValueChange = { text = it },
                 isError = showError,
                 label = label.takeIf { showLabel },
-                supportingText = hint.takeIf { showHint },
-                placeholder = placeholder.takeIf { showPlaceholder },
+                helpText = helpText.takeIf { showHint },
+                hintText = hintText.takeIf { showPlaceholder },
                 leadingIcon = leadingIcon.takeIf { showLeadingIcon },
                 trailingIcon = trailingIcon.takeIf { showTrailingIcon },
                 readOnly = readOnly,

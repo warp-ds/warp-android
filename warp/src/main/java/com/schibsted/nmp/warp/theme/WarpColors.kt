@@ -23,6 +23,14 @@ interface WarpComponentColors {
     val textField: WarpTextFieldColors
     val tabRow: WarpTabRowColors
     val tab: WarpTabColors
+    val label: WarpLabelColors
+}
+
+interface WarpLabelColors {
+    val text: Color
+    val negative: Color
+    val optional: Color
+    val icon: Color
 }
 
 interface WarpTabColors {

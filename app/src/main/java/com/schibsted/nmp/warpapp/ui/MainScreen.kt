@@ -140,7 +140,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "typography" to "Typography",
                         "stepIndicator" to "WarpStepIndicator",
                         "alertBox" to "WarpAlertBox",
-                        "textField" to "WarpTextField, not finished",
+                        "textField" to "WarpTextField",
                         "expandable" to "Expandable",
                         "tabs" to "WarpTab and WarpTabGroup"
                     ))
