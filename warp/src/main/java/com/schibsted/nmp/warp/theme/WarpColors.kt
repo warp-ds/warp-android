@@ -9,8 +9,6 @@ import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.brands.finn.FinnColors
 
 interface WarpColors {
-    val primary: Color
-    val secondary: Color
     val background: Color
     val components: WarpComponentColors
 }

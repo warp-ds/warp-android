@@ -3,11 +3,13 @@
 package com.schibsted.nmp.warp.brands.tori
 
 import androidx.compose.ui.graphics.Color
-import com.schibsted.nmp.warp.brands.tori.button.ToriButtonColors
+import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpAlertColors
 import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
+import com.schibsted.nmp.warp.theme.WarpButtonElementColors
+import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpLabelColors
@@ -19,8 +21,6 @@ import com.schibsted.nmp.warp.theme.White
 
 object ToriColors : WarpColors {
     override val background: Color = White
-    override val primary: Color = Watermelon600
-    override val secondary: Color = White
     override val components: WarpComponentColors = ToriComponentColors
 }
 
@@ -42,6 +42,95 @@ object ToriLabelColors: WarpLabelColors {
     override val icon: Color = Gray500
 }
 
+object ToriButtonColors : WarpButtonColors {
+    override val primary: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = White,
+        background = ToriButtonElementColors(
+            default = Watermelon600,
+            active = Watermelon800
+        ),
+        border = null
+    )
+    override val secondary: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Petroleum600,
+        background = ToriButtonElementColors(
+            default = White,
+            active = Gray200
+        ),
+        border = ToriButtonElementColors(
+            default = Gray300,
+            active = Gray500
+        )
+    )
+    override val disabled: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = White,
+        background = ToriButtonElementColors(
+            default = Gray300,
+            active = Gray300
+        ),
+        border = null
+    )
+    override val quiet: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Petroleum600,
+        background = ToriButtonElementColors(
+            default = Transparent,
+            active = Gray200
+        ),
+        border = null
+    )
+    override val negative: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = White,
+        background = ToriButtonElementColors(
+            default = Red600,
+            active = Red800
+        ),
+        border = null
+    )
+    override val negativeQuiet: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Red600,
+        background = ToriButtonElementColors(
+            default = Transparent,
+            active = Red200
+        ),
+        border = null
+    )
+    override val utility: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Gray900,
+        background = ToriButtonElementColors(
+            default = White,
+            active = Gray200
+        ),
+        border = ToriButtonElementColors(
+            default = Gray300,
+            active = Gray800
+        )
+    )
+    override val utilityOverlay: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Gray900,
+        background = ToriButtonElementColors(
+            default = White,
+            active = Gray200
+        ),
+        border = null
+    )
+    override val utilityQuiet: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Gray900,
+        background = ToriButtonElementColors(
+            default = Transparent,
+            active = Transparent
+        ),
+        border = null
+    )
+    override val loading: ToriButtonStyleColors = ToriButtonStyleColors(
+        text = Gray500,
+        background = ToriButtonElementColors(
+            default = Gray50,
+            active = Gray200
+        ),
+        border = null
+    )
+}
+
 object ToriTabColors : WarpTabColors {
     override val selectedContent: Color = Petroleum600
     override val unselectedContent: Color = Gray500
@@ -55,20 +144,20 @@ object ToriTabRowColors : WarpTabRowColors {
 }
 
 object ToriTextFieldColors : WarpTextFieldColors {
-    override val text: Color = Gray700
+    override val text: Color = Gray900
     override val hintText: Color = Gray300
     override val disabledText: Color = Gray300
-    override val errorText: Color = Gray700
-    override val readOnlyText: Color = Gray700
+    override val errorText: Color = Red600
+    override val readOnlyText: Color = Gray900
     override val errorIconColor: Color = Red600
     override val background: Color = White
-    override val disabledBackground: Color = Gray200
+    override val disabledBackground: Color = Gray300
     override val border: Color = Gray300
     override val activeBorder: Color = Petroleum600
     override val disabledBorder: Color = Gray300
     override val errorBorder: Color = Red600
     override val caret: Color = Gray900
-    override val iconTint: Color = Gray500
+    override val iconTint: Color = Gray900
 
 }
 
@@ -95,17 +184,22 @@ object ToriAlertColors : WarpAlertColors {
     )
 }
 
+data class ToriButtonStyleColors(
+    override val text: Color,
+    override val background: ToriButtonElementColors,
+    override val border: ToriButtonElementColors?
+) : WarpButtonStyleColors
+
+data class ToriButtonElementColors(
+    override val default: Color,
+    override val active: Color
+) : WarpButtonElementColors
+
 data class ToriAlertStyleColors(
     override val background: Color,
     override val leftBorder: Color,
     override val border: Color
 ) : WarpAlertStyleColors
-object ToriDarkColors : WarpColors {
-    override val background: Color = White
-    override val primary: Color = Petroleum600
-    override val secondary: Color = White
-    override val components: WarpComponentColors = ToriComponentColors
-}
 
 //Watermelon
 internal val Watermelon50 = Color(0xFFFFF3F2)
