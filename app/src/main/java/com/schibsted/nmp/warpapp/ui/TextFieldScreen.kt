@@ -3,6 +3,8 @@ package com.schibsted.nmp.warpapp.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
@@ -18,12 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextField
+import com.schibsted.nmp.warp.components.WarpTextStyle
 
 @Composable
 fun TextFieldScreen(onUp: () -> Unit) {
     DetailsScaffold(title = "WarpTextField", onUp = onUp) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             var text by remember { mutableStateOf("")}
             var showError by remember { mutableStateOf(false)}
@@ -50,23 +55,93 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 trailingIcon = trailingIcon.takeIf { showTrailingIcon },
                 readOnly = readOnly,
                 enabled = !disabled,
-
             )
 
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                Checkbox(checked = showError, onCheckedChange = {showError = it})
-                WarpText("Show error")
+                WarpText("Standard with hint", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    helpText = "A hint",
+                    hintText = hintText.takeIf { showPlaceholder },
+                    )
             }
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                Checkbox(checked = showLabel, onCheckedChange = {showLabel = it})
-                WarpText("Show label")
+                WarpText("Optional with placeholder", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    label = "A optional label",
+                    hintText = "A placeholder",
+                )
             }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText("Disabled", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    label = "A optional label",
+                    enabled = false
+                )
+            }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText("Read-only", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpTextField(
+                    value = "Read only",
+                    onValueChange = { text = it },
+                    label = "A optional label",
+                    readOnly = true
+                )
+            }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText("Invalid", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    label = "A optional label",
+                    helpText = "Error!",
+                    isError = true
+                )
+            }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText("Icons", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                Row(
+                    modifier = Modifier.padding(top = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(checked = showLeadingIcon, onCheckedChange = {showLeadingIcon = it})
+                    WarpText("Show leading icon")
+                }
+                Row(
+                    modifier = Modifier.padding(top = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(checked = showTrailingIcon, onCheckedChange = {showTrailingIcon = it})
+                    WarpText("Show trailing icon")
+                }
+                WarpTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    isError = showError,
+                    label = "With icons",
+                    leadingIcon = leadingIcon.takeIf { showLeadingIcon },
+                    trailingIcon = trailingIcon.takeIf { showTrailingIcon },
+
+                    )
+            }
+
             Row(
                 modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -80,34 +155,6 @@ fun TextFieldScreen(onUp: () -> Unit) {
             ) {
                 Checkbox(checked = showPlaceholder, onCheckedChange = {showPlaceholder = it})
                 WarpText("Show placeholder")
-            }
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(checked = showLeadingIcon, onCheckedChange = {showLeadingIcon = it})
-                WarpText("Show leading icon")
-            }
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(checked = showTrailingIcon, onCheckedChange = {showTrailingIcon = it})
-                WarpText("Show trailing icon")
-            }
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(checked = disabled, onCheckedChange = {disabled = it})
-                WarpText("Disabled")
-            }
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(checked = readOnly, onCheckedChange = {readOnly = it})
-                WarpText("Set read only")
             }
 
         }

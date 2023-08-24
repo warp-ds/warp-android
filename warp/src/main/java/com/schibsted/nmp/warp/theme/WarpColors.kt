@@ -46,11 +46,9 @@ interface WarpTextFieldColors {
     val disabledText: Color
     val errorText: Color
     val readOnlyText: Color
-
-    val errorIconColor: Color // TODO: check if we should have this?
+    val errorIconColor: Color
     val background: Color
     val disabledBackground: Color
-
     val border: Color
     val activeBorder: Color
     val disabledBorder: Color

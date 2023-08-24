@@ -66,19 +66,22 @@ fun WarpTextField(
             containerColor = colors.components.textField.background,
             cursorColor = colors.components.textField.caret,
             errorCursorColor = colors.components.textField.errorBorder,
+            errorLabelColor = colors.components.textField.errorText,
             focusedBorderColor = colors.components.textField.activeBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            focusedLeadingIconColor =  colors.components.textField.iconTint,
+            unfocusedLeadingIconColor =  colors.components.textField.iconTint,
+            focusedTrailingIconColor = colors.components.textField.iconTint,
+            unfocusedTrailingIconColor = colors.components.textField.iconTint,
             disabledBorderColor = colors.components.textField.disabledBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
             errorBorderColor = colors.components.textField.errorBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            errorLabelColor = colors.components.textField.errorText,
             errorLeadingIconColor = colors.components.textField.errorIconColor,
             disabledTextColor = colors.components.textField.disabledText,
             disabledLabelColor = colors.components.textField.disabledText,
             unfocusedBorderColor = colors.components.textField.border.ifTrueOtherwise(!readOnly) { Color.Transparent },
             unfocusedLabelColor = colors.components.textField.text,
+            errorSupportingTextColor = colors.components.textField.errorText
         )
 
-
-        // TODO: This is unfinished, need feedback from designers on where to place the labels
 
         Column(modifier) {
 
@@ -102,8 +105,7 @@ fun WarpTextField(
                 helpText?.let {
                     WarpText(
                         text = it,
-                        style = WarpTextStyle.Detail,
-                        color = labelColor
+                        style = WarpTextStyle.Detail
                     )
                 }
         }
