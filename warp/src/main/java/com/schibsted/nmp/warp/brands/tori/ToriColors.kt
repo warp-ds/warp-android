@@ -149,6 +149,7 @@ object ToriTextFieldColors : WarpTextFieldColors {
     override val errorBorder: Color = Red600
     override val caret: Color = Gray900
     override val iconTint: Color = Gray900
+}
 
 object ToriBoxColors : WarpBoxColors {
     override val neutral = WarpComponentBackground(Gray50, null)

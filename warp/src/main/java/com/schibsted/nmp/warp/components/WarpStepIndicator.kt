@@ -81,13 +81,13 @@ fun VerticalWarpStepIndicator(
 
         val animatedStep =
             animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
-        val dimensions = dimensions.components.stepIndicator
+        val componentDimensions = dimensions.components.stepIndicator
 
 
         val thresholds = remember { FloatArray(steps - 1) { 1.0f } }
 
         Layout(
-            measurePolicy = customVerticalMeasurePolicy(dimensions),
+            measurePolicy = customVerticalMeasurePolicy(componentDimensions),
             modifier = modifier,
             content = {
                 for (i in 0 until steps - 1) {
@@ -97,7 +97,7 @@ fun VerticalWarpStepIndicator(
                         // In the vertical configuration the tracks have different length so we need to
                         // calculate the break point for each individually
                         thresholds[i] =
-                            1 - (dimensions.placeholderIndicatorSize.dp.toPx() / (dimensions.placeholderIndicatorSize.dp.toPx() + size.height))
+                            1 - (componentDimensions.placeholderIndicatorSize.dp.toPx() / (componentDimensions.placeholderIndicatorSize.dp.toPx() + size.height))
 
                         if (i < floor(animatedStep.toDouble())) {
                             // The track index is below the currently animated one so it is completed
@@ -105,7 +105,7 @@ fun VerticalWarpStepIndicator(
                                 color = colors.backgroundTrackActive,
                                 start = Offset(size.width / 2, 0f),
                                 end = Offset(size.width / 2, size.height),
-                                strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                                strokeWidth = componentDimensions.placeholderTrackWidth.dp.toPx()
                             )
                         } else if (i > floor(animatedStep.toDouble())) {
                             // The track index is greater than the currently animated one so it is inactive
@@ -113,7 +113,7 @@ fun VerticalWarpStepIndicator(
                                 color = colors.backgroundTrack,
                                 start = Offset(size.width / 2, 0f),
                                 end = Offset(size.width / 2, size.height),
-                                strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                                strokeWidth = componentDimensions.placeholderTrackWidth.dp.toPx()
                             )
                         } else {
                             // The track index is the one currently being animated
@@ -133,7 +133,7 @@ fun VerticalWarpStepIndicator(
                                     color = colors.backgroundTrackActive,
                                     start = Offset(size.width / 2, 0f),
                                     end = Offset(size.width / 2, fracHeight),
-                                    strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                                    strokeWidth = componentDimensions.placeholderTrackWidth.dp.toPx()
                                 )
                             }
                             // Some part of the track should be "inactive"
@@ -142,7 +142,7 @@ fun VerticalWarpStepIndicator(
                                     color = colors.backgroundTrack,
                                     start = Offset(size.width / 2, fracHeight),
                                     end = Offset(size.width / 2, size.height),
-                                    strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                                    strokeWidth = componentDimensions.placeholderTrackWidth.dp.toPx()
                                 )
                             }
                         }
@@ -171,14 +171,14 @@ fun VerticalWarpStepIndicator(
                             (i < floor(animatedStep.toDouble())) -> {
                                 drawCircle(colors.backgroundActive)
                                 translate(
-                                    left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                                    top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                    left = size.width / 2 - componentDimensions.placeholderIconSize.dp.toPx() / 2,
+                                    top = size.height / 2 - componentDimensions.placeholderIconSize.dp.toPx() / 2,
                                 ) {
                                     with(icon) {
                                         draw(
                                             size = Size(
-                                                dimensions.placeholderIconSize.dp.toPx(),
-                                                dimensions.placeholderIconSize.dp.toPx()
+                                                componentDimensions.placeholderIconSize.dp.toPx(),
+                                                componentDimensions.placeholderIconSize.dp.toPx()
                                             ),
                                             colorFilter = ColorFilter.tint(colors.icon)
                                         )
@@ -191,14 +191,14 @@ fun VerticalWarpStepIndicator(
                                 val frac = animatedStep - i
                                 drawCircle(colors.backgroundActive)
                                 translate(
-                                    left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                                    top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                    left = size.width / 2 - componentDimensions.placeholderIconSize.dp.toPx() / 2,
+                                    top = size.height / 2 - componentDimensions.placeholderIconSize.dp.toPx() / 2,
                                 ) {
                                     with(icon) {
                                         draw(
                                             size = Size(
-                                                dimensions.placeholderIconSize.dp.toPx(),
-                                                dimensions.placeholderIconSize.dp.toPx()
+                                                componentDimensions.placeholderIconSize.dp.toPx(),
+                                                componentDimensions.placeholderIconSize.dp.toPx()
                                             ),
                                             alpha = frac,
                                             colorFilter = ColorFilter.tint(colors.icon)
@@ -211,7 +211,7 @@ fun VerticalWarpStepIndicator(
                             (i > floor(animatedStep.toDouble() + 1)) -> {
                                 drawCircle(
                                     colors.background,
-                                    style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
+                                    style = Stroke(componentDimensions.placeholderBorderWidth.dp.toPx()),
                                     radius = size.minDimension / 2f // - dimensions.placeholderBorderWidth.dp.toPx()/2
                                 )
                             }
@@ -221,7 +221,7 @@ fun VerticalWarpStepIndicator(
                                 // First draw a regular indicator
                                 drawCircle(
                                     color = colors.background,
-                                    style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
+                                    style = Stroke(componentDimensions.placeholderBorderWidth.dp.toPx()),
                                     radius = size.minDimension / 2f // - dimensions.placeholderBorderWidth.dp.toPx()/2
                                 )
                                 // Check if the animation is above the threshold for when the indicator
@@ -245,7 +245,7 @@ fun VerticalWarpStepIndicator(
                 }
                 for (i in 0 until steps) {
                     Box(
-                        modifier = Modifier.layoutId(StepIndicatorIds.LABEL)
+                        modifier = Modifier.layoutId(StepIndicatorIds.LABEL).padding(start = dimensions.space3.dp)
                     ) {
                         Text(
                             stepTitle(i),
@@ -253,7 +253,7 @@ fun VerticalWarpStepIndicator(
                         )
                     }
                     Box(
-                        modifier = Modifier.layoutId(StepIndicatorIds.CONTENT)
+                        modifier = Modifier.layoutId(StepIndicatorIds.CONTENT).padding(start = dimensions.space3.dp)
                     ) {
                         stepContent(i)
                     }
@@ -632,7 +632,7 @@ fun HorizontalPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
     var active by remember { mutableStateOf(0) }
-    WarpBrandedTheme(flavor = "finn", darkTheme = isSystemInDarkTheme()) {
+    WarpBrandedTheme(flavor = flavor, darkTheme = isSystemInDarkTheme()) {
 
         Column {
             HorizontalWarpStepIndicator(

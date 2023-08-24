@@ -61,7 +61,7 @@ private fun StepIndicatorScreenContent() {
             onStepClicked = { wState = it},
             stepTitle = { "Step $it" }
         ) {
-            Column(modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)) {
+            Column(modifier = Modifier.padding(vertical = 8.dp)) {
                 Text("Here we can have some text and maybe something else", style = WarpTheme.typography.body)
                 if (wState == it) {
                     WarpButton(
