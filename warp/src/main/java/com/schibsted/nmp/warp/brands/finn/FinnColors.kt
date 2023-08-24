@@ -3,11 +3,13 @@
 package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.ui.graphics.Color
-import com.schibsted.nmp.warp.brands.finn.button.FinnButtonColors
+import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpAlertColors
 import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
+import com.schibsted.nmp.warp.theme.WarpButtonElementColors
+import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
@@ -19,8 +21,6 @@ import com.schibsted.nmp.warp.theme.White
 
 object FinnColors : WarpColors {
     override val background: Color = White
-    override val primary: Color = Blue600
-    override val secondary: Color = White
     override val components: WarpComponentColors = FinnComponentColors
 }
 
@@ -32,6 +32,95 @@ object FinnComponentColors : WarpComponentColors {
     override val textField: WarpTextFieldColors = FinnTextFieldColors
     override val tabRow: WarpTabRowColors = FinnTabRowColors
     override val tab: WarpTabColors = FinnTabColors
+}
+
+object FinnButtonColors : WarpButtonColors {
+    override val primary: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = White,
+        background = FinnButtonElementColors(
+            default = Blue600,
+            active = Blue800
+        ),
+        border = null
+    )
+    override val secondary: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Blue600,
+        background = FinnButtonElementColors(
+            default = White,
+            active = Bluegray200
+        ),
+        border = FinnButtonElementColors(
+            default = Bluegray300,
+            active = Bluegray500
+        )
+    )
+    override val disabled: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = White,
+        background = FinnButtonElementColors(
+            default = Bluegray300,
+            active = Bluegray300
+        ),
+        border = null
+    )
+    override val quiet: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Blue600,
+        background = FinnButtonElementColors(
+            default = Transparent,
+            active = Bluegray200
+        ),
+        border = null
+    )
+    override val negative: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = White,
+        background = FinnButtonElementColors(
+            default = Red600,
+            active = Red800
+        ),
+        border = null
+    )
+    override val negativeQuiet: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Red600,
+        background = FinnButtonElementColors(
+            default = Transparent,
+            active = Red200
+        ),
+        border = null
+    )
+    override val utility: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Gray700,
+        background = FinnButtonElementColors(
+            default = White,
+            active = Bluegray200
+        ),
+        border = FinnButtonElementColors(
+            default = Bluegray300,
+            active = Bluegray500
+        )
+    )
+    override val utilityOverlay: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Gray700,
+        background = FinnButtonElementColors(
+            default = White,
+            active = Bluegray200
+        ),
+        border = null
+    )
+    override val utilityQuiet: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Gray700,
+        background = FinnButtonElementColors(
+            default = Transparent,
+            active = Transparent
+        ),
+        border = null
+    )
+    override val loading: FinnButtonStyleColors = FinnButtonStyleColors(
+        text = Gray500,
+        background = FinnButtonElementColors(
+            default = Bluegray50,
+            active = Bluegray200
+        ),
+        border = null
+    )
 }
 
 object FinnTabColors: WarpTabColors {
@@ -49,17 +138,17 @@ object FinnTextFieldColors : WarpTextFieldColors {
     override val text: Color = Gray700
     override val hintText: Color= Bluegray300
     override val disabledText: Color = Bluegray300
-    override val errorText: Color = Gray700
+    override val errorText: Color = Red600
     override val readOnlyText: Color = Gray700
     override val errorIconColor: Color = Red600
     override val background: Color = White
-    override val disabledBackground: Color = Gray200
-    override val border: Color = Gray300
+    override val disabledBackground: Color = Bluegray300
+    override val border: Color = Bluegray300
     override val activeBorder: Color = Blue600
     override val disabledBorder: Color = Bluegray300
     override val errorBorder: Color = Red600
-    override val caret: Color = Blue600
-    override val iconTint: Color = Gray500
+    override val caret: Color = Gray700
+    override val iconTint: Color = Gray700
 }
 
 object FinnAlertColors : WarpAlertColors {
@@ -85,18 +174,22 @@ object FinnAlertColors : WarpAlertColors {
     )
 }
 
+data class FinnButtonStyleColors(
+    override val text: Color,
+    override val background: FinnButtonElementColors,
+    override val border: FinnButtonElementColors?
+) : WarpButtonStyleColors
+
+data class FinnButtonElementColors(
+    override val default: Color,
+    override val active: Color
+) : WarpButtonElementColors
+
 data class FinnAlertStyleColors(
     override val background: Color,
     override val leftBorder: Color,
     override val border: Color
 ) : WarpAlertStyleColors
-
-object FinnDarkColors : WarpColors {
-    override val background: Color = Blue500 // TODO darkmode theme
-    override val primary: Color = Blue500 //todo darkmode for this color
-    override val secondary: Color = White
-    override val components: WarpComponentColors = FinnComponentColors // TODO darkmode variant
-}
 
 object FinnBoxColors : WarpBoxColors {
     override val neutral = WarpComponentBackground(Bluegray50, null)
