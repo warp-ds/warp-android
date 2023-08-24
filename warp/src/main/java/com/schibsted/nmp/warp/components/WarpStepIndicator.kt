@@ -13,10 +13,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
@@ -30,14 +32,20 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.theme.LocalColors
+import com.schibsted.nmp.warp.theme.LocalDimensions
+import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.StepIndicatorDimensions
 import com.schibsted.nmp.warp.theme.WarpBrandedTheme
-import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import java.lang.Float.min
 import kotlin.math.floor
@@ -51,8 +59,8 @@ import kotlin.math.max
  * @param steps Amount of steps. Must be greater than 1
  * @param activeStep Currently active step
  * @param onStepClicked will be invoked if a step is clicked
- * @param stepTitle Composable that will be drawn with the step
- * @param stepDescription Composable that will be drawn below the title
+ * @param stepTitle Function to provide titles for the steps
+ * @param stepContent Composable containing the content of each step
  */
 @Composable
 fun VerticalWarpStepIndicator(
@@ -60,177 +68,199 @@ fun VerticalWarpStepIndicator(
     steps: Int,
     activeStep: Int,
     onStepClicked: ((Int) -> Unit)?,
-    stepTitle: @Composable (Int) -> Unit,
-    stepDescription: @Composable (Int) -> Unit
+    stepTitle: (Int) -> String,
+    stepContent: @Composable (Int) -> Unit
 ) {
     require(steps > 1)
-    val colors = WarpTheme.colors.components.stepIndicator
-    val animatedStep = animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
-    val dimensions = WarpTheme.dimensions.components.stepIndicator
+    CompositionLocalProvider(
+        LocalColors provides colors,
+        LocalDimensions provides dimensions,
+        LocalTypography provides typography
+    ) {
+        val colors = colors.components.stepIndicator
+
+        val animatedStep =
+            animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
+        val dimensions = dimensions.components.stepIndicator
 
 
-    val thresholds = remember { FloatArray(steps - 1) { 1.0f } }
+        val thresholds = remember { FloatArray(steps - 1) { 1.0f } }
 
-    Layout(
-        measurePolicy = customVerticalMeasurePolicy(dimensions),
-        modifier = modifier,
-        content = {
-            for (i in 0 until steps - 1) {
-                Canvas(
-                    modifier = Modifier.layoutId(StepIndicatorIds.TRACK)
-                ) {
-                    // In the vertical configuration the tracks have different length so we need to
-                    // calculate the break point for each individually
-                    thresholds[i] = 1 - (dimensions.placeholderIndicatorSize.dp.toPx() / (dimensions.placeholderIndicatorSize.dp.toPx() + size.height))
+        Layout(
+            measurePolicy = customVerticalMeasurePolicy(dimensions),
+            modifier = modifier,
+            content = {
+                for (i in 0 until steps - 1) {
+                    Canvas(
+                        modifier = Modifier.layoutId(StepIndicatorIds.TRACK)
+                    ) {
+                        // In the vertical configuration the tracks have different length so we need to
+                        // calculate the break point for each individually
+                        thresholds[i] =
+                            1 - (dimensions.placeholderIndicatorSize.dp.toPx() / (dimensions.placeholderIndicatorSize.dp.toPx() + size.height))
 
-                    if (i < floor(animatedStep.toDouble())) {
-                        // The track index is below the currently animated one so it is completed
-                        drawLine(
-                            color = colors.backgroundTrackActive,
-                            start = Offset(size.width / 2, 0f),
-                            end = Offset(size.width / 2, size.height),
-                            strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
-                        )
-                    } else if (i > floor(animatedStep.toDouble())) {
-                        // The track index is greater than the currently animated one so it is inactive
-                        drawLine(
-                            color = colors.backgroundTrack,
-                            start = Offset(size.width / 2, 0f),
-                            end = Offset(size.width / 2, size.height),
-                            strokeWidth = dimensions.placeholderTrackWidth.dp.toPx())
-                    } else {
-                        // The track index is the one currently being animated
-
-                        // Calculate the current fraction of the animation for the entire section
-                        val frac = animatedStep - i
-                        // Calculate the fraction for the track part
-                        val tFrac = frac / thresholds[i]
-                        // Calculate the height of the part of the track that is "active". Since the
-                        // animation covers the indicator as well as the track the value will
-                        // eventually be greater than the height we take the smaller value
-                        val fracHeight = min(tFrac * size.height, size.height)
-
-                        // Some part of the track should be "active"
-                        if (fracHeight > 0.0f) {
+                        if (i < floor(animatedStep.toDouble())) {
+                            // The track index is below the currently animated one so it is completed
                             drawLine(
                                 color = colors.backgroundTrackActive,
                                 start = Offset(size.width / 2, 0f),
-                                end = Offset(size.width / 2, fracHeight),
-                                strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
-                            )
-                        }
-                        // Some part of the track should be "inactive"
-                        if (fracHeight < size.height) {
-                            drawLine(
-                                color = colors.backgroundTrack,
-                                start = Offset(size.width / 2, fracHeight),
                                 end = Offset(size.width / 2, size.height),
                                 strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
                             )
-                        }
-                    }
-                }
-            }
+                        } else if (i > floor(animatedStep.toDouble())) {
+                            // The track index is greater than the currently animated one so it is inactive
+                            drawLine(
+                                color = colors.backgroundTrack,
+                                start = Offset(size.width / 2, 0f),
+                                end = Offset(size.width / 2, size.height),
+                                strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                            )
+                        } else {
+                            // The track index is the one currently being animated
 
-            val icon = rememberVectorPainter(image = Icons.Filled.Check)
-
-            for (i in 0 until steps) {
-                Canvas(
-                    modifier = Modifier
-                        .layoutId(StepIndicatorIds.INDICATOR)
-                        .clip(CircleShape)
-                        .let {
-                            if (onStepClicked != null) {
-                                it.clickable {
-                                    onStepClicked(i)
-                                }
-                            } else {
-                                it
-                            }
-                        }
-                ) {
-                    when {
-                        // Indicator is already passed so it should have the active color and an icon
-                        (i < floor(animatedStep.toDouble())) -> {
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                                top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(dimensions.placeholderIconSize.dp.toPx(), dimensions.placeholderIconSize.dp.toPx()),
-                                        colorFilter = ColorFilter.tint(colors.icon))
-                                }
-
-                            }
-                        }
-                        // Indicator is the one we just passed so animate in the icon by adjusting the alpha
-                        (i.toDouble() == floor(animatedStep.toDouble())) -> {
+                            // Calculate the current fraction of the animation for the entire section
                             val frac = animatedStep - i
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                                top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(dimensions.placeholderIconSize.dp.toPx(), dimensions.placeholderIconSize.dp.toPx()),
-                                        alpha = frac,
-                                        colorFilter = ColorFilter.tint(colors.icon))
-                                }
+                            // Calculate the fraction for the track part
+                            val tFrac = frac / thresholds[i]
+                            // Calculate the height of the part of the track that is "active". Since the
+                            // animation covers the indicator as well as the track the value will
+                            // eventually be greater than the height we take the smaller value
+                            val fracHeight = min(tFrac * size.height, size.height)
 
+                            // Some part of the track should be "active"
+                            if (fracHeight > 0.0f) {
+                                drawLine(
+                                    color = colors.backgroundTrackActive,
+                                    start = Offset(size.width / 2, 0f),
+                                    end = Offset(size.width / 2, fracHeight),
+                                    strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                                )
                             }
-                        }
-                        // Indicator index is greater than the one we are animating towards
-                        (i > floor(animatedStep.toDouble() + 1)) -> {
-                            drawCircle(
-                                colors.background,
-                                style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
-                                radius = size.minDimension/2f // - dimensions.placeholderBorderWidth.dp.toPx()/2
-                            )
-                        }
-                        // Indicator is the one we are currently animating towards
-                        else -> {
-                            val frac = animatedStep - (i - 1)
-                            // First draw a regular indicator
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
-                                radius = size.minDimension/2f // - dimensions.placeholderBorderWidth.dp.toPx()/2
-                            )
-                            // Check if the animation is above the threshold for when the indicator
-                            // should start its animation
-                            if (frac > thresholds[i - 1]) {
-                                // Calculate the progress of the indicator part
-                                val indicatorFraction = (frac - thresholds[i - 1]) / (1 - thresholds[i - 1])
-                                // Just paint over the current fraction of the height with BlendMode.SrcAtop
-                                // to tint the indicator
-                                drawRect(
-                                    color = colors.backgroundActive,
-                                    topLeft = Offset.Zero,
-                                    size = size.copy(height = size.height * indicatorFraction),
-                                    blendMode = BlendMode.SrcAtop
+                            // Some part of the track should be "inactive"
+                            if (fracHeight < size.height) {
+                                drawLine(
+                                    color = colors.backgroundTrack,
+                                    start = Offset(size.width / 2, fracHeight),
+                                    end = Offset(size.width / 2, size.height),
+                                    strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
                                 )
                             }
                         }
                     }
                 }
-            }
-            for (i in 0 until steps) {
-                Box(
-                    modifier = Modifier.layoutId(StepIndicatorIds.LABEL)
-                ) {
-                    stepTitle(i)
+
+                val icon = rememberVectorPainter(image = Icons.Filled.Check)
+
+                for (i in 0 until steps) {
+                    Canvas(
+                        modifier = Modifier
+                            .layoutId(StepIndicatorIds.INDICATOR)
+                            .clip(CircleShape)
+                            .let {
+                                if (onStepClicked != null) {
+                                    it.clickable {
+                                        onStepClicked(i)
+                                    }
+                                } else {
+                                    it
+                                }
+                            }
+                    ) {
+                        when {
+                            // Indicator is already passed so it should have the active color and an icon
+                            (i < floor(animatedStep.toDouble())) -> {
+                                drawCircle(colors.backgroundActive)
+                                translate(
+                                    left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                    top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                ) {
+                                    with(icon) {
+                                        draw(
+                                            size = Size(
+                                                dimensions.placeholderIconSize.dp.toPx(),
+                                                dimensions.placeholderIconSize.dp.toPx()
+                                            ),
+                                            colorFilter = ColorFilter.tint(colors.icon)
+                                        )
+                                    }
+
+                                }
+                            }
+                            // Indicator is the one we just passed so animate in the icon by adjusting the alpha
+                            (i.toDouble() == floor(animatedStep.toDouble())) -> {
+                                val frac = animatedStep - i
+                                drawCircle(colors.backgroundActive)
+                                translate(
+                                    left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                    top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                ) {
+                                    with(icon) {
+                                        draw(
+                                            size = Size(
+                                                dimensions.placeholderIconSize.dp.toPx(),
+                                                dimensions.placeholderIconSize.dp.toPx()
+                                            ),
+                                            alpha = frac,
+                                            colorFilter = ColorFilter.tint(colors.icon)
+                                        )
+                                    }
+
+                                }
+                            }
+                            // Indicator index is greater than the one we are animating towards
+                            (i > floor(animatedStep.toDouble() + 1)) -> {
+                                drawCircle(
+                                    colors.background,
+                                    style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
+                                    radius = size.minDimension / 2f // - dimensions.placeholderBorderWidth.dp.toPx()/2
+                                )
+                            }
+                            // Indicator is the one we are currently animating towards
+                            else -> {
+                                val frac = animatedStep - (i - 1)
+                                // First draw a regular indicator
+                                drawCircle(
+                                    color = colors.background,
+                                    style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
+                                    radius = size.minDimension / 2f // - dimensions.placeholderBorderWidth.dp.toPx()/2
+                                )
+                                // Check if the animation is above the threshold for when the indicator
+                                // should start its animation
+                                if (frac > thresholds[i - 1]) {
+                                    // Calculate the progress of the indicator part
+                                    val indicatorFraction =
+                                        (frac - thresholds[i - 1]) / (1 - thresholds[i - 1])
+                                    // Just paint over the current fraction of the height with BlendMode.SrcAtop
+                                    // to tint the indicator
+                                    drawRect(
+                                        color = colors.backgroundActive,
+                                        topLeft = Offset.Zero,
+                                        size = size.copy(height = size.height * indicatorFraction),
+                                        blendMode = BlendMode.SrcAtop
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
-                Box(
-                    modifier = Modifier.layoutId(StepIndicatorIds.DESCRIPTION)
-                ) {
-                    stepDescription(i)
+                for (i in 0 until steps) {
+                    Box(
+                        modifier = Modifier.layoutId(StepIndicatorIds.LABEL)
+                    ) {
+                        Text(
+                            stepTitle(i),
+                            style = typography.bodyStrong
+                        )
+                    }
+                    Box(
+                        modifier = Modifier.layoutId(StepIndicatorIds.CONTENT)
+                    ) {
+                        stepContent(i)
+                    }
                 }
             }
-        }
-    )
+        )
+    }
 }
 
 private fun customVerticalMeasurePolicy(
@@ -253,7 +283,7 @@ private fun customVerticalMeasurePolicy(
     // Next up is the text, the text can use the entire width except for that of the indicator
     val textConstraints = constraints.copy(minWidth = 0, maxWidth = constraints.maxWidth - indicatorSize)
     val labelPlaceables = measurables.filter { it.layoutId == StepIndicatorIds.LABEL }.map { it.measure(textConstraints) }
-    val descriptionPlaceables = measurables.filter { it.layoutId == StepIndicatorIds.DESCRIPTION }.map { it.measure(textConstraints) }
+    val descriptionPlaceables = measurables.filter { it.layoutId == StepIndicatorIds.CONTENT }.map { it.measure(textConstraints) }
 
     val indicatorPlacements = mutableListOf<Pair<Placeable, IntOffset>>()
     val descriptionPlacements = mutableListOf<Pair<Placeable, IntOffset>>()
@@ -327,6 +357,205 @@ private fun customVerticalMeasurePolicy(
 
     }
 }
+
+/**
+ * A component for showing progress through a series of steps.
+ * @param modifier Modifier to be applied to the component
+ * @param steps Number of steps to display in the component. Must be greater than 1
+ * @param activeStep The currently active step
+ * @param onStepClicked Optional callback for when a step is clicked
+ * @param label Function to provide titles for each step
+ * @param description Optional function to provide descriptions for each step
+ */
+@Composable
+fun HorizontalWarpStepIndicator(
+    modifier: Modifier = Modifier,
+    steps: Int,
+    activeStep: Int = 0,
+    onStepClicked: ((Int) -> Unit)? = null,
+    label: (Int) -> String,
+    description: ((Int) -> String)? = null,
+) {
+    require(steps > 1)
+
+    CompositionLocalProvider(
+        LocalColors provides colors,
+        LocalDimensions provides dimensions,
+        LocalTypography provides typography
+    ) {
+        val colors = colors.components.stepIndicator
+
+        val animatedStep = animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
+        val dimensions = dimensions.components.stepIndicator
+
+        var threshold by remember { mutableStateOf(1.0f) }
+
+        Layout(
+            measurePolicy = customHorizontalMeasurePolicy(
+                steps,
+                dimensions
+            ),
+            modifier = modifier,
+            content = {
+                // Draw up the lines between the dots
+                for (i in 0 until steps - 1) {
+                    Canvas(
+                        Modifier
+                            .layoutId(StepIndicatorIds.TRACK)
+                            .fillMaxWidth()
+                    ) {
+                        val indicatorSize = dimensions.placeholderIndicatorSize.dp.toPx()
+                        // set the threshold now that we have the size
+                        threshold = 1 - (indicatorSize / (indicatorSize + size.width))
+                        if (i < floor(animatedStep.toDouble())) {
+                            // The line is between two visited dots so it should be in the "active" color
+                            drawLine(
+                                color = colors.backgroundTrackActive,
+                                start = Offset(0f, size.height / 2),
+                                end = Offset(size.width, size.height / 2),
+                                strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                            )
+
+                        } else if (i > floor(animatedStep.toDouble())) {
+                            // The line is between two dots that haven't been visited so it should be the regular color
+                            drawLine(
+                                color = colors.backgroundTrack,
+                                start = Offset(0f, size.height / 2),
+                                end = Offset(size.width, size.height / 2),
+                                strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                            )
+
+                        } else {
+                            // The line is between the previously active and the next active
+                            val frac = animatedStep - i
+                            val tFrac = frac / threshold
+                            val fracWidth = min((tFrac) * size.width, size.width)
+
+                            // A portion of the line should be in the active color
+                            if (fracWidth > 0.0f) {
+                                drawLine(
+                                    color = colors.backgroundTrackActive,
+                                    start = Offset(0f, size.height / 2),
+                                    end = Offset(fracWidth, size.height / 2),
+                                    strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                                )
+                            }
+                            // A portion should be in the regular color
+                            if (fracWidth < size.width) {
+                                drawLine(
+                                    color = colors.backgroundTrack,
+                                    start = Offset(fracWidth, size.height / 2),
+                                    end = Offset(size.width, size.height / 2),
+                                    strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
+                                )
+                            }
+                        }
+                    }
+                }
+
+                val icon = rememberVectorPainter(image = Icons.Filled.Check)
+                // Draw the dots
+                for (i in 0 until steps) {
+                    Canvas(
+                        Modifier
+                            .layoutId(StepIndicatorIds.INDICATOR)
+                            .clip(CircleShape)
+                            .clickable { onStepClicked?.let { it(i) } }
+                    ) {
+                        when {
+                            (i < floor(animatedStep.toDouble())) -> {
+                                drawCircle(colors.backgroundActive)
+                                translate(
+                                    left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                    top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                ) {
+                                    with(icon) {
+                                        draw(
+                                            size = Size(
+                                                dimensions.placeholderIconSize.dp.toPx(),
+                                                dimensions.placeholderIconSize.dp.toPx()
+                                            ),
+                                            colorFilter = ColorFilter.tint(colors.icon)
+                                        )
+                                    }
+
+                                }
+                            }
+
+                            (i.toDouble() == floor(animatedStep.toDouble())) -> {
+                                val frac = animatedStep - i
+                                drawCircle(colors.backgroundActive)
+                                translate(
+                                    left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                    top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
+                                ) {
+                                    with(icon) {
+                                        draw(
+                                            size = Size(
+                                                dimensions.placeholderIconSize.dp.toPx(),
+                                                dimensions.placeholderIconSize.dp.toPx()
+                                            ),
+                                            alpha = frac,
+                                            colorFilter = ColorFilter.tint(colors.icon)
+                                        )
+                                    }
+
+                                }
+                            }
+
+                            (i > floor(animatedStep.toDouble() + 1)) -> {
+                                drawCircle(
+                                    color = colors.background,
+                                    style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
+                                    radius = size.minDimension / 2f - dimensions.placeholderBorderWidth.dp.toPx() / 2
+                                )
+                            }
+
+                            else -> {
+                                if (threshold == 0.0f) return@Canvas
+                                val frac = animatedStep - (i - 1)
+                                drawCircle(
+                                    color = colors.background,
+                                    style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
+                                    radius = size.minDimension / 2f - dimensions.placeholderBorderWidth.dp.toPx() / 2
+                                )
+                                if (frac > threshold) {
+                                    val tFrac = (frac - threshold) / (1 - threshold)
+                                    drawRect(
+                                        colors.backgroundActive,
+                                        Offset.Zero,
+                                        size.copy(width = size.width * tFrac),
+                                        blendMode = BlendMode.SrcAtop
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Draw the labels
+                for (i in 1..steps) {
+                    Column(modifier = Modifier.layoutId(StepIndicatorIds.LABEL), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            label(i),
+                            textAlign = TextAlign.Center,
+                            style = typography.bodyStrong
+                        )
+                        description?.let {
+                            Text(
+                                it(i),
+                                textAlign = TextAlign.Center,
+                                style = typography.caption
+                            )
+                        }
+                    }
+                }
+
+            }
+        )
+    }
+}
+
 private fun customHorizontalMeasurePolicy(
     steps: Int,
     dimensions: StepIndicatorDimensions
@@ -351,10 +580,16 @@ private fun customHorizontalMeasurePolicy(
     val indicatorWidth = indicatorPlaceables.first().width
 
     // Check if the labels or indicators on the end are widest
-    val maxLabel = max(labelPlaceables.firstOrNull()?.width ?: 0, labelPlaceables.lastOrNull()?.width ?: 0) / 2 - indicatorWidth / 2
-    val endSpace = max(indicatorWidth / 2, maxLabel)
 
-    val space = (width - indicatorWidth * steps - 2 * endSpace) / (steps - 1)
+    val maxLabel = max(labelPlaceables.firstOrNull()?.width ?: 0, labelPlaceables.lastOrNull()?.width ?: 0) / 2
+    val (labelPadding, indicatorPadding) = if (maxLabel > indicatorWidth / 2) {
+        0 to maxLabel
+    } else {
+        indicatorWidth / 2 to 0
+    }
+
+
+    val space = (width - indicatorWidth * steps - max(indicatorPadding, labelPadding)) / (steps - 1)
     val linePlaceables = measurables.filter { it.layoutId == StepIndicatorIds.TRACK}.map {
         // Adjust the width just a little so we do not get gaps from the curvature of the indicators
         it.measure(constraints.copy(minWidth = space + 2, maxWidth = space + 2))
@@ -367,191 +602,28 @@ private fun customHorizontalMeasurePolicy(
     layout(width, height) {
 
         linePlaceables.forEachIndexed { index, placeable ->
-            val xPos = endSpace + space * index + indicatorWidth * (index + 1) - 1
+            val padding = if (indicatorPadding > 0) indicatorPadding - indicatorWidth/2 else 0
+            val xPos = padding + space * index + indicatorWidth * (index + 1) - 1
             placeable.place(xPos, labelHeight + indicatorWidth / 2)
         }
         indicatorPlaceables.forEachIndexed { index, placeable ->
-            val xPos = endSpace + space * index + indicatorWidth * index
+            val padding = if (indicatorPadding > 0) indicatorPadding - indicatorWidth/2 else 0
+            val xPos = padding + space * index + indicatorWidth * index
             placeable.place(xPos, labelHeight)
         }
         labelPlaceables.forEachIndexed { index, placeable ->
-            val xPos = space * index + indicatorWidth * index
+            val padding = if (labelPadding > 0) labelPadding - placeable.width/2 else 0
+            val xPos = padding + space * index + indicatorWidth * index
             placeable.place(xPos, 0)
         }
-
     }
-}
-
-/**
- * A component for showing progress through a series of steps.
- * @param modifier Modifier to be applied to the component
- * @param steps Number of steps to display in the component. Must be greater than 1
- * @param activeStep The currently active step
- * @param onStepClicked Optional callback for when a step is clicked
- * @param label Optional composable to layout above each step. The argument to the function is the index of the step
- */
-@Composable
-fun HorizontalWarpStepIndicator(
-    modifier: Modifier = Modifier,
-    steps: Int,
-    activeStep: Int = 0,
-    onStepClicked: ((Int) -> Unit)? = null,
-    label: @Composable ((Int) -> Unit)? = null
-) {
-    require(steps > 1)
-    val colors = WarpTheme.colors.components.stepIndicator
-    val animatedStep = animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
-    val dimensions = WarpTheme.dimensions.components.stepIndicator
-
-    var threshold by remember { mutableStateOf(1.0f) }
-
-    Layout(
-        measurePolicy = customHorizontalMeasurePolicy(
-            steps,
-            dimensions
-        ),
-        modifier = modifier,
-        content = {
-            // Draw up the lines between the dots
-            for (i in 0 until steps - 1) {
-                Canvas(
-                    Modifier
-                        .layoutId(StepIndicatorIds.TRACK)
-                        .fillMaxWidth()) {
-                    val indicatorSize = dimensions.placeholderIndicatorSize.dp.toPx()
-                    // set the threshold now that we have the size
-                    threshold = 1 - (indicatorSize / (indicatorSize + size.width))
-                    if (i < floor(animatedStep.toDouble())) {
-                        // The line is between two visited dots so it should be in the "active" color
-                        drawLine(
-                            color = colors.backgroundTrackActive,
-                            start = Offset(0f, size.height/2),
-                            end = Offset(size.width, size.height/2),
-                            strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
-                        )
-
-                    } else if (i > floor(animatedStep.toDouble())) {
-                        // The line is between two dots that haven't been visited so it should be the regular color
-                        drawLine(
-                            color = colors.backgroundTrack,
-                            start = Offset(0f, size.height/2),
-                            end = Offset(size.width, size.height/2),
-                            strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
-                        )
-
-                    } else {
-                        // The line is between the previously active and the next active
-                        val frac = animatedStep - i
-                        val tFrac = frac / threshold
-                        val fracWidth = min((tFrac) * size.width, size.width)
-
-                        // A portion of the line should be in the active color
-                        if (fracWidth > 0.0f) {
-                            drawLine(
-                                color = colors.backgroundTrackActive,
-                                start = Offset(0f, size.height / 2),
-                                end = Offset(fracWidth, size.height / 2),
-                                strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
-                            )
-                        }
-                        // A portion should be in the regular color
-                        if (fracWidth < size.width) {
-                            drawLine(
-                                color = colors.backgroundTrack,
-                                start = Offset(fracWidth, size.height / 2),
-                                end = Offset(size.width , size.height / 2),
-                                strokeWidth = dimensions.placeholderTrackWidth.dp.toPx()
-                            )
-                        }
-                    }
-                }
-            }
-
-            val icon = rememberVectorPainter(image = Icons.Filled.Check)
-            // Draw the dots
-            for (i in 0 until steps) {
-                Canvas(
-                    Modifier
-                        .layoutId(StepIndicatorIds.INDICATOR)
-                        .clip(CircleShape)
-                        .clickable { onStepClicked?.let { it(i) } }
-                ) {
-                    when {
-                        (i < floor(animatedStep.toDouble())) -> {
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                                top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(dimensions.placeholderIconSize.dp.toPx(), dimensions.placeholderIconSize.dp.toPx()),
-                                        colorFilter = ColorFilter.tint(colors.icon))
-                                }
-
-                            }                        }
-                        (i.toDouble() == floor(animatedStep.toDouble())) -> {
-                            val frac = animatedStep - i
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                                top = size.height / 2 - dimensions.placeholderIconSize.dp.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(dimensions.placeholderIconSize.dp.toPx(), dimensions.placeholderIconSize.dp.toPx()),
-                                        alpha = frac,
-                                        colorFilter = ColorFilter.tint(colors.icon))
-                                }
-
-                            }
-                        }
-                        (i > floor(animatedStep.toDouble() + 1)) -> {
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
-                                radius = size.minDimension/2f - dimensions.placeholderBorderWidth.dp.toPx() / 2
-                            )
-                        }
-                        else -> {
-                            if (threshold == 0.0f) return@Canvas
-                            val frac = animatedStep - (i - 1)
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(dimensions.placeholderBorderWidth.dp.toPx()),
-                                radius = size.minDimension/2f - dimensions.placeholderBorderWidth.dp.toPx() / 2
-                            )
-                            if (frac > threshold) {
-                                val tFrac = (frac - threshold) / (1 - threshold)
-                                drawRect(
-                                    colors.backgroundActive,
-                                    Offset.Zero,
-                                    size.copy(width = size.width * tFrac),
-                                    blendMode = BlendMode.SrcAtop
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Draw the labels
-            label?.let {
-                for (i in 1..steps) {
-                    Box(modifier = Modifier.layoutId(StepIndicatorIds.LABEL)) {
-                        label(i)
-                    }
-                }
-            }
-        }
-    )
 }
 
 private object StepIndicatorIds {
     const val TRACK = "track"
     const val LABEL = "label"
     const val INDICATOR = "indicator"
-    const val DESCRIPTION = "description"
+    const val CONTENT = "content"
 }
 
 @Preview
@@ -560,7 +632,7 @@ fun HorizontalPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
     var active by remember { mutableStateOf(0) }
-    WarpBrandedTheme(flavor = flavor, darkTheme = isSystemInDarkTheme()) {
+    WarpBrandedTheme(flavor = "finn", darkTheme = isSystemInDarkTheme()) {
 
         Column {
             HorizontalWarpStepIndicator(
@@ -568,7 +640,8 @@ fun HorizontalPreview(
                 5,
                 active,
                 { active = it },
-                { Text("step: $it") }
+                { "step $it" },
+                { "Description $it" }
             )
 
             WarpButton(onClick = { active = (active + 1).mod(6)  }, buttonStyle = WarpButtonStyle.Primary) {
@@ -594,8 +667,8 @@ internal fun VerticalPreview(
                 steps = 5,
                 activeStep = active,
                 onStepClicked = { active = it },
-                stepTitle = { Text("Step ${it + 1}", style = WarpTheme.typography.title4) },
-                stepDescription = { Text("Description", style = WarpTheme.typography.caption) }
+                stepTitle = { "Step ${it + 1}" },
+                stepContent = { Text("Content", style = typography.caption) }
             )
             WarpButton(onClick = { active = (active + 1).mod(6)  }, buttonStyle = WarpButtonStyle.Primary) {
                 Text("Next")

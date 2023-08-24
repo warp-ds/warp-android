@@ -50,7 +50,7 @@ private fun StepIndicatorScreenContent() {
             steps = 3,
             activeStep = hState,
             onStepClicked = {hState = it},
-            label = { Text("Step $it", style = WarpTheme.typography.title4) }
+            label = { "Step $it" }
         )
 
         Text(modifier = Modifier.padding(top = 24.dp), text = "Vertical", style = WarpTheme.typography.title3)
@@ -59,7 +59,7 @@ private fun StepIndicatorScreenContent() {
             steps = 5,
             activeStep = wState,
             onStepClicked = { wState = it},
-            stepTitle = { Text(modifier = Modifier.padding(start = 16.dp), text = "Step $it", style = WarpTheme.typography.title4) }
+            stepTitle = { "Step $it" }
         ) {
             Column(modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)) {
                 Text("Here we can have some text and maybe something else", style = WarpTheme.typography.body)
