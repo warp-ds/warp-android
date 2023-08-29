@@ -43,7 +43,6 @@ import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
 import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.Transparent
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpRippleTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -308,60 +307,54 @@ class WarpButtonView @JvmOverloads constructor(
 fun WarpButtonPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    WarpBrandedTheme(
-        flavor = flavor,
-        darkTheme = false
-    )
-    {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            WarpButton(
-                text = "Take me to NMP",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.Primary
-            )
-            WarpButton(
-                text = "Buy a duck",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.Secondary
-            )
-            WarpButton(
-                text = "Sell a duck",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.Tertiary
-            )
-            WarpButton(
-                text = "This duck cannot be sold!",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.Critical
-            )
-            WarpButton(
-                text = "This duck was already sold!",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.CriticalQuiet
-            )
-            WarpButton(
-                text = "Duck",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.Utility
-            )
-            WarpButton(
-                text = "Duck duck",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.UtilityQuiet
-            )
-            WarpButton(
-                text = "Duck duck duck",
-                onClick = {},
-                buttonStyle = WarpButtonStyle.UtilityOverlay
-            )
-            WarpButton(
-                text = "Loading",
-                loading = true,
-                onClick = {},
-                buttonStyle = WarpButtonStyle.UtilityQuiet
-            )
-        }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        WarpButton(
+            text = "Take me to NMP",
+            onClick = {},
+            buttonStyle = WarpButtonStyle.Primary
+        )
+        WarpButton(
+            text = "Buy a duck",
+            onClick = {},
+            buttonStyle = WarpButtonStyle.Secondary
+        )
+        WarpButton(
+            text = "Sell a duck",
+            onClick = {},
+            buttonStyle = WarpButtonStyle.Tertiary
+        )
+        WarpButton(
+            text = "This duck cannot be sold!",
+            onClick = {},
+            buttonStyle = WarpButtonStyle.Critical
+        )
+        WarpButton(
+            text = "This duck was already sold!",
+            onClick = {},
+            buttonStyle = WarpButtonStyle.CriticalQuiet
+        )
+        WarpButton(
+            text = "Duck",
+            onClick = {},
+            buttonStyle = WarpButtonStyle.Utility
+        )
+        WarpButton(
+            text = "Duck duck",
+            onClick = {},
+            buttonStyle = WarpButtonStyle.UtilityQuiet
+        )
+        WarpButton(
+            text = "Duck duck duck",
+            onClick = {},
+            buttonStyle = WarpButtonStyle.UtilityOverlay
+        )
+        WarpButton(
+            text = "Loading",
+            loading = true,
+            onClick = {},
+            buttonStyle = WarpButtonStyle.UtilityQuiet
+        )
     }
 }

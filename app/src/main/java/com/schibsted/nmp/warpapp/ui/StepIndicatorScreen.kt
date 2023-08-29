@@ -1,6 +1,5 @@
 package com.schibsted.nmp.warpapp.ui
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,7 +19,6 @@ import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
 import com.schibsted.nmp.warp.components.VerticalWarpStepIndicator
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
@@ -88,10 +86,5 @@ private fun StepIndicatorScreenContent() {
 private fun WarpStepIndicatorScreenPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    WarpBrandedTheme(
-        flavor = flavor,
-        darkTheme = isSystemInDarkTheme()
-    ) {
-        StepIndicatorScreenContent()
-    }
+    StepIndicatorScreenContent()
 }

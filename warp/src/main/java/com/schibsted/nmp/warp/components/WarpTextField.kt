@@ -5,7 +5,6 @@ package com.schibsted.nmp.warp.components
 import android.content.Context
 import android.util.AttributeSet
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,7 +38,6 @@ import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalTypography
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
@@ -280,14 +278,12 @@ fun <T> T.ifTrueOtherwise(predicate: Boolean, block: () -> T): T = if (predicate
 fun WarpTextFieldPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    WarpBrandedTheme(flavor = flavor, darkTheme = isSystemInDarkTheme()) {
-        WarpTextField(
-            value = "",
-            label = "Hello",
-            optionalLabel = "Hey hey",
-            helpText = "Help text",
-            placeholderText = "Hint",
-            onValueChange = {}
-        )
-    }
+    WarpTextField(
+        value = "",
+        label = "Hello",
+        optionalLabel = "Hey hey",
+        helpText = "Help text",
+        placeholderText = "Hint",
+        onValueChange = {}
+    )
 }

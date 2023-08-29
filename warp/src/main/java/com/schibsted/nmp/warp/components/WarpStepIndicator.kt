@@ -3,7 +3,6 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,7 +41,6 @@ import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.StepIndicatorDimensions
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
@@ -634,8 +632,6 @@ fun HorizontalPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
     var active by remember { mutableStateOf(0) }
-    WarpBrandedTheme(flavor = flavor, darkTheme = isSystemInDarkTheme()) {
-
         Column {
             HorizontalWarpStepIndicator(
                 Modifier,
@@ -650,7 +646,6 @@ fun HorizontalPreview(
                 Text("Next")
             }
         }
-    }
 }
 
 @Preview
@@ -659,10 +654,7 @@ internal fun VerticalPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
     var active by remember { mutableStateOf(0) }
-    WarpBrandedTheme(
-        flavor,
-        isSystemInDarkTheme()
-    ) {
+
         Column {
             VerticalWarpStepIndicator(
                 modifier = Modifier,
@@ -676,5 +668,5 @@ internal fun VerticalPreview(
                 Text("Next")
             }
         }
-    }
+
 }

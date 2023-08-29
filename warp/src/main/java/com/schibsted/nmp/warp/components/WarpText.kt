@@ -21,11 +21,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
-import com.schibsted.nmp.warp.brands.finn.FinnColors
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalTypography
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
+import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
@@ -158,10 +157,6 @@ class WarpTextView @JvmOverloads constructor(
 fun WarpTextPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    WarpBrandedTheme(
-        flavor = flavor,
-        darkTheme = false
-    ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -170,8 +165,8 @@ fun WarpTextPreview(
                 Modifier
                     .padding(vertical = 8.dp, horizontal = 16.dp),
                 style = WarpTextStyle.Display,
-                color = FinnColors.components.button.primary.text
+                color = WarpTheme.colors.components.button.primary.text
             )
         }
-    }
+
 }

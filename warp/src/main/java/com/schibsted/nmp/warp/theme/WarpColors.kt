@@ -6,7 +6,6 @@ import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import com.schibsted.nmp.warp.brands.finn.FinnColors
 
 interface WarpColors {
     val background: Color
@@ -130,8 +129,8 @@ internal class WarpRippleTheme(
         )
 }
 
-internal val White = Color.White
-internal val Black = Color.Black
-internal val Transparent = Color.Transparent
+val White = Color.White
+val Black = Color.Black
+val Transparent = Color.Transparent
 
-internal val LocalColors = staticCompositionLocalOf<WarpColors> { FinnColors }
+internal val LocalColors = staticCompositionLocalOf<WarpColors> { Placeholders }

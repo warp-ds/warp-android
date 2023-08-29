@@ -53,7 +53,8 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.6.0")
 
-    implementation(project(path = ":warp"))
+    implementation(project(path = ":warp-tori"))
+    implementation(project(path = ":warp-finn"))
 
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
