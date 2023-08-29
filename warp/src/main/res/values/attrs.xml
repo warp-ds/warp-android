@@ -36,4 +36,18 @@
         <attr name="text" format="reference|string" />
         <attr name="color" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="WarpTextField">
+        <attr name="textFieldEnabled" format="boolean"/>
+        <attr name="readOnly" format="boolean"/>
+        <attr name="label" format="reference|string"/>
+        <attr name="optionalLabel" format="reference|string"/>
+        <attr name="placeholderText" format="reference|string"/>
+        <attr name="helpText" format="reference|string"/>
+        <attr name="leadingIcon" format="reference"/>
+        <attr name="leadingIconContentDescr" format="reference|string"/>
+        <attr name="trailingIcon" format="reference"/>
+        <attr name="trailingIconContentDescr" format="reference|string"/>
+        <attr name="isError" format="boolean"/>
+    </declare-styleable>
 </resources>

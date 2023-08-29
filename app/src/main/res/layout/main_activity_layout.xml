@@ -25,6 +25,7 @@
         app:warpButtonStyle="secondary" />
 
     <com.schibsted.nmp.warp.components.WarpTextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -32,5 +33,16 @@
         app:layout_constraintTop_toBottomOf="@id/warp_button"
         app:text="Warpy meowz"
         app:warpTextStyle="display" />
+
+    <com.schibsted.nmp.warp.components.WarpTextFieldView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:label="Label here"
+        app:optionalLabel="Optional"
+        app:placeholderText="Meow?"
+        app:helpText="Meow here"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

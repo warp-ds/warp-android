@@ -2,6 +2,7 @@ package com.schibsted.nmp.warpapp.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,6 +29,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
         Column(
             modifier = Modifier
                 .padding(16.dp)
+                .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
             var text by remember { mutableStateOf("")}
@@ -44,18 +46,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
             val hintText = "This is the placeholder"
             val trailingIcon: @Composable () -> Unit = { Icon(Icons.Filled.DateRange, contentDescription = "Content description for the trailing icon") }
             val leadingIcon: @Composable () -> Unit = { Icon(Icons.Filled.Email, contentDescription = "Content description for the leading icon") }
-            WarpTextField(
-                value = text,
-                onValueChange = { text = it },
-                isError = showError,
-                label = label.takeIf { showLabel },
-                helpText = helpText.takeIf { showHint },
-                hintText = hintText.takeIf { showPlaceholder },
-                leadingIcon = leadingIcon.takeIf { showLeadingIcon },
-                trailingIcon = trailingIcon.takeIf { showTrailingIcon },
-                readOnly = readOnly,
-                enabled = !disabled,
-            )
+
 
             Column(
                 modifier = Modifier.padding(vertical = 8.dp)
@@ -65,7 +56,8 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     value = text,
                     onValueChange = { text = it },
                     helpText = "A hint",
-                    hintText = hintText.takeIf { showPlaceholder },
+                    label = "Standard",
+                    placeholderText = hintText.takeIf { showPlaceholder },
                     )
             }
             Column(
@@ -75,8 +67,9 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
-                    label = "A optional label",
-                    hintText = "A placeholder",
+                    label = "A label",
+                    optionalLabel = "Optional",
+                    placeholderText = "A placeholder",
                 )
             }
             Column(
@@ -141,22 +134,6 @@ fun TextFieldScreen(onUp: () -> Unit) {
 
                     )
             }
-
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(checked = showHint, onCheckedChange = {showHint = it})
-                WarpText("Show supporting text")
-            }
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(checked = showPlaceholder, onCheckedChange = {showPlaceholder = it})
-                WarpText("Show placeholder")
-            }
-
         }
     }
 }
