@@ -14,6 +14,7 @@ interface WarpColors {
 }
 
 interface WarpComponentColors {
+    val badge: WarpBadgeColors
     val button: WarpButtonColors
     val box: WarpBoxColors
     val stepIndicator: WarpStepIndicatorColors
@@ -31,6 +32,20 @@ interface WarpLabelColors {
     val icon: Color
 }
 
+interface WarpBadgeColors {
+    val infoBackground: Color
+    val infoText: Color
+    val positiveBackground: Color
+    val positiveText: Color
+    val warningBackground: Color
+    val warningText: Color
+    val negativeBackground: Color
+    val negativeText: Color
+    val disabledBackground: Color
+    val disabledText: Color
+    val neutralBackground: Color
+    val neutralText: Color
+}
 interface WarpTabColors {
     val selectedContent: Color
     val unselectedContent: Color

@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black
 import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpAlertColors
+import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
@@ -28,6 +29,7 @@ object ToriComponentDarkColors : WarpComponentColors {
     override val textField: WarpTextFieldColors = ToriTextFieldDarkColors
     override val tab: WarpTabColors = ToriTabColors // Todo darkmode
     override val tabRow: WarpTabRowColors = ToriTabRowColors // Todo darkmode
+    override val badge: WarpBadgeColors = ToriBadgeColors // TODO: Darkmode
     override val label: WarpLabelColors = ToriLabelDarkColors
 }
 
