@@ -28,6 +28,19 @@ object WarpDimensions {
     val borderWidth2: Int = 2
     val borderWidth3: Int = 4 // TODO: not sure about this one
     val shadowSmall: Int = 1
+
+    val components = WarpComponentDimensions
+}
+
+object WarpComponentDimensions {
+    val stepIndicator = StepIndicatorDimensions
+}
+
+object StepIndicatorDimensions {
+    val placeholderIndicatorSize = 24
+    val placeholderIconSize = 16
+    val placeholderBorderWidth = 2
+    val placeholderTrackWidth = 2
 }
 
 internal val LocalDimensions = staticCompositionLocalOf { WarpDimensions }

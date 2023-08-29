@@ -11,6 +11,7 @@ import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpColors
+import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.WarpTabColors
@@ -189,6 +190,22 @@ data class FinnAlertStyleColors(
     override val leftBorder: Color,
     override val border: Color
 ) : WarpAlertStyleColors
+
+object FinnBoxColors : WarpBoxColors {
+    override val neutral = WarpComponentBackground(Bluegray50, null)
+    override val info = WarpComponentBackground(Aqua50, null)
+    override val bordered = WarpComponentBackground(White, Bluegray300)
+}
+
+object FinnStepIndicatorColors : WarpStepIndicatorColors {
+    override val background: Color = Bluegray300
+    override val backgroundActive: Color = Blue600
+    override val backgroundTrack: Color = Bluegray300
+    override val backgroundTrackActive: Color = Blue600
+    override val border: Color = Bluegray300
+    override val borderActive: Color = Blue600
+    override val icon: Color = White
+}
 
 //Blue
 internal val Blue50 = Color(0xffeff5ff)
