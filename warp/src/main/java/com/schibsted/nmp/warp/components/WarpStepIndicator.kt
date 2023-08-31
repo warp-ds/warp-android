@@ -49,7 +49,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import java.lang.Float.min
 import kotlin.math.floor
-import kotlin.math.max
 
 
 /**
@@ -373,7 +372,7 @@ fun HorizontalWarpStepIndicator(
     steps: Int,
     activeStep: Int = 0,
     onStepClicked: ((Int) -> Unit)? = null,
-    label: (Int) -> String,
+    label: ((Int) -> String)? = null,
     description: ((Int) -> String)? = null,
 ) {
     require(steps > 1)
@@ -536,11 +535,14 @@ fun HorizontalWarpStepIndicator(
                 // Draw the labels
                 for (i in 1..steps) {
                     Column(modifier = Modifier.layoutId(StepIndicatorIds.LABEL), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            label(i),
-                            textAlign = TextAlign.Center,
-                            style = typography.bodyStrong
-                        )
+                        label?.let {
+                            Text(
+                                it(i),
+                                textAlign = TextAlign.Center,
+                                style = typography.bodyStrong
+                            )
+                        }
+
                         description?.let {
                             Text(
                                 it(i),
@@ -581,15 +583,15 @@ private fun customHorizontalMeasurePolicy(
 
     // Check if the labels or indicators on the end are widest
 
-    val maxLabel = max(labelPlaceables.firstOrNull()?.width ?: 0, labelPlaceables.lastOrNull()?.width ?: 0) / 2
-    val (labelPadding, indicatorPadding) = if (maxLabel > indicatorWidth / 2) {
-        0 to maxLabel
+    val maxLabel = labelPlaceables.maxBy { it.width }.width
+    val (labelPadding, indicatorPadding) = if (maxLabel > indicatorWidth) {
+        0 to ((maxLabel - indicatorWidth) / 2)
     } else {
-        indicatorWidth / 2 to 0
+        (indicatorWidth / 2) to 0
     }
 
 
-    val space = (width - indicatorWidth * steps - max(indicatorPadding, labelPadding)) / (steps - 1)
+    val space = (width - indicatorWidth * steps - indicatorPadding * 2) / (steps - 1)
     val linePlaceables = measurables.filter { it.layoutId == StepIndicatorIds.TRACK}.map {
         // Adjust the width just a little so we do not get gaps from the curvature of the indicators
         it.measure(constraints.copy(minWidth = space + 2, maxWidth = space + 2))
@@ -602,12 +604,12 @@ private fun customHorizontalMeasurePolicy(
     layout(width, height) {
 
         linePlaceables.forEachIndexed { index, placeable ->
-            val padding = if (indicatorPadding > 0) indicatorPadding - indicatorWidth/2 else 0
+            val padding = if (indicatorPadding > 0) indicatorPadding else 0
             val xPos = padding + space * index + indicatorWidth * (index + 1) - 1
             placeable.place(xPos, labelHeight + indicatorWidth / 2)
         }
         indicatorPlaceables.forEachIndexed { index, placeable ->
-            val padding = if (indicatorPadding > 0) indicatorPadding - indicatorWidth/2 else 0
+            val padding = if (indicatorPadding > 0) indicatorPadding else 0
             val xPos = padding + space * index + indicatorWidth * index
             placeable.place(xPos, labelHeight)
         }
@@ -636,11 +638,11 @@ fun HorizontalPreview(
 
         Column {
             HorizontalWarpStepIndicator(
-                Modifier.padding(16.dp),
+                Modifier,
                 5,
                 active,
                 { active = it },
-                { "step $it" },
+                { "$it" },
                 { "Description $it" }
             )
 
