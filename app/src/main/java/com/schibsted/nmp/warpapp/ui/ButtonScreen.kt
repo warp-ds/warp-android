@@ -42,7 +42,11 @@ private fun ButtonScreenContent() {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
             ) {
-                WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Click me")
+                WarpButton(
+                    onClick = { /*TODO*/ },
+                    buttonStyle = style,
+                    text = "Click me"
+                )
                 WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Loading", loading = true)
                 WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Disabled", enabled = false)
             }
