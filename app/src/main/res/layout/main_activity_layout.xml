@@ -35,6 +35,7 @@
         app:warpTextStyle="display" />
 
     <com.schibsted.nmp.warp.components.WarpTextFieldView
+        android:id="@+id/textField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,4 +46,12 @@
         app:helpText="Meow here"
         />
 
+    <com.schibsted.nmp.warp.components.WarpBadgeView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        app:layout_constraintTop_toBottomOf="@id/textField"
+        app:layout_constraintStart_toStartOf="parent"
+        app:warpBadgeStyle="warning"
+        app:alignmentStyle="topEnd"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

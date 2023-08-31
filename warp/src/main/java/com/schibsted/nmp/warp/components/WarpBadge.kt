@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
 fun WarpBadge(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     text: String,
     style: WarpBadgeStyle = WarpBadgeStyle.Neutral,
     alignmentStyle: WarpBadgeAlignment
