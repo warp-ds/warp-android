@@ -13,6 +13,7 @@ import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpLabelColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.WarpTabColors
 import com.schibsted.nmp.warp.theme.WarpTabRowColors
@@ -32,6 +33,14 @@ object ToriComponentColors : WarpComponentColors {
     override val textField: WarpTextFieldColors = ToriTextFieldColors
     override val tab: WarpTabColors = ToriTabColors
     override val tabRow: WarpTabRowColors = ToriTabRowColors
+    override val label: WarpLabelColors = ToriLabelColors
+}
+
+object ToriLabelColors: WarpLabelColors {
+    override val text: Color = Gray900
+    override val negative: Color = Red600
+    override val optional: Color = Gray900
+    override val icon: Color = Gray900
 }
 
 object ToriButtonColors : WarpButtonColors {

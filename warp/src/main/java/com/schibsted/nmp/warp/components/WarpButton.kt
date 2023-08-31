@@ -1,9 +1,7 @@
 package com.schibsted.nmp.warp.components
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View.OnClickListener
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
@@ -39,6 +37,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
+import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
@@ -260,6 +259,16 @@ class WarpButtonView @JvmOverloads constructor(
         disposeComposition()
     }
 
+    fun setText(text: String) {
+        this.text = text
+        disposeComposition()
+    }
+
+    fun setStyle(style: WarpButtonStyle) {
+        this.style = style
+        disposeComposition()
+    }
+
     private var stylesList = listOf(
         Pair(0, WarpButtonStyle.Primary),
         Pair(1, WarpButtonStyle.Secondary),
@@ -275,32 +284,9 @@ class WarpButtonView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.WarpButton) {
             val styleInt = getInteger(R.styleable.WarpButton_warpButtonStyle, 0)
             style = stylesList.first { it.first == styleInt }.second
-            text = getButtonText(this)
+            text = getTextFromIdOrString(R.styleable.WarpButton_buttonText, context)
             loading = getBoolean(R.styleable.WarpButton_loading, false)
             buttonEnabled = getBoolean(R.styleable.WarpButton_enabled, true)
-        }
-    }
-
-    private fun getButtonText(typedArray: TypedArray): String {
-        return if (typedArray.hasValue(R.styleable.WarpButton_text)) {
-            when (typedArray.getType(R.styleable.WarpButton_text)) {
-                TypedValue.TYPE_STRING -> {
-                    typedArray.getString(R.styleable.WarpButton_text) ?: ""
-                }
-
-                TypedValue.TYPE_REFERENCE -> {
-                    val resourceId = typedArray.getResourceId(R.styleable.WarpButton_text, 0)
-                    if (resourceId != 0) {
-                        context.getString(resourceId)
-                    } else {
-                        ""
-                    }
-                }
-
-                else -> ""
-            }
-        } else {
-            ""
         }
     }
 

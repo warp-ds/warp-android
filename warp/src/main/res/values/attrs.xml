@@ -13,6 +13,41 @@
         </attr>
         <attr name="enabled" format="boolean" />
         <attr name="loading" format="boolean" />
+        <attr name="buttonText" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpText">
+        <attr name="warpTextStyle" format="enum">
+            <enum name="display" value="0" />
+            <enum name="title1" value="1" />
+            <enum name="title2" value="2" />
+            <enum name="title3" value="3" />
+            <enum name="title4" value="4" />
+            <enum name="title5" value="5" />
+            <enum name="title6" value="6" />
+            <enum name="preamble" value="7" />
+            <enum name="body" value="8" />
+            <enum name="bodyStrong" value="9" />
+            <enum name="caption" value="10" />
+            <enum name="captionStrong" value="11" />
+            <enum name="detail" value="12" />
+            <enum name="detailStrong" value="13" />
+        </attr>
         <attr name="text" format="reference|string" />
+        <attr name="color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpTextField">
+        <attr name="textFieldEnabled" format="boolean"/>
+        <attr name="readOnly" format="boolean"/>
+        <attr name="label" format="reference|string"/>
+        <attr name="optionalLabel" format="reference|string"/>
+        <attr name="placeholderText" format="reference|string"/>
+        <attr name="helpText" format="reference|string"/>
+        <attr name="leadingIcon" format="reference"/>
+        <attr name="leadingIconContentDescr" format="reference|string"/>
+        <attr name="trailingIcon" format="reference"/>
+        <attr name="trailingIconContentDescr" format="reference|string"/>
+        <attr name="isError" format="boolean"/>
     </declare-styleable>
 </resources>
