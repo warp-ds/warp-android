@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space025">2dp</dimen>
+    <dimen name="space05">4dp</dimen>
+    <dimen name="space1">8dp</dimen>
+    <dimen name="space2">16dp</dimen>
+    <dimen name="space25">20dp</dimen>
+    <dimen name="space3">24dp</dimen>
+    <dimen name="space4">32dp</dimen>
+    <dimen name="space5">40dp</dimen>
+    <dimen name="space6">48dp</dimen>
+    <dimen name="space7">56dp</dimen>
+    <dimen name="space8">64dp</dimen>
+    <dimen name="space10">80dp</dimen>
+    <dimen name="space12">96dp</dimen>
+    <dimen name="space14">112dp</dimen>
+    <dimen name="space16">128dp</dimen>
+
+    <dimen name="borderRadius1">2dp</dimen>
+    <dimen name="borderRadius2">4dp</dimen>
+    <dimen name="borderRadius3">8dp</dimen>
+    <dimen name="borderRadius4">16dp</dimen>
+
+    <dimen name="borderWidth1">1dp</dimen>
+    <dimen name="borderWidth2">2dp</dimen>
+    <dimen name="borderWidth3">4dp</dimen>
+
+    <dimen name="shadowSmall">1dp</dimen>
+</resources>
