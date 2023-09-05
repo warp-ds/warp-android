@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpAlertColors
 import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
+import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
@@ -33,7 +34,23 @@ object ToriComponentColors : WarpComponentColors {
     override val textField: WarpTextFieldColors = ToriTextFieldColors
     override val tab: WarpTabColors = ToriTabColors
     override val tabRow: WarpTabRowColors = ToriTabRowColors
+    override val badge: WarpBadgeColors = ToriBadgeColors
     override val label: WarpLabelColors = ToriLabelColors
+}
+
+object ToriBadgeColors : WarpBadgeColors {
+    override val infoBackground: Color = Petroleum50
+    override val infoText: Color = Gray900
+    override val positiveBackground: Color = Green100
+    override val positiveText: Color = Green900
+    override val warningBackground: Color = Yellow100
+    override val warningText: Color = Yellow900
+    override val negativeBackground: Color = Red100
+    override val negativeText: Color = Red900
+    override val disabledBackground: Color = Gray300
+    override val disabledText: Color = Gray900
+    override val neutralBackground: Color = Gray100
+    override val neutralText: Color = Gray900
 }
 
 object ToriLabelColors: WarpLabelColors {

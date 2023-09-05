@@ -269,20 +269,20 @@ class WarpButtonView @JvmOverloads constructor(
     }
 
     private var stylesList = listOf(
-        Pair(0, WarpButtonStyle.Primary),
-        Pair(1, WarpButtonStyle.Secondary),
-        Pair(2, WarpButtonStyle.Tertiary),
-        Pair(3, WarpButtonStyle.Critical),
-        Pair(4, WarpButtonStyle.CriticalQuiet),
-        Pair(5, WarpButtonStyle.Utility),
-        Pair(6, WarpButtonStyle.UtilityQuiet),
-        Pair(7, WarpButtonStyle.UtilityOverlay),
+        WarpButtonStyle.Primary,
+        WarpButtonStyle.Secondary,
+        WarpButtonStyle.Tertiary,
+        WarpButtonStyle.Critical,
+        WarpButtonStyle.CriticalQuiet,
+        WarpButtonStyle.Utility,
+        WarpButtonStyle.UtilityQuiet,
+        WarpButtonStyle.UtilityOverlay,
     )
 
     init {
         context.withStyledAttributes(attrs, R.styleable.WarpButton) {
             val styleInt = getInteger(R.styleable.WarpButton_warpButtonStyle, 0)
-            style = stylesList.first { it.first == styleInt }.second
+            style = stylesList[styleInt]
             text = getTextFromIdOrString(R.styleable.WarpButton_buttonText, context)
             loading = getBoolean(R.styleable.WarpButton_loading, false)
             buttonEnabled = getBoolean(R.styleable.WarpButton_enabled, true)

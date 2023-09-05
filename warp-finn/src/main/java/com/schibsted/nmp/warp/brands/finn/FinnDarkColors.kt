@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black
 import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpAlertColors
+import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpColors
@@ -28,6 +29,7 @@ object FinnComponentDarkColors : WarpComponentColors {
     override val textField: WarpTextFieldColors = FinnTextFieldDarkColors
     override val tabRow: WarpTabRowColors = FinnTabRowColors // Todo darkmode
     override val tab: WarpTabColors = FinnTabColors // Todo darkmode
+    override val badge: WarpBadgeColors = FinnBadgeColors // TODO: Darkmode
     override val label: WarpLabelColors = FinnLabelDarkColors
 }
 
