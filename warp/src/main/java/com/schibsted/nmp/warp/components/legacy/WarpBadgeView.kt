@@ -1,4 +1,4 @@
-package com.schibsted.nmp.warp.components
+package com.schibsted.nmp.warp.components.legacy
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,6 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
+import com.schibsted.nmp.warp.components.WarpBadge
+import com.schibsted.nmp.warp.components.WarpBadgeAlignment
+import com.schibsted.nmp.warp.components.WarpBadgeStyle
 
 
 class WarpBadgeView @JvmOverloads constructor(
