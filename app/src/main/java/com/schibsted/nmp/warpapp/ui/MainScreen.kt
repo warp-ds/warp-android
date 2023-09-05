@@ -99,6 +99,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("badges") {
+                BadgeScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -142,7 +147,8 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "alertBox" to "WarpAlertBox",
                         "textField" to "WarpTextField",
                         "expandable" to "Expandable",
-                        "tabs" to "WarpTab and WarpTabGroup"
+                        "tabs" to "WarpTab and WarpTabGroup",
+                        "badges" to "WarpBadge",
                     ))
                 {
                     ElevatedCard(
