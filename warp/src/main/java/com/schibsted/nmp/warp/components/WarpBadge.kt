@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
@@ -103,20 +102,15 @@ enum class WarpBadgeAlignment {
 fun WarpBadgePreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
-    WarpBrandedTheme(
-        flavor,
-        false
-    ) {
-        Column {
-            WarpBadgeStyle.values().forEach {
-                Box() {
-                    WarpBadge(
-                        modifier = Modifier.padding(4.dp),
-                        style = it,
-                        text = "WarpBadge",
-                        alignment = Alignment.TopEnd
-                    )
-                }
+    Column {
+        WarpBadgeStyle.values().forEach {
+            Box() {
+                WarpBadge(
+                    modifier = Modifier.padding(4.dp),
+                    style = it,
+                    text = "WarpBadge",
+                    alignment = Alignment.TopEnd
+                )
             }
         }
     }

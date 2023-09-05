@@ -11,6 +11,7 @@ internal object Placeholders : WarpColors {
 }
 
 private object PlaceholderWarpComponentColors : WarpComponentColors {
+    override val badge: WarpBadgeColors = PlaceholderBadgeColors
     override val button: WarpButtonColors = PlaceholderButtonColors
     override val box: WarpBoxColors = PlaceholderBoxColors
     override val stepIndicator: WarpStepIndicatorColors = PlaceholderStepIndicatorColors
@@ -28,6 +29,21 @@ private object PlaceholderLabelColors : WarpLabelColors {
     override val icon: Color = Color.Unspecified
 }
 
+private object PlaceholderBadgeColors : WarpBadgeColors {
+    override val infoBackground: Color = Color.Unspecified
+    override val infoText: Color = Color.Unspecified
+    override val positiveBackground: Color = Color.Unspecified
+    override val positiveText: Color = Color.Unspecified
+    override val warningBackground: Color = Color.Unspecified
+    override val warningText: Color = Color.Unspecified
+    override val negativeBackground: Color = Color.Unspecified
+    override val negativeText: Color = Color.Unspecified
+    override val disabledBackground: Color = Color.Unspecified
+    override val disabledText: Color = Color.Unspecified
+    override val neutralBackground: Color = Color.Unspecified
+    override val neutralText: Color = Color.Unspecified
+
+}
 private object PlaceholderButtonColors : WarpButtonColors {
     override val primary: WarpButtonStyleColors = PlaceholderButtonStyle
     override val secondary: WarpButtonStyleColors = PlaceholderButtonStyle
@@ -115,6 +131,19 @@ internal object PlaceholderResources : WarpResources {
 
 internal object PlaceholderShapes : WarpShapes {
     override val medium: Shape = CircleShape
+    override val components: WarpComponentShapes = PlaceholderComponentShapes
+}
+
+private object PlaceholderComponentShapes : WarpComponentShapes {
+    override val badge: WarpBadgeShapes = PlaceholderBadgeShapes
+}
+
+private object PlaceholderBadgeShapes : WarpBadgeShapes {
+    override val default: Shape = CircleShape
+    override val topStart: Shape = CircleShape
+    override val topEnd: Shape = CircleShape
+    override val bottomEnd: Shape = CircleShape
+    override val bottomStart: Shape = CircleShape
 }
 
 internal object PlaceholderTypography : WarpTypography {
