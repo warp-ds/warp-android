@@ -1,7 +1,6 @@
 package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -71,33 +69,28 @@ enum class WarpBoxStyle {
 fun BoxPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
-    WarpBrandedTheme(
-        flavor = flavor,
-        darkTheme = isSystemInDarkTheme()
-    ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-            WarpBox(
-                modifier = Modifier
-                    .padding(8.dp),
-                boxStyle = WarpBoxStyle.NEUTRAL
-            ) {
-                Text(modifier = Modifier.padding(16.dp).fillMaxWidth(), text = "This is the neutral style")
-            }
-            WarpBox(
-                modifier = Modifier
-                    .padding(8.dp),
-                boxStyle = WarpBoxStyle.INFO
-            ) {
-                Text(modifier = Modifier.padding(16.dp).fillMaxWidth(), text = "This is the info style")
-            }
-            WarpBox(
-                modifier = Modifier
-                    .padding(8.dp),
-                boxStyle = WarpBoxStyle.BORDERED
-            ) {
-                Text(modifier = Modifier.padding(16.dp).fillMaxWidth(), text = "This is the bordered style")
-            }
-
+    Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+        WarpBox(
+            modifier = Modifier
+                .padding(8.dp),
+            boxStyle = WarpBoxStyle.NEUTRAL
+        ) {
+            Text(modifier = Modifier.padding(16.dp).fillMaxWidth(), text = "This is the neutral style")
         }
+        WarpBox(
+            modifier = Modifier
+                .padding(8.dp),
+            boxStyle = WarpBoxStyle.INFO
+        ) {
+            Text(modifier = Modifier.padding(16.dp).fillMaxWidth(), text = "This is the info style")
+        }
+        WarpBox(
+            modifier = Modifier
+                .padding(8.dp),
+            boxStyle = WarpBoxStyle.BORDERED
+        ) {
+            Text(modifier = Modifier.padding(16.dp).fillMaxWidth(), text = "This is the bordered style")
+        }
+
     }
 }

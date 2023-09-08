@@ -1,7 +1,6 @@
 package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.DateRange
@@ -20,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
@@ -81,14 +79,9 @@ fun WarpTabsPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
-    WarpBrandedTheme(
-        flavor,
-        isSystemInDarkTheme()
-    ) {
-        WarpTabRow(selectedIndex) {
-            WarpTab(selectedIndex == 0, onClick = { selectedIndex = 0 }, text = "First", icon = {Icon(Icons.Filled.Call, null)})
-            WarpTab(selectedIndex == 1, onClick = { selectedIndex = 1 }, text = "Second", icon = {Icon(Icons.Filled.DateRange, null)})
-            WarpTab(selectedIndex == 2, onClick = { selectedIndex = 2 }, text = "Third", icon = {Icon(Icons.Filled.Done, null)})
-        }
+    WarpTabRow(selectedIndex) {
+        WarpTab(selectedIndex == 0, onClick = { selectedIndex = 0 }, text = "First", icon = {Icon(Icons.Filled.Call, null)})
+        WarpTab(selectedIndex == 1, onClick = { selectedIndex = 1 }, text = "Second", icon = {Icon(Icons.Filled.DateRange, null)})
+        WarpTab(selectedIndex == 2, onClick = { selectedIndex = 2 }, text = "Third", icon = {Icon(Icons.Filled.Done, null)})
     }
 }

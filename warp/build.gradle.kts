@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
 
 android {
@@ -40,6 +41,24 @@ android {
     }
 
 }
+
+val androidSourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets.getByName("main").java.srcDirs)
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("aar") {
+            groupId = "com.schibsted.nmp.warp"
+            artifactId = "warp-android"
+            version = "0.0.1"
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+            artifact(androidSourcesJar.get())
+        }
+    }
+}
+
 
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2023.04.01")

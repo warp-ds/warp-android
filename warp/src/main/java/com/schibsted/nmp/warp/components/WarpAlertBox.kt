@@ -1,6 +1,5 @@
 package com.schibsted.nmp.warp.components
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +17,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
@@ -137,40 +135,35 @@ enum class WarpAlertType {
 fun WarpAlertPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    WarpBrandedTheme(
-        flavor = flavor,
-        isSystemInDarkTheme()
-    ) {
-        Column(Modifier.fillMaxWidth()) {
-            WarpAlert(
-                modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
-                title = "This is the info variant of the alert element",
-                body = "I am an excellent message for the user.")
-            WarpAlert(
-                modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
-                title = "This is the positive variant of the alert element, with a very very long title so long that it will wrap",
-                body = "With an additional description",
-                type = WarpAlertType.Positive
-            )
-            WarpAlert(
-                modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
-                title = "Negative variant",
-                body = "With an additional description",
-                type = WarpAlertType.Negative
-            )
-            WarpAlert(
-                modifier = Modifier.padding(WarpTheme.dimensions.space2.dp).fillMaxWidth(),
-                title = "Negative variant",
-                body = "With an additional description",
-                type = WarpAlertType.Negative
-            )
-            WarpAlert(
-                modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
-                title = "This is the info variant of the alert element",
-                body = "With an additional description that is very long, so long that it will probably become a new line",
-                type = WarpAlertType.Warning
-            )
+    Column(Modifier.fillMaxWidth()) {
+        WarpAlert(
+            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            title = "This is the info variant of the alert element",
+            body = "I am an excellent message for the user.")
+        WarpAlert(
+            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            title = "This is the positive variant of the alert element, with a very very long title so long that it will wrap",
+            body = "With an additional description",
+            type = WarpAlertType.Positive
+        )
+        WarpAlert(
+            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            title = "Negative variant",
+            body = "With an additional description",
+            type = WarpAlertType.Negative
+        )
+        WarpAlert(
+            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp).fillMaxWidth(),
+            title = "Negative variant",
+            body = "With an additional description",
+            type = WarpAlertType.Negative
+        )
+        WarpAlert(
+            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            title = "This is the info variant of the alert element",
+            body = "With an additional description that is very long, so long that it will probably become a new line",
+            type = WarpAlertType.Warning
+        )
 
-        }
     }
 }

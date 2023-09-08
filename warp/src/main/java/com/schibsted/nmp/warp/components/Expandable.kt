@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,7 +25,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
@@ -106,29 +103,24 @@ fun Expandable(
 private fun ExpandablePreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
-    WarpBrandedTheme(
-        flavor,
-        isSystemInDarkTheme()
-    ) {
-        Column {
+    Column {
 
-            Expandable(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp), false, "title"
-            ) {
-                Text("body text")
-            }
-            var expanded by remember { mutableStateOf(false) }
-            Expandable(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                expanded = expanded,
-                title = { Text("Here we can control the title more", style = WarpTheme.typography.title3) },
-                expandedContent = { Text("body text") },
-                onExpandButtonClicked = { expanded = !expanded}
-            )
+        Expandable(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp), false, "title"
+        ) {
+            Text("body text")
         }
+        var expanded by remember { mutableStateOf(false) }
+        Expandable(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            expanded = expanded,
+            title = { Text("Here we can control the title more", style = WarpTheme.typography.title3) },
+            expandedContent = { Text("body text") },
+            onExpandButtonClicked = { expanded = !expanded}
+        )
     }
 }

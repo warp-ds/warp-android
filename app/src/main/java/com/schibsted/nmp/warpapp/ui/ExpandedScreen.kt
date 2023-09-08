@@ -1,6 +1,5 @@
 package com.schibsted.nmp.warpapp.ui
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,7 +16,6 @@ import com.schibsted.nmp.warp.components.WarpBox
 import com.schibsted.nmp.warp.components.WarpBoxStyle
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
@@ -77,10 +75,5 @@ private fun ExpandableScreenContent() {
 private fun ExpandableScreenPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    WarpBrandedTheme(
-        flavor = flavor,
-        darkTheme = isSystemInDarkTheme()
-    ) {
-        ExpandableScreenContent()
-    }
+    ExpandableScreenContent()
 }

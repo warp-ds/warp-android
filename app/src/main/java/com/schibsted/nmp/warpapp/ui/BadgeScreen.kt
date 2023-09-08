@@ -14,10 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpBadge
 import com.schibsted.nmp.warp.components.WarpBadgeStyle
-import com.schibsted.nmp.warp.theme.WarpBrandedTheme
+import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
+import com.schibsted.nmp.warpapp.BrandTheme
 
 @Composable
 fun BadgeScreen(onUp: () -> Unit) {
@@ -77,8 +79,10 @@ private fun BadgeContent() {
 
 @Preview
 @Composable
-internal fun BadgeContentPreview() {
-    WarpBrandedTheme(flavor = "finn", darkTheme = false) {
+internal fun BadgeContentPreview(
+    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
+) {
+    BrandTheme(flavor = flavor) {
         BadgeContent()
     }
 }
