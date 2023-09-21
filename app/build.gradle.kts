@@ -36,7 +36,23 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
+}
+allprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        google()
+        maven { url = uri("https://jitpack.io") }
+        maven {
+            url = uri("https://artifacts.schibsted.io/artifactory/libs-release")
+            credentials {
+                username = Artifactory.userName
+                password = Artifactory.password
+            }
+        }
+        maven { url = uri("https://plugins.gradle.org/m2/") }
     }
 }
 
@@ -53,10 +69,11 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.6.0")
 
-    implementation(project(path = ":warp-tori"))
-    implementation(project(path = ":warp-finn"))
+    implementation("com.schibsted.nmp.warp:warp-android-tori:0.0.1")
+    implementation("com.schibsted.nmp.warp:warp-android-finn:0.0.1")
+    implementation(project(path = ":warp"))
 
-    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
     testImplementation("junit:junit:4.13.2")

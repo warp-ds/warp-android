@@ -1,8 +1,9 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("maven-publish")
+    `maven-publish`
 }
+apply(plugin = "com.jfrog.artifactory")
 
 android {
     namespace = "com.schibsted.nmp.warp.brands.tori"
@@ -36,7 +37,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
 }
@@ -46,7 +47,8 @@ val androidSourcesJar by tasks.registering(Jar::class) {
     from(android.sourceSets.getByName("main").java.srcDirs)
 }
 
-publishing {
+// deploy: rebuild project, gradle build > assemble, gradle publishing > artifactoryPublish
+configure<PublishingExtension> {
     publications {
         create<MavenPublication>("aar") {
             groupId = "com.schibsted.nmp.warp"
@@ -57,7 +59,6 @@ publishing {
         }
     }
 }
-
 
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2023.04.01")

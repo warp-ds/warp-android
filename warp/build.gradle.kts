@@ -1,8 +1,9 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("maven-publish")
+    `maven-publish`
 }
+apply(plugin = "com.jfrog.artifactory")
 
 android {
     namespace = "com.schibsted.nmp.warp"
@@ -37,7 +38,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
 }
@@ -47,7 +48,7 @@ val androidSourcesJar by tasks.registering(Jar::class) {
     from(android.sourceSets.getByName("main").java.srcDirs)
 }
 
-publishing {
+configure<PublishingExtension> {
     publications {
         create<MavenPublication>("aar") {
             groupId = "com.schibsted.nmp.warp"
@@ -58,7 +59,6 @@ publishing {
         }
     }
 }
-
 
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2023.04.01")
@@ -76,7 +76,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
