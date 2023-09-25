@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
@@ -18,7 +17,6 @@ import com.schibsted.nmp.warp.theme.LocalShapes
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
-import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 /**
  * A component for separating content areas on a screen.
@@ -66,9 +64,7 @@ enum class WarpBoxStyle {
 
 @Preview
 @Composable
-fun BoxPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
-) {
+fun BoxPreview() {
     Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
         WarpBox(
             modifier = Modifier

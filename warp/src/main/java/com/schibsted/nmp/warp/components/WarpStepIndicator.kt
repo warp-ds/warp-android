@@ -33,7 +33,6 @@ import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -44,7 +43,6 @@ import com.schibsted.nmp.warp.theme.StepIndicatorDimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
-import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import java.lang.Float.min
 import kotlin.math.floor
 
@@ -628,9 +626,7 @@ private object StepIndicatorIds {
 
 @Preview
 @Composable
-fun HorizontalPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
-) {
+fun HorizontalPreview() {
     var active by remember { mutableStateOf(0) }
         Column {
             HorizontalWarpStepIndicator(
@@ -650,9 +646,7 @@ fun HorizontalPreview(
 
 @Preview
 @Composable
-internal fun VerticalPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
-) {
+internal fun VerticalPreview() {
     var active by remember { mutableStateOf(0) }
 
         Column {

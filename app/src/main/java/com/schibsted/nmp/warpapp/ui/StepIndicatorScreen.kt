@@ -13,14 +13,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
 import com.schibsted.nmp.warp.components.VerticalWarpStepIndicator
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.theme.WarpTheme
-import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
 fun StepIndicatorScreen(onUp: () -> Unit) {
@@ -83,8 +81,6 @@ private fun StepIndicatorScreenContent() {
 
 @Composable
 @Preview
-private fun WarpStepIndicatorScreenPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
-) {
+private fun WarpStepIndicatorScreenPreview() {
     StepIndicatorScreenContent()
 }

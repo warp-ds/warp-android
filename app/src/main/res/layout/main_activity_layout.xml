@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.schibsted.nmp.warp.components.WarpButtonView
+    <com.schibsted.nmp.warp.components.legacy.WarpButtonView
         android:id="@+id/warp_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         app:loading="false"
         app:warpButtonStyle="primary" />
 
-    <com.schibsted.nmp.warp.components.WarpButtonView
+    <com.schibsted.nmp.warp.components.legacy.WarpButtonView
         android:id="@+id/warp_button_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         app:text="Warpy meowz"
         app:warpTextStyle="display" />
 
-    <com.schibsted.nmp.warp.components.WarpTextFieldView
+    <com.schibsted.nmp.warp.components.legacy.WarpTextFieldView
         android:id="@+id/textField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

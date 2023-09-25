@@ -23,10 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpTheme
-import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 
 /**
@@ -100,9 +98,7 @@ fun Expandable(
 
 @Preview
 @Composable
-private fun ExpandablePreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
-) {
+private fun ExpandablePreview() {
     Column {
 
         Expandable(

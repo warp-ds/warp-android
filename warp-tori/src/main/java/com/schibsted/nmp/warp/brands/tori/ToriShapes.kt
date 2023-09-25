@@ -8,20 +8,20 @@ import com.schibsted.nmp.warp.theme.WarpComponentShapes
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpShapes
 
-data class ToriShapes(
+internal data class ToriShapes(
     val dimensions: WarpDimensions,
     override val medium: Shape = RoundedCornerShape(dimensions.borderRadius3.dp),
 ) : WarpShapes {
     override val components: WarpComponentShapes = ToriComponentShapes(dimensions)
 }
 
-class ToriComponentShapes(
+internal class ToriComponentShapes(
     dimensions: WarpDimensions
 ) : WarpComponentShapes {
     override val badge = ToriBadgeShapes(dimensions)
 }
 
-class ToriBadgeShapes(
+internal class ToriBadgeShapes(
     dimensions: WarpDimensions
 ) : WarpBadgeShapes {
     override val default: Shape = RoundedCornerShape(dimensions.borderWidth2.dp)

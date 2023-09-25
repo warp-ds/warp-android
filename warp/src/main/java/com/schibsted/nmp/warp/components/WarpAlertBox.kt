@@ -13,12 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.schibsted.nmp.warp.theme.WarpTheme
-import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 
 /**
@@ -132,9 +130,7 @@ enum class WarpAlertType {
 
 @Preview
 @Composable
-fun WarpAlertPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
-) {
+fun WarpAlertPreview() {
     Column(Modifier.fillMaxWidth()) {
         WarpAlert(
             modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
