@@ -51,7 +51,7 @@ configure<PublishingExtension> {
         create<MavenPublication>("aar") {
             groupId = "com.schibsted.nmp.warp"
             artifactId = "warp-android-finn"
-            version = "0.0.2"
+            version = "0.0.3"
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
             artifact(androidSourcesJar.get())
         }
