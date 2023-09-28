@@ -30,8 +30,7 @@ fun ButtonScreen(onUp: () -> Unit) {
 
 @Composable
 private fun ButtonScreenContent() {
-    Column(
-        modifier = Modifier
+    Column(modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
             .padding(vertical = 16.dp)
