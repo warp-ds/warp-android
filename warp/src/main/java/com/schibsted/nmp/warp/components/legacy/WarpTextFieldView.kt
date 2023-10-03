@@ -22,57 +22,57 @@ class WarpTextFieldView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : AbstractComposeView(context, attrs, defStyle) {
 
-    private var textFieldEnabled = true
+    var textFieldEnabled = true
         set(value) {
             field = value
             disposeComposition()
         }
-    private var readOnly = false
+    var readOnly = false
         set(value) {
             field = value
             disposeComposition()
         }
-    private var label = ""
+    var label = ""
         set(value) {
             field = value
             disposeComposition()
         }
-    private var optionalLabel = ""
+    var optionalLabel = ""
         set(value) {
             field = value
             disposeComposition()
         }
-    private var placeholderText = ""
+    var placeholderText = ""
         set(value) {
             field = value
             disposeComposition()
         }
-    private var helpText = ""
+    var helpText = ""
         set(value) {
             field = value
             disposeComposition()
         }
-    private var leadingIcon = 0
+    var leadingIcon = 0
         set(value) {
             field = value
             disposeComposition()
         }
-    private var leadingIconContentDescr = ""
+    var leadingIconContentDescr = ""
         set(value) {
             field = value
             disposeComposition()
         }
-    private var trailingIcon = 0
+    var trailingIcon = 0
         set(value) {
             field = value
             disposeComposition()
         }
-    private var trailingIconContentDescr = ""
+    var trailingIconContentDescr = ""
         set(value) {
             field = value
             disposeComposition()
         }
-    private var isError = false
+    var isError = false
         set(value) {
             field = value
             disposeComposition()

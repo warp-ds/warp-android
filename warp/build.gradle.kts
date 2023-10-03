@@ -1,16 +1,16 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    `maven-publish`
+    id("maven-publish")
 }
 apply(plugin = "com.jfrog.artifactory")
 
 android {
-    namespace = "com.schibsted.nmp.warp"
-    compileSdk = 33
+    namespace = ConfigData.namespaceWarp
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
-        minSdk = 24
+        minSdk = ConfigData.minSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -29,7 +29,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.jvm
     }
 
     @Suppress("UnstableApiUsage")
@@ -38,7 +38,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
+        kotlinCompilerExtensionVersion = Versions.kotlinCompiler
     }
 
 }
@@ -51,9 +51,9 @@ val androidSourcesJar by tasks.registering(Jar::class) {
 configure<PublishingExtension> {
     publications {
         create<MavenPublication>("aar") {
-            groupId = "com.schibsted.nmp.warp"
-            artifactId = "warp-android"
-            version = "0.0.2"
+            groupId = ConfigData.groupId
+            artifactId = ConfigData.artifactIdWarp
+            version = ConfigData.versionWarp
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
             artifact(androidSourcesJar.get())
         }
@@ -61,24 +61,24 @@ configure<PublishingExtension> {
 }
 
 dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2023.04.01")
+    val composeBom = platform(Dependencies.composeBom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.foundation:foundation")
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeUiToolingPreview)
+    debugImplementation(Dependencies.composeUiTooling)
+    implementation(Dependencies.composeFoundation)
     //Material
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation(Dependencies.composeMaterial3)
+    implementation(Dependencies.constraintLayout)
 
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    androidTestImplementation(Dependencies.composeJunit)
+    debugImplementation(Dependencies.composeUiTestManifest)
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(Dependencies.core)
+    implementation(Dependencies.appCompat)
+    testImplementation(Dependencies.junit)
+    androidTestImplementation(Dependencies.extJunit)
+    androidTestImplementation(Dependencies.espressoCore)
 }
