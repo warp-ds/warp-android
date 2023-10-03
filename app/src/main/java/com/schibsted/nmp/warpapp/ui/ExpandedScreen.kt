@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.Expandable
 import com.schibsted.nmp.warp.components.WarpAlert
@@ -16,7 +15,6 @@ import com.schibsted.nmp.warp.components.WarpBox
 import com.schibsted.nmp.warp.components.WarpBoxStyle
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
-import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
 fun ExpandableScreen(onUp: () -> Unit) {
@@ -72,8 +70,6 @@ private fun ExpandableScreenContent() {
 
 @Composable
 @Preview
-private fun ExpandableScreenPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
-) {
+private fun ExpandableScreenPreview() {
     ExpandableScreenContent()
 }

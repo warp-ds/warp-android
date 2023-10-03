@@ -1,6 +1,5 @@
 package com.schibsted.nmp.warpapp
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.brands.finn.FinnWarpTheme
 import com.schibsted.nmp.warp.brands.tori.ToriWarpTheme

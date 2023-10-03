@@ -8,8 +8,119 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 interface WarpColors {
-    val background: Color
+    val semantic: WarpSemanticColors
     val components: WarpComponentColors
+}
+
+interface WarpSemanticColors {
+    val background : WarpSemanticBackgroundColors
+    val border : WarpSemanticBorderColors
+    val icon : WarpSemanticIconColors
+    val text : WarpSemanticTextColors
+}
+
+interface WarpSemanticBackgroundColors {
+    val default : Color
+    val active : Color
+    val disabled : Color
+    val subtle : Color
+    val subtleActive : Color
+    val selected : Color
+
+    val inverted : Color
+
+    val primary : Color
+    val primaryActive : Color
+    val primarySubtle : Color
+    val primarySubtleActive : Color
+
+    val positive : Color
+    val positiveActive : Color
+    val positiveSubtle : Color
+    val positiveSubtleActive : Color
+    val positiveSelected : Color
+
+    val negative : Color
+    val negativeActive : Color
+    val negativeSubtle : Color
+    val negativeSubtleActive : Color
+    val negativeSelected : Color
+
+    val warning : Color
+    val warningActive : Color
+    val warningSubtle : Color
+    val warningSubtleActive : Color
+    val warningSelected : Color
+
+    val info : Color
+    val infoActive : Color
+    val infoSubtle : Color
+    val infoSubtleActive : Color
+    val infoSelected : Color
+
+    val notification : Color
+}
+
+interface WarpSemanticBorderColors {
+    val default : Color
+    val active : Color
+    val disabled : Color
+    val selected : Color
+
+    val primary : Color
+    val primaryActive : Color
+    val primarySubtle : Color
+    val primarySubtleActive : Color
+
+    val positive : Color
+    val positiveActive : Color
+    val positiveSubtle : Color
+    val positiveSubtleActive : Color
+
+    val negative : Color
+    val negativeActive : Color
+    val negativeSubtle : Color
+    val negativeSubtleActive : Color
+
+    val warning : Color
+    val warningActive : Color
+    val warningSubtle : Color
+    val warningSubtleActive : Color
+
+    val info : Color
+    val infoActive : Color
+    val infoSubtle : Color
+    val infoSubtleActive : Color
+}
+
+interface WarpSemanticIconColors {
+    val default : Color
+    val active : Color
+    val selected : Color
+    val disabled : Color
+    val subtle : Color
+    val subtleActive : Color
+    val inverted : Color
+    val invertedActive : Color
+    val primary : Color
+    val positive : Color
+    val negative : Color
+    val warning : Color
+    val info : Color
+    val notification : Color
+}
+
+interface WarpSemanticTextColors {
+    val default : Color
+    val subtle : Color
+    val placeholder : Color
+    val inverted : Color
+    val invertedSubtle : Color
+    val link : Color
+    val disabled : Color
+    val negative : Color
+    val positive : Color
+    val notification : Color
 }
 
 interface WarpComponentColors {

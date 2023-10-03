@@ -17,7 +17,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
@@ -27,7 +26,6 @@ import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
-import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
 fun WarpText(
@@ -154,9 +152,7 @@ class WarpTextView @JvmOverloads constructor(
 
 @Composable
 @Preview
-fun WarpTextPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
-) {
+fun WarpTextPreview() {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {

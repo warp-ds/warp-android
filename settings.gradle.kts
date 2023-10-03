@@ -8,7 +8,7 @@ pluginManagement {
 }
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     @Suppress("UnstableApiUsage")
     repositories {
         google()

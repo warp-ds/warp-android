@@ -8,20 +8,20 @@ import com.schibsted.nmp.warp.theme.WarpComponentShapes
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpShapes
 
-data class FinnShapes(
+internal data class FinnShapes(
     val dimensions: WarpDimensions,
     override val medium: Shape = RoundedCornerShape(dimensions.borderRadius3.dp),
 ) : WarpShapes {
     override val components: WarpComponentShapes = FinnComponentShapes(dimensions)
 }
 
-class FinnComponentShapes(
+internal class FinnComponentShapes(
     dimensions: WarpDimensions
 ) : WarpComponentShapes {
     override val badge = FinnBadgeShapes(dimensions)
 }
 
-class FinnBadgeShapes(
+internal class FinnBadgeShapes(
     dimensions: WarpDimensions
 ) : WarpBadgeShapes {
     override val default: Shape = RoundedCornerShape(dimensions.borderWidth2.dp)

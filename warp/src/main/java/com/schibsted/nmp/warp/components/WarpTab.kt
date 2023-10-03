@@ -18,9 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.schibsted.nmp.warp.theme.WarpTheme
-import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 @Composable
 fun WarpTabRow(
@@ -75,9 +73,7 @@ fun WarpTab(
 
 @Preview
 @Composable
-fun WarpTabsPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
-) {
+fun WarpTabsPreview() {
     var selectedIndex by remember { mutableStateOf(0) }
     WarpTabRow(selectedIndex) {
         WarpTab(selectedIndex == 0, onClick = { selectedIndex = 0 }, text = "First", icon = {Icon(Icons.Filled.Call, null)})

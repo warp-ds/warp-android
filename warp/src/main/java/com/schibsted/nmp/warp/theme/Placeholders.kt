@@ -6,8 +6,119 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 
 internal object Placeholders : WarpColors {
-    override val background: Color = Color.Unspecified
+    override val semantic: WarpSemanticColors = PlaceholderWarpSemanticColors
     override val components: WarpComponentColors = PlaceholderWarpComponentColors
+}
+
+private object PlaceholderWarpSemanticColors : WarpSemanticColors {
+    override val background: WarpSemanticBackgroundColors = PlaceholderWarpSemanticBackgroundColors
+    override val border: WarpSemanticBorderColors = PlaceholderWarpSemanticBorderColors
+    override val icon: WarpSemanticIconColors = PlaceholderWarpSemanticIconColors
+    override val text: WarpSemanticTextColors = PlaceholderWarpSemanticTextColors
+}
+
+private object PlaceholderWarpSemanticBackgroundColors : WarpSemanticBackgroundColors {
+    override val default = Color.Unspecified
+    override val active = Color.Unspecified
+    override val disabled = Color.Unspecified
+    override val subtle = Color.Unspecified
+    override val subtleActive = Color.Unspecified
+    override val selected = Color.Unspecified
+
+    override val inverted = Color.Unspecified
+
+    override val primary = Color.Unspecified
+    override val primaryActive = Color.Unspecified
+    override val primarySubtle = Color.Unspecified
+    override val primarySubtleActive = Color.Unspecified
+
+    override val positive = Color.Unspecified
+    override val positiveActive = Color.Unspecified
+    override val positiveSubtle = Color.Unspecified
+    override val positiveSubtleActive = Color.Unspecified
+    override val positiveSelected = Color.Unspecified
+
+    override val negative = Color.Unspecified
+    override val negativeActive = Color.Unspecified
+    override val negativeSubtle = Color.Unspecified
+    override val negativeSubtleActive = Color.Unspecified
+    override val negativeSelected = Color.Unspecified
+
+    override val warning = Color.Unspecified
+    override val warningActive = Color.Unspecified
+    override val warningSubtle = Color.Unspecified
+    override val warningSubtleActive = Color.Unspecified
+    override val warningSelected = Color.Unspecified
+
+    override val info = Color.Unspecified
+    override val infoActive = Color.Unspecified
+    override val infoSubtle = Color.Unspecified
+    override val infoSubtleActive = Color.Unspecified
+    override val infoSelected = Color.Unspecified
+
+    override val notification = Color.Unspecified
+}
+
+private object PlaceholderWarpSemanticBorderColors : WarpSemanticBorderColors {
+    override val default = Color.Unspecified
+    override val active = Color.Unspecified
+    override val disabled = Color.Unspecified
+    override val selected = Color.Unspecified
+
+    override val primary = Color.Unspecified
+    override val primaryActive = Color.Unspecified
+    override val primarySubtle = Color.Unspecified
+    override val primarySubtleActive = Color.Unspecified
+
+    override val positive = Color.Unspecified
+    override val positiveActive = Color.Unspecified
+    override val positiveSubtle = Color.Unspecified
+    override val positiveSubtleActive = Color.Unspecified
+
+    override val negative = Color.Unspecified
+    override val negativeActive = Color.Unspecified
+    override val negativeSubtle = Color.Unspecified
+    override val negativeSubtleActive = Color.Unspecified
+
+    override val warning = Color.Unspecified
+    override val warningActive = Color.Unspecified
+    override val warningSubtle = Color.Unspecified
+    override val warningSubtleActive = Color.Unspecified
+
+    override val info = Color.Unspecified
+    override val infoActive = Color.Unspecified
+    override val infoSubtle = Color.Unspecified
+    override val infoSubtleActive = Color.Unspecified
+}
+
+private object PlaceholderWarpSemanticIconColors : WarpSemanticIconColors {
+    override val default = Color.Unspecified
+    override val active = Color.Unspecified
+    override val selected = Color.Unspecified
+    override val disabled = Color.Unspecified
+    override val subtle = Color.Unspecified
+    override val subtleActive = Color.Unspecified
+    override val inverted = Color.Unspecified
+    override val invertedActive = Color.Unspecified
+    override val primary = Color.Unspecified
+    override val positive = Color.Unspecified
+    override val negative = Color.Unspecified
+    override val warning = Color.Unspecified
+    override val info = Color.Unspecified
+    override val notification = Color.Unspecified
+}
+
+private object PlaceholderWarpSemanticTextColors : WarpSemanticTextColors {
+    override val default = Color.Unspecified
+    override val subtle = Color.Unspecified
+    override val placeholder = Color.Unspecified
+    override val inverted = Color.Unspecified
+    override val invertedSubtle = Color.Unspecified
+    override val link = Color.Unspecified
+    override val disabled = Color.Unspecified
+    override val negative = Color.Unspecified
+    override val positive = Color.Unspecified
+    override val notification = Color.Unspecified
 }
 
 private object PlaceholderWarpComponentColors : WarpComponentColors {

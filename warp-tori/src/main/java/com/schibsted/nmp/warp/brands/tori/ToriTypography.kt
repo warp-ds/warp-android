@@ -31,7 +31,7 @@ private val ToriSansRegular = FontFamily(
     Font(R.font.torisans_regular)
 )
 
-object ToriTypography : WarpTypography {
+internal object ToriTypography : WarpTypography {
     override val display: TextStyle = TextStyle(
         fontFamily = ToriSansBold,
         fontSize = 48.sp,

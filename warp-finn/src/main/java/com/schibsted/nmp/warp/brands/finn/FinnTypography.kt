@@ -15,7 +15,7 @@ private val FinnTypeLight = FontFamily(
     Font(R.font.finntype_light)
 )
 
-object FinnTypography : WarpTypography {
+internal object FinnTypography : WarpTypography {
     override val display: TextStyle = TextStyle(
         fontFamily = FinnTypeMedium,
         fontSize = 48.sp,

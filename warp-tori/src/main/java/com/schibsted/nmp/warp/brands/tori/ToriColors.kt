@@ -15,18 +15,134 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpLabelColors
+import com.schibsted.nmp.warp.theme.WarpSemanticBackgroundColors
+import com.schibsted.nmp.warp.theme.WarpSemanticBorderColors
+import com.schibsted.nmp.warp.theme.WarpSemanticColors
+import com.schibsted.nmp.warp.theme.WarpSemanticIconColors
+import com.schibsted.nmp.warp.theme.WarpSemanticTextColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.WarpTabColors
 import com.schibsted.nmp.warp.theme.WarpTabRowColors
 import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
 
-object ToriColors : WarpColors {
-    override val background: Color = White
+internal object ToriColors : WarpColors {
+    override val semantic: WarpSemanticColors = ToriSemanticColors
     override val components: WarpComponentColors = ToriComponentColors
 }
 
-object ToriComponentColors : WarpComponentColors {
+internal object ToriSemanticColors : WarpSemanticColors {
+    override val background: WarpSemanticBackgroundColors = ToriSemanticBackgroundColors
+    override val border: WarpSemanticBorderColors = ToriSemanticBorderColors
+    override val icon: WarpSemanticIconColors = ToriSemanticIconColors
+    override val text: WarpSemanticTextColors = ToriSemanticTextColors
+}
+
+internal object ToriSemanticBackgroundColors : WarpSemanticBackgroundColors {
+    override val default = White
+    override val active = Gray200
+    override val disabled = Gray300
+    override val subtle = Gray50
+    override val subtleActive = Gray200
+    override val selected = Petroleum50
+
+    override val inverted = Gray900
+
+    override val primary = Petroleum600
+    override val primaryActive = Petroleum800
+    override val primarySubtle = Petroleum50
+    override val primarySubtleActive = Petroleum200
+
+    override val positive = Green600
+    override val positiveActive = Green800
+    override val positiveSubtle = Green50
+    override val positiveSubtleActive = Green200
+    override val positiveSelected = Green50
+
+    override val negative = Red600
+    override val negativeActive = Red800
+    override val negativeSubtle = Red50
+    override val negativeSubtleActive = Red200
+    override val negativeSelected = Red50
+
+    override val warning = Yellow600
+    override val warningActive = Yellow800
+    override val warningSubtle = Yellow50
+    override val warningSubtleActive = Yellow200
+    override val warningSelected = Yellow50
+
+    override val info = Petroleum600
+    override val infoActive = Petroleum800
+    override val infoSubtle = Petroleum800
+    override val infoSubtleActive = Petroleum200
+    override val infoSelected = Petroleum50
+
+    override val notification = Red600
+}
+
+internal object ToriSemanticBorderColors : WarpSemanticBorderColors {
+    override val default = Gray300
+    override val active = Gray500
+    override val disabled = Gray300
+    override val selected = Petroleum600
+
+    override val primary = Petroleum600
+    override val primaryActive = Petroleum800
+    override val primarySubtle = Petroleum300
+    override val primarySubtleActive = Petroleum500
+
+    override val positive = Green600
+    override val positiveActive = Green800
+    override val positiveSubtle = Green300
+    override val positiveSubtleActive = Green500
+
+    override val negative = Red600
+    override val negativeActive = Red800
+    override val negativeSubtle = Red300
+    override val negativeSubtleActive = Red500
+
+    override val warning = Yellow600
+    override val warningActive = Yellow800
+    override val warningSubtle = Yellow300
+    override val warningSubtleActive = Yellow500
+
+    override val info = Petroleum600
+    override val infoActive = Petroleum800
+    override val infoSubtle = Petroleum300
+    override val infoSubtleActive = Petroleum500
+}
+
+internal object ToriSemanticIconColors : WarpSemanticIconColors {
+    override val default = Gray900
+    override val active = Gray900
+    override val selected = Petroleum600
+    override val disabled = Gray300
+    override val subtle = Gray400
+    override val subtleActive = Gray600
+    override val inverted = White
+    override val invertedActive = Gray200
+    override val primary = Petroleum600
+    override val positive = Green600
+    override val negative = Red600
+    override val warning = Yellow600
+    override val info = Petroleum600
+    override val notification = White
+}
+
+internal object ToriSemanticTextColors : WarpSemanticTextColors {
+    override val default = Gray900
+    override val subtle = Gray500
+    override val placeholder = Gray300
+    override val inverted = White
+    override val invertedSubtle = Gray50
+    override val link = Petroleum600
+    override val disabled = Gray300
+    override val negative = Red600
+    override val positive = Green600
+    override val notification = White
+}
+
+internal object ToriComponentColors : WarpComponentColors {
     override val button: WarpButtonColors = ToriButtonColors
     override val box: WarpBoxColors = ToriBoxColors
     override val stepIndicator: WarpStepIndicatorColors = ToriStepIndicatorColors
@@ -38,7 +154,7 @@ object ToriComponentColors : WarpComponentColors {
     override val label: WarpLabelColors = ToriLabelColors
 }
 
-object ToriBadgeColors : WarpBadgeColors {
+internal object ToriBadgeColors : WarpBadgeColors {
     override val infoBackground: Color = Petroleum50
     override val infoText: Color = Gray900
     override val positiveBackground: Color = Green100
@@ -53,14 +169,14 @@ object ToriBadgeColors : WarpBadgeColors {
     override val neutralText: Color = Gray900
 }
 
-object ToriLabelColors: WarpLabelColors {
+internal object ToriLabelColors: WarpLabelColors {
     override val text: Color = Gray900
     override val negative: Color = Red600
     override val optional: Color = Gray900
     override val icon: Color = Gray900
 }
 
-object ToriButtonColors : WarpButtonColors {
+internal object ToriButtonColors : WarpButtonColors {
     override val primary: ToriButtonStyleColors = ToriButtonStyleColors(
         text = White,
         background = ToriButtonElementColors(
@@ -149,18 +265,18 @@ object ToriButtonColors : WarpButtonColors {
     )
 }
 
-object ToriTabColors : WarpTabColors {
+internal object ToriTabColors : WarpTabColors {
     override val selectedContent: Color = Petroleum600
     override val unselectedContent: Color = Gray500
 }
 
-object ToriTabRowColors : WarpTabRowColors {
+internal object ToriTabRowColors : WarpTabRowColors {
     override val container: Color = White
     override val content: Color = Petroleum600
     override val indicator: Color = Petroleum600
 }
 
-object ToriTextFieldColors : WarpTextFieldColors {
+internal object ToriTextFieldColors : WarpTextFieldColors {
     override val text: Color = Gray900
     override val hintText: Color = Gray300
     override val disabledText: Color = Gray300
@@ -177,13 +293,13 @@ object ToriTextFieldColors : WarpTextFieldColors {
     override val iconTint: Color = Gray900
 }
 
-object ToriBoxColors : WarpBoxColors {
+internal object ToriBoxColors : WarpBoxColors {
     override val neutral = WarpComponentBackground(Gray50, null)
     override val info = WarpComponentBackground(Petroleum50, null)
     override val bordered = WarpComponentBackground(White, Gray300)
 }
 
-object ToriStepIndicatorColors : WarpStepIndicatorColors {
+internal object ToriStepIndicatorColors : WarpStepIndicatorColors {
     override val background: Color = Gray300
     override val backgroundActive: Color = Petroleum600
     override val backgroundTrack: Color = Gray300
@@ -192,7 +308,7 @@ object ToriStepIndicatorColors : WarpStepIndicatorColors {
     override val borderActive: Color = Petroleum600
     override val icon: Color = White
 }
-object ToriAlertColors : WarpAlertColors {
+internal object ToriAlertColors : WarpAlertColors {
     override val info: WarpAlertStyleColors = ToriAlertStyleColors(
         background = Petroleum50,
         leftBorder = Petroleum600,
@@ -215,18 +331,18 @@ object ToriAlertColors : WarpAlertColors {
     )
 }
 
-data class ToriButtonStyleColors(
+internal data class ToriButtonStyleColors(
     override val text: Color,
     override val background: ToriButtonElementColors,
     override val border: ToriButtonElementColors?
 ) : WarpButtonStyleColors
 
-data class ToriButtonElementColors(
+internal data class ToriButtonElementColors(
     override val default: Color,
     override val active: Color
 ) : WarpButtonElementColors
 
-data class ToriAlertStyleColors(
+internal data class ToriAlertStyleColors(
     override val background: Color,
     override val leftBorder: Color,
     override val border: Color
