@@ -82,7 +82,7 @@ private fun BadgeContent() {
 internal fun BadgeContentPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    BrandTheme(flavor = flavor) {
+    BrandTheme(flavor = flavor).getTheme {
         BadgeContent()
     }
 }

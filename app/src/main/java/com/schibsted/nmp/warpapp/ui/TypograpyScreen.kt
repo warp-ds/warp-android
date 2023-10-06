@@ -36,7 +36,9 @@ private fun TypographyContent() {
             .verticalScroll(rememberScrollState())
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text("Name")
@@ -63,7 +65,9 @@ private fun TypographyContent() {
 @Composable
 private fun TextItem(text: String, style: TextStyle) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -78,7 +82,7 @@ private fun TextItem(text: String, style: TextStyle) {
 internal fun PreviewTypographyScreen(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    BrandTheme(flavor = flavor) {
+    BrandTheme(flavor = flavor).getTheme {
         TypographyContent()
     }
 }

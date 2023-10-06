@@ -68,6 +68,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     implementation("androidx.navigation:navigation-compose:2.6.0")
+    implementation(Dependencies.koin)
 
     //implementation("com.schibsted.nmp.warp:warp-android-tori:0.0.1")
     //implementation("com.schibsted.nmp.warp:warp-android-finn:0.0.1")

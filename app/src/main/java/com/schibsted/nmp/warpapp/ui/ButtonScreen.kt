@@ -31,9 +31,9 @@ fun ButtonScreen(onUp: () -> Unit) {
 @Composable
 private fun ButtonScreenContent() {
     Column(modifier = Modifier
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
-            .padding(vertical = 16.dp)
+        .fillMaxWidth()
+        .verticalScroll(rememberScrollState())
+        .padding(vertical = 16.dp)
     ) {
         for (style in WarpButtonStyle.values()) {
             WarpText(text = style.name, modifier = Modifier.padding(top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp))
@@ -55,7 +55,7 @@ private fun ButtonScreenContent() {
 fun ButtonPreviews(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    BrandTheme(flavor = flavor) {
+    BrandTheme(flavor = flavor).getTheme {
         ButtonScreenContent()
     }
 }

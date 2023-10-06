@@ -68,6 +68,7 @@ dependencies {
     implementation(Dependencies.composeUiToolingPreview)
     debugImplementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeFoundation)
+    implementation(Dependencies.koin)
     //Material
     implementation(Dependencies.composeMaterial3)
     implementation(Dependencies.constraintLayout)

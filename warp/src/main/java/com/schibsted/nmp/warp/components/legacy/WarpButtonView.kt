@@ -10,6 +10,7 @@ import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
+import org.koin.java.KoinJavaComponent.inject
 
 
 /**
@@ -32,6 +33,8 @@ class WarpButtonView @JvmOverloads constructor(
     private var loading = false
     private var buttonEnabled = true
     private var clickListener = OnClickListener { }
+
+    val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
 
     override fun setOnClickListener(onCLick: OnClickListener?) {
         onCLick?.let { clickListener = it }
@@ -81,12 +84,14 @@ class WarpButtonView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
-        WarpButton(
-            text = text,
-            onClick = { clickListener.onClick(this@WarpButtonView) },
-            buttonStyle = style,
-            loading = loading,
-            enabled = buttonEnabled
-        )
+        theme.getTheme {
+            WarpButton(
+                text = text,
+                onClick = { clickListener.onClick(this@WarpButtonView) },
+                buttonStyle = style,
+                loading = loading,
+                enabled = buttonEnabled
+            )
+        }
     }
 }

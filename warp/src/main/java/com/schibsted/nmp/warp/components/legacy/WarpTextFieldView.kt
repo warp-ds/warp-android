@@ -14,6 +14,7 @@ import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpTextField
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
+import org.koin.java.KoinJavaComponent
 
 
 class WarpTextFieldView @JvmOverloads constructor(
@@ -21,6 +22,8 @@ class WarpTextFieldView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyle: Int = 0
 ) : AbstractComposeView(context, attrs, defStyle) {
+
+    val theme: LegacyWarpTheme by KoinJavaComponent.inject(LegacyWarpTheme::class.java)
 
     var textFieldEnabled = true
         set(value) {
@@ -99,28 +102,29 @@ class WarpTextFieldView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
+        theme.getTheme {
+            var value by rememberSaveable { mutableStateOf("") }
 
-        var value by rememberSaveable { mutableStateOf("") }
-
-        WarpTextField(
-            value = value,
-            onValueChange = { value = it },
-            enabled = textFieldEnabled,
-            readOnly = readOnly,
-            label = label,
-            optionalLabel = optionalLabel,
-            placeholderText = placeholderText,
-            helpText = helpText,
-            leadingIcon = if (leadingIcon != 0) ({
-                Icon(
-                    painterResource(id = leadingIcon),
-                    leadingIconContentDescr
-                )
-            }) else null,
-            trailingIcon = if (trailingIcon != 0) {
-                { Icon(painterResource(id = trailingIcon), trailingIconContentDescr) }
-            } else null,
-            isError = isError
-        )
+            WarpTextField(
+                value = value,
+                onValueChange = { value = it },
+                enabled = textFieldEnabled,
+                readOnly = readOnly,
+                label = label,
+                optionalLabel = optionalLabel,
+                placeholderText = placeholderText,
+                helpText = helpText,
+                leadingIcon = if (leadingIcon != 0) ({
+                    Icon(
+                        painterResource(id = leadingIcon),
+                        leadingIconContentDescr
+                    )
+                }) else null,
+                trailingIcon = if (trailingIcon != 0) {
+                    { Icon(painterResource(id = trailingIcon), trailingIconContentDescr) }
+                } else null,
+                isError = isError
+            )
+        }
     }
 }

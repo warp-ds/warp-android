@@ -9,6 +9,7 @@ import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpBadge
 import com.schibsted.nmp.warp.components.WarpBadgeAlignment
 import com.schibsted.nmp.warp.components.WarpBadgeStyle
+import org.koin.java.KoinJavaComponent
 
 
 class WarpBadgeView @JvmOverloads constructor(
@@ -16,6 +17,9 @@ class WarpBadgeView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AbstractComposeView(context, attrs, defStyleAttr) {
+
+    val theme: LegacyWarpTheme by KoinJavaComponent.inject(LegacyWarpTheme::class.java)
+
     private var style: WarpBadgeStyle = WarpBadgeStyle.Info
     private var alignmentStyle: WarpBadgeAlignment = WarpBadgeAlignment.None
     private var text: CharSequence? = null
@@ -33,11 +37,13 @@ class WarpBadgeView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
-        WarpBadge(
-            text = text.toString(),
-            style = style,
-            alignmentStyle = alignmentStyle
-        )
+        theme.getTheme {
+            WarpBadge(
+                text = text.toString(),
+                style = style,
+                alignmentStyle = alignmentStyle
+            )
+        }
     }
 
     private fun getAlignmentStyle(alignmentInt: Int): WarpBadgeAlignment =
