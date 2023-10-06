@@ -82,7 +82,7 @@ private fun TextItem(text: String, style: TextStyle) {
 internal fun PreviewTypographyScreen(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    BrandTheme(flavor = flavor).getTheme {
+    BrandTheme(flavor = flavor).invoke {
         TypographyContent()
     }
 }

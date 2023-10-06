@@ -51,8 +51,9 @@ fun MainScreen() {
 
     val viewModel: MainViewModel = viewModel(LocalContext.current as ComponentActivity)
     val flavor = viewModel.flavor.collectAsState()
+    val theme = BrandTheme(flavor = flavor.value)
 
-    BrandTheme(flavor = flavor.value).getTheme {
+    theme {
         NavHost(navController = navController, startDestination = "components") {
             composable("components") {
                 ComponentListScreen {
@@ -95,7 +96,7 @@ fun MainScreen() {
                 }
             }
             composable("tabs") {
-                TabsScreen() {
+                TabsScreen {
                     navController.navigateUp()
                 }
             }
@@ -182,7 +183,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
 fun MainScreenPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    BrandTheme(flavor = flavor).getTheme {
+    BrandTheme(flavor = flavor).invoke {
         ComponentListScreen {
 
         }

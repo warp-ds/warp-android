@@ -5,5 +5,5 @@ import com.schibsted.nmp.warpapp.BrandTheme
 import org.koin.dsl.module
 
 val warpAppModule = module {
-    single<LegacyWarpTheme> { BrandTheme(flavor = "finn") }
+    single<LegacyWarpTheme> { BrandTheme(flavor = "tori") }
 }

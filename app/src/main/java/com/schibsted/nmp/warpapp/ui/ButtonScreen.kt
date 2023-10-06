@@ -55,7 +55,7 @@ private fun ButtonScreenContent() {
 fun ButtonPreviews(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    BrandTheme(flavor = flavor).getTheme {
+    BrandTheme(flavor = flavor).invoke {
         ButtonScreenContent()
     }
 }

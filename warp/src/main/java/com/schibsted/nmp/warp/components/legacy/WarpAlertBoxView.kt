@@ -8,11 +8,11 @@ import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpAlert
 import com.schibsted.nmp.warp.components.WarpAlertType
-import org.koin.java.KoinJavaComponent
+import org.koin.java.KoinJavaComponent.inject
 
 class WarpAlertBoxView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AbstractComposeView(context = context, attrs = attrs, defStyleAttr = defStyleAttr) {
 
-    val theme: LegacyWarpTheme by KoinJavaComponent.inject(LegacyWarpTheme::class.java)
+    val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
 
     private var type: WarpAlertType = WarpAlertType.Info
     private var title: String = ""
@@ -38,7 +38,7 @@ class WarpAlertBoxView @JvmOverloads constructor(context: Context, attrs: Attrib
 
     @Composable
     override fun Content() {
-        theme.getTheme {
+        theme {
             WarpAlert(
                 type = type,
                 title = title,

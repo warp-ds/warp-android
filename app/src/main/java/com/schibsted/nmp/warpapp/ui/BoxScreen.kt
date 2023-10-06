@@ -61,7 +61,7 @@ private fun BoxScreenContent() {
 internal fun PreviewBoxScreen(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    BrandTheme(flavor = flavor).getTheme {
+    BrandTheme(flavor = flavor).invoke {
         BoxScreenContent()
     }
 }

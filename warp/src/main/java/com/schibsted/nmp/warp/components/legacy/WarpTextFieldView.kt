@@ -14,7 +14,7 @@ import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpTextField
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
-import org.koin.java.KoinJavaComponent
+import org.koin.java.KoinJavaComponent.inject
 
 
 class WarpTextFieldView @JvmOverloads constructor(
@@ -23,7 +23,7 @@ class WarpTextFieldView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : AbstractComposeView(context, attrs, defStyle) {
 
-    val theme: LegacyWarpTheme by KoinJavaComponent.inject(LegacyWarpTheme::class.java)
+    val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
 
     var textFieldEnabled = true
         set(value) {
@@ -102,7 +102,7 @@ class WarpTextFieldView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
-        theme.getTheme {
+        theme {
             var value by rememberSaveable { mutableStateOf("") }
 
             WarpTextField(
