@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.schibsted.nmp.warpapp"
-    compileSdk = 33
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         applicationId = "com.schibsted.nmp.warpapp"
-        minSdk = 24
-        targetSdk = 33
+        minSdk = ConfigData.minSdkVersion
+        targetSdk = ConfigData.compileSdkVersion
         versionCode = 1
         versionName = "1.0"
 
@@ -28,7 +28,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.jvm
     }
 
     buildFeatures {
@@ -36,7 +36,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
+        kotlinCompilerExtensionVersion = Versions.kotlinCompiler
     }
 }
 allprojects {
@@ -57,17 +57,19 @@ allprojects {
 }
 
 dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2023.04.01")
+    val composeBom = platform(Dependencies.composeBom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.foundation:foundation")
-    implementation("androidx.activity:activity-compose:1.6.1")
-    implementation("androidx.compose.material3:material3")
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeUiToolingPreview)
+    debugImplementation(Dependencies.composeUiTooling)
+    implementation(Dependencies.composeFoundation)
+    implementation(Dependencies.koin)
+    //Material
+    implementation(Dependencies.composeMaterial3)
+    implementation(Dependencies.constraintLayout)
 
-    implementation("androidx.navigation:navigation-compose:2.6.0")
+    implementation(Dependencies.navigationCompose)
     implementation(Dependencies.koin)
 
     //implementation("com.schibsted.nmp.warp:warp-android-tori:0.0.1")
@@ -77,10 +79,10 @@ dependencies {
     implementation(project(path = ":warp-finn"))
 
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.5.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(Dependencies.material)
+    implementation(Dependencies.core)
+    implementation(Dependencies.appCompat)
+    testImplementation(Dependencies.junit)
+    androidTestImplementation(Dependencies.extJunit)
+    androidTestImplementation(Dependencies.espressoCore)
 }

@@ -1,6 +1,6 @@
 object Versions {
     const val jvm = "1.8"
-    const val kotlinCompiler = "1.5.3"
+    const val kotlinCompiler = "1.4.8"
     const val core = "1.9.0"
     const val compose = "2023.04.01"
     const val constraintLayout = "1.0.1"
@@ -9,4 +9,6 @@ object Versions {
     const val extJunit = "1.1.3"
     const val espressoCore = "3.4.0"
     const val koin = "3.5.0"
+    const val navigationCompose = "2.6.0"
+    const val material = "1.5.0"
 }

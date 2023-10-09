@@ -5,15 +5,20 @@ import com.schibsted.nmp.warp.brands.finn.FinnWarpTheme
 import com.schibsted.nmp.warp.brands.tori.ToriWarpTheme
 import com.schibsted.nmp.warp.components.legacy.LegacyWarpTheme
 
-//To be able to use the theme in legacy xml views we need to extend LegacyWarpTheme.
+const val FINN = "finn"
+const val TORI = "tori"
+
+//To be able to use the theme in legacy xml views we need to implement LegacyWarpTheme.
 // This class will be then injected into the legacy implementation of Warp components
-class BrandTheme(val flavor: String) : LegacyWarpTheme{
+class BrandTheme(val flavor: String) : LegacyWarpTheme {
+
+
 
     @Composable
     override fun invoke(content:@Composable  () -> Unit) {
         when (flavor) {
-            "finn" -> FinnWarpTheme(content)
-            "tori" -> ToriWarpTheme(content)
+            FINN -> FinnWarpTheme(content)
+            TORI -> ToriWarpTheme(content)
         }
     }
 }
