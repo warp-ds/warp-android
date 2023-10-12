@@ -3,11 +3,22 @@ package com.schibsted.nmp.warpapp
 import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.brands.finn.FinnWarpTheme
 import com.schibsted.nmp.warp.brands.tori.ToriWarpTheme
+import com.schibsted.nmp.warp.components.legacy.LegacyWarpTheme
 
-@Composable
-fun BrandTheme(flavor: String, content: @Composable () -> Unit) {
-    when (flavor) {
-        "finn" -> FinnWarpTheme(content)
-        "tori" -> ToriWarpTheme(content)
+const val FINN = "finn"
+const val TORI = "tori"
+
+//To be able to use the theme in legacy xml views we need to implement LegacyWarpTheme.
+// This class will be then injected into the legacy implementation of Warp components
+class BrandTheme(val flavor: String) : LegacyWarpTheme {
+
+
+
+    @Composable
+    override fun invoke(content:@Composable  () -> Unit) {
+        when (flavor) {
+            FINN -> FinnWarpTheme(content)
+            TORI -> ToriWarpTheme(content)
+        }
     }
 }

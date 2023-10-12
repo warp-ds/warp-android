@@ -18,10 +18,13 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = false
             @Suppress("UnstableApiUsage")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
+            isMinifyEnabled = false
         }
     }
     compileOptions {
@@ -68,6 +71,7 @@ dependencies {
     implementation(Dependencies.composeUiToolingPreview)
     debugImplementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeFoundation)
+    implementation(Dependencies.koin)
     //Material
     implementation(Dependencies.composeMaterial3)
     implementation(Dependencies.constraintLayout)

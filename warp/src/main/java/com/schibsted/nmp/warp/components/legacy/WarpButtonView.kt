@@ -10,6 +10,7 @@ import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
+import org.koin.java.KoinJavaComponent.inject
 
 
 /**
@@ -27,34 +28,41 @@ class WarpButtonView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : AbstractComposeView(context, attrs, defStyle) {
 
-    private var style: WarpButtonStyle = WarpButtonStyle.Primary
-    private var text = ""
-    private var loading = false
-    private var buttonEnabled = true
+    val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
+
+    var style: WarpButtonStyle = WarpButtonStyle.Primary
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var text = ""
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var loading = false
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var buttonEnabled = true
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
     private var clickListener = OnClickListener { }
 
     override fun setOnClickListener(onCLick: OnClickListener?) {
         onCLick?.let { clickListener = it }
     }
 
-    fun setLoading(loading: Boolean) {
-        this.loading = loading
-        disposeComposition()
-    }
-
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
         buttonEnabled = enabled
-        disposeComposition()
-    }
-
-    fun setText(text: String) {
-        this.text = text
-        disposeComposition()
-    }
-
-    fun setStyle(style: WarpButtonStyle) {
-        this.style = style
         disposeComposition()
     }
 
@@ -81,12 +89,14 @@ class WarpButtonView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
-        WarpButton(
-            text = text,
-            onClick = { clickListener.onClick(this@WarpButtonView) },
-            buttonStyle = style,
-            loading = loading,
-            enabled = buttonEnabled
-        )
+        theme {
+            WarpButton(
+                text = text,
+                onClick = { clickListener.onClick(this@WarpButtonView) },
+                buttonStyle = style,
+                loading = loading,
+                enabled = buttonEnabled
+            )
+        }
     }
 }

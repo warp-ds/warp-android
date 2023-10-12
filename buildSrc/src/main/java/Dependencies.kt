@@ -18,4 +18,7 @@ object Dependencies {
     const val junit = "junit:junit:${Versions.junit}"
     const val extJunit = "androidx.test.ext:junit:${Versions.extJunit}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    const val koin = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
+    const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
+    const val material = "com.google.android.material:material:${Versions.material}"
 }

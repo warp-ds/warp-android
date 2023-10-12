@@ -87,7 +87,7 @@ private fun TabsContent() {
 private fun WarpTabsPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
-    BrandTheme(flavor = flavor) {
+    BrandTheme(flavor = flavor).invoke {
         TabsContent()
     }
 }
