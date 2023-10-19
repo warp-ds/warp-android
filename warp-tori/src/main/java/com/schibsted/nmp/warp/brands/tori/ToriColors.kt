@@ -17,7 +17,6 @@ import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpLabelColors
 import com.schibsted.nmp.warp.theme.WarpSemanticBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpSemanticBorderColors
-import com.schibsted.nmp.warp.theme.WarpSemanticColors
 import com.schibsted.nmp.warp.theme.WarpSemanticIconColors
 import com.schibsted.nmp.warp.theme.WarpSemanticTextColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
@@ -27,15 +26,11 @@ import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object ToriColors : WarpColors {
-    override val semantic: WarpSemanticColors = ToriSemanticColors
-    override val components: WarpComponentColors = ToriComponentColors
-}
-
-internal object ToriSemanticColors : WarpSemanticColors {
     override val background: WarpSemanticBackgroundColors = ToriSemanticBackgroundColors
     override val border: WarpSemanticBorderColors = ToriSemanticBorderColors
     override val icon: WarpSemanticIconColors = ToriSemanticIconColors
     override val text: WarpSemanticTextColors = ToriSemanticTextColors
+    override val components: WarpComponentColors = ToriComponentColors
 }
 
 internal object ToriSemanticBackgroundColors : WarpSemanticBackgroundColors {

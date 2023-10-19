@@ -6,15 +6,11 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 
 internal object Placeholders : WarpColors {
-    override val semantic: WarpSemanticColors = PlaceholderWarpSemanticColors
-    override val components: WarpComponentColors = PlaceholderWarpComponentColors
-}
-
-private object PlaceholderWarpSemanticColors : WarpSemanticColors {
     override val background: WarpSemanticBackgroundColors = PlaceholderWarpSemanticBackgroundColors
     override val border: WarpSemanticBorderColors = PlaceholderWarpSemanticBorderColors
     override val icon: WarpSemanticIconColors = PlaceholderWarpSemanticIconColors
     override val text: WarpSemanticTextColors = PlaceholderWarpSemanticTextColors
+    override val components: WarpComponentColors = PlaceholderWarpComponentColors
 }
 
 private object PlaceholderWarpSemanticBackgroundColors : WarpSemanticBackgroundColors {
