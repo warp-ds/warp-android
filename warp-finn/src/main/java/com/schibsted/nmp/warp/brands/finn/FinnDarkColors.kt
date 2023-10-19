@@ -12,7 +12,6 @@ import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpLabelColors
 import com.schibsted.nmp.warp.theme.WarpSemanticBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpSemanticBorderColors
-import com.schibsted.nmp.warp.theme.WarpSemanticColors
 import com.schibsted.nmp.warp.theme.WarpSemanticIconColors
 import com.schibsted.nmp.warp.theme.WarpSemanticTextColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
@@ -22,15 +21,11 @@ import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object FinnDarkColors : WarpColors {
-    override val semantic: WarpSemanticColors = FinnSemanticDarkColors
-    override val components: WarpComponentColors = FinnComponentDarkColors
-}
-
-internal object FinnSemanticDarkColors : WarpSemanticColors {
     override val background: WarpSemanticBackgroundColors = FinnSemanticDarkBackgroundColors
     override val border: WarpSemanticBorderColors = FinnSemanticDarkBorderColors
     override val icon: WarpSemanticIconColors = FinnSemanticDarkIconColors
     override val text: WarpSemanticTextColors = FinnSemanticDarkTextColors
+    override val components: WarpComponentColors = FinnComponentDarkColors
 }
 
 internal object FinnSemanticDarkBackgroundColors : WarpSemanticBackgroundColors {

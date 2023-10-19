@@ -8,15 +8,11 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 interface WarpColors {
-    val semantic: WarpSemanticColors
-    val components: WarpComponentColors
-}
-
-interface WarpSemanticColors {
     val background : WarpSemanticBackgroundColors
     val border : WarpSemanticBorderColors
     val icon : WarpSemanticIconColors
     val text : WarpSemanticTextColors
+    val components: WarpComponentColors
 }
 
 interface WarpSemanticBackgroundColors {

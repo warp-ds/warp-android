@@ -11,9 +11,6 @@ const val TORI = "tori"
 //To be able to use the theme in legacy xml views we need to implement LegacyWarpTheme.
 // This class will be then injected into the legacy implementation of Warp components
 class BrandTheme(val flavor: String) : LegacyWarpTheme {
-
-
-
     @Composable
     override fun invoke(content:@Composable  () -> Unit) {
         when (flavor) {
