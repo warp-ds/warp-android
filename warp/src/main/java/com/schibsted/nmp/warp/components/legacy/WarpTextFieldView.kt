@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.components.legacy
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.annotation.DrawableRes
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -55,6 +56,7 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
+    @DrawableRes
     var leadingIcon = 0
         set(value) {
             field = value
@@ -65,6 +67,7 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
+    @DrawableRes
     var trailingIcon = 0
         set(value) {
             field = value

@@ -44,6 +44,8 @@
         app:optionalLabel="Optional"
         app:placeholderText="Meow?"
         app:helpText="Meow here"
+        app:trailingIcon="@android:drawable/ic_delete"
+        app:leadingIcon="@android:drawable/ic_menu_add"
         />
 
     <com.schibsted.nmp.warp.components.legacy.WarpBadgeView
