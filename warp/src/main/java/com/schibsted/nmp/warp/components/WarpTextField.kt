@@ -107,7 +107,7 @@ fun WarpTextField(
 
             Row(
                 horizontalArrangement = Arrangement.Start,
-                modifier = Modifier.padding(vertical = dimensions.space025.dp, horizontal = 0.dp),
+                modifier = Modifier.padding(vertical = dimensions.space025, horizontal = 0.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 WarpText(text = label, style = WarpTextStyle.Title5, color = labelColor)
@@ -116,7 +116,7 @@ fun WarpTextField(
                         text = it,
                         style = WarpTextStyle.Detail,
                         color = labelColor,
-                        modifier = Modifier.padding(horizontal = dimensions.space1.dp)
+                        modifier = Modifier.padding(horizontal = dimensions.space1)
                     )
                 }
             }

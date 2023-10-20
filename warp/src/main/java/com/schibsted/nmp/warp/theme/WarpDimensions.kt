@@ -1,33 +1,35 @@
 package com.schibsted.nmp.warp.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 object WarpDimensions {
-    val space025: Int = 2
-    val space05: Int = 4
-    val space1: Int = 8
-    val space15: Int = 12
-    val space2: Int = 16
-    val space25: Int = 20
-    val space3: Int = 24
-    val space4: Int = 32
-    val space5: Int = 40
-    val space6: Int = 48
-    val space7: Int = 56
-    val space8: Int = 64
-    val space10: Int = 80
-    val space12: Int = 96
-    val space14: Int = 112
-    val space16: Int = 128
+    val space025: Dp = 2.dp
+    val space05: Dp = 4.dp
+    val space1: Dp = 8.dp
+    val space15: Dp = 12.dp
+    val space2: Dp = 16.dp
+    val space25: Dp = 20.dp
+    val space3: Dp = 24.dp
+    val space4: Dp = 32.dp
+    val space5: Dp = 40.dp
+    val space6: Dp = 48.dp
+    val space7: Dp = 56.dp
+    val space8: Dp = 64.dp
+    val space10: Dp = 80.dp
+    val space12: Dp = 96.dp
+    val space14: Dp = 112.dp
+    val space16: Dp = 128.dp
 
-    val borderRadius1: Int = 2
-    val borderRadius2: Int = 4
-    val borderRadius3: Int = 8
-    val borderRadius4: Int = 16
-    val borderWidth1: Int = 1
-    val borderWidth2: Int = 2
-    val borderWidth3: Int = 4 // TODO: not sure about this one
-    val shadowSmall: Int = 1
+    val borderRadius1: Dp = 2.dp
+    val borderRadius2: Dp = 4.dp
+    val borderRadius3: Dp = 8.dp
+    val borderRadius4: Dp = 16.dp
+    val borderWidth1: Dp = 1.dp
+    val borderWidth2: Dp = 2.dp
+    val borderWidth3: Dp = 4.dp // TODO: not sure about this one
+    val shadowSmall: Dp = 1.dp
 
     val components = WarpComponentDimensions
 }
@@ -37,10 +39,10 @@ object WarpComponentDimensions {
 }
 
 object StepIndicatorDimensions {
-    val placeholderIndicatorSize = 24
-    val placeholderIconSize = 16
-    val placeholderBorderWidth = 2
-    val placeholderTrackWidth = 2
+    val placeholderIndicatorSize = 24.dp
+    val placeholderIconSize = 16.dp
+    val placeholderBorderWidth = 2.dp
+    val placeholderTrackWidth = 2.dp
 }
 
 internal val LocalDimensions = staticCompositionLocalOf { WarpDimensions }

@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -45,16 +44,16 @@ fun WarpAlert(
     ConstraintLayout(
         modifier = modifier
             .alertBorder(
-                WarpTheme.dimensions.borderWidth3.dp,
-                WarpTheme.dimensions.borderWidth1.dp,
+                WarpTheme.dimensions.borderWidth3,
+                WarpTheme.dimensions.borderWidth1,
                 colors.background,
                 colors.leftBorder,
                 colors.border,
                 WarpTheme.shapes.medium
             )
             .padding(
-                horizontal = WarpTheme.dimensions.space2.dp,
-                vertical = WarpTheme.dimensions.space25.dp
+                horizontal = WarpTheme.dimensions.space2,
+                vertical = WarpTheme.dimensions.space25
             )
     ) {
         val (iconRef, titleRef, bodyRef) = createRefs()
@@ -68,7 +67,7 @@ fun WarpAlert(
             imageVector = icon,
             contentDescription = ""
         )
-        val margin = WarpTheme.dimensions.space1.dp
+        val margin = WarpTheme.dimensions.space1
         Text(
             modifier = Modifier
                 .constrainAs(titleRef) {
@@ -109,8 +108,8 @@ fun WarpAlert(
     Box(
         modifier = modifier
             .alertBorder(
-                WarpTheme.dimensions.borderWidth3.dp,
-                WarpTheme.dimensions.borderWidth1.dp,
+                WarpTheme.dimensions.borderWidth3,
+                WarpTheme.dimensions.borderWidth1,
                 colors.background,
                 colors.leftBorder,
                 colors.border,
@@ -133,29 +132,29 @@ enum class WarpAlertType {
 fun WarpAlertPreview() {
     Column(Modifier.fillMaxWidth()) {
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the info variant of the alert element",
             body = "I am an excellent message for the user.")
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the positive variant of the alert element, with a very very long title so long that it will wrap",
             body = "With an additional description",
             type = WarpAlertType.Positive
         )
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "Negative variant",
             body = "With an additional description",
             type = WarpAlertType.Negative
         )
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp).fillMaxWidth(),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2).fillMaxWidth(),
             title = "Negative variant",
             body = "With an additional description",
             type = WarpAlertType.Negative
         )
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the info variant of the alert element",
             body = "With an additional description that is very long, so long that it will probably become a new line",
             type = WarpAlertType.Warning

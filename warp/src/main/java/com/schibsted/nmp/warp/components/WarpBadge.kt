@@ -50,8 +50,8 @@ fun WarpBadge(
                 Modifier
                     .background(backgroundColor, shape = shape)
                     .padding(
-                        horizontal = WarpTheme.dimensions.space1.dp,
-                        vertical = WarpTheme.dimensions.space05.dp
+                        horizontal = WarpTheme.dimensions.space1,
+                        vertical = WarpTheme.dimensions.space05
                     )
             ),
         color = textColor,

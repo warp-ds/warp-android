@@ -10,7 +10,7 @@ import com.schibsted.nmp.warp.theme.WarpShapes
 
 internal data class ToriShapes(
     val dimensions: WarpDimensions,
-    override val medium: Shape = RoundedCornerShape(dimensions.borderRadius3.dp),
+    override val medium: Shape = RoundedCornerShape(dimensions.borderRadius3),
 ) : WarpShapes {
     override val components: WarpComponentShapes = ToriComponentShapes(dimensions)
 }
@@ -24,9 +24,9 @@ internal class ToriComponentShapes(
 internal class ToriBadgeShapes(
     dimensions: WarpDimensions
 ) : WarpBadgeShapes {
-    override val default: Shape = RoundedCornerShape(dimensions.borderWidth2.dp)
-    override val topStart: Shape = RoundedCornerShape(topStart = dimensions.borderWidth2.dp, bottomEnd = dimensions.borderWidth2.dp, topEnd = 0.dp, bottomStart = 0.dp)
-    override val topEnd: Shape = RoundedCornerShape(topEnd = dimensions.borderWidth2.dp, bottomStart = dimensions.borderWidth2.dp, topStart = 0.dp, bottomEnd = 0.dp)
-    override val bottomStart: Shape = RoundedCornerShape(topEnd = dimensions.borderWidth2.dp, bottomStart = dimensions.borderWidth2.dp, topStart = 0.dp, bottomEnd = 0.dp)
-    override val bottomEnd: Shape = RoundedCornerShape(topStart = dimensions.borderWidth2.dp, bottomEnd = dimensions.borderWidth2.dp, topEnd = 0.dp, bottomStart = 0.dp)
+    override val default: Shape = RoundedCornerShape(dimensions.borderWidth2)
+    override val topStart: Shape = RoundedCornerShape(topStart = dimensions.borderWidth2, bottomEnd = dimensions.borderWidth2, topEnd = 0.dp, bottomStart = 0.dp)
+    override val topEnd: Shape = RoundedCornerShape(topEnd = dimensions.borderWidth2, bottomStart = dimensions.borderWidth2, topStart = 0.dp, bottomEnd = 0.dp)
+    override val bottomStart: Shape = RoundedCornerShape(topEnd = dimensions.borderWidth2, bottomStart = dimensions.borderWidth2, topStart = 0.dp, bottomEnd = 0.dp)
+    override val bottomEnd: Shape = RoundedCornerShape(topStart = dimensions.borderWidth2, bottomEnd = dimensions.borderWidth2, topEnd = 0.dp, bottomStart = 0.dp)
 }
