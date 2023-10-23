@@ -16,13 +16,13 @@
 
     <com.schibsted.nmp.warp.components.legacy.WarpButtonView
         android:id="@+id/warp_button_two"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:buttonText="Meowings"
         app:layout_constraintStart_toEndOf="@id/warp_button"
         app:layout_constraintTop_toTopOf="parent"
         app:loading="false"
-        app:warpButtonStyle="secondary" />
+        app:warpButtonStyle="primary" />
 
     <com.schibsted.nmp.warp.components.legacy.WarpTextView
         android:id="@+id/textView"
@@ -36,16 +36,16 @@
 
     <com.schibsted.nmp.warp.components.legacy.WarpTextFieldView
         android:id="@+id/textField"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView"
         app:label="Label here"
         app:optionalLabel="Optional"
-        app:placeholderText="Meow?"
+        app:placeholderText="Meow three times here please"
         app:helpText="Meow here"
-        app:trailingIcon="@android:drawable/ic_delete"
-        app:leadingIcon="@android:drawable/ic_menu_add"
+        app:trailingIcon="@drawable/blocket_badge"
+        app:leadingIcon="@drawable/blocket_badge"
         />
 
     <com.schibsted.nmp.warp.components.legacy.WarpBadgeView
