@@ -129,6 +129,13 @@ interface WarpComponentColors {
     val tabRow: WarpTabRowColors
     val tab: WarpTabColors
     val label: WarpLabelColors
+    val callout: WarpCalloutColors
+}
+
+interface WarpCalloutColors {
+    val background: Color
+    val border: Color
+    val text: Color
 }
 
 interface WarpLabelColors {

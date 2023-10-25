@@ -7,6 +7,7 @@ import com.schibsted.nmp.warp.theme.WarpAlertColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
+import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpLabelColors
@@ -142,6 +143,13 @@ internal object ToriComponentDarkColors : WarpComponentColors {
     override val tabRow: WarpTabRowColors = ToriTabRowColors // Todo darkmode
     override val badge: WarpBadgeColors = ToriBadgeColors // TODO: Darkmode
     override val label: WarpLabelColors = ToriLabelDarkColors
+    override val callout: WarpCalloutColors = ToriCalloutDarkColors
+}
+
+internal object ToriCalloutDarkColors : WarpCalloutColors {
+    override val background: Color = Green800
+    override val border: Color = Green600
+    override val text: Color = ToriSemanticDarkTextColors.default
 }
 
 internal object ToriLabelDarkColors: WarpLabelColors {

@@ -11,6 +11,7 @@ import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
+import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
@@ -147,6 +148,13 @@ internal object FinnComponentColors : WarpComponentColors {
     override val tab: WarpTabColors = FinnTabColors
     override val badge: WarpBadgeColors = FinnBadgeColors
     override val label: WarpLabelColors = FinnLabelColors
+    override val callout: WarpCalloutColors = FinnCalloutColors
+}
+
+internal object FinnCalloutColors : WarpCalloutColors {
+    override val background: Color = Green100
+    override val border: Color = Green400
+    override val text: Color = FinnSemanticTextColors.default
 }
 
 internal object FinnBadgeColors : WarpBadgeColors {
