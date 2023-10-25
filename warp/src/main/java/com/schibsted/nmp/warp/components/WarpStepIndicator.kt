@@ -531,18 +531,18 @@ fun HorizontalWarpStepIndicator(
                 for (i in 1..steps) {
                     Column(modifier = Modifier.layoutId(StepIndicatorIds.LABEL), horizontalAlignment = Alignment.CenterHorizontally) {
                         label?.let {
-                            Text(
+                            WarpText(
                                 it(i),
                                 textAlign = TextAlign.Center,
-                                style = typography.bodyStrong
+                                style = WarpTextStyle.BodyStrong
                             )
                         }
 
                         description?.let {
-                            Text(
+                            WarpText(
                                 it(i),
                                 textAlign = TextAlign.Center,
-                                style = typography.caption
+                                style = WarpTextStyle.Caption
                             )
                         }
                     }

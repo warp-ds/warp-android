@@ -12,12 +12,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpBadge
 import com.schibsted.nmp.warp.components.WarpBadgeStyle
+import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 
@@ -34,8 +34,8 @@ private fun BadgeContent() {
         Card(
             Modifier
                 .padding(8.dp)
-                .background(Color.White),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
+                .background(WarpTheme.colors.background.default),
+            colors = CardDefaults.cardColors(containerColor = WarpTheme.colors.background.default),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             shape = RoundedCornerShape(4.dp)
         ) {

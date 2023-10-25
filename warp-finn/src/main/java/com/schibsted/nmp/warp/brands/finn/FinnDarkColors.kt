@@ -181,7 +181,7 @@ internal object FinnTabRowDarkColors: WarpTabRowColors {
 }
 
 internal object FinnStepIndicatorDarkColors : WarpStepIndicatorColors {
-    override val background: Color = Black
+    override val background: Color = Bluegray600
     override val backgroundActive: Color = Blue500
     override val backgroundTrack: Color = Bluegray600
     override val backgroundTrackActive: Color = Blue500
