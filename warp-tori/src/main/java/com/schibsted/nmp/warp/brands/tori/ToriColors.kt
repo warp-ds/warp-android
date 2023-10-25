@@ -311,6 +311,7 @@ internal object ToriStepIndicatorColors : WarpStepIndicatorColors {
     override val borderActive: Color = Petroleum600
     override val icon: Color = White
 }
+
 internal object ToriAlertColors : WarpAlertColors {
     override val info: WarpAlertStyleColors = ToriAlertStyleColors(
         background = Petroleum50,

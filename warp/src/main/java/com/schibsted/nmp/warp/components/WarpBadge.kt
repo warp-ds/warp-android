@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +43,7 @@ fun WarpBadge(
         WarpBadgeAlignment.BottomStart -> WarpTheme.shapes.components.badge.bottomStart
         WarpBadgeAlignment.BottomEnd -> WarpTheme.shapes.components.badge.bottomEnd
     }
-    Text(
+    WarpText(
         modifier = modifier
             .then(
                 Modifier
@@ -56,7 +55,7 @@ fun WarpBadge(
             ),
         color = textColor,
         text = text,
-        style = WarpTheme.typography.detail,
+        style = WarpTextStyle.Detail,
     )
 
 }

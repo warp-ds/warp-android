@@ -9,7 +9,6 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -68,7 +67,7 @@ fun WarpAlert(
             contentDescription = ""
         )
         val margin = WarpTheme.dimensions.space1
-        Text(
+        WarpText(
             modifier = Modifier
                 .constrainAs(titleRef) {
                     linkTo(start = iconRef.end, end = parent.end, startMargin = margin, bias = 0f)
@@ -76,10 +75,10 @@ fun WarpAlert(
                     width = Dimension.preferredWrapContent
                 },
             text = title,
-            style = WarpTheme.typography.title4
+            style = WarpTextStyle.Title4
         )
         body?.let {
-            Text(
+            WarpText(
                 modifier = Modifier
                     .constrainAs(bodyRef) {
                         linkTo(start = iconRef.end, startMargin = margin, end = parent.end, bias = 0f)
@@ -87,7 +86,7 @@ fun WarpAlert(
                         width = Dimension.preferredWrapContent
                     },
                 text = body,
-                style = WarpTheme.typography.body
+                style = WarpTextStyle.Body
             )
         }
     }

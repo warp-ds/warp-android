@@ -127,6 +127,13 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
     override val tabRow: WarpTabRowColors = PlaceholderTabRow
     override val tab: WarpTabColors = PlaceholderTab
     override val label: WarpLabelColors = PlaceholderLabelColors
+    override val callout: WarpCalloutColors = PlaceholderCalloutColors
+}
+
+private object PlaceholderCalloutColors : WarpCalloutColors {
+    override val background: Color = Color.Unspecified
+    override val border: Color = Color.Unspecified
+    override val text: Color = Color.Unspecified
 }
 
 private object PlaceholderLabelColors : WarpLabelColors {

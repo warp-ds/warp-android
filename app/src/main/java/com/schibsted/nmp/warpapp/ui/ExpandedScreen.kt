@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.components.Expandable
 import com.schibsted.nmp.warp.components.WarpAlert
 import com.schibsted.nmp.warp.components.WarpAlertType
 import com.schibsted.nmp.warp.components.WarpBox
 import com.schibsted.nmp.warp.components.WarpBoxStyle
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
+import com.schibsted.nmp.warp.components.WarpExpandable
 
 @Composable
 fun ExpandableScreen(onUp: () -> Unit) {
@@ -27,13 +27,13 @@ fun ExpandableScreen(onUp: () -> Unit) {
 private fun ExpandableScreenContent() {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text("Just an expandable")
-        Expandable(title = "Title", modifier = Modifier.padding(16.dp)) {
+        WarpExpandable(title = "Title", modifier = Modifier.padding(16.dp)) {
             Text("This is the hidden content")
         }
 
         Text(modifier = Modifier.padding(top = 16.dp), text = "Expandable inside box")
         WarpBox(modifier = Modifier.padding(16.dp), boxStyle = WarpBoxStyle.INFO) {
-            Expandable(
+            WarpExpandable(
                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
                 title = "Title",
                 initiallyExpanded = true
@@ -52,7 +52,7 @@ private fun ExpandableScreenContent() {
             modifier = Modifier.padding(16.dp),
             type = WarpAlertType.Info
         ) {
-            Expandable(
+            WarpExpandable(
                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
                 title = "Title",
                 initiallyExpanded = true
