@@ -1,10 +1,12 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3Api::class
+@file:OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class
 )
 
 package com.schibsted.nmp.warpapp.ui
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,13 +19,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -40,7 +42,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.schibsted.nmp.warp.components.WarpScaffold
+import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTopAppBar
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 import com.schibsted.nmp.warpapp.MainViewModel
@@ -117,18 +121,23 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
     WarpScaffold(
         topBar = {
             WarpTopAppBar(
-                title = {
-                    Text("Warp components")
-                },
+                titleText = "Warp components",
                 actions = {
                     IconButton(onClick = { menuVisible = !menuVisible }) {
-                        Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "Menu")
+                        Icon(
+                            imageVector = Icons.Filled.MoreVert,
+                            contentDescription = "Menu",
+                            tint = colors.icon.default
+                        )
                     }
-                    DropdownMenu(expanded = menuVisible, onDismissRequest = { menuVisible = false }) {
-                        DropdownMenuItem(text = { Text("Finn") }, onClick = {
+                    DropdownMenu(
+                        modifier = Modifier.background(colors.background.subtle),
+                        expanded = menuVisible,
+                        onDismissRequest = { menuVisible = false }) {
+                        DropdownMenuItem(text = { WarpText("Finn") }, onClick = {
                             viewModel.setFlavor("finn")
                         })
-                        DropdownMenuItem(text = { Text("Tori") }, onClick = {
+                        DropdownMenuItem(text = { WarpText("Tori") }, onClick = {
                             viewModel.setFlavor("tori")
                         })
                     }
@@ -147,17 +156,21 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "stepIndicator" to "WarpStepIndicator",
                         "alertBox" to "WarpAlertBox",
                         "textField" to "WarpTextField",
-                        "expandable" to "Expandable",
+                        "expandable" to "WarpExpandable",
                         "tabs" to "WarpTab and WarpTabGroup",
                         "badges" to "WarpBadge",
-                    ))
+                    )
+                )
                 {
                     ElevatedCard(
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                             .clickable {
                                 onNavigate(it.first)
-                            }
+                            },
+                        colors = CardDefaults.elevatedCardColors(
+                            containerColor = colors.background.subtle
+                        )
                     ) {
                         Row(
                             modifier = Modifier
@@ -165,10 +178,11 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                                 .padding(16.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(it.second)
+                            WarpText(it.second)
                             Icon(
                                 imageVector = Icons.Filled.KeyboardArrowRight,
-                                contentDescription = null
+                                contentDescription = null,
+                                tint = colors.icon.default
                             )
                         }
                     }

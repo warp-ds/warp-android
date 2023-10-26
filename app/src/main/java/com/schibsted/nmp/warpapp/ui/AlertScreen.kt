@@ -21,23 +21,23 @@ fun AlertScreen(onUp: () -> Unit) {
 private fun AlertContent() {
     Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the info variant of the alert element",
             body = "I am an excellent message for the user.")
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the positive variant of the alert element, with a very very long title so long that it will wrap",
             body = "With an additional description",
             type = WarpAlertType.Positive
         )
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the negative variant of the alert element",
             body = "With an additional description",
             type = WarpAlertType.Negative
         )
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2.dp),
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the info variant of the alert element",
             body = "With an additional description that is very long, so long that it will probably become a new line",
             type = WarpAlertType.Warning

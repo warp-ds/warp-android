@@ -13,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,17 +34,17 @@ import com.schibsted.nmp.warp.theme.WarpTheme
  * @param expandedContent The content to display when the view is expanded
  */
 @Composable
-fun Expandable(
+fun WarpExpandable(
     modifier: Modifier = Modifier,
     initiallyExpanded: Boolean = false,
     title: String,
     expandedContent: @Composable () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(initiallyExpanded) }
-    Expandable(
+    WarpExpandable(
         modifier = modifier,
         expanded = expanded,
-        title = { Text(title, style = WarpTheme.typography.title4) },
+        title = { WarpText(title, style = WarpTextStyle.Title4) },
         expandedContent = expandedContent,
         onExpandButtonClicked = { expanded = !expanded },
     )
@@ -61,7 +60,7 @@ fun Expandable(
  */
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun Expandable(
+fun WarpExpandable(
     modifier: Modifier = Modifier,
     expanded: Boolean,
     title: @Composable () -> Unit,
@@ -80,13 +79,14 @@ fun Expandable(
             title()
             IconButton(onClick = onExpandButtonClicked) {
                 Icon(
-                    Icons.Filled.KeyboardArrowDown,
-                    "TODO content description",
+                    imageVector = Icons.Filled.KeyboardArrowDown,
+                    tint = WarpTheme.colors.icon.default,
+                    contentDescription = "TODO content description",
                     modifier = Modifier.rotate(rotation)
                 )
             }
         }
-        Box() {
+        Box {
             transition.AnimatedContent { exp ->
                 if (exp) {
                     expandedContent()
@@ -101,21 +101,21 @@ fun Expandable(
 private fun ExpandablePreview() {
     Column {
 
-        Expandable(
+        WarpExpandable(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp), false, "title"
         ) {
-            Text("body text")
+            WarpText("body text")
         }
         var expanded by remember { mutableStateOf(false) }
-        Expandable(
+        WarpExpandable(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
             expanded = expanded,
-            title = { Text("Here we can control the title more", style = WarpTheme.typography.title3) },
-            expandedContent = { Text("body text") },
+            title = { WarpText("Here we can control the title more", style = WarpTextStyle.Title3) },
+            expandedContent = { WarpText("body text") },
             onExpandButtonClicked = { expanded = !expanded}
         )
     }

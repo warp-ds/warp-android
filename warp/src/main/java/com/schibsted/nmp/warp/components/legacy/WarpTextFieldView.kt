@@ -2,12 +2,18 @@ package com.schibsted.nmp.warp.components.legacy
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.core.content.withStyledAttributes
@@ -55,6 +61,8 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
+
+    @DrawableRes
     var leadingIcon = 0
         set(value) {
             field = value
@@ -65,6 +73,8 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
+
+    @DrawableRes
     var trailingIcon = 0
         set(value) {
             field = value
@@ -102,12 +112,22 @@ class WarpTextFieldView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
+        val width = if (this.layoutParams.width == MATCH_PARENT) {
+            Modifier.fillMaxWidth()
+        } else Modifier
+        val height = if (this.layoutParams.height == MATCH_PARENT) {
+            Modifier.fillMaxHeight()
+        } else Modifier
+
+        val modifier = width.then(height)
+
         theme {
             var value by rememberSaveable { mutableStateOf("") }
 
             WarpTextField(
                 value = value,
                 onValueChange = { value = it },
+                modifier = modifier,
                 enabled = textFieldEnabled,
                 readOnly = readOnly,
                 label = label,
@@ -117,11 +137,18 @@ class WarpTextFieldView @JvmOverloads constructor(
                 leadingIcon = if (leadingIcon != 0) ({
                     Icon(
                         painterResource(id = leadingIcon),
-                        leadingIconContentDescr
+                        leadingIconContentDescr,
+                        tint = Color.Unspecified
                     )
                 }) else null,
                 trailingIcon = if (trailingIcon != 0) {
-                    { Icon(painterResource(id = trailingIcon), trailingIconContentDescr) }
+                    {
+                        Icon(
+                            painterResource(id = trailingIcon),
+                            trailingIconContentDescr,
+                            tint = Color.Unspecified
+                        )
+                    }
                 } else null,
                 isError = isError
             )

@@ -78,28 +78,28 @@ fun WarpTextField(
         LocalDimensions provides dimensions
     ) {
         val labelColor = colors.components.label.text
-        val placeholderColor = colors.components.textField.hintText
+        val placeholderColor = colors.components.textField.textHint
         val colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = colors.components.textField.text,
+            textColor = colors.components.textField.textFilled,
             containerColor = colors.components.textField.background,
             cursorColor = colors.components.textField.caret,
-            errorCursorColor = colors.components.textField.errorBorder,
-            errorLabelColor = colors.components.textField.errorText,
-            focusedBorderColor = colors.components.textField.activeBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            focusedLeadingIconColor = colors.components.textField.iconTint,
-            unfocusedLeadingIconColor = colors.components.textField.iconTint,
-            focusedTrailingIconColor = colors.components.textField.iconTint,
-            unfocusedTrailingIconColor = colors.components.textField.iconTint,
-            disabledBorderColor = colors.components.textField.disabledBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            errorBorderColor = colors.components.textField.errorBorder.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            errorLeadingIconColor = colors.components.textField.errorIconColor,
-            disabledTextColor = colors.components.textField.disabledText,
-            disabledLabelColor = colors.components.textField.disabledText,
+            errorCursorColor = colors.components.textField.borderNegative,
+            errorLabelColor = colors.components.textField.textNegative,
+            focusedBorderColor = colors.components.textField.borderActive.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            focusedLeadingIconColor = colors.components.textField.icon,
+            unfocusedLeadingIconColor = colors.components.textField.icon,
+            focusedTrailingIconColor = colors.components.textField.icon,
+            unfocusedTrailingIconColor = colors.components.textField.icon,
+            disabledBorderColor = colors.components.textField.borderDisabled.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            errorBorderColor = colors.components.textField.borderNegative.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            errorLeadingIconColor = colors.components.textField.iconNegative,
+            disabledTextColor = colors.components.textField.textDisabled,
+            disabledLabelColor = colors.components.textField.textDisabled,
             unfocusedBorderColor = colors.components.textField.border.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            unfocusedLabelColor = colors.components.textField.text,
-            errorSupportingTextColor = colors.components.textField.errorText,
-            focusedSupportingTextColor = colors.components.textField.text,
-            unfocusedSupportingTextColor = colors.components.textField.text
+            unfocusedLabelColor = colors.components.textField.textFilled,
+            errorSupportingTextColor = colors.components.textField.textNegative,
+            focusedSupportingTextColor = colors.components.textField.textFilled,
+            unfocusedSupportingTextColor = colors.components.textField.textFilled
 
         )
 
@@ -107,7 +107,7 @@ fun WarpTextField(
 
             Row(
                 horizontalArrangement = Arrangement.Start,
-                modifier = Modifier.padding(vertical = dimensions.space025.dp, horizontal = 0.dp),
+                modifier = Modifier.padding(vertical = dimensions.space025, horizontal = 0.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 WarpText(text = label, style = WarpTextStyle.Title5, color = labelColor)
@@ -116,7 +116,7 @@ fun WarpTextField(
                         text = it,
                         style = WarpTextStyle.Detail,
                         color = labelColor,
-                        modifier = Modifier.padding(horizontal = dimensions.space1.dp)
+                        modifier = Modifier.padding(horizontal = dimensions.space1)
                     )
                 }
             }

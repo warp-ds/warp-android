@@ -134,13 +134,13 @@ fun WarpButton(
 
         val borderStroke = warpButtonColors.border?.let {
             BorderStroke(
-                dimensions.space025.dp,
+                dimensions.space025,
                 it.default
             )
         }
 
         val elevation =
-            if (!loading && buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall.dp else 0.dp
+            if (!loading && buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall else 0.dp
 
         val buttonModifier = if (loading) modifier.loadingAnimation() else modifier
         val colors = if (loading) loadingColors else buttonColors
@@ -157,8 +157,8 @@ fun WarpButton(
                 border = borderStroke,
                 content = content,
                 contentPadding = PaddingValues(
-                    horizontal = dimensions.space2.dp,
-                    vertical = dimensions.space1.dp
+                    horizontal = dimensions.space2,
+                    vertical = dimensions.space1
                 ),
                 elevation = ButtonDefaults.buttonElevation(elevation)
             )

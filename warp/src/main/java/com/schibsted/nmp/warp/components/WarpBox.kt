@@ -46,7 +46,7 @@ fun WarpBox(
         Surface(
             modifier = modifier,
             shape = shapes.medium,
-            border = style.border?.let { BorderStroke(width = dimensions.borderWidth2.dp, color = it) },
+            border = style.border?.let { BorderStroke(width = dimensions.borderWidth2, color = it) },
             color = style.background,
             content = content
         )
