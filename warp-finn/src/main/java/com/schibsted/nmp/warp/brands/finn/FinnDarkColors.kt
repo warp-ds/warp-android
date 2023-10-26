@@ -16,6 +16,8 @@ import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpLabelColors
+import com.schibsted.nmp.warp.theme.WarpPillColors
+import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.WarpTabColors
 import com.schibsted.nmp.warp.theme.WarpTabRowColors
@@ -146,6 +148,22 @@ internal object FinnComponentDarkColors : WarpComponentColors {
     override val badge: WarpBadgeColors = FinnBadgeDarkColors
     override val label: WarpLabelColors = FinnLabelDarkColors
     override val callout: WarpCalloutColors = FinnCalloutDarkColors
+    override val pill: WarpPillColors = FinnPillDarkColors
+}
+
+internal object FinnPillDarkColors : WarpPillColors {
+    override val filter: WarpPillStyleColors = FinnPillStyleColors(
+        text = FinnDarkTextColors.inverted,
+        background = FinnDarkBackgroundColors.primary,
+        backgroundActive = FinnDarkBackgroundColors.primaryActive,
+        icon = FinnDarkIconColors.inverted
+    )
+    override val suggestion: WarpPillStyleColors = FinnPillStyleColors(
+        text = FinnDarkTextColors.default,
+        background = FinnDarkBackgroundColors.subtle,
+        backgroundActive = FinnDarkBackgroundColors.subtleActive,
+        icon = FinnDarkIconColors.default
+    )
 }
 
 internal object FinnCalloutDarkColors : WarpCalloutColors {
@@ -176,134 +194,143 @@ internal object FinnTabDarkColors: WarpTabColors {
 
 internal object FinnTabRowDarkColors: WarpTabRowColors {
     override val container: Color = FinnDarkBackgroundColors.default
-    override val content: Color = FinnDarkTextColors.subtle
-    override val indicator: Color = FinnIconColors.default
+    override val content: Color = FinnDarkTextColors.link
+    override val indicator: Color = FinnDarkIconColors.selected
 }
 
 internal object FinnStepIndicatorDarkColors : WarpStepIndicatorColors {
-    override val background: Color = Bluegray600
-    override val backgroundActive: Color = Blue500
-    override val backgroundTrack: Color = Bluegray600
-    override val backgroundTrackActive: Color = Blue500
-    override val border: Color = Bluegray600
-    override val borderActive: Color = Blue500
-    override val icon: Color = Black
+    override val background: Color = FinnDarkBorderColors.default
+    override val backgroundActive: Color = FinnDarkBackgroundColors.primary
+    override val backgroundTrack: Color = FinnDarkBorderColors.default
+    override val backgroundTrackActive: Color = FinnDarkBackgroundColors.primary
+    override val border: Color = FinnDarkBorderColors.default
+    override val borderActive: Color = FinnDarkBorderColors.primary
+    override val icon: Color = FinnDarkIconColors.inverted
 }
 
 internal object FinnAlertDarkColors : WarpAlertColors {
     override val info: WarpAlertStyleColors = FinnAlertStyleColors(
-        background = Aqua900,
-        leftBorder = Aqua500,
-        border = Aqua700
+        text = FinnDarkTextColors.default,
+        background = FinnDarkBackgroundColors.infoSubtle,
+        subtleBorder = FinnDarkBorderColors.infoSubtle,
+        border = FinnDarkBorderColors.info,
+        icon = FinnDarkIconColors.info
     )
     override val positive: WarpAlertStyleColors = FinnAlertStyleColors(
-        background = Green900,
-        leftBorder = Green500,
-        border = Green700
+        text = FinnDarkTextColors.default,
+        background = FinnDarkBackgroundColors.positiveSubtle,
+        subtleBorder = FinnDarkBorderColors.positiveSubtle,
+        border = FinnDarkBorderColors.positive,
+        icon = FinnDarkIconColors.positive
     )
     override val negative: WarpAlertStyleColors = FinnAlertStyleColors(
-        background = Red900,
-        leftBorder = Red500,
-        border = Red700
+        text = FinnDarkTextColors.default,
+        background = FinnDarkBackgroundColors.negativeSubtle,
+        subtleBorder = FinnDarkBorderColors.negativeSubtle,
+        border = FinnDarkBorderColors.negative,
+        icon = FinnDarkIconColors.negative
     )
     override val warning: WarpAlertStyleColors = FinnAlertStyleColors(
-        background = Yellow900,
-        leftBorder = Yellow500,
-        border = Yellow700
+        text = FinnDarkTextColors.default,
+        background = FinnDarkBackgroundColors.warningSubtle,
+        subtleBorder = FinnDarkBorderColors.warningSubtle,
+        border = FinnDarkBorderColors.warning,
+        icon = FinnDarkIconColors.warning
     )
 }
 
 internal object FinnBoxDarkColors : WarpBoxColors {
-    override val neutral = WarpComponentBackground(Bluegray900, null)
-    override val info = WarpComponentBackground(Aqua900, null)
-    override val bordered = WarpComponentBackground(Black, Bluegray600)
+    override val neutral = WarpComponentBackground(FinnDarkBackgroundColors.subtle, null)
+    override val info = WarpComponentBackground(FinnDarkBackgroundColors.infoSubtle, null)
+    override val bordered = WarpComponentBackground(FinnDarkBackgroundColors.default, FinnDarkBorderColors.default)
 }
 
 internal object FinnLabelDarkColors: WarpLabelColors {
-    override val text: Color = White
-    override val negative: Color = Red500
-    override val optional: Color = White
-    override val icon: Color = White
+    override val text: Color = FinnDarkTextColors.default
+    override val negative: Color = FinnDarkTextColors.negative
+    override val optional: Color = FinnDarkTextColors.default
+    override val icon: Color = FinnDarkIconColors.default
+    override val disabled: Color = FinnDarkTextColors.disabled
 }
 
 internal object FinnTextFieldDarkColors : WarpTextFieldColors {
-    override val text: Color = White
-    override val hintText: Color= Bluegray500
-    override val disabledText: Color = Bluegray500
-    override val errorText: Color = Red500
-    override val readOnlyText: Color = White
-    override val errorIconColor: Color = Red500
-    override val background: Color = Black
-    override val disabledBackground: Color = Bluegray700
-    override val border: Color = Bluegray600
-    override val activeBorder: Color = Blue500
-    override val disabledBorder: Color = Bluegray300
-    override val errorBorder: Color = Red500
-    override val caret: Color = White
-    override val iconTint: Color = White
+    override val textFilled: Color = FinnDarkTextColors.default
+    override val textHint: Color = FinnDarkTextColors.placeholder
+    override val textDisabled: Color = FinnDarkTextColors.disabled
+    override val textNegative: Color = FinnDarkTextColors.negative
+    override val textReadOnly: Color = FinnDarkTextColors.default
+    override val iconNegative: Color = FinnDarkIconColors.negative
+    override val background: Color = FinnDarkBackgroundColors.default
+    override val backgroundDisabled: Color = FinnDarkBackgroundColors.disabled
+    override val border: Color = FinnDarkBorderColors.default
+    override val borderActive: Color = FinnDarkBorderColors.selected
+    override val borderDisabled: Color = FinnDarkBorderColors.disabled
+    override val borderNegative: Color = FinnDarkBorderColors.negative
+    override val caret: Color = FinnDarkIconColors.default
+    override val icon: Color = FinnDarkIconColors.default
 }
 
 internal object FinnButtonDarkColors : WarpButtonColors {
     override val primary: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = White,
+        text = FinnDarkTextColors.inverted,
         background = FinnButtonElementColors(
-            default = Blue500,
-            active = Blue700
+            default = FinnDarkBackgroundColors.primary,
+            active = FinnDarkBackgroundColors.primaryActive
         ),
         border = null
     )
     override val secondary: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = Blue500,
+        text = FinnDarkTextColors.link,
         background = FinnButtonElementColors(
-            default = Black,
-            active = Bluegray900
+            default = FinnDarkBackgroundColors.default,
+            active = FinnDarkBackgroundColors.active
         ),
         border = FinnButtonElementColors(
-            default = Bluegray600,
-            active = Bluegray800
+            default = FinnDarkBorderColors.default,
+            active = FinnDarkBorderColors.active
         )
     )
     override val disabled: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = White,
+        text = FinnDarkTextColors.inverted,
         background = FinnButtonElementColors(
-            default = Bluegray700,
+            default = FinnDarkBackgroundColors.disabled,
             active = Bluegray700
         ),
         border = null
     )
     override val quiet: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = Blue500,
+        text = FinnDarkTextColors.link,
         background = FinnButtonElementColors(
             default = Transparent,
-            active = Bluegray900
+            active = FinnDarkBackgroundColors.active
         ),
         border = null
     )
     override val negative: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = White,
+        text = FinnDarkTextColors.inverted,
         background = FinnButtonElementColors(
-            default = Red500,
-            active = Red700
+            default = FinnDarkBackgroundColors.negative,
+            active = FinnDarkBackgroundColors.negativeActive
         ),
         border = null
     )
     override val negativeQuiet: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = Red500,
+        text = FinnDarkTextColors.negative,
         background = FinnButtonElementColors(
             default = Transparent,
-            active = Red900
+            active = FinnDarkBackgroundColors.negativeSubtleActive
         ),
         border = null
     )
     override val utility: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = White,
+        text = FinnDarkTextColors.default,
         background = FinnButtonElementColors(
-            default = Black,
-            active = Bluegray900
+            default = FinnDarkBackgroundColors.default,
+            active = FinnDarkBackgroundColors.active
         ),
         border = FinnButtonElementColors(
-            default = Bluegray600,
-            active = Bluegray800
+            default = FinnDarkBorderColors.default,
+            active = FinnDarkBorderColors.active
         )
     )
     override val utilityOverlay: FinnButtonStyleColors = FinnButtonStyleColors(
@@ -315,15 +342,15 @@ internal object FinnButtonDarkColors : WarpButtonColors {
         border = null
     )
     override val utilityQuiet: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = White,
+        text = FinnDarkTextColors.default,
         background = FinnButtonElementColors(
             default = Transparent,
-            active = Transparent
+            active = FinnDarkBackgroundColors.subtleActive
         ),
         border = null
     )
     override val loading: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = Gray100,
+        text = FinnDarkTextColors.subtle,
         background = FinnButtonElementColors(
             default = Bluegray900,
             active = Bluegray700

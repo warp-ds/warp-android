@@ -128,6 +128,19 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
     override val tab: WarpTabColors = PlaceholderTab
     override val label: WarpLabelColors = PlaceholderLabelColors
     override val callout: WarpCalloutColors = PlaceholderCalloutColors
+    override val pill: WarpPillColors = PlaceholderPillColors
+}
+
+private object PlaceholderPillColors : WarpPillColors {
+    override val filter: WarpPillStyleColors = PlaceholderPillStyle
+    override val suggestion: WarpPillStyleColors = PlaceholderPillStyle
+}
+
+private object PlaceholderPillStyle : WarpPillStyleColors {
+    override val text: Color = Color.Unspecified
+    override val background: Color = Color.Unspecified
+    override val backgroundActive: Color = Color.Unspecified
+    override val icon: Color = Color.Unspecified
 }
 
 private object PlaceholderCalloutColors : WarpCalloutColors {
@@ -141,6 +154,7 @@ private object PlaceholderLabelColors : WarpLabelColors {
     override val negative: Color = Color.Unspecified
     override val optional: Color = Color.Unspecified
     override val icon: Color = Color.Unspecified
+    override val disabled: Color = Color.Unspecified
 }
 
 private object PlaceholderBadgeColors : WarpBadgeColors {
@@ -206,26 +220,28 @@ private object PlaceholderAlertColors : WarpAlertColors {
 }
 
 private object PlaceholderAlertStyle : WarpAlertStyleColors {
+    override val text: Color = Color.Unspecified
     override val background: Color = Color.Unspecified
-    override val leftBorder: Color = Color.Unspecified
+    override val subtleBorder: Color = Color.Unspecified
     override val border: Color = Color.Unspecified
+    override val icon: Color = Color.Unspecified
 }
 
 private object PlaceholderTextFiledColors : WarpTextFieldColors {
-    override val text: Color = Color.Unspecified
-    override val hintText: Color = Color.Unspecified
-    override val disabledText: Color = Color.Unspecified
-    override val errorText: Color = Color.Unspecified
-    override val readOnlyText: Color = Color.Unspecified
-    override val errorIconColor: Color = Color.Unspecified
+    override val textFilled: Color = Color.Unspecified
+    override val textHint: Color = Color.Unspecified
+    override val textDisabled: Color = Color.Unspecified
+    override val textNegative: Color = Color.Unspecified
+    override val textReadOnly: Color = Color.Unspecified
+    override val iconNegative: Color = Color.Unspecified
     override val background: Color = Color.Unspecified
-    override val disabledBackground: Color = Color.Unspecified
+    override val backgroundDisabled: Color = Color.Unspecified
     override val border: Color = Color.Unspecified
-    override val activeBorder: Color = Color.Unspecified
-    override val disabledBorder: Color = Color.Unspecified
-    override val errorBorder: Color = Color.Unspecified
+    override val borderActive: Color = Color.Unspecified
+    override val borderDisabled: Color = Color.Unspecified
+    override val borderNegative: Color = Color.Unspecified
     override val caret: Color = Color.Unspecified
-    override val iconTint: Color = Color.Unspecified
+    override val icon: Color = Color.Unspecified
 }
 
 private object PlaceholderTabRow : WarpTabRowColors {

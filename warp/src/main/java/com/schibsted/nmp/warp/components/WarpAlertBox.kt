@@ -46,8 +46,8 @@ fun WarpAlert(
                 WarpTheme.dimensions.borderWidth3,
                 WarpTheme.dimensions.borderWidth1,
                 colors.background,
-                colors.leftBorder,
                 colors.border,
+                colors.subtleBorder,
                 WarpTheme.shapes.medium
             )
             .padding(
@@ -62,7 +62,7 @@ fun WarpAlert(
                 top.linkTo(titleRef.top)
                 bottom.linkTo(titleRef.bottom)
             },
-            tint = colors.leftBorder,
+            tint = colors.icon,
             imageVector = icon,
             contentDescription = ""
         )
@@ -75,6 +75,7 @@ fun WarpAlert(
                     width = Dimension.preferredWrapContent
                 },
             text = title,
+            color = colors.text,
             style = WarpTextStyle.Title4
         )
         body?.let {
@@ -86,6 +87,7 @@ fun WarpAlert(
                         width = Dimension.preferredWrapContent
                     },
                 text = body,
+                color = colors.text,
                 style = WarpTextStyle.Body
             )
         }
@@ -110,8 +112,8 @@ fun WarpAlert(
                 WarpTheme.dimensions.borderWidth3,
                 WarpTheme.dimensions.borderWidth1,
                 colors.background,
-                colors.leftBorder,
                 colors.border,
+                colors.subtleBorder,
                 WarpTheme.shapes.medium)
     ) {
         content()

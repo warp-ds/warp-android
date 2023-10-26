@@ -130,6 +130,19 @@ interface WarpComponentColors {
     val tab: WarpTabColors
     val label: WarpLabelColors
     val callout: WarpCalloutColors
+    val pill: WarpPillColors
+}
+
+interface WarpPillColors {
+    val filter: WarpPillStyleColors
+    val suggestion: WarpPillStyleColors
+}
+
+interface WarpPillStyleColors {
+    val text: Color
+    val background: Color
+    val backgroundActive: Color
+    val icon: Color
 }
 
 interface WarpCalloutColors {
@@ -143,6 +156,7 @@ interface WarpLabelColors {
     val negative: Color
     val optional: Color
     val icon: Color
+    val disabled: Color
 }
 
 interface WarpBadgeColors {
@@ -169,20 +183,20 @@ interface WarpTabRowColors {
     val indicator: Color
 }
 interface WarpTextFieldColors {
-    val text: Color
-    val hintText: Color
-    val disabledText: Color
-    val errorText: Color
-    val readOnlyText: Color
-    val errorIconColor: Color
+    val textFilled: Color
+    val textHint: Color
+    val textDisabled: Color
+    val textNegative: Color
+    val textReadOnly: Color
     val background: Color
-    val disabledBackground: Color
+    val backgroundDisabled: Color
     val border: Color
-    val activeBorder: Color
-    val disabledBorder: Color
-    val errorBorder: Color
+    val borderActive: Color
+    val borderDisabled: Color
+    val borderNegative: Color
+    val icon: Color
     val caret: Color
-    val iconTint: Color
+    val iconNegative: Color
 }
 
 interface WarpAlertColors {
@@ -193,9 +207,11 @@ interface WarpAlertColors {
 }
 
 interface WarpAlertStyleColors {
+    val text: Color
     val background: Color
-    val leftBorder: Color
+    val subtleBorder: Color
     val border: Color
+    val icon: Color
 }
 
 
