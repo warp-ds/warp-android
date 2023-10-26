@@ -6,7 +6,9 @@ import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpAlertColors
 import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
+import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
+import com.schibsted.nmp.warp.theme.WarpBorderColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
@@ -15,26 +17,24 @@ import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpLabelColors
-import com.schibsted.nmp.warp.theme.WarpSemanticBackgroundColors
-import com.schibsted.nmp.warp.theme.WarpSemanticBorderColors
-import com.schibsted.nmp.warp.theme.WarpSemanticIconColors
-import com.schibsted.nmp.warp.theme.WarpSemanticTextColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.WarpTabColors
 import com.schibsted.nmp.warp.theme.WarpTabRowColors
+import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object FinnColors : WarpColors {
-    override val background: WarpSemanticBackgroundColors = FinnSemanticBackgroundColors
-    override val border: WarpSemanticBorderColors = FinnSemanticBorderColors
-    override val icon: WarpSemanticIconColors = FinnSemanticIconColors
-    override val text: WarpSemanticTextColors = FinnSemanticTextColors
+    override val background: WarpBackgroundColors = FinnBackgroundColors
+    override val border: WarpBorderColors = FinnBorderColors
+    override val icon: WarpIconColors = FinnIconColors
+    override val text: WarpTextColors = FinnTextColors
     override val components: WarpComponentColors = FinnComponentColors
 }
 
-internal object FinnSemanticBackgroundColors : WarpSemanticBackgroundColors {
+internal object FinnBackgroundColors : WarpBackgroundColors {
     override val default = White
     override val active = Bluegray200
     override val disabled = Bluegray300
@@ -76,7 +76,7 @@ internal object FinnSemanticBackgroundColors : WarpSemanticBackgroundColors {
     override val notification = Red600
 }
 
-internal object FinnSemanticBorderColors : WarpSemanticBorderColors {
+internal object FinnBorderColors : WarpBorderColors {
     override val default = Bluegray300
     override val active = Bluegray500
     override val disabled = Bluegray300
@@ -108,7 +108,7 @@ internal object FinnSemanticBorderColors : WarpSemanticBorderColors {
     override val infoSubtleActive = Aqua500
 }
 
-internal object FinnSemanticIconColors : WarpSemanticIconColors {
+internal object FinnIconColors : WarpIconColors {
     override val default = Gray700
     override val active = Blue700
     override val selected = Blue600
@@ -125,7 +125,7 @@ internal object FinnSemanticIconColors : WarpSemanticIconColors {
     override val notification = White
 }
 
-internal object FinnSemanticTextColors : WarpSemanticTextColors {
+internal object FinnTextColors : WarpTextColors {
     override val default = Gray700
     override val subtle = Gray500
     override val placeholder = Bluegray300
@@ -154,7 +154,7 @@ internal object FinnComponentColors : WarpComponentColors {
 internal object FinnCalloutColors : WarpCalloutColors {
     override val background: Color = Green100
     override val border: Color = Green400
-    override val text: Color = FinnSemanticTextColors.default
+    override val text: Color = FinnTextColors.default
 }
 
 internal object FinnBadgeColors : WarpBadgeColors {

@@ -6,14 +6,14 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 
 internal object Placeholders : WarpColors {
-    override val background: WarpSemanticBackgroundColors = PlaceholderWarpSemanticBackgroundColors
-    override val border: WarpSemanticBorderColors = PlaceholderWarpSemanticBorderColors
-    override val icon: WarpSemanticIconColors = PlaceholderWarpSemanticIconColors
-    override val text: WarpSemanticTextColors = PlaceholderWarpSemanticTextColors
+    override val background: WarpBackgroundColors = PlaceholderWarpBackgroundColors
+    override val border: WarpBorderColors = PlaceholderWarpBorderColors
+    override val icon: WarpIconColors = PlaceholderWarpIconColors
+    override val text: WarpTextColors = PlaceholderWarpTextColors
     override val components: WarpComponentColors = PlaceholderWarpComponentColors
 }
 
-private object PlaceholderWarpSemanticBackgroundColors : WarpSemanticBackgroundColors {
+private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val default = Color.Unspecified
     override val active = Color.Unspecified
     override val disabled = Color.Unspecified
@@ -55,7 +55,7 @@ private object PlaceholderWarpSemanticBackgroundColors : WarpSemanticBackgroundC
     override val notification = Color.Unspecified
 }
 
-private object PlaceholderWarpSemanticBorderColors : WarpSemanticBorderColors {
+private object PlaceholderWarpBorderColors : WarpBorderColors {
     override val default = Color.Unspecified
     override val active = Color.Unspecified
     override val disabled = Color.Unspecified
@@ -87,7 +87,7 @@ private object PlaceholderWarpSemanticBorderColors : WarpSemanticBorderColors {
     override val infoSubtleActive = Color.Unspecified
 }
 
-private object PlaceholderWarpSemanticIconColors : WarpSemanticIconColors {
+private object PlaceholderWarpIconColors : WarpIconColors {
     override val default = Color.Unspecified
     override val active = Color.Unspecified
     override val selected = Color.Unspecified
@@ -104,7 +104,7 @@ private object PlaceholderWarpSemanticIconColors : WarpSemanticIconColors {
     override val notification = Color.Unspecified
 }
 
-private object PlaceholderWarpSemanticTextColors : WarpSemanticTextColors {
+private object PlaceholderWarpTextColors : WarpTextColors {
     override val default = Color.Unspecified
     override val subtle = Color.Unspecified
     override val placeholder = Color.Unspecified

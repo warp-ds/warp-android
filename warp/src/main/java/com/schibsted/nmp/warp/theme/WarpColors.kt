@@ -8,14 +8,14 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 interface WarpColors {
-    val background : WarpSemanticBackgroundColors
-    val border : WarpSemanticBorderColors
-    val icon : WarpSemanticIconColors
-    val text : WarpSemanticTextColors
+    val background : WarpBackgroundColors
+    val border : WarpBorderColors
+    val icon : WarpIconColors
+    val text : WarpTextColors
     val components: WarpComponentColors
 }
 
-interface WarpSemanticBackgroundColors {
+interface WarpBackgroundColors {
     val default : Color
     val active : Color
     val disabled : Color
@@ -57,7 +57,7 @@ interface WarpSemanticBackgroundColors {
     val notification : Color
 }
 
-interface WarpSemanticBorderColors {
+interface WarpBorderColors {
     val default : Color
     val active : Color
     val disabled : Color
@@ -89,7 +89,7 @@ interface WarpSemanticBorderColors {
     val infoSubtleActive : Color
 }
 
-interface WarpSemanticIconColors {
+interface WarpIconColors {
     val default : Color
     val active : Color
     val selected : Color
@@ -106,7 +106,7 @@ interface WarpSemanticIconColors {
     val notification : Color
 }
 
-interface WarpSemanticTextColors {
+interface WarpTextColors {
     val default : Color
     val subtle : Color
     val placeholder : Color

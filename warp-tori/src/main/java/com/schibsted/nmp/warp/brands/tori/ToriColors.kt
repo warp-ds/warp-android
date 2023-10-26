@@ -6,7 +6,9 @@ import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpAlertColors
 import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
+import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
+import com.schibsted.nmp.warp.theme.WarpBorderColors
 import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
@@ -15,26 +17,24 @@ import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpLabelColors
-import com.schibsted.nmp.warp.theme.WarpSemanticBackgroundColors
-import com.schibsted.nmp.warp.theme.WarpSemanticBorderColors
-import com.schibsted.nmp.warp.theme.WarpSemanticIconColors
-import com.schibsted.nmp.warp.theme.WarpSemanticTextColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.WarpTabColors
 import com.schibsted.nmp.warp.theme.WarpTabRowColors
+import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object ToriColors : WarpColors {
-    override val background: WarpSemanticBackgroundColors = ToriSemanticBackgroundColors
-    override val border: WarpSemanticBorderColors = ToriSemanticBorderColors
-    override val icon: WarpSemanticIconColors = ToriSemanticIconColors
-    override val text: WarpSemanticTextColors = ToriSemanticTextColors
+    override val background: WarpBackgroundColors = ToriBackgroundColors
+    override val border: WarpBorderColors = ToriBorderColors
+    override val icon: WarpIconColors = ToriIconColors
+    override val text: WarpTextColors = ToriTextColors
     override val components: WarpComponentColors = ToriComponentColors
 }
 
-internal object ToriSemanticBackgroundColors : WarpSemanticBackgroundColors {
+internal object ToriBackgroundColors : WarpBackgroundColors {
     override val default = White
     override val active = Gray200
     override val disabled = Gray300
@@ -76,7 +76,7 @@ internal object ToriSemanticBackgroundColors : WarpSemanticBackgroundColors {
     override val notification = Red600
 }
 
-internal object ToriSemanticBorderColors : WarpSemanticBorderColors {
+internal object ToriBorderColors : WarpBorderColors {
     override val default = Gray300
     override val active = Gray500
     override val disabled = Gray300
@@ -108,7 +108,7 @@ internal object ToriSemanticBorderColors : WarpSemanticBorderColors {
     override val infoSubtleActive = Petroleum500
 }
 
-internal object ToriSemanticIconColors : WarpSemanticIconColors {
+internal object ToriIconColors : WarpIconColors {
     override val default = Gray900
     override val active = Gray900
     override val selected = Petroleum600
@@ -125,7 +125,7 @@ internal object ToriSemanticIconColors : WarpSemanticIconColors {
     override val notification = White
 }
 
-internal object ToriSemanticTextColors : WarpSemanticTextColors {
+internal object ToriTextColors : WarpTextColors {
     override val default = Gray900
     override val subtle = Gray500
     override val placeholder = Gray300
@@ -154,7 +154,7 @@ internal object ToriComponentColors : WarpComponentColors {
 internal object ToriCalloutColors : WarpCalloutColors {
     override val background: Color = Green100
     override val border: Color = Green400
-    override val text: Color = ToriSemanticTextColors.default
+    override val text: Color = ToriTextColors.default
 }
 
 internal object ToriBadgeColors : WarpBadgeColors {
