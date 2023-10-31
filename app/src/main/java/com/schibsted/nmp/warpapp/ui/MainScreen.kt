@@ -140,6 +140,9 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         DropdownMenuItem(text = { WarpText("Tori") }, onClick = {
                             viewModel.setFlavor("tori")
                         })
+                        DropdownMenuItem(text = { WarpText("Dba") }, onClick = {
+                            viewModel.setFlavor("dba")
+                        })
                     }
                 }
 
