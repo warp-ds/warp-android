@@ -1,6 +1,5 @@
 package com.schibsted.nmp.warp.brands.finn
 
-import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpResources
 
 internal data class FinnResources(
