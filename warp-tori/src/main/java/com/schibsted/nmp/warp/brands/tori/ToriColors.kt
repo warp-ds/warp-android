@@ -69,11 +69,11 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val warningSubtleActive = Yellow200
     override val warningSelected = Yellow50
 
-    override val info = Petroleum600
-    override val infoActive = Petroleum800
-    override val infoSubtle = Petroleum50
-    override val infoSubtleActive = Petroleum200
-    override val infoSelected = Petroleum50
+    override val info = Blue600
+    override val infoActive = Blue800
+    override val infoSubtle = Blue50
+    override val infoSubtleActive = Blue200
+    override val infoSelected = Blue50
 
     override val notification = Red600
 }
@@ -104,10 +104,10 @@ internal object ToriBorderColors : WarpBorderColors {
     override val warningSubtle = Yellow300
     override val warningSubtleActive = Yellow500
 
-    override val info = Petroleum600
-    override val infoActive = Petroleum800
-    override val infoSubtle = Petroleum300
-    override val infoSubtleActive = Petroleum500
+    override val info = Blue600
+    override val infoActive = Blue800
+    override val infoSubtle = Blue300
+    override val infoSubtleActive = Blue500
 }
 
 internal object ToriIconColors : WarpIconColors {
@@ -123,7 +123,7 @@ internal object ToriIconColors : WarpIconColors {
     override val positive = Green600
     override val negative = Red600
     override val warning = Yellow600
-    override val info = Petroleum600
+    override val info = Blue600
     override val notification = White
 }
 
@@ -412,41 +412,53 @@ internal val Petroleum700 = Color(0xFF1B5E6A)
 internal val Petroleum800 = Color(0xFF193F47)
 internal val Petroleum900 = Color(0xFF122226)
 
+//Blue
+internal val Blue50 = Color(0xFFECF7FE)
+internal val Blue100 = Color(0xFFC7E7FB)
+internal val Blue200 = Color(0xFFA2D5F5)
+internal val Blue300 = Color(0xFF7DC3EF)
+internal val Blue400 = Color(0xFF58B1E9)
+internal val Blue500 = Color(0xFF339FE3)
+internal val Blue600 = Color(0xFF0E8DDD)
+internal val Blue700 = Color(0xFF0A659F)
+internal val Blue800 = Color(0xFF063D61)
+internal val Blue900 = Color(0xFF021622)
+
 //Green
-internal val Green50 = Color(0xFFEBF1EB)
-internal val Green100 = Color(0xFFD7E3D7)
-internal val Green200 = Color(0xFFB0C7AF)
-internal val Green300 = Color(0xFF89AA89)
-internal val Green400 = Color(0xFF648F66)
-internal val Green500 = Color(0xFF3C7542)
-internal val Green600 = Color(0xFF0A5B21)
-internal val Green700 = Color(0xFF10451B)
-internal val Green800 = Color(0xFF113015)
-internal val Green900 = Color(0xFF0D1C0D)
+internal val Green50 = Color(0xFFF3FCF9)
+internal val Green100 = Color(0xFFCEE8DC)
+internal val Green200 = Color(0xFFAAD6C4)
+internal val Green300 = Color(0xFF86C4AC)
+internal val Green400 = Color(0xFF62B294)
+internal val Green500 = Color(0xFF3EA07C)
+internal val Green600 = Color(0xFF1A8F64)
+internal val Green700 = Color(0xFF136647)
+internal val Green800 = Color(0xFF0C3E2A)
+internal val Green900 = Color(0xFF072719)
 
 //Yellow
-internal val Yellow50 = Color(0xFFFEF4ED)
-internal val Yellow100 = Color(0xFFFCEAD9)
-internal val Yellow200 = Color(0xFFF7D5B3)
-internal val Yellow300 = Color(0xFFEFC190)
-internal val Yellow400 = Color(0xFFE6AD6C)
-internal val Yellow500 = Color(0xFFDB9949)
-internal val Yellow600 = Color(0xFFCF8623)
-internal val Yellow700 = Color(0xFF97631E)
-internal val Yellow800 = Color(0xFF634218)
-internal val Yellow900 = Color(0xFF342410)
+internal val Yellow50 = Color(0xFFFEF7F1)
+internal val Yellow100 = Color(0xFFFDE8D5)
+internal val Yellow200 = Color(0xFFFBD6B4)
+internal val Yellow300 = Color(0xFFF9C493)
+internal val Yellow400 = Color(0xFFF7B272)
+internal val Yellow500 = Color(0xFFF5A051)
+internal val Yellow600 = Color(0xFFF38E30)
+internal val Yellow700 = Color(0xFFAD6421)
+internal val Yellow800 = Color(0xFF673A12)
+internal val Yellow900 = Color(0xFF221102)
 
 //Red
-internal val Red50 = Color(0xFFF9EBEA)
-internal val Red100 = Color(0xFFF3D8D5)
-internal val Red200 = Color(0xFFE4B2AB)
-internal val Red300 = Color(0xFFD38C85)
-internal val Red400 = Color(0xFFBF685F)
-internal val Red500 = Color(0xFFAA403C)
-internal val Red600 = Color(0xFF930B1D)
-internal val Red700 = Color(0xFF6D1217)
-internal val Red800 = Color(0xFF4A1212)
-internal val Red900 = Color(0xFF2A0F0A)
+internal val Red50 = Color(0xFFFFF0F1)
+internal val Red100 = Color(0xFFF7CACC)
+internal val Red200 = Color(0xFFEFA3A6)
+internal val Red300 = Color(0xFFE77C80)
+internal val Red400 = Color(0xFFDF555A)
+internal val Red500 = Color(0xFFD72E34)
+internal val Red600 = Color(0xFFCF070E)
+internal val Red700 = Color(0xFF96050A)
+internal val Red800 = Color(0xFF5D0306)
+internal val Red900 = Color(0xFF230103)
 
 //Gray
 internal val Gray50 = Color(0xFFFAFAFA)
