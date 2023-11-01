@@ -77,7 +77,8 @@ dependencies {
     implementation(project(path = ":warp"))
     implementation(project(path = ":warp-tori"))
     implementation(project(path = ":warp-finn"))
-
+    implementation(project(path = ":warp-dba"))
+    implementation(project(path = ":warp-blocket"))
 
     implementation(Dependencies.material)
     implementation(Dependencies.core)

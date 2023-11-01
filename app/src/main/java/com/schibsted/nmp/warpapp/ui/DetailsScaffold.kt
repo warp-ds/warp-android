@@ -62,6 +62,14 @@ internal fun DetailsScaffold(title: String, onUp: () -> Unit, content: @Composab
                             viewModel.setFlavor("tori")
                             menuVisible = false
                         })
+                        DropdownMenuItem(text = { WarpText("Dba") }, onClick = {
+                            viewModel.setFlavor("dba")
+                            menuVisible = false
+                        })
+                        DropdownMenuItem(text = { WarpText("Blocket") }, onClick = {
+                            viewModel.setFlavor("blocket")
+                            menuVisible = false
+                        })
                     }
                 }
             )
