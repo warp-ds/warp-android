@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/warp" />
+            <option value="$PROJECT_DIR$/warp-blocket" />
             <option value="$PROJECT_DIR$/warp-dba" />
             <option value="$PROJECT_DIR$/warp-finn" />
             <option value="$PROJECT_DIR$/warp-tori" />
