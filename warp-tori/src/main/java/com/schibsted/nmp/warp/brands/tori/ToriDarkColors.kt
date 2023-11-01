@@ -66,11 +66,11 @@ internal object ToriDarkBackgroundColors : WarpBackgroundColors {
     override val warningSubtleActive = Yellow900
     override val warningSelected = Yellow900
 
-    override val info = Petroleum500
-    override val infoActive = Petroleum700
-    override val infoSubtle = Petroleum900
-    override val infoSubtleActive = Petroleum900
-    override val infoSelected = Petroleum500
+    override val info = Blue500
+    override val infoActive = Blue700
+    override val infoSubtle = Blue900
+    override val infoSubtleActive = Blue900
+    override val infoSelected = Blue500
 
     override val notification = Red500
 }
@@ -101,10 +101,10 @@ internal object ToriDarkBorderColors : WarpBorderColors {
     override val warningSubtle = Yellow700
     override val warningSubtleActive = Yellow900
 
-    override val info = Petroleum500
-    override val infoActive = Petroleum700
-    override val infoSubtle = Petroleum700
-    override val infoSubtleActive = Petroleum900
+    override val info = Blue500
+    override val infoActive = Blue700
+    override val infoSubtle = Blue700
+    override val infoSubtleActive = Blue900
 }
 
 internal object ToriDarkIconColors : WarpIconColors {
@@ -120,7 +120,7 @@ internal object ToriDarkIconColors : WarpIconColors {
     override val positive = Green500
     override val negative = Red500
     override val warning = Yellow500
-    override val info = Petroleum500
+    override val info = Blue500
     override val notification = White
 }
 

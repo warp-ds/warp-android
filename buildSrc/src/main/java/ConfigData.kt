@@ -5,7 +5,7 @@ object ConfigData {
     const val groupId = "com.schibsted.nmp.warp"
     const val versionWarp = "0.0.4"
     const val versionFinn = "0.0.5"
-    const val versionTori = "0.0.5"
+    const val versionTori = "0.0.6"
     const val versionDba = "0.0.1"
     const val versionBlocket = "0.0.1"
     const val artifactIdWarp = "warp-android"
