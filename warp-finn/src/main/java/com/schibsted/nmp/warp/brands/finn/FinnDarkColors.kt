@@ -48,6 +48,9 @@ internal object FinnDarkBackgroundColors : WarpBackgroundColors {
     override val primarySubtle = Blue900
     override val primarySubtleActive = Blue900
 
+    override val secondary = Aqua400
+    override val secondaryActive = Aqua600
+
     override val positive = Green500
     override val positiveActive = Green700
     override val positiveSubtle = Green900
@@ -117,6 +120,7 @@ internal object FinnDarkIconColors : WarpIconColors {
     override val inverted = Black
     override val invertedActive = Bluegray900
     override val primary = Blue500
+    override val secondary = Aqua400
     override val positive = Green500
     override val negative = Red500
     override val warning = Yellow500

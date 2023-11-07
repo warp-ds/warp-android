@@ -28,6 +28,9 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val primarySubtle = Color.Unspecified
     override val primarySubtleActive = Color.Unspecified
 
+    override val secondary = Color.Unspecified
+    override val secondaryActive = Color.Unspecified
+
     override val positive = Color.Unspecified
     override val positiveActive = Color.Unspecified
     override val positiveSubtle = Color.Unspecified
@@ -97,6 +100,7 @@ private object PlaceholderWarpIconColors : WarpIconColors {
     override val inverted = Color.Unspecified
     override val invertedActive = Color.Unspecified
     override val primary = Color.Unspecified
+    override val secondary = Color.Unspecified
     override val positive = Color.Unspecified
     override val negative = Color.Unspecified
     override val warning = Color.Unspecified
