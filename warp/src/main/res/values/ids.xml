@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--*** BACKGROUND ***-->
+
+    <id name="background_default" type="color" />
+    <id name="background_active" type="color" />
+    <id name="background_disabled" type="color" />
+    <id name="background_subtle" type="color" />
+    <id name="background_subtle_active" type="color" />
+    <id name="background_selected" type="color" />
+    <id name="background_inverted" type="color" />
+    <id name="background_primary" type="color" />
+    <id name="background_primary_active" type="color" />
+    <id name="background_primary_subtle" type="color" />
+    <id name="background_primary_subtle_active" type="color" />
+    <id name="background_secondary" type="color" />
+    <id name="background_secondary_active" type="color" />
+    <id name="background_positive" type="color" />
+    <id name="background_positive_active" type="color" />
+    <id name="background_positive_subtle" type="color" />
+    <id name="background_positive_subtle_active" type="color" />
+    <id name="background_positive_selected" type="color" />
+    <id name="background_negative" type="color" />
+    <id name="background_negative_active" type="color" />
+    <id name="background_negative_subtle" type="color" />
+    <id name="background_negative_subtle_active" type="color" />
+    <id name="background_negative_selected" type="color" />
+    <id name="background_warning" type="color" />
+    <id name="background_warning_active" type="color" />
+    <id name="background_warning_subtle" type="color" />
+    <id name="background_warning_subtle_active" type="color" />
+    <id name="background_warning_selected" type="color" />
+    <id name="background_info" type="color" />
+    <id name="background_info_active" type="color" />
+    <id name="background_info_subtle" type="color" />
+    <id name="background_info_subtle_active" type="color" />
+    <id name="background_info_selected" type="color" />
+    <id name="background_notification" type="color" />
+
+    <!--*** BORDER ***-->
+
+    <id name="border_default" type="color" />
+    <id name="border_active" type="color" />
+    <id name="border_disabled" type="color" />
+    <id name="border_selected" type="color" />
+    <id name="border_primary" type="color" />
+    <id name="border_primary_active" type="color" />
+    <id name="border_primary_subtle" type="color" />
+    <id name="border_primary_subtle_active" type="color" />
+    <id name="border_positive" type="color" />
+    <id name="border_positive_active" type="color" />
+    <id name="border_positive_subtle" type="color" />
+    <id name="border_positive_subtle_active" type="color" />
+    <id name="border_negative" type="color" />
+    <id name="border_negative_active" type="color" />
+    <id name="border_negative_subtle" type="color" />
+    <id name="border_negative_subtle_active" type="color" />
+    <id name="border_warning" type="color" />
+    <id name="border_warning_active" type="color" />
+    <id name="border_warning_subtle" type="color" />
+    <id name="border_warning_subtle_active" type="color" />
+    <id name="border_info" type="color" />
+    <id name="border_info_active" type="color" />
+    <id name="border_info_subtle" type="color" />
+    <id name="border_info_subtle_active" type="color" />
+
+    <!--*** ICON ***-->
+
+    <id name="icon_default" type="color" />
+    <id name="icon_active" type="color" />
+    <id name="icon_selected" type="color" />
+    <id name="icon_disabled" type="color" />
+    <id name="icon_subtle" type="color" />
+    <id name="icon_subtle_active" type="color" />
+    <id name="icon_inverted" type="color" />
+    <id name="icon_inverted_active" type="color" />
+    <id name="icon_primary" type="color" />
+    <id name="icon_secondary" type="color" />
+    <id name="icon_secondary_active" type="color" />
+    <id name="icon_positive" type="color" />
+    <id name="icon_negative" type="color" />
+    <id name="icon_warning" type="color" />
+    <id name="icon_info" type="color" />
+    <id name="icon_notification" type="color" />
+
+    <!--*** TEXT ***-->
+
+    <id name="text_default" type="color" />
+    <id name="text_subtle" type="color" />
+    <id name="text_placeholder" type="color" />
+    <id name="text_inverted" type="color" />
+    <id name="text_inverted_subtle" type="color" />
+    <id name="text_link" type="color" />
+    <id name="text_disabled" type="color" />
+    <id name="text_negative" type="color" />
+    <id name="text_positive" type="color" />
+    <id name="text_notification" type="color" />
+
+</resources>
