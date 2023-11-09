@@ -30,6 +30,9 @@ interface WarpBackgroundColors {
     val primarySubtle : Color
     val primarySubtleActive : Color
 
+    val secondary : Color
+    val secondaryActive : Color
+
     val positive : Color
     val positiveActive : Color
     val positiveSubtle : Color
@@ -99,6 +102,8 @@ interface WarpIconColors {
     val inverted : Color
     val invertedActive : Color
     val primary : Color
+    val secondary : Color
+    val secondaryActive : Color
     val positive : Color
     val negative : Color
     val warning : Color

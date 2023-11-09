@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Shape
 
 interface WarpShapes {
     val medium: Shape
+    val ellipse: Shape
     val components: WarpComponentShapes
 }
 

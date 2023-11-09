@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--***
+     TORI brand colors
+     This is the Tori brand color palette and should never be used directly.
+     Please use the semantic colors located in res/values/colors.xml instead.
+     Cheers!
+     ***-->
+
+    <color name="watermelon50">#FFF3F2</color>
+    <color name="watermelon100">#FFE6E4</color>
+    <color name="watermelon200">#FECBC7</color>
+    <color name="watermelon300">#FEB0AC</color>
+    <color name="watermelon400">#FD948F</color>
+    <color name="watermelon500">#FD7372</color>
+    <color name="watermelon600">#F75159</color>
+    <color name="watermelon700">#B24046</color>
+    <color name="watermelon800">#742E30</color>
+    <color name="watermelon900">#3C1B1B</color>
+
+    <color name="petroleum50">#EEF4F5</color>
+    <color name="petroleum100">#DDE9EC</color>
+    <color name="petroleum200">#BAD3DA</color>
+    <color name="petroleum300">#97BDC6</color>
+    <color name="petroleum400">#74A8B4</color>
+    <color name="petroleum500">#4D93A2</color>
+    <color name="petroleum600">#157F91</color>
+    <color name="petroleum700">#1B5E6A</color>
+    <color name="petroleum800">#193F47</color>
+    <color name="petroleum900">#122226</color>
+
+    <color name="blue50">#ECF7FE</color>
+    <color name="blue100">#C7E7FB</color>
+    <color name="blue200">#A2D5F5</color>
+    <color name="blue300">#7DC3EF</color>
+    <color name="blue400">#58B1E9</color>
+    <color name="blue500">#339FE3</color>
+    <color name="blue600">#0E8DDD</color>
+    <color name="blue700">#0A659F</color>
+    <color name="blue800">#063D61</color>
+    <color name="blue900">#021622</color>
+
+    <color name="green50">#F3FCF9</color>
+    <color name="green100">#CEE8DC</color>
+    <color name="green200">#AAD6C4</color>
+    <color name="green300">#86C4AC</color>
+    <color name="green400">#62B294</color>
+    <color name="green500">#3EA07C</color>
+    <color name="green600">#1A8F64</color>
+    <color name="green700">#136647</color>
+    <color name="green800">#0C3E2A</color>
+    <color name="green900">#072719</color>
+
+    <color name="yellow50">#FEF7F1</color>
+    <color name="yellow100">#FDE8D5</color>
+    <color name="yellow200">#FBD6B4</color>
+    <color name="yellow300">#F9C493</color>
+    <color name="yellow400">#F7B272</color>
+    <color name="yellow500">#F5A051</color>
+    <color name="yellow600">#F38E30</color>
+    <color name="yellow700">#AD6421</color>
+    <color name="yellow800">#673A12</color>
+    <color name="yellow900">#221102</color>
+
+    <color name="red50">#FFF0F1</color>
+    <color name="red100">#F7CACC</color>
+    <color name="red200">#EFA3A6</color>
+    <color name="red300">#E77C80</color>
+    <color name="red400">#DF555A</color>
+    <color name="red500">#D72E34</color>
+    <color name="red600">#CF070E</color>
+    <color name="red700">#96050A</color>
+    <color name="red800">#5D0306</color>
+    <color name="red900">#230103</color>
+
+    <color name="gray50">#FAFAFA</color>
+    <color name="gray100">#F5F5F5</color>
+    <color name="gray200">#E6E6E6</color>
+    <color name="gray300">#D6D6D6</color>
+    <color name="gray400">#A5A5A5</color>
+    <color name="gray500">#767676</color>
+    <color name="gray600">#575757</color>
+    <color name="gray700">#434343</color>
+    <color name="gray800">#292929</color>
+    <color name="gray900">#1A1A1A</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>

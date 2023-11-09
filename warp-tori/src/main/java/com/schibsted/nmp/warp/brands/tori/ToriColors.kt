@@ -51,6 +51,9 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val primarySubtle = Petroleum50
     override val primarySubtleActive = Petroleum200
 
+    override val secondary = Watermelon600
+    override val secondaryActive = Watermelon800
+
     override val positive = Green600
     override val positiveActive = Green800
     override val positiveSubtle = Green50
@@ -120,6 +123,8 @@ internal object ToriIconColors : WarpIconColors {
     override val inverted = White
     override val invertedActive = Gray200
     override val primary = Petroleum600
+    override val secondary = Watermelon600
+    override val secondaryActive = Watermelon800
     override val positive = Green600
     override val negative = Red600
     override val warning = Yellow600
