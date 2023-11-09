@@ -266,6 +266,7 @@ internal object PlaceholderResources : WarpResources {
 
 internal object PlaceholderShapes : WarpShapes {
     override val medium: Shape = CircleShape
+    override val ellipse: Shape = CircleShape
     override val components: WarpComponentShapes = PlaceholderComponentShapes
 }
 
