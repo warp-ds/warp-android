@@ -66,7 +66,7 @@ fun VerticalWarpStepIndicator(
     steps: Int,
     activeStep: Int,
     onStepClicked: ((Int) -> Unit)?,
-    stepContentDescription: ((Int) -> String)? = null,
+    stepContentDescription: (@Composable (Int) -> String)? = null,
     stepTitle: (Int) -> String,
     stepContent: @Composable (Int) -> Unit
 ) {
@@ -157,12 +157,13 @@ fun VerticalWarpStepIndicator(
                             .clip(CircleShape)
                             .let {
                                 if (onStepClicked != null) {
-                                    var mod = it.clickable {
+                                    val mod = it.clickable {
                                         onStepClicked(i)
                                     }
                                     if (stepContentDescription != null) {
+                                        val contentDescription = stepContentDescription(i)
                                         mod.semantics {
-                                            contentDescription = stepContentDescription(i)
+                                            this.contentDescription = contentDescription
                                         }
                                     } else {
                                         mod
@@ -380,7 +381,7 @@ fun HorizontalWarpStepIndicator(
     steps: Int,
     activeStep: Int = 0,
     onStepClicked: ((Int) -> Unit)? = null,
-    stepContentDescription: ((Int) -> String)? = null,
+    stepContentDescription: (@Composable (Int) -> String)? = null,
     label: ((Int) -> String)? = null,
     description: ((Int) -> String)? = null,
 ) {
@@ -474,8 +475,9 @@ fun HorizontalWarpStepIndicator(
                                         onStepClicked(i)
                                     }
                                     if (stepContentDescription != null) {
+                                        val contentDescription = stepContentDescription(i)
                                         mod.semantics {
-                                            contentDescription = stepContentDescription(i)
+                                            this.contentDescription = contentDescription
                                         }
                                     } else {
                                         mod
