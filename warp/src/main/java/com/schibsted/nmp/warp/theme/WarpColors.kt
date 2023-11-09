@@ -103,6 +103,7 @@ interface WarpIconColors {
     val invertedActive : Color
     val primary : Color
     val secondary : Color
+    val secondaryActive : Color
     val positive : Color
     val negative : Color
     val warning : Color
