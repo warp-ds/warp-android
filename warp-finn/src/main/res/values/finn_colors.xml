@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--***
+     FINN brand colors
+     This is the Finn brand color palette and should never be used directly.
+     Please use the semantic colors located in res/values/colors.xml instead.
+     Cheers!
+     ***-->
+
+    <color name="blue50">#eff5ff</color>
+    <color name="blue100">#e1edfe</color>
+    <color name="blue200">#c2dafe</color>
+    <color name="blue300">#9ac1fe</color>
+    <color name="blue400">#5c9cff</color>
+    <color name="blue500">#2b7eff</color>
+    <color name="blue600">#0063fb</color>
+    <color name="blue700">#244eb3</color>
+    <color name="blue800">#223474</color>
+    <color name="blue900">#191d34</color>
+
+    <color name="gray50">#fafafa</color>
+    <color name="gray100">#f4f4f5</color>
+    <color name="gray200">#e4e4e7</color>
+    <color name="gray300">#d4d4d8</color>
+    <color name="gray400">#a1a1aa</color>
+    <color name="gray500">#71717a</color>
+    <color name="gray600">#52525b</color>
+    <color name="gray700">#3f3f46</color>
+    <color name="gray800">#27272a</color>
+    <color name="gray900">#18181b</color>
+
+    <color name="aqua50">#f1f9ff</color>
+    <color name="aqua100">#e0f6ff</color>
+    <color name="aqua200">#b6f0ff</color>
+    <color name="aqua300">#66e0ff</color>
+    <color name="aqua400">#06befb</color>
+    <color name="aqua500">#03a3dd</color>
+    <color name="aqua600">#0386bf</color>
+    <color name="aqua700">#1e648a</color>
+    <color name="aqua800">#1d435a</color>
+    <color name="aqua900">#15242f</color>
+
+    <color name="green50">#ebfff6</color>
+    <color name="green100">#cdfee5</color>
+    <color name="green200">#9efcd1</color>
+    <color name="green300">#67eeb8</color>
+    <color name="green400">#2ee69f</color>
+    <color name="green500">#18c884</color>
+    <color name="green600">#059e6f</color>
+    <color name="green700">#1d7454</color>
+    <color name="green800">#1b4d39</color>
+    <color name="green900">#14291f</color>
+
+    <color name="yellow50">#fff8e6</color>
+    <color name="yellow100">#fff5c8</color>
+    <color name="yellow200">#feef90</color>
+    <color name="yellow300">#fae76b</color>
+    <color name="yellow400">#ffe11f</color>
+    <color name="yellow500">#eeb61b</color>
+    <color name="yellow600">#d5840b</color>
+    <color name="yellow700">#9b621e</color>
+    <color name="yellow800">#654118</color>
+    <color name="yellow900">#352310</color>
+
+    <color name="red50">#fff5f5</color>
+    <color name="red100">#ffefef</color>
+    <color name="red200">#ffd1d1</color>
+    <color name="red300">#ff9999</color>
+    <color name="red400">#ff5844</color>
+    <color name="red500">#fa270f</color>
+    <color name="red600">#d91f0a</color>
+    <color name="red700">#9e2216</color>
+    <color name="red800">#681d11</color>
+    <color name="red900">#38140b</color>
+
+    <color name="bluegray50">#f8fafc</color>
+    <color name="bluegray100">#f1f4f9</color>
+    <color name="bluegray200">#e1e6ee</color>
+    <color name="bluegray300">#c3ccd9</color>
+    <color name="bluegray400">#9ba8ba</color>
+    <color name="bluegray500">#6f7d90</color>
+    <color name="bluegray600">#4d586f</color>
+    <color name="bluegray700">#3b4353</color>
+    <color name="bluegray800">#292d38</color>
+    <color name="bluegray900">#181a1f</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+</resources>

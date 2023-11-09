@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--*** BACKGROUND ***-->
+
+    <color name="background_default">@color/white</color>
+    <color name="background_active">@color/bluegray200</color>
+    <color name="background_disabled">@color/bluegray300</color>
+    <color name="background_subtle">@color/bluegray50</color>
+    <color name="background_subtle_active">@color/bluegray200</color>
+    <color name="background_selected">@color/blue50</color>
+    <color name="background_inverted">@color/gray900</color>
+    <color name="background_primary">@color/blue600</color>
+    <color name="background_primary_active">@color/blue800</color>
+    <color name="background_primary_subtle">@color/blue50</color>
+    <color name="background_primary_subtle_active">@color/blue200</color>
+    <color name="background_secondary">@color/aqua400</color>
+    <color name="background_secondary_active">@color/aqua600</color>
+    <color name="background_positive">@color/green600</color>
+    <color name="background_positive_active">@color/green800</color>
+    <color name="background_positive_subtle">@color/green50</color>
+    <color name="background_positive_subtle_active">@color/green200</color>
+    <color name="background_positive_selected">@color/green50</color>
+    <color name="background_negative">@color/red600</color>
+    <color name="background_negative_active">@color/red800</color>
+    <color name="background_negative_subtle">@color/red50</color>
+    <color name="background_negative_subtle_active">@color/red200</color>
+    <color name="background_negative_selected">@color/red50</color>
+    <color name="background_warning">@color/yellow600</color>
+    <color name="background_warning_active">@color/yellow800</color>
+    <color name="background_warning_subtle">@color/yellow50</color>
+    <color name="background_warning_subtle_active">@color/yellow200</color>
+    <color name="background_warning_selected">@color/yellow50</color>
+    <color name="background_info">@color/aqua600</color>
+    <color name="background_info_active">@color/aqua800</color>
+    <color name="background_info_subtle">@color/aqua50</color>
+    <color name="background_info_subtle_active">@color/aqua200</color>
+    <color name="background_info_selected">@color/aqua50</color>
+    <color name="background_notification">@color/red600</color>
+
+    <!--*** BORDER ***-->
+
+    <color name="border_default">@color/bluegray300</color>
+    <color name="border_active">@color/bluegray500</color>
+    <color name="border_disabled">@color/bluegray300</color>
+    <color name="border_selected">@color/blue600</color>
+    <color name="border_primary">@color/blue600</color>
+    <color name="border_primary_active">@color/blue800</color>
+    <color name="border_primary_subtle">@color/blue300</color>
+    <color name="border_primary_subtle_active">@color/blue500</color>
+    <color name="border_positive">@color/green600</color>
+    <color name="border_positive_active">@color/green800</color>
+    <color name="border_positive_subtle">@color/green300</color>
+    <color name="border_positive_subtle_active">@color/green500</color>
+    <color name="border_negative">@color/red600</color>
+    <color name="border_negative_active">@color/red800</color>
+    <color name="border_negative_subtle">@color/red300</color>
+    <color name="border_negative_subtle_active">@color/red500</color>
+    <color name="border_warning">@color/yellow600</color>
+    <color name="border_warning_active">@color/yellow800</color>
+    <color name="border_warning_subtle">@color/yellow300</color>
+    <color name="border_warning_subtle_active">@color/yellow500</color>
+    <color name="border_info">@color/aqua600</color>
+    <color name="border_info_active">@color/aqua800</color>
+    <color name="border_info_subtle">@color/aqua300</color>
+    <color name="border_info_subtle_active">@color/aqua500</color>
+
+    <!--*** ICON ***-->
+
+    <color name="icon_default">@color/gray700</color>
+    <color name="icon_active">@color/blue700</color>
+    <color name="icon_selected">@color/blue600</color>
+    <color name="icon_disabled">@color/bluegray300</color>
+    <color name="icon_subtle">@color/bluegray400</color>
+    <color name="icon_subtle_active">@color/bluegray600</color>
+    <color name="icon_inverted">@color/white</color>
+    <color name="icon_inverted_active">@color/bluegray200</color>
+    <color name="icon_primary">@color/blue600</color>
+    <color name="icon_secondary">@color/aqua400</color>
+    <color name="icon_secondary_active">@color/aqua600</color>
+    <color name="icon_positive">@color/green600</color>
+    <color name="icon_negative">@color/red600</color>
+    <color name="icon_warning">@color/yellow600</color>
+    <color name="icon_info">@color/aqua600</color>
+    <color name="icon_notification">@color/red600</color>
+
+    <!--*** TEXT ***-->
+
+    <color name="text_default">@color/gray700</color>
+    <color name="text_subtle">@color/gray500</color>
+    <color name="text_placeholder">@color/bluegray300</color>
+    <color name="text_inverted">@color/white</color>
+    <color name="text_inverted_subtle">@color/gray50</color>
+    <color name="text_link">@color/blue600</color>
+    <color name="text_disabled">@color/bluegray300</color>
+    <color name="text_negative">@color/red600</color>
+    <color name="text_positive">@color/green600</color>
+    <color name="text_notification">@color/white</color>
+
+</resources>
