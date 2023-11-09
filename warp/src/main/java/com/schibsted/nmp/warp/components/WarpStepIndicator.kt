@@ -31,6 +31,8 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
@@ -53,6 +55,8 @@ import kotlin.math.floor
  * @param steps Amount of steps. Must be greater than 1
  * @param activeStep Currently active step
  * @param onStepClicked will be invoked if a step is clicked
+ * @param stepContentDescription Function to provide content descriptions for the steps, this will
+ * only be used if onStepClicked is not null
  * @param stepTitle Function to provide titles for the steps
  * @param stepContent Composable containing the content of each step
  */
@@ -62,6 +66,7 @@ fun VerticalWarpStepIndicator(
     steps: Int,
     activeStep: Int,
     onStepClicked: ((Int) -> Unit)?,
+    stepContentDescription: ((Int) -> String)? = null,
     stepTitle: (Int) -> String,
     stepContent: @Composable (Int) -> Unit
 ) {
@@ -152,8 +157,15 @@ fun VerticalWarpStepIndicator(
                             .clip(CircleShape)
                             .let {
                                 if (onStepClicked != null) {
-                                    it.clickable {
+                                    var mod = it.clickable {
                                         onStepClicked(i)
+                                    }
+                                    if (stepContentDescription != null) {
+                                        mod.semantics {
+                                            contentDescription = stepContentDescription(i)
+                                        }
+                                    } else {
+                                        mod
                                     }
                                 } else {
                                     it
@@ -358,6 +370,7 @@ private fun customVerticalMeasurePolicy(
  * @param steps Number of steps to display in the component. Must be greater than 1
  * @param activeStep The currently active step
  * @param onStepClicked Optional callback for when a step is clicked
+ * @param stepContentDescription Optional function to provide content descriptions for each step
  * @param label Function to provide titles for each step
  * @param description Optional function to provide descriptions for each step
  */
@@ -367,6 +380,7 @@ fun HorizontalWarpStepIndicator(
     steps: Int,
     activeStep: Int = 0,
     onStepClicked: ((Int) -> Unit)? = null,
+    stepContentDescription: ((Int) -> String)? = null,
     label: ((Int) -> String)? = null,
     description: ((Int) -> String)? = null,
 ) {
@@ -454,7 +468,22 @@ fun HorizontalWarpStepIndicator(
                         Modifier
                             .layoutId(StepIndicatorIds.INDICATOR)
                             .clip(CircleShape)
-                            .clickable { onStepClicked?.let { it(i) } }
+                            .let {
+                                if (onStepClicked != null) {
+                                    val mod = it.clickable {
+                                        onStepClicked(i)
+                                    }
+                                    if (stepContentDescription != null) {
+                                        mod.semantics {
+                                            contentDescription = stepContentDescription(i)
+                                        }
+                                    } else {
+                                        mod
+                                    }
+                                } else {
+                                    it
+                                }
+                            }
                     ) {
                         when {
                             (i < floor(animatedStep.toDouble())) -> {
