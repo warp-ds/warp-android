@@ -85,6 +85,7 @@
     <color name="bluegray800">#292d38</color>
     <color name="bluegray900">#181a1f</color>
 
-    <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
 </resources>
