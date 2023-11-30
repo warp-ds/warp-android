@@ -38,92 +38,132 @@ internal object ToriColors : WarpColors {
 
 internal object ToriBackgroundColors : WarpBackgroundColors {
     override val default = White
+    override val hover = Gray100
     override val active = Gray200
     override val disabled = Gray300
+    override val disabledSubtle = Gray200
     override val subtle = Gray50
+    override val subtleHover = Gray100
     override val subtleActive = Gray200
     override val selected = Petroleum50
+    override val selectedHover = Petroleum100
 
     override val inverted = Gray900
 
     override val primary = Petroleum600
+    override val primaryHover = Petroleum700
     override val primaryActive = Petroleum800
     override val primarySubtle = Petroleum50
+    override val primarySubtleHover = Petroleum100
     override val primarySubtleActive = Petroleum200
 
     override val secondary = Watermelon600
+    override val secondaryHover = Watermelon700
     override val secondaryActive = Watermelon800
 
     override val positive = Green600
+    override val positiveHover = Green700
     override val positiveActive = Green800
     override val positiveSubtle = Green50
+    override val positiveSubtleHover = Green100
     override val positiveSubtleActive = Green200
     override val positiveSelected = Green50
+    override val positiveSelectedHover = Green100
 
     override val negative = Red600
+    override val negativeHover = Red700
     override val negativeActive = Red800
     override val negativeSubtle = Red50
+    override val negativeSubtleHover = Red100
     override val negativeSubtleActive = Red200
     override val negativeSelected = Red50
+    override val negativeSelectedHover = Red100
 
     override val warning = Yellow600
+    override val warningHover = Yellow700
     override val warningActive = Yellow800
     override val warningSubtle = Yellow50
+    override val warningSubtleHover = Yellow100
     override val warningSubtleActive = Yellow200
     override val warningSelected = Yellow50
+    override val warningSelectedHover = Yellow100
 
     override val info = Blue600
+    override val infoHover = Blue700
     override val infoActive = Blue800
     override val infoSubtle = Blue50
+    override val infoSubtleHover = Blue100
     override val infoSubtleActive = Blue200
     override val infoSelected = Blue50
+    override val infoSelectedHover = Blue100
 
     override val notification = Red600
 }
 
 internal object ToriBorderColors : WarpBorderColors {
     override val default = Gray300
+    override val hover = Gray400
     override val active = Gray500
     override val disabled = Gray300
     override val selected = Petroleum600
+    override val selectedHover = Petroleum700
 
     override val primary = Petroleum600
+    override val primaryHover = Petroleum700
     override val primaryActive = Petroleum800
     override val primarySubtle = Petroleum300
+    override val primarySubtleHover = Petroleum400
     override val primarySubtleActive = Petroleum500
 
+    override val secondary = Watermelon600
+    override val secondaryHover = Watermelon700
+    override val secondaryActive = Watermelon800
+
     override val positive = Green600
+    override val positiveHover = Green700
     override val positiveActive = Green800
     override val positiveSubtle = Green300
+    override val positiveSubtleHover = Green400
     override val positiveSubtleActive = Green500
 
     override val negative = Red600
+    override val negativeHover = Red700
     override val negativeActive = Red800
     override val negativeSubtle = Red300
+    override val negativeSubtleHover = Red400
     override val negativeSubtleActive = Red500
 
     override val warning = Yellow600
+    override val warningHover = Yellow700
     override val warningActive = Yellow800
     override val warningSubtle = Yellow300
+    override val warningSubtleHover = Yellow400
     override val warningSubtleActive = Yellow500
 
     override val info = Blue600
+    override val infoHover = Blue700
     override val infoActive = Blue800
     override val infoSubtle = Blue300
+    override val infoSubtleHover = Blue400
     override val infoSubtleActive = Blue500
 }
 
 internal object ToriIconColors : WarpIconColors {
     override val default = Gray900
+    override val hover = Gray900
     override val active = Gray900
     override val selected = Petroleum600
+    override val selectedHover = Petroleum700
     override val disabled = Gray300
     override val subtle = Gray400
+    override val subtleHover = Green500
     override val subtleActive = Gray600
     override val inverted = White
+    override val invertedHover = Gray100
     override val invertedActive = Gray200
     override val primary = Petroleum600
     override val secondary = Watermelon600
+    override val secondaryHover = Watermelon700
     override val secondaryActive = Watermelon800
     override val positive = Green600
     override val negative = Red600

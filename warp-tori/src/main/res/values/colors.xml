@@ -76,7 +76,7 @@
     <color name="warp_icon_inverted">@color/white</color>
     <color name="warp_icon_inverted_active">@color/gray200</color>
     <color name="warp_icon_primary">@color/petroleum600</color>
-    <color name="warp_icon_secondary">@color/watermelon400</color>
+    <color name="warp_icon_secondary">@color/watermelon600</color>
     <color name="warp_icon_secondary_active">@color/watermelon800</color>
     <color name="warp_icon_positive">@color/green600</color>
     <color name="warp_icon_negative">@color/red600</color>
