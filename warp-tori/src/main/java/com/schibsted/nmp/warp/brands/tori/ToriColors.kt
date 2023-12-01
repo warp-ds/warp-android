@@ -156,7 +156,7 @@ internal object ToriIconColors : WarpIconColors {
     override val selectedHover = Petroleum700
     override val disabled = Gray300
     override val subtle = Gray400
-    override val subtleHover = Green500
+    override val subtleHover = Gray500
     override val subtleActive = Gray600
     override val inverted = White
     override val invertedHover = Gray100

@@ -3,77 +3,116 @@
 
     <!--*** BACKGROUND ***-->
     <id name="warp_background_default" type="color" />
+    <id name="warp_background_hover" type="color" />
     <id name="warp_background_active" type="color" />
     <id name="warp_background_disabled" type="color" />
+    <id name="warp_background_disabled_subtle" type="color" />
     <id name="warp_background_subtle" type="color" />
+    <id name="warp_background_subtle_hover" type="color" />
     <id name="warp_background_subtle_active" type="color" />
     <id name="warp_background_selected" type="color" />
+    <id name="warp_background_selected_hover" type="color" />
     <id name="warp_background_inverted" type="color" />
     <id name="warp_background_primary" type="color" />
+    <id name="warp_background_primary_hover" type="color" />
     <id name="warp_background_primary_active" type="color" />
     <id name="warp_background_primary_subtle" type="color" />
+    <id name="warp_background_primary_subtle_hover" type="color" />
     <id name="warp_background_primary_subtle_active" type="color" />
     <id name="warp_background_secondary" type="color" />
+    <id name="warp_background_secondary_hover" type="color" />
     <id name="warp_background_secondary_active" type="color" />
     <id name="warp_background_positive" type="color" />
+    <id name="warp_background_positive_hover" type="color" />
     <id name="warp_background_positive_active" type="color" />
     <id name="warp_background_positive_subtle" type="color" />
+    <id name="warp_background_positive_subtle_hover" type="color" />
     <id name="warp_background_positive_subtle_active" type="color" />
     <id name="warp_background_positive_selected" type="color" />
+    <id name="warp_background_positive_selected_hover" type="color" />
     <id name="warp_background_negative" type="color" />
+    <id name="warp_background_negative_hover" type="color" />
     <id name="warp_background_negative_active" type="color" />
     <id name="warp_background_negative_subtle" type="color" />
+    <id name="warp_background_negative_subtle_hover" type="color" />
     <id name="warp_background_negative_subtle_active" type="color" />
     <id name="warp_background_negative_selected" type="color" />
+    <id name="warp_background_negative_selected_hover" type="color" />
     <id name="warp_background_warning" type="color" />
+    <id name="warp_background_warning_hover" type="color" />
     <id name="warp_background_warning_active" type="color" />
     <id name="warp_background_warning_subtle" type="color" />
+    <id name="warp_background_warning_subtle_hover" type="color" />
     <id name="warp_background_warning_subtle_active" type="color" />
     <id name="warp_background_warning_selected" type="color" />
+    <id name="warp_background_warning_selected_hover" type="color" />
     <id name="warp_background_info" type="color" />
+    <id name="warp_background_info_hover" type="color" />
     <id name="warp_background_info_active" type="color" />
     <id name="warp_background_info_subtle" type="color" />
+    <id name="warp_background_info_subtle_hover" type="color" />
     <id name="warp_background_info_subtle_active" type="color" />
     <id name="warp_background_info_selected" type="color" />
+    <id name="warp_background_info_selected_hover" type="color" />
     <id name="warp_background_notification" type="color" />
 
     <!--*** BORDER ***-->
     <id name="warp_border_default" type="color" />
+    <id name="warp_border_hover" type="color" />
     <id name="warp_border_active" type="color" />
     <id name="warp_border_disabled" type="color" />
     <id name="warp_border_selected" type="color" />
+    <id name="warp_border_selected_hover" type="color" />
     <id name="warp_border_primary" type="color" />
+    <id name="warp_border_primary_hover" type="color" />
     <id name="warp_border_primary_active" type="color" />
     <id name="warp_border_primary_subtle" type="color" />
+    <id name="warp_border_primary_subtle_hover" type="color" />
     <id name="warp_border_primary_subtle_active" type="color" />
+    <id name="warp_border_secondary" type="color" />
+    <id name="warp_border_secondary_hover" type="color" />
+    <id name="warp_border_secondary_active" type="color" />
     <id name="warp_border_positive" type="color" />
+    <id name="warp_border_positive_hover" type="color" />
     <id name="warp_border_positive_active" type="color" />
     <id name="warp_border_positive_subtle" type="color" />
+    <id name="warp_border_positive_subtle_hover" type="color" />
     <id name="warp_border_positive_subtle_active" type="color" />
     <id name="warp_border_negative" type="color" />
+    <id name="warp_border_negative_hover" type="color" />
     <id name="warp_border_negative_active" type="color" />
     <id name="warp_border_negative_subtle" type="color" />
+    <id name="warp_border_negative_subtle_hover" type="color" />
     <id name="warp_border_negative_subtle_active" type="color" />
     <id name="warp_border_warning" type="color" />
+    <id name="warp_border_warning_hover" type="color" />
     <id name="warp_border_warning_active" type="color" />
     <id name="warp_border_warning_subtle" type="color" />
+    <id name="warp_border_warning_subtle_hover" type="color" />
     <id name="warp_border_warning_subtle_active" type="color" />
     <id name="warp_border_info" type="color" />
+    <id name="warp_border_info_hover" type="color" />
     <id name="warp_border_info_active" type="color" />
     <id name="warp_border_info_subtle" type="color" />
+    <id name="warp_border_info_subtle_hover" type="color" />
     <id name="warp_border_info_subtle_active" type="color" />
 
     <!--*** ICON ***-->
     <id name="warp_icon_default" type="color" />
+    <id name="warp_icon_hover" type="color" />
     <id name="warp_icon_active" type="color" />
     <id name="warp_icon_selected" type="color" />
+    <id name="warp_icon_selected_hover" type="color" />
     <id name="warp_icon_disabled" type="color" />
     <id name="warp_icon_subtle" type="color" />
+    <id name="warp_icon_subtle_hover" type="color" />
     <id name="warp_icon_subtle_active" type="color" />
     <id name="warp_icon_inverted" type="color" />
+    <id name="warp_icon_inverted_hover" type="color" />
     <id name="warp_icon_inverted_active" type="color" />
     <id name="warp_icon_primary" type="color" />
     <id name="warp_icon_secondary" type="color" />
+    <id name="warp_icon_secondary_hover" type="color" />
     <id name="warp_icon_secondary_active" type="color" />
     <id name="warp_icon_positive" type="color" />
     <id name="warp_icon_negative" type="color" />
