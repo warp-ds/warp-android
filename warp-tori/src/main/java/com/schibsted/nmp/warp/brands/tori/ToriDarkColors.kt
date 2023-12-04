@@ -210,18 +210,12 @@ internal object ToriCalloutDarkColors : WarpCalloutColors {
 }
 
 internal object ToriBadgeDarkColors : WarpBadgeColors {
-    override val infoBackground: Color = ToriDarkBackgroundColors.infoSubtle
-    override val infoText: Color = ToriDarkTextColors.default
-    override val positiveBackground: Color = ToriDarkBackgroundColors.positiveSubtle
-    override val positiveText: Color = ToriDarkTextColors.default
-    override val warningBackground: Color = ToriDarkBackgroundColors.warningSubtle
-    override val warningText: Color = ToriDarkTextColors.default
-    override val negativeBackground: Color = ToriDarkBackgroundColors.negativeSubtle
-    override val negativeText: Color = ToriDarkTextColors.default
+    override val infoBackground: Color = Blue700
+    override val positiveBackground: Color = Green700
+    override val warningBackground: Color = Yellow700
+    override val negativeBackground: Color = Red700
     override val disabledBackground: Color = ToriDarkBackgroundColors.disabled
-    override val disabledText: Color = ToriDarkTextColors.default
-    override val neutralBackground: Color = ToriDarkBackgroundColors.subtle
-    override val neutralText: Color = ToriDarkTextColors.default
+    override val neutralBackground: Color = Gray700
 }
 
 internal object ToriButtonDarkColors : WarpButtonColors {

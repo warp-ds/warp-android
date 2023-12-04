@@ -213,18 +213,12 @@ internal object FinnCalloutColors : WarpCalloutColors {
 }
 
 internal object FinnBadgeColors : WarpBadgeColors {
-    override val infoBackground: Color = FinnBackgroundColors.infoSubtle
-    override val infoText: Color = FinnTextColors.default
-    override val positiveBackground: Color = FinnBackgroundColors.positiveSubtle
-    override val positiveText: Color = FinnTextColors.default
-    override val warningBackground: Color = FinnBackgroundColors.warningSubtle
-    override val warningText: Color = FinnTextColors.default
-    override val negativeBackground: Color = FinnBackgroundColors.negativeSubtle
-    override val negativeText: Color = FinnTextColors.default
+    override val infoBackground: Color = Aqua100
+    override val positiveBackground: Color = Green100
+    override val warningBackground: Color = Yellow100
+    override val negativeBackground: Color = Red100
     override val disabledBackground: Color = FinnBackgroundColors.disabled
-    override val disabledText: Color = FinnTextColors.default
-    override val neutralBackground: Color = FinnBackgroundColors.subtle
-    override val neutralText: Color = FinnTextColors.default
+    override val neutralBackground: Color = Bluegray100
 }
 
 internal object FinnStepIndicatorColors : WarpStepIndicatorColors {

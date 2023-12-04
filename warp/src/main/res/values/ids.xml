@@ -150,17 +150,11 @@
 
     <!--*** BADGE ***-->
     <id name="warp_badge_info_background" type="color" />
-    <id name="warp_badge_info_text" type="color" />
     <id name="warp_badge_positive_background" type="color" />
-    <id name="warp_badge_positive_text" type="color" />
     <id name="warp_badge_warning_background" type="color" />
-    <id name="warp_badge_warning_text" type="color" />
     <id name="warp_badge_negative_background" type="color" />
-    <id name="warp_badge_negative_text" type="color" />
     <id name="warp_badge_disabled_background" type="color" />
-    <id name="warp_badge_disabled_text" type="color" />
     <id name="warp_badge_neutral_background" type="color" />
-    <id name="warp_badge_neutral_text" type="color" />
 
     <!--*** STEP INDICATOR ***-->
     <id name="warp_step_indicator_background" type="color" />

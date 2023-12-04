@@ -194,17 +194,11 @@ interface WarpCalloutColors {
 
 interface WarpBadgeColors {
     val infoBackground: Color
-    val infoText: Color
     val positiveBackground: Color
-    val positiveText: Color
     val warningBackground: Color
-    val warningText: Color
     val negativeBackground: Color
-    val negativeText: Color
     val disabledBackground: Color
-    val disabledText: Color
     val neutralBackground: Color
-    val neutralText: Color
 }
 
 interface WarpAlertColors {

@@ -192,19 +192,13 @@ private object PlaceholderCalloutColors : WarpCalloutColors {
 
 private object PlaceholderBadgeColors : WarpBadgeColors {
     override val infoBackground: Color = Color.Unspecified
-    override val infoText: Color = Color.Unspecified
     override val positiveBackground: Color = Color.Unspecified
-    override val positiveText: Color = Color.Unspecified
     override val warningBackground: Color = Color.Unspecified
-    override val warningText: Color = Color.Unspecified
     override val negativeBackground: Color = Color.Unspecified
-    override val negativeText: Color = Color.Unspecified
     override val disabledBackground: Color = Color.Unspecified
-    override val disabledText: Color = Color.Unspecified
     override val neutralBackground: Color = Color.Unspecified
-    override val neutralText: Color = Color.Unspecified
-
 }
+
 private object PlaceholderButtonColors : WarpButtonColors {
     override val primary: WarpButtonStyleColors = PlaceholderButtonStyle
     override val secondary: WarpButtonStyleColors = PlaceholderButtonStyle

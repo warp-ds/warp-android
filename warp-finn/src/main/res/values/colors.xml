@@ -153,18 +153,12 @@
     <color name="warp_callout_text">@color/warp_text_default</color>
 
     <!--*** BADGE ***-->
-    <color name="warp_badge_info_background">@color/warp_background_info_subtle</color>
-    <color name="warp_badge_info_text">@color/warp_text_default</color>
-    <color name="warp_badge_positive_background">@color/warp_background_positive_subtle</color>
-    <color name="warp_badge_positive_text">@color/warp_text_default</color>
-    <color name="warp_badge_warning_background">@color/warp_background_warning_subtle</color>
-    <color name="warp_badge_warning_text">@color/warp_text_default</color>
-    <color name="warp_badge_negative_background">@color/warp_background_negative_subtle</color>
-    <color name="warp_badge_negative_text">@color/warp_text_default</color>
+    <color name="warp_badge_info_background">@color/aqua100</color>
+    <color name="warp_badge_positive_background">@color/green100</color>
+    <color name="warp_badge_warning_background">@color/yellow100</color>
+    <color name="warp_badge_negative_background">@color/red100</color>
     <color name="warp_badge_disabled_background">@color/warp_background_disabled</color>
-    <color name="warp_badge_disabled_text">@color/warp_text_default</color>
-    <color name="warp_badge_neutral_background">@color/warp_background_subtle</color>
-    <color name="warp_badge_neutral_text">@color/warp_text_default</color>
+    <color name="warp_badge_neutral_background">@color/bluegray100</color>
 
     <!--*** STEP INDICATOR ***-->
     <color name="warp_step_indicator_background">@color/warp_border_default</color>

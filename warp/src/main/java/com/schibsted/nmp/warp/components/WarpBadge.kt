@@ -28,14 +28,6 @@ fun WarpBadge(
         WarpBadgeStyle.Disabled -> WarpTheme.colors.components.badge.disabledBackground
         WarpBadgeStyle.Neutral -> WarpTheme.colors.components.badge.neutralBackground
     }
-    val textColor = when (style) {
-        WarpBadgeStyle.Info -> WarpTheme.colors.components.badge.infoText
-        WarpBadgeStyle.Success -> WarpTheme.colors.components.badge.positiveText
-        WarpBadgeStyle.Warning -> WarpTheme.colors.components.badge.warningText
-        WarpBadgeStyle.Error -> WarpTheme.colors.components.badge.negativeText
-        WarpBadgeStyle.Disabled -> WarpTheme.colors.components.badge.disabledText
-        WarpBadgeStyle.Neutral -> WarpTheme.colors.components.badge.neutralText
-    }
     val shape = when (alignmentStyle) {
         WarpBadgeAlignment.None -> WarpTheme.shapes.components.badge.default
         WarpBadgeAlignment.TopStart -> WarpTheme.shapes.components.badge.topStart
@@ -53,7 +45,7 @@ fun WarpBadge(
                         vertical = WarpTheme.dimensions.space05
                     )
             ),
-        color = textColor,
+        color = WarpTheme.colors.text.default,
         text = text,
         style = WarpTextStyle.Detail,
     )
