@@ -19,7 +19,6 @@ import com.schibsted.nmp.warp.theme.WarpPillColors
 import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
-import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object ToriDarkColors : WarpColors {
@@ -184,7 +183,6 @@ internal object ToriComponentDarkColors : WarpComponentColors {
     override val box: WarpBoxColors = ToriBoxDarkColors
     override val stepIndicator: WarpStepIndicatorColors = ToriStepIndicatorDarkColors
     override val alert: WarpAlertColors = ToriAlertDarkColors
-    override val textField: WarpTextFieldColors = ToriTextFieldDarkColors
     override val badge: WarpBadgeColors = ToriBadgeDarkColors
     override val callout: WarpCalloutColors = ToriCalloutDarkColors
     override val pill: WarpPillColors = ToriPillDarkColors
@@ -313,23 +311,6 @@ internal object ToriButtonDarkColors : WarpButtonColors {
         ),
         border = null
     )
-}
-
-internal object ToriTextFieldDarkColors : WarpTextFieldColors {
-    override val textFilled: Color = ToriDarkTextColors.default
-    override val textHint: Color = ToriDarkTextColors.placeholder
-    override val textDisabled: Color = ToriDarkTextColors.disabled
-    override val textNegative: Color = ToriDarkTextColors.negative
-    override val textReadOnly: Color = ToriDarkTextColors.default
-    override val iconNegative: Color = ToriDarkIconColors.negative
-    override val background: Color = ToriDarkBackgroundColors.default
-    override val backgroundDisabled: Color = ToriDarkBackgroundColors.disabled
-    override val border: Color = ToriDarkBorderColors.default
-    override val borderActive: Color = ToriDarkBorderColors.selected
-    override val borderDisabled: Color = ToriDarkBorderColors.disabled
-    override val borderNegative: Color = ToriDarkBorderColors.negative
-    override val caret: Color = ToriDarkIconColors.default
-    override val icon: Color = ToriDarkIconColors.default
 }
 
 internal object ToriBoxDarkColors : WarpBoxColors {

@@ -170,7 +170,6 @@ interface WarpComponentColors {
     val box: WarpBoxColors
     val stepIndicator: WarpStepIndicatorColors
     val alert: WarpAlertColors
-    val textField: WarpTextFieldColors
     val callout: WarpCalloutColors
     val pill: WarpPillColors
 }
@@ -206,23 +205,6 @@ interface WarpBadgeColors {
     val disabledText: Color
     val neutralBackground: Color
     val neutralText: Color
-}
-
-interface WarpTextFieldColors {
-    val textFilled: Color
-    val textHint: Color
-    val textDisabled: Color
-    val textNegative: Color
-    val textReadOnly: Color
-    val background: Color
-    val backgroundDisabled: Color
-    val border: Color
-    val borderActive: Color
-    val borderDisabled: Color
-    val borderNegative: Color
-    val icon: Color
-    val caret: Color
-    val iconNegative: Color
 }
 
 interface WarpAlertColors {

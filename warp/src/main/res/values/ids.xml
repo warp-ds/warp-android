@@ -199,22 +199,6 @@
     <id name="warp_box_bordered_background" type="color" />
     <id name="warp_box_bordered_border" type="color" />
 
-    <!--*** TEXTFIELD ***-->
-    <id name="warp_textfield_text_filled" type="color" />
-    <id name="warp_textfield_text_hint" type="color" />
-    <id name="warp_textfield_text_disabled" type="color" />
-    <id name="warp_textfield_text_negative" type="color" />
-    <id name="warp_textfield_text_read_only" type="color" />
-    <id name="warp_textfield_icon_negative" type="color" />
-    <id name="warp_textfield_background" type="color" />
-    <id name="warp_textfield_background_disabled" type="color" />
-    <id name="warp_textfield_border" type="color" />
-    <id name="warp_textfield_border_active" type="color" />
-    <id name="warp_textfield_border_disabled" type="color" />
-    <id name="warp_textfield_border_negative" type="color" />
-    <id name="warp_textfield_caret" type="color" />
-    <id name="warp_textfield_icon" type="color" />
-
     <!--*** BUTTON ***-->
     <id name="warp_button_primary_text" type="color" />
     <id name="warp_button_primary_background_default" type="color" />

@@ -204,22 +204,6 @@
     <color name="warp_box_bordered_background">@color/warp_background_default</color>
     <color name="warp_box_bordered_border">@color/warp_border_default</color>
 
-    <!--*** TEXTFIELD ***-->
-    <color name="warp_textfield_text_filled">@color/warp_text_default</color>
-    <color name="warp_textfield_text_hint">@color/warp_text_placeholder</color>
-    <color name="warp_textfield_text_disabled">@color/warp_text_disabled</color>
-    <color name="warp_textfield_text_negative">@color/warp_text_negative</color>
-    <color name="warp_textfield_text_read_only">@color/warp_text_default</color>
-    <color name="warp_textfield_icon_negative">@color/warp_icon_negative</color>
-    <color name="warp_textfield_background">@color/warp_background_default</color>
-    <color name="warp_textfield_background_disabled">@color/warp_background_disabled</color>
-    <color name="warp_textfield_border">@color/warp_border_default</color>
-    <color name="warp_textfield_border_active">@color/warp_border_selected</color>
-    <color name="warp_textfield_border_disabled">@color/warp_border_disabled</color>
-    <color name="warp_textfield_border_negative">@color/warp_border_negative</color>
-    <color name="warp_textfield_caret">@color/warp_icon_default</color>
-    <color name="warp_textfield_icon">@color/warp_icon_default</color>
-
     <!--*** BUTTON ***-->
     <color name="warp_button_primary_text">@color/warp_text_inverted</color>
     <color name="warp_button_primary_background_default">@color/warp_background_primary</color>
