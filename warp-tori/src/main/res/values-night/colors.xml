@@ -204,13 +204,6 @@
     <color name="warp_box_bordered_background">@color/warp_background_default</color>
     <color name="warp_box_bordered_border">@color/warp_border_default</color>
 
-    <!--*** LABEL ***-->
-    <color name="warp_label_text">@color/warp_text_default</color>
-    <color name="warp_label_negative">@color/warp_text_negative</color>
-    <color name="warp_label_optional">@color/warp_text_default</color>
-    <color name="warp_label_icon">@color/warp_icon_default</color>
-    <color name="warp_label_disabled">@color/warp_text_disabled</color>
-
     <!--*** TEXTFIELD ***-->
     <color name="warp_textfield_text_filled">@color/warp_text_default</color>
     <color name="warp_textfield_text_hint">@color/warp_text_placeholder</color>

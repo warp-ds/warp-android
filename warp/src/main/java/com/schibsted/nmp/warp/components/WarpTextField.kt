@@ -77,7 +77,7 @@ fun WarpTextField(
         LocalTypography provides typography,
         LocalDimensions provides dimensions
     ) {
-        val labelColor = colors.components.label.text
+        val labelColor = colors.text.default
         val placeholderColor = colors.components.textField.textHint
         val colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = colors.components.textField.textFilled,

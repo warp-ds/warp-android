@@ -15,7 +15,6 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
-import com.schibsted.nmp.warp.theme.WarpLabelColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
 import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
@@ -187,7 +186,6 @@ internal object ToriComponentDarkColors : WarpComponentColors {
     override val alert: WarpAlertColors = ToriAlertDarkColors
     override val textField: WarpTextFieldColors = ToriTextFieldDarkColors
     override val badge: WarpBadgeColors = ToriBadgeDarkColors
-    override val label: WarpLabelColors = ToriLabelDarkColors
     override val callout: WarpCalloutColors = ToriCalloutDarkColors
     override val pill: WarpPillColors = ToriPillDarkColors
 }
@@ -226,14 +224,6 @@ internal object ToriBadgeDarkColors : WarpBadgeColors {
     override val disabledText: Color = ToriDarkTextColors.default
     override val neutralBackground: Color = ToriDarkBackgroundColors.subtle
     override val neutralText: Color = ToriDarkTextColors.default
-}
-
-internal object ToriLabelDarkColors: WarpLabelColors {
-    override val text: Color = ToriDarkTextColors.default
-    override val negative: Color = ToriDarkTextColors.negative
-    override val optional: Color = ToriDarkTextColors.default
-    override val icon: Color = ToriDarkIconColors.default
-    override val disabled: Color = ToriDarkTextColors.disabled
 }
 
 internal object ToriButtonDarkColors : WarpButtonColors {

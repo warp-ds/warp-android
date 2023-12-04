@@ -24,7 +24,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
 fun WarpText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = colors.components.label.text,
+    color: Color = colors.text.default,
     style: WarpTextStyle = WarpTextStyle.Body,
     maxLines: Int = Int.MAX_VALUE,
     textAlign: TextAlign? = null,

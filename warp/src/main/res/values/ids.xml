@@ -199,13 +199,6 @@
     <id name="warp_box_bordered_background" type="color" />
     <id name="warp_box_bordered_border" type="color" />
 
-    <!--*** LABEL ***-->
-    <id name="warp_label_text" type="color" />
-    <id name="warp_label_negative" type="color" />
-    <id name="warp_label_optional" type="color" />
-    <id name="warp_label_icon" type="color" />
-    <id name="warp_label_disabled" type="color" />
-
     <!--*** TEXTFIELD ***-->
     <id name="warp_textfield_text_filled" type="color" />
     <id name="warp_textfield_text_hint" type="color" />
