@@ -187,12 +187,6 @@
     <id name="warp_alert_warning_border" type="color" />
     <id name="warp_alert_warning_icon" type="color" />
 
-    <!--*** BOX ***-->
-    <id name="warp_box_neutral_background" type="color" />
-    <id name="warp_box_info_background" type="color" />
-    <id name="warp_box_bordered_background" type="color" />
-    <id name="warp_box_bordered_border" type="color" />
-
     <!--*** BUTTON ***-->
     <id name="warp_button_primary_text" type="color" />
     <id name="warp_button_primary_background_default" type="color" />

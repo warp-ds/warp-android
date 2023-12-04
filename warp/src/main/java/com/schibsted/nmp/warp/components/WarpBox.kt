@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
+import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -38,9 +39,9 @@ fun WarpBox(
     ) {
 
         val style = when (boxStyle) {
-            WarpBoxStyle.NEUTRAL -> colors.components.box.neutral
-            WarpBoxStyle.INFO -> colors.components.box.info
-            WarpBoxStyle.BORDERED -> colors.components.box.bordered
+            WarpBoxStyle.NEUTRAL -> WarpComponentBackground(colors.background.subtle, null)
+            WarpBoxStyle.INFO -> WarpComponentBackground(colors.background.infoSubtle, null)
+            WarpBoxStyle.BORDERED -> WarpComponentBackground(colors.background.default, colors.border.default)
         }
 
         Surface(

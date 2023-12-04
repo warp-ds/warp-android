@@ -9,13 +9,11 @@ import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
-import com.schibsted.nmp.warp.theme.WarpBoxColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
 import com.schibsted.nmp.warp.theme.WarpButtonElementColors
 import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
-import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
@@ -183,7 +181,6 @@ internal object ToriTextColors : WarpTextColors {
 
 internal object ToriComponentColors : WarpComponentColors {
     override val button: WarpButtonColors = ToriButtonColors
-    override val box: WarpBoxColors = ToriBoxColors
     override val stepIndicator: WarpStepIndicatorColors = ToriStepIndicatorColors
     override val alert: WarpAlertColors = ToriAlertColors
     override val badge: WarpBadgeColors = ToriBadgeColors
@@ -308,12 +305,6 @@ internal object ToriButtonColors : WarpButtonColors {
         ),
         border = null
     )
-}
-
-internal object ToriBoxColors : WarpBoxColors {
-    override val neutral = WarpComponentBackground(ToriBackgroundColors.subtle, null)
-    override val info = WarpComponentBackground(ToriBackgroundColors.infoSubtle, null)
-    override val bordered = WarpComponentBackground(ToriBackgroundColors.default, ToriBorderColors.default)
 }
 
 internal object ToriStepIndicatorColors : WarpStepIndicatorColors {

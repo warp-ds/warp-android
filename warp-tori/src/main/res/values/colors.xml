@@ -191,12 +191,6 @@
     <color name="warp_alert_warning_border">@color/warp_border_warning</color>
     <color name="warp_alert_warning_icon">@color/warp_icon_warning</color>
 
-    <!--*** BOX ***-->
-    <color name="warp_box_neutral_background">@color/warp_background_subtle</color>
-    <color name="warp_box_info_background">@color/warp_background_info_subtle</color>
-    <color name="warp_box_bordered_background">@color/warp_background_default</color>
-    <color name="warp_box_bordered_border">@color/warp_border_default</color>
-
     <!--*** BUTTON ***-->
     <color name="warp_button_primary_text">@color/warp_text_inverted</color>
     <color name="warp_button_primary_background_default">@color/warp_background_primary</color>

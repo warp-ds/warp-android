@@ -167,7 +167,6 @@ interface WarpTextColors {
 interface WarpComponentColors {
     val badge: WarpBadgeColors
     val button: WarpButtonColors
-    val box: WarpBoxColors
     val stepIndicator: WarpStepIndicatorColors
     val alert: WarpAlertColors
     val callout: WarpCalloutColors
@@ -228,12 +227,6 @@ interface WarpButtonColors {
     val utilityQuiet: WarpButtonStyleColors
     val utilityOverlay: WarpButtonStyleColors
     val loading: WarpButtonStyleColors
-}
-
-interface WarpBoxColors {
-    val neutral: WarpComponentBackground
-    val info: WarpComponentBackground
-    val bordered: WarpComponentBackground
 }
 
 interface WarpStepIndicatorColors {
