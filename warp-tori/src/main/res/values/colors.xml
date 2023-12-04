@@ -143,8 +143,8 @@
     <color name="warp_pill_filter_background_active">@color/warp_background_primary_active</color>
     <color name="warp_pill_filter_icon">@color/warp_icon_inverted</color>
     <color name="warp_pill_suggestion_text">@color/warp_text_default</color>
-    <color name="warp_pill_suggestion_background">@color/warp_background_subtle</color>
-    <color name="warp_pill_suggestion_background_active">@color/warp_background_subtle_active</color>
+    <color name="warp_pill_suggestion_background">@color/gray300</color>
+    <color name="warp_pill_suggestion_background_active">@color/gray500</color>
     <color name="warp_pill_suggestion_icon">@color/warp_icon_default</color>
 
     <!--*** CALLOUT ***-->

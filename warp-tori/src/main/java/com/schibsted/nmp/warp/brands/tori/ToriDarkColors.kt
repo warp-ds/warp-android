@@ -191,8 +191,8 @@ internal object ToriPillDarkColors : WarpPillColors {
     )
     override val suggestion: WarpPillStyleColors = ToriPillStyleColors(
         text = ToriDarkTextColors.default,
-        background = ToriDarkBackgroundColors.subtle,
-        backgroundActive = ToriDarkBackgroundColors.subtleActive,
+        background = Gray600,
+        backgroundActive = Gray800,
         icon = ToriDarkIconColors.default
     )
 }
