@@ -169,28 +169,6 @@
     <color name="warp_step_indicator_border_active">@color/warp_border_primary</color>
     <color name="warp_step_indicator_icon">@color/warp_icon_inverted</color>
 
-    <!--*** ALERT ***-->
-    <color name="warp_alert_info_text">@color/warp_text_default</color>
-    <color name="warp_alert_info_background">@color/warp_background_info_subtle</color>
-    <color name="warp_alert_info_subtle_border">@color/warp_border_info_subtle</color>
-    <color name="warp_alert_info_border">@color/warp_border_info</color>
-    <color name="warp_alert_info_icon">@color/warp_icon_info</color>
-    <color name="warp_alert_positive_text">@color/warp_text_default</color>
-    <color name="warp_alert_positive_background">@color/warp_background_positive_subtle</color>
-    <color name="warp_alert_positive_subtle_border">@color/warp_border_positive_subtle</color>
-    <color name="warp_alert_positive_border">@color/warp_border_positive</color>
-    <color name="warp_alert_positive_icon">@color/warp_icon_positive</color>
-    <color name="warp_alert_negative_text">@color/warp_text_default</color>
-    <color name="warp_alert_negative_background">@color/warp_background_negative_subtle</color>
-    <color name="warp_alert_negative_subtle_border">@color/warp_border_negative_subtle</color>
-    <color name="warp_alert_negative_border">@color/warp_border_negative</color>
-    <color name="warp_alert_negative_icon">@color/warp_icon_negative</color>
-    <color name="warp_alert_warning_text">@color/warp_text_default</color>
-    <color name="warp_alert_warning_background">@color/warp_background_warning_subtle</color>
-    <color name="warp_alert_warning_subtle_border">@color/warp_border_warning_subtle</color>
-    <color name="warp_alert_warning_border">@color/warp_border_warning</color>
-    <color name="warp_alert_warning_icon">@color/warp_icon_warning</color>
-
     <!--*** BUTTON ***-->
     <color name="warp_button_primary_text">@color/warp_text_inverted</color>
     <color name="warp_button_primary_background_default">@color/warp_background_primary</color>

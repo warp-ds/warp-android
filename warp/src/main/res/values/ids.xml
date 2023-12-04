@@ -165,28 +165,6 @@
     <id name="warp_step_indicator_border_active" type="color" />
     <id name="warp_step_indicator_icon" type="color" />
 
-    <!--*** ALERT ***-->
-    <id name="warp_alert_info_text" type="color" />
-    <id name="warp_alert_info_background" type="color" />
-    <id name="warp_alert_info_subtle_border" type="color" />
-    <id name="warp_alert_info_border" type="color" />
-    <id name="warp_alert_info_icon" type="color" />
-    <id name="warp_alert_positive_text" type="color" />
-    <id name="warp_alert_positive_background" type="color" />
-    <id name="warp_alert_positive_subtle_border" type="color" />
-    <id name="warp_alert_positive_border" type="color" />
-    <id name="warp_alert_positive_icon" type="color" />
-    <id name="warp_alert_negative_text" type="color" />
-    <id name="warp_alert_negative_background" type="color" />
-    <id name="warp_alert_negative_subtle_border" type="color" />
-    <id name="warp_alert_negative_border" type="color" />
-    <id name="warp_alert_negative_icon" type="color" />
-    <id name="warp_alert_warning_text" type="color" />
-    <id name="warp_alert_warning_background" type="color" />
-    <id name="warp_alert_warning_subtle_border" type="color" />
-    <id name="warp_alert_warning_border" type="color" />
-    <id name="warp_alert_warning_icon" type="color" />
-
     <!--*** BUTTON ***-->
     <id name="warp_button_primary_text" type="color" />
     <id name="warp_button_primary_background_default" type="color" />

@@ -3,8 +3,6 @@ package com.schibsted.nmp.warp.brands.tori
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black
 import com.schibsted.nmp.warp.theme.Transparent
-import com.schibsted.nmp.warp.theme.WarpAlertColors
-import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
@@ -179,7 +177,6 @@ internal object ToriDarkTextColors : WarpTextColors {
 internal object ToriComponentDarkColors : WarpComponentColors {
     override val button: WarpButtonColors = ToriButtonDarkColors
     override val stepIndicator: WarpStepIndicatorColors = ToriStepIndicatorDarkColors
-    override val alert: WarpAlertColors = ToriAlertDarkColors
     override val badge: WarpBadgeColors = ToriBadgeDarkColors
     override val callout: WarpCalloutColors = ToriCalloutDarkColors
     override val pill: WarpPillColors = ToriPillDarkColors
@@ -312,35 +309,4 @@ internal object ToriStepIndicatorDarkColors : WarpStepIndicatorColors {
     override val border: Color = ToriDarkBorderColors.default
     override val borderActive: Color = ToriDarkBorderColors.primary
     override val icon: Color = ToriDarkIconColors.inverted
-}
-
-internal object ToriAlertDarkColors : WarpAlertColors {
-    override val info: WarpAlertStyleColors = ToriAlertStyleColors(
-        text = ToriDarkTextColors.default,
-        background = ToriDarkBackgroundColors.infoSubtle,
-        subtleBorder = ToriDarkBorderColors.infoSubtle,
-        border = ToriDarkBorderColors.info,
-        icon = ToriDarkIconColors.info
-    )
-    override val positive: WarpAlertStyleColors = ToriAlertStyleColors(
-        text = ToriDarkTextColors.default,
-        background = ToriDarkBackgroundColors.positiveSubtle,
-        subtleBorder = ToriDarkBorderColors.positiveSubtle,
-        border = ToriDarkBorderColors.positive,
-        icon = ToriDarkIconColors.positive
-    )
-    override val negative: WarpAlertStyleColors = ToriAlertStyleColors(
-        text = ToriDarkTextColors.default,
-        background = ToriDarkBackgroundColors.negativeSubtle,
-        subtleBorder = ToriDarkBorderColors.negativeSubtle,
-        border = ToriDarkBorderColors.negative,
-        icon = ToriDarkIconColors.negative
-    )
-    override val warning: WarpAlertStyleColors = ToriAlertStyleColors(
-        text = ToriDarkTextColors.default,
-        background = ToriDarkBackgroundColors.warningSubtle,
-        subtleBorder = ToriDarkBorderColors.warningSubtle,
-        border = ToriDarkBorderColors.warning,
-        icon = ToriDarkIconColors.warning
-    )
 }

@@ -14,7 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
 import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 
 
 /**
@@ -34,10 +36,10 @@ fun WarpAlert(
 ) {
     val (colors, icon) = when (type) {
         // TODO: Replace with correct icons once they are part of the theme
-        WarpAlertType.Info -> WarpTheme.colors.components.alert.info to Icons.Filled.Info
-        WarpAlertType.Positive -> WarpTheme.colors.components.alert.positive to Icons.Filled.CheckCircle
-        WarpAlertType.Negative -> WarpTheme.colors.components.alert.negative to Icons.Filled.Info
-        WarpAlertType.Warning -> WarpTheme.colors.components.alert.warning to Icons.Filled.Warning
+        WarpAlertType.Info -> alertStyleInfo() to Icons.Filled.Info
+        WarpAlertType.Positive -> alertStylePositive() to Icons.Filled.CheckCircle
+        WarpAlertType.Negative -> alertStyleNegative() to Icons.Filled.Info
+        WarpAlertType.Warning -> alertStyleWarning() to Icons.Filled.Warning
     }
 
     ConstraintLayout(
@@ -82,7 +84,12 @@ fun WarpAlert(
             WarpText(
                 modifier = Modifier
                     .constrainAs(bodyRef) {
-                        linkTo(start = iconRef.end, startMargin = margin, end = parent.end, bias = 0f)
+                        linkTo(
+                            start = iconRef.end,
+                            startMargin = margin,
+                            end = parent.end,
+                            bias = 0f
+                        )
                         top.linkTo(titleRef.bottom, margin = margin)
                         width = Dimension.preferredWrapContent
                     },
@@ -101,10 +108,10 @@ fun WarpAlert(
     content: @Composable () -> Unit
 ) {
     val colors = when (type) {
-        WarpAlertType.Info -> WarpTheme.colors.components.alert.info
-        WarpAlertType.Positive -> WarpTheme.colors.components.alert.positive
-        WarpAlertType.Negative -> WarpTheme.colors.components.alert.negative
-        WarpAlertType.Warning -> WarpTheme.colors.components.alert.warning
+        WarpAlertType.Info -> alertStyleInfo()
+        WarpAlertType.Positive -> alertStylePositive()
+        WarpAlertType.Negative -> alertStyleNegative()
+        WarpAlertType.Warning -> alertStyleWarning()
     }
     Box(
         modifier = modifier
@@ -114,7 +121,8 @@ fun WarpAlert(
                 colors.background,
                 colors.border,
                 colors.subtleBorder,
-                WarpTheme.shapes.medium)
+                WarpTheme.shapes.medium
+            )
     ) {
         content()
     }
@@ -128,6 +136,42 @@ enum class WarpAlertType {
     Warning
 }
 
+@Composable
+fun alertStyleInfo() = WarpAlertStyleColors(
+    text = colors.text.default,
+    background = colors.background.infoSubtle,
+    subtleBorder = colors.border.infoSubtle,
+    border = colors.border.info,
+    icon = colors.icon.info
+)
+
+@Composable
+fun alertStylePositive() = WarpAlertStyleColors(
+    text = colors.text.default,
+    background = colors.background.positiveSubtle,
+    subtleBorder = colors.border.positiveSubtle,
+    border = colors.border.positive,
+    icon = colors.icon.positive
+)
+
+@Composable
+fun alertStyleNegative() = WarpAlertStyleColors(
+    text = colors.text.default,
+    background = colors.background.negativeSubtle,
+    subtleBorder = colors.border.negativeSubtle,
+    border = colors.border.negative,
+    icon = colors.icon.negative
+)
+
+@Composable
+fun alertStyleWarning() = WarpAlertStyleColors(
+    text = colors.text.default,
+    background = colors.background.warningSubtle,
+    subtleBorder = colors.border.warningSubtle,
+    border = colors.border.warning,
+    icon = colors.icon.warning
+)
+
 @Preview
 @Composable
 fun WarpAlertPreview() {
@@ -135,7 +179,8 @@ fun WarpAlertPreview() {
         WarpAlert(
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the info variant of the alert element",
-            body = "I am an excellent message for the user.")
+            body = "I am an excellent message for the user."
+        )
         WarpAlert(
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the positive variant of the alert element, with a very very long title so long that it will wrap",
@@ -149,7 +194,9 @@ fun WarpAlertPreview() {
             type = WarpAlertType.Negative
         )
         WarpAlert(
-            modifier = Modifier.padding(WarpTheme.dimensions.space2).fillMaxWidth(),
+            modifier = Modifier
+                .padding(WarpTheme.dimensions.space2)
+                .fillMaxWidth(),
             title = "Negative variant",
             body = "With an additional description",
             type = WarpAlertType.Negative
