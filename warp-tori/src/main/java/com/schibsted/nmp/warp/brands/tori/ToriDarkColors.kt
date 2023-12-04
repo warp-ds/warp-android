@@ -206,8 +206,8 @@ internal object ToriPillDarkColors : WarpPillColors {
 }
 
 internal object ToriCalloutDarkColors : WarpCalloutColors {
-    override val background: Color = Green800
-    override val border: Color = Green600
+    override val background: Color = Blue800
+    override val border: Color = Blue600
     override val text: Color = ToriDarkTextColors.default
 }
 

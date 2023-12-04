@@ -148,8 +148,8 @@
     <color name="warp_pill_suggestion_icon">@color/warp_icon_default</color>
 
     <!--*** CALLOUT ***-->
-    <color name="warp_callout_background">@color/green100</color>
-    <color name="warp_callout_border">@color/green400</color>
+    <color name="warp_callout_background">@color/blue100</color>
+    <color name="warp_callout_border">@color/blue400</color>
     <color name="warp_callout_text">@color/warp_text_default</color>
 
     <!--*** BADGE ***-->
