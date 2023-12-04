@@ -22,8 +22,6 @@ import com.schibsted.nmp.warp.theme.WarpLabelColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
 import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
-import com.schibsted.nmp.warp.theme.WarpTabColors
-import com.schibsted.nmp.warp.theme.WarpTabRowColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
@@ -191,8 +189,6 @@ internal object FinnComponentColors : WarpComponentColors {
     override val alert: WarpAlertColors = FinnAlertColors
     override val stepIndicator: WarpStepIndicatorColors = FinnStepIndicatorColors
     override val textField: WarpTextFieldColors = FinnTextFieldColors
-    override val tabRow: WarpTabRowColors = FinnTabRowColors
-    override val tab: WarpTabColors = FinnTabColors
     override val badge: WarpBadgeColors = FinnBadgeColors
     override val label: WarpLabelColors = FinnLabelColors
     override val callout: WarpCalloutColors = FinnCalloutColors
@@ -233,17 +229,6 @@ internal object FinnBadgeColors : WarpBadgeColors {
     override val disabledText: Color = FinnTextColors.default
     override val neutralBackground: Color = FinnBackgroundColors.subtle
     override val neutralText: Color = FinnTextColors.default
-}
-
-internal object FinnTabColors : WarpTabColors {
-    override val selectedContent: Color = FinnTextColors.link
-    override val unselectedContent: Color = FinnTextColors.subtle
-}
-
-internal object FinnTabRowColors : WarpTabRowColors {
-    override val container: Color = FinnBackgroundColors.default
-    override val content: Color = FinnTextColors.link
-    override val indicator: Color = FinnIconColors.selected
 }
 
 internal object FinnStepIndicatorColors : WarpStepIndicatorColors {

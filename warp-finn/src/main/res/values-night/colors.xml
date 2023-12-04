@@ -167,13 +167,6 @@
     <color name="warp_badge_neutral_background">@color/warp_background_subtle</color>
     <color name="warp_badge_neutral_text">@color/warp_text_default</color>
 
-    <!--*** TAB ***-->
-    <color name="warp_tab_selected_content">@color/warp_text_link</color>
-    <color name="warp_tab_unselected_content">@color/warp_text_subtle</color>
-    <color name="warp_tab_container">@color/warp_background_default</color>
-    <color name="warp_tab_content">@color/warp_text_link</color>
-    <color name="warp_tab_indicator">@color/warp_icon_selected</color>
-
     <!--*** STEP INDICATOR ***-->
     <color name="warp_step_indicator_background">@color/warp_border_default</color>
     <color name="warp_step_indicator_background_active">@color/warp_background_primary</color>

@@ -171,8 +171,6 @@ interface WarpComponentColors {
     val stepIndicator: WarpStepIndicatorColors
     val alert: WarpAlertColors
     val textField: WarpTextFieldColors
-    val tabRow: WarpTabRowColors
-    val tab: WarpTabColors
     val label: WarpLabelColors
     val callout: WarpCalloutColors
     val pill: WarpPillColors
@@ -218,15 +216,7 @@ interface WarpBadgeColors {
     val neutralBackground: Color
     val neutralText: Color
 }
-interface WarpTabColors {
-    val selectedContent: Color
-    val unselectedContent: Color
-}
-interface WarpTabRowColors {
-    val container: Color
-    val content: Color
-    val indicator: Color
-}
+
 interface WarpTextFieldColors {
     val textFilled: Color
     val textHint: Color

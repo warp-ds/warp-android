@@ -162,13 +162,6 @@
     <id name="warp_badge_neutral_background" type="color" />
     <id name="warp_badge_neutral_text" type="color" />
 
-    <!--*** TAB ***-->
-    <id name="warp_tab_selected_content" type="color" />
-    <id name="warp_tab_unselected_content" type="color" />
-    <id name="warp_tab_container" type="color" />
-    <id name="warp_tab_content" type="color" />
-    <id name="warp_tab_indicator" type="color" />
-
     <!--*** STEP INDICATOR ***-->
     <id name="warp_step_indicator_background" type="color" />
     <id name="warp_step_indicator_background_active" type="color" />

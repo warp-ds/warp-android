@@ -22,8 +22,6 @@ import com.schibsted.nmp.warp.theme.WarpLabelColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
 import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpStepIndicatorColors
-import com.schibsted.nmp.warp.theme.WarpTabColors
-import com.schibsted.nmp.warp.theme.WarpTabRowColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTextFieldColors
 import com.schibsted.nmp.warp.theme.White
@@ -191,8 +189,6 @@ internal object ToriComponentColors : WarpComponentColors {
     override val stepIndicator: WarpStepIndicatorColors = ToriStepIndicatorColors
     override val alert: WarpAlertColors = ToriAlertColors
     override val textField: WarpTextFieldColors = ToriTextFieldColors
-    override val tab: WarpTabColors = ToriTabColors
-    override val tabRow: WarpTabRowColors = ToriTabRowColors
     override val badge: WarpBadgeColors = ToriBadgeColors
     override val label: WarpLabelColors = ToriLabelColors
     override val callout: WarpCalloutColors = ToriCalloutColors
@@ -332,17 +328,6 @@ internal object ToriButtonColors : WarpButtonColors {
     )
 }
 
-internal object ToriTabColors : WarpTabColors {
-    override val selectedContent: Color = ToriTextColors.link
-    override val unselectedContent: Color = ToriTextColors.subtle
-}
-
-internal object ToriTabRowColors : WarpTabRowColors {
-    override val container: Color = ToriBackgroundColors.default
-    override val content: Color = ToriTextColors.link
-    override val indicator: Color = ToriIconColors.selected
-}
-
 internal object ToriTextFieldColors : WarpTextFieldColors {
     override val textFilled: Color = ToriTextColors.default
     override val textHint: Color = ToriTextColors.placeholder
@@ -452,7 +437,7 @@ internal val Petroleum200 = Color(0xFFBAD3DA)
 internal val Petroleum300 = Color(0xFF97BDC6)
 internal val Petroleum400 = Color(0xFF74A8B4)
 internal val Petroleum500 = Color(0xFF4D93A2)
-internal val Petroleum600 = Color(0xFF157F91)
+internal val Petroleum600 = Color(0xFF167A8B)
 internal val Petroleum700 = Color(0xFF1B5E6A)
 internal val Petroleum800 = Color(0xFF193F47)
 internal val Petroleum900 = Color(0xFF122226)

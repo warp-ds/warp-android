@@ -169,8 +169,6 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
     override val stepIndicator: WarpStepIndicatorColors = PlaceholderStepIndicatorColors
     override val alert: WarpAlertColors = PlaceholderAlertColors
     override val textField: WarpTextFieldColors = PlaceholderTextFiledColors
-    override val tabRow: WarpTabRowColors = PlaceholderTabRow
-    override val tab: WarpTabColors = PlaceholderTab
     override val label: WarpLabelColors = PlaceholderLabelColors
     override val callout: WarpCalloutColors = PlaceholderCalloutColors
     override val pill: WarpPillColors = PlaceholderPillColors
@@ -287,17 +285,6 @@ private object PlaceholderTextFiledColors : WarpTextFieldColors {
     override val borderNegative: Color = Color.Unspecified
     override val caret: Color = Color.Unspecified
     override val icon: Color = Color.Unspecified
-}
-
-private object PlaceholderTabRow : WarpTabRowColors {
-    override val container: Color = Color.Unspecified
-    override val content: Color = Color.Unspecified
-    override val indicator: Color = Color.Unspecified
-}
-
-private object PlaceholderTab : WarpTabColors {
-    override val selectedContent: Color = Color.Unspecified
-    override val unselectedContent: Color = Color.Unspecified
 }
 
 internal object PlaceholderResources : WarpResources {
