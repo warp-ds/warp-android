@@ -170,38 +170,6 @@
     <color name="warp_step_indicator_icon">@color/warp_icon_inverted</color>
 
     <!--*** BUTTON ***-->
-    <color name="warp_button_primary_text">@color/warp_text_inverted</color>
-    <color name="warp_button_primary_background_default">@color/warp_background_primary</color>
-    <color name="warp_button_primary_background_active">@color/warp_background_primary_active</color>
-    <color name="warp_button_secondary_text">@color/warp_text_link</color>
-    <color name="warp_button_secondary_background_default">@color/warp_background_default</color>
-    <color name="warp_button_secondary_background_active">@color/warp_background_active</color>
-    <color name="warp_button_secondary_border_default">@color/warp_border_default</color>
-    <color name="warp_button_secondary_border_active">@color/warp_border_active</color>
-    <color name="warp_button_disabled_text">@color/warp_text_inverted</color>
-    <color name="warp_button_disabled_background_default">@color/warp_background_disabled</color>
-    <color name="warp_button_disabled_background_active">@color/bluegray300</color>
-    <color name="warp_button_quiet_text">@color/warp_text_link</color>
-    <color name="warp_button_quiet_background_default">@color/transparent</color>
-    <color name="warp_button_quiet_background_active">@color/warp_background_active</color>
-    <color name="warp_button_negative_text">@color/warp_text_inverted</color>
-    <color name="warp_button_negative_background_default">@color/warp_background_negative</color>
-    <color name="warp_button_negative_background_active">@color/warp_background_negative_active</color>
-    <color name="warp_button_negative_quiet_text">@color/warp_text_negative</color>
-    <color name="warp_button_negative_quiet_background_default">@color/transparent</color>
-    <color name="warp_button_negative_quiet_background_active">@color/warp_background_negative_subtle_active</color>
-    <color name="warp_button_utility_text">@color/warp_text_default</color>
-    <color name="warp_button_utility_background_default">@color/warp_background_default</color>
-    <color name="warp_button_utility_background_active">@color/warp_background_active</color>
-    <color name="warp_button_utility_border_default">@color/warp_border_default</color>
-    <color name="warp_button_utility_border_active">@color/warp_border_active</color>
-    <color name="warp_button_utility_overlay_text">@color/gray700</color>
-    <color name="warp_button_utility_overlay_background_default">@color/white</color>
-    <color name="warp_button_utility_overlay_background_active">@color/bluegray200</color>
-    <color name="warp_button_utility_quiet_text">@color/warp_text_default</color>
-    <color name="warp_button_utility_quiet_background_default">@color/transparent</color>
-    <color name="warp_button_utility_quiet_background_active">@color/warp_background_subtle_active</color>
-    <color name="warp_button_loading_text">@color/warp_text_subtle</color>
     <color name="warp_button_loading_background_default">@color/bluegray50</color>
     <color name="warp_button_loading_background_active">@color/bluegray200</color>
 

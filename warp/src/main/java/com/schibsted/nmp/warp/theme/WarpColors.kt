@@ -199,25 +199,8 @@ interface WarpBadgeColors {
     val neutralBackground: Color
 }
 
-data class WarpAlertStyleColors (
-    val text: Color,
-    val background: Color,
-    val subtleBorder: Color,
-    val border: Color,
-    val icon: Color
-)
-
 interface WarpButtonColors {
-    val primary: WarpButtonStyleColors
-    val secondary: WarpButtonStyleColors
-    val disabled: WarpButtonStyleColors
-    val quiet: WarpButtonStyleColors
-    val negative: WarpButtonStyleColors
-    val negativeQuiet: WarpButtonStyleColors
-    val utility: WarpButtonStyleColors
-    val utilityQuiet: WarpButtonStyleColors
-    val utilityOverlay: WarpButtonStyleColors
-    val loading: WarpButtonStyleColors
+    val loading: Pair<Color, Color>
 }
 
 interface WarpStepIndicatorColors {
@@ -228,22 +211,6 @@ interface WarpStepIndicatorColors {
     val border: Color
     val borderActive: Color
     val icon: Color
-}
-
-data class WarpComponentBackground(
-    val background: Color,
-    val border: Color?
-)
-
-interface WarpButtonStyleColors {
-    val text: Color
-    val background: WarpButtonElementColors
-    val border: WarpButtonElementColors?
-}
-
-interface WarpButtonElementColors {
-    val default : Color
-    val active: Color
 }
 
 internal class WarpRippleTheme(

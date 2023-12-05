@@ -2,7 +2,6 @@ package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black
-import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
@@ -223,90 +222,5 @@ internal object FinnStepIndicatorDarkColors : WarpStepIndicatorColors {
 }
 
 internal object FinnButtonDarkColors : WarpButtonColors {
-    override val primary: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.inverted,
-        background = FinnButtonElementColors(
-            default = FinnDarkBackgroundColors.primary,
-            active = FinnDarkBackgroundColors.primaryActive
-        ),
-        border = null
-    )
-    override val secondary: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.link,
-        background = FinnButtonElementColors(
-            default = FinnDarkBackgroundColors.default,
-            active = FinnDarkBackgroundColors.active
-        ),
-        border = FinnButtonElementColors(
-            default = FinnDarkBorderColors.default,
-            active = FinnDarkBorderColors.active
-        )
-    )
-    override val disabled: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.inverted,
-        background = FinnButtonElementColors(
-            default = FinnDarkBackgroundColors.disabled,
-            active = Bluegray700
-        ),
-        border = null
-    )
-    override val quiet: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.link,
-        background = FinnButtonElementColors(
-            default = Transparent,
-            active = FinnDarkBackgroundColors.active
-        ),
-        border = null
-    )
-    override val negative: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.inverted,
-        background = FinnButtonElementColors(
-            default = FinnDarkBackgroundColors.negative,
-            active = FinnDarkBackgroundColors.negativeActive
-        ),
-        border = null
-    )
-    override val negativeQuiet: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.negative,
-        background = FinnButtonElementColors(
-            default = Transparent,
-            active = FinnDarkBackgroundColors.negativeSubtleActive
-        ),
-        border = null
-    )
-    override val utility: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.default,
-        background = FinnButtonElementColors(
-            default = FinnDarkBackgroundColors.default,
-            active = FinnDarkBackgroundColors.active
-        ),
-        border = FinnButtonElementColors(
-            default = FinnDarkBorderColors.default,
-            active = FinnDarkBorderColors.active
-        )
-    )
-    override val utilityOverlay: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = White,
-        background = FinnButtonElementColors(
-            default = Black,
-            active = Bluegray900
-        ),
-        border = null
-    )
-    override val utilityQuiet: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.default,
-        background = FinnButtonElementColors(
-            default = Transparent,
-            active = FinnDarkBackgroundColors.subtleActive
-        ),
-        border = null
-    )
-    override val loading: FinnButtonStyleColors = FinnButtonStyleColors(
-        text = FinnDarkTextColors.subtle,
-        background = FinnButtonElementColors(
-            default = Bluegray900,
-            active = Bluegray700
-        ),
-        border = null
-    )
+    override val loading = Pair(Bluegray700, Bluegray900)
 }

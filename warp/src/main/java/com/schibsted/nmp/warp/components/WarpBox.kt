@@ -9,12 +9,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
-import com.schibsted.nmp.warp.theme.WarpComponentBackground
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -62,6 +62,11 @@ enum class WarpBoxStyle {
     INFO,
     BORDERED
 }
+
+internal data class WarpComponentBackground(
+    val background: Color,
+    val border: Color?
+)
 
 @Preview
 @Composable

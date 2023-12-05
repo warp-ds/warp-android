@@ -198,27 +198,7 @@ private object PlaceholderBadgeColors : WarpBadgeColors {
 }
 
 private object PlaceholderButtonColors : WarpButtonColors {
-    override val primary: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val secondary: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val disabled: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val quiet: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val negative: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val negativeQuiet: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val utility: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val utilityQuiet: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val utilityOverlay: WarpButtonStyleColors = PlaceholderButtonStyle
-    override val loading: WarpButtonStyleColors = PlaceholderButtonStyle
-}
-
-private object PlaceholderButtonStyle : WarpButtonStyleColors {
-    override val text: Color = Color.Unspecified
-    override val background: WarpButtonElementColors = PlaceholderElementColors
-    override val border: WarpButtonElementColors = PlaceholderElementColors
-}
-
-private object PlaceholderElementColors : WarpButtonElementColors {
-    override val default: Color = Color.Unspecified
-    override val active: Color = Color.Unspecified
+    override val loading: Pair<Color, Color> = Color.Unspecified to Color.Unspecified
 }
 
 private object PlaceholderStepIndicatorColors : WarpStepIndicatorColors {

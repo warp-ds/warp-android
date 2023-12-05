@@ -100,7 +100,7 @@ fun WarpTextPreview() {
                 Modifier
                     .padding(vertical = dimensions.space1, horizontal = dimensions.space2),
                 style = WarpTextStyle.Display,
-                color = colors.components.button.primary.text
+                color = colors.text.default
             )
         }
 

@@ -11,10 +11,10 @@ import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.schibsted.nmp.warp.theme.WarpAlertStyleColors
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 
@@ -136,8 +136,16 @@ enum class WarpAlertType {
     Warning
 }
 
+internal data class WarpAlertStyleColors (
+    val text: Color,
+    val background: Color,
+    val subtleBorder: Color,
+    val border: Color,
+    val icon: Color
+)
+
 @Composable
-fun alertStyleInfo() = WarpAlertStyleColors(
+internal fun alertStyleInfo() = WarpAlertStyleColors(
     text = colors.text.default,
     background = colors.background.infoSubtle,
     subtleBorder = colors.border.infoSubtle,
@@ -146,7 +154,7 @@ fun alertStyleInfo() = WarpAlertStyleColors(
 )
 
 @Composable
-fun alertStylePositive() = WarpAlertStyleColors(
+internal fun alertStylePositive() = WarpAlertStyleColors(
     text = colors.text.default,
     background = colors.background.positiveSubtle,
     subtleBorder = colors.border.positiveSubtle,
@@ -155,7 +163,7 @@ fun alertStylePositive() = WarpAlertStyleColors(
 )
 
 @Composable
-fun alertStyleNegative() = WarpAlertStyleColors(
+internal fun alertStyleNegative() = WarpAlertStyleColors(
     text = colors.text.default,
     background = colors.background.negativeSubtle,
     subtleBorder = colors.border.negativeSubtle,
@@ -164,7 +172,7 @@ fun alertStyleNegative() = WarpAlertStyleColors(
 )
 
 @Composable
-fun alertStyleWarning() = WarpAlertStyleColors(
+internal fun alertStyleWarning() = WarpAlertStyleColors(
     text = colors.text.default,
     background = colors.background.warningSubtle,
     subtleBorder = colors.border.warningSubtle,

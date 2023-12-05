@@ -3,13 +3,10 @@
 package com.schibsted.nmp.warp.brands.tori
 
 import androidx.compose.ui.graphics.Color
-import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
 import com.schibsted.nmp.warp.theme.WarpButtonColors
-import com.schibsted.nmp.warp.theme.WarpButtonElementColors
-import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
@@ -216,92 +213,7 @@ internal object ToriBadgeColors : WarpBadgeColors {
 }
 
 internal object ToriButtonColors : WarpButtonColors {
-    override val primary: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.inverted,
-        background = ToriButtonElementColors(
-            default = ToriBackgroundColors.primary,
-            active = ToriBackgroundColors.primaryActive
-        ),
-        border = null
-    )
-    override val secondary: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.link,
-        background = ToriButtonElementColors(
-            default = ToriBackgroundColors.default,
-            active = ToriBackgroundColors.active
-        ),
-        border = ToriButtonElementColors(
-            default = ToriBorderColors.default,
-            active = ToriBorderColors.active
-        )
-    )
-    override val disabled: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.inverted,
-        background = ToriButtonElementColors(
-            default = ToriBackgroundColors.disabled,
-            active = Gray300
-        ),
-        border = null
-    )
-    override val quiet: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.link,
-        background = ToriButtonElementColors(
-            default = Transparent,
-            active = ToriBackgroundColors.active
-        ),
-        border = null
-    )
-    override val negative: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.inverted,
-        background = ToriButtonElementColors(
-            default = ToriBackgroundColors.negative,
-            active = ToriBackgroundColors.negativeActive
-        ),
-        border = null
-    )
-    override val negativeQuiet: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.negative,
-        background = ToriButtonElementColors(
-            default = Transparent,
-            active = ToriBackgroundColors.negativeSubtleActive
-        ),
-        border = null
-    )
-    override val utility: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.default,
-        background = ToriButtonElementColors(
-            default = ToriBackgroundColors.default,
-            active = ToriBackgroundColors.active
-        ),
-        border = ToriButtonElementColors(
-            default = ToriBorderColors.default,
-            active = ToriBorderColors.active
-        )
-    )
-    override val utilityOverlay: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = Gray900,
-        background = ToriButtonElementColors(
-            default = White,
-            active = Gray200
-        ),
-        border = null
-    )
-    override val utilityQuiet: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.default,
-        background = ToriButtonElementColors(
-            default = Transparent,
-            active = ToriBackgroundColors.subtleActive
-        ),
-        border = null
-    )
-    override val loading: ToriButtonStyleColors = ToriButtonStyleColors(
-        text = ToriTextColors.subtle,
-        background = ToriButtonElementColors(
-            default = Gray50,
-            active = Gray200
-        ),
-        border = null
-    )
+    override val loading = Pair(Gray50, Gray200)
 }
 
 internal object ToriStepIndicatorColors : WarpStepIndicatorColors {
@@ -320,17 +232,6 @@ internal data class ToriPillStyleColors (
     override val backgroundActive: Color,
     override val icon: Color
 ) : WarpPillStyleColors
-
-internal data class ToriButtonStyleColors(
-    override val text: Color,
-    override val background: ToriButtonElementColors,
-    override val border: ToriButtonElementColors?
-) : WarpButtonStyleColors
-
-internal data class ToriButtonElementColors(
-    override val default: Color,
-    override val active: Color
-) : WarpButtonElementColors
 
 //Watermelon
 internal val Watermelon50 = Color(0xFFFFF3F2)

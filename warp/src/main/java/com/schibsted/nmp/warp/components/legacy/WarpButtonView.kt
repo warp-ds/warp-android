@@ -69,9 +69,9 @@ class WarpButtonView @JvmOverloads constructor(
     private var stylesList = listOf(
         WarpButtonStyle.Primary,
         WarpButtonStyle.Secondary,
-        WarpButtonStyle.Tertiary,
-        WarpButtonStyle.Critical,
-        WarpButtonStyle.CriticalQuiet,
+        WarpButtonStyle.Quiet,
+        WarpButtonStyle.Negative,
+        WarpButtonStyle.NegativeQuiet,
         WarpButtonStyle.Utility,
         WarpButtonStyle.UtilityQuiet,
         WarpButtonStyle.UtilityOverlay,
