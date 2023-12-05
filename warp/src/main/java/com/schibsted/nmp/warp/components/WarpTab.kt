@@ -30,12 +30,12 @@ fun WarpTabRow(
     TabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = modifier,
-        containerColor = WarpTheme.colors.components.tabRow.container,
-        contentColor = WarpTheme.colors.components.tabRow.content,
+        containerColor = WarpTheme.colors.background.default,
+        contentColor = WarpTheme.colors.text.link,
         indicator = { tabPositions ->
             TabRowDefaults.Indicator(
                 Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                color = WarpTheme.colors.components.tabRow.indicator
+                color = WarpTheme.colors.icon.selected
             )
         },
         //divider = {}, // TODO: check with designers if we are to have a divider below or not.
@@ -64,8 +64,8 @@ fun WarpTab(
         modifier = modifier,
         enabled = enabled,
         text = { Text(text, style = WarpTheme.typography.title4) },
-        selectedContentColor = WarpTheme.colors.components.tab.selectedContent,
-        unselectedContentColor = WarpTheme.colors.components.tab.unselectedContent,
+        selectedContentColor = WarpTheme.colors.text.link,
+        unselectedContentColor = WarpTheme.colors.text.subtle,
         icon = icon,
         interactionSource = interactionSource
     )

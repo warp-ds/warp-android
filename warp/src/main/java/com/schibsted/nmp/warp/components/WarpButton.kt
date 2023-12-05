@@ -24,6 +24,7 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -35,7 +36,6 @@ import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
 import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.Transparent
-import com.schibsted.nmp.warp.theme.WarpButtonStyleColors
 import com.schibsted.nmp.warp.theme.WarpRippleTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -108,28 +108,28 @@ fun WarpButton(
         LocalDimensions provides dimensions
     ) {
         val warpButtonColors: WarpButtonStyleColors = when (buttonStyle) {
-            WarpButtonStyle.Primary -> colors.components.button.primary
-            WarpButtonStyle.Secondary -> colors.components.button.secondary
-            WarpButtonStyle.Tertiary -> colors.components.button.quiet
-            WarpButtonStyle.Critical -> colors.components.button.negative
-            WarpButtonStyle.CriticalQuiet -> colors.components.button.negativeQuiet
-            WarpButtonStyle.Utility -> colors.components.button.utility
-            WarpButtonStyle.UtilityOverlay -> colors.components.button.utilityOverlay
-            WarpButtonStyle.UtilityQuiet -> colors.components.button.utilityQuiet
+            WarpButtonStyle.Primary -> buttonStylePrimary()
+            WarpButtonStyle.Secondary -> buttonStyleSecondary()
+            WarpButtonStyle.Quiet -> buttonStyleQuiet()
+            WarpButtonStyle.Negative -> buttonStyleNegative()
+            WarpButtonStyle.NegativeQuiet -> buttonStyleNegativeQuiet()
+            WarpButtonStyle.Utility -> buttonStyleUtility()
+            WarpButtonStyle.UtilityOverlay -> buttonStyleUtilityOverlay()
+            WarpButtonStyle.UtilityQuiet -> buttonStyleUtilityQuiet()
         }
 
         val buttonColors = ButtonDefaults.buttonColors(
             containerColor = warpButtonColors.background.default,
             contentColor = warpButtonColors.text,
-            disabledContainerColor = colors.components.button.disabled.background.default,
-            disabledContentColor = colors.components.button.disabled.text
+            disabledContainerColor = colors.background.disabled,
+            disabledContentColor = colors.text.inverted
         )
 
         val loadingColors = ButtonDefaults.buttonColors(
             containerColor = Transparent,
-            contentColor = colors.components.button.loading.text,
-            disabledContainerColor = colors.components.button.disabled.background.default,
-            disabledContentColor = colors.components.button.disabled.text
+            contentColor = colors.text.default,
+            disabledContainerColor = colors.background.disabled,
+            disabledContentColor = colors.text.inverted
         )
 
         val borderStroke = warpButtonColors.border?.let {
@@ -169,13 +169,120 @@ fun WarpButton(
 enum class WarpButtonStyle {
     Primary,
     Secondary,
-    Tertiary,
-    Critical,
-    CriticalQuiet,
+    Quiet,
+    Negative,
+    NegativeQuiet,
     Utility,
     UtilityQuiet,
     UtilityOverlay,
 }
+
+data class WarpButtonStyleColors (
+    val text: Color,
+    val background: WarpButtonElementColors,
+    val border: WarpButtonElementColors?
+)
+
+data class WarpButtonElementColors (
+    val default : Color,
+    val active: Color
+)
+
+@Composable
+internal fun buttonStylePrimary() = WarpButtonStyleColors(
+    text = colors.text.inverted,
+    background = WarpButtonElementColors(
+        default = colors.background.primary,
+        active = colors.background.primaryActive
+    ),
+    border = null
+)
+
+@Composable
+internal fun buttonStyleSecondary() = WarpButtonStyleColors(
+    text = colors.text.link,
+    background = WarpButtonElementColors(
+        default = colors.background.default,
+        active = colors.background.active
+    ),
+    border = WarpButtonElementColors(
+        default = colors.border.default,
+        active = colors.border.active
+    )
+)
+
+@Composable
+internal fun buttonStyleQuiet() = WarpButtonStyleColors(
+    text = colors.text.link,
+    background = WarpButtonElementColors(
+        default = Transparent,
+        active = colors.background.active
+    ),
+    border = null
+)
+
+@Composable
+internal fun buttonStyleNegative() = WarpButtonStyleColors(
+    text = colors.text.inverted,
+    background = WarpButtonElementColors(
+        default = colors.background.negative,
+        active = colors.background.negativeActive
+    ),
+    border = null
+)
+
+@Composable
+internal fun buttonStyleNegativeQuiet() = WarpButtonStyleColors(
+    text = colors.text.negative,
+    background = WarpButtonElementColors(
+        default = Transparent,
+        active = colors.background.negativeSubtleActive
+    ),
+    border = null
+)
+
+@Composable
+internal fun buttonStyleUtility() = WarpButtonStyleColors(
+    text = colors.text.default,
+    background = WarpButtonElementColors(
+        default = colors.background.default,
+        active = colors.background.active
+    ),
+    border = WarpButtonElementColors(
+        default = colors.border.default,
+        active = colors.border.active
+    )
+)
+
+@Composable
+internal fun buttonStyleUtilityOverlay() = WarpButtonStyleColors(
+    text = colors.text.default,
+    background = WarpButtonElementColors(
+        default = colors.background.default,
+        active = colors.background.active
+    ),
+    border = null
+)
+
+@Composable
+internal fun buttonStyleUtilityQuiet() = WarpButtonStyleColors(
+    text = colors.text.default,
+    background = WarpButtonElementColors(
+        default = Transparent,
+        active = colors.background.subtleActive
+    ),
+    border = null
+)
+
+@Composable
+internal fun buttonStyleLoading() = WarpButtonStyleColors(
+    text = colors.text.default,
+    background = WarpButtonElementColors(
+        default = colors.components.button.loading.first,
+        active = colors.components.button.loading.second
+    ),
+    border = null
+)
 
 fun Modifier.loadingAnimation(): Modifier = composed {
     val transition = rememberInfiniteTransition()
@@ -188,7 +295,7 @@ fun Modifier.loadingAnimation(): Modifier = composed {
         )
     )
 
-    val loadingColors = colors.components.button.loading
+    val loadingColors = buttonStyleLoading()
     this
         .clip(shapes.medium)
         .background(loadingColors.background.default, shapes.medium)
@@ -233,17 +340,17 @@ fun WarpButtonPreview(
         WarpButton(
             text = "Sell a duck",
             onClick = {},
-            buttonStyle = WarpButtonStyle.Tertiary
+            buttonStyle = WarpButtonStyle.Quiet
         )
         WarpButton(
             text = "This duck cannot be sold!",
             onClick = {},
-            buttonStyle = WarpButtonStyle.Critical
+            buttonStyle = WarpButtonStyle.Negative
         )
         WarpButton(
             text = "This duck was already sold!",
             onClick = {},
-            buttonStyle = WarpButtonStyle.CriticalQuiet
+            buttonStyle = WarpButtonStyle.NegativeQuiet
         )
         WarpButton(
             text = "Duck",

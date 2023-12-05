@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
@@ -38,9 +39,9 @@ fun WarpBox(
     ) {
 
         val style = when (boxStyle) {
-            WarpBoxStyle.NEUTRAL -> colors.components.box.neutral
-            WarpBoxStyle.INFO -> colors.components.box.info
-            WarpBoxStyle.BORDERED -> colors.components.box.bordered
+            WarpBoxStyle.NEUTRAL -> WarpComponentBackground(colors.background.subtle, null)
+            WarpBoxStyle.INFO -> WarpComponentBackground(colors.background.infoSubtle, null)
+            WarpBoxStyle.BORDERED -> WarpComponentBackground(colors.background.default, colors.border.default)
         }
 
         Surface(
@@ -61,6 +62,11 @@ enum class WarpBoxStyle {
     INFO,
     BORDERED
 }
+
+internal data class WarpComponentBackground(
+    val background: Color,
+    val border: Color?
+)
 
 @Preview
 @Composable

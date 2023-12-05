@@ -4,9 +4,9 @@
         <attr name="warpButtonStyle" format="enum">
             <enum name="primary" value="0" />
             <enum name="secondary" value="1" />
-            <enum name="tertiary" value="2" />
-            <enum name="critical" value="3" />
-            <enum name="criticalQuiet" value="4" />
+            <enum name="quiet" value="2" />
+            <enum name="negative" value="3" />
+            <enum name="negativeQuiet" value="4" />
             <enum name="utility" value="5" />
             <enum name="utilityQuiet" value="6" />
             <enum name="utilityOverlay" value="7" />

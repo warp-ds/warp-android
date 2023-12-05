@@ -24,7 +24,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
 fun WarpText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = colors.components.label.text,
+    color: Color = colors.text.default,
     style: WarpTextStyle = WarpTextStyle.Body,
     maxLines: Int = Int.MAX_VALUE,
     textAlign: TextAlign? = null,
@@ -100,7 +100,7 @@ fun WarpTextPreview() {
                 Modifier
                     .padding(vertical = dimensions.space1, horizontal = dimensions.space2),
                 style = WarpTextStyle.Display,
-                color = colors.components.button.primary.text
+                color = colors.text.default
             )
         }
 

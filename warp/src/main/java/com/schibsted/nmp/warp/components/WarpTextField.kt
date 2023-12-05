@@ -77,29 +77,29 @@ fun WarpTextField(
         LocalTypography provides typography,
         LocalDimensions provides dimensions
     ) {
-        val labelColor = colors.components.label.text
-        val placeholderColor = colors.components.textField.textHint
+        val labelColor = colors.text.default
+        val placeholderColor = colors.text.placeholder
         val colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = colors.components.textField.textFilled,
-            containerColor = colors.components.textField.background,
-            cursorColor = colors.components.textField.caret,
-            errorCursorColor = colors.components.textField.borderNegative,
-            errorLabelColor = colors.components.textField.textNegative,
-            focusedBorderColor = colors.components.textField.borderActive.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            focusedLeadingIconColor = colors.components.textField.icon,
-            unfocusedLeadingIconColor = colors.components.textField.icon,
-            focusedTrailingIconColor = colors.components.textField.icon,
-            unfocusedTrailingIconColor = colors.components.textField.icon,
-            disabledBorderColor = colors.components.textField.borderDisabled.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            errorBorderColor = colors.components.textField.borderNegative.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            errorLeadingIconColor = colors.components.textField.iconNegative,
-            disabledTextColor = colors.components.textField.textDisabled,
-            disabledLabelColor = colors.components.textField.textDisabled,
-            unfocusedBorderColor = colors.components.textField.border.ifTrueOtherwise(!readOnly) { Color.Transparent },
-            unfocusedLabelColor = colors.components.textField.textFilled,
-            errorSupportingTextColor = colors.components.textField.textNegative,
-            focusedSupportingTextColor = colors.components.textField.textFilled,
-            unfocusedSupportingTextColor = colors.components.textField.textFilled
+            textColor = colors.text.default,
+            containerColor = colors.background.default,
+            cursorColor = colors.icon.default,
+            errorCursorColor = colors.border.negative,
+            errorLabelColor = colors.text.negative,
+            focusedBorderColor = colors.border.selected.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            focusedLeadingIconColor = colors.icon.default,
+            unfocusedLeadingIconColor = colors.icon.default,
+            focusedTrailingIconColor = colors.icon.default,
+            unfocusedTrailingIconColor = colors.icon.default,
+            disabledBorderColor = colors.border.disabled.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            errorBorderColor = colors.border.negative.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            errorLeadingIconColor = colors.icon.negative,
+            disabledTextColor = colors.text.disabled,
+            disabledLabelColor = colors.text.disabled,
+            unfocusedBorderColor = colors.border.default.ifTrueOtherwise(!readOnly) { Color.Transparent },
+            unfocusedLabelColor = colors.text.default,
+            errorSupportingTextColor = colors.text.negative,
+            focusedSupportingTextColor = colors.text.default,
+            unfocusedSupportingTextColor = colors.text.default
 
         )
 

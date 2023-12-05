@@ -70,7 +70,7 @@ class WarpTextView @JvmOverloads constructor(
     @Composable
     override fun Content() {
         theme {
-            val textColor = if (color == 0) WarpTheme.colors.components.label.text else Color(color)
+            val textColor = if (color == 0) WarpTheme.colors.text.default else Color(color)
             WarpText(text = text, style = style, color = textColor)
         }
     }

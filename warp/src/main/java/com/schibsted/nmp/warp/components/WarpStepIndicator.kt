@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
@@ -76,7 +77,7 @@ fun VerticalWarpStepIndicator(
         LocalDimensions provides dimensions,
         LocalTypography provides typography
     ) {
-        val colors = colors.components.stepIndicator
+        val colors = stepIndicatorStyle()
 
         val animatedStep =
             animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
@@ -252,7 +253,9 @@ fun VerticalWarpStepIndicator(
                 }
                 for (i in 0 until steps) {
                     Box(
-                        modifier = Modifier.layoutId(StepIndicatorIds.LABEL).padding(start = dimensions.space3)
+                        modifier = Modifier
+                            .layoutId(StepIndicatorIds.LABEL)
+                            .padding(start = dimensions.space3)
                     ) {
                         Text(
                             stepTitle(i),
@@ -260,7 +263,9 @@ fun VerticalWarpStepIndicator(
                         )
                     }
                     Box(
-                        modifier = Modifier.layoutId(StepIndicatorIds.CONTENT).padding(start = dimensions.space3)
+                        modifier = Modifier
+                            .layoutId(StepIndicatorIds.CONTENT)
+                            .padding(start = dimensions.space3)
                     ) {
                         stepContent(i)
                     }
@@ -392,7 +397,7 @@ fun HorizontalWarpStepIndicator(
         LocalDimensions provides dimensions,
         LocalTypography provides typography
     ) {
-        val colors = colors.components.stepIndicator
+        val colors = stepIndicatorStyle()
 
         val animatedStep = animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
         val dimensions = dimensions.components.stepIndicator
@@ -653,6 +658,27 @@ private object StepIndicatorIds {
     const val INDICATOR = "indicator"
     const val CONTENT = "content"
 }
+
+data class WarpStepIndicatorColors (
+    val background: Color,
+    val backgroundActive: Color,
+    val backgroundTrack: Color,
+    val backgroundTrackActive: Color,
+    val border: Color,
+    val borderActive: Color,
+    val icon: Color
+)
+
+@Composable
+fun stepIndicatorStyle() = WarpStepIndicatorColors(
+    background = colors.background.disabled,
+    backgroundActive = colors.background.primary,
+    backgroundTrack = colors.background.disabled,
+    backgroundTrackActive = colors.background.primary,
+    border = colors.border.default,
+    borderActive = colors.border.primary,
+    icon = colors.icon.inverted
+)
 
 @Preview
 @Composable
