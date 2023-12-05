@@ -167,7 +167,6 @@ interface WarpTextColors {
 interface WarpComponentColors {
     val badge: WarpBadgeColors
     val button: WarpButtonColors
-    val stepIndicator: WarpStepIndicatorColors
     val callout: WarpCalloutColors
     val pill: WarpPillColors
 }
@@ -201,16 +200,6 @@ interface WarpBadgeColors {
 
 interface WarpButtonColors {
     val loading: Pair<Color, Color>
-}
-
-interface WarpStepIndicatorColors {
-    val background: Color
-    val backgroundActive: Color
-    val backgroundTrack: Color
-    val backgroundTrackActive: Color
-    val border: Color
-    val borderActive: Color
-    val icon: Color
 }
 
 internal class WarpRippleTheme(

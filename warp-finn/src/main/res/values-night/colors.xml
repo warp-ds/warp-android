@@ -161,15 +161,6 @@
     <color name="warp_badge_disabled_background">@color/warp_background_disabled</color>
     <color name="warp_badge_neutral_background">@color/bluegray700</color>
 
-    <!--*** STEP INDICATOR ***-->
-    <color name="warp_step_indicator_background">@color/warp_border_default</color>
-    <color name="warp_step_indicator_background_active">@color/warp_background_primary</color>
-    <color name="warp_step_indicator_background_track">@color/warp_border_default</color>
-    <color name="warp_step_indicator_background_track_active">@color/warp_background_primary</color>
-    <color name="warp_step_indicator_border">@color/warp_border_default</color>
-    <color name="warp_step_indicator_border_active">@color/warp_border_primary</color>
-    <color name="warp_step_indicator_icon">@color/warp_icon_inverted</color>
-
     <!--*** BUTTON ***-->
     <color name="warp_button_loading_background_default">@color/bluegray900</color>
     <color name="warp_button_loading_background_active">@color/bluegray700</color>

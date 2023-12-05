@@ -156,15 +156,6 @@
     <id name="warp_badge_disabled_background" type="color" />
     <id name="warp_badge_neutral_background" type="color" />
 
-    <!--*** STEP INDICATOR ***-->
-    <id name="warp_step_indicator_background" type="color" />
-    <id name="warp_step_indicator_background_active" type="color" />
-    <id name="warp_step_indicator_background_track" type="color" />
-    <id name="warp_step_indicator_background_track_active" type="color" />
-    <id name="warp_step_indicator_border" type="color" />
-    <id name="warp_step_indicator_border_active" type="color" />
-    <id name="warp_step_indicator_icon" type="color" />
-
     <!--*** BUTTON ***-->
     <id name="warp_button_loading_background_default" type="color" />
     <id name="warp_button_loading_background_active" type="color" />
