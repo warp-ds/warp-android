@@ -188,8 +188,8 @@ internal object FinnPillDarkColors : WarpPillColors {
     )
     override val suggestion: WarpPillStyleColors = FinnPillStyleColors(
         text = FinnDarkTextColors.default,
-        background = Bluegray600,
-        backgroundActive = Bluegray800,
+        background = Gray600,
+        backgroundActive = Gray800,
         icon = FinnDarkIconColors.default
     )
 }
