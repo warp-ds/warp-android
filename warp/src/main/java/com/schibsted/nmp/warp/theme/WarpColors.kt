@@ -169,6 +169,12 @@ interface WarpComponentColors {
     val button: WarpButtonColors
     val callout: WarpCalloutColors
     val pill: WarpPillColors
+    val avatar : WarpAvatarColors
+}
+
+interface WarpAvatarColors {
+    val background: Color
+    val icon: Color
 }
 
 interface WarpPillColors {

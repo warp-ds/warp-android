@@ -167,6 +167,12 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
     override val button: WarpButtonColors = PlaceholderButtonColors
     override val callout: WarpCalloutColors = PlaceholderCalloutColors
     override val pill: WarpPillColors = PlaceholderPillColors
+    override val avatar: WarpAvatarColors = PlaceholderAvatarColors
+}
+
+private object PlaceholderAvatarColors : WarpAvatarColors {
+    override val background: Color = Color.Unspecified
+    override val icon: Color = Color.Unspecified
 }
 
 private object PlaceholderPillColors : WarpPillColors {
