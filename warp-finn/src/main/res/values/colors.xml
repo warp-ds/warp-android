@@ -137,6 +137,10 @@
     <color name="warp_text_notification">@color/white</color>
 
     <!--*** COMPONENTS ***-->
+    <!--*** AVATAR ***-->
+    <color name="warp_avatar_background">@color/bluegray100</color>
+    <color name="warp_avatar_icon">@color/warp_icon_disabled</color>
+
     <!--*** PILL ***-->
     <color name="warp_pill_filter_text">@color/warp_text_inverted</color>
     <color name="warp_pill_filter_background">@color/warp_background_primary</color>
