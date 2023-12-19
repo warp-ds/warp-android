@@ -63,6 +63,7 @@
     <id name="warp_border_disabled" type="color" />
     <id name="warp_border_selected" type="color" />
     <id name="warp_border_selected_hover" type="color" />
+    <id name="warp_border_focus" type="color" />
     <id name="warp_border_primary" type="color" />
     <id name="warp_border_primary_hover" type="color" />
     <id name="warp_border_primary_active" type="color" />

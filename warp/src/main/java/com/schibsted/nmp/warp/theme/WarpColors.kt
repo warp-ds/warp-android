@@ -86,6 +86,7 @@ interface WarpBorderColors {
     val disabled : Color
     val selected : Color
     val selectedHover : Color
+    val focus : Color
 
     val primary : Color
     val primaryHover : Color

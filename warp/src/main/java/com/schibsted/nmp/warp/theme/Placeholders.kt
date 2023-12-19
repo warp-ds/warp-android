@@ -84,6 +84,7 @@ private object PlaceholderWarpBorderColors : WarpBorderColors {
     override val disabled = Color.Unspecified
     override val selected = Color.Unspecified
     override val selectedHover = Color.Unspecified
+    override val focus: Color = Color.Unspecified
 
     override val primary = Color.Unspecified
     override val primaryHover = Color.Unspecified

@@ -95,6 +95,7 @@ internal object FinnDarkBorderColors : WarpBorderColors {
     override val disabled = Bluegray300
     override val selected = Blue500
     override val selectedHover = Blue600
+    override val focus = Aqua300
 
     override val primary = Blue500
     override val primaryHover = Blue600

@@ -96,6 +96,7 @@ internal object ToriBorderColors : WarpBorderColors {
     override val disabled = Gray300
     override val selected = Blueberry600
     override val selectedHover = Blueberry700
+    override val focus = Blue300
 
     override val primary = Blueberry600
     override val primaryHover = Blueberry700

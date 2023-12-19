@@ -65,6 +65,7 @@
     <color name="warp_border_disabled">@color/bluegray300</color>
     <color name="warp_border_selected">@color/blue600</color>
     <color name="warp_border_selected_hover">@color/blue700</color>
+    <color name="warp_border_focus">@color/aqua400</color>
     <color name="warp_border_primary">@color/blue600</color>
     <color name="warp_border_primary_hover">@color/blue700</color>
     <color name="warp_border_primary_active">@color/blue800</color>
