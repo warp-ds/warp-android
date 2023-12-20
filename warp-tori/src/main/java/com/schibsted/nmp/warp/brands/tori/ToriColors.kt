@@ -3,6 +3,7 @@
 package com.schibsted.nmp.warp.brands.tori
 
 import androidx.compose.ui.graphics.Color
+import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
@@ -33,21 +34,21 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val subtle = Gray50
     override val subtleHover = Gray100
     override val subtleActive = Gray200
-    override val selected = Petroleum50
-    override val selectedHover = Petroleum100
+    override val selected = Blueberry50
+    override val selectedHover = Blueberry100
 
     override val inverted = Gray900
 
-    override val primary = Petroleum600
-    override val primaryHover = Petroleum700
-    override val primaryActive = Petroleum800
-    override val primarySubtle = Petroleum50
-    override val primarySubtleHover = Petroleum100
-    override val primarySubtleActive = Petroleum200
+    override val primary = Blueberry600
+    override val primaryHover = Blueberry700
+    override val primaryActive = Blueberry800
+    override val primarySubtle = Blueberry50
+    override val primarySubtleHover = Blueberry100
+    override val primarySubtleActive = Blueberry200
 
-    override val secondary = Watermelon600
-    override val secondaryHover = Watermelon700
-    override val secondaryActive = Watermelon800
+    override val secondary = Watermelon500
+    override val secondaryHover = Watermelon600
+    override val secondaryActive = Watermelon700
 
     override val positive = Green600
     override val positiveHover = Green700
@@ -93,19 +94,20 @@ internal object ToriBorderColors : WarpBorderColors {
     override val hover = Gray400
     override val active = Gray500
     override val disabled = Gray300
-    override val selected = Petroleum600
-    override val selectedHover = Petroleum700
+    override val selected = Blueberry600
+    override val selectedHover = Blueberry700
+    override val focus = Blue300
 
-    override val primary = Petroleum600
-    override val primaryHover = Petroleum700
-    override val primaryActive = Petroleum800
-    override val primarySubtle = Petroleum300
-    override val primarySubtleHover = Petroleum400
-    override val primarySubtleActive = Petroleum500
+    override val primary = Blueberry600
+    override val primaryHover = Blueberry700
+    override val primaryActive = Blueberry800
+    override val primarySubtle = Blueberry300
+    override val primarySubtleHover = Blueberry400
+    override val primarySubtleActive = Blueberry500
 
-    override val secondary = Watermelon600
-    override val secondaryHover = Watermelon700
-    override val secondaryActive = Watermelon800
+    override val secondary = Watermelon500
+    override val secondaryHover = Watermelon600
+    override val secondaryActive = Watermelon700
 
     override val positive = Green600
     override val positiveHover = Green700
@@ -140,8 +142,8 @@ internal object ToriIconColors : WarpIconColors {
     override val default = Gray900
     override val hover = Gray900
     override val active = Gray900
-    override val selected = Petroleum600
-    override val selectedHover = Petroleum700
+    override val selected = Blueberry600
+    override val selectedHover = Blueberry700
     override val disabled = Gray300
     override val subtle = Gray400
     override val subtleHover = Gray500
@@ -149,10 +151,10 @@ internal object ToriIconColors : WarpIconColors {
     override val inverted = White
     override val invertedHover = Gray100
     override val invertedActive = Gray200
-    override val primary = Petroleum600
-    override val secondary = Watermelon600
-    override val secondaryHover = Watermelon700
-    override val secondaryActive = Watermelon800
+    override val primary = Blueberry600
+    override val secondary = Watermelon500
+    override val secondaryHover = Watermelon600
+    override val secondaryActive = Watermelon700
     override val positive = Green600
     override val negative = Red600
     override val warning = Yellow600
@@ -166,7 +168,7 @@ internal object ToriTextColors : WarpTextColors {
     override val placeholder = Gray300
     override val inverted = White
     override val invertedSubtle = Gray50
-    override val link = Petroleum600
+    override val link = Blueberry600
     override val disabled = Gray300
     override val negative = Red600
     override val positive = Green600
@@ -178,6 +180,12 @@ internal object ToriComponentColors : WarpComponentColors {
     override val badge: WarpBadgeColors = ToriBadgeColors
     override val callout: WarpCalloutColors = ToriCalloutColors
     override val pill: WarpPillColors = ToriPillColors
+    override val avatar: WarpAvatarColors = ToriAvatarColors
+}
+
+internal object ToriAvatarColors : WarpAvatarColors {
+    override val background = Gray100
+    override val icon = ToriIconColors.disabled
 }
 
 internal object ToriPillColors : WarpPillColors {
@@ -189,8 +197,8 @@ internal object ToriPillColors : WarpPillColors {
     )
     override val suggestion: WarpPillStyleColors = ToriPillStyleColors(
         text = ToriTextColors.default,
-        background = Gray300,
-        backgroundActive = Gray500,
+        background = Gray200,
+        backgroundActive = Gray400,
         icon = ToriIconColors.default
     )
 }
@@ -212,9 +220,10 @@ internal object ToriBadgeColors : WarpBadgeColors {
 
 internal object ToriButtonColors : WarpButtonColors {
     override val loading = Pair(Gray50, Gray200)
+    override val primary = Pair(Watermelon600, Watermelon800)
 }
 
-internal data class ToriPillStyleColors (
+internal data class ToriPillStyleColors(
     override val text: Color,
     override val background: Color,
     override val backgroundActive: Color,
@@ -227,23 +236,23 @@ internal val Watermelon100 = Color(0xFFFFE6E4)
 internal val Watermelon200 = Color(0xFFFECBC7)
 internal val Watermelon300 = Color(0xFFFEB0AC)
 internal val Watermelon400 = Color(0xFFFD948F)
-internal val Watermelon500 = Color(0xFFFD7372)
-internal val Watermelon600 = Color(0xFFF75159)
-internal val Watermelon700 = Color(0xFFB24046)
-internal val Watermelon800 = Color(0xFF742E30)
-internal val Watermelon900 = Color(0xFF3C1B1B)
+internal val Watermelon500 = Color(0xFFF95157)
+internal val Watermelon600 = Color(0xFFD43D4F)
+internal val Watermelon700 = Color(0xFF982C38)
+internal val Watermelon800 = Color(0xFF5B1920)
+internal val Watermelon900 = Color(0xFF29080C)
 
-//Petroleum
-internal val Petroleum50 = Color(0xFFEEF4F5)
-internal val Petroleum100 = Color(0xFFDDE9EC)
-internal val Petroleum200 = Color(0xFFBAD3DA)
-internal val Petroleum300 = Color(0xFF97BDC6)
-internal val Petroleum400 = Color(0xFF74A8B4)
-internal val Petroleum500 = Color(0xFF4D93A2)
-internal val Petroleum600 = Color(0xFF167A8B)
-internal val Petroleum700 = Color(0xFF1B5E6A)
-internal val Petroleum800 = Color(0xFF193F47)
-internal val Petroleum900 = Color(0xFF122226)
+//Blueberry
+internal val Blueberry50 = Color(0xFFF7F9FD)
+internal val Blueberry100 = Color(0xFFD7E0F4)
+internal val Blueberry200 = Color(0xFFB4C9EC)
+internal val Blueberry300 = Color(0xFF91B2E4)
+internal val Blueberry400 = Color(0xFF6E9BDC)
+internal val Blueberry500 = Color(0xFF4D88DB)
+internal val Blueberry600 = Color(0xFF296DCC)
+internal val Blueberry700 = Color(0xFF1D4E92)
+internal val Blueberry800 = Color(0xFF122F58)
+internal val Blueberry900 = Color(0xFF06101E)
 
 //Blue
 internal val Blue50 = Color(0xFFECF7FE)
@@ -282,16 +291,16 @@ internal val Yellow800 = Color(0xFF673A12)
 internal val Yellow900 = Color(0xFF221102)
 
 //Red
-internal val Red50 = Color(0xFFFFF0F1)
-internal val Red100 = Color(0xFFF7CACC)
-internal val Red200 = Color(0xFFEFA3A6)
-internal val Red300 = Color(0xFFE77C80)
-internal val Red400 = Color(0xFFDF555A)
-internal val Red500 = Color(0xFFD72E34)
-internal val Red600 = Color(0xFFCF070E)
-internal val Red700 = Color(0xFF96050A)
-internal val Red800 = Color(0xFF5D0306)
-internal val Red900 = Color(0xFF230103)
+internal val Red50 = Color(0xFFFEF6F7)
+internal val Red100 = Color(0xFFEDCED1)
+internal val Red200 = Color(0xFFDBA7AD)
+internal val Red300 = Color(0xFFC98089)
+internal val Red400 = Color(0xFFB75965)
+internal val Red500 = Color(0xFFA53241)
+internal val Red600 = Color(0xFF930B1D)
+internal val Red700 = Color(0xFF7D1024)
+internal val Red800 = Color(0xFF520B18)
+internal val Red900 = Color(0xFF27070D)
 
 //Gray
 internal val Gray50 = Color(0xFFFAFAFA)

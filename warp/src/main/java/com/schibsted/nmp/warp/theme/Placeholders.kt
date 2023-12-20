@@ -84,6 +84,7 @@ private object PlaceholderWarpBorderColors : WarpBorderColors {
     override val disabled = Color.Unspecified
     override val selected = Color.Unspecified
     override val selectedHover = Color.Unspecified
+    override val focus: Color = Color.Unspecified
 
     override val primary = Color.Unspecified
     override val primaryHover = Color.Unspecified
@@ -167,6 +168,12 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
     override val button: WarpButtonColors = PlaceholderButtonColors
     override val callout: WarpCalloutColors = PlaceholderCalloutColors
     override val pill: WarpPillColors = PlaceholderPillColors
+    override val avatar: WarpAvatarColors = PlaceholderAvatarColors
+}
+
+private object PlaceholderAvatarColors : WarpAvatarColors {
+    override val background: Color = Color.Unspecified
+    override val icon: Color = Color.Unspecified
 }
 
 private object PlaceholderPillColors : WarpPillColors {
@@ -198,6 +205,7 @@ private object PlaceholderBadgeColors : WarpBadgeColors {
 
 private object PlaceholderButtonColors : WarpButtonColors {
     override val loading: Pair<Color, Color> = Color.Unspecified to Color.Unspecified
+    override val primary: Pair<Color, Color> = Color.Unspecified to Color.Unspecified
 }
 
 internal object PlaceholderResources : WarpResources {

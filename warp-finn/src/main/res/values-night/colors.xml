@@ -66,6 +66,7 @@
     <color name="warp_border_disabled">@color/bluegray300</color>
     <color name="warp_border_selected">@color/blue500</color>
     <color name="warp_border_selected_hover">@color/blue600</color>
+    <color name="warp_border_focus">@color/aqua300</color>
     <color name="warp_border_primary">@color/blue500</color>
     <color name="warp_border_primary_hover">@color/blue600</color>
     <color name="warp_border_primary_active">@color/blue700</color>
@@ -138,14 +139,18 @@
     <color name="warp_text_notification">@color/white</color>
 
     <!--*** COMPONENTS ***-->
+    <!--*** AVATAR ***-->
+    <color name="warp_avatar_background">@color/bluegray800</color>
+    <color name="warp_avatar_icon">@color/warp_icon_disabled</color>
+
     <!--*** PILL ***-->
     <color name="warp_pill_filter_text">@color/warp_text_inverted</color>
     <color name="warp_pill_filter_background">@color/warp_background_primary</color>
     <color name="warp_pill_filter_background_active">@color/warp_background_primary_active</color>
     <color name="warp_pill_filter_icon">@color/warp_icon_inverted</color>
     <color name="warp_pill_suggestion_text">@color/warp_text_default</color>
-    <color name="warp_pill_suggestion_background">@color/bluegray600</color>
-    <color name="warp_pill_suggestion_background_active">@color/bluegray800</color>
+    <color name="warp_pill_suggestion_background">@color/gray600</color>
+    <color name="warp_pill_suggestion_background_active">@color/gray800</color>
     <color name="warp_pill_suggestion_icon">@color/warp_icon_default</color>
 
     <!--*** CALLOUT ***-->
@@ -164,5 +169,7 @@
     <!--*** BUTTON ***-->
     <color name="warp_button_loading_background_default">@color/bluegray900</color>
     <color name="warp_button_loading_background_active">@color/bluegray700</color>
+    <color name="warp_button_primary_background">@color/warp_background_primary</color>
+    <color name="warp_button_primary_background_active">@color/warp_background_primary_active</color>
 
 </resources>

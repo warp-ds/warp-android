@@ -13,22 +13,22 @@
     <color name="watermelon200">#FECBC7</color>
     <color name="watermelon300">#FEB0AC</color>
     <color name="watermelon400">#FD948F</color>
-    <color name="watermelon500">#FD7372</color>
-    <color name="watermelon600">#F75159</color>
-    <color name="watermelon700">#B24046</color>
-    <color name="watermelon800">#742E30</color>
-    <color name="watermelon900">#3C1B1B</color>
+    <color name="watermelon500">#F95157</color>
+    <color name="watermelon600">#D43D4F</color>
+    <color name="watermelon700">#982C38</color>
+    <color name="watermelon800">#5B1920</color>
+    <color name="watermelon900">#29080C</color>
 
-    <color name="petroleum50">#EEF4F5</color>
-    <color name="petroleum100">#DDE9EC</color>
-    <color name="petroleum200">#BAD3DA</color>
-    <color name="petroleum300">#97BDC6</color>
-    <color name="petroleum400">#74A8B4</color>
-    <color name="petroleum500">#4D93A2</color>
-    <color name="petroleum600">#167A8B</color>
-    <color name="petroleum700">#1B5E6A</color>
-    <color name="petroleum800">#193F47</color>
-    <color name="petroleum900">#122226</color>
+    <color name="blueberry50">#F7F9FD</color>
+    <color name="blueberry100">#D7E0F4</color>
+    <color name="blueberry200">#B4C9EC</color>
+    <color name="blueberry300">#91B2E4</color>
+    <color name="blueberry400">#6E9BDC</color>
+    <color name="blueberry500">#4D88DB</color>
+    <color name="blueberry600">#296DCC</color>
+    <color name="blueberry700">#1D4E92</color>
+    <color name="blueberry800">#122F58</color>
+    <color name="blueberry900">#06101E</color>
 
     <color name="blue50">#ECF7FE</color>
     <color name="blue100">#C7E7FB</color>
@@ -63,16 +63,16 @@
     <color name="yellow800">#673A12</color>
     <color name="yellow900">#221102</color>
 
-    <color name="red50">#FFF0F1</color>
-    <color name="red100">#F7CACC</color>
-    <color name="red200">#EFA3A6</color>
-    <color name="red300">#E77C80</color>
-    <color name="red400">#DF555A</color>
-    <color name="red500">#D72E34</color>
-    <color name="red600">#CF070E</color>
-    <color name="red700">#96050A</color>
-    <color name="red800">#5D0306</color>
-    <color name="red900">#230103</color>
+    <color name="red50">#FEF6F7</color>
+    <color name="red100">#EDCED1</color>
+    <color name="red200">#DBA7AD</color>
+    <color name="red300">#C98089</color>
+    <color name="red400">#B75965</color>
+    <color name="red500">#A53241</color>
+    <color name="red600">#930B1D</color>
+    <color name="red700">#7D1024</color>
+    <color name="red800">#520B18</color>
+    <color name="red900">#27070D</color>
 
     <color name="gray50">#FAFAFA</color>
     <color name="gray100">#F5F5F5</color>

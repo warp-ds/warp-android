@@ -86,6 +86,7 @@ interface WarpBorderColors {
     val disabled : Color
     val selected : Color
     val selectedHover : Color
+    val focus : Color
 
     val primary : Color
     val primaryHover : Color
@@ -169,6 +170,12 @@ interface WarpComponentColors {
     val button: WarpButtonColors
     val callout: WarpCalloutColors
     val pill: WarpPillColors
+    val avatar : WarpAvatarColors
+}
+
+interface WarpAvatarColors {
+    val background: Color
+    val icon: Color
 }
 
 interface WarpPillColors {
@@ -200,6 +207,7 @@ interface WarpBadgeColors {
 
 interface WarpButtonColors {
     val loading: Pair<Color, Color>
+    val primary: Pair<Color, Color>
 }
 
 internal class WarpRippleTheme(

@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black
+import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
@@ -94,6 +95,7 @@ internal object FinnDarkBorderColors : WarpBorderColors {
     override val disabled = Bluegray300
     override val selected = Blue500
     override val selectedHover = Blue600
+    override val focus = Aqua300
 
     override val primary = Blue500
     override val primaryHover = Blue600
@@ -177,6 +179,12 @@ internal object FinnComponentDarkColors : WarpComponentColors {
     override val badge: WarpBadgeColors = FinnBadgeDarkColors
     override val callout: WarpCalloutColors = FinnCalloutDarkColors
     override val pill: WarpPillColors = FinnPillDarkColors
+    override val avatar: WarpAvatarColors = FinnAvatarDarkColors
+}
+
+internal object FinnAvatarDarkColors : WarpAvatarColors {
+    override val background: Color = Bluegray800
+    override val icon: Color = FinnDarkIconColors.disabled
 }
 
 internal object FinnPillDarkColors : WarpPillColors {
@@ -188,8 +196,8 @@ internal object FinnPillDarkColors : WarpPillColors {
     )
     override val suggestion: WarpPillStyleColors = FinnPillStyleColors(
         text = FinnDarkTextColors.default,
-        background = Bluegray600,
-        backgroundActive = Bluegray800,
+        background = Gray600,
+        backgroundActive = Gray800,
         icon = FinnDarkIconColors.default
     )
 }
@@ -211,4 +219,5 @@ internal object FinnBadgeDarkColors : WarpBadgeColors {
 
 internal object FinnButtonDarkColors : WarpButtonColors {
     override val loading = Pair(Bluegray700, Bluegray900)
+    override val primary = Pair(FinnBackgroundColors.primary, FinnBackgroundColors.primaryActive)
 }

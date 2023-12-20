@@ -63,6 +63,7 @@
     <id name="warp_border_disabled" type="color" />
     <id name="warp_border_selected" type="color" />
     <id name="warp_border_selected_hover" type="color" />
+    <id name="warp_border_focus" type="color" />
     <id name="warp_border_primary" type="color" />
     <id name="warp_border_primary_hover" type="color" />
     <id name="warp_border_primary_active" type="color" />
@@ -133,6 +134,10 @@
     <id name="warp_text_notification" type="color" />
 
     <!--*** COMPONENTS ***-->
+    <!--*** AVATAR ***-->
+    <id name="warp_avatar_background" type="color" />
+    <id name="warp_avatar_icon" type="color" />
+
     <!--*** PILL ***-->
     <id name="warp_pill_filter_text" type="color" />
     <id name="warp_pill_filter_background" type="color" />
@@ -159,6 +164,8 @@
     <!--*** BUTTON ***-->
     <id name="warp_button_loading_background_default" type="color" />
     <id name="warp_button_loading_background_active" type="color" />
+    <id name="warp_button_primary_background" type="color" />
+    <id name="warp_button_primary_background_active" type="color" />
 
 </resources>
 

@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.brands.tori
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black
+import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
@@ -32,21 +33,21 @@ internal object ToriDarkBackgroundColors : WarpBackgroundColors {
     override val subtle = Gray900
     override val subtleHover = Gray800
     override val subtleActive = Gray900
-    override val selected = Petroleum900
-    override val selectedHover = Petroleum800
+    override val selected = Blueberry900
+    override val selectedHover = Blueberry800
 
     override val inverted = Gray50
 
-    override val primary = Petroleum500
-    override val primaryHover = Petroleum700
-    override val primaryActive = Petroleum800
-    override val primarySubtle = Petroleum900
-    override val primarySubtleHover = Petroleum800
-    override val primarySubtleActive = Petroleum900
+    override val primary = Blueberry500
+    override val primaryHover = Blueberry700
+    override val primaryActive = Blueberry800
+    override val primarySubtle = Blueberry900
+    override val primarySubtleHover = Blueberry800
+    override val primarySubtleActive = Blueberry900
 
     override val secondary = Watermelon500
-    override val secondaryHover = Watermelon700
-    override val secondaryActive = Watermelon800
+    override val secondaryHover = Watermelon600
+    override val secondaryActive = Watermelon700
 
     override val positive = Green500
     override val positiveHover = Green600
@@ -92,15 +93,16 @@ internal object ToriDarkBorderColors : WarpBorderColors {
     override val hover = Gray700
     override val active = Gray800
     override val disabled = Gray300
-    override val selected = Petroleum500
-    override val selectedHover = Petroleum600
+    override val selected = Blueberry500
+    override val selectedHover = Blueberry600
+    override val focus = Blue300
 
-    override val primary = Petroleum500
-    override val primaryHover = Petroleum600
-    override val primaryActive = Petroleum700
-    override val primarySubtle = Petroleum700
-    override val primarySubtleHover = Petroleum800
-    override val primarySubtleActive = Petroleum900
+    override val primary = Blueberry500
+    override val primaryHover = Blueberry600
+    override val primaryActive = Blueberry700
+    override val primarySubtle = Blueberry700
+    override val primarySubtleHover = Blueberry800
+    override val primarySubtleActive = Blueberry900
 
     override val secondary = Watermelon500
     override val secondaryHover = Watermelon600
@@ -139,8 +141,8 @@ internal object ToriDarkIconColors : WarpIconColors {
     override val default = White
     override val hover = Gray100
     override val active = Gray200
-    override val selected = Petroleum500
-    override val selectedHover = Petroleum600
+    override val selected = Blueberry500
+    override val selectedHover = Blueberry600
     override val disabled = Gray600
     override val subtle = Gray100
     override val subtleHover = Gray200
@@ -148,7 +150,7 @@ internal object ToriDarkIconColors : WarpIconColors {
     override val inverted = Black
     override val invertedHover = Gray800
     override val invertedActive = Gray900
-    override val primary = Petroleum500
+    override val primary = Blueberry500
     override val secondary = Watermelon500
     override val secondaryHover = Watermelon600
     override val secondaryActive = Watermelon700
@@ -165,7 +167,7 @@ internal object ToriDarkTextColors : WarpTextColors {
     override val placeholder = Gray500
     override val inverted = White
     override val invertedSubtle = Gray800
-    override val link = Petroleum500
+    override val link = Blueberry500
     override val disabled = Gray500
     override val negative = Red500
     override val positive = Green500
@@ -177,6 +179,12 @@ internal object ToriComponentDarkColors : WarpComponentColors {
     override val badge: WarpBadgeColors = ToriBadgeDarkColors
     override val callout: WarpCalloutColors = ToriCalloutDarkColors
     override val pill: WarpPillColors = ToriPillDarkColors
+    override val avatar: WarpAvatarColors = ToriAvatarDarkColors
+}
+
+internal object ToriAvatarDarkColors : WarpAvatarColors {
+    override val background = Gray100
+    override val icon = ToriDarkIconColors.disabled
 }
 
 internal object ToriPillDarkColors : WarpPillColors {
@@ -211,4 +219,5 @@ internal object ToriBadgeDarkColors : WarpBadgeColors {
 
 internal object ToriButtonDarkColors : WarpButtonColors {
     override val loading = Pair(Gray700, Gray900)
+    override val primary = Pair(Watermelon600, Watermelon800)
 }
