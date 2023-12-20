@@ -169,5 +169,7 @@
     <!--*** BUTTON ***-->
     <color name="warp_button_loading_background_default">@color/bluegray900</color>
     <color name="warp_button_loading_background_active">@color/bluegray700</color>
+    <color name="warp_button_primary_background">@color/warp_background_primary</color>
+    <color name="warp_button_primary_background_active">@color/warp_background_primary_active</color>
 
 </resources>

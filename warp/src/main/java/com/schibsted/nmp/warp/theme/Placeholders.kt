@@ -205,6 +205,7 @@ private object PlaceholderBadgeColors : WarpBadgeColors {
 
 private object PlaceholderButtonColors : WarpButtonColors {
     override val loading: Pair<Color, Color> = Color.Unspecified to Color.Unspecified
+    override val primary: Pair<Color, Color> = Color.Unspecified to Color.Unspecified
 }
 
 internal object PlaceholderResources : WarpResources {

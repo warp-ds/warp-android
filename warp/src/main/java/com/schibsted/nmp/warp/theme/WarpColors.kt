@@ -207,6 +207,7 @@ interface WarpBadgeColors {
 
 interface WarpButtonColors {
     val loading: Pair<Color, Color>
+    val primary: Pair<Color, Color>
 }
 
 internal class WarpRippleTheme(

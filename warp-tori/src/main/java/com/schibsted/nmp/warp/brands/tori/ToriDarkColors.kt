@@ -219,4 +219,5 @@ internal object ToriBadgeDarkColors : WarpBadgeColors {
 
 internal object ToriButtonDarkColors : WarpButtonColors {
     override val loading = Pair(Gray700, Gray900)
+    override val primary = Pair(Watermelon600, Watermelon800)
 }

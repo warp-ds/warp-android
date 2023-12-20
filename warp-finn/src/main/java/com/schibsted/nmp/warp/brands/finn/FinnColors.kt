@@ -220,6 +220,7 @@ internal object FinnBadgeColors : WarpBadgeColors {
 
 internal object FinnButtonColors : WarpButtonColors {
     override val loading = Pair(Bluegray50, Bluegray200)
+    override val primary = Pair(FinnBackgroundColors.primary, FinnBackgroundColors.primaryActive)
 }
 
 internal data class FinnPillStyleColors (

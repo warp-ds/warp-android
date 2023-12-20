@@ -192,8 +192,8 @@ data class WarpButtonElementColors (
 internal fun buttonStylePrimary() = WarpButtonStyleColors(
     text = colors.text.inverted,
     background = WarpButtonElementColors(
-        default = colors.background.primary,
-        active = colors.background.primaryActive
+        default = colors.components.button.primary.first,
+        active = colors.components.button.primary.second
     ),
     border = null
 )

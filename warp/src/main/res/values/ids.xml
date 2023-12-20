@@ -164,6 +164,8 @@
     <!--*** BUTTON ***-->
     <id name="warp_button_loading_background_default" type="color" />
     <id name="warp_button_loading_background_active" type="color" />
+    <id name="warp_button_primary_background" type="color" />
+    <id name="warp_button_primary_background_active" type="color" />
 
 </resources>
 
