@@ -46,6 +46,14 @@ private fun ButtonScreenContent() {
                 WarpButton(onClick = { /*TODO*/ }, buttonStyle = style, text = "Disabled", enabled = false)
             }
         }
+        WarpText(text = "Full width", modifier = Modifier.padding(top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp))
+        Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+        ) {
+            WarpButton(onClick = { /*TODO*/ }, buttonStyle = WarpButtonStyle.Primary, text = "Full width primary", modifier = Modifier
+                .fillMaxWidth())
+        }
     }
 }
 
