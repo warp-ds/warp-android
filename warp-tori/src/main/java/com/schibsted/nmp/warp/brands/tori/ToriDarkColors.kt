@@ -12,7 +12,6 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
-import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.White
 
@@ -188,18 +187,7 @@ internal object ToriAvatarDarkColors : WarpAvatarColors {
 }
 
 internal object ToriPillDarkColors : WarpPillColors {
-    override val filter: WarpPillStyleColors = ToriPillStyleColors(
-        text = ToriDarkTextColors.inverted,
-        background = ToriDarkBackgroundColors.primary,
-        backgroundActive = ToriDarkBackgroundColors.primaryActive,
-        icon = ToriDarkIconColors.inverted
-    )
-    override val suggestion: WarpPillStyleColors = ToriPillStyleColors(
-        text = ToriDarkTextColors.default,
-        background = Gray600,
-        backgroundActive = Gray800,
-        icon = ToriDarkIconColors.default
-    )
+    override val suggestion = Pair(Gray600, Gray800)
 }
 
 internal object ToriCalloutDarkColors : WarpCalloutColors {

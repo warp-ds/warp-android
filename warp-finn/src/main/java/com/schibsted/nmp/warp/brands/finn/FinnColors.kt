@@ -13,7 +13,6 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
-import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.White
 
@@ -189,18 +188,7 @@ internal object FinnAvatarColors : WarpAvatarColors {
 }
 
 internal object FinnPillColors : WarpPillColors {
-    override val filter: WarpPillStyleColors = FinnPillStyleColors(
-        text = FinnTextColors.inverted,
-        background = FinnBackgroundColors.primary,
-        backgroundActive = FinnBackgroundColors.primaryActive,
-        icon = FinnIconColors.inverted
-    )
-    override val suggestion: WarpPillStyleColors = FinnPillStyleColors(
-        text = FinnTextColors.default,
-        background = Gray200,
-        backgroundActive = Gray400,
-        icon = FinnIconColors.default
-    )
+    override val suggestion = Pair(Gray200, Gray400)
 }
 
 internal object FinnCalloutColors : WarpCalloutColors {
@@ -222,13 +210,6 @@ internal object FinnButtonColors : WarpButtonColors {
     override val loading = Pair(Bluegray50, Bluegray200)
     override val primary = Pair(FinnBackgroundColors.primary, FinnBackgroundColors.primaryActive)
 }
-
-internal data class FinnPillStyleColors (
-    override val text: Color,
-    override val background: Color,
-    override val backgroundActive: Color,
-    override val icon: Color
-) : WarpPillStyleColors
 
 //Blue
 internal val Blue50 = Color(0xffeff5ff)
