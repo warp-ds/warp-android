@@ -9,18 +9,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.schibsted.nmp.warp.theme.LocalColors
-import com.schibsted.nmp.warp.theme.LocalDimensions
-import com.schibsted.nmp.warp.theme.LocalShapes
-import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
-import com.schibsted.nmp.warp.theme.WarpTheme.typography
 
 /**
  * A pill in the warp design system that displays a text label and an optional dismiss icon.
@@ -47,61 +41,54 @@ fun WarpPill(
     closable: Boolean = false,
     iconContentDescription: String? = null
 ) {
-    CompositionLocalProvider(
-        LocalColors provides colors,
-        LocalShapes provides shapes,
-        LocalTypography provides typography,
-        LocalDimensions provides dimensions
-    ) {
-        val warpPillColors: WarpPillStyleColors = when (style) {
-            WarpPillStyle.Filter -> pillStyleFilter()
-            WarpPillStyle.Suggestion -> pillStyleSuggestion()
-        }
-
-        val pillTextStyle = when (style) {
-            WarpPillStyle.Filter -> WarpTextStyle.Caption
-            WarpPillStyle.Suggestion -> WarpTextStyle.CaptionStrong
-        }
-
-        val pillColors = InputChipDefaults.inputChipColors(
-            containerColor = warpPillColors.background,
-            selectedContainerColor = warpPillColors.backgroundActive,
-            labelColor = warpPillColors.text,
-            selectedLabelColor = warpPillColors.text,
-            leadingIconColor = warpPillColors.icon,
-            trailingIconColor = warpPillColors.icon,
-            selectedLeadingIconColor = warpPillColors.icon,
-            selectedTrailingIconColor = warpPillColors.icon,
-        )
-
-        InputChip(
-            onClick = onClick,
-            selected = selected,
-            label = {
-                WarpText(
-                    text = text,
-                    style = pillTextStyle,
-                    color = warpPillColors.text,
-                    modifier = Modifier
-                        .padding(vertical = dimensions.space1)
-                )
-            },
-            shape = shapes.ellipse,
-            colors = pillColors,
-            border = null,
-            modifier = modifier,
-            trailingIcon = if (closable) {
-                {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        tint = warpPillColors.icon,
-                        contentDescription = iconContentDescription,
-                        modifier = Modifier.size(dimensions.components.pillIcon)
-                    )
-                }
-            } else null
-        )
+    val warpPillColors: WarpPillStyleColors = when (style) {
+        WarpPillStyle.Filter -> pillStyleFilter()
+        WarpPillStyle.Suggestion -> pillStyleSuggestion()
     }
+
+    val pillTextStyle = when (style) {
+        WarpPillStyle.Filter -> WarpTextStyle.Caption
+        WarpPillStyle.Suggestion -> WarpTextStyle.CaptionStrong
+    }
+
+    val pillColors = InputChipDefaults.inputChipColors(
+        containerColor = warpPillColors.background,
+        selectedContainerColor = warpPillColors.backgroundActive,
+        labelColor = warpPillColors.text,
+        selectedLabelColor = warpPillColors.text,
+        leadingIconColor = warpPillColors.icon,
+        trailingIconColor = warpPillColors.icon,
+        selectedLeadingIconColor = warpPillColors.icon,
+        selectedTrailingIconColor = warpPillColors.icon,
+    )
+
+    InputChip(
+        onClick = onClick,
+        selected = selected,
+        label = {
+            WarpText(
+                text = text,
+                style = pillTextStyle,
+                color = warpPillColors.text,
+                modifier = Modifier
+                    .padding(vertical = dimensions.space1)
+            )
+        },
+        shape = shapes.ellipse,
+        colors = pillColors,
+        border = null,
+        modifier = modifier,
+        trailingIcon = if (closable) {
+            {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    tint = warpPillColors.icon,
+                    contentDescription = iconContentDescription,
+                    modifier = Modifier.size(dimensions.components.pillIcon)
+                )
+            }
+        } else null
+    )
 }
 
 enum class WarpPillStyle {

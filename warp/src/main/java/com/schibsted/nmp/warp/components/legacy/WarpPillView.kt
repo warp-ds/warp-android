@@ -71,7 +71,8 @@ class WarpPillView @JvmOverloads constructor(
             val styleInt = getInteger(R.styleable.WarpPill_warpPillStyle, 0)
             style = stylesList[styleInt]
             text = getTextFromIdOrString(R.styleable.WarpPill_pillText, context)
-            iconContentDescription = getTextFromIdOrString(R.styleable.WarpPill_iconContentDescr, context)
+            iconContentDescription =
+                getTextFromIdOrString(R.styleable.WarpPill_iconContentDescr, context)
             pillSelected = getBoolean(R.styleable.WarpPill_selected, false)
             closable = getBoolean(R.styleable.WarpPill_closable, false)
         }
