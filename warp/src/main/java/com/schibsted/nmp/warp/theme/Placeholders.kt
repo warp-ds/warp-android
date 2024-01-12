@@ -177,15 +177,9 @@ private object PlaceholderAvatarColors : WarpAvatarColors {
 }
 
 private object PlaceholderPillColors : WarpPillColors {
-    override val filter: WarpPillStyleColors = PlaceholderPillStyle
-    override val suggestion: WarpPillStyleColors = PlaceholderPillStyle
-}
-
-private object PlaceholderPillStyle : WarpPillStyleColors {
-    override val text: Color = Color.Unspecified
-    override val background: Color = Color.Unspecified
-    override val backgroundActive: Color = Color.Unspecified
-    override val icon: Color = Color.Unspecified
+    override val filterTextColor = Color.Unspecified
+    override val filterIconColor = Color.Unspecified
+    override val suggestion: Pair<Color, Color> = Color.Unspecified to Color.Unspecified
 }
 
 private object PlaceholderCalloutColors : WarpCalloutColors {

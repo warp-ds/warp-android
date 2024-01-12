@@ -179,15 +179,9 @@ interface WarpAvatarColors {
 }
 
 interface WarpPillColors {
-    val filter: WarpPillStyleColors
-    val suggestion: WarpPillStyleColors
-}
-
-interface WarpPillStyleColors {
-    val text: Color
-    val background: Color
-    val backgroundActive: Color
-    val icon: Color
+    val filterTextColor: Color
+    val filterIconColor: Color
+    val suggestion: Pair<Color, Color>
 }
 
 interface WarpCalloutColors {

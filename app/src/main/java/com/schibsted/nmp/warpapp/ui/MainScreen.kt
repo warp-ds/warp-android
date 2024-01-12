@@ -109,10 +109,17 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("pill") {
+                PillScreen {
+                    navController.navigateUp()
+                }
+
+            }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComponentListScreen(onNavigate: (String) -> Unit) {
     val viewModel: MainViewModel = viewModel(LocalContext.current as ComponentActivity)
@@ -159,6 +166,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "expandable" to "WarpExpandable",
                         "tabs" to "WarpTab and WarpTabGroup",
                         "badges" to "WarpBadge",
+                        "pill" to "WarpPill",
                     )
                 )
                 {

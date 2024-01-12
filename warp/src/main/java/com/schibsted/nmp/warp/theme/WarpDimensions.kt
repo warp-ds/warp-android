@@ -36,6 +36,7 @@ object WarpDimensions {
 
 object WarpComponentDimensions {
     val stepIndicator = StepIndicatorDimensions
+    val pillIcon = 16.dp
 }
 
 object StepIndicatorDimensions {

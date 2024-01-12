@@ -12,7 +12,6 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
-import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.White
 
@@ -188,18 +187,9 @@ internal object FinnAvatarDarkColors : WarpAvatarColors {
 }
 
 internal object FinnPillDarkColors : WarpPillColors {
-    override val filter: WarpPillStyleColors = FinnPillStyleColors(
-        text = FinnDarkTextColors.inverted,
-        background = FinnDarkBackgroundColors.primary,
-        backgroundActive = FinnDarkBackgroundColors.primaryActive,
-        icon = FinnDarkIconColors.inverted
-    )
-    override val suggestion: WarpPillStyleColors = FinnPillStyleColors(
-        text = FinnDarkTextColors.default,
-        background = Gray600,
-        backgroundActive = Gray800,
-        icon = FinnDarkIconColors.default
-    )
+    override val filterTextColor = White
+    override val filterIconColor = White
+    override val suggestion = Pair(Gray600, Gray800)
 }
 
 internal object FinnCalloutDarkColors : WarpCalloutColors {

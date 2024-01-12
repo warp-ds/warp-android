@@ -79,4 +79,15 @@
         <attr name="title" format="reference|string" />
         <attr name="body" format="reference|string" />
     </declare-styleable>
+
+    <declare-styleable name="WarpPill">
+        <attr name="warpPillStyle" format="enum">
+            <enum name="filter" value="0" />
+            <enum name="suggestion" value="1" />
+        </attr>
+        <attr name="selected" format="boolean" />
+        <attr name="closable" format="boolean" />
+        <attr name="pillText" format="reference|string" />
+        <attr name="iconContentDescr" format="reference|string" />
+    </declare-styleable>
 </resources>

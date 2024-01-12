@@ -13,7 +13,6 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
-import com.schibsted.nmp.warp.theme.WarpPillStyleColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.White
 
@@ -189,18 +188,9 @@ internal object ToriAvatarColors : WarpAvatarColors {
 }
 
 internal object ToriPillColors : WarpPillColors {
-    override val filter: WarpPillStyleColors = ToriPillStyleColors(
-        text = ToriTextColors.inverted,
-        background = ToriBackgroundColors.primary,
-        backgroundActive = ToriBackgroundColors.primaryActive,
-        icon = ToriIconColors.inverted
-    )
-    override val suggestion: WarpPillStyleColors = ToriPillStyleColors(
-        text = ToriTextColors.default,
-        background = Gray200,
-        backgroundActive = Gray400,
-        icon = ToriIconColors.default
-    )
+    override val filterTextColor = White
+    override val filterIconColor = White
+    override val suggestion = Pair(Gray200, Gray400)
 }
 
 internal object ToriCalloutColors : WarpCalloutColors {
@@ -222,13 +212,6 @@ internal object ToriButtonColors : WarpButtonColors {
     override val loading = Pair(Gray50, Gray200)
     override val primary = Pair(Watermelon600, Watermelon800)
 }
-
-internal data class ToriPillStyleColors(
-    override val text: Color,
-    override val background: Color,
-    override val backgroundActive: Color,
-    override val icon: Color
-) : WarpPillStyleColors
 
 //Watermelon
 internal val Watermelon50 = Color(0xFFFFF3F2)
