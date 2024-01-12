@@ -36,6 +36,7 @@ fun PillScreenContent() {
                 onClick = { },
                 style = WarpPillStyle.Suggestion,
                 closable = true,
+                selected = false,
                 modifier = Modifier
                     .padding(bottom = 16.dp, end = 16.dp)
             )

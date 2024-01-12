@@ -32,7 +32,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
  * @param text The text to be displayed in the pill.
  * @param onClick The callback to be invoked when the pill is clicked.
  * @param selected Whether the pill is selected. Defaults to false.
- * @param style The style of the pill. Defaults to [WarpPillStyle.Suggestion].
+ * @param style The style of the pill. Defaults to [WarpPillStyle.Filter].
  * @param closable Whether the pill is closable. When true, the pill will display a dismiss icon. Defaults to false.
  * @param iconContentDescription The content description to be used for the dismiss icon.
  */
@@ -43,7 +43,7 @@ fun WarpPill(
     text: String,
     onClick: () -> Unit,
     selected: Boolean = false,
-    style: WarpPillStyle = WarpPillStyle.Suggestion,
+    style: WarpPillStyle = WarpPillStyle.Filter,
     closable: Boolean = false,
     iconContentDescription: String? = null
 ) {
@@ -56,6 +56,11 @@ fun WarpPill(
         val warpPillColors: WarpPillStyleColors = when (style) {
             WarpPillStyle.Filter -> pillStyleFilter()
             WarpPillStyle.Suggestion -> pillStyleSuggestion()
+        }
+
+        val pillTextStyle = when (style) {
+            WarpPillStyle.Filter -> WarpTextStyle.Caption
+            WarpPillStyle.Suggestion -> WarpTextStyle.CaptionStrong
         }
 
         val pillColors = InputChipDefaults.inputChipColors(
@@ -75,7 +80,7 @@ fun WarpPill(
             label = {
                 WarpText(
                     text = text,
-                    style = WarpTextStyle.Caption,
+                    style = pillTextStyle,
                     color = warpPillColors.text,
                     modifier = Modifier
                         .padding(vertical = dimensions.space1)
@@ -114,10 +119,10 @@ data class WarpPillStyleColors(
 @Composable
 private fun pillStyleFilter(): WarpPillStyleColors {
     return WarpPillStyleColors(
-        text = colors.text.inverted,
+        text = colors.components.pill.filterTextColor,
         background = colors.background.primary,
         backgroundActive = colors.background.primaryActive,
-        icon = colors.icon.inverted
+        icon = colors.components.pill.filterIconColor
     )
 }
 

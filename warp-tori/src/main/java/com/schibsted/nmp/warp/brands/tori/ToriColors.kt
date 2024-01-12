@@ -188,7 +188,9 @@ internal object ToriAvatarColors : WarpAvatarColors {
 }
 
 internal object ToriPillColors : WarpPillColors {
-   override val suggestion = Pair(Gray200, Gray400)
+    override val filterTextColor = White
+    override val filterIconColor = White
+    override val suggestion = Pair(Gray200, Gray400)
 }
 
 internal object ToriCalloutColors : WarpCalloutColors {
