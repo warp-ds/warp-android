@@ -14,7 +14,18 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 
-
+/**
+ * A badge in the warp design system that displays a text label with a background color.
+ * Supports different styles: info, success, warning, error, disabled, neutral, sponsored and price.
+ * Supports different alignments: topStart, topEnd, bottomStart, bottomEnd and none.
+ * For more info, look [here](https://warp-ds.github.io/tech-docs/components/badge/)
+ *
+ *
+ * @param modifier Modifier to be applied to the badge.
+ * @param text The badge text.
+ * @param style The badge style. Defaults to [WarpBadgeStyle.Neutral].
+ * @param alignmentStyle The badge alignment style. Defaults to [WarpBadgeAlignment.None].
+ */
 @Composable
 fun WarpBadge(
     modifier: Modifier = Modifier,
