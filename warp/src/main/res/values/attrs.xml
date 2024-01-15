@@ -59,6 +59,8 @@
             <enum name="error" value="3" />
             <enum name="disabled" value="4" />
             <enum name="neutral" value="5" />
+            <enum name="sponsored" value="6" />
+            <enum name="price" value="7" />
         </attr>
         <attr name="alignmentStyle" format="enum">
             <enum name="none" value="0" />

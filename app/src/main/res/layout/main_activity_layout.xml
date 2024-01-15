@@ -55,7 +55,7 @@
         app:alignmentStyle="topEnd"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textField"
-        app:warpBadgeStyle="warning" />
+        app:warpBadgeStyle="sponsored" />
 
     <com.schibsted.nmp.warp.components.legacy.WarpAlertBoxView
         android:id="@+id/alert_box"

@@ -165,6 +165,8 @@
     <color name="warp_badge_negative_background">@color/red700</color>
     <color name="warp_badge_disabled_background">@color/warp_background_disabled</color>
     <color name="warp_badge_neutral_background">@color/bluegray700</color>
+    <color name="warp_badge_sponsored_background">@color/aqua200</color>
+    <color name="warp_badge_price_background">@color/black70alpha</color>
 
     <!--*** BUTTON ***-->
     <color name="warp_button_loading_background_default">@color/bluegray900</color>
