@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.brands.tori
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black
+import com.schibsted.nmp.warp.theme.Black70Alpha
 import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
@@ -205,6 +206,8 @@ internal object ToriBadgeDarkColors : WarpBadgeColors {
     override val negativeBackground: Color = Red700
     override val disabledBackground: Color = ToriDarkBackgroundColors.disabled
     override val neutralBackground: Color = Gray700
+    override val sponsoredBackground: Color = Blue700
+    override val priceBackground: Color = Black70Alpha
 }
 
 internal object ToriButtonDarkColors : WarpButtonColors {

@@ -197,6 +197,8 @@ interface WarpBadgeColors {
     val negativeBackground: Color
     val disabledBackground: Color
     val neutralBackground: Color
+    val sponsoredBackground: Color
+    val priceBackground: Color
 }
 
 interface WarpButtonColors {
@@ -221,5 +223,6 @@ internal class WarpRippleTheme(
 val White = Color.White
 val Black = Color.Black
 val Transparent = Color.Transparent
+val Black70Alpha = Color(0x70000000)
 
 internal val LocalColors = staticCompositionLocalOf<WarpColors> { Placeholders }

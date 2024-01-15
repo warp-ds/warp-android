@@ -195,6 +195,8 @@ private object PlaceholderBadgeColors : WarpBadgeColors {
     override val negativeBackground: Color = Color.Unspecified
     override val disabledBackground: Color = Color.Unspecified
     override val neutralBackground: Color = Color.Unspecified
+    override val priceBackground: Color = Color.Unspecified
+    override val sponsoredBackground: Color = Color.Unspecified
 }
 
 private object PlaceholderButtonColors : WarpButtonColors {

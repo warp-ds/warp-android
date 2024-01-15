@@ -39,12 +39,13 @@ private fun BadgeContent() {
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             shape = RoundedCornerShape(4.dp)
         ) {
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
             ) {
                 WarpBadge(
-                    text = "Default",
+                    text = "Neutral",
                     alignment = Alignment.Center
                 )
                 WarpBadge(
@@ -71,6 +72,16 @@ private fun BadgeContent() {
                     text = "Disabled",
                     style = WarpBadgeStyle.Disabled,
                     alignment = Alignment.CenterStart
+                )
+                WarpBadge(
+                    text = "Sponsored",
+                    style = WarpBadgeStyle.Sponsored,
+                    alignment = Alignment.TopCenter
+                )
+                WarpBadge(
+                    text = "Price",
+                    style = WarpBadgeStyle.Price,
+                    alignment = Alignment.BottomCenter
                 )
             }
         }

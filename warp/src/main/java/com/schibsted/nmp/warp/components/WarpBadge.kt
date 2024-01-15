@@ -10,7 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 
 
 @Composable
@@ -21,19 +23,31 @@ fun WarpBadge(
     alignmentStyle: WarpBadgeAlignment
 ) {
     val backgroundColor = when (style) {
-        WarpBadgeStyle.Info -> WarpTheme.colors.components.badge.infoBackground
-        WarpBadgeStyle.Success -> WarpTheme.colors.components.badge.positiveBackground
-        WarpBadgeStyle.Warning -> WarpTheme.colors.components.badge.warningBackground
-        WarpBadgeStyle.Error -> WarpTheme.colors.components.badge.negativeBackground
-        WarpBadgeStyle.Disabled -> WarpTheme.colors.components.badge.disabledBackground
-        WarpBadgeStyle.Neutral -> WarpTheme.colors.components.badge.neutralBackground
+        WarpBadgeStyle.Info -> colors.components.badge.infoBackground
+        WarpBadgeStyle.Success -> colors.components.badge.positiveBackground
+        WarpBadgeStyle.Warning -> colors.components.badge.warningBackground
+        WarpBadgeStyle.Error -> colors.components.badge.negativeBackground
+        WarpBadgeStyle.Disabled -> colors.components.badge.disabledBackground
+        WarpBadgeStyle.Neutral -> colors.components.badge.neutralBackground
+        WarpBadgeStyle.Sponsored -> colors.components.badge.sponsoredBackground
+        WarpBadgeStyle.Price -> colors.components.badge.priceBackground
+    }
+    val textColor = when (style) {
+        WarpBadgeStyle.Info,
+        WarpBadgeStyle.Success,
+        WarpBadgeStyle.Warning,
+        WarpBadgeStyle.Error,
+        WarpBadgeStyle.Disabled,
+        WarpBadgeStyle.Neutral,
+        WarpBadgeStyle.Sponsored -> colors.text.default
+        WarpBadgeStyle.Price -> colors.text.inverted
     }
     val shape = when (alignmentStyle) {
-        WarpBadgeAlignment.None -> WarpTheme.shapes.components.badge.default
-        WarpBadgeAlignment.TopStart -> WarpTheme.shapes.components.badge.topStart
-        WarpBadgeAlignment.TopEnd -> WarpTheme.shapes.components.badge.topEnd
-        WarpBadgeAlignment.BottomStart -> WarpTheme.shapes.components.badge.bottomStart
-        WarpBadgeAlignment.BottomEnd -> WarpTheme.shapes.components.badge.bottomEnd
+        WarpBadgeAlignment.None -> shapes.components.badge.default
+        WarpBadgeAlignment.TopStart -> shapes.components.badge.topStart
+        WarpBadgeAlignment.TopEnd -> shapes.components.badge.topEnd
+        WarpBadgeAlignment.BottomStart -> shapes.components.badge.bottomStart
+        WarpBadgeAlignment.BottomEnd -> shapes.components.badge.bottomEnd
     }
     WarpText(
         modifier = modifier
@@ -41,11 +55,11 @@ fun WarpBadge(
                 Modifier
                     .background(backgroundColor, shape = shape)
                     .padding(
-                        horizontal = WarpTheme.dimensions.space1,
-                        vertical = WarpTheme.dimensions.space05
+                        horizontal = dimensions.space1,
+                        vertical = dimensions.space05
                     )
             ),
-        color = WarpTheme.colors.text.default,
+        color = textColor,
         text = text,
         style = WarpTextStyle.Detail,
     )
@@ -66,7 +80,12 @@ fun BoxScope.WarpBadge(
         Alignment.BottomStart -> WarpBadgeAlignment.BottomStart
         else -> WarpBadgeAlignment.None
     }
-    WarpBadge(text = text, style = style, modifier = modifier.then(Modifier.align(alignment)), alignmentStyle = alignmentStyle)
+    WarpBadge(
+        text = text,
+        style = style,
+        modifier = modifier.then(Modifier.align(alignment)),
+        alignmentStyle = alignmentStyle
+    )
 }
 
 enum class WarpBadgeStyle {
@@ -75,7 +94,9 @@ enum class WarpBadgeStyle {
     Warning,
     Error,
     Disabled,
-    Neutral
+    Neutral,
+    Sponsored,
+    Price
 }
 
 enum class WarpBadgeAlignment {
@@ -91,7 +112,7 @@ enum class WarpBadgeAlignment {
 fun WarpBadgePreview() {
     Column {
         WarpBadgeStyle.values().forEach {
-            Box() {
+            Box {
                 WarpBadge(
                     modifier = Modifier.padding(4.dp),
                     style = it,
