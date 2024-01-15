@@ -20,7 +20,7 @@ fun WarpBadge(
     modifier: Modifier = Modifier,
     text: String,
     style: WarpBadgeStyle = WarpBadgeStyle.Neutral,
-    alignmentStyle: WarpBadgeAlignment
+    alignmentStyle: WarpBadgeAlignment = WarpBadgeAlignment.None
 ) {
     val backgroundColor = when (style) {
         WarpBadgeStyle.Info -> colors.components.badge.infoBackground
