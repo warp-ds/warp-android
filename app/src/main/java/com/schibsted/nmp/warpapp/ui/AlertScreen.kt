@@ -12,7 +12,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
 fun AlertScreen(onUp: () -> Unit) {
-    DetailsScaffold(title = "WarpAlertBox", onUp = onUp) {
+    DetailsScaffold(title = "WarpAlert", onUp = onUp) {
         AlertContent()
     }
 }
@@ -32,13 +32,13 @@ private fun AlertContent() {
         )
         WarpAlert(
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
-            title = "This is the negative variant of the alert element",
+            title = "This is the critical variant of the alert element",
             body = "With an additional description",
-            type = WarpAlertType.Negative
+            type = WarpAlertType.Critical
         )
         WarpAlert(
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
-            title = "This is the info variant of the alert element",
+            title = "This is the warning variant of the alert element",
             body = "With an additional description that is very long, so long that it will probably become a new line",
             type = WarpAlertType.Warning
         )

@@ -84,7 +84,7 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
-            composable("alertBox") {
+            composable("alert") {
                 AlertScreen {
                     navController.navigateUp()
                 }
@@ -161,7 +161,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "box" to "WarpBox",
                         "typography" to "Typography",
                         "stepIndicator" to "WarpStepIndicator",
-                        "alertBox" to "WarpAlertBox",
+                        "alert" to "WarpAlert",
                         "textField" to "WarpTextField",
                         "expandable" to "WarpExpandable",
                         "tabs" to "WarpTab and WarpTabGroup",
