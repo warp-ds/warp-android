@@ -207,7 +207,7 @@ internal object ToriBadgeColors : WarpBadgeColors {
     override val negativeBackground: Color = Red100
     override val disabledBackground: Color = ToriBackgroundColors.disabled
     override val neutralBackground: Color = Gray100
-    override val sponsoredBackground: Color = Blue100
+    override val sponsoredBackground: Color = Blue200
     override val priceBackground: Color = Black70Alpha
 }
 

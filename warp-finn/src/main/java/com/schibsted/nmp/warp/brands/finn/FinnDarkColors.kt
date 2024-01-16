@@ -206,7 +206,7 @@ internal object FinnBadgeDarkColors : WarpBadgeColors {
     override val negativeBackground: Color = Red700
     override val disabledBackground: Color = FinnDarkBackgroundColors.disabled
     override val neutralBackground: Color = Bluegray700
-    override val sponsoredBackground: Color = Aqua200
+    override val sponsoredBackground: Color = Aqua600
     override val priceBackground: Color = Black70Alpha
 }
 
