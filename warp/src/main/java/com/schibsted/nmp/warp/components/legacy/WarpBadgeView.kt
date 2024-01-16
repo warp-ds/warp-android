@@ -20,9 +20,42 @@ class WarpBadgeView @JvmOverloads constructor(
 
     val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
 
-    private var style: WarpBadgeStyle = WarpBadgeStyle.Info
-    private var alignmentStyle: WarpBadgeAlignment = WarpBadgeAlignment.None
-    private var text: CharSequence? = null
+    var style: WarpBadgeStyle = WarpBadgeStyle.Neutral
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var alignmentStyle: WarpBadgeAlignment = WarpBadgeAlignment.None
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var text: CharSequence? = null
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    private var alignmentStylesList = listOf(
+        WarpBadgeAlignment.None,
+        WarpBadgeAlignment.TopStart,
+        WarpBadgeAlignment.TopEnd,
+        WarpBadgeAlignment.BottomStart,
+        WarpBadgeAlignment.BottomEnd
+    )
+
+    private var stylesList = listOf(
+        WarpBadgeStyle.Info,
+        WarpBadgeStyle.Success,
+        WarpBadgeStyle.Warning,
+        WarpBadgeStyle.Error,
+        WarpBadgeStyle.Disabled,
+        WarpBadgeStyle.Neutral,
+        WarpBadgeStyle.Sponsored,
+        WarpBadgeStyle.Price,
+    )
 
     init {
         val androidAttrs = intArrayOf(android.R.attr.text)
@@ -30,8 +63,8 @@ class WarpBadgeView @JvmOverloads constructor(
             text = getText(0)
         }
         context.withStyledAttributes(attrs, R.styleable.WarpBadge) {
-            style = getStyle(getInt(R.styleable.WarpBadge_warpBadgeStyle, 0))
-            alignmentStyle = getAlignmentStyle(getInt(R.styleable.WarpBadge_alignmentStyle, 0))
+            style = stylesList[getInt(R.styleable.WarpBadge_warpBadgeStyle, 5)]
+            alignmentStyle = alignmentStylesList[getInt(R.styleable.WarpBadge_alignmentStyle, 0)]
         }
     }
 
@@ -45,23 +78,4 @@ class WarpBadgeView @JvmOverloads constructor(
             )
         }
     }
-
-    private fun getAlignmentStyle(alignmentInt: Int): WarpBadgeAlignment =
-        when (alignmentInt) {
-            1 -> WarpBadgeAlignment.TopStart
-            2 -> WarpBadgeAlignment.TopEnd
-            3 -> WarpBadgeAlignment.BottomStart
-            4 -> WarpBadgeAlignment.BottomEnd
-            else -> WarpBadgeAlignment.None
-        }
-
-    private fun getStyle(styleInt: Int): WarpBadgeStyle =
-        when (styleInt) {
-            0 -> WarpBadgeStyle.Info
-            1 -> WarpBadgeStyle.Success
-            2 -> WarpBadgeStyle.Warning
-            3 -> WarpBadgeStyle.Error
-            4 -> WarpBadgeStyle.Disabled
-            else -> WarpBadgeStyle.Neutral
-        }
 }

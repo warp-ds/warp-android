@@ -160,6 +160,8 @@
     <id name="warp_badge_negative_background" type="color" />
     <id name="warp_badge_disabled_background" type="color" />
     <id name="warp_badge_neutral_background" type="color" />
+    <id name="warp_badge_sponsored_background" type="color" />
+    <id name="warp_badge_price_background" type="color" />
 
     <!--*** BUTTON ***-->
     <id name="warp_button_loading_background_default" type="color" />

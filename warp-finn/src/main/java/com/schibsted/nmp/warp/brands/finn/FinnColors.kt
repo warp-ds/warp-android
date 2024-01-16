@@ -3,6 +3,7 @@
 package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.ui.graphics.Color
+import com.schibsted.nmp.warp.theme.Black70Alpha
 import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
@@ -206,6 +207,8 @@ internal object FinnBadgeColors : WarpBadgeColors {
     override val negativeBackground: Color = Red100
     override val disabledBackground: Color = FinnBackgroundColors.disabled
     override val neutralBackground: Color = Bluegray100
+    override val sponsoredBackground: Color = Aqua200
+    override val priceBackground: Color = Black70Alpha
 }
 
 internal object FinnButtonColors : WarpButtonColors {
