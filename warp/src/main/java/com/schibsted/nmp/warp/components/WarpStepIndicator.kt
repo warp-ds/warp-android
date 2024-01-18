@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -257,9 +256,9 @@ fun VerticalWarpStepIndicator(
                             .layoutId(StepIndicatorIds.LABEL)
                             .padding(start = dimensions.space3)
                     ) {
-                        Text(
+                        WarpText(
                             stepTitle(i),
-                            style = typography.bodyStrong
+                            style = WarpTextStyle.BodyStrong
                         )
                     }
                     Box(
@@ -695,7 +694,7 @@ fun HorizontalPreview() {
             )
 
             WarpButton(onClick = { active = (active + 1).mod(6)  }, buttonStyle = WarpButtonStyle.Primary) {
-                Text("Next")
+                WarpText("Next")
             }
         }
 }
@@ -712,10 +711,10 @@ internal fun VerticalPreview() {
                 activeStep = active,
                 onStepClicked = { active = it },
                 stepTitle = { "Step ${it + 1}" },
-                stepContent = { Text("Content", style = typography.caption) }
+                stepContent = { WarpText("Content", style = WarpTextStyle.Caption) }
             )
             WarpButton(onClick = { active = (active + 1).mod(6)  }, buttonStyle = WarpButtonStyle.Primary) {
-                Text("Next")
+                WarpText("Next")
             }
         }
 
