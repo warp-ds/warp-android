@@ -1,6 +1,7 @@
 package com.schibsted.nmp.warp.components
 
-import androidx.compose.foundation.layout.Box
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,29 +13,43 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 
 
 /**
- * An inline component used to display different types of messages.
+ * An inline component used to display different types of messages. Can display a title, a body, a link, a secondary button and a quiet button or all of these together.
  * For more information, look [here](https://warp-ds.github.io/tech-docs/components/alert/)
  *
  * @param modifier Modifier applied to the component. Defaults to [Modifier]
  * @param type The type of alert, this decides the look and icon of the component. Defaults to [WarpAlertType.Info]
  * @param title The title of the message
  * @param body An optional text with more information. Defaults to null
+ * @param linkText An optional text for a link. Defaults to null
+ * @param linkAction An optional action for the link. Defaults to null
+ * @param secondaryButtonText An optional text for a secondary button. Defaults to null
+ * @param secondaryButtonAction An optional action for the secondary button. Defaults to null
+ * @param quietButtonText An optional text for a quiet button. Defaults to null
+ * @param quietButtonAction An optional action for the quiet button. Defaults to null
  */
 @Composable
 fun WarpAlert(
     modifier: Modifier = Modifier,
     type: WarpAlertType = WarpAlertType.Info,
     title: String,
-    body: String? = null
+    body: String,
+    linkText: String? = null,
+    linkAction: (() -> Unit)? = null,
+    secondaryButtonText: String? = null,
+    secondaryButtonAction: (() -> Unit)? = null,
+    quietButtonText: String? = null,
+    quietButtonAction: (() -> Unit)? = null,
 ) {
     val (colors, icon) = when (type) {
         WarpAlertType.Info -> alertStyleInfo() to Icons.Filled.Info
@@ -58,7 +73,7 @@ fun WarpAlert(
                 vertical = dimensions.space25
             )
     ) {
-        val (iconRef, titleRef, bodyRef) = createRefs()
+        val (iconRef, titleRef, bodyRef, linkRef, secondaryBtnRef, quietBtnRef) = createRefs()
         Icon(
             modifier = Modifier.constrainAs(iconRef) {
                 start.linkTo(parent.start)
@@ -69,7 +84,10 @@ fun WarpAlert(
             imageVector = icon,
             contentDescription = ""
         )
+
         val margin = dimensions.space1
+        val buttonMargin = dimensions.space2
+
         WarpText(
             modifier = Modifier
                 .constrainAs(titleRef) {
@@ -81,54 +99,84 @@ fun WarpAlert(
             color = colors.text,
             style = WarpTextStyle.Title4
         )
-        body?.let {
+        WarpText(
+            modifier = Modifier
+                .constrainAs(bodyRef) {
+                    linkTo(
+                        start = iconRef.end,
+                        startMargin = margin,
+                        end = parent.end,
+                        bias = 0f
+                    )
+                    top.linkTo(titleRef.bottom, margin = margin)
+                    width = Dimension.preferredWrapContent
+                },
+            text = body,
+            color = colors.text,
+            style = WarpTextStyle.Body
+        )
+        linkText?.let {
             WarpText(
                 modifier = Modifier
-                    .constrainAs(bodyRef) {
+                    .constrainAs(linkRef) {
                         linkTo(
                             start = iconRef.end,
                             startMargin = margin,
                             end = parent.end,
                             bias = 0f
                         )
-                        top.linkTo(titleRef.bottom, margin = margin)
+                        top.linkTo(bodyRef.bottom, margin = margin)
+                        width = Dimension.preferredWrapContent
+                    }
+                    .clickable { linkAction?.invoke() },
+                text = linkText,
+                style = WarpTextStyle.Body,
+                color = WarpTheme.colors.text.link,
+                textDecoration = TextDecoration.Underline,
+            )
+        }
+        secondaryButtonText?.let {
+            val secondaryBtnAnchor = linkText?.let { linkRef.bottom } ?: bodyRef.bottom
+            WarpButton(
+                modifier = Modifier
+                    .constrainAs(secondaryBtnRef) {
+                        linkTo(
+                            start = iconRef.end,
+                            startMargin = margin,
+                            end = parent.end,
+                            bias = 0f
+                        )
+                        top.linkTo(secondaryBtnAnchor, margin = buttonMargin)
                         width = Dimension.preferredWrapContent
                     },
-                text = body,
-                color = colors.text,
-                style = WarpTextStyle.Body
+                text = secondaryButtonText,
+                onClick = { secondaryButtonAction?.invoke() },
+                buttonStyle = WarpButtonStyle.Secondary
+            )
+        }
+        quietButtonText?.let {
+            val quietBtnAnchorTop = linkText?.let { linkRef.bottom } ?: bodyRef.bottom
+            val quietBtnAnchorStart =
+                secondaryButtonText?.let { secondaryBtnRef.end } ?: iconRef.end
+            WarpButton(
+                modifier = Modifier
+                    .constrainAs(quietBtnRef) {
+                        linkTo(
+                            start = quietBtnAnchorStart,
+                            startMargin = margin,
+                            end = parent.end,
+                            bias = 0f
+                        )
+                        top.linkTo(quietBtnAnchorTop, margin = buttonMargin)
+                        width = Dimension.preferredWrapContent
+                    },
+                text = quietButtonText,
+                onClick = { quietButtonAction?.invoke() },
+                buttonStyle = WarpButtonStyle.Quiet
             )
         }
     }
 }
-
-@Composable
-fun WarpAlert(
-    modifier: Modifier = Modifier,
-    type: WarpAlertType = WarpAlertType.Info,
-    content: @Composable () -> Unit
-) {
-    val colors = when (type) {
-        WarpAlertType.Info -> alertStyleInfo()
-        WarpAlertType.Positive -> alertStylePositive()
-        WarpAlertType.Critical -> alertStyleNegative()
-        WarpAlertType.Warning -> alertStyleWarning()
-    }
-    Box(
-        modifier = modifier
-            .alertBorder(
-                dimensions.borderWidth3,
-                dimensions.borderWidth1,
-                colors.background,
-                colors.border,
-                colors.subtleBorder,
-                shapes.medium
-            )
-    ) {
-        content()
-    }
-}
-
 
 enum class WarpAlertType {
     Info,
@@ -216,6 +264,35 @@ fun WarpAlertPreview() {
             body = "With an additional description that is very long, so long that it will probably become a new line",
             type = WarpAlertType.Warning
         )
-
+        WarpAlert(
+            modifier = Modifier.padding(dimensions.space2),
+            title = "This is the positive variant with a quiet button",
+            body = "With an additional description",
+            type = WarpAlertType.Positive,
+            quietButtonText = "Quiet Button",
+            quietButtonAction = { Log.d("Warp", "Warp Alert Secondary button clicked") }
+        )
+        WarpAlert(
+            modifier = Modifier.padding(dimensions.space2),
+            title = "This is the critical variant of the alert element",
+            body = "With an additional description and buttons for further action",
+            type = WarpAlertType.Critical,
+            secondaryButtonText = "Button",
+            secondaryButtonAction = { Log.d("Warp", "Warp Alert Secondary button clicked") },
+            quietButtonText = "Quiet Button",
+            quietButtonAction = { Log.d("Warp", "Warp Alert Quiet button clicked") }
+        )
+        WarpAlert(
+            modifier = Modifier.padding(dimensions.space2),
+            title = "This is the info variant with all options",
+            body = "You can read more about much more. There's also buttons that you can click",
+            type = WarpAlertType.Warning,
+            linkText = "A link to read more here",
+            linkAction = { Log.d("Warp", "Warp Alert Link clicked") },
+            secondaryButtonText = "Button",
+            secondaryButtonAction = { Log.d("Warp", "Warp Alert Secondary button clicked") },
+            quietButtonText = "Quiet Button",
+            quietButtonAction = { Log.d("Warp", "Warp Alert Quiet button clicked") }
+        )
     }
 }

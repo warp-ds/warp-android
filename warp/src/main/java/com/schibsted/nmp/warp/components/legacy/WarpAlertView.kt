@@ -31,7 +31,7 @@ class WarpAlertView @JvmOverloads constructor(
             disposeComposition()
         }
 
-    var body: String? = null
+    var body: String = ""
         set(value) {
             field = value
             disposeComposition()
