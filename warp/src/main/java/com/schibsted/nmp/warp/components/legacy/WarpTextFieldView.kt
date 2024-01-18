@@ -46,17 +46,17 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
-    var optionalLabel = ""
+    var optionalLabel : String? = null
         set(value) {
             field = value
             disposeComposition()
         }
-    var placeholderText = ""
+    var placeholderText : String? = null
         set(value) {
             field = value
             disposeComposition()
         }
-    var helpText = ""
+    var helpText : String? = null
         set(value) {
             field = value
             disposeComposition()
@@ -68,7 +68,7 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
-    var leadingIconContentDescr = ""
+    var leadingIconContentDescr : String? = null
         set(value) {
             field = value
             disposeComposition()
@@ -80,7 +80,7 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
-    var trailingIconContentDescr = ""
+    var trailingIconContentDescr : String? = null
         set(value) {
             field = value
             disposeComposition()
@@ -95,7 +95,7 @@ class WarpTextFieldView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.WarpTextField) {
             textFieldEnabled = getBoolean(R.styleable.WarpTextField_textFieldEnabled, true)
             readOnly = getBoolean(R.styleable.WarpTextField_readOnly, false)
-            label = getTextFromIdOrString(R.styleable.WarpTextField_label, context)
+            label = getTextFromIdOrString(R.styleable.WarpTextField_label, context) ?: ""
             optionalLabel = getTextFromIdOrString(R.styleable.WarpTextField_optionalLabel, context)
             placeholderText =
                 getTextFromIdOrString(R.styleable.WarpTextField_placeholderText, context)

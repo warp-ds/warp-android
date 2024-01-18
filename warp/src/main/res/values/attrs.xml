@@ -80,6 +80,9 @@
         </attr>
         <attr name="title" format="reference|string" />
         <attr name="body" format="reference|string" />
+        <attr name="linkText" format="reference|string" />
+        <attr name="secondaryButtonText" format="reference|string" />
+        <attr name="quietButtonText" format="reference|string" />
     </declare-styleable>
 
     <declare-styleable name="WarpPill">

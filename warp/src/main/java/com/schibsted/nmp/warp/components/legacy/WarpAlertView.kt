@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.components.legacy
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View.OnClickListener
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.core.content.withStyledAttributes
@@ -37,6 +38,45 @@ class WarpAlertView @JvmOverloads constructor(
             disposeComposition()
         }
 
+    var linkText: String? = null
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    private var linkAction: OnClickListener? = null
+
+    fun setLinkOnClickListener(onClick: OnClickListener?) {
+        linkAction = OnClickListener { }
+        onClick?.let { linkAction = it }
+    }
+
+    var secondaryButtonText: String? = null
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    private var secondaryButtonAction: OnClickListener? = null
+
+    fun setSecondaryButtonOnClickListener(onClick: OnClickListener?) {
+        secondaryButtonAction = OnClickListener { }
+        onClick?.let { secondaryButtonAction = it }
+    }
+
+    var quietButtonText: String? = null
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    private var quietButtonAction: OnClickListener? = null
+
+    fun setQuietButtonOnClickListener(onClick: OnClickListener?) {
+        quietButtonAction = OnClickListener { }
+        onClick?.let { quietButtonAction = it }
+    }
+
     private var typesList = listOf(
         WarpAlertType.Info,
         WarpAlertType.Positive,
@@ -47,8 +87,13 @@ class WarpAlertView @JvmOverloads constructor(
     init {
         context.withStyledAttributes(attrs, R.styleable.WarpAlertView) {
             type = typesList[getInt(R.styleable.WarpAlertView_warpAlertType, 0)]
-            title = getTextFromIdOrString(R.styleable.WarpAlertView_title, context)
-            body = getTextFromIdOrString(R.styleable.WarpAlertView_body, context)
+            title = getTextFromIdOrString(R.styleable.WarpAlertView_title, context) ?: ""
+            body = getTextFromIdOrString(R.styleable.WarpAlertView_body, context) ?: ""
+            linkText = getTextFromIdOrString(R.styleable.WarpAlertView_linkText, context)
+            secondaryButtonText =
+                getTextFromIdOrString(R.styleable.WarpAlertView_secondaryButtonText, context)
+            quietButtonText =
+                getTextFromIdOrString(R.styleable.WarpAlertView_quietButtonText, context)
         }
     }
 
@@ -58,7 +103,13 @@ class WarpAlertView @JvmOverloads constructor(
             WarpAlert(
                 type = type,
                 title = title,
-                body = body
+                body = body,
+                linkText = linkText,
+                linkAction = { linkAction?.onClick(this@WarpAlertView) },
+                secondaryButtonText = secondaryButtonText,
+                secondaryButtonAction = { secondaryButtonAction?.onClick(this@WarpAlertView) },
+                quietButtonText = quietButtonText,
+                quietButtonAction = { quietButtonAction?.onClick(this@WarpAlertView) }
             )
         }
     }

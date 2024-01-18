@@ -62,7 +62,7 @@ class WarpTextView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.WarpText) {
             val styleInt = getInteger(R.styleable.WarpText_warpTextStyle, 0)
             style = stylesList.first { it.first == styleInt }.second
-            text = getTextFromIdOrString(R.styleable.WarpText_text, context)
+            text = getTextFromIdOrString(R.styleable.WarpText_text, context) ?: ""
             color = getColor(R.styleable.WarpText_color, 0)
         }
     }
