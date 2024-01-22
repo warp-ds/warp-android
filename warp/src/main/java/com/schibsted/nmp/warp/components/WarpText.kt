@@ -12,6 +12,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.LocalColors
@@ -30,6 +31,7 @@ fun WarpText(
     textAlign: TextAlign? = null,
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
+    textDecoration: TextDecoration? = null,
 ) {
     CompositionLocalProvider(
         LocalColors provides colors,
@@ -48,7 +50,8 @@ fun WarpText(
             maxLines = maxLines,
             textAlign = textAlign,
             overflow = overflow,
-            softWrap = softWrap
+            softWrap = softWrap,
+            textDecoration = textDecoration
         )
     }
 }

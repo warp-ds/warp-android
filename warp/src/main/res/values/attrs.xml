@@ -71,15 +71,18 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="WarpAlertBoxView">
+    <declare-styleable name="WarpAlertView">
         <attr name="warpAlertType" format="enum">
             <enum name="info" value="0" />
             <enum name="positive" value="1" />
-            <enum name="negative" value="2" />
+            <enum name="critical" value="2" />
             <enum name="warning" value="3" />
         </attr>
         <attr name="title" format="reference|string" />
         <attr name="body" format="reference|string" />
+        <attr name="linkText" format="reference|string" />
+        <attr name="secondaryButtonText" format="reference|string" />
+        <attr name="quietButtonText" format="reference|string" />
     </declare-styleable>
 
     <declare-styleable name="WarpPill">

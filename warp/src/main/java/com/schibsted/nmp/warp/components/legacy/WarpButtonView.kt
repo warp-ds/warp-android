@@ -81,7 +81,7 @@ class WarpButtonView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.WarpButton) {
             val styleInt = getInteger(R.styleable.WarpButton_warpButtonStyle, 0)
             style = stylesList[styleInt]
-            text = getTextFromIdOrString(R.styleable.WarpButton_buttonText, context)
+            text = getTextFromIdOrString(R.styleable.WarpButton_buttonText, context) ?: ""
             loading = getBoolean(R.styleable.WarpButton_loading, false)
             buttonEnabled = getBoolean(R.styleable.WarpButton_enabled, true)
         }

@@ -7,8 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.components.WarpAlert
-import com.schibsted.nmp.warp.components.WarpAlertType
 import com.schibsted.nmp.warp.components.WarpBox
 import com.schibsted.nmp.warp.components.WarpBoxStyle
 import com.schibsted.nmp.warp.components.WarpButton
@@ -41,25 +39,6 @@ private fun ExpandableScreenContent() {
                 Column(Modifier.padding(bottom = 8.dp)) {
                     WarpText("Here we have a little text. But we can add pretty much anything so why not a button")
                     WarpButton(onClick = {  }, buttonStyle = WarpButtonStyle.Utility) {
-                        WarpText("Click me")
-                    }
-                }
-            }
-        }
-
-        WarpText(modifier = Modifier.padding(top = 16.dp), text = "WarpExpandable inside alert")
-        WarpAlert(
-            modifier = Modifier.padding(16.dp),
-            type = WarpAlertType.Info
-        ) {
-            WarpExpandable(
-                modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
-                title = "Title",
-                initiallyExpanded = true
-            ) {
-                Column(Modifier.padding(bottom = 8.dp)) {
-                    WarpText("Here we have a little text. But we can add pretty much anything so why not a button")
-                    WarpButton(onClick = {}, buttonStyle = WarpButtonStyle.Utility) {
                         WarpText("Click me")
                     }
                 }

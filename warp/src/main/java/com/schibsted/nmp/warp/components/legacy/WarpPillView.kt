@@ -49,7 +49,7 @@ class WarpPillView @JvmOverloads constructor(
         pillSelected = selected
     }
 
-    var iconContentDescription = ""
+    var iconContentDescription : String? = null
         set(value) {
             field = value
             disposeComposition()
@@ -70,7 +70,7 @@ class WarpPillView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.WarpPill) {
             val styleInt = getInteger(R.styleable.WarpPill_warpPillStyle, 0)
             style = stylesList[styleInt]
-            text = getTextFromIdOrString(R.styleable.WarpPill_pillText, context)
+            text = getTextFromIdOrString(R.styleable.WarpPill_pillText, context) ?: ""
             iconContentDescription =
                 getTextFromIdOrString(R.styleable.WarpPill_iconContentDescr, context)
             pillSelected = getBoolean(R.styleable.WarpPill_selected, false)
