@@ -32,76 +32,120 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-            var text by remember { mutableStateOf("")}
-            var showError by remember { mutableStateOf(false)}
-            var showLabel by remember { mutableStateOf(false)}
-            var showHint by remember { mutableStateOf(false)}
-            var showPlaceholder by remember { mutableStateOf(false)}
-            var showLeadingIcon by remember { mutableStateOf(false)}
-            var showTrailingIcon by remember { mutableStateOf(false)}
+            var text by remember { mutableStateOf("") }
+            var showError by remember { mutableStateOf(false) }
+            var showLabel by remember { mutableStateOf(false) }
+            var showHint by remember { mutableStateOf(false) }
+            var showPlaceholder by remember { mutableStateOf(false) }
+            var showLeadingIcon by remember { mutableStateOf(false) }
+            var showTrailingIcon by remember { mutableStateOf(false) }
             var readOnly by remember { mutableStateOf(false) }
             var disabled by remember { mutableStateOf(false) }
             val label = "This is the label"
             val helpText = "This is the supporting text"
-            val hintText = "This is the placeholder"
-            val trailingIcon: @Composable () -> Unit = { Icon(Icons.Filled.DateRange, contentDescription = "Content description for the trailing icon") }
-            val leadingIcon: @Composable () -> Unit = { Icon(Icons.Filled.Email, contentDescription = "Content description for the leading icon") }
+            val placeholderText = "This is the placeholder"
+            val trailingIcon: @Composable () -> Unit = {
+                Icon(
+                    Icons.Filled.DateRange,
+                    contentDescription = "Content description for the trailing icon"
+                )
+            }
+            val leadingIcon: @Composable () -> Unit = {
+                Icon(
+                    Icons.Filled.Email,
+                    contentDescription = "Content description for the leading icon"
+                )
+            }
 
 
             Column(
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                WarpText("Standard with hint", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpText(
+                    "Text field only",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
-                    helpText = "A hint",
-                    label = "Standard",
-                    placeholderText = hintText.takeIf { showPlaceholder },
-                    )
+                )
             }
             Column(
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                WarpText("Optional with placeholder", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpText(
+                    "With a label and a placeholder",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
                     label = "A label",
-                    optionalLabel = "Optional",
                     placeholderText = "A placeholder",
                 )
             }
             Column(
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                WarpText("Disabled", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpText(
+                    "With a label, optional label, placeholder and help text",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
-                    label = "A optional label",
-                    enabled = false
+                    label = "A label",
+                    optionalLabel = "Optional",
+                    placeholderText = "A placeholder",
+                    helpText = "Help text"
                 )
             }
             Column(
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                WarpText("Read-only", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpText(
+                    "Disabled state",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
                 WarpTextField(
-                    value = "Read only",
+                    value = text,
                     onValueChange = { text = it },
-                    label = "A optional label",
+                    label = "A label",
+                    enabled = false,
+                    helpText = "Disabled"
+                )
+            }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText(
+                    "Read-only state",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+                WarpTextField(
+                    value = "Value",
+                    onValueChange = { text = it },
+                    label = "A label",
                     readOnly = true
                 )
             }
             Column(
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                WarpText("Invalid", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
-                WarpTextField(
+                WarpText(
+                    "Error state",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+                val errorTextField = WarpTextField(
                     value = text,
                     onValueChange = { text = it },
-                    label = "A optional label",
+                    label = "A label",
                     helpText = "Error!",
                     isError = true
                 )
@@ -109,19 +153,55 @@ fun TextFieldScreen(onUp: () -> Unit) {
             Column(
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
-                WarpText("Icons", style = WarpTextStyle.Body, modifier = Modifier.padding(vertical = 16.dp))
+                WarpText(
+                    "With prefix",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+                WarpTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    label = "A label",
+                    prefixText = "kr"
+                )
+            }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText(
+                    "With suffix",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+                WarpTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    label = "A  label",
+                    suffixText = "kronor"
+                )
+            }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText(
+                    "Icons",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
                 Row(
                     modifier = Modifier.padding(top = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Checkbox(checked = showLeadingIcon, onCheckedChange = {showLeadingIcon = it})
+                    Checkbox(checked = showLeadingIcon, onCheckedChange = { showLeadingIcon = it })
                     WarpText("Show leading icon")
                 }
                 Row(
                     modifier = Modifier.padding(top = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Checkbox(checked = showTrailingIcon, onCheckedChange = {showTrailingIcon = it})
+                    Checkbox(
+                        checked = showTrailingIcon,
+                        onCheckedChange = { showTrailingIcon = it })
                     WarpText("Show trailing icon")
                 }
                 WarpTextField(
@@ -129,10 +209,10 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     onValueChange = { text = it },
                     isError = showError,
                     label = "With icons",
+                    helpText = "Helping text",
                     leadingIcon = leadingIcon.takeIf { showLeadingIcon },
                     trailingIcon = trailingIcon.takeIf { showTrailingIcon },
-
-                    )
+                )
             }
         }
     }
