@@ -61,6 +61,16 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
+    var prefixText : String? = null
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+    var suffixText : String? = null
+        set(value) {
+            field = value
+            disposeComposition()
+        }
 
     @DrawableRes
     var leadingIcon = 0
@@ -90,6 +100,16 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
+    var singleLine = false
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+    var maxLines = Int.MAX_VALUE
+        set(value) {
+            field = value
+            disposeComposition()
+        }
 
     init {
         context.withStyledAttributes(attrs, R.styleable.WarpTextField) {
@@ -100,6 +120,8 @@ class WarpTextFieldView @JvmOverloads constructor(
             placeholderText =
                 getTextFromIdOrString(R.styleable.WarpTextField_placeholderText, context)
             helpText = getTextFromIdOrString(R.styleable.WarpTextField_helpText, context)
+            suffixText = getTextFromIdOrString(R.styleable.WarpTextField_suffixText, context)
+            prefixText = getTextFromIdOrString(R.styleable.WarpTextField_prefixText, context)
             leadingIcon = getResourceId(R.styleable.WarpTextField_leadingIcon, 0)
             leadingIconContentDescr =
                 getTextFromIdOrString(R.styleable.WarpTextField_leadingIconContentDescr, context)
@@ -107,6 +129,8 @@ class WarpTextFieldView @JvmOverloads constructor(
             trailingIconContentDescr =
                 getTextFromIdOrString(R.styleable.WarpTextField_trailingIconContentDescr, context)
             isError = getBoolean(R.styleable.WarpTextField_isError, false)
+            singleLine = getBoolean(R.styleable.WarpTextField_singleLine, false)
+            maxLines = getInt(R.styleable.WarpTextField_maxLines, Int.MAX_VALUE)
         }
     }
 
@@ -134,6 +158,8 @@ class WarpTextFieldView @JvmOverloads constructor(
                 optionalLabel = optionalLabel,
                 placeholderText = placeholderText,
                 helpText = helpText,
+                prefixText = prefixText,
+                suffixText = suffixText,
                 leadingIcon = if (leadingIcon != 0) ({
                     Icon(
                         painterResource(id = leadingIcon),
@@ -150,7 +176,9 @@ class WarpTextFieldView @JvmOverloads constructor(
                         )
                     }
                 } else null,
-                isError = isError
+                isError = isError,
+                singleLine = singleLine,
+                maxLines = maxLines,
             )
         }
     }
