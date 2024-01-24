@@ -36,6 +36,7 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val subtleActive = Bluegray200
     override val selected = Blue50
     override val selectedHover = Blue100
+    override val selectedActive = Blue200
 
     override val inverted = Gray900
 
@@ -58,6 +59,7 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val positiveSubtleActive = Green200
     override val positiveSelected = Green50
     override val positiveSelectedHover = Green100
+    override val positiveSelectedActive = Green200
 
     override val negative = Red600
     override val negativeHover = Red700
@@ -67,6 +69,7 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val negativeSubtleActive = Red200
     override val negativeSelected = Red50
     override val negativeSelectedHover = Red100
+    override val negativeSelectedActive = Red200
 
     override val warning = Yellow600
     override val warningHover = Yellow700
@@ -76,6 +79,7 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val warningSubtleActive = Yellow200
     override val warningSelected = Yellow50
     override val warningSelectedHover = Yellow100
+    override val warningSelectedActive = Yellow200
 
     override val info = Aqua600
     override val infoHover = Aqua700
@@ -85,6 +89,7 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val infoSubtleActive = Aqua200
     override val infoSelected = Aqua50
     override val infoSelectedHover = Aqua100
+    override val infoSelectedActive = Aqua200
 
     override val notification = Red600
 }
@@ -96,6 +101,7 @@ internal object FinnBorderColors : WarpBorderColors {
     override val disabled = Bluegray300
     override val selected = Blue600
     override val selectedHover = Blue700
+    override val selectedActive = Blue800
     override val focus = Aqua400
 
     override val primary = Blue600
@@ -144,6 +150,7 @@ internal object FinnIconColors : WarpIconColors {
     override val active = Blue700
     override val selected = Blue600
     override val selectedHover = Blue700
+    override val selectedActive = Blue800
     override val disabled = Bluegray300
     override val subtle = Bluegray400
     override val subtleHover = Bluegray500
