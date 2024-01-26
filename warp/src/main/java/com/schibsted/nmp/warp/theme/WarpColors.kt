@@ -26,6 +26,7 @@ interface WarpBackgroundColors {
     val subtleActive : Color
     val selected : Color
     val selectedHover : Color
+    val selectedActive : Color
 
     val inverted : Color
 
@@ -48,6 +49,7 @@ interface WarpBackgroundColors {
     val positiveSubtleActive : Color
     val positiveSelected : Color
     val positiveSelectedHover : Color
+    val positiveSelectedActive : Color
 
     val negative : Color
     val negativeHover : Color
@@ -57,6 +59,7 @@ interface WarpBackgroundColors {
     val negativeSubtleActive : Color
     val negativeSelected : Color
     val negativeSelectedHover : Color
+    val negativeSelectedActive : Color
 
     val warning : Color
     val warningHover : Color
@@ -66,6 +69,7 @@ interface WarpBackgroundColors {
     val warningSubtleActive : Color
     val warningSelected : Color
     val warningSelectedHover : Color
+    val warningSelectedActive : Color
 
     val info : Color
     val infoHover : Color
@@ -75,6 +79,7 @@ interface WarpBackgroundColors {
     val infoSubtleActive : Color
     val infoSelected : Color
     val infoSelectedHover : Color
+    val infoSelectedActive : Color
 
     val notification : Color
 }
@@ -86,6 +91,7 @@ interface WarpBorderColors {
     val disabled : Color
     val selected : Color
     val selectedHover : Color
+    val selectedActive : Color
     val focus : Color
 
     val primary : Color
@@ -134,6 +140,7 @@ interface WarpIconColors {
     val active : Color
     val selected : Color
     val selectedHover : Color
+    val selectedActive : Color
     val disabled : Color
     val subtle : Color
     val subtleHover : Color

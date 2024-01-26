@@ -36,6 +36,7 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val subtleActive = Gray200
     override val selected = Blueberry50
     override val selectedHover = Blueberry100
+    override val selectedActive = Blueberry200
 
     override val inverted = Gray900
 
@@ -58,6 +59,7 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val positiveSubtleActive = Green200
     override val positiveSelected = Green50
     override val positiveSelectedHover = Green100
+    override val positiveSelectedActive = Green200
 
     override val negative = Red600
     override val negativeHover = Red700
@@ -67,6 +69,7 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val negativeSubtleActive = Red200
     override val negativeSelected = Red50
     override val negativeSelectedHover = Red100
+    override val negativeSelectedActive = Red200
 
     override val warning = Yellow600
     override val warningHover = Yellow700
@@ -76,6 +79,7 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val warningSubtleActive = Yellow200
     override val warningSelected = Yellow50
     override val warningSelectedHover = Yellow100
+    override val warningSelectedActive = Yellow200
 
     override val info = Blue600
     override val infoHover = Blue700
@@ -85,6 +89,7 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val infoSubtleActive = Blue200
     override val infoSelected = Blue50
     override val infoSelectedHover = Blue100
+    override val infoSelectedActive = Blue200
 
     override val notification = Red600
 }
@@ -96,6 +101,7 @@ internal object ToriBorderColors : WarpBorderColors {
     override val disabled = Gray300
     override val selected = Blueberry600
     override val selectedHover = Blueberry700
+    override val selectedActive = Blueberry800
     override val focus = Blue300
 
     override val primary = Blueberry600
@@ -144,6 +150,7 @@ internal object ToriIconColors : WarpIconColors {
     override val active = Gray900
     override val selected = Blueberry600
     override val selectedHover = Blueberry700
+    override val selectedActive = Blueberry800
     override val disabled = Gray300
     override val subtle = Gray400
     override val subtleHover = Gray500

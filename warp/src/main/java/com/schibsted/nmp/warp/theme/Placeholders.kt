@@ -24,6 +24,7 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val subtleActive = Color.Unspecified
     override val selected = Color.Unspecified
     override val selectedHover = Color.Unspecified
+    override val selectedActive = Color.Unspecified
 
     override val inverted = Color.Unspecified
 
@@ -46,6 +47,7 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val positiveSubtleActive = Color.Unspecified
     override val positiveSelected = Color.Unspecified
     override val positiveSelectedHover = Color.Unspecified
+    override val positiveSelectedActive = Color.Unspecified
 
     override val negative = Color.Unspecified
     override val negativeHover = Color.Unspecified
@@ -55,6 +57,7 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val negativeSubtleActive = Color.Unspecified
     override val negativeSelected = Color.Unspecified
     override val negativeSelectedHover = Color.Unspecified
+    override val negativeSelectedActive = Color.Unspecified
 
     override val warning = Color.Unspecified
     override val warningHover = Color.Unspecified
@@ -64,6 +67,7 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val warningSubtleActive = Color.Unspecified
     override val warningSelected = Color.Unspecified
     override val warningSelectedHover = Color.Unspecified
+    override val warningSelectedActive = Color.Unspecified
 
     override val info = Color.Unspecified
     override val infoHover = Color.Unspecified
@@ -73,6 +77,7 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val infoSubtleActive = Color.Unspecified
     override val infoSelected = Color.Unspecified
     override val infoSelectedHover = Color.Unspecified
+    override val infoSelectedActive = Color.Unspecified
 
     override val notification = Color.Unspecified
 }
@@ -84,6 +89,7 @@ private object PlaceholderWarpBorderColors : WarpBorderColors {
     override val disabled = Color.Unspecified
     override val selected = Color.Unspecified
     override val selectedHover = Color.Unspecified
+    override val selectedActive = Color.Unspecified
     override val focus: Color = Color.Unspecified
 
     override val primary = Color.Unspecified
@@ -132,6 +138,7 @@ private object PlaceholderWarpIconColors : WarpIconColors {
     override val active = Color.Unspecified
     override val selected = Color.Unspecified
     override val selectedHover = Color.Unspecified
+    override val selectedActive = Color.Unspecified
     override val disabled = Color.Unspecified
     override val subtle = Color.Unspecified
     override val subtleHover = Color.Unspecified
