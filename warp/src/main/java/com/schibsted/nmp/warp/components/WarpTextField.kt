@@ -3,20 +3,30 @@
 package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,7 +52,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
  * @param trailingIcon The icon to be displayed on the right side of the textfield
  * @param isError set to true to show the error state of the textfield. default value is false
  * @param visualTransformation The visual transformation to be applied on the textfield. default value is VisualTransformation.None
- * @param keyboardOptions The keyboard options to be applied on the textfield. default value is KeyboardOptions.Default
+ * @param keyboardOptions The keyboard options to be applied on the textfield. default value is KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
  * @param keyboardActions The keyboard actions to be applied on the textfield. default value is KeyboardActions.Default
  * @param singleLine set to true to limit the textfield to single line. default value is false
  * @param maxLines The maximum number of lines to be displayed on the textfield. default value is Int.MAX_VALUE
@@ -65,7 +75,7 @@ fun WarpTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
@@ -84,7 +94,7 @@ fun WarpTextField(
         unfocusedContainerColor = colors.background.default,
 
         focusedTextColor = colors.text.default,
-        focusedBorderColor = colors.border.selected.ifTrueOtherwise(!readOnly) { Color.Transparent },
+        focusedBorderColor = colors.border.focus.ifTrueOtherwise(!readOnly) { Color.Transparent },
         focusedLeadingIconColor = colors.icon.default,
         focusedSupportingTextColor = colors.text.default,
         focusedTrailingIconColor = colors.icon.default,
@@ -94,7 +104,6 @@ fun WarpTextField(
         focusedContainerColor = colors.background.default,
 
         cursorColor = colors.icon.default,
-
         errorTextColor = colors.text.negative,
         errorCursorColor = colors.border.negative,
         errorLabelColor = colors.text.negative,
@@ -116,8 +125,6 @@ fun WarpTextField(
         disabledTrailingIconColor = colors.icon.disabled,
         disabledPlaceholderColor = colors.text.disabled
     )
-    val helpTextColor =
-        if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default
 
     val placeholder: @Composable () -> Unit = {
         placeholderText?.let {
@@ -168,31 +175,75 @@ fun WarpTextField(
             }
         }
 
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = modifier,
-            enabled = enabled,
-            readOnly = readOnly,
-            textStyle = typography.body,
-            label = null,
-            placeholder = placeholder,
-            leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon,
-            prefix = prefix,
-            suffix = suffix,
-            supportingText = null,
-            isError = isError,
-            visualTransformation = visualTransformation,
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
-            singleLine = singleLine,
-            maxLines = maxLines,
-            minLines = 1,
-            interactionSource = interactionSource,
-            shape = OutlinedTextFieldDefaults.shape,
-            colors = textFieldColors
+        val focused by interactionSource.collectIsFocusedAsState()
+
+        //Value text color should change to default if isError is true and the textfield is focused
+        val textColorValue = when {
+            !enabled -> colors.text.disabled
+            focused -> colors.text.default
+            isError -> colors.text.negative
+            else -> colors.text.default
+        }
+        val textColor = rememberUpdatedState(textColorValue).value
+        //Help text color should remain the same if isError is true and the textfield is focused
+        val helpTextColor = rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default).value
+        val mergedTextStyle = typography.body.merge(TextStyle(color = textColor))
+        val cursorColor = rememberUpdatedState(if (isError) colors.icon.negative else colors.icon.default).value
+        val cursorHandleColor = rememberUpdatedState(if (isError) colors.icon.negative else colors.border.focus).value
+
+        val customTextSelectionColors = TextSelectionColors(
+                handleColor = cursorHandleColor,
+                backgroundColor = cursorHandleColor,
         )
+        CompositionLocalProvider(
+            LocalTextSelectionColors provides customTextSelectionColors
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                modifier = modifier,
+                enabled = enabled,
+                readOnly = readOnly,
+                textStyle = mergedTextStyle,
+                cursorBrush = SolidColor(cursorColor),
+                visualTransformation = visualTransformation,
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                singleLine = singleLine,
+                maxLines = maxLines,
+                minLines = 1,
+                interactionSource = interactionSource,
+                decorationBox = @Composable { innerTextField ->
+                    OutlinedTextFieldDefaults.DecorationBox(
+                        value = value,
+                        visualTransformation = visualTransformation,
+                        innerTextField = innerTextField,
+                        placeholder = placeholder,
+                        label = null,
+                        leadingIcon = leadingIcon,
+                        trailingIcon = trailingIcon,
+                        prefix = prefix,
+                        suffix = suffix,
+                        supportingText = null,
+                        singleLine = singleLine,
+                        enabled = enabled,
+                        isError = isError,
+                        interactionSource = interactionSource,
+                        colors = textFieldColors,
+                        contentPadding = PaddingValues(start = dimensions.space2.ifTrueOtherwise(!readOnly) { 0.dp }, top = dimensions.space2, end = dimensions.space2, bottom = dimensions.space2),
+                        container = {
+                            OutlinedTextFieldDefaults.ContainerBox(
+                                enabled,
+                                isError,
+                                interactionSource,
+                                textFieldColors,
+                                OutlinedTextFieldDefaults.shape
+                            )
+                        }
+                    )
+                }
+            )
+        }
         helpText?.let {
             Row(
                 horizontalArrangement = Arrangement.Start,

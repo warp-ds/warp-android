@@ -69,6 +69,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
             Column(
@@ -84,6 +85,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     onValueChange = { text = it },
                     label = "A label",
                     placeholderText = "A placeholder",
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
             Column(
@@ -97,6 +99,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
+                    modifier = Modifier.fillMaxWidth(),
                     label = "A label",
                     optionalLabel = "Optional",
                     placeholderText = "A placeholder",
@@ -114,6 +117,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
+                    modifier = Modifier.fillMaxWidth(),
                     label = "A label",
                     enabled = false,
                     helpText = "Disabled"
@@ -128,8 +132,9 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     modifier = Modifier.padding(vertical = 16.dp)
                 )
                 WarpTextField(
-                    value = "Value",
+                    value = "Read only value",
                     onValueChange = { text = it },
+                    modifier = Modifier.fillMaxWidth(),
                     label = "A label",
                     readOnly = true
                 )
@@ -142,9 +147,10 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     style = WarpTextStyle.Body,
                     modifier = Modifier.padding(vertical = 16.dp)
                 )
-                val errorTextField = WarpTextField(
+                WarpTextField(
                     value = text,
                     onValueChange = { text = it },
+                    modifier = Modifier.fillMaxWidth(),
                     label = "A label",
                     helpText = "Error!",
                     isError = true
@@ -161,6 +167,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
+                    modifier = Modifier.fillMaxWidth(),
                     label = "A label",
                     prefixText = "kr"
                 )
@@ -176,6 +183,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
+                    modifier = Modifier.fillMaxWidth(),
                     label = "A  label",
                     suffixText = "kronor"
                 )
@@ -207,6 +215,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
+                    modifier = Modifier.fillMaxWidth(),
                     isError = showError,
                     label = "With icons",
                     helpText = "Helping text",
