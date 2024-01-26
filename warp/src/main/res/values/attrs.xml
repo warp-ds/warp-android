@@ -44,11 +44,15 @@
         <attr name="optionalLabel" format="reference|string"/>
         <attr name="placeholderText" format="reference|string"/>
         <attr name="helpText" format="reference|string"/>
+        <attr name="prefixText" format="reference|string"/>
+        <attr name="suffixText" format="reference|string"/>
         <attr name="leadingIcon" format="reference"/>
         <attr name="leadingIconContentDescr" format="reference|string"/>
         <attr name="trailingIcon" format="reference"/>
         <attr name="trailingIconContentDescr" format="reference|string"/>
         <attr name="isError" format="boolean"/>
+        <attr name="singleLine" format="boolean"/>
+        <attr name="maxLines" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="WarpBadge" >

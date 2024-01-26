@@ -97,7 +97,7 @@ internal object FinnDarkBorderColors : WarpBorderColors {
     override val default = Bluegray600
     override val hover = Bluegray700
     override val active = Bluegray800
-    override val disabled = Bluegray300
+    override val disabled = Bluegray700
     override val selected = Blue500
     override val selectedHover = Blue600
     override val selectedActive = Blue500
