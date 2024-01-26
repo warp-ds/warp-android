@@ -3,7 +3,9 @@ package com.schibsted.nmp.warp.components.legacy
 import android.content.Context
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.core.content.withStyledAttributes
@@ -41,27 +43,34 @@ class WarpTextView @JvmOverloads constructor(
             disposeComposition()
         }
 
+    private var clickListener : OnClickListener? = null
+
+    override fun setOnClickListener(onCLick: OnClickListener?) {
+        onCLick?.let { clickListener = it }
+    }
+
     private var stylesList = listOf(
-        Pair(0, WarpTextStyle.Display),
-        Pair(1, WarpTextStyle.Title1),
-        Pair(2, WarpTextStyle.Title2),
-        Pair(3, WarpTextStyle.Title3),
-        Pair(4, WarpTextStyle.Title4),
-        Pair(5, WarpTextStyle.Title5),
-        Pair(6, WarpTextStyle.Title6),
-        Pair(7, WarpTextStyle.Preamble),
-        Pair(8, WarpTextStyle.Body),
-        Pair(9, WarpTextStyle.BodyStrong),
-        Pair(10, WarpTextStyle.Caption),
-        Pair(11, WarpTextStyle.CaptionStrong),
-        Pair(12, WarpTextStyle.Detail),
-        Pair(13, WarpTextStyle.DetailStrong),
+        WarpTextStyle.Display,
+        WarpTextStyle.Title1,
+        WarpTextStyle.Title2,
+        WarpTextStyle.Title3,
+        WarpTextStyle.Title4,
+        WarpTextStyle.Title5,
+        WarpTextStyle.Title6,
+        WarpTextStyle.Preamble,
+        WarpTextStyle.Body,
+        WarpTextStyle.BodyStrong,
+        WarpTextStyle.Caption,
+        WarpTextStyle.CaptionStrong,
+        WarpTextStyle.Detail,
+        WarpTextStyle.DetailStrong
+
     )
 
     init {
         context.withStyledAttributes(attrs, R.styleable.WarpText) {
-            val styleInt = getInteger(R.styleable.WarpText_warpTextStyle, 0)
-            style = stylesList.first { it.first == styleInt }.second
+            val styleInt = getInteger(R.styleable.WarpText_warpTextStyle, 8)
+            style = stylesList[styleInt]
             text = getTextFromIdOrString(R.styleable.WarpText_text, context) ?: ""
             color = getColor(R.styleable.WarpText_color, 0)
         }
@@ -71,7 +80,12 @@ class WarpTextView @JvmOverloads constructor(
     override fun Content() {
         theme {
             val textColor = if (color == 0) WarpTheme.colors.text.default else Color(color)
-            WarpText(text = text, style = style, color = textColor)
+            val modifier = clickListener?.let { Modifier.clickable { it.onClick(this@WarpTextView)} }  ?: Modifier
+            WarpText(
+                text = text,
+                modifier = modifier,
+                style = style,
+                color = textColor)
         }
     }
 }
