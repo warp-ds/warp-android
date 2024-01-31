@@ -3,7 +3,6 @@
 package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.ui.graphics.Color
-import com.schibsted.nmp.warp.theme.Black70Alpha
 import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
@@ -17,6 +16,8 @@ import com.schibsted.nmp.warp.theme.WarpPillColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.White
 
+internal val styleDictionaryColors = StyleDictionaryColorFinnLight
+
 internal object FinnColors : WarpColors {
     override val background: WarpBackgroundColors = FinnBackgroundColors
     override val border: WarpBorderColors = FinnBorderColors
@@ -26,160 +27,160 @@ internal object FinnColors : WarpColors {
 }
 
 internal object FinnBackgroundColors : WarpBackgroundColors {
-    override val default = White
-    override val hover = Bluegray100
-    override val active = Bluegray200
-    override val disabled = Bluegray300
-    override val disabledSubtle = Bluegray200
-    override val subtle = Bluegray50
-    override val subtleHover = Bluegray100
-    override val subtleActive = Bluegray200
-    override val selected = Blue50
-    override val selectedHover = Blue100
-    override val selectedActive = Blue200
+    override val default = styleDictionaryColors.semanticBackgroundDefault
+    override val hover = styleDictionaryColors.semanticBackgroundHover
+    override val active = styleDictionaryColors.semanticBackgroundActive
+    override val disabled = styleDictionaryColors.semanticBackgroundDisabled
+    override val disabledSubtle = styleDictionaryColors.semanticBackgroundDisabledSubtle
+    override val subtle = styleDictionaryColors.semanticBackgroundSubtle
+    override val subtleHover = styleDictionaryColors.semanticBackgroundSubtleHover
+    override val subtleActive = styleDictionaryColors.semanticBackgroundSubtleActive
+    override val selected = styleDictionaryColors.semanticBackgroundSelected
+    override val selectedHover = styleDictionaryColors.semanticBackgroundSelectedHover
+    override val selectedActive = Blue200//styleDictionaryColors.semanticBackgroundSelectedActive
 
-    override val inverted = Gray900
+    override val inverted = styleDictionaryColors.semanticBackgroundInverted
 
-    override val primary = Blue600
-    override val primaryHover = Blue700
-    override val primaryActive = Blue800
-    override val primarySubtle = Blue50
-    override val primarySubtleHover = Blue100
-    override val primarySubtleActive = Blue200
+    override val primary = styleDictionaryColors.semanticBackgroundPrimary
+    override val primaryHover = styleDictionaryColors.semanticBackgroundPrimaryHover
+    override val primaryActive = styleDictionaryColors.semanticBackgroundPrimaryActive
+    override val primarySubtle = styleDictionaryColors.semanticBackgroundPrimarySubtle
+    override val primarySubtleHover = styleDictionaryColors.semanticBackgroundPrimarySubtleHover
+    override val primarySubtleActive = styleDictionaryColors.semanticBackgroundPrimarySubtleActive
 
-    override val secondary = Aqua400
-    override val secondaryHover = Aqua500
-    override val secondaryActive = Aqua600
+    override val secondary = styleDictionaryColors.semanticBackgroundSecondary
+    override val secondaryHover = styleDictionaryColors.semanticBackgroundSecondaryHover
+    override val secondaryActive = styleDictionaryColors.semanticBackgroundSecondaryActive
 
-    override val positive = Green600
-    override val positiveHover = Green700
-    override val positiveActive = Green800
-    override val positiveSubtle = Green50
-    override val positiveSubtleHover = Green100
-    override val positiveSubtleActive = Green200
-    override val positiveSelected = Green50
-    override val positiveSelectedHover = Green100
-    override val positiveSelectedActive = Green200
+    override val positive = styleDictionaryColors.semanticBackgroundPositive
+    override val positiveHover = styleDictionaryColors.semanticBackgroundPositiveHover
+    override val positiveActive = styleDictionaryColors.semanticBackgroundPositiveActive
+    override val positiveSubtle = styleDictionaryColors.semanticBackgroundPositiveSubtle
+    override val positiveSubtleHover = styleDictionaryColors.semanticBackgroundPositiveSubtleHover
+    override val positiveSubtleActive = styleDictionaryColors.semanticBackgroundPositiveSubtleActive
+    override val positiveSelected = styleDictionaryColors.semanticBackgroundPositiveSelected
+    override val positiveSelectedHover = styleDictionaryColors.semanticBackgroundPositiveSelectedHover
+    override val positiveSelectedActive = Green200//styleDictionaryColors.semanticBackgroundPositiveSelectedActive
 
-    override val negative = Red600
-    override val negativeHover = Red700
-    override val negativeActive = Red800
-    override val negativeSubtle = Red50
-    override val negativeSubtleHover = Red100
-    override val negativeSubtleActive = Red200
-    override val negativeSelected = Red50
-    override val negativeSelectedHover = Red100
-    override val negativeSelectedActive = Red200
+    override val negative = styleDictionaryColors.semanticBackgroundNegative
+    override val negativeHover = styleDictionaryColors.semanticBackgroundNegativeHover
+    override val negativeActive = styleDictionaryColors.semanticBackgroundNegativeActive
+    override val negativeSubtle = styleDictionaryColors.semanticBackgroundNegativeSubtle
+    override val negativeSubtleHover = styleDictionaryColors.semanticBackgroundNegativeSubtleHover
+    override val negativeSubtleActive = styleDictionaryColors.semanticBackgroundNegativeSubtleActive
+    override val negativeSelected = Red50//styleDictionaryColors.semanticBackgroundNegativeSelected
+    override val negativeSelectedHover = Red100//styleDictionaryColors.semanticBackgroundNegativeSelectedHover
+    override val negativeSelectedActive = Red200//styleDictionaryColors.semanticBackgroundNegativeSelectedActive
 
-    override val warning = Yellow600
-    override val warningHover = Yellow700
-    override val warningActive = Yellow800
-    override val warningSubtle = Yellow50
-    override val warningSubtleHover = Yellow100
-    override val warningSubtleActive = Yellow200
-    override val warningSelected = Yellow50
-    override val warningSelectedHover = Yellow100
-    override val warningSelectedActive = Yellow200
+    override val warning = styleDictionaryColors.semanticBackgroundWarning
+    override val warningHover = styleDictionaryColors.semanticBackgroundWarningHover
+    override val warningActive = styleDictionaryColors.semanticBackgroundWarningActive
+    override val warningSubtle = styleDictionaryColors.semanticBackgroundWarningSubtle
+    override val warningSubtleHover = styleDictionaryColors.semanticBackgroundWarningSubtleHover
+    override val warningSubtleActive = styleDictionaryColors.semanticBackgroundWarningSubtleActive
+    override val warningSelected = Yellow50//styleDictionaryColors.semanticBackgroundWarningSelected
+    override val warningSelectedHover = Yellow100//styleDictionaryColors.semanticBackgroundWarningSelectedHover
+    override val warningSelectedActive = Yellow200//styleDictionaryColors.semanticBackgroundWarningSelectedActive
 
-    override val info = Aqua600
-    override val infoHover = Aqua700
-    override val infoActive = Aqua800
-    override val infoSubtle = Aqua50
-    override val infoSubtleHover = Aqua100
-    override val infoSubtleActive = Aqua200
-    override val infoSelected = Aqua50
-    override val infoSelectedHover = Aqua100
-    override val infoSelectedActive = Aqua200
+    override val info = styleDictionaryColors.semanticBackgroundInfo
+    override val infoHover = styleDictionaryColors.semanticBackgroundInfoHover
+    override val infoActive = styleDictionaryColors.semanticBackgroundInfoActive
+    override val infoSubtle = styleDictionaryColors.semanticBackgroundInfoSubtle
+    override val infoSubtleHover = styleDictionaryColors.semanticBackgroundInfoSubtleHover
+    override val infoSubtleActive = styleDictionaryColors.semanticBackgroundInfoSubtleActive
+    override val infoSelected = Aqua50//styleDictionaryColors.semanticBackgroundInfoSelected
+    override val infoSelectedHover = Aqua100//styleDictionaryColors.semanticBackgroundInfoSelectedHover
+    override val infoSelectedActive = Aqua200//styleDictionaryColors.semanticBackgroundInfoSelectedActive
 
-    override val notification = Red600
+    override val notification = styleDictionaryColors.semanticBackgroundNotification
 }
 
 internal object FinnBorderColors : WarpBorderColors {
-    override val default = Bluegray300
-    override val hover = Bluegray400
-    override val active = Bluegray500
-    override val disabled = Bluegray300
-    override val selected = Blue600
-    override val selectedHover = Blue700
-    override val selectedActive = Blue800
-    override val focus = Aqua400
+    override val default = styleDictionaryColors.semanticBorderDefault
+    override val hover = styleDictionaryColors.semanticBorderHover
+    override val active = styleDictionaryColors.semanticBorderActive
+    override val disabled = styleDictionaryColors.semanticBorderDisabled
+    override val selected = styleDictionaryColors.semanticBorderSelected
+    override val selectedHover = styleDictionaryColors.semanticBorderSelectedHover
+    override val selectedActive = Blue800//styleDictionaryColors.semanticBorderSelectedActive
+    override val focus = styleDictionaryColors.semanticBorderFocus
 
-    override val primary = Blue600
-    override val primaryHover = Blue700
-    override val primaryActive = Blue800
-    override val primarySubtle = Blue300
-    override val primarySubtleHover = Blue400
-    override val primarySubtleActive = Blue500
+    override val primary = styleDictionaryColors.semanticBorderPrimary
+    override val primaryHover = styleDictionaryColors.semanticBorderPrimaryHover
+    override val primaryActive = styleDictionaryColors.semanticBorderPrimaryActive
+    override val primarySubtle = styleDictionaryColors.semanticBorderPrimarySubtle
+    override val primarySubtleHover = styleDictionaryColors.semanticBorderPrimarySubtleHover
+    override val primarySubtleActive = styleDictionaryColors.semanticBorderPrimarySubtleActive
 
-    override val secondary = Aqua400
-    override val secondaryHover = Aqua500
-    override val secondaryActive = Aqua600
+    override val secondary = styleDictionaryColors.semanticBorderSecondary
+    override val secondaryHover = styleDictionaryColors.semanticBorderSecondaryHover
+    override val secondaryActive = styleDictionaryColors.semanticBorderSecondaryActive
 
-    override val positive = Green600
-    override val positiveHover = Green700
-    override val positiveActive = Green800
-    override val positiveSubtle = Green300
-    override val positiveSubtleHover = Green400
-    override val positiveSubtleActive = Green500
+    override val positive = styleDictionaryColors.semanticBorderPositive
+    override val positiveHover = styleDictionaryColors.semanticBorderPositiveHover
+    override val positiveActive = styleDictionaryColors.semanticBorderPositiveActive
+    override val positiveSubtle = styleDictionaryColors.semanticBorderPositiveSubtle
+    override val positiveSubtleHover = styleDictionaryColors.semanticBorderPositiveSubtleHover
+    override val positiveSubtleActive = styleDictionaryColors.semanticBorderPositiveSubtleActive
 
-    override val negative = Red600
-    override val negativeHover = Red700
-    override val negativeActive = Red800
-    override val negativeSubtle = Red300
-    override val negativeSubtleHover = Red400
-    override val negativeSubtleActive = Red500
+    override val negative = styleDictionaryColors.semanticBorderNegative
+    override val negativeHover = styleDictionaryColors.semanticBorderNegativeHover
+    override val negativeActive = styleDictionaryColors.semanticBorderNegativeActive
+    override val negativeSubtle = styleDictionaryColors.semanticBorderNegativeSubtle
+    override val negativeSubtleHover = styleDictionaryColors.semanticBorderNegativeSubtleHover
+    override val negativeSubtleActive = styleDictionaryColors.semanticBorderNegativeSubtleActive
 
-    override val warning = Yellow600
-    override val warningHover = Yellow700
-    override val warningActive = Yellow800
-    override val warningSubtle = Yellow300
-    override val warningSubtleHover = Yellow400
-    override val warningSubtleActive = Yellow500
+    override val warning = styleDictionaryColors.semanticBorderWarning
+    override val warningHover = styleDictionaryColors.semanticBorderWarningHover
+    override val warningActive = styleDictionaryColors.semanticBorderWarningActive
+    override val warningSubtle = styleDictionaryColors.semanticBorderWarningSubtle
+    override val warningSubtleHover = styleDictionaryColors.semanticBorderWarningSubtleHover
+    override val warningSubtleActive = styleDictionaryColors.semanticBorderWarningSubtleActive
 
-    override val info = Aqua600
-    override val infoHover = Aqua700
-    override val infoActive = Aqua800
-    override val infoSubtle = Aqua300
-    override val infoSubtleHover = Aqua400
-    override val infoSubtleActive = Aqua500
+    override val info = styleDictionaryColors.semanticBorderInfo
+    override val infoHover = styleDictionaryColors.semanticBorderInfoHover
+    override val infoActive = styleDictionaryColors.semanticBorderInfoActive
+    override val infoSubtle = styleDictionaryColors.semanticBorderInfoSubtle
+    override val infoSubtleHover = styleDictionaryColors.semanticBorderInfoSubtleHover
+    override val infoSubtleActive = styleDictionaryColors.semanticBorderInfoSubtleActive
 }
 
 internal object FinnIconColors : WarpIconColors {
-    override val default = Gray700
-    override val hover = Blue600
-    override val active = Blue700
-    override val selected = Blue600
-    override val selectedHover = Blue700
-    override val selectedActive = Blue800
-    override val disabled = Bluegray300
-    override val subtle = Bluegray400
-    override val subtleHover = Bluegray500
-    override val subtleActive = Bluegray600
-    override val inverted = White
-    override val invertedHover = Bluegray100
-    override val invertedActive = Bluegray200
-    override val primary = Blue600
-    override val secondary = Aqua400
-    override val secondaryHover = Aqua500
-    override val secondaryActive = Aqua600
-    override val positive = Green600
-    override val negative = Red600
-    override val warning = Yellow600
-    override val info = Aqua600
-    override val notification = White
+    override val default = styleDictionaryColors.semanticIconDefault
+    override val hover = styleDictionaryColors.semanticIconHover
+    override val active = styleDictionaryColors.semanticIconActive
+    override val selected = styleDictionaryColors.semanticIconSelected
+    override val selectedHover = styleDictionaryColors.semanticIconSelectedHover
+    override val selectedActive = Blue800//styleDictionaryColors.semanticIconSelectedActive
+    override val disabled = styleDictionaryColors.semanticIconDisabled
+    override val subtle = styleDictionaryColors.semanticIconSubtle
+    override val subtleHover = styleDictionaryColors.semanticIconSubtleHover
+    override val subtleActive = styleDictionaryColors.semanticIconSubtleActive
+    override val inverted = styleDictionaryColors.semanticIconInverted
+    override val invertedHover = styleDictionaryColors.semanticIconInvertedHover
+    override val invertedActive = styleDictionaryColors.semanticIconInvertedActive
+    override val primary = styleDictionaryColors.semanticIconPrimary
+    override val secondary = styleDictionaryColors.semanticIconSecondary
+    override val secondaryHover = styleDictionaryColors.semanticIconSecondaryHover
+    override val secondaryActive = styleDictionaryColors.semanticIconSecondaryActive
+    override val positive = styleDictionaryColors.semanticIconPositive
+    override val negative = styleDictionaryColors.semanticIconNegative
+    override val warning = styleDictionaryColors.semanticIconWarning
+    override val info = styleDictionaryColors.semanticIconInfo
+    override val notification = styleDictionaryColors.semanticIconNotification
 }
 
 internal object FinnTextColors : WarpTextColors {
-    override val default = Gray700
-    override val subtle = Gray500
-    override val placeholder = Bluegray300
-    override val inverted = White
-    override val invertedSubtle = Gray50
-    override val link = Blue600
-    override val disabled = Bluegray300
-    override val negative = Red600
-    override val positive = Green600
-    override val notification = White
+    override val default = styleDictionaryColors.semanticTextDefault
+    override val subtle = styleDictionaryColors.semanticTextSubtle
+    override val placeholder = styleDictionaryColors.semanticTextPlaceholder
+    override val inverted = styleDictionaryColors.semanticTextInverted
+    override val invertedSubtle = styleDictionaryColors.semanticTextInvertedSubtle
+    override val link = styleDictionaryColors.semanticTextLink
+    override val disabled = styleDictionaryColors.semanticTextDisabled
+    override val negative = styleDictionaryColors.semanticTextNegative
+    override val positive = styleDictionaryColors.semanticTextPositive
+    override val notification = White//styleDictionaryColors.semanticTextNotification
 }
 
 internal object FinnComponentColors : WarpComponentColors {
@@ -191,36 +192,36 @@ internal object FinnComponentColors : WarpComponentColors {
 }
 
 internal object FinnAvatarColors : WarpAvatarColors {
-    override val background: Color = Bluegray100
-    override val icon: Color = FinnIconColors.disabled
+    override val background: Color = styleDictionaryColors.componentsAvatarBackground
+    override val icon: Color = styleDictionaryColors.componentsAvatarIcon
 }
 
 internal object FinnPillColors : WarpPillColors {
-    override val filterTextColor = White
-    override val filterIconColor = White
-    override val suggestion = Pair(Gray200, Gray400)
+    override val filterTextColor = White//styleDictionaryColors.componentsPillFilterTextColor
+    override val filterIconColor = White//styleDictionaryColors.componentsPillFilterIconColor
+    override val suggestion = Pair(styleDictionaryColors.componentsPillSuggestionBackground, styleDictionaryColors.componentsPillSuggestionBackgroundActive)
 }
 
 internal object FinnCalloutColors : WarpCalloutColors {
-    override val background: Color = Green100
-    override val border: Color = Green400
-    override val text: Color = FinnTextColors.default
+    override val background: Color = styleDictionaryColors.componentsCalloutBackground
+    override val border: Color = styleDictionaryColors.componentsCalloutBorder
+    override val text: Color = styleDictionaryColors.componentsCalloutText
 }
 
 internal object FinnBadgeColors : WarpBadgeColors {
-    override val infoBackground: Color = Aqua100
-    override val positiveBackground: Color = Green100
-    override val warningBackground: Color = Yellow100
-    override val negativeBackground: Color = Red100
-    override val disabledBackground: Color = FinnBackgroundColors.disabled
-    override val neutralBackground: Color = Bluegray100
-    override val sponsoredBackground: Color = Aqua200
-    override val priceBackground: Color = Black70Alpha
+    override val infoBackground: Color = styleDictionaryColors.componentsBadgeInfoBackground
+    override val positiveBackground: Color = styleDictionaryColors.componentsBadgePositiveBackground
+    override val warningBackground: Color = styleDictionaryColors.componentsBadgeWarningBackground
+    override val negativeBackground: Color = styleDictionaryColors.componentsBadgeNegativeBackground
+    override val disabledBackground: Color = FinnBackgroundColors.disabled//styleDictionaryColors.componentsBadgeDisabledBackground
+    override val neutralBackground: Color = styleDictionaryColors.componentsBadgeNeutralBackground
+    override val sponsoredBackground: Color = styleDictionaryColors.componentsBadgeSponsoredBackground
+    override val priceBackground: Color = styleDictionaryColors.componentsBadgePriceBackground
 }
 
 internal object FinnButtonColors : WarpButtonColors {
-    override val loading = Pair(Bluegray50, Bluegray200)
-    override val primary = Pair(FinnBackgroundColors.primary, FinnBackgroundColors.primaryActive)
+    override val loading = Pair(Bluegray50, Bluegray200)//todo missing in Figma
+    override val primary = Pair(styleDictionaryColors.componentsButtonPrimaryButtonPrimary, styleDictionaryColors.componentsButtonPrimaryButtonPrimaryActive)
 }
 
 //Blue
