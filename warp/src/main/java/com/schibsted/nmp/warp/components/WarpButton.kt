@@ -144,13 +144,17 @@ fun WarpButton(
 
         val buttonModifier = if (loading) modifier.loadingAnimation() else modifier
         val colors = if (loading) loadingColors else buttonColors
+        //disable click when button is in loading state
+        val clickAction = if (loading) {
+            {}
+        } else onClick
 
         CompositionLocalProvider(
             LocalRippleTheme provides WarpRippleTheme(warpButtonColors.background.active)
         ) {
             Button(
                 modifier = buttonModifier,
-                onClick = onClick,
+                onClick = clickAction,
                 enabled = enabled,
                 shape = shapes.medium,
                 colors = colors,
