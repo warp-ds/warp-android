@@ -147,5 +147,47 @@
             app:pillText="Suggestion pill"
             app:selected="false"
             app:warpPillStyle="suggestion" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpBoxView
+            android:id="@+id/box_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suggestion_pill"
+            app:boxText="This is the box text"
+            app:boxStyle="neutral" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpBoxView
+            android:id="@+id/box_bordered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/box_info"
+            app:boxText="This is the box text"
+            app:boxHeading="Warp Box!"
+            app:boxStyle="bordered" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpBoxView
+            android:id="@+id/box_neutral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/box_bordered"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:boxIcon="@drawable/blocket_badge"
+            app:boxButtonText="Button"
+            app:boxIconContentDescr="Icon content description"
+            app:boxIconColor="@color/warp_icon_primary"
+            app:boxLink="This is the link"
+            app:boxText="This is the box text"
+            app:boxHeading="Warp Box!"
+            app:boxStyle="info" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -1,13 +1,16 @@
 package com.schibsted.nmp.warp.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,20 +26,21 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 /**
  * A component for separating content areas on a screen.
  * For more information, look [here](https://warp-ds.github.io/tech-docs/components/box/)
- * @param boxStyle The style that will be applied to the component. Default is WarpBoxStyle.NEUTRAL. Options are WarpBoxStyle.NEUTRAL, WarpBoxStyle.INFO, WarpBoxStyle.BORDERED
  * @param modifier Modifier applied to the component. Default is Modifier
+ * @param boxStyle The style that will be applied to the component. Default is WarpBoxStyle.NEUTRAL. Options are WarpBoxStyle.NEUTRAL, WarpBoxStyle.INFO, WarpBoxStyle.BORDERED
  * @param icon Optional icon that will be rendered inside the box
  * @param heading Optional heading that will be rendered inside the box
  * @param text Optional text that will be rendered inside the box
  * @param link Optional link that will be rendered inside the box. If this is set, linkAction must also be set
  * @param linkAction Action that will be triggered when the link is clicked
  * @param buttonText Optional button that will be rendered inside the box. The button style is WarpButtonStyle.Secondary. If this is set, buttonAction must also be set
+ * @param buttonAction Action that will be triggered when the button is clicked
  *
  */
 @Composable
 fun WarpBox(
-    boxStyle: WarpBoxStyle,
     modifier: Modifier = Modifier,
+    boxStyle: WarpBoxStyle = WarpBoxStyle.NEUTRAL,
     icon: @Composable (() -> Unit)? = null,
     heading: String? = null,
     text: String? = null,
@@ -51,7 +55,7 @@ fun WarpBox(
     ) {
         ConstraintLayout(
             modifier = Modifier
-                .padding(dimensions.space3)
+                .padding(dimensions.space2)
         ) {
             val (iconRef, headingRef, bodyRef, linkRef, btnRef) = createRefs()
             val padding = dimensions.space2
@@ -85,7 +89,8 @@ fun WarpBox(
                         text = heading,
                         style = WarpTextStyle.Title3,
                         color = colors.text.default,
-                        modifier = text?.let { bottomPadding } ?: link?.let { bottomPadding } ?: buttonText?.let { bottomPadding }  ?: Modifier
+                        modifier = text?.let { bottomPadding } ?: link?.let { bottomPadding }
+                        ?: buttonText?.let { bottomPadding } ?: Modifier
                     )
                 }
             }
@@ -104,7 +109,8 @@ fun WarpBox(
                         text = text,
                         style = WarpTextStyle.Body,
                         color = colors.text.default,
-                        modifier = link?.let { bottomPadding } ?: buttonText?.let { bottomPadding }  ?: Modifier
+                        modifier = link?.let { bottomPadding } ?: buttonText?.let { bottomPadding }
+                        ?: Modifier
                     )
                 }
             }
@@ -162,9 +168,9 @@ fun WarpBox(
     content: @Composable () -> Unit
 ) {
     val style = when (boxStyle) {
-        WarpBoxStyle.NEUTRAL -> WarpComponentBackground(colors.background.subtle, null)
-        WarpBoxStyle.INFO -> WarpComponentBackground(colors.background.infoSubtle, null)
-        WarpBoxStyle.BORDERED -> WarpComponentBackground(
+        WarpBoxStyle.NEUTRAL -> WarpBoxBackground(colors.background.subtle, null)
+        WarpBoxStyle.INFO -> WarpBoxBackground(colors.background.infoSubtle, null)
+        WarpBoxStyle.BORDERED -> WarpBoxBackground(
             colors.background.default,
             colors.border.default
         )
@@ -188,7 +194,7 @@ enum class WarpBoxStyle {
     BORDERED
 }
 
-internal data class WarpComponentBackground(
+internal data class WarpBoxBackground(
     val background: Color,
     val border: Color?
 )
@@ -210,31 +216,53 @@ fun BoxPreview() {
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth(),
-                text = "This is the neutral style"
+                text = "This is the neutral style with custom content."
             )
         }
         WarpBox(
+            boxStyle = WarpBoxStyle.INFO,
             modifier = Modifier
-                .padding(8.dp),
-            boxStyle = WarpBoxStyle.INFO
-        ) {
-            Text(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(), text = "This is the info style"
-            )
-        }
+                .padding(vertical = dimensions.space1)
+                .fillMaxWidth(),
+            heading = "Warp Box!",
+            text = "Info box with optional heading"
+        )
         WarpBox(
             modifier = Modifier
-                .padding(8.dp),
-            boxStyle = WarpBoxStyle.BORDERED
-        ) {
-            Text(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                text = "This is the bordered style"
-            )
-        }
+                .padding(vertical = dimensions.space1)
+                .fillMaxWidth(),
+            boxStyle = WarpBoxStyle.BORDERED,
+            text = "Bordered box with optional link",
+            link = "This is a link",
+            linkAction = { Log.d("Meow", "Link click") },
+        )
+        WarpBox(
+            modifier = Modifier
+                .padding(vertical = dimensions.space1)
+                .fillMaxWidth(),
+            heading = "Warp Box!",
+            text = "Neutral box with optional heading and button",
+            buttonText = "This is a button",
+            buttonAction = { Log.d("Meow", "Button click") }
+        )
+        WarpBox(
+            modifier = Modifier
+                .padding(vertical = dimensions.space1)
+                .fillMaxWidth(),
+            boxStyle = WarpBoxStyle.INFO,
+            heading = "Hello Box! ",
+            icon = {
+                Icon(
+                    Icons.Filled.AccountCircle,
+                    contentDescription = "Content description for the leading icon",
+                    tint = colors.icon.primary
+                )
+            },
+            text = "This is a box has all optional UI elements.",
+            link = "This is a link",
+            linkAction = { Log.d("Meow", "Link click") },
+            buttonText = "This is a button",
+            buttonAction = { Log.d("Meow", "Button click") }
+        )
     }
 }
