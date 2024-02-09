@@ -41,7 +41,7 @@ private fun BoxScreenContent() {
             .padding(16.dp)
     ) {
         WarpBox(
-            boxStyle = WarpBoxStyle.NEUTRAL,
+            boxStyle = WarpBoxStyle.Neutral,
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth()
@@ -56,7 +56,7 @@ private fun BoxScreenContent() {
             )
         }
         WarpBox(
-            boxStyle = WarpBoxStyle.INFO,
+            boxStyle = WarpBoxStyle.Info,
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth()
@@ -64,7 +64,7 @@ private fun BoxScreenContent() {
             WarpText(modifier = Modifier.padding(dimensions.space2), text = "Info")
         }
         WarpBox(
-            boxStyle = WarpBoxStyle.BORDERED,
+            boxStyle = WarpBoxStyle.Bordered,
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth()
@@ -82,7 +82,7 @@ private fun BoxScreenContent() {
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth(),
-            boxStyle = WarpBoxStyle.BORDERED,
+            boxStyle = WarpBoxStyle.Bordered,
             text = "Bordered box with optional link",
             link = "This is a link",
             linkAction = { Log.d("Meow", "Link click") },
@@ -100,7 +100,7 @@ private fun BoxScreenContent() {
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth(),
-            boxStyle = WarpBoxStyle.INFO,
+            boxStyle = WarpBoxStyle.Info,
             heading = "Warp Box!",
             icon = icon,
             text = "Info box with optional heading and icon"
@@ -109,7 +109,7 @@ private fun BoxScreenContent() {
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth(),
-            boxStyle = WarpBoxStyle.INFO,
+            boxStyle = WarpBoxStyle.Info,
             heading = "Hello Box! ",
             icon = icon,
             text = "This is a box has all optional UI elements.",

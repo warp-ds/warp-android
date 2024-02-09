@@ -27,7 +27,7 @@ class WarpBoxView @JvmOverloads constructor(
 
     val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
 
-    var boxStyle: WarpBoxStyle = WarpBoxStyle.NEUTRAL
+    var boxStyle: WarpBoxStyle = WarpBoxStyle.Neutral
         set(value) {
             field = value
             disposeComposition()
@@ -92,9 +92,9 @@ class WarpBoxView @JvmOverloads constructor(
     }
 
     private var stylesList = listOf(
-        WarpBoxStyle.NEUTRAL,
-        WarpBoxStyle.BORDERED,
-        WarpBoxStyle.INFO
+        WarpBoxStyle.Neutral,
+        WarpBoxStyle.Bordered,
+        WarpBoxStyle.Info
     )
 
     init {

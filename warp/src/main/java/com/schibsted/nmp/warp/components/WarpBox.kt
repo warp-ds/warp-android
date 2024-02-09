@@ -40,7 +40,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 @Composable
 fun WarpBox(
     modifier: Modifier = Modifier,
-    boxStyle: WarpBoxStyle = WarpBoxStyle.NEUTRAL,
+    boxStyle: WarpBoxStyle = WarpBoxStyle.Neutral,
     icon: @Composable (() -> Unit)? = null,
     heading: String? = null,
     text: String? = null,
@@ -164,13 +164,13 @@ fun WarpBox(
 @Composable
 fun WarpBox(
     modifier: Modifier = Modifier,
-    boxStyle: WarpBoxStyle = WarpBoxStyle.NEUTRAL,
+    boxStyle: WarpBoxStyle = WarpBoxStyle.Neutral,
     content: @Composable () -> Unit
 ) {
     val style = when (boxStyle) {
-        WarpBoxStyle.NEUTRAL -> WarpBoxBackground(colors.background.subtle, null)
-        WarpBoxStyle.INFO -> WarpBoxBackground(colors.background.infoSubtle, null)
-        WarpBoxStyle.BORDERED -> WarpBoxBackground(
+        WarpBoxStyle.Neutral -> WarpBoxBackground(colors.background.subtle, null)
+        WarpBoxStyle.Info -> WarpBoxBackground(colors.background.infoSubtle, null)
+        WarpBoxStyle.Bordered -> WarpBoxBackground(
             colors.background.default,
             colors.border.default
         )
@@ -189,9 +189,9 @@ fun WarpBox(
  * An enum representing the different styles of the WarpBox component
  */
 enum class WarpBoxStyle {
-    NEUTRAL,
-    INFO,
-    BORDERED
+    Neutral,
+    Info,
+    Bordered
 }
 
 internal data class WarpBoxBackground(
@@ -210,7 +210,7 @@ fun BoxPreview() {
         WarpBox(
             modifier = Modifier
                 .padding(8.dp),
-            boxStyle = WarpBoxStyle.NEUTRAL
+            boxStyle = WarpBoxStyle.Neutral
         ) {
             WarpText(
                 modifier = Modifier
@@ -220,7 +220,7 @@ fun BoxPreview() {
             )
         }
         WarpBox(
-            boxStyle = WarpBoxStyle.INFO,
+            boxStyle = WarpBoxStyle.Info,
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth(),
@@ -231,7 +231,7 @@ fun BoxPreview() {
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth(),
-            boxStyle = WarpBoxStyle.BORDERED,
+            boxStyle = WarpBoxStyle.Bordered,
             text = "Bordered box with optional link",
             link = "This is a link",
             linkAction = { Log.d("Meow", "Link click") },
@@ -249,11 +249,11 @@ fun BoxPreview() {
             modifier = Modifier
                 .padding(vertical = dimensions.space1)
                 .fillMaxWidth(),
-            boxStyle = WarpBoxStyle.INFO,
+            boxStyle = WarpBoxStyle.Info,
             heading = "Hello Box! ",
             icon = {
                 Icon(
-                    Icons.Filled.AccountCircle,
+                    imageVector = Icons.Filled.AccountCircle,
                     contentDescription = "Content description for the leading icon",
                     tint = colors.icon.primary
                 )
