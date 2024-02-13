@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp.components.legacy
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View.OnClickListener
+import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.core.content.withStyledAttributes
@@ -18,9 +19,11 @@ import org.koin.java.KoinJavaComponent.inject
  * Can be declared in xml layouts as any other view component.
  * Following custom attributes can be assigned through xml
  * @param app:warpButtonStyle WarpButtonStyle as defined in the composable
- * @param app:text the button text, string or reference id
+ * @param app:buttonText the button text, string or reference id
  * @param app:enabled sets the button in enabled or disabled mode
  * @param app:loading sets the button in loading mode showing the loading animation
+ * @param app:buttonIcon sets the icon to be displayed in the button, reference id
+ * @param app:buttonIconContentDescr sets the content description for the icon
  */
 class WarpButtonView @JvmOverloads constructor(
     context: Context,
@@ -49,6 +52,19 @@ class WarpButtonView @JvmOverloads constructor(
         }
 
     var buttonEnabled = true
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    @DrawableRes
+    var icon: Int = 0
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var iconContentDescription: String? = null
         set(value) {
             field = value
             disposeComposition()
@@ -84,6 +100,8 @@ class WarpButtonView @JvmOverloads constructor(
             text = getTextFromIdOrString(R.styleable.WarpButton_buttonText, context) ?: ""
             loading = getBoolean(R.styleable.WarpButton_loading, false)
             buttonEnabled = getBoolean(R.styleable.WarpButton_enabled, true)
+            icon = getResourceId(R.styleable.WarpButton_buttonIcon, 0)
+            iconContentDescription = getTextFromIdOrString(R.styleable.WarpButton_buttonIconContentDescr, context)
         }
     }
 
@@ -95,7 +113,9 @@ class WarpButtonView @JvmOverloads constructor(
                 onClick = { clickListener.onClick(this@WarpButtonView) },
                 buttonStyle = style,
                 loading = loading,
-                enabled = buttonEnabled
+                enabled = buttonEnabled,
+                icon = if(icon != 0) icon else null,
+                iconContentDescr = iconContentDescription
             )
         }
     }

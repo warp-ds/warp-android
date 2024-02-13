@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -26,6 +28,8 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -47,11 +51,13 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/buttons/)
  * @param text The text to be displayed on the button
  * @param onClick lambda to be invoked when clicked
- * @param enabled set to false to disable the button. default value is true
+ * @param enabled set to false to disable the button. Default value is true
  * @param modifier Modifier for the button. Default value is Modifier
- * @param buttonStyle Controls the apperance of the button
- * @param maxLines limits the lines of the text on the button
- * @param loading set to true to enable the loading state
+ * @param buttonStyle Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
+ * @param maxLines limits the lines of the text on the button. Default value is 1
+ * @param loading set to true to enable the loading state. Default value is false
+ * @param icon The drawable resource id for the icon to be displayed on the button. Default value is null
+ * @param iconContentDescr The content description for the icon. Please provide this for accessibility purposes if icon is to be displayed. Default value is null
  */
 @Composable
 fun WarpButton(
@@ -59,9 +65,11 @@ fun WarpButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    buttonStyle: WarpButtonStyle,
+    buttonStyle: WarpButtonStyle = WarpButtonStyle.Primary,
     maxLines: Int = 1,
-    loading: Boolean = false
+    loading: Boolean = false,
+    @DrawableRes icon: Int? = null,
+    iconContentDescr: String? = null
 ) {
     WarpButton(
         onClick = onClick,
@@ -70,10 +78,18 @@ fun WarpButton(
         buttonStyle = buttonStyle,
         loading = loading
     ) {
+        icon?.let {
+            Icon(
+                modifier = Modifier
+                    .padding(end = dimensions.space1),
+                imageVector = ImageVector.vectorResource(icon),
+                contentDescription = iconContentDescr
+            )
+        }
         Text(
             text = text,
             modifier = Modifier
-                .padding(vertical = 8.dp)
+                .padding(vertical = dimensions.space1)
                 .semantics(properties = { contentDescription = text }),
             overflow = TextOverflow.Ellipsis,
             maxLines = maxLines,
@@ -87,8 +103,8 @@ fun WarpButton(
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/buttons/)
  * @param onClick lambda to be invoked when clicked
  * @param enabled set to false to disable the button. default value is true
- * @param modifer Modifier for the button. Default value is Modifier
- * @param buttonStyle Controls the apperance of the button
+ * @param modifier Modifier for the button. Default value is Modifier
+ * @param buttonStyle Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
  * @param loading set to true to enable the loading state
  * @param content The content to display inside the button
  */
@@ -121,6 +137,7 @@ fun WarpButton(
         val buttonColors = ButtonDefaults.buttonColors(
             containerColor = warpButtonColors.background.default,
             contentColor = warpButtonColors.text,
+
             disabledContainerColor = colors.background.disabled,
             disabledContentColor = colors.text.inverted
         )
@@ -181,14 +198,14 @@ enum class WarpButtonStyle {
     UtilityOverlay,
 }
 
-data class WarpButtonStyleColors (
+data class WarpButtonStyleColors(
     val text: Color,
     val background: WarpButtonElementColors,
-    val border: WarpButtonElementColors?
+    val border: WarpButtonElementColors?,
 )
 
-data class WarpButtonElementColors (
-    val default : Color,
+data class WarpButtonElementColors(
+    val default: Color,
     val active: Color
 )
 
@@ -199,7 +216,7 @@ internal fun buttonStylePrimary() = WarpButtonStyleColors(
         default = colors.components.button.primary.first,
         active = colors.components.button.primary.second
     ),
-    border = null
+    border = null,
 )
 
 @Composable
@@ -329,7 +346,7 @@ fun Modifier.loadingAnimation(): Modifier = composed {
 fun WarpButtonPreview(
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(dimensions.space1)
     ) {
         WarpButton(
             text = "Take me to NMP",

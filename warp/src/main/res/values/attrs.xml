@@ -14,6 +14,8 @@
         <attr name="enabled" format="boolean" />
         <attr name="loading" format="boolean" />
         <attr name="buttonText" format="reference|string" />
+        <attr name="buttonIcon" format="reference"/>
+        <attr name="buttonIconContentDescr" format="reference|string"/>
     </declare-styleable>
 
     <declare-styleable name="WarpText">
