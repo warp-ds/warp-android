@@ -27,7 +27,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * A component for separating content areas on a screen.
  * For more information, look [here](https://warp-ds.github.io/tech-docs/components/box/)
  * @param modifier Modifier applied to the component. Default is Modifier
- * @param boxStyle The style that will be applied to the component. Default is WarpBoxStyle.NEUTRAL. Options are WarpBoxStyle.NEUTRAL, WarpBoxStyle.INFO, WarpBoxStyle.BORDERED
+ * @param boxStyle The style that will be applied to the component. Default is WarpBoxStyle.Neutral. Options are WarpBoxStyle.Neutral, WarpBoxStyle.Info, WarpBoxStyle.Bordered
  * @param icon Optional icon that will be rendered inside the box
  * @param heading Optional heading that will be rendered inside the box
  * @param text Optional text that will be rendered inside the box
