@@ -75,7 +75,7 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="WarpAlertView">
+    <declare-styleable name="WarpAlert">
         <attr name="warpAlertType" format="enum">
             <enum name="info" value="0" />
             <enum name="positive" value="1" />
@@ -98,5 +98,21 @@
         <attr name="closable" format="boolean" />
         <attr name="pillText" format="reference|string" />
         <attr name="iconContentDescr" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpBox">
+        <attr name="boxStyle" format="enum">
+            <enum name="neutral" value="0" />
+            <enum name="bordered" value="1" />
+            <enum name="info" value="2" />
+        </attr>
+        <attr name="boxHeading" format="reference|string" />
+        <attr name="boxText" format="reference|string" />
+        <attr name="boxLink" format="reference|string" />
+        <attr name="boxButtonText" format="reference|string" />
+        <attr name="boxIcon" format="reference"/>
+        <attr name="boxIconContentDescr" format="reference|string"/>
+        <attr name="boxIconColor" format="color" />
+
     </declare-styleable>
 </resources>

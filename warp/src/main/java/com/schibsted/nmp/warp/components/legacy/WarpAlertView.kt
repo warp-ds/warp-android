@@ -85,15 +85,15 @@ class WarpAlertView @JvmOverloads constructor(
     )
 
     init {
-        context.withStyledAttributes(attrs, R.styleable.WarpAlertView) {
-            type = typesList[getInt(R.styleable.WarpAlertView_warpAlertType, 0)]
-            title = getTextFromIdOrString(R.styleable.WarpAlertView_title, context) ?: ""
-            body = getTextFromIdOrString(R.styleable.WarpAlertView_body, context) ?: ""
-            linkText = getTextFromIdOrString(R.styleable.WarpAlertView_linkText, context)
+        context.withStyledAttributes(attrs, R.styleable.WarpAlert) {
+            type = typesList[getInt(R.styleable.WarpAlert_warpAlertType, 0)]
+            title = getTextFromIdOrString(R.styleable.WarpAlert_title, context) ?: ""
+            body = getTextFromIdOrString(R.styleable.WarpAlert_body, context) ?: ""
+            linkText = getTextFromIdOrString(R.styleable.WarpAlert_linkText, context)
             secondaryButtonText =
-                getTextFromIdOrString(R.styleable.WarpAlertView_secondaryButtonText, context)
+                getTextFromIdOrString(R.styleable.WarpAlert_secondaryButtonText, context)
             quietButtonText =
-                getTextFromIdOrString(R.styleable.WarpAlertView_quietButtonText, context)
+                getTextFromIdOrString(R.styleable.WarpAlert_quietButtonText, context)
         }
     }
 

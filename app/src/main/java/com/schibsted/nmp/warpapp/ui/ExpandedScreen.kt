@@ -30,7 +30,7 @@ private fun ExpandableScreenContent() {
         }
 
         WarpText(modifier = Modifier.padding(top = 16.dp), text = "WarpExpandable inside box")
-        WarpBox(modifier = Modifier.padding(16.dp), boxStyle = WarpBoxStyle.INFO) {
+        WarpBox(modifier = Modifier.padding(16.dp), boxStyle = WarpBoxStyle.Info) {
             WarpExpandable(
                 modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
                 title = "Title",
