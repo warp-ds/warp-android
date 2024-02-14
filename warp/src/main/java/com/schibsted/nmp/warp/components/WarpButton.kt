@@ -35,6 +35,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
@@ -56,8 +57,10 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
  * @param buttonStyle Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
  * @param maxLines limits the lines of the text on the button. Default value is 1
  * @param loading set to true to enable the loading state. Default value is false
- * @param icon The drawable resource id for the icon to be displayed on the button. Default value is null
- * @param iconContentDescr The content description for the icon. Please provide this for accessibility purposes if icon is to be displayed. Default value is null
+ * @param leadingIcon The drawable resource id for the icon to be displayed on the button in front of the text. Default value is null
+ * @param leadingIconContentDescr The content description for the icon. Please provide this for accessibility purposes if icon is to be displayed. Default value is null
+ * @param trailingIcon The drawable resource id for the icon to be displayed on the button after the text. Default value is null
+ * @param trailingIconContentDescr The content description for the icon. Please provide this for accessibility purposes if icon is to be displayed. Default value is null
  */
 @Composable
 fun WarpButton(
@@ -68,8 +71,10 @@ fun WarpButton(
     buttonStyle: WarpButtonStyle = WarpButtonStyle.Primary,
     maxLines: Int = 1,
     loading: Boolean = false,
-    @DrawableRes icon: Int? = null,
-    iconContentDescr: String? = null
+    @DrawableRes leadingIcon: Int? = null,
+    leadingIconContentDescr: String? = null,
+    @DrawableRes trailingIcon: Int? = null,
+    trailingIconContentDescr: String? = null
 ) {
     WarpButton(
         onClick = onClick,
@@ -78,12 +83,12 @@ fun WarpButton(
         buttonStyle = buttonStyle,
         loading = loading
     ) {
-        icon?.let {
+        leadingIcon?.let {
             Icon(
                 modifier = Modifier
                     .padding(end = dimensions.space1),
-                imageVector = ImageVector.vectorResource(icon),
-                contentDescription = iconContentDescr
+                imageVector = ImageVector.vectorResource(leadingIcon),
+                contentDescription = leadingIconContentDescr
             )
         }
         Text(
@@ -95,6 +100,14 @@ fun WarpButton(
             maxLines = maxLines,
             style = typography.title4,
         )
+        trailingIcon?.let {
+            Icon(
+                modifier = Modifier
+                    .padding(start = dimensions.space1),
+                imageVector = ImageVector.vectorResource(trailingIcon),
+                contentDescription = trailingIconContentDescr
+            )
+        }
     }
 }
 
@@ -393,6 +406,13 @@ fun WarpButtonPreview(
             loading = true,
             onClick = {},
             buttonStyle = WarpButtonStyle.UtilityQuiet
+        )
+        WarpButton(
+            onClick = { },
+            buttonStyle = WarpButtonStyle.Primary,
+            text = "With icon",
+            leadingIcon = R.drawable.ic_logo_finn,
+            leadingIconContentDescr = "Clear icon",
         )
     }
 }

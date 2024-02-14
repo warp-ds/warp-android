@@ -14,8 +14,10 @@
         <attr name="enabled" format="boolean" />
         <attr name="loading" format="boolean" />
         <attr name="buttonText" format="reference|string" />
-        <attr name="buttonIcon" format="reference"/>
-        <attr name="buttonIconContentDescr" format="reference|string"/>
+        <attr name="buttonLeadingIcon" format="reference"/>
+        <attr name="buttonLeadingIconContentDescr" format="reference|string"/>
+        <attr name="buttonTrailingIcon" format="reference"/>
+        <attr name="buttonTrailingIconContentDescr" format="reference|string"/>
     </declare-styleable>
 
     <declare-styleable name="WarpText">

@@ -54,12 +54,20 @@ private fun ButtonScreenContent() {
             WarpButton(onClick = { /*TODO*/ }, buttonStyle = WarpButtonStyle.Primary, text = "Full width primary", modifier = Modifier
                 .fillMaxWidth())
         }
-        WarpText(text = "With optional icon", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05, start = dimensions.space2, end = dimensions.space2))
+        WarpText(text = "With optional leading icon", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05, start = dimensions.space2, end = dimensions.space2))
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = dimensions.space2)
         ) {
-            WarpButton(onClick = { /*TODO*/ }, buttonStyle = WarpButtonStyle.Secondary, text = "With icon", icon = com.google.android.material.R.drawable.ic_clock_black_24dp, modifier = Modifier
+            WarpButton(onClick = { /*TODO*/ }, buttonStyle = WarpButtonStyle.Secondary, text = "With icon", leadingIcon = com.google.android.material.R.drawable.ic_clock_black_24dp, leadingIconContentDescr = "Clock icon", modifier = Modifier
+                .fillMaxWidth())
+        }
+        WarpText(text = "With optional trailing icon", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05, start = dimensions.space2, end = dimensions.space2))
+        Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = dimensions.space2)
+        ) {
+            WarpButton(onClick = { /*TODO*/ }, buttonStyle = WarpButtonStyle.Negative, text = "With icon", trailingIcon = com.google.android.material.R.drawable.ic_clock_black_24dp, trailingIconContentDescr = "Clear icon", modifier = Modifier
                 .fillMaxWidth())
         }
     }

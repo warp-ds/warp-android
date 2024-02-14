@@ -22,8 +22,10 @@ import org.koin.java.KoinJavaComponent.inject
  * @param app:buttonText the button text, string or reference id
  * @param app:enabled sets the button in enabled or disabled mode
  * @param app:loading sets the button in loading mode showing the loading animation
- * @param app:buttonIcon sets the icon to be displayed in the button, reference id
- * @param app:buttonIconContentDescr sets the content description for the icon
+ * @param app:buttonLeadingIcon sets the icon to be displayed in the button before the text, reference id
+ * @param app:buttonLeadingIconContentDescr sets the content description for the icon
+ * @param app:buttonTrailingIcon sets the icon to be displayed in the button after the text, reference id
+ * @param app:buttonTrailingIconContentDescr sets the content description for the icon
  */
 class WarpButtonView @JvmOverloads constructor(
     context: Context,
@@ -58,13 +60,26 @@ class WarpButtonView @JvmOverloads constructor(
         }
 
     @DrawableRes
-    var icon: Int = 0
+    var leadingIcon: Int = 0
         set(value) {
             field = value
             disposeComposition()
         }
 
-    var iconContentDescription: String? = null
+    var leadingIconContentDescription: String? = null
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    @DrawableRes
+    var trailingIcon: Int = 0
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var trailingIconContentDescription: String? = null
         set(value) {
             field = value
             disposeComposition()
@@ -100,8 +115,10 @@ class WarpButtonView @JvmOverloads constructor(
             text = getTextFromIdOrString(R.styleable.WarpButton_buttonText, context) ?: ""
             loading = getBoolean(R.styleable.WarpButton_loading, false)
             buttonEnabled = getBoolean(R.styleable.WarpButton_enabled, true)
-            icon = getResourceId(R.styleable.WarpButton_buttonIcon, 0)
-            iconContentDescription = getTextFromIdOrString(R.styleable.WarpButton_buttonIconContentDescr, context)
+            leadingIcon = getResourceId(R.styleable.WarpButton_buttonLeadingIcon, 0)
+            leadingIconContentDescription = getTextFromIdOrString(R.styleable.WarpButton_buttonLeadingIconContentDescr, context)
+            trailingIcon = getResourceId(R.styleable.WarpButton_buttonTrailingIcon, 0)
+            trailingIconContentDescription = getTextFromIdOrString(R.styleable.WarpButton_buttonTrailingIconContentDescr, context)
         }
     }
 
@@ -114,8 +131,10 @@ class WarpButtonView @JvmOverloads constructor(
                 buttonStyle = style,
                 loading = loading,
                 enabled = buttonEnabled,
-                icon = if(icon != 0) icon else null,
-                iconContentDescr = iconContentDescription
+                leadingIcon = if(leadingIcon != 0) leadingIcon else null,
+                leadingIconContentDescr = leadingIconContentDescription,
+                trailingIcon = if(trailingIcon != 0) trailingIcon else null,
+                trailingIconContentDescr = trailingIconContentDescription
             )
         }
     }
