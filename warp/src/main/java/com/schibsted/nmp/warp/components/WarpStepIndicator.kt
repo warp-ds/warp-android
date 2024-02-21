@@ -54,6 +54,7 @@ import kotlin.math.floor
  * @param stepContentDescription Function to provide content descriptions for the steps, this will
  * only be used if onStepClicked is not null
  * @param stepTitle Function to provide titles for the steps
+ * @param stepDescription Function to provide descriptions for the steps
  * @param stepContent Composable containing the content of each step
  */
 @Composable
