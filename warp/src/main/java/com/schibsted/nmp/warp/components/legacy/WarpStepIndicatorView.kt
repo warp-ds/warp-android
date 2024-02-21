@@ -14,6 +14,19 @@ import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
 import com.schibsted.nmp.warp.components.VerticalWarpStepIndicator
 import org.koin.java.KoinJavaComponent
 
+/**
+ * View class version of the WarpStepIndicator composable.
+ * Can be declared in xml layouts as any other view component.
+ * Following custom attributes can be assigned through xml
+ * app:steps number of steps in the indicator
+ * app:activeStep the currently active step
+ * app:stepIndicatorOrientation the orientation of the indicator, horizontal or vertical
+ * @param stepTitle a lambda that returns the title for a given step. Must be set programmatically
+ * @param stepContentDescription a lambda that returns the content description for a given step. Must be set programmatically
+ * @param stepDescription a lambda that returns the description for a given step. Must be set programmatically
+ * @param stepContent a lambda that returns the content for a given step. Must be set programmatically in Compose
+ * @param onStepClicked a lambda that is called when a step is clicked. Must be set programmatically with setOnStepClickedListener
+ */
 class WarpStepIndicatorView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -67,6 +80,11 @@ class WarpStepIndicatorView @JvmOverloads constructor(
         this.onStepClicked = onClick
     }
 
+    enum class WarpStepIndicatorOrientation(val value: Int) {
+        Horizontal(0),
+        Vertical(1)
+    }
+
     init {
         context.withStyledAttributes(attrs, R.styleable.WarpStepIndicator) {
             steps = getInt(R.styleable.WarpStepIndicator_steps, 0)
@@ -115,9 +133,4 @@ class WarpStepIndicatorView @JvmOverloads constructor(
             }
         }
     }
-}
-
-enum class WarpStepIndicatorOrientation(val value: Int) {
-    Horizontal(0),
-    Vertical(1)
 }

@@ -33,46 +33,66 @@ fun StepIndicatorScreen(onUp: () -> Unit) {
 @Composable
 private fun StepIndicatorScreenContent() {
     var wState by remember { mutableIntStateOf(0) }
-    var hState by remember { mutableIntStateOf( 0) }
+    var hState by remember { mutableIntStateOf(0) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(dimensions.space2)
             .verticalScroll(rememberScrollState())
     ) {
-        WarpText("Horizontal", style = WarpTextStyle.Title3 )
+        WarpText("Horizontal", style = WarpTextStyle.Title3)
         val labels = listOf("Start", "Profile", "Payment", "Add-ons", "Thanks!")
-        val descriptions = listOf("Start your journey here", "Something about you", "Nothing is for free", "Extra everything?", "Have a nice day!")
+        val descriptions = listOf(
+            "Start your journey here",
+            "Something about you",
+            "Nothing is for free",
+            "Extra everything?",
+            "Have a nice day!"
+        )
         HorizontalWarpStepIndicator(
             modifier = Modifier,
             steps = 3,
             activeStep = hState,
-            onStepClicked = {hState = it},
+            onStepClicked = { hState = it },
+            stepContentDescription =  { labels[it] },
             stepTitle = { labels[it] },
             stepDescription = { descriptions[it] }
         )
 
-        WarpText(modifier = Modifier.padding(top = dimensions.space3), text = "Vertical", style = WarpTextStyle.Title3)
+        WarpText(
+            modifier = Modifier.padding(top = dimensions.space3),
+            text = "Vertical",
+            style = WarpTextStyle.Title3
+        )
         VerticalWarpStepIndicator(
             modifier = Modifier.fillMaxWidth(),
             steps = 5,
             activeStep = wState,
-            onStepClicked = { wState = it},
+            onStepClicked = { wState = it },
             stepTitle = { labels[it] },
             stepDescription = { descriptions[it] }
         ) {
             Column(modifier = Modifier.padding(vertical = dimensions.space1)) {
-                WarpText("Custom content! Maybe some text and maybe something else?", style = WarpTextStyle.Body)
+                WarpText(
+                    "Custom content! Maybe some text and maybe something else?",
+                    style = WarpTextStyle.Body
+                )
                 if (wState == it) {
                     WarpButton(
-                        modifier = Modifier.padding(top = dimensions.space1, bottom = dimensions.space3),
-                        onClick = { wState++},
+                        modifier = Modifier.padding(
+                            top = dimensions.space1,
+                            bottom = dimensions.space3
+                        ),
+                        onClick = { wState++ },
                         buttonStyle = WarpButtonStyle.Primary,
                         text = "Finish step"
                     )
                 } else {
                     WarpButton(
-                        modifier = Modifier.padding(top = dimensions.space1, bottom = dimensions.space3),
+                        modifier = Modifier.padding(
+                            top = dimensions.space1,
+                            bottom = dimensions.space3
+                        ),
                         onClick = { wState = it },
                         buttonStyle = WarpButtonStyle.Primary,
                         text = "Reset"
