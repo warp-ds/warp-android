@@ -5,13 +5,13 @@
     <!--*** BACKGROUND ***-->
 
     <color name="warp_background_default">@color/black</color>
-    <color name="warp_background_hover">@color/bluegray800</color>
-    <color name="warp_background_active">@color/bluegray900</color>
-    <color name="warp_background_disabled">@color/bluegray700</color>
-    <color name="warp_background_disabled_subtle">@color/bluegray900</color>
-    <color name="warp_background_subtle">@color/bluegray900</color>
-    <color name="warp_background_subtle_hover">@color/bluegray800</color>
-    <color name="warp_background_subtle_active">@color/bluegray900</color>
+    <color name="warp_background_hover">@color/gray800</color>
+    <color name="warp_background_active">@color/gray900</color>
+    <color name="warp_background_disabled">@color/gray700</color>
+    <color name="warp_background_disabled_subtle">@color/gray900</color>
+    <color name="warp_background_subtle">@color/gray900</color>
+    <color name="warp_background_subtle_hover">@color/gray800</color>
+    <color name="warp_background_subtle_active">@color/gray900</color>
     <color name="warp_background_selected">@color/blue900</color>
     <color name="warp_background_selected_hover">@color/blue800</color>
     <color name="warp_background_selected_active">@color/blue900</color>
@@ -65,10 +65,10 @@
 
     <!--*** BORDER ***-->
 
-    <color name="warp_border_default">@color/bluegray600</color>
-    <color name="warp_border_hover">@color/bluegray700</color>
-    <color name="warp_border_active">@color/bluegray800</color>
-    <color name="warp_border_disabled">@color/bluegray700</color>
+    <color name="warp_border_default">@color/gray600</color>
+    <color name="warp_border_hover">@color/gray700</color>
+    <color name="warp_border_active">@color/gray800</color>
+    <color name="warp_border_disabled">@color/gray700</color>
     <color name="warp_border_selected">@color/blue500</color>
     <color name="warp_border_selected_hover">@color/blue600</color>
     <color name="warp_border_selected_active">@color/blue500</color>
@@ -115,13 +115,13 @@
     <color name="warp_icon_selected">@color/blue500</color>
     <color name="warp_icon_selected_hover">@color/blue600</color>
     <color name="warp_icon_selected_active">@color/blue500</color>
-    <color name="warp_icon_disabled">@color/bluegray600</color>
-    <color name="warp_icon_subtle">@color/bluegray100</color>
-    <color name="warp_icon_subtle_hover">@color/bluegray200</color>
-    <color name="warp_icon_subtle_active">@color/bluegray300</color>
+    <color name="warp_icon_disabled">@color/gray600</color>
+    <color name="warp_icon_subtle">@color/gray100</color>
+    <color name="warp_icon_subtle_hover">@color/gray200</color>
+    <color name="warp_icon_subtle_active">@color/gray300</color>
     <color name="warp_icon_inverted">@color/black</color>
-    <color name="warp_icon_inverted_hover">@color/bluegray800</color>
-    <color name="warp_icon_inverted_active">@color/bluegray900</color>
+    <color name="warp_icon_inverted_hover">@color/gray800</color>
+    <color name="warp_icon_inverted_active">@color/gray900</color>
     <color name="warp_icon_primary">@color/blue500</color>
     <color name="warp_icon_secondary">@color/aqua400</color>
     <color name="warp_icon_secondary_hover">@color/aqua500</color>
@@ -136,18 +136,18 @@
 
     <color name="warp_text_default">@color/white</color>
     <color name="warp_text_subtle">@color/gray100</color>
-    <color name="warp_text_placeholder">@color/bluegray500</color>
+    <color name="warp_text_placeholder">@color/gray500</color>
     <color name="warp_text_inverted">@color/white</color>
     <color name="warp_text_inverted_subtle">@color/gray800</color>
     <color name="warp_text_link">@color/blue500</color>
-    <color name="warp_text_disabled">@color/bluegray500</color>
+    <color name="warp_text_disabled">@color/gray500</color>
     <color name="warp_text_negative">@color/red500</color>
     <color name="warp_text_positive">@color/green500</color>
     <color name="warp_text_notification">@color/white</color>
 
     <!--*** COMPONENTS ***-->
     <!--*** AVATAR ***-->
-    <color name="warp_avatar_background">@color/bluegray800</color>
+    <color name="warp_avatar_background">@color/gray800</color>
     <color name="warp_avatar_icon">@color/warp_icon_disabled</color>
 
     <!--*** PILL ***-->
@@ -171,13 +171,13 @@
     <color name="warp_badge_warning_background">@color/yellow700</color>
     <color name="warp_badge_negative_background">@color/red700</color>
     <color name="warp_badge_disabled_background">@color/warp_background_disabled</color>
-    <color name="warp_badge_neutral_background">@color/bluegray700</color>
+    <color name="warp_badge_neutral_background">@color/gray700</color>
     <color name="warp_badge_sponsored_background">@color/aqua600</color>
     <color name="warp_badge_price_background">@color/black70alpha</color>
 
     <!--*** BUTTON ***-->
-    <color name="warp_button_loading_background_default">@color/bluegray900</color>
-    <color name="warp_button_loading_background_active">@color/bluegray700</color>
+    <color name="warp_button_loading_background_default">@color/gray900</color>
+    <color name="warp_button_loading_background_active">@color/gray700</color>
     <color name="warp_button_primary_background">@color/warp_background_primary</color>
     <color name="warp_button_primary_background_active">@color/warp_background_primary_active</color>
 
