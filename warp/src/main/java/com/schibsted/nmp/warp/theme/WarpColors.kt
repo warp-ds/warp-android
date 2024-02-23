@@ -8,11 +8,25 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 interface WarpColors {
+    val surface: WarpSurfaceColors
     val background : WarpBackgroundColors
     val border : WarpBorderColors
     val icon : WarpIconColors
     val text : WarpTextColors
     val components: WarpComponentColors
+}
+
+interface WarpSurfaceColors {
+    val sunken: Color
+    val elevated100 : Color
+    val elevated100Hover : Color
+    val elevated100Active : Color
+    val elevated200 : Color
+    val elevated200Hover : Color
+    val elevated200Active : Color
+    val elevated300 : Color
+    val elevated300Hover : Color
+    val elevated300Active : Color
 }
 
 interface WarpBackgroundColors {

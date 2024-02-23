@@ -168,7 +168,7 @@ fun WarpBox(
     content: @Composable () -> Unit
 ) {
     val style = when (boxStyle) {
-        WarpBoxStyle.Neutral -> WarpBoxBackground(colors.background.subtle, null)
+        WarpBoxStyle.Neutral -> WarpBoxBackground(colors.surface.sunken, null)
         WarpBoxStyle.Info -> WarpBoxBackground(colors.background.infoSubtle, null)
         WarpBoxStyle.Bordered -> WarpBoxBackground(
             colors.background.default,

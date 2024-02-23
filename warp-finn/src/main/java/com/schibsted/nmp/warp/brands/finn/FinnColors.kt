@@ -14,15 +14,30 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
+import com.schibsted.nmp.warp.theme.WarpSurfaceColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object FinnColors : WarpColors {
+    override val surface: WarpSurfaceColors = FinnSurfaceColors
     override val background: WarpBackgroundColors = FinnBackgroundColors
     override val border: WarpBorderColors = FinnBorderColors
     override val icon: WarpIconColors = FinnIconColors
     override val text: WarpTextColors = FinnTextColors
     override val components: WarpComponentColors = FinnComponentColors
+}
+
+internal object FinnSurfaceColors : WarpSurfaceColors {
+    override val sunken = Gray50
+    override val elevated100 = White
+    override val elevated100Hover = Gray100
+    override val elevated100Active = Gray200
+    override val elevated200 = White
+    override val elevated200Hover = Gray100
+    override val elevated200Active = Gray200
+    override val elevated300 = White
+    override val elevated300Hover = Gray100
+    override val elevated300Active = Gray200
 }
 
 internal object FinnBackgroundColors : WarpBackgroundColors {
@@ -31,9 +46,9 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val active = Gray200
     override val disabled = Gray300
     override val disabledSubtle = Gray200
-    override val subtle = Gray50
-    override val subtleHover = Gray100
-    override val subtleActive = Gray200
+    override val subtle = Gray100
+    override val subtleHover = Gray200
+    override val subtleActive = Gray300
     override val selected = Blue50
     override val selectedHover = Blue100
     override val selectedActive = Blue200
@@ -285,7 +300,7 @@ internal val Red900 = Color(0xff38140b)
 
 //Gray
 internal val Gray50 = Color(0xfff6f6f6)
-internal val Gray100 = Color(0xffe6e6eb)
+internal val Gray100 = Color(0xfff0f0f2)
 internal val Gray200 = Color(0xffd1d1d6)
 internal val Gray300 = Color(0xffbbbbc2)
 internal val Gray400 = Color(0xffa5a5ad)

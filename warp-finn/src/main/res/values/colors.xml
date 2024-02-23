@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--*** SURFACE ***-->
+    <color name="warp_surface_sunken">@color/gray50</color>
+    <color name="warp_surface_elevated_100">@color/white</color>
+    <color name="warp_surface_elevated_100_hover">@color/gray100</color>
+    <color name="warp_surface_elevated_100_active">@color/gray200</color>
+    <color name="warp_surface_elevated_200">@color/white</color>
+    <color name="warp_surface_elevated_200_hover">@color/gray100</color>
+    <color name="warp_surface_elevated_200_active">@color/gray200</color>
+    <color name="warp_surface_elevated_300">@color/white</color>
+    <color name="warp_surface_elevated_300_hover">@color/gray100</color>
+    <color name="warp_surface_elevated_300_active">@color/gray200</color>
 
     <!--*** BACKGROUND ***-->
-
     <color name="warp_background_default">@color/white</color>
     <color name="warp_background_hover">@color/gray100</color>
     <color name="warp_background_active">@color/gray200</color>
     <color name="warp_background_disabled">@color/gray300</color>
     <color name="warp_background_disabled_subtle">@color/gray200</color>
-    <color name="warp_background_subtle">@color/gray50</color>
-    <color name="warp_background_subtle_hover">@color/gray100</color>
-    <color name="warp_background_subtle_active">@color/gray200</color>
+    <color name="warp_background_subtle">@color/gray100</color>
+    <color name="warp_background_subtle_hover">@color/gray200</color>
+    <color name="warp_background_subtle_active">@color/gray300</color>
     <color name="warp_background_selected">@color/blue50</color>
     <color name="warp_background_selected_hover">@color/blue100</color>
     <color name="warp_background_selected_active">@color/blue200</color>

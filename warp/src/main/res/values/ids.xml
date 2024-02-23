@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--*** SURFACE ***-->
+    <id name="warp_surface_sunken" type="color" />
+    <id name="warp_surface_elevated_100" type="color" />
+    <id name="warp_surface_elevated_100_hover" type="color" />
+    <id name="warp_surface_elevated_100_active" type="color" />
+    <id name="warp_surface_elevated_200" type="color" />
+    <id name="warp_surface_elevated_200_hover" type="color" />
+    <id name="warp_surface_elevated_200_active" type="color" />
+    <id name="warp_surface_elevated_300" type="color" />
+    <id name="warp_surface_elevated_300_hover" type="color" />
+    <id name="warp_surface_elevated_300_active" type="color" />
+    
     <!--*** BACKGROUND ***-->
     <id name="warp_background_default" type="color" />
     <id name="warp_background_hover" type="color" />

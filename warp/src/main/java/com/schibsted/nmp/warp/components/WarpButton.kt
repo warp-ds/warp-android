@@ -292,8 +292,8 @@ internal fun buttonStyleUtility() = WarpButtonStyleColors(
 internal fun buttonStyleUtilityOverlay() = WarpButtonStyleColors(
     text = colors.text.default,
     background = WarpButtonElementColors(
-        default = colors.background.default,
-        active = colors.background.active
+        default = colors.surface.elevated300,
+        active = colors.surface.elevated300Active
     ),
     border = null
 )

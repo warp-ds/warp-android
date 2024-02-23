@@ -6,11 +6,25 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 
 internal object Placeholders : WarpColors {
+    override val surface: WarpSurfaceColors = PlaceholderWarpSurfaceColors
     override val background: WarpBackgroundColors = PlaceholderWarpBackgroundColors
     override val border: WarpBorderColors = PlaceholderWarpBorderColors
     override val icon: WarpIconColors = PlaceholderWarpIconColors
     override val text: WarpTextColors = PlaceholderWarpTextColors
     override val components: WarpComponentColors = PlaceholderWarpComponentColors
+}
+
+private object PlaceholderWarpSurfaceColors : WarpSurfaceColors {
+    override val sunken = Color.Unspecified
+    override val elevated100 = Color.Unspecified
+    override val elevated100Hover = Color.Unspecified
+    override val elevated100Active = Color.Unspecified
+    override val elevated200 = Color.Unspecified
+    override val elevated200Hover = Color.Unspecified
+    override val elevated200Active = Color.Unspecified
+    override val elevated300 = Color.Unspecified
+    override val elevated300Hover = Color.Unspecified
+    override val elevated300Active = Color.Unspecified
 }
 
 private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
