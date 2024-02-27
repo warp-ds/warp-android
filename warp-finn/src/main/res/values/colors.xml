@@ -73,7 +73,6 @@
     <color name="warp_background_notification">@color/red600</color>
 
     <!--*** BORDER ***-->
-
     <color name="warp_border_default">@color/gray300</color>
     <color name="warp_border_hover">@color/gray400</color>
     <color name="warp_border_active">@color/gray500</color>
@@ -117,7 +116,6 @@
     <color name="warp_border_info_subtle_active">@color/aqua500</color>
 
     <!--*** ICON ***-->
-
     <color name="warp_icon_default">@color/gray700</color>
     <color name="warp_icon_static">@color/gray700</color>
     <color name="warp_icon_hover">@color/blue600</color>
@@ -144,11 +142,12 @@
     <color name="warp_icon_notification">@color/red600</color>
 
     <!--*** TEXT ***-->
-
     <color name="warp_text_default">@color/gray700</color>
+    <color name="warp_text_static">@color/gray700</color>
     <color name="warp_text_subtle">@color/gray500</color>
     <color name="warp_text_placeholder">@color/gray300</color>
     <color name="warp_text_inverted">@color/white</color>
+    <color name="warp_text_inverted_static">@color/white</color>
     <color name="warp_text_inverted_subtle">@color/gray50</color>
     <color name="warp_text_link">@color/blue600</color>
     <color name="warp_text_disabled">@color/gray300</color>

@@ -186,13 +186,15 @@ internal object FinnDarkIconColors : WarpIconColors {
 
 internal object FinnDarkTextColors : WarpTextColors {
     override val default = White
+    override val static = Gray700
     override val subtle = Gray100
     override val placeholder = Gray500
-    override val inverted = White
+    override val inverted = Gray900
+    override val invertedStatic = White
     override val invertedSubtle = Gray800
-    override val link = Blue500
+    override val link = Blue400
     override val disabled = Gray500
-    override val negative = Red500
+    override val negative = Red400
     override val positive = Green500
     override val notification = White
 }

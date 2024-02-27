@@ -175,9 +175,11 @@ private object PlaceholderWarpIconColors : WarpIconColors {
 
 private object PlaceholderWarpTextColors : WarpTextColors {
     override val default = Color.Unspecified
+    override val static = Color.Unspecified
     override val subtle = Color.Unspecified
     override val placeholder = Color.Unspecified
     override val inverted = Color.Unspecified
+    override val invertedStatic = Color.Unspecified
     override val invertedSubtle = Color.Unspecified
     override val link = Color.Unspecified
     override val disabled = Color.Unspecified

@@ -177,9 +177,11 @@ interface WarpIconColors {
 
 interface WarpTextColors {
     val default : Color
+    val static : Color
     val subtle : Color
     val placeholder : Color
     val inverted : Color
+    val invertedStatic : Color
     val invertedSubtle : Color
     val link : Color
     val disabled : Color

@@ -143,9 +143,11 @@
 
     <!--*** TEXT ***-->
     <id name="warp_text_default" type="color" />
+    <id name="warp_text_static" type="color" />
     <id name="warp_text_subtle" type="color" />
     <id name="warp_text_placeholder" type="color" />
     <id name="warp_text_inverted" type="color" />
+    <id name="warp_text_inverted_static" type="color" />
     <id name="warp_text_inverted_subtle" type="color" />
     <id name="warp_text_link" type="color" />
     <id name="warp_text_disabled" type="color" />
