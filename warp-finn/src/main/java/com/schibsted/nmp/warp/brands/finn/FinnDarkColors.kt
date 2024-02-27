@@ -110,52 +110,52 @@ internal object FinnDarkBackgroundColors : WarpBackgroundColors {
 
 internal object FinnDarkBorderColors : WarpBorderColors {
     override val default = Gray600
-    override val hover = Gray700
-    override val active = Gray800
+    override val hover = Gray500
+    override val active = Gray600
     override val disabled = Gray700
-    override val selected = Blue500
-    override val selectedHover = Blue600
-    override val selectedActive = Blue500
+    override val selected = Blue400
+    override val selectedHover = Blue300
+    override val selectedActive = Blue400
     override val focus = Aqua300
 
-    override val primary = Blue500
-    override val primaryHover = Blue600
-    override val primaryActive = Blue700
+    override val primary = Blue400
+    override val primaryHover = Blue300
+    override val primaryActive = Blue400
     override val primarySubtle = Blue700
     override val primarySubtleHover = Blue800
-    override val primarySubtleActive = Blue900
+    override val primarySubtleActive = Blue700
 
     override val secondary = Aqua400
-    override val secondaryHover = Aqua500
-    override val secondaryActive = Aqua600
+    override val secondaryHover = Aqua300
+    override val secondaryActive = Aqua400
 
     override val positive = Green500
-    override val positiveHover = Green600
-    override val positiveActive = Green700
+    override val positiveHover = Green400
+    override val positiveActive = Green500
     override val positiveSubtle = Green700
-    override val positiveSubtleHover = Green800
-    override val positiveSubtleActive = Green900
+    override val positiveSubtleHover = Green600
+    override val positiveSubtleActive = Green700
 
-    override val negative = Red500
-    override val negativeHover = Red600
-    override val negativeActive = Red700
+    override val negative = Red400
+    override val negativeHover = Red300
+    override val negativeActive = Red400
     override val negativeSubtle = Red700
-    override val negativeSubtleHover = Red800
-    override val negativeSubtleActive = Red900
+    override val negativeSubtleHover = Red600
+    override val negativeSubtleActive = Red700
 
     override val warning = Yellow500
-    override val warningHover = Yellow600
-    override val warningActive = Yellow700
+    override val warningHover = Yellow400
+    override val warningActive = Yellow500
     override val warningSubtle = Yellow700
-    override val warningSubtleHover = Yellow800
-    override val warningSubtleActive = Yellow900
+    override val warningSubtleHover = Yellow600
+    override val warningSubtleActive = Yellow700
 
     override val info = Aqua500
-    override val infoHover = Aqua600
-    override val infoActive = Aqua700
+    override val infoHover = Aqua400
+    override val infoActive = Aqua500
     override val infoSubtle = Aqua700
-    override val infoSubtleHover = Aqua800
-    override val infoSubtleActive = Aqua900
+    override val infoSubtleHover = Aqua600
+    override val infoSubtleActive = Aqua700
 }
 
 internal object FinnDarkIconColors : WarpIconColors {
