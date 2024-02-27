@@ -51,7 +51,7 @@ internal fun DetailsScaffold(title: String, onUp: () -> Unit, content: @Composab
                         Icon(Icons.Filled.MoreVert, contentDescription = "Menu")
                     }
                     DropdownMenu(
-                        modifier = Modifier.background(WarpTheme.colors.background.subtle),
+                        modifier = Modifier.background(WarpTheme.colors.background.neutralSubtle),
                         expanded = menuVisible,
                         onDismissRequest = { menuVisible = false }) {
                         DropdownMenuItem(text = { WarpText("Finn") }, onClick = {

@@ -138,7 +138,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         )
                     }
                     DropdownMenu(
-                        modifier = Modifier.background(colors.background.subtle),
+                        modifier = Modifier.background(colors.background.neutralSubtle),
                         expanded = menuVisible,
                         onDismissRequest = { menuVisible = false }) {
                         DropdownMenuItem(text = { WarpText("Finn") }, onClick = {
@@ -177,7 +177,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                                 onNavigate(it.first)
                             },
                         colors = CardDefaults.elevatedCardColors(
-                            containerColor = colors.background.subtle
+                            containerColor = colors.background.neutralSubtle
                         )
                     ) {
                         Row(

@@ -33,9 +33,9 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val active = Color.Unspecified
     override val disabled = Color.Unspecified
     override val disabledSubtle = Color.Unspecified
-    override val subtle = Color.Unspecified
-    override val subtleHover = Color.Unspecified
-    override val subtleActive = Color.Unspecified
+    override val neutralSubtle = Color.Unspecified
+    override val neutralSubtleHover = Color.Unspecified
+    override val neutralSubtleActive = Color.Unspecified
     override val selected = Color.Unspecified
     override val selectedHover = Color.Unspecified
     override val selectedActive = Color.Unspecified

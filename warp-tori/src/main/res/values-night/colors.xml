@@ -18,9 +18,9 @@
     <color name="warp_background_active">@color/gray900</color>
     <color name="warp_background_disabled">@color/gray700</color>
     <color name="warp_background_disabled_subtle">@color/gray600</color>
-    <color name="warp_background_subtle">@color/gray750</color>
-    <color name="warp_background_subtle_hover">@color/gray700</color>
-    <color name="warp_background_subtle_active">@color/gray750</color>
+    <color name="warp_background_neutral_subtle">@color/gray750</color>
+    <color name="warp_background_neutral_subtle_hover">@color/gray700</color>
+    <color name="warp_background_neutral_subtle_active">@color/gray750</color>
     <color name="warp_background_selected">@color/blueberry900</color>
     <color name="warp_background_selected_hover">@color/blueberry800</color>
     <color name="warp_background_selected_active">@color/blueberry900</color>
