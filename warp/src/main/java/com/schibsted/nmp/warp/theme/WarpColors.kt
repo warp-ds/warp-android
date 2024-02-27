@@ -150,6 +150,7 @@ interface WarpBorderColors {
 
 interface WarpIconColors {
     val default : Color
+    val static : Color
     val hover : Color
     val active : Color
     val selected : Color
@@ -162,6 +163,7 @@ interface WarpIconColors {
     val inverted : Color
     val invertedHover : Color
     val invertedActive : Color
+    val invertedStatic : Color
     val primary : Color
     val secondary : Color
     val secondaryHover : Color

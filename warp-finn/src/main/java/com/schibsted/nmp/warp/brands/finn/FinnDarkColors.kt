@@ -1,7 +1,6 @@
 package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.ui.graphics.Color
-import com.schibsted.nmp.warp.theme.Black
 import com.schibsted.nmp.warp.theme.Black70Alpha
 import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
@@ -160,24 +159,26 @@ internal object FinnDarkBorderColors : WarpBorderColors {
 
 internal object FinnDarkIconColors : WarpIconColors {
     override val default = White
+    override val static = Gray700
     override val hover = Gray100
     override val active = Gray200
-    override val selected = Blue500
-    override val selectedHover = Blue600
-    override val selectedActive = Blue500
+    override val selected = Blue400
+    override val selectedHover = Blue300
+    override val selectedActive = Blue400
     override val disabled = Gray600
-    override val subtle = Gray100
+    override val subtle = Gray600
     override val subtleHover = Gray200
     override val subtleActive = Gray300
-    override val inverted = Black
-    override val invertedHover = Gray800
+    override val inverted = Gray900
+    override val invertedHover = Gray950
     override val invertedActive = Gray900
-    override val primary = Blue500
+    override val invertedStatic = White
+    override val primary = Blue400
     override val secondary = Aqua400
-    override val secondaryHover = Aqua500
-    override val secondaryActive = Aqua600
+    override val secondaryHover = Aqua300
+    override val secondaryActive = Aqua400
     override val positive = Green500
-    override val negative = Red500
+    override val negative = Red400
     override val warning = Yellow500
     override val info = Aqua500
     override val notification = White

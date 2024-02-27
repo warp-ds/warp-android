@@ -73,7 +73,6 @@
     <color name="warp_background_notification">@color/watermelon500</color>
 
     <!--*** BORDER ***-->
-
     <color name="warp_border_default">@color/gray600</color>
     <color name="warp_border_hover">@color/gray500</color>
     <color name="warp_border_active">@color/gray600</color>
@@ -117,32 +116,32 @@
     <color name="warp_border_info_subtle_active">@color/blue700</color>
 
     <!--*** ICON ***-->
-
     <color name="warp_icon_default">@color/white</color>
+    <color name="warp_icon_static">@color/gray900</color>
     <color name="warp_icon_hover">@color/gray100</color>
     <color name="warp_icon_active">@color/gray200</color>
-    <color name="warp_icon_selected">@color/blueberry500</color>
-    <color name="warp_icon_selected_hover">@color/blueberry600</color>
-    <color name="warp_icon_selected_active">@color/blueberry500</color>
+    <color name="warp_icon_selected">@color/blueberry400</color>
+    <color name="warp_icon_selected_hover">@color/blueberry300</color>
+    <color name="warp_icon_selected_active">@color/blueberry400</color>
     <color name="warp_icon_disabled">@color/gray600</color>
-    <color name="warp_icon_subtle">@color/gray100</color>
+    <color name="warp_icon_subtle">@color/gray600</color>
     <color name="warp_icon_subtle_hover">@color/gray200</color>
     <color name="warp_icon_subtle_active">@color/gray300</color>
-    <color name="warp_icon_inverted">@color/black</color>
-    <color name="warp_icon_inverted_hover">@color/gray800</color>
+    <color name="warp_icon_inverted">@color/gray900</color>
+    <color name="warp_icon_inverted_hover">@color/gray950</color>
     <color name="warp_icon_inverted_active">@color/gray900</color>
-    <color name="warp_icon_primary">@color/blueberry500</color>
+    <color name="warp_icon_inverted_static">@color/white</color>
+    <color name="warp_icon_primary">@color/blueberry400</color>
     <color name="warp_icon_secondary">@color/watermelon500</color>
-    <color name="warp_icon_secondary_hover">@color/watermelon600</color>
-    <color name="warp_icon_secondary_active">@color/watermelon700</color>
+    <color name="warp_icon_secondary_hover">@color/watermelon400</color>
+    <color name="warp_icon_secondary_active">@color/watermelon500</color>
     <color name="warp_icon_positive">@color/green500</color>
-    <color name="warp_icon_negative">@color/red500</color>
+    <color name="warp_icon_negative">@color/red300</color>
     <color name="warp_icon_warning">@color/yellow500</color>
     <color name="warp_icon_info">@color/blue500</color>
     <color name="warp_icon_notification">@color/white</color>
 
     <!--*** TEXT ***-->
-
     <color name="warp_text_default">@color/white</color>
     <color name="warp_text_subtle">@color/gray100</color>
     <color name="warp_text_placeholder">@color/gray500</color>

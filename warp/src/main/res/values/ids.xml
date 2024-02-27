@@ -117,6 +117,7 @@
 
     <!--*** ICON ***-->
     <id name="warp_icon_default" type="color" />
+    <id name="warp_icon_static" type="color" />
     <id name="warp_icon_hover" type="color" />
     <id name="warp_icon_active" type="color" />
     <id name="warp_icon_selected" type="color" />
@@ -129,6 +130,7 @@
     <id name="warp_icon_inverted" type="color" />
     <id name="warp_icon_inverted_hover" type="color" />
     <id name="warp_icon_inverted_active" type="color" />
+    <id name="warp_icon_inverted_static" type="color" />
     <id name="warp_icon_primary" type="color" />
     <id name="warp_icon_secondary" type="color" />
     <id name="warp_icon_secondary_hover" type="color" />

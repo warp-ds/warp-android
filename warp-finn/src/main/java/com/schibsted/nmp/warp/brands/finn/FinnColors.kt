@@ -161,6 +161,7 @@ internal object FinnBorderColors : WarpBorderColors {
 
 internal object FinnIconColors : WarpIconColors {
     override val default = Gray700
+    override val static = Gray700
     override val hover = Blue600
     override val active = Blue700
     override val selected = Blue600
@@ -173,6 +174,7 @@ internal object FinnIconColors : WarpIconColors {
     override val inverted = White
     override val invertedHover = Gray100
     override val invertedActive = Gray200
+    override val invertedStatic = White
     override val primary = Blue600
     override val secondary = Aqua400
     override val secondaryHover = Aqua500

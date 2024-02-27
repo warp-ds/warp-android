@@ -148,6 +148,7 @@ private object PlaceholderWarpBorderColors : WarpBorderColors {
 
 private object PlaceholderWarpIconColors : WarpIconColors {
     override val default = Color.Unspecified
+    override val static = Color.Unspecified
     override val hover = Color.Unspecified
     override val active = Color.Unspecified
     override val selected = Color.Unspecified
@@ -160,6 +161,7 @@ private object PlaceholderWarpIconColors : WarpIconColors {
     override val inverted = Color.Unspecified
     override val invertedHover = Color.Unspecified
     override val invertedActive = Color.Unspecified
+    override val invertedStatic = Color.Unspecified
     override val primary = Color.Unspecified
     override val secondary = Color.Unspecified
     override val secondaryHover = Color.Unspecified
