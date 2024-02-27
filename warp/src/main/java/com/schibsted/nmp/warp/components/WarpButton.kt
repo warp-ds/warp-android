@@ -303,7 +303,7 @@ internal fun buttonStyleUtilityQuiet() = WarpButtonStyleColors(
     text = colors.text.default,
     background = WarpButtonElementColors(
         default = Transparent,
-        active = colors.background.neutralSubtleActive
+        active = colors.background.subtleActive
     ),
     border = null
 )

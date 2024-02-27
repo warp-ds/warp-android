@@ -44,9 +44,9 @@ internal object ToriDarkBackgroundColors : WarpBackgroundColors {
     override val active = Gray900
     override val disabled = Gray700
     override val disabledSubtle = Gray600
-    override val neutralSubtle = Gray750
-    override val neutralSubtleHover = Gray700
-    override val neutralSubtleActive = Gray750
+    override val subtle = Gray750
+    override val subtleHover = Gray700
+    override val subtleActive = Gray750
     override val selected = Blueberry900
     override val selectedHover = Blueberry800
     override val selectedActive = Blueberry900

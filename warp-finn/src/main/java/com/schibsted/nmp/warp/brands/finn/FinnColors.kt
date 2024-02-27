@@ -46,9 +46,9 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val active = Gray200
     override val disabled = Gray300
     override val disabledSubtle = Gray200
-    override val neutralSubtle = Gray100
-    override val neutralSubtleHover = Gray200
-    override val neutralSubtleActive = Gray300
+    override val subtle = Gray100
+    override val subtleHover = Gray200
+    override val subtleActive = Gray300
     override val selected = Blue50
     override val selectedHover = Blue100
     override val selectedActive = Blue200

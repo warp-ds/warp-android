@@ -35,9 +35,9 @@ interface WarpBackgroundColors {
     val active : Color
     val disabled : Color
     val disabledSubtle : Color
-    val neutralSubtle : Color
-    val neutralSubtleHover : Color
-    val neutralSubtleActive : Color
+    val subtle : Color
+    val subtleHover : Color
+    val subtleActive : Color
     val selected : Color
     val selectedHover : Color
     val selectedActive : Color
