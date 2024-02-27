@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -154,10 +154,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/suggestion_pill"
+            app:boxStyle="neutral"
             app:boxText="This is the box text"
-            app:boxStyle="neutral" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suggestion_pill" />
 
         <com.schibsted.nmp.warp.components.legacy.WarpBoxView
             android:id="@+id/box_bordered"
@@ -165,11 +165,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/box_info"
-            app:boxText="This is the box text"
             app:boxHeading="Warp Box!"
-            app:boxStyle="bordered" />
+            app:boxStyle="bordered"
+            app:boxText="This is the box text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/box_info" />
 
         <com.schibsted.nmp.warp.components.legacy.WarpBoxView
             android:id="@+id/box_neutral"
@@ -177,31 +177,56 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/box_bordered"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:boxIcon="@drawable/blocket_badge"
             app:boxButtonText="Button"
-            app:boxIconContentDescr="Icon content description"
-            app:boxIconColor="@color/warp_icon_primary"
-            app:boxLink="This is the link"
-            app:boxText="This is the box text"
             app:boxHeading="Warp Box!"
-            app:boxStyle="info" />
+            app:boxIcon="@drawable/blocket_badge"
+            app:boxIconColor="@color/warp_icon_primary"
+            app:boxIconContentDescr="Icon content description"
+            app:boxLink="This is the link"
+            app:boxStyle="info"
+            app:boxText="This is the box text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/box_bordered" />
+
         <com.schibsted.nmp.warp.components.legacy.WarpButtonView
             android:id="@+id/warp_button_three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space2"
-            app:buttonText="Icon"
             app:buttonLeadingIcon="@drawable/blocket_badge"
             app:buttonLeadingIconContentDescr="Icon content description"
+            app:buttonText="Icon"
             app:buttonTrailingIcon="@drawable/blocket_badge"
             app:buttonTrailingIconContentDescr="Icon content description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/box_neutral"
             app:loading="false"
             app:warpButtonStyle="primary" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
+            android:id="@+id/stepindicator_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:activeStep="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_button_three"
+            app:layout_constraintBottom_toTopOf="@id/stepindicator_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:stepIndicatorOrientation="vertical"
+            app:steps="2" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
+            android:id="@+id/stepindicator_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space2"
+            app:activeStep="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stepindicator_vertical"
+            app:stepIndicatorOrientation="horizontal"
+            app:steps="3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

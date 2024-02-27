@@ -14,10 +14,10 @@
         <attr name="enabled" format="boolean" />
         <attr name="loading" format="boolean" />
         <attr name="buttonText" format="reference|string" />
-        <attr name="buttonLeadingIcon" format="reference"/>
-        <attr name="buttonLeadingIconContentDescr" format="reference|string"/>
-        <attr name="buttonTrailingIcon" format="reference"/>
-        <attr name="buttonTrailingIconContentDescr" format="reference|string"/>
+        <attr name="buttonLeadingIcon" format="reference" />
+        <attr name="buttonLeadingIconContentDescr" format="reference|string" />
+        <attr name="buttonTrailingIcon" format="reference" />
+        <attr name="buttonTrailingIconContentDescr" format="reference|string" />
     </declare-styleable>
 
     <declare-styleable name="WarpText">
@@ -42,27 +42,27 @@
     </declare-styleable>
 
     <declare-styleable name="WarpTextField">
-        <attr name="textFieldEnabled" format="boolean"/>
-        <attr name="readOnly" format="boolean"/>
-        <attr name="label" format="reference|string"/>
-        <attr name="optionalLabel" format="reference|string"/>
-        <attr name="placeholderText" format="reference|string"/>
-        <attr name="helpText" format="reference|string"/>
-        <attr name="prefixText" format="reference|string"/>
-        <attr name="suffixText" format="reference|string"/>
-        <attr name="leadingIcon" format="reference"/>
-        <attr name="leadingIconContentDescr" format="reference|string"/>
-        <attr name="trailingIcon" format="reference"/>
-        <attr name="trailingIconContentDescr" format="reference|string"/>
-        <attr name="isError" format="boolean"/>
-        <attr name="singleLine" format="boolean"/>
-        <attr name="maxLines" format="integer"/>
+        <attr name="textFieldEnabled" format="boolean" />
+        <attr name="readOnly" format="boolean" />
+        <attr name="label" format="reference|string" />
+        <attr name="optionalLabel" format="reference|string" />
+        <attr name="placeholderText" format="reference|string" />
+        <attr name="helpText" format="reference|string" />
+        <attr name="prefixText" format="reference|string" />
+        <attr name="suffixText" format="reference|string" />
+        <attr name="leadingIcon" format="reference" />
+        <attr name="leadingIconContentDescr" format="reference|string" />
+        <attr name="trailingIcon" format="reference" />
+        <attr name="trailingIconContentDescr" format="reference|string" />
+        <attr name="isError" format="boolean" />
+        <attr name="singleLine" format="boolean" />
+        <attr name="maxLines" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="WarpBadge" >
+    <declare-styleable name="WarpBadge">
         <attr name="warpBadgeStyle" format="enum">
-            <enum name="info" value="0"/>
-            <enum name="success" value="1"/>
+            <enum name="info" value="0" />
+            <enum name="success" value="1" />
             <enum name="warning" value="2" />
             <enum name="error" value="3" />
             <enum name="disabled" value="4" />
@@ -114,9 +114,18 @@
         <attr name="boxText" format="reference|string" />
         <attr name="boxLink" format="reference|string" />
         <attr name="boxButtonText" format="reference|string" />
-        <attr name="boxIcon" format="reference"/>
-        <attr name="boxIconContentDescr" format="reference|string"/>
+        <attr name="boxIcon" format="reference" />
+        <attr name="boxIconContentDescr" format="reference|string" />
         <attr name="boxIconColor" format="color" />
 
+    </declare-styleable>
+
+    <declare-styleable name="WarpStepIndicator">
+        <attr name="stepIndicatorOrientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="steps" format="integer" />
+        <attr name="activeStep" format="integer" />
     </declare-styleable>
 </resources>
