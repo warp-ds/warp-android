@@ -144,10 +144,6 @@
     <id name="warp_text_notification" type="color" />
 
     <!--*** COMPONENTS ***-->
-    <!--*** AVATAR ***-->
-    <id name="warp_avatar_background" type="color" />
-    <id name="warp_avatar_icon" type="color" />
-
     <!--*** PILL ***-->
     <id name="warp_pill_filter_text" type="color" />
     <id name="warp_pill_filter_background" type="color" />

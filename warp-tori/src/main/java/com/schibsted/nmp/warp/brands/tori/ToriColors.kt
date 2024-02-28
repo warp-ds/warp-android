@@ -194,11 +194,10 @@ internal object ToriComponentColors : WarpComponentColors {
     override val badge: WarpBadgeColors = ToriBadgeColors
     override val callout: WarpCalloutColors = ToriCalloutColors
     override val pill: WarpPillColors = ToriPillColors
-    override val avatar: WarpAvatarColors = ToriAvatarColors
 }
 
 internal object ToriAvatarColors : WarpAvatarColors {
-    override val background = Gray100
+    override val background = ToriBackgroundColors.subtle
     override val icon = ToriIconColors.disabled
 }
 

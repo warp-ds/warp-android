@@ -192,11 +192,10 @@ internal object FinnComponentDarkColors : WarpComponentColors {
     override val badge: WarpBadgeColors = FinnBadgeDarkColors
     override val callout: WarpCalloutColors = FinnCalloutDarkColors
     override val pill: WarpPillColors = FinnPillDarkColors
-    override val avatar: WarpAvatarColors = FinnAvatarDarkColors
 }
 
 internal object FinnAvatarDarkColors : WarpAvatarColors {
-    override val background: Color = Gray800
+    override val background: Color = FinnDarkBackgroundColors.subtle
     override val icon: Color = FinnDarkIconColors.disabled
 }
 
