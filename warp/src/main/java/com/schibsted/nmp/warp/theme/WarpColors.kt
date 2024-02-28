@@ -185,11 +185,6 @@ interface WarpComponentColors {
     val pill: WarpPillColors
 }
 
-interface WarpAvatarColors {
-    val background: Color
-    val icon: Color
-}
-
 interface WarpPillColors {
     val filterTextColor: Color
     val filterIconColor: Color

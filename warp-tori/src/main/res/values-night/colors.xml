@@ -152,7 +152,7 @@
     <color name="warp_pill_filter_icon">@color/warp_icon_inverted</color>
     <color name="warp_pill_suggestion_text">@color/warp_text_default</color>
     <color name="warp_pill_suggestion_background">@color/gray600</color>
-    <color name="warp_pill_suggestion_background_active">@color/gray800</color>
+    <color name="warp_pill_suggestion_background_active">@color/gray600</color>
     <color name="warp_pill_suggestion_icon">@color/warp_icon_default</color>
 
     <!--*** CALLOUT ***-->
@@ -166,7 +166,7 @@
     <color name="warp_badge_warning_background">@color/yellow700</color>
     <color name="warp_badge_negative_background">@color/red700</color>
     <color name="warp_badge_disabled_background">@color/warp_background_disabled</color>
-    <color name="warp_badge_neutral_background">@color/gray700</color>
+    <color name="warp_badge_neutral_background">@color/gray600</color>
     <color name="warp_badge_sponsored_background">@color/blue600</color>
     <color name="warp_badge_price_background">@color/black70alpha</color>
 
