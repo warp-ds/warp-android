@@ -40,36 +40,24 @@
     <color name="warp_background_positive_subtle">@color/green50</color>
     <color name="warp_background_positive_subtle_hover">@color/green100</color>
     <color name="warp_background_positive_subtle_active">@color/green200</color>
-    <color name="warp_background_positive_selected">@color/green50</color>
-    <color name="warp_background_positive_selected_hover">@color/green100</color>
-    <color name="warp_background_positive_selected_active">@color/green200</color>
     <color name="warp_background_negative">@color/red600</color>
     <color name="warp_background_negative_hover">@color/red700</color>
     <color name="warp_background_negative_active">@color/red800</color>
     <color name="warp_background_negative_subtle">@color/red50</color>
     <color name="warp_background_negative_subtle_hover">@color/red100</color>
     <color name="warp_background_negative_subtle_active">@color/red200</color>
-    <color name="warp_background_negative_selected">@color/red50</color>
-    <color name="warp_background_negative_selected_hover">@color/red100</color>
-    <color name="warp_background_negative_selected_active">@color/red200</color>
     <color name="warp_background_warning">@color/yellow600</color>
     <color name="warp_background_warning_hover">@color/yellow700</color>
     <color name="warp_background_warning_active">@color/yellow800</color>
     <color name="warp_background_warning_subtle">@color/yellow50</color>
     <color name="warp_background_warning_subtle_hover">@color/yellow100</color>
     <color name="warp_background_warning_subtle_active">@color/yellow200</color>
-    <color name="warp_background_warning_selected">@color/yellow50</color>
-    <color name="warp_background_warning_selected_hover">@color/yellow100</color>
-    <color name="warp_background_warning_selected_active">@color/yellow200</color>
     <color name="warp_background_info">@color/aqua600</color>
     <color name="warp_background_info_hover">@color/aqua700</color>
     <color name="warp_background_info_active">@color/aqua800</color>
     <color name="warp_background_info_subtle">@color/aqua50</color>
     <color name="warp_background_info_subtle_hover">@color/aqua100</color>
     <color name="warp_background_info_subtle_active">@color/aqua200</color>
-    <color name="warp_background_info_selected">@color/aqua50</color>
-    <color name="warp_background_info_selected_hover">@color/aqua100</color>
-    <color name="warp_background_info_selected_active">@color/aqua200</color>
     <color name="warp_background_notification">@color/red600</color>
 
     <!--*** BORDER ***-->

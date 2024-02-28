@@ -72,9 +72,6 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val positiveSubtle = Green50
     override val positiveSubtleHover = Green100
     override val positiveSubtleActive = Green200
-    override val positiveSelected = Green50
-    override val positiveSelectedHover = Green100
-    override val positiveSelectedActive = Green200
 
     override val negative = Red600
     override val negativeHover = Red700
@@ -82,9 +79,6 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val negativeSubtle = Red50
     override val negativeSubtleHover = Red100
     override val negativeSubtleActive = Red200
-    override val negativeSelected = Red50
-    override val negativeSelectedHover = Red100
-    override val negativeSelectedActive = Red200
 
     override val warning = Yellow600
     override val warningHover = Yellow700
@@ -92,9 +86,6 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val warningSubtle = Yellow50
     override val warningSubtleHover = Yellow100
     override val warningSubtleActive = Yellow200
-    override val warningSelected = Yellow50
-    override val warningSelectedHover = Yellow100
-    override val warningSelectedActive = Yellow200
 
     override val info = Aqua600
     override val infoHover = Aqua700
@@ -102,9 +93,6 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Aqua50
     override val infoSubtleHover = Aqua100
     override val infoSubtleActive = Aqua200
-    override val infoSelected = Aqua50
-    override val infoSelectedHover = Aqua100
-    override val infoSelectedActive = Aqua200
 
     override val notification = Red600
 }

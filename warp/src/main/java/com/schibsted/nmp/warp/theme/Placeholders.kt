@@ -59,9 +59,6 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val positiveSubtle = Color.Unspecified
     override val positiveSubtleHover = Color.Unspecified
     override val positiveSubtleActive = Color.Unspecified
-    override val positiveSelected = Color.Unspecified
-    override val positiveSelectedHover = Color.Unspecified
-    override val positiveSelectedActive = Color.Unspecified
 
     override val negative = Color.Unspecified
     override val negativeHover = Color.Unspecified
@@ -69,9 +66,6 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val negativeSubtle = Color.Unspecified
     override val negativeSubtleHover = Color.Unspecified
     override val negativeSubtleActive = Color.Unspecified
-    override val negativeSelected = Color.Unspecified
-    override val negativeSelectedHover = Color.Unspecified
-    override val negativeSelectedActive = Color.Unspecified
 
     override val warning = Color.Unspecified
     override val warningHover = Color.Unspecified
@@ -79,9 +73,6 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val warningSubtle = Color.Unspecified
     override val warningSubtleHover = Color.Unspecified
     override val warningSubtleActive = Color.Unspecified
-    override val warningSelected = Color.Unspecified
-    override val warningSelectedHover = Color.Unspecified
-    override val warningSelectedActive = Color.Unspecified
 
     override val info = Color.Unspecified
     override val infoHover = Color.Unspecified
@@ -89,9 +80,6 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color.Unspecified
     override val infoSubtleHover = Color.Unspecified
     override val infoSubtleActive = Color.Unspecified
-    override val infoSelected = Color.Unspecified
-    override val infoSelectedHover = Color.Unspecified
-    override val infoSelectedActive = Color.Unspecified
 
     override val notification = Color.Unspecified
 }
