@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--*** SURFACE ***-->
+    <id name="warp_surface_sunken" type="color" />
+    <id name="warp_surface_elevated_100" type="color" />
+    <id name="warp_surface_elevated_100_hover" type="color" />
+    <id name="warp_surface_elevated_100_active" type="color" />
+    <id name="warp_surface_elevated_200" type="color" />
+    <id name="warp_surface_elevated_200_hover" type="color" />
+    <id name="warp_surface_elevated_200_active" type="color" />
+    <id name="warp_surface_elevated_300" type="color" />
+    <id name="warp_surface_elevated_300_hover" type="color" />
+    <id name="warp_surface_elevated_300_active" type="color" />
+    
     <!--*** BACKGROUND ***-->
     <id name="warp_background_default" type="color" />
     <id name="warp_background_hover" type="color" />
@@ -29,36 +40,24 @@
     <id name="warp_background_positive_subtle" type="color" />
     <id name="warp_background_positive_subtle_hover" type="color" />
     <id name="warp_background_positive_subtle_active" type="color" />
-    <id name="warp_background_positive_selected" type="color" />
-    <id name="warp_background_positive_selected_hover" type="color" />
-    <id name="warp_background_positive_selected_active" type="color" />
     <id name="warp_background_negative" type="color" />
     <id name="warp_background_negative_hover" type="color" />
     <id name="warp_background_negative_active" type="color" />
     <id name="warp_background_negative_subtle" type="color" />
     <id name="warp_background_negative_subtle_hover" type="color" />
     <id name="warp_background_negative_subtle_active" type="color" />
-    <id name="warp_background_negative_selected" type="color" />
-    <id name="warp_background_negative_selected_hover" type="color" />
-    <id name="warp_background_negative_selected_active" type="color" />
     <id name="warp_background_warning" type="color" />
     <id name="warp_background_warning_hover" type="color" />
     <id name="warp_background_warning_active" type="color" />
     <id name="warp_background_warning_subtle" type="color" />
     <id name="warp_background_warning_subtle_hover" type="color" />
     <id name="warp_background_warning_subtle_active" type="color" />
-    <id name="warp_background_warning_selected" type="color" />
-    <id name="warp_background_warning_selected_hover" type="color" />
-    <id name="warp_background_warning_selected_active" type="color" />
     <id name="warp_background_info" type="color" />
     <id name="warp_background_info_hover" type="color" />
     <id name="warp_background_info_active" type="color" />
     <id name="warp_background_info_subtle" type="color" />
     <id name="warp_background_info_subtle_hover" type="color" />
     <id name="warp_background_info_subtle_active" type="color" />
-    <id name="warp_background_info_selected" type="color" />
-    <id name="warp_background_info_selected_hover" type="color" />
-    <id name="warp_background_info_selected_active" type="color" />
     <id name="warp_background_notification" type="color" />
 
     <!--*** BORDER ***-->
@@ -106,6 +105,7 @@
 
     <!--*** ICON ***-->
     <id name="warp_icon_default" type="color" />
+    <id name="warp_icon_static" type="color" />
     <id name="warp_icon_hover" type="color" />
     <id name="warp_icon_active" type="color" />
     <id name="warp_icon_selected" type="color" />
@@ -118,6 +118,7 @@
     <id name="warp_icon_inverted" type="color" />
     <id name="warp_icon_inverted_hover" type="color" />
     <id name="warp_icon_inverted_active" type="color" />
+    <id name="warp_icon_inverted_static" type="color" />
     <id name="warp_icon_primary" type="color" />
     <id name="warp_icon_secondary" type="color" />
     <id name="warp_icon_secondary_hover" type="color" />
@@ -130,9 +131,11 @@
 
     <!--*** TEXT ***-->
     <id name="warp_text_default" type="color" />
+    <id name="warp_text_static" type="color" />
     <id name="warp_text_subtle" type="color" />
     <id name="warp_text_placeholder" type="color" />
     <id name="warp_text_inverted" type="color" />
+    <id name="warp_text_inverted_static" type="color" />
     <id name="warp_text_inverted_subtle" type="color" />
     <id name="warp_text_link" type="color" />
     <id name="warp_text_disabled" type="color" />
@@ -141,10 +144,6 @@
     <id name="warp_text_notification" type="color" />
 
     <!--*** COMPONENTS ***-->
-    <!--*** AVATAR ***-->
-    <id name="warp_avatar_background" type="color" />
-    <id name="warp_avatar_icon" type="color" />
-
     <!--*** PILL ***-->
     <id name="warp_pill_filter_text" type="color" />
     <id name="warp_pill_filter_background" type="color" />

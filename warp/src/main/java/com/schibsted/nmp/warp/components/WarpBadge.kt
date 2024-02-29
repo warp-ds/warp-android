@@ -51,7 +51,7 @@ fun WarpBadge(
         WarpBadgeStyle.Disabled,
         WarpBadgeStyle.Neutral,
         WarpBadgeStyle.Sponsored -> colors.text.default
-        WarpBadgeStyle.Price -> colors.text.inverted
+        WarpBadgeStyle.Price -> colors.text.invertedStatic
     }
     val shape = when (alignmentStyle) {
         WarpBadgeAlignment.None -> shapes.components.badge.default

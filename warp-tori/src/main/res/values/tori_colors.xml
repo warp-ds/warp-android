@@ -74,16 +74,19 @@
     <color name="red800">#520B18</color>
     <color name="red900">#27070D</color>
 
-    <color name="gray50">#FAFAFA</color>
-    <color name="gray100">#F5F5F5</color>
-    <color name="gray200">#E6E6E6</color>
-    <color name="gray300">#D6D6D6</color>
-    <color name="gray400">#A5A5A5</color>
-    <color name="gray500">#767676</color>
-    <color name="gray600">#575757</color>
-    <color name="gray700">#434343</color>
-    <color name="gray800">#292929</color>
-    <color name="gray900">#1A1A1A</color>
+    <color name="gray50">#F6F6F6</color>
+    <color name="gray100">#F0F0F2</color>
+    <color name="gray200">#D1D1D6</color>
+    <color name="gray300">#BBBBC2</color>
+    <color name="gray400">#A5A5AD</color>
+    <color name="gray500">#80808A</color>
+    <color name="gray600">#5C5C66</color>
+    <color name="gray700">#47474F</color>
+    <color name="gray750">#333338</color>
+    <color name="gray800">#2B2B30</color>
+    <color name="gray850">#26262B</color>
+    <color name="gray900">#1B1B1F</color>
+    <color name="gray950">#121212</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>

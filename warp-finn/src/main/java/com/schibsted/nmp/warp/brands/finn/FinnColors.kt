@@ -4,7 +4,6 @@ package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black70Alpha
-import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
@@ -14,10 +13,12 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
+import com.schibsted.nmp.warp.theme.WarpSurfaceColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object FinnColors : WarpColors {
+    override val surface: WarpSurfaceColors = FinnSurfaceColors
     override val background: WarpBackgroundColors = FinnBackgroundColors
     override val border: WarpBorderColors = FinnBorderColors
     override val icon: WarpIconColors = FinnIconColors
@@ -25,15 +26,28 @@ internal object FinnColors : WarpColors {
     override val components: WarpComponentColors = FinnComponentColors
 }
 
+internal object FinnSurfaceColors : WarpSurfaceColors {
+    override val sunken = Gray50
+    override val elevated100 = White
+    override val elevated100Hover = Gray100
+    override val elevated100Active = Gray200
+    override val elevated200 = White
+    override val elevated200Hover = Gray100
+    override val elevated200Active = Gray200
+    override val elevated300 = White
+    override val elevated300Hover = Gray100
+    override val elevated300Active = Gray200
+}
+
 internal object FinnBackgroundColors : WarpBackgroundColors {
     override val default = White
-    override val hover = Bluegray100
-    override val active = Bluegray200
-    override val disabled = Bluegray300
-    override val disabledSubtle = Bluegray200
-    override val subtle = Bluegray50
-    override val subtleHover = Bluegray100
-    override val subtleActive = Bluegray200
+    override val hover = Gray100
+    override val active = Gray200
+    override val disabled = Gray300
+    override val disabledSubtle = Gray200
+    override val subtle = Gray100
+    override val subtleHover = Gray200
+    override val subtleActive = Gray300
     override val selected = Blue50
     override val selectedHover = Blue100
     override val selectedActive = Blue200
@@ -57,9 +71,6 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val positiveSubtle = Green50
     override val positiveSubtleHover = Green100
     override val positiveSubtleActive = Green200
-    override val positiveSelected = Green50
-    override val positiveSelectedHover = Green100
-    override val positiveSelectedActive = Green200
 
     override val negative = Red600
     override val negativeHover = Red700
@@ -67,9 +78,6 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val negativeSubtle = Red50
     override val negativeSubtleHover = Red100
     override val negativeSubtleActive = Red200
-    override val negativeSelected = Red50
-    override val negativeSelectedHover = Red100
-    override val negativeSelectedActive = Red200
 
     override val warning = Yellow600
     override val warningHover = Yellow700
@@ -77,9 +85,6 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val warningSubtle = Yellow50
     override val warningSubtleHover = Yellow100
     override val warningSubtleActive = Yellow200
-    override val warningSelected = Yellow50
-    override val warningSelectedHover = Yellow100
-    override val warningSelectedActive = Yellow200
 
     override val info = Aqua600
     override val infoHover = Aqua700
@@ -87,18 +92,15 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Aqua50
     override val infoSubtleHover = Aqua100
     override val infoSubtleActive = Aqua200
-    override val infoSelected = Aqua50
-    override val infoSelectedHover = Aqua100
-    override val infoSelectedActive = Aqua200
 
     override val notification = Red600
 }
 
 internal object FinnBorderColors : WarpBorderColors {
-    override val default = Bluegray300
-    override val hover = Bluegray400
-    override val active = Bluegray500
-    override val disabled = Bluegray300
+    override val default = Gray300
+    override val hover = Gray400
+    override val active = Gray500
+    override val disabled = Gray300
     override val selected = Blue600
     override val selectedHover = Blue700
     override val selectedActive = Blue800
@@ -146,18 +148,20 @@ internal object FinnBorderColors : WarpBorderColors {
 
 internal object FinnIconColors : WarpIconColors {
     override val default = Gray700
+    override val static = Gray700
     override val hover = Blue600
     override val active = Blue700
     override val selected = Blue600
     override val selectedHover = Blue700
     override val selectedActive = Blue800
-    override val disabled = Bluegray300
-    override val subtle = Bluegray400
-    override val subtleHover = Bluegray500
-    override val subtleActive = Bluegray600
+    override val disabled = Gray300
+    override val subtle = Gray400
+    override val subtleHover = Gray500
+    override val subtleActive = Gray600
     override val inverted = White
-    override val invertedHover = Bluegray100
-    override val invertedActive = Bluegray200
+    override val invertedHover = Gray100
+    override val invertedActive = Gray200
+    override val invertedStatic = White
     override val primary = Blue600
     override val secondary = Aqua400
     override val secondaryHover = Aqua500
@@ -171,12 +175,14 @@ internal object FinnIconColors : WarpIconColors {
 
 internal object FinnTextColors : WarpTextColors {
     override val default = Gray700
+    override val static = Gray700
     override val subtle = Gray500
-    override val placeholder = Bluegray300
+    override val placeholder = Gray300
     override val inverted = White
+    override val invertedStatic = White
     override val invertedSubtle = Gray50
     override val link = Blue600
-    override val disabled = Bluegray300
+    override val disabled = Gray300
     override val negative = Red600
     override val positive = Green600
     override val notification = White
@@ -187,17 +193,9 @@ internal object FinnComponentColors : WarpComponentColors {
     override val badge: WarpBadgeColors = FinnBadgeColors
     override val callout: WarpCalloutColors = FinnCalloutColors
     override val pill: WarpPillColors = FinnPillColors
-    override val avatar: WarpAvatarColors = FinnAvatarColors
-}
-
-internal object FinnAvatarColors : WarpAvatarColors {
-    override val background: Color = Bluegray100
-    override val icon: Color = FinnIconColors.disabled
 }
 
 internal object FinnPillColors : WarpPillColors {
-    override val filterTextColor = White
-    override val filterIconColor = White
     override val suggestion = Pair(Gray200, Gray400)
 }
 
@@ -213,13 +211,13 @@ internal object FinnBadgeColors : WarpBadgeColors {
     override val warningBackground: Color = Yellow100
     override val negativeBackground: Color = Red100
     override val disabledBackground: Color = FinnBackgroundColors.disabled
-    override val neutralBackground: Color = Bluegray100
+    override val neutralBackground: Color = Gray100
     override val sponsoredBackground: Color = Aqua200
     override val priceBackground: Color = Black70Alpha
 }
 
 internal object FinnButtonColors : WarpButtonColors {
-    override val loading = Pair(Bluegray50, Bluegray200)
+    override val loading = Pair(Gray50, Gray200)
     override val primary = Pair(FinnBackgroundColors.primary, FinnBackgroundColors.primaryActive)
 }
 
@@ -234,18 +232,6 @@ internal val Blue600 = Color(0xff0063fb)
 internal val Blue700 = Color(0xff244eb3)
 internal val Blue800 = Color(0xff223474)
 internal val Blue900 = Color(0xff191d34)
-
-//Gray
-internal val Gray50 = Color(0xfffafafa)
-internal val Gray100 = Color(0xfff4f4f5)
-internal val Gray200 = Color(0xffe4e4e7)
-internal val Gray300 = Color(0xffd4d4d8)
-internal val Gray400 = Color(0xffa1a1aa)
-internal val Gray500 = Color(0xff71717a)
-internal val Gray600 = Color(0xff52525b)
-internal val Gray700 = Color(0xff3f3f46)
-internal val Gray800 = Color(0xff27272a)
-internal val Gray900 = Color(0xff18181b)
 
 //Aqua
 internal val Aqua50 = Color(0xfff1f9ff)
@@ -295,14 +281,17 @@ internal val Red700 = Color(0xff9e2216)
 internal val Red800 = Color(0xff681d11)
 internal val Red900 = Color(0xff38140b)
 
-//Bluegray
-internal val Bluegray50 = Color(0xfff8fafc)
-internal val Bluegray100 = Color(0xfff1f4f9)
-internal val Bluegray200 = Color(0xffe1e6ee)
-internal val Bluegray300 = Color(0xffc3ccd9)
-internal val Bluegray400 = Color(0xff9ba8ba)
-internal val Bluegray500 = Color(0xff6f7d90)
-internal val Bluegray600 = Color(0xff4d586f)
-internal val Bluegray700 = Color(0xff3b4353)
-internal val Bluegray800 = Color(0xff292d38)
-internal val Bluegray900 = Color(0xff181a1f)
+//Gray
+internal val Gray50 = Color(0xfff6f6f6)
+internal val Gray100 = Color(0xfff0f0f2)
+internal val Gray200 = Color(0xffd1d1d6)
+internal val Gray300 = Color(0xffbbbbc2)
+internal val Gray400 = Color(0xffa5a5ad)
+internal val Gray500 = Color(0xff80808a)
+internal val Gray600 = Color(0xff5c5c66)
+internal val Gray700 = Color(0xff47474f)
+internal val Gray750 = Color(0xff333338)
+internal val Gray800 = Color(0xff2b2b30)
+internal val Gray850 = Color(0xff26262b)
+internal val Gray900 = Color(0xff1b1b1f)
+internal val Gray950 = Color(0xff121212)

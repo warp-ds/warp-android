@@ -4,7 +4,6 @@ package com.schibsted.nmp.warp.brands.tori
 
 import androidx.compose.ui.graphics.Color
 import com.schibsted.nmp.warp.theme.Black70Alpha
-import com.schibsted.nmp.warp.theme.WarpAvatarColors
 import com.schibsted.nmp.warp.theme.WarpBackgroundColors
 import com.schibsted.nmp.warp.theme.WarpBadgeColors
 import com.schibsted.nmp.warp.theme.WarpBorderColors
@@ -14,15 +13,30 @@ import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
+import com.schibsted.nmp.warp.theme.WarpSurfaceColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object ToriColors : WarpColors {
+    override val surface: WarpSurfaceColors = ToriSurfaceColors
     override val background: WarpBackgroundColors = ToriBackgroundColors
     override val border: WarpBorderColors = ToriBorderColors
     override val icon: WarpIconColors = ToriIconColors
     override val text: WarpTextColors = ToriTextColors
     override val components: WarpComponentColors = ToriComponentColors
+}
+
+internal object ToriSurfaceColors : WarpSurfaceColors {
+    override val sunken = Gray50
+    override val elevated100 = White
+    override val elevated100Hover = Gray100
+    override val elevated100Active = Gray200
+    override val elevated200 = White
+    override val elevated200Hover = Gray100
+    override val elevated200Active = Gray200
+    override val elevated300 = White
+    override val elevated300Hover = Gray100
+    override val elevated300Active = Gray200
 }
 
 internal object ToriBackgroundColors : WarpBackgroundColors {
@@ -31,9 +45,9 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val active = Gray200
     override val disabled = Gray300
     override val disabledSubtle = Gray200
-    override val subtle = Gray50
-    override val subtleHover = Gray100
-    override val subtleActive = Gray200
+    override val subtle = Gray100
+    override val subtleHover = Gray200
+    override val subtleActive = Gray300
     override val selected = Blueberry50
     override val selectedHover = Blueberry100
     override val selectedActive = Blueberry200
@@ -57,9 +71,6 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val positiveSubtle = Green50
     override val positiveSubtleHover = Green100
     override val positiveSubtleActive = Green200
-    override val positiveSelected = Green50
-    override val positiveSelectedHover = Green100
-    override val positiveSelectedActive = Green200
 
     override val negative = Red600
     override val negativeHover = Red700
@@ -67,9 +78,6 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val negativeSubtle = Red50
     override val negativeSubtleHover = Red100
     override val negativeSubtleActive = Red200
-    override val negativeSelected = Red50
-    override val negativeSelectedHover = Red100
-    override val negativeSelectedActive = Red200
 
     override val warning = Yellow600
     override val warningHover = Yellow700
@@ -77,9 +85,6 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val warningSubtle = Yellow50
     override val warningSubtleHover = Yellow100
     override val warningSubtleActive = Yellow200
-    override val warningSelected = Yellow50
-    override val warningSelectedHover = Yellow100
-    override val warningSelectedActive = Yellow200
 
     override val info = Blue600
     override val infoHover = Blue700
@@ -87,11 +92,8 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Blue50
     override val infoSubtleHover = Blue100
     override val infoSubtleActive = Blue200
-    override val infoSelected = Blue50
-    override val infoSelectedHover = Blue100
-    override val infoSelectedActive = Blue200
 
-    override val notification = Red600
+    override val notification = Watermelon600
 }
 
 internal object ToriBorderColors : WarpBorderColors {
@@ -146,6 +148,7 @@ internal object ToriBorderColors : WarpBorderColors {
 
 internal object ToriIconColors : WarpIconColors {
     override val default = Gray900
+    override val static = Gray900
     override val hover = Gray900
     override val active = Gray900
     override val selected = Blueberry600
@@ -158,6 +161,7 @@ internal object ToriIconColors : WarpIconColors {
     override val inverted = White
     override val invertedHover = Gray100
     override val invertedActive = Gray200
+    override val invertedStatic = White
     override val primary = Blueberry600
     override val secondary = Watermelon500
     override val secondaryHover = Watermelon600
@@ -171,9 +175,11 @@ internal object ToriIconColors : WarpIconColors {
 
 internal object ToriTextColors : WarpTextColors {
     override val default = Gray900
+    override val static = Gray900
     override val subtle = Gray500
     override val placeholder = Gray300
     override val inverted = White
+    override val invertedStatic = White
     override val invertedSubtle = Gray50
     override val link = Blueberry600
     override val disabled = Gray300
@@ -187,17 +193,9 @@ internal object ToriComponentColors : WarpComponentColors {
     override val badge: WarpBadgeColors = ToriBadgeColors
     override val callout: WarpCalloutColors = ToriCalloutColors
     override val pill: WarpPillColors = ToriPillColors
-    override val avatar: WarpAvatarColors = ToriAvatarColors
-}
-
-internal object ToriAvatarColors : WarpAvatarColors {
-    override val background = Gray100
-    override val icon = ToriIconColors.disabled
 }
 
 internal object ToriPillColors : WarpPillColors {
-    override val filterTextColor = White
-    override val filterIconColor = White
     override val suggestion = Pair(Gray200, Gray400)
 }
 
@@ -296,13 +294,16 @@ internal val Red800 = Color(0xFF520B18)
 internal val Red900 = Color(0xFF27070D)
 
 //Gray
-internal val Gray50 = Color(0xFFFAFAFA)
-internal val Gray100 = Color(0xFFF5F5F5)
-internal val Gray200 = Color(0xFFE6E6E6)
-internal val Gray300 = Color(0xFFD6D6D6)
-internal val Gray400 = Color(0xFFA5A5A5)
-internal val Gray500 = Color(0xFF767676)
-internal val Gray600 = Color(0xFF575757)
-internal val Gray700 = Color(0xFF434343)
-internal val Gray800 = Color(0xFF292929)
-internal val Gray900 = Color(0xFF1A1A1A)
+internal val Gray50 = Color(0XFFF6F6F6)
+internal val Gray100 = Color(0XFFF0F0F2)
+internal val Gray200 = Color(0XFFD1D1D6)
+internal val Gray300 = Color(0XFFBBBBC2)
+internal val Gray400 = Color(0XFFA5A5AD)
+internal val Gray500 = Color(0XFF80808A)
+internal val Gray600 = Color(0XFF5C5C66)
+internal val Gray700 = Color(0XFF47474F)
+internal val Gray750 = Color(0XFF333338)
+internal val Gray800 = Color(0XFF2B2B30)
+internal val Gray850 = Color(0XFF26262B)
+internal val Gray900 = Color(0XFF1B1B1F)
+internal val Gray950 = Color(0XFF121212)

@@ -46,11 +46,6 @@ fun WarpPill(
         WarpPillStyle.Suggestion -> pillStyleSuggestion()
     }
 
-    val pillTextStyle = when (style) {
-        WarpPillStyle.Filter -> WarpTextStyle.Caption
-        WarpPillStyle.Suggestion -> WarpTextStyle.CaptionStrong
-    }
-
     val pillColors = InputChipDefaults.inputChipColors(
         containerColor = warpPillColors.background,
         selectedContainerColor = warpPillColors.backgroundActive,
@@ -68,7 +63,7 @@ fun WarpPill(
         label = {
             WarpText(
                 text = text,
-                style = pillTextStyle,
+                style = WarpTextStyle.CaptionStrong,
                 color = warpPillColors.text,
                 modifier = Modifier
                     .padding(vertical = dimensions.space1)
@@ -106,10 +101,10 @@ data class WarpPillStyleColors(
 @Composable
 private fun pillStyleFilter(): WarpPillStyleColors {
     return WarpPillStyleColors(
-        text = colors.components.pill.filterTextColor,
+        text = colors.text.inverted,
         background = colors.background.primary,
         backgroundActive = colors.background.primaryActive,
-        icon = colors.components.pill.filterIconColor
+        icon = colors.icon.inverted
     )
 }
 
