@@ -196,8 +196,6 @@ internal object FinnComponentColors : WarpComponentColors {
 }
 
 internal object FinnPillColors : WarpPillColors {
-    override val filterTextColor = White
-    override val filterIconColor = White
     override val suggestion = Pair(Gray200, Gray400)
 }
 

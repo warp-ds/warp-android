@@ -186,8 +186,6 @@ interface WarpComponentColors {
 }
 
 interface WarpPillColors {
-    val filterTextColor: Color
-    val filterIconColor: Color
     val suggestion: Pair<Color, Color>
 }
 
