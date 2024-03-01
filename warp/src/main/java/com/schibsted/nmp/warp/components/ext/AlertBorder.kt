@@ -1,4 +1,4 @@
-package com.schibsted.nmp.warp.components
+package com.schibsted.nmp.warp.components.ext
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
