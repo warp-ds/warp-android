@@ -28,8 +28,12 @@ object WarpDimensions {
     val borderRadius4: Dp = 16.dp
     val borderWidth1: Dp = 1.dp
     val borderWidth2: Dp = 2.dp
-    val borderWidth3: Dp = 4.dp // TODO: not sure about this one
-    val shadowSmall: Dp = 1.dp
+    val borderWidth3: Dp = 4.dp
+
+    val shadowSmall: Dp = 2.dp
+    val shadowMedium: Dp = 5.dp
+    val shadowLarge: Dp = 12.dp
+    val shadowXLarge: Dp = 16.dp
 
     val components = WarpComponentDimensions
 }
