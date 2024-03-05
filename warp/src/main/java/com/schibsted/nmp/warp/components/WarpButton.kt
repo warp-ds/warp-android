@@ -279,8 +279,8 @@ internal fun buttonStyleNegativeQuiet() = WarpButtonStyleColors(
 internal fun buttonStyleUtility() = WarpButtonStyleColors(
     text = colors.text.default,
     background = WarpButtonElementColors(
-        default = colors.surface.elevated300,
-        active = colors.surface.elevated300Active
+        default = colors.background.default,
+        active = colors.background.active
     ),
     border = WarpButtonElementColors(
         default = colors.border.default,
@@ -292,8 +292,8 @@ internal fun buttonStyleUtility() = WarpButtonStyleColors(
 internal fun buttonStyleUtilityOverlay() = WarpButtonStyleColors(
     text = colors.text.default,
     background = WarpButtonElementColors(
-        default = colors.surface.elevated300,
-        active = colors.surface.elevated300Active
+        default = colors.background.default,
+        active = colors.background.active
     ),
     border = null
 )
@@ -303,7 +303,7 @@ internal fun buttonStyleUtilityQuiet() = WarpButtonStyleColors(
     text = colors.text.default,
     background = WarpButtonElementColors(
         default = Transparent,
-        active = colors.background.negativeSubtleActive
+        active = colors.background.active
     ),
     border = null
 )
