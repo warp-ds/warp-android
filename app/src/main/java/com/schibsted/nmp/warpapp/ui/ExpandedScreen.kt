@@ -38,7 +38,7 @@ private fun ExpandableScreenContent() {
             ) {
                 Column(Modifier.padding(bottom = 8.dp)) {
                     WarpText("Here we have a little text. But we can add pretty much anything so why not a button")
-                    WarpButton(onClick = {  }, buttonStyle = WarpButtonStyle.Utility) {
+                    WarpButton(onClick = {  }, style = WarpButtonStyle.Utility) {
                         WarpText("Click me")
                     }
                 }
