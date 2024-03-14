@@ -67,7 +67,7 @@ fun WarpAlert(
                 colors.background,
                 colors.border,
                 colors.subtleBorder,
-                shapes.medium
+                shapes.roundedMedium
             )
             .padding(
                 horizontal = dimensions.space2,
@@ -152,7 +152,7 @@ fun WarpAlert(
                     },
                 text = secondaryButtonText,
                 onClick = { secondaryButtonAction?.invoke() },
-                buttonStyle = WarpButtonStyle.Secondary
+                style = WarpButtonStyle.Secondary
             )
         }
         quietButtonText?.let {
@@ -173,7 +173,7 @@ fun WarpAlert(
                     },
                 text = quietButtonText,
                 onClick = { quietButtonAction?.invoke() },
-                buttonStyle = WarpButtonStyle.Quiet
+                style = WarpButtonStyle.Quiet
             )
         }
     }

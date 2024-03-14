@@ -54,7 +54,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
  * @param onClick lambda to be invoked when clicked
  * @param enabled set to false to disable the button. Default value is true
  * @param modifier Modifier for the button. Default value is Modifier
- * @param buttonStyle Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
+ * @param style Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
  * @param maxLines limits the lines of the text on the button. Default value is 1
  * @param loading set to true to enable the loading state. Default value is false
  * @param leadingIcon The drawable resource id for the icon to be displayed on the button in front of the text. Default value is null
@@ -68,7 +68,7 @@ fun WarpButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    buttonStyle: WarpButtonStyle = WarpButtonStyle.Primary,
+    style: WarpButtonStyle = WarpButtonStyle.Primary,
     maxLines: Int = 1,
     loading: Boolean = false,
     @DrawableRes leadingIcon: Int? = null,
@@ -80,7 +80,7 @@ fun WarpButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        buttonStyle = buttonStyle,
+        style = style,
         loading = loading
     ) {
         leadingIcon?.let {
@@ -117,7 +117,7 @@ fun WarpButton(
  * @param onClick lambda to be invoked when clicked
  * @param enabled set to false to disable the button. default value is true
  * @param modifier Modifier for the button. Default value is Modifier
- * @param buttonStyle Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
+ * @param style Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
  * @param loading set to true to enable the loading state
  * @param content The content to display inside the button
  */
@@ -126,7 +126,7 @@ fun WarpButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    buttonStyle: WarpButtonStyle = WarpButtonStyle.Primary,
+    style: WarpButtonStyle = WarpButtonStyle.Primary,
     loading: Boolean = false,
     content: @Composable RowScope.() -> Unit
 ) {
@@ -136,7 +136,7 @@ fun WarpButton(
         LocalTypography provides typography,
         LocalDimensions provides dimensions
     ) {
-        val warpButtonColors: WarpButtonStyleColors = when (buttonStyle) {
+        val warpButtonColors: WarpButtonStyleColors = when (style) {
             WarpButtonStyle.Primary -> buttonStylePrimary()
             WarpButtonStyle.Secondary -> buttonStyleSecondary()
             WarpButtonStyle.Quiet -> buttonStyleQuiet()
@@ -170,7 +170,7 @@ fun WarpButton(
         }
 
         val elevation =
-            if (!loading && buttonStyle == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall else 0.dp
+            if (!loading && style == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall else 0.dp
 
         val buttonModifier = if (loading) modifier.loadingAnimation() else modifier
         val colors = if (loading) loadingColors else buttonColors
@@ -186,7 +186,7 @@ fun WarpButton(
                 modifier = buttonModifier,
                 onClick = clickAction,
                 enabled = enabled,
-                shape = shapes.medium,
+                shape = shapes.roundedMedium,
                 colors = colors,
                 border = borderStroke,
                 content = content,
@@ -331,8 +331,8 @@ fun Modifier.loadingAnimation(): Modifier = composed {
 
     val loadingColors = buttonStyleLoading()
     this
-        .clip(shapes.medium)
-        .background(loadingColors.background.default, shapes.medium)
+        .clip(shapes.roundedMedium)
+        .background(loadingColors.background.default, shapes.roundedMedium)
         .drawWithContent {
             clipRect {
                 val a = 8.5f
@@ -364,52 +364,52 @@ fun WarpButtonPreview(
         WarpButton(
             text = "Take me to NMP",
             onClick = {},
-            buttonStyle = WarpButtonStyle.Primary
+            style = WarpButtonStyle.Primary
         )
         WarpButton(
             text = "Buy a duck",
             onClick = {},
-            buttonStyle = WarpButtonStyle.Secondary
+            style = WarpButtonStyle.Secondary
         )
         WarpButton(
             text = "Sell a duck",
             onClick = {},
-            buttonStyle = WarpButtonStyle.Quiet
+            style = WarpButtonStyle.Quiet
         )
         WarpButton(
             text = "This duck cannot be sold!",
             onClick = {},
-            buttonStyle = WarpButtonStyle.Negative
+            style = WarpButtonStyle.Negative
         )
         WarpButton(
             text = "This duck was already sold!",
             onClick = {},
-            buttonStyle = WarpButtonStyle.NegativeQuiet
+            style = WarpButtonStyle.NegativeQuiet
         )
         WarpButton(
             text = "Duck",
             onClick = {},
-            buttonStyle = WarpButtonStyle.Utility
+            style = WarpButtonStyle.Utility
         )
         WarpButton(
             text = "Duck duck",
             onClick = {},
-            buttonStyle = WarpButtonStyle.UtilityQuiet
+            style = WarpButtonStyle.UtilityQuiet
         )
         WarpButton(
             text = "Duck duck duck",
             onClick = {},
-            buttonStyle = WarpButtonStyle.UtilityOverlay
+            style = WarpButtonStyle.UtilityOverlay
         )
         WarpButton(
             text = "Loading",
             loading = true,
             onClick = {},
-            buttonStyle = WarpButtonStyle.UtilityQuiet
+            style = WarpButtonStyle.UtilityQuiet
         )
         WarpButton(
             onClick = { },
-            buttonStyle = WarpButtonStyle.Primary,
+            style = WarpButtonStyle.Primary,
             text = "With icon",
             leadingIcon = R.drawable.ic_logo_finn,
             leadingIconContentDescr = "Clear icon",

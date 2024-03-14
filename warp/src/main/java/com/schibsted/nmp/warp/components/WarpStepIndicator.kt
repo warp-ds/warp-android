@@ -709,7 +709,7 @@ fun HorizontalPreview() {
 
         WarpButton(
             onClick = { active = (active + 1).mod(6) },
-            buttonStyle = WarpButtonStyle.Primary
+            style = WarpButtonStyle.Primary
         ) {
             WarpText("Next")
         }
@@ -732,7 +732,7 @@ internal fun VerticalPreview() {
         )
         WarpButton(
             onClick = { active = (active + 1).mod(6) },
-            buttonStyle = WarpButtonStyle.Primary
+            style = WarpButtonStyle.Primary
         ) {
             WarpText("Next")
         }

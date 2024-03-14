@@ -11,7 +11,7 @@ import com.schibsted.nmp.warp.theme.WarpShapes
 
 internal data class FinnShapes(
     val dimensions: WarpDimensions,
-    override val medium: Shape = RoundedCornerShape(dimensions.borderRadius3),
+    override val roundedMedium: Shape = RoundedCornerShape(dimensions.borderRadius3),
     override val ellipse: Shape = CircleShape
 ) : WarpShapes {
     override val components: WarpComponentShapes = FinnComponentShapes(dimensions)

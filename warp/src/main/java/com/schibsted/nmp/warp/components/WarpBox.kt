@@ -146,7 +146,7 @@ fun WarpBox(
                     WarpButton(
                         text = buttonText,
                         onClick = { buttonAction?.invoke() },
-                        buttonStyle = WarpButtonStyle.Secondary,
+                        style = WarpButtonStyle.Secondary,
                     )
                 }
             }
@@ -178,7 +178,7 @@ fun WarpBox(
 
     Surface(
         modifier = modifier,
-        shape = shapes.medium,
+        shape = shapes.roundedMedium,
         border = style.border?.let { BorderStroke(width = dimensions.borderWidth2, color = it) },
         color = style.background,
         content = content

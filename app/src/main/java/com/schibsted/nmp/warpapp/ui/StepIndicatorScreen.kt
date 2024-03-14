@@ -84,7 +84,7 @@ private fun StepIndicatorScreenContent() {
                             bottom = dimensions.space3
                         ),
                         onClick = { wState++ },
-                        buttonStyle = WarpButtonStyle.Primary,
+                        style = WarpButtonStyle.Primary,
                         text = "Finish step"
                     )
                 } else {
@@ -94,7 +94,7 @@ private fun StepIndicatorScreenContent() {
                             bottom = dimensions.space3
                         ),
                         onClick = { wState = it },
-                        buttonStyle = WarpButtonStyle.Primary,
+                        style = WarpButtonStyle.Primary,
                         text = "Reset"
                     )
                 }

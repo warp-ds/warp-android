@@ -128,7 +128,7 @@ class WarpButtonView @JvmOverloads constructor(
             WarpButton(
                 text = text,
                 onClick = { clickListener.onClick(this@WarpButtonView) },
-                buttonStyle = style,
+                style = style,
                 loading = loading,
                 enabled = buttonEnabled,
                 leadingIcon = if(leadingIcon != 0) leadingIcon else null,
