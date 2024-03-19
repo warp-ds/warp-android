@@ -186,7 +186,8 @@ interface WarpComponentColors {
 }
 
 interface WarpPillColors {
-    val suggestion: Pair<Color, Color>
+    val suggestionBackground: Color
+    val suggestionBackgroundActive: Color
 }
 
 interface WarpCalloutColors {

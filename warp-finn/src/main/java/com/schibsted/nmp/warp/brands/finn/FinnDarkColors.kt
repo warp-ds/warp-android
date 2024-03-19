@@ -194,7 +194,8 @@ internal object FinnComponentDarkColors : WarpComponentColors {
 }
 
 internal object FinnPillDarkColors : WarpPillColors {
-    override val suggestion = Pair(Gray600, Gray600)
+    override val suggestionBackground = Gray600
+    override val suggestionBackgroundActive = Gray600
 }
 
 internal object FinnCalloutDarkColors : WarpCalloutColors {
