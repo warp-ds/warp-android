@@ -184,7 +184,8 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
 }
 
 private object PlaceholderPillColors : WarpPillColors {
-    override val suggestion: Pair<Color, Color> = Color.Unspecified to Color.Unspecified
+    override val suggestionBackground = Color.Unspecified
+    override val suggestionBackgroundActive = Color.Unspecified
 }
 
 private object PlaceholderCalloutColors : WarpCalloutColors {

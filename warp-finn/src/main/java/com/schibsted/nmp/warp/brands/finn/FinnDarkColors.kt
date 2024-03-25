@@ -194,7 +194,8 @@ internal object FinnComponentDarkColors : WarpComponentColors {
 }
 
 internal object FinnPillDarkColors : WarpPillColors {
-    override val suggestion = Pair(Gray600, Gray600)
+    override val suggestionBackground = Gray600
+    override val suggestionBackgroundActive = Gray600
 }
 
 internal object FinnCalloutDarkColors : WarpCalloutColors {
@@ -216,5 +217,5 @@ internal object FinnBadgeDarkColors : WarpBadgeColors {
 
 internal object FinnButtonDarkColors : WarpButtonColors {
     override val loading = Pair(Gray700, Gray900)
-    override val primary = Pair(FinnBackgroundColors.primary, FinnBackgroundColors.primaryActive)
+    override val primary = Pair(FinnDarkBackgroundColors.primary, FinnDarkBackgroundColors.primaryActive)
 }

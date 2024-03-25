@@ -112,8 +112,8 @@ private fun pillStyleFilter(): WarpPillStyleColors {
 private fun pillStyleSuggestion(): WarpPillStyleColors {
     return WarpPillStyleColors(
         text = colors.text.default,
-        background = colors.components.pill.suggestion.first,
-        backgroundActive = colors.components.pill.suggestion.second,
+        background = colors.components.pill.suggestionBackground,
+        backgroundActive = colors.components.pill.suggestionBackgroundActive,
         icon = colors.icon.default
     )
 }
