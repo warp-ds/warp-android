@@ -10,9 +10,12 @@ import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
+import com.schibsted.nmp.warp.theme.WarpNavBarColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
 import com.schibsted.nmp.warp.theme.WarpSurfaceColors
+import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
+import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object FinnDarkColors : WarpColors {
@@ -191,11 +194,29 @@ internal object FinnComponentDarkColors : WarpComponentColors {
     override val badge: WarpBadgeColors = FinnBadgeDarkColors
     override val callout: WarpCalloutColors = FinnCalloutDarkColors
     override val pill: WarpPillColors = FinnPillDarkColors
+    override val navBar: WarpNavBarColors = FinnNavBarDarkColors
+    override val tooltip: WarpTooltipColors = FinnTooltipDarkColors
+    override val switch: WarpSwitchColors = FinnSwitchDarkColors
+}
+
+private object FinnSwitchDarkColors : WarpSwitchColors {
+    override val trackBackground: Color = Gray600
+    override val trackBackgroundHover: Color = Gray500
+}
+
+internal object FinnTooltipDarkColors : WarpTooltipColors {
+    override val backgroundStatic: Color = FinnDarkSurfaceColors.elevated300
+}
+
+internal object FinnNavBarDarkColors : WarpNavBarColors {
+    override val iconSelected: Color = Blue500
+    override val borderSelected: Color = Blue500
 }
 
 internal object FinnPillDarkColors : WarpPillColors {
     override val suggestionBackground = Gray600
-    override val suggestionBackgroundActive = Gray600
+    override val suggestionBackgroundHover = Gray500
+    override val suggestionBackgroundActive = Gray400
 }
 
 internal object FinnCalloutDarkColors : WarpCalloutColors {
@@ -217,5 +238,7 @@ internal object FinnBadgeDarkColors : WarpBadgeColors {
 
 internal object FinnButtonDarkColors : WarpButtonColors {
     override val loading = Pair(Gray700, Gray900)
-    override val primary = Pair(FinnDarkBackgroundColors.primary, FinnDarkBackgroundColors.primaryActive)
+    override val primaryBackground: Color = FinnDarkBackgroundColors.primary
+    override val primaryBackgroundHover: Color = FinnDarkBackgroundColors.primaryHover
+    override val primaryBackgroundActive: Color = FinnDarkBackgroundColors.primaryActive
 }

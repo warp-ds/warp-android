@@ -151,7 +151,8 @@
     <color name="warp_pill_filter_icon">@color/warp_icon_inverted</color>
     <color name="warp_pill_suggestion_text">@color/warp_text_default</color>
     <color name="warp_pill_suggestion_background">@color/gray600</color>
-    <color name="warp_pill_suggestion_background_active">@color/gray600</color>
+    <color name="warp_pill_suggestion_background_hover">@color/gray500</color>
+    <color name="warp_pill_suggestion_background_active">@color/gray400</color>
     <color name="warp_pill_suggestion_icon">@color/warp_icon_default</color>
 
     <!--*** CALLOUT ***-->
@@ -173,6 +174,17 @@
     <color name="warp_button_loading_background_default">@color/gray900</color>
     <color name="warp_button_loading_background_active">@color/gray700</color>
     <color name="warp_button_primary_background">@color/warp_background_primary</color>
+    <color name="warp_button_primary_background_hover">@color/warp_background_primary_hover</color>
     <color name="warp_button_primary_background_active">@color/warp_background_primary_active</color>
 
+    <!--*** NAV BAR ***-->
+    <color name="warp_navbar_icon_selected">@color/blue500</color>
+    <color name="warp_navbar_border_selected">@color/blue500</color>
+
+    <!--*** TOOLTIP ***-->
+    <color name="warp_tooltip_background_static">@color/warp_surface_elevated_300</color>
+
+    <!--*** SWITCH ***-->
+    <color name="warp_switch_track_background">@color/gray600</color>
+    <color name="warp_switch_track_background_hover">@color/gray500</color>
 </resources>

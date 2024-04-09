@@ -151,6 +151,7 @@
     <id name="warp_pill_filter_icon" type="color" />
     <id name="warp_pill_suggestion_text" type="color" />
     <id name="warp_pill_suggestion_background" type="color" />
+    <id name="warp_pill_suggestion_background_hover" type="color" />
     <id name="warp_pill_suggestion_background_active" type="color" />
     <id name="warp_pill_suggestion_icon" type="color" />
 
@@ -173,7 +174,18 @@
     <id name="warp_button_loading_background_default" type="color" />
     <id name="warp_button_loading_background_active" type="color" />
     <id name="warp_button_primary_background" type="color" />
+    <id name="warp_button_primary_background_hover" type="color" />
     <id name="warp_button_primary_background_active" type="color" />
 
+    <!--*** NAV BAR ***-->
+    <id name="warp_navbar_icon_selected" type="color" />
+    <id name="warp_navbar_border_selected" type="color" />
+
+    <!--*** TOOLTIP ***-->
+    <id name="warp_tooltip_background_static" type="color" />
+
+    <!--*** SWITCH ***-->
+    <id name="warp_switch_track_background" type="color" />
+    <id name="warp_switch_track_background_hover" type="color" />
 </resources>
 

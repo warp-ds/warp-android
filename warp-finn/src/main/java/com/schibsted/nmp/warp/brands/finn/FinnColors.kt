@@ -12,9 +12,12 @@ import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
+import com.schibsted.nmp.warp.theme.WarpNavBarColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
 import com.schibsted.nmp.warp.theme.WarpSurfaceColors
+import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
+import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object FinnColors : WarpColors {
@@ -193,10 +196,28 @@ internal object FinnComponentColors : WarpComponentColors {
     override val badge: WarpBadgeColors = FinnBadgeColors
     override val callout: WarpCalloutColors = FinnCalloutColors
     override val pill: WarpPillColors = FinnPillColors
+    override val navBar: WarpNavBarColors = FinnNavBarColors
+    override val tooltip: WarpTooltipColors = FinnTooltipColors
+    override val switch: WarpSwitchColors = FinnSwitchColors
+}
+
+private object FinnSwitchColors : WarpSwitchColors {
+    override val trackBackground: Color = Gray200
+    override val trackBackgroundHover: Color = Gray300
+}
+
+internal object FinnTooltipColors : WarpTooltipColors {
+    override val backgroundStatic: Color = FinnBackgroundColors.inverted
+}
+
+internal object FinnNavBarColors : WarpNavBarColors {
+    override val iconSelected: Color = FinnIconColors.selected
+    override val borderSelected: Color = FinnBorderColors.selected
 }
 
 internal object FinnPillColors : WarpPillColors {
     override val suggestionBackground = Gray200
+    override val suggestionBackgroundHover = Gray300
     override val suggestionBackgroundActive = Gray400
 }
 
@@ -219,7 +240,9 @@ internal object FinnBadgeColors : WarpBadgeColors {
 
 internal object FinnButtonColors : WarpButtonColors {
     override val loading = Pair(Gray50, Gray200)
-    override val primary = Pair(FinnBackgroundColors.primary, FinnBackgroundColors.primaryActive)
+    override val primaryBackground: Color = FinnBackgroundColors.primary
+    override val primaryBackgroundHover: Color = FinnBackgroundColors.primaryHover
+    override val primaryBackgroundActive: Color = FinnBackgroundColors.primaryActive
 }
 
 //Blue

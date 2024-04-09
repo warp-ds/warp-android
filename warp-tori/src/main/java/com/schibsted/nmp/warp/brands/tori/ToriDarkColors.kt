@@ -10,9 +10,12 @@ import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
+import com.schibsted.nmp.warp.theme.WarpNavBarColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
 import com.schibsted.nmp.warp.theme.WarpSurfaceColors
+import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
+import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.White
 
 internal object ToriDarkColors : WarpColors {
@@ -191,10 +194,28 @@ internal object ToriComponentDarkColors : WarpComponentColors {
     override val badge: WarpBadgeColors = ToriBadgeDarkColors
     override val callout: WarpCalloutColors = ToriCalloutDarkColors
     override val pill: WarpPillColors = ToriPillDarkColors
+    override val navBar: WarpNavBarColors = ToriNavBarDarkColors
+    override val tooltip: WarpTooltipColors = ToriTooltipDarkColors
+    override val switch: WarpSwitchColors = ToriSwitchDarkColors
+}
+
+private object ToriSwitchDarkColors : WarpSwitchColors {
+    override val trackBackground: Color = Gray600
+    override val trackBackgroundHover: Color = Gray500
+}
+
+internal object ToriTooltipDarkColors : WarpTooltipColors {
+    override val backgroundStatic: Color = ToriDarkSurfaceColors.elevated300
+}
+
+internal object ToriNavBarDarkColors : WarpNavBarColors {
+    override val iconSelected: Color = ToriDarkIconColors.secondary
+    override val borderSelected: Color = ToriDarkBorderColors.secondary
 }
 
 internal object ToriPillDarkColors : WarpPillColors {
     override val suggestionBackground = Gray600
+    override val suggestionBackgroundHover = Gray500
     override val suggestionBackgroundActive = Gray600
 }
 
@@ -217,5 +238,7 @@ internal object ToriBadgeDarkColors : WarpBadgeColors {
 
 internal object ToriButtonDarkColors : WarpButtonColors {
     override val loading = Pair(Gray700, Gray900)
-    override val primary = Pair(Watermelon500, Watermelon600)
+    override val primaryBackground: Color = Watermelon500
+    override val primaryBackgroundHover: Color = Watermelon400
+    override val primaryBackgroundActive: Color = Watermelon300
 }

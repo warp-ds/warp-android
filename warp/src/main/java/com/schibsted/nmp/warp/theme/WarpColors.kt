@@ -183,10 +183,28 @@ interface WarpComponentColors {
     val button: WarpButtonColors
     val callout: WarpCalloutColors
     val pill: WarpPillColors
+    val navBar: WarpNavBarColors
+    val tooltip: WarpTooltipColors
+    val switch: WarpSwitchColors
+}
+
+interface WarpSwitchColors {
+    val trackBackground: Color
+    val trackBackgroundHover: Color
+}
+
+interface WarpTooltipColors {
+    val backgroundStatic: Color
+}
+
+interface WarpNavBarColors {
+    val iconSelected: Color
+    val borderSelected: Color
 }
 
 interface WarpPillColors {
     val suggestionBackground: Color
+    val suggestionBackgroundHover: Color
     val suggestionBackgroundActive: Color
 }
 
@@ -209,7 +227,9 @@ interface WarpBadgeColors {
 
 interface WarpButtonColors {
     val loading: Pair<Color, Color>
-    val primary: Pair<Color, Color>
+    val primaryBackground: Color
+    val primaryBackgroundHover: Color
+    val primaryBackgroundActive: Color
 }
 
 internal class WarpRippleTheme(
