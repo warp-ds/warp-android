@@ -106,8 +106,8 @@
     <!--*** ICON ***-->
     <color name="warp_icon_default">@color/gray900</color>
     <color name="warp_icon_static">@color/gray900</color>
-    <color name="warp_icon_hover">@color/gray900</color>
-    <color name="warp_icon_active">@color/gray900</color>
+    <color name="warp_icon_hover">@color/blueberry800</color>
+    <color name="warp_icon_active">@color/blueberry900</color>
     <color name="warp_icon_selected">@color/blueberry600</color>
     <color name="warp_icon_selected_hover">@color/blueberry700</color>
     <color name="warp_icon_selected_active">@color/blueberry800</color>
@@ -151,6 +151,7 @@
     <color name="warp_pill_filter_icon">@color/warp_icon_inverted</color>
     <color name="warp_pill_suggestion_text">@color/warp_text_default</color>
     <color name="warp_pill_suggestion_background">@color/gray200</color>
+    <color name="warp_pill_suggestion_background_hover">@color/gray300</color>
     <color name="warp_pill_suggestion_background_active">@color/gray400</color>
     <color name="warp_pill_suggestion_icon">@color/warp_icon_default</color>
 
@@ -173,6 +174,17 @@
     <color name="warp_button_loading_background_default">@color/gray50</color>
     <color name="warp_button_loading_background_active">@color/gray200</color>
     <color name="warp_button_primary_background">@color/watermelon600</color>
+    <color name="warp_button_primary_background_hover">@color/watermelon700</color>
     <color name="warp_button_primary_background_active">@color/watermelon800</color>
 
+    <!--*** NAV BAR ***-->
+    <color name="warp_navbar_icon_selected">@color/warp_icon_secondary</color>
+    <color name="warp_navbar_border_selected">@color/warp_border_secondary</color>
+
+    <!--*** TOOLTIP ***-->
+    <color name="warp_tooltip_background_static">@color/warp_background_inverted</color>
+
+    <!--*** SWITCH ***-->
+    <color name="warp_switch_track_background">@color/gray200</color>
+    <color name="warp_switch_track_background_hover">@color/gray300</color>
 </resources>
