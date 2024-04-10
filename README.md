@@ -10,11 +10,11 @@ A guide on how to integrate Warp into your project.
 Warp is used together with a brand theme and should be installed for a specific flavor of the code. Currently only Finn and Tori are supported.
 
 ```gradle
-implementation("com.schibsted.nmp.warp:warp-android:0.0.15")
+implementation("com.schibsted.nmp.warp:warp-android:0.0.19")
 
-finnImplementation("com.schibsted.nmp.warp:warp-android-finn:0.0.14")
+finnImplementation("com.schibsted.nmp.warp:warp-android-finn:0.0.17")
 
-toriImplementation("com.schibsted.nmp.warp:warp-android-tori:0.0.15")
+toriImplementation("com.schibsted.nmp.warp:warp-android-tori:0.0.19")
 ```
 
 
@@ -24,10 +24,12 @@ To start using Warp you must first initialize the theme depending on the selecte
 
 ```kotlin
 
-@Composable
-fun WarpBrandTheme(flavor: String, content: @Composable () -> Unit) {
-    FinnWarpTheme(content) // or ToriWarpTheme(content) depending on the selected flavor
-
+class WarpNmpTheme : LegacyWarpTheme {
+    @Suppress("ComposableNaming")
+    @Composable
+    override fun invoke(content: @Composable () -> Unit) {
+        FinnWarpTheme(content)//Or ToriWarpTheme(content) depending on the selected flavor
+    }
 }
 ```
 ## Use Warp components
@@ -44,15 +46,16 @@ fun MainScreen() {
             .verticalScroll(rememberScrollState())
             .padding(vertical = 16.dp)
         ) {
-            WarpTextField(
-              value = text,
-              onValueChange = { text = it },
-              label = "E-mail address",
-              placeholderText = "email@mail.com",
-              )
+          WarpText(
+              text = "Hello world",
+              Modifier
+                  .padding(vertical = dimensions.space1, horizontal = dimensions.space2),
+              style = WarpTextStyle.Display,
+              color = colors.text.link
+          )
             WarpButton(
               onClick = {  },
-              buttonStyle = WarpButtonStyle.Primary,
+              style = WarpButtonStyle.Primary,
               text = "Submit"
               )
           }
@@ -84,11 +87,22 @@ class WarpApplication : Application() {
 Next, create a Theme class (one for each flavor) which implemets the LegacyWarpTheme. This code should live in the flavor specific packages.
 ```kotlin
 
-class WarpBrandTheme : LegacyWarpTheme {
-
+class WarpNmpTheme : LegacyWarpTheme {
+    @Suppress("ComposableNaming")
     @Composable
-    override fun invoke(content:@Composable  () -> Unit) {
-        FinnWarpTheme(content) // or ToriWarpTheme(content) depending on the selected flavor
+    override fun invoke(content: @Composable () -> Unit) {
+        FinnWarpTheme(content)//Or ToriWarpTheme(content) depending on the selected flavor
+    }
+}
+```
+Then create a theme function which will apply the theme to the components. This code should be in the main folder of the module and accessible no matter the flavor.
+
+```kotlin
+@Composable
+fun NMPTheme(content: @Composable () -> Unit) {
+    val theme = WarpNmpTheme()
+    theme {
+        content()
     }
 }
 ```
@@ -106,10 +120,10 @@ To use compose with this setup follow this example:
 @Composable
 fun MainScreen() {
 
-    WarpBrandTheme().invoke {
+    NmpTheme {
       WarpButton(
               onClick = {  },
-              buttonStyle = WarpButtonStyle.Primary,
+              style = WarpButtonStyle.Primary,
               text = "Submit"
               )
     }
