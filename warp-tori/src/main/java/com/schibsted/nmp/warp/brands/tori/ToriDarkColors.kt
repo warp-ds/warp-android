@@ -31,68 +31,68 @@ internal object ToriDarkSurfaceColors : WarpSurfaceColors {
     override val sunken = Gray950
     override val elevated100 = Gray850
     override val elevated100Hover = Gray800
-    override val elevated100Active = Gray850
+    override val elevated100Active = Gray750
     override val elevated200 = Gray800
     override val elevated200Hover = Gray750
-    override val elevated200Active = Gray800
+    override val elevated200Active = Gray700
     override val elevated300 = Gray750
     override val elevated300Hover = Gray700
-    override val elevated300Active = Gray750
+    override val elevated300Active = Gray600
 }
 
 internal object ToriDarkBackgroundColors : WarpBackgroundColors {
     override val default = Gray900
     override val hover = Gray850
-    override val active = Gray900
+    override val active = Gray800
     override val disabled = Gray700
     override val disabledSubtle = Gray600
     override val subtle = Gray750
     override val subtleHover = Gray700
-    override val subtleActive = Gray750
+    override val subtleActive = Gray600
     override val selected = Blueberry900
     override val selectedHover = Blueberry800
-    override val selectedActive = Blueberry900
+    override val selectedActive = Blueberry700
 
     override val inverted = Gray50
 
     override val primary = Blueberry400
     override val primaryHover = Blueberry300
-    override val primaryActive = Blueberry400
+    override val primaryActive = Blueberry200
     override val primarySubtle = Blueberry800
     override val primarySubtleHover = Blueberry700
-    override val primarySubtleActive = Blueberry800
+    override val primarySubtleActive = Blueberry600
 
     override val secondary = Watermelon500
     override val secondaryHover = Watermelon400
-    override val secondaryActive = Watermelon500
+    override val secondaryActive = Watermelon300
 
     override val positive = Green500
     override val positiveHover = Green400
-    override val positiveActive = Green500
+    override val positiveActive = Green300
     override val positiveSubtle = Green900
     override val positiveSubtleHover = Green800
-    override val positiveSubtleActive = Green900
+    override val positiveSubtleActive = Green700
 
     override val negative = Red300
     override val negativeHover = Red200
-    override val negativeActive = Red300
+    override val negativeActive = Red100
     override val negativeSubtle = Red900
     override val negativeSubtleHover = Red800
-    override val negativeSubtleActive = Red900
+    override val negativeSubtleActive = Red700
 
     override val warning = Yellow500
     override val warningHover = Yellow400
-    override val warningActive = Yellow500
+    override val warningActive = Yellow300
     override val warningSubtle = Yellow900
     override val warningSubtleHover = Yellow800
-    override val warningSubtleActive = Yellow900
+    override val warningSubtleActive = Yellow700
 
     override val info = Blue500
     override val infoHover = Blue400
-    override val infoActive = Blue500
+    override val infoActive = Blue300
     override val infoSubtle = Blue900
     override val infoSubtleHover = Blue800
-    override val infoSubtleActive = Blue900
+    override val infoSubtleActive = Blue700
 
     override val notification = Watermelon500
 }
@@ -100,73 +100,73 @@ internal object ToriDarkBackgroundColors : WarpBackgroundColors {
 internal object ToriDarkBorderColors : WarpBorderColors {
     override val default = Gray600
     override val hover = Gray500
-    override val active = Gray600
+    override val active = Gray400
     override val disabled = Gray700
     override val selected = Blueberry400
     override val selectedHover = Blueberry300
-    override val selectedActive = Blueberry400
+    override val selectedActive = Blueberry200
     override val focus = Blue300
 
     override val primary = Blueberry400
     override val primaryHover = Blueberry300
-    override val primaryActive = Blueberry400
+    override val primaryActive = Blueberry200
     override val primarySubtle = Blueberry700
-    override val primarySubtleHover = Blueberry800
-    override val primarySubtleActive = Blueberry700
+    override val primarySubtleHover = Blueberry600
+    override val primarySubtleActive = Blueberry500
 
     override val secondary = Watermelon500
     override val secondaryHover = Watermelon400
-    override val secondaryActive = Watermelon500
+    override val secondaryActive = Watermelon300
 
     override val positive = Green500
     override val positiveHover = Green400
-    override val positiveActive = Green500
+    override val positiveActive = Green300
     override val positiveSubtle = Green700
     override val positiveSubtleHover = Green600
-    override val positiveSubtleActive = Green700
+    override val positiveSubtleActive = Green500
 
     override val negative = Red300
     override val negativeHover = Red200
-    override val negativeActive = Red300
+    override val negativeActive = Red100
     override val negativeSubtle = Red700
     override val negativeSubtleHover = Red600
-    override val negativeSubtleActive = Red700
+    override val negativeSubtleActive = Red500
 
     override val warning = Yellow500
     override val warningHover = Yellow400
-    override val warningActive = Yellow500
+    override val warningActive = Yellow300
     override val warningSubtle = Yellow700
     override val warningSubtleHover = Yellow600
-    override val warningSubtleActive = Yellow700
+    override val warningSubtleActive = Yellow500
 
     override val info = Blue500
     override val infoHover = Blue400
-    override val infoActive = Blue500
+    override val infoActive = Blue300
     override val infoSubtle = Blue700
     override val infoSubtleHover = Blue600
-    override val infoSubtleActive = Blue700
+    override val infoSubtleActive = Blue500
 }
 
 internal object ToriDarkIconColors : WarpIconColors {
     override val default = White
     override val static = Gray900
-    override val hover = Gray100
-    override val active = Gray200
+    override val hover = Blueberry100
+    override val active = Blueberry200
     override val selected = Blueberry400
     override val selectedHover = Blueberry300
-    override val selectedActive = Blueberry400
+    override val selectedActive = Blueberry200
     override val disabled = Gray600
     override val subtle = Gray600
-    override val subtleHover = Gray200
-    override val subtleActive = Gray300
+    override val subtleHover = Gray500
+    override val subtleActive = Gray400
     override val inverted = Gray900
-    override val invertedHover = Gray950
-    override val invertedActive = Gray900
+    override val invertedHover = Gray850
+    override val invertedActive = Gray800
     override val invertedStatic = White
     override val primary = Blueberry400
     override val secondary = Watermelon500
     override val secondaryHover = Watermelon400
-    override val secondaryActive = Watermelon500
+    override val secondaryActive = Watermelon300
     override val positive = Green500
     override val negative = Red300
     override val warning = Yellow500

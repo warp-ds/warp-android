@@ -106,8 +106,8 @@
     <!--*** ICON ***-->
     <color name="warp_icon_default">@color/gray900</color>
     <color name="warp_icon_static">@color/gray900</color>
-    <color name="warp_icon_hover">@color/gray900</color>
-    <color name="warp_icon_active">@color/gray900</color>
+    <color name="warp_icon_hover">@color/blueberry800</color>
+    <color name="warp_icon_active">@color/blueberry900</color>
     <color name="warp_icon_selected">@color/blueberry600</color>
     <color name="warp_icon_selected_hover">@color/blueberry700</color>
     <color name="warp_icon_selected_active">@color/blueberry800</color>

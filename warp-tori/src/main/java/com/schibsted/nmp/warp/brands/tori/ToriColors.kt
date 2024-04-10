@@ -152,8 +152,8 @@ internal object ToriBorderColors : WarpBorderColors {
 internal object ToriIconColors : WarpIconColors {
     override val default = Gray900
     override val static = Gray900
-    override val hover = Gray900
-    override val active = Gray900
+    override val hover = Blueberry800
+    override val active = Blueberry900
     override val selected = Blueberry600
     override val selectedHover = Blueberry700
     override val selectedActive = Blueberry800
