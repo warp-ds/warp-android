@@ -209,8 +209,8 @@ internal object FinnTooltipDarkColors : WarpTooltipColors {
 }
 
 internal object FinnNavBarDarkColors : WarpNavBarColors {
-    override val iconSelected: Color = Blue500
-    override val borderSelected: Color = Blue500
+    override val iconSelected: Color = FinnDarkIconColors.selected
+    override val borderSelected: Color = FinnDarkBorderColors.selected
 }
 
 internal object FinnPillDarkColors : WarpPillColors {
