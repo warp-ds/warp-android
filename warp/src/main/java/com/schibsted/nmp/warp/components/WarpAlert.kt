@@ -30,7 +30,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  *
  * @param modifier Modifier applied to the component. Defaults to [Modifier]
  * @param type The type of alert, this decides the look and icon of the component. Defaults to [WarpAlertType.Info]
- * @param title The title of the message
+ * @param title The title of the message. Defaults to null
  * @param body An optional text with more information. Defaults to null
  * @param linkText An optional text for a link. Defaults to null
  * @param linkAction An optional action for the link. Defaults to null
@@ -43,7 +43,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 fun WarpAlert(
     modifier: Modifier = Modifier,
     type: WarpAlertType = WarpAlertType.Info,
-    title: String,
+    title: String? = null,
     body: String,
     linkText: String? = null,
     linkAction: (() -> Unit)? = null,
@@ -89,17 +89,19 @@ fun WarpAlert(
         val margin = dimensions.space1
         val buttonMargin = dimensions.space2
 
-        WarpText(
-            modifier = Modifier
-                .constrainAs(titleRef) {
-                    linkTo(start = iconRef.end, end = parent.end, startMargin = margin, bias = 0f)
-                    top.linkTo(parent.top)
-                    width = Dimension.preferredWrapContent
-                },
-            text = title,
-            color = colors.text,
-            style = WarpTextStyle.Title4
-        )
+        title?.let {
+            WarpText(
+                modifier = Modifier
+                    .constrainAs(titleRef) {
+                        linkTo(start = iconRef.end, end = parent.end, startMargin = margin, bias = 0f)
+                        top.linkTo(parent.top)
+                        width = Dimension.preferredWrapContent
+                    },
+                text = title,
+                color = colors.text,
+                style = WarpTextStyle.Title4
+            )
+        }
         WarpText(
             modifier = Modifier
                 .constrainAs(bodyRef) {
@@ -249,6 +251,11 @@ fun WarpAlertPreview() {
             modifier = Modifier.padding(dimensions.space2),
             title = "Critical variant",
             body = "With an additional description",
+            type = WarpAlertType.Critical
+        )
+        WarpAlert(
+            modifier = Modifier.padding(dimensions.space2),
+            body = "No title variant",
             type = WarpAlertType.Critical
         )
         WarpAlert(

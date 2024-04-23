@@ -35,6 +35,11 @@ private fun AlertContent() {
         )
         WarpAlert(
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
+            body = "This is the critical variant of the alert element without title ",
+            type = WarpAlertType.Critical
+        )
+        WarpAlert(
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the positive variant of the alert element, with a very very long title so long that it will wrap",
             body = "With an additional description",
             type = WarpAlertType.Positive
@@ -88,6 +93,17 @@ private fun AlertContent() {
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
             title = "This is the info variant with all options",
             body = "You can read more about much more. There's also buttons that you can click",
+            type = WarpAlertType.Warning,
+            linkText = "A link to read more here",
+            linkAction = { Log.d("Warp", "Warp Alert Link clicked") },
+            secondaryButtonText = "Button",
+            secondaryButtonAction = { Log.d("Warp", "Warp Alert Secondary button clicked") },
+            quietButtonText = "Quiet Button",
+            quietButtonAction = { Log.d("Warp", "Warp Alert Quiet button clicked") }
+        )
+        WarpAlert(
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
+            body = "This is the info variant with all options except the title. You can read more about much more. There's also buttons that you can click",
             type = WarpAlertType.Warning,
             linkText = "A link to read more here",
             linkAction = { Log.d("Warp", "Warp Alert Link clicked") },

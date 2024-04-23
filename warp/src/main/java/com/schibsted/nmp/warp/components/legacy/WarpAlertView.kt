@@ -26,7 +26,7 @@ class WarpAlertView @JvmOverloads constructor(
             disposeComposition()
         }
 
-    var title: String = ""
+    var title: String? = null
         set(value) {
             field = value
             disposeComposition()
@@ -87,7 +87,7 @@ class WarpAlertView @JvmOverloads constructor(
     init {
         context.withStyledAttributes(attrs, R.styleable.WarpAlert) {
             type = typesList[getInt(R.styleable.WarpAlert_warpAlertType, 0)]
-            title = getTextFromIdOrString(R.styleable.WarpAlert_title, context) ?: ""
+            title = getTextFromIdOrString(R.styleable.WarpAlert_title, context)
             body = getTextFromIdOrString(R.styleable.WarpAlert_body, context) ?: ""
             linkText = getTextFromIdOrString(R.styleable.WarpAlert_linkText, context)
             secondaryButtonText =
