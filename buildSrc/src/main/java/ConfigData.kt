@@ -4,8 +4,8 @@ object ConfigData {
     const val minSdkVersion = 24
     const val groupId = "com.schibsted.nmp.warp"
     const val versionWarp = "0.0.20"
-    const val versionFinn = "0.0.18"
-    const val versionTori = "0.0.19"
+    const val versionFinn = "0.0.19"
+    const val versionTori = "0.0.20"
     const val artifactIdWarp = "warp-android"
     const val artifactIdFinn = "warp-android-finn"
     const val artifactIdTori = "warp-android-tori"
