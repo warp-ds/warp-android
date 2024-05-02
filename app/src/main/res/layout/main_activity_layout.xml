@@ -127,7 +127,7 @@
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space1"
             app:closable="true"
-            app:iconContentDescr="Close icon"
+            app:pillIconContentDescr="Close icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/alert_box_critical"
             app:pillText="Filter pill"
@@ -141,9 +141,39 @@
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space1"
             app:closable="true"
-            app:iconContentDescr="Close icon"
+            app:pillIconContentDescr="Close icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/filter_pill"
+            app:pillText="Suggestion pill"
+            app:selected="false"
+            app:warpPillStyle="suggestion" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpPillView
+            android:id="@+id/filter_pill_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:pillIcon="@drawable/blocket_badge"
+            app:pillIconColor="@color/warp_icon_default"
+            app:pillIconContentDescr="Icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suggestion_pill"
+            app:pillText="Filter pill"
+            app:selected="false"
+            app:warpPillStyle="filter" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpPillView
+            android:id="@+id/suggestion_pill_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:pillIcon="@drawable/blocket_badge"
+            app:pillIconColor="@color/warp_icon_default"
+            app:pillIconContentDescr="Icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filter_pill_link"
             app:pillText="Suggestion pill"
             app:selected="false"
             app:warpPillStyle="suggestion" />
@@ -157,7 +187,7 @@
             app:boxStyle="neutral"
             app:boxText="This is the box text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/suggestion_pill" />
+            app:layout_constraintTop_toBottomOf="@id/suggestion_pill_link" />
 
         <com.schibsted.nmp.warp.components.legacy.WarpBoxView
             android:id="@+id/box_bordered"

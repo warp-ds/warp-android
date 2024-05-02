@@ -101,7 +101,9 @@
         <attr name="selected" format="boolean" />
         <attr name="closable" format="boolean" />
         <attr name="pillText" format="reference|string" />
-        <attr name="iconContentDescr" format="reference|string" />
+        <attr name="pillIcon" format="reference" />
+        <attr name="pillIconColor" format="color" />
+        <attr name="pillIconContentDescr" format="reference|string" />
     </declare-styleable>
 
     <declare-styleable name="WarpBox">

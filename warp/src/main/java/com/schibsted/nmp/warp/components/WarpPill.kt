@@ -28,6 +28,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param selected Whether the pill is selected. Defaults to false.
  * @param style The style of the pill. Defaults to [WarpPillStyle.Filter].
  * @param closable Whether the pill is closable. When true, the pill will display a dismiss icon. Defaults to false.
+ * @param icon The icon to be displayed in the pill. If provided, the dismiss icon will not be displayed.
  * @param iconContentDescription The content description to be used for the dismiss icon.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,6 +40,7 @@ fun WarpPill(
     selected: Boolean = false,
     style: WarpPillStyle = WarpPillStyle.Filter,
     closable: Boolean = false,
+    icon: @Composable (() -> Unit)? = null,
     iconContentDescription: String? = null
 ) {
     val warpPillColors: WarpPillStyleColors = when (style) {
@@ -73,7 +75,12 @@ fun WarpPill(
         colors = pillColors,
         border = null,
         modifier = modifier,
-        trailingIcon = if (closable) {
+        trailingIcon = if (icon != null) {
+            {
+                icon()
+            }
+
+        } else if (closable) {
             {
                 Icon(
                     imageVector = Icons.Default.Close,
