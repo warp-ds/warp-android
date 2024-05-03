@@ -3,22 +3,14 @@ package com.schibsted.nmp.warp.components.legacy
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View.OnClickListener
-import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.AbstractComposeView
-import androidx.compose.ui.res.vectorResource
 import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpPill
 import com.schibsted.nmp.warp.components.WarpPillStyle
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
-import com.schibsted.nmp.warp.theme.WarpTheme
 import org.koin.java.KoinJavaComponent
 
 class WarpPillView @JvmOverloads constructor(
@@ -71,13 +63,6 @@ class WarpPillView @JvmOverloads constructor(
             disposeComposition()
         }
 
-    @ColorInt
-    var iconColor: Int = 0
-        set(value) {
-            field = value
-            disposeComposition()
-        }
-
     private var clickListener = OnClickListener { }
 
     override fun setOnClickListener(onCLick: OnClickListener?) {
@@ -95,7 +80,6 @@ class WarpPillView @JvmOverloads constructor(
             style = stylesList[styleInt]
             text = getTextFromIdOrString(R.styleable.WarpPill_pillText, context) ?: ""
             icon = getResourceId(R.styleable.WarpPill_pillIcon, 0)
-            iconColor = getColor(R.styleable.WarpPill_pillIconColor, 0)
             iconContentDescription =
                 getTextFromIdOrString(R.styleable.WarpPill_pillIconContentDescr, context)
             pillSelected = getBoolean(R.styleable.WarpPill_selected, false)
@@ -106,24 +90,12 @@ class WarpPillView @JvmOverloads constructor(
     @Composable
     override fun Content() {
         theme {
-            val icon: @Composable () -> Unit = {
-                if (icon == 0) null else {
-                    val iconTintColor =
-                        if (iconColor == 0) WarpTheme.colors.icon.default else Color(iconColor)
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = icon),
-                        contentDescription = iconContentDescription,
-                        tint = iconTintColor,
-                        modifier = Modifier.size(WarpTheme.dimensions.components.pillIcon)
-                    )
-                }
-            }
             WarpPill(
                 text = text,
                 onClick = { clickListener.onClick(this@WarpPillView) },
                 style = style,
                 closable = closable,
-                icon = icon,
+                icon = if(icon != 0) icon else null,
                 selected = pillSelected,
                 iconContentDescription = iconContentDescription
             )

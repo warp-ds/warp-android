@@ -5,16 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.schibsted.nmp.warp.components.WarpPill
 import com.schibsted.nmp.warp.components.WarpPillStyle
 import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
@@ -56,14 +51,7 @@ fun PillScreenContent() {
                 text = "Link",
                 onClick = { },
                 style = WarpPillStyle.Suggestion,
-                icon = {
-                    Icon(
-                        Icons.Filled.ExitToApp,
-                        contentDescription = "Content description for the icon",
-                        tint = WarpTheme.colors.icon.default,
-                        modifier = Modifier.size(dimensions.components.pillIcon)
-                    )
-                },
+                icon = com.google.android.material.R.drawable.material_ic_keyboard_arrow_next_black_24dp,
                 modifier = Modifier
                     .padding(bottom = dimensions.space2)
             )
@@ -89,14 +77,7 @@ fun PillScreenContent() {
             WarpPill(
                 text = "Link",
                 onClick = { },
-                icon = {
-                    Icon(
-                        Icons.Filled.ExitToApp,
-                        contentDescription = "Content description for the icon",
-                        tint = WarpTheme.colors.icon.static,
-                        modifier = Modifier.size(dimensions.components.pillIcon)
-                    )
-                },
+                icon = com.google.android.material.R.drawable.material_ic_keyboard_arrow_next_black_24dp,
                 style = WarpPillStyle.Filter
             )
         }

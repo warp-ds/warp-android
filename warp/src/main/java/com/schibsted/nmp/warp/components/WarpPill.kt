@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -11,6 +12,8 @@ import androidx.compose.material3.InputChipDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -29,7 +32,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param style The style of the pill. Defaults to [WarpPillStyle.Filter].
  * @param closable Whether the pill is closable. When true, the pill will display a dismiss icon. Defaults to false.
  * @param icon The icon to be displayed in the pill. If provided, the dismiss icon will not be displayed.
- * @param iconContentDescription The content description to be used for the dismiss icon.
+ * @param iconContentDescription The content description to be used for the icon.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +43,7 @@ fun WarpPill(
     selected: Boolean = false,
     style: WarpPillStyle = WarpPillStyle.Filter,
     closable: Boolean = false,
-    icon: @Composable (() -> Unit)? = null,
+    @DrawableRes icon: Int? = null,
     iconContentDescription: String? = null
 ) {
     val warpPillColors: WarpPillStyleColors = when (style) {
@@ -77,7 +80,12 @@ fun WarpPill(
         modifier = modifier,
         trailingIcon = if (icon != null) {
             {
-                icon()
+                Icon(
+                    imageVector = ImageVector.vectorResource(icon),
+                    tint = warpPillColors.icon,
+                    contentDescription = iconContentDescription,
+                    modifier = Modifier.size(dimensions.components.pillIcon)
+                )
             }
 
         } else if (closable) {
