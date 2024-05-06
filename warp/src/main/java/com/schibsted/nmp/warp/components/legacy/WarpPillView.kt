@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp.components.legacy
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View.OnClickListener
+import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.core.content.withStyledAttributes
@@ -55,6 +56,13 @@ class WarpPillView @JvmOverloads constructor(
             disposeComposition()
         }
 
+    @DrawableRes
+    var icon: Int = 0
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
     private var clickListener = OnClickListener { }
 
     override fun setOnClickListener(onCLick: OnClickListener?) {
@@ -71,8 +79,9 @@ class WarpPillView @JvmOverloads constructor(
             val styleInt = getInteger(R.styleable.WarpPill_warpPillStyle, 0)
             style = stylesList[styleInt]
             text = getTextFromIdOrString(R.styleable.WarpPill_pillText, context) ?: ""
+            icon = getResourceId(R.styleable.WarpPill_pillIcon, 0)
             iconContentDescription =
-                getTextFromIdOrString(R.styleable.WarpPill_iconContentDescr, context)
+                getTextFromIdOrString(R.styleable.WarpPill_pillIconContentDescr, context)
             pillSelected = getBoolean(R.styleable.WarpPill_selected, false)
             closable = getBoolean(R.styleable.WarpPill_closable, false)
         }
@@ -86,6 +95,7 @@ class WarpPillView @JvmOverloads constructor(
                 onClick = { clickListener.onClick(this@WarpPillView) },
                 style = style,
                 closable = closable,
+                icon = if(icon != 0) icon else null,
                 selected = pillSelected,
                 iconContentDescription = iconContentDescription
             )

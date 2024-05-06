@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpPill
 import com.schibsted.nmp.warp.components.WarpPillStyle
 import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
 fun PillScreen(onUp: () -> Unit) {
@@ -27,7 +27,7 @@ fun PillScreenContent() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(dimensions.space2)
     ) {
         WarpText(text = "Suggestion pill")
         Row(horizontalArrangement = Arrangement.SpaceBetween) {
@@ -38,14 +38,22 @@ fun PillScreenContent() {
                 closable = true,
                 selected = false,
                 modifier = Modifier
-                    .padding(bottom = 16.dp, end = 16.dp)
+                    .padding(bottom = dimensions.space2, end = dimensions.space1)
             )
             WarpPill(
                 text = "Suggestion",
                 onClick = { },
                 style = WarpPillStyle.Suggestion,
                 modifier = Modifier
-                    .padding(bottom = 16.dp)
+                    .padding(bottom = dimensions.space2, end = dimensions.space1)
+            )
+            WarpPill(
+                text = "Link",
+                onClick = { },
+                style = WarpPillStyle.Suggestion,
+                icon = com.google.android.material.R.drawable.material_ic_keyboard_arrow_next_black_24dp,
+                modifier = Modifier
+                    .padding(bottom = dimensions.space2)
             )
         }
 
@@ -57,11 +65,19 @@ fun PillScreenContent() {
                 closable = true,
                 style = WarpPillStyle.Filter,
                 modifier = Modifier
-                    .padding(end = 16.dp)
+                    .padding(end = dimensions.space1)
             )
             WarpPill(
                 text = "Filter",
                 onClick = { },
+                style = WarpPillStyle.Filter,
+                modifier = Modifier
+                    .padding(end = dimensions.space1)
+            )
+            WarpPill(
+                text = "Link",
+                onClick = { },
+                icon = com.google.android.material.R.drawable.material_ic_keyboard_arrow_next_black_24dp,
                 style = WarpPillStyle.Filter
             )
         }
