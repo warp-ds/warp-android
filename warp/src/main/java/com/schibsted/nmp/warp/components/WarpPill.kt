@@ -78,20 +78,20 @@ fun WarpPill(
         colors = pillColors,
         border = null,
         modifier = modifier,
-        trailingIcon = if (icon != null) {
+        trailingIcon = if (closable) {
             {
                 Icon(
-                    imageVector = ImageVector.vectorResource(icon),
+                    imageVector = Icons.Default.Close,
                     tint = warpPillColors.icon,
                     contentDescription = iconContentDescription,
                     modifier = Modifier.size(dimensions.components.pillIcon)
                 )
             }
 
-        } else if (closable) {
+        } else if (icon != null) {
             {
                 Icon(
-                    imageVector = Icons.Default.Close,
+                    imageVector = ImageVector.vectorResource(icon),
                     tint = warpPillColors.icon,
                     contentDescription = iconContentDescription,
                     modifier = Modifier.size(dimensions.components.pillIcon)
