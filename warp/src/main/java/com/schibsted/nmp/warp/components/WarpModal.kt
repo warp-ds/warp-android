@@ -31,7 +31,8 @@ fun WarpModal(
     title: String,
     body: String,
     onDismiss: () -> Unit,
-    subTitle: String? = null,
+    modifier: Modifier = Modifier,
+    subtitle: String? = null,
     confirmButtonText: String? = null,
     dismissButtonText: String? = null,
     onConfirm: (() -> Unit)? = null,
@@ -49,7 +50,7 @@ fun WarpModal(
         ),
         content = {
             Card(
-                modifier = Modifier.padding(horizontal = dimensions.space2),
+                modifier = Modifier.padding(horizontal = dimensions.space2).then(modifier),
                 shape = RoundedCornerShape(dimensions.borderRadius3),
                 colors = CardDefaults.cardColors(
                     containerColor = colors.surface.elevated100,
@@ -85,9 +86,9 @@ fun WarpModal(
                             )
                         }
                     }
-                    subTitle?.let {
+                    subtitle?.let {
                         WarpText(
-                            text = subTitle,
+                            text = subtitle,
                             style = WarpTextStyle.Title4
                         )
                     }
@@ -132,7 +133,7 @@ fun WarpModal(
 fun WarpAlertDialogPreview() {
     WarpModal(
         title = "Alert dialog",
-        subTitle = "Subtitle",
+        subtitle = "Subtitle",
         body = "Preview of alert dialog",
         confirmButtonText = "Confirm",
         dismissButtonText = "Cancel",

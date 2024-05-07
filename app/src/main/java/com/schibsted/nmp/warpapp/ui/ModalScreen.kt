@@ -97,7 +97,7 @@ fun ModalScreenContent() {
     if (openModalMuchText) {
         WarpModal(
             title = "Hello warp!",
-            subTitle = "Whats up?",
+            subtitle = "Whats up?",
             body = "If you are going to design or develop for Schibsted Nordic Marketplaces you are in the right place! Warp is the design system for all our marketplaces.\n" +
                     "\n" +
                     "A good place to start is Getting started for developers or Getting started for designers.",
