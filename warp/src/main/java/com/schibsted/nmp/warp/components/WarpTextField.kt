@@ -79,7 +79,8 @@ fun WarpTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    textStyle: TextStyle = typography.body,
 ) {
     val textFieldColors = OutlinedTextFieldDefaults.colors(
         unfocusedTextColor = colors.text.default,
@@ -187,7 +188,7 @@ fun WarpTextField(
         val textColor = rememberUpdatedState(textColorValue).value
         //Help text color should remain the same if isError is true and the textfield is focused
         val helpTextColor = rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default).value
-        val mergedTextStyle = typography.body.merge(TextStyle(color = textColor))
+        val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
         val cursorColor = rememberUpdatedState(if (isError) colors.icon.negative else colors.icon.default).value
         val cursorHandleColor = rememberUpdatedState(if (isError) colors.icon.negative else colors.border.focus).value
 
