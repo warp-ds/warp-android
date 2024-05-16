@@ -19,7 +19,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpTextField
+import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
+import com.schibsted.nmp.warp.components.getTextStyle
 import org.koin.java.KoinJavaComponent.inject
 
 
@@ -111,6 +113,29 @@ class WarpTextFieldView @JvmOverloads constructor(
             disposeComposition()
         }
 
+    var textStyle: WarpTextStyle = WarpTextStyle.Body
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    private var stylesList = listOf(
+        WarpTextStyle.Display,
+        WarpTextStyle.Title1,
+        WarpTextStyle.Title2,
+        WarpTextStyle.Title3,
+        WarpTextStyle.Title4,
+        WarpTextStyle.Title5,
+        WarpTextStyle.Title6,
+        WarpTextStyle.Preamble,
+        WarpTextStyle.Body,
+        WarpTextStyle.BodyStrong,
+        WarpTextStyle.Caption,
+        WarpTextStyle.CaptionStrong,
+        WarpTextStyle.Detail,
+        WarpTextStyle.DetailStrong
+    )
+
     init {
         context.withStyledAttributes(attrs, R.styleable.WarpTextField) {
             textFieldEnabled = getBoolean(R.styleable.WarpTextField_textFieldEnabled, true)
@@ -131,6 +156,8 @@ class WarpTextFieldView @JvmOverloads constructor(
             isError = getBoolean(R.styleable.WarpTextField_isError, false)
             singleLine = getBoolean(R.styleable.WarpTextField_singleLine, false)
             maxLines = getInt(R.styleable.WarpTextField_maxLines, Int.MAX_VALUE)
+            val styleInt = getInteger(R.styleable.WarpText_warpTextStyle, 8)
+            textStyle = stylesList[styleInt]
         }
     }
 
@@ -179,6 +206,7 @@ class WarpTextFieldView @JvmOverloads constructor(
                 isError = isError,
                 singleLine = singleLine,
                 maxLines = maxLines,
+                textStyle = getTextStyle(style = textStyle),
             )
         }
     }
