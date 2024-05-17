@@ -79,9 +79,10 @@ fun ModalScreenContent() {
         WarpModal(
             title = "Hello warp!",
             body = "Meow meow meow",
-            dismissButtonText = "Nope",
-            confirmButtonText = "Meow",
-            onConfirm = { openModal = false },
+            secondaryButtonText = "Nope",
+            primaryButtonText = "Meow",
+            onPrimaryButtonClick = { openModal = false },
+            onSecondaryButtonClick = { openModal = false },
             onDismiss = { openModal = false }
         )
     }
@@ -89,8 +90,8 @@ fun ModalScreenContent() {
         WarpModal(
             title = "Hello warp!",
             body = "Only confirm button",
-            confirmButtonText = "Close it",
-            onConfirm = { openModalOneButton = false },
+            primaryButtonText = "Close it",
+            onPrimaryButtonClick = { openModalOneButton = false },
             onDismiss = { openModalOneButton = false }
         )
     }
@@ -101,9 +102,10 @@ fun ModalScreenContent() {
             body = "If you are going to design or develop for Schibsted Nordic Marketplaces you are in the right place! Warp is the design system for all our marketplaces.\n" +
                     "\n" +
                     "A good place to start is Getting started for developers or Getting started for designers.",
-            dismissButtonText = "Cancel",
-            confirmButtonText = "Okay",
-            onConfirm = { openModalMuchText = false },
+            secondaryButtonText = "Cancel",
+            onSecondaryButtonClick = { openModalMuchText = false },
+            primaryButtonText = "Okay",
+            onPrimaryButtonClick = { openModalMuchText = false },
             onDismiss = { openModalMuchText = false }
         )
     }

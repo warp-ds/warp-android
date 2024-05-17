@@ -28,18 +28,19 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
 fun WarpModal(
+    modifier: Modifier = Modifier,
     title: String,
     body: String,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
-    subtitle: String? = null,
-    confirmButtonText: String? = null,
-    dismissButtonText: String? = null,
-    onConfirm: (() -> Unit)? = null,
-    showCloseIcon: Boolean = false,
-    closeIconContentDescription: String? = null,
     dismissOnClickOutside: Boolean = true,
-    dismissOnBackPress: Boolean = true
+    dismissOnBackPress: Boolean = true,
+    subtitle: String? = null,
+    primaryButtonText: String? = null,
+    onPrimaryButtonClick: (() -> Unit)? = null,
+    secondaryButtonText: String? = null,
+    onSecondaryButtonClick: (() -> Unit)? = null,
+    showCloseIcon: Boolean = false,
+    closeIconContentDescription: String? = null
 ) {
     Dialog(
         onDismissRequest = onDismiss,
@@ -50,7 +51,9 @@ fun WarpModal(
         ),
         content = {
             Card(
-                modifier = Modifier.padding(horizontal = dimensions.space2).then(modifier),
+                modifier = Modifier
+                    .padding(horizontal = dimensions.space2)
+                    .then(modifier),
                 shape = RoundedCornerShape(dimensions.borderRadius3),
                 colors = CardDefaults.cardColors(
                     containerColor = colors.surface.elevated100,
@@ -106,18 +109,18 @@ fun WarpModal(
                         horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        dismissButtonText?.let {
+                        secondaryButtonText?.let {
                             WarpButton(
-                                text = dismissButtonText,
-                                onClick = onDismiss,
+                                text = secondaryButtonText,
+                                onClick = onSecondaryButtonClick ?: {},
                                 style = WarpButtonStyle.Secondary
                             )
                         }
-                        confirmButtonText?.let {
+                        primaryButtonText?.let {
                             Spacer(modifier = Modifier.width(dimensions.space2))
                             WarpButton(
-                                text = confirmButtonText,
-                                onClick = onConfirm ?: {},
+                                text = primaryButtonText,
+                                onClick = onPrimaryButtonClick ?: {},
                                 style = WarpButtonStyle.Primary
                             )
                         }
@@ -135,9 +138,10 @@ fun WarpAlertDialogPreview() {
         title = "Alert dialog",
         subtitle = "Subtitle",
         body = "Preview of alert dialog",
-        confirmButtonText = "Confirm",
-        dismissButtonText = "Cancel",
-        onConfirm = { },
+        primaryButtonText = "Confirm",
+        secondaryButtonText = "Cancel",
+        onPrimaryButtonClick = { },
+        onSecondaryButtonClick = { },
         onDismiss = { }
     )
 }
