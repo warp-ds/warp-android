@@ -113,7 +113,11 @@ fun MainScreen() {
                 PillScreen {
                     navController.navigateUp()
                 }
-
+            }
+            composable("modal") {
+                ModalScreen {
+                    navController.navigateUp()
+                }
             }
         }
     }
@@ -167,6 +171,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "tabs" to "WarpTab and WarpTabGroup",
                         "badges" to "WarpBadge",
                         "pill" to "WarpPill",
+                        "modal" to "WarpModal"
                     )
                 )
                 {

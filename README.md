@@ -1,5 +1,6 @@
 # warp-android
 Warp - NMP design system for Android
+Docs can be found here -> https://warp-ds.github.io/tech-docs/
 
 ## Integrate Warp
 
@@ -10,11 +11,11 @@ A guide on how to integrate Warp into your project.
 Warp is used together with a brand theme and should be installed for a specific flavor of the code. Currently only Finn and Tori are supported.
 
 ```gradle
-implementation("com.schibsted.nmp.warp:warp-android:0.0.19")
+implementation("com.schibsted.nmp.warp:warp-android:0.0.21")
 
-finnImplementation("com.schibsted.nmp.warp:warp-android-finn:0.0.17")
+finnImplementation("com.schibsted.nmp.warp:warp-android-finn:0.0.19")
 
-toriImplementation("com.schibsted.nmp.warp:warp-android-tori:0.0.19")
+toriImplementation("com.schibsted.nmp.warp:warp-android-tori:0.0.20")
 ```
 
 
