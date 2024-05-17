@@ -54,7 +54,7 @@ configure<PublishingExtension> {
         create<MavenPublication>("aar") {
             groupId = ConfigData.groupId
             artifactId = ConfigData.artifactIdFinn
-            version = ConfigData.versionFinn
+            version = ConfigData.warpVersion
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
             artifact(androidSourcesJar.get())
         }
