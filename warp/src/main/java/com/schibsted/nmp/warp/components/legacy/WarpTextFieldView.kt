@@ -21,7 +21,6 @@ import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpTextField
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
-import com.schibsted.nmp.warp.components.getTextStyle
 import org.koin.java.KoinJavaComponent.inject
 
 
@@ -156,7 +155,7 @@ class WarpTextFieldView @JvmOverloads constructor(
             isError = getBoolean(R.styleable.WarpTextField_isError, false)
             singleLine = getBoolean(R.styleable.WarpTextField_singleLine, false)
             maxLines = getInt(R.styleable.WarpTextField_maxLines, Int.MAX_VALUE)
-            val styleInt = getInteger(R.styleable.WarpText_warpTextStyle, 8)
+            val styleInt = getInteger(R.styleable.WarpTextField_textStyle, 8)
             textStyle = stylesList[styleInt]
         }
     }
@@ -206,7 +205,7 @@ class WarpTextFieldView @JvmOverloads constructor(
                 isError = isError,
                 singleLine = singleLine,
                 maxLines = maxLines,
-                textStyle = getTextStyle(style = textStyle),
+                textStyle = textStyle,
             )
         }
     }

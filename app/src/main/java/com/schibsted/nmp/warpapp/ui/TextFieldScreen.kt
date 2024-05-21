@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextField
 import com.schibsted.nmp.warp.components.WarpTextStyle
-import com.schibsted.nmp.warp.theme.WarpTheme.typography
 
 @Composable
 fun TextFieldScreen(onUp: () -> Unit) {
@@ -241,7 +240,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     helpText = "Helping text",
                     leadingIcon = leadingIcon.takeIf { showLeadingIcon },
                     trailingIcon = trailingIcon.takeIf { showTrailingIcon },
-                    textStyle = typography.title1,
+                    textStyle = WarpTextStyle.Title1,
                 )
             }
         }
