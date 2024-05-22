@@ -3,8 +3,9 @@ plugins {
     id("com.android.application") version "8.2.1" apply false
     id("com.android.library") version "8.2.1" apply false
     id("org.jetbrains.kotlin.android") version "1.8.22" apply false
-    id("com.google.gms.google-services") version "4.4.0" apply false
+    id("com.google.gms.google-services") version Versions.googleServices apply false
     id("maven-publish")
+    id("app.cash.paparazzi") version Versions.paparazzi apply false
 }
 apply(plugin = "com.jfrog.artifactory")
 
@@ -26,8 +27,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4")
-        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:5.1.6")
+        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5")
+        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:5.1.14")
     }
 }
 configure<org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention> {

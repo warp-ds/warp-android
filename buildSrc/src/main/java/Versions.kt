@@ -1,6 +1,6 @@
 object Versions {
     const val jvm = "1.8"
-    const val kotlinCompiler = "1.4.8"
+    const val kotlinCompiler = "1.5.8"
     const val core = "1.9.0"
     const val compose = "2023.06.01"
     const val constraintLayout = "1.0.1"
@@ -11,4 +11,9 @@ object Versions {
     const val koin = "3.5.0"
     const val navigationCompose = "2.6.0"
     const val material = "1.5.0"
+    const val googleServices = "4.4.0"
+    const val paparazzi = "1.3.3"
+    const val composeActivity = "1.8.2"
+    const val testParameterInjector = "1.9"
+    const val kotest = "5.3.1"
 }

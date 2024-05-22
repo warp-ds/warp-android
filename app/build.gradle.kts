@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -73,8 +74,6 @@ dependencies {
     implementation(Dependencies.navigationCompose)
     implementation(Dependencies.koin)
 
-    //implementation("com.schibsted.nmp.warp:warp-android-tori:0.0.1")
-    //implementation("com.schibsted.nmp.warp:warp-android-finn:0.0.1")
     implementation(project(path = ":warp"))
     implementation(project(path = ":warp-tori"))
     implementation(project(path = ":warp-finn"))
@@ -84,6 +83,13 @@ dependencies {
     implementation(Dependencies.core)
     implementation(Dependencies.appCompat)
     testImplementation(Dependencies.junit)
+    testImplementation(Dependencies.composeJunit)
+    testImplementation(Dependencies.composeActivity)
+    testImplementation(Dependencies.composeUiTestManifest)
+    testImplementation(Dependencies.extJunit)
     androidTestImplementation(Dependencies.extJunit)
     androidTestImplementation(Dependencies.espressoCore)
+    testImplementation(Dependencies.kotestCore)
+    testImplementation(Dependencies.kotestRunner)
+    testImplementation(Dependencies.testParameterInjector)
 }

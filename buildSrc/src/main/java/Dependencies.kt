@@ -21,4 +21,8 @@ object Dependencies {
     const val koin = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
     const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     const val material = "com.google.android.material:material:${Versions.material}"
+    const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
+    const val testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:${Versions.testParameterInjector}"
+    const val kotestRunner = "io.kotest:kotest-runner-junit5:${Versions.kotest}"
+    const val kotestCore = "io.kotest:kotest-assertions-core:${Versions.kotest}"
 }
