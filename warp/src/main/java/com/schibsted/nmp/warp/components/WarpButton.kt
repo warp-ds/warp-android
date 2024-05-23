@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Button
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.clipRect
@@ -61,6 +63,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
  * @param leadingIconContentDescr The content description for the icon. Please provide this for accessibility purposes if icon is to be displayed. Default value is null
  * @param trailingIcon The drawable resource id for the icon to be displayed on the button after the text. Default value is null
  * @param trailingIconContentDescr The content description for the icon. Please provide this for accessibility purposes if icon is to be displayed. Default value is null
+ * @param small set to true to get the small version. Default value is false
  */
 @Composable
 fun WarpButton(
@@ -74,36 +77,42 @@ fun WarpButton(
     @DrawableRes leadingIcon: Int? = null,
     leadingIconContentDescr: String? = null,
     @DrawableRes trailingIcon: Int? = null,
-    trailingIconContentDescr: String? = null
+    trailingIconContentDescr: String? = null,
+    small: Boolean = false
 ) {
     WarpButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         style = style,
-        loading = loading
+        loading = loading,
+        small = small
     ) {
+        val iconModifier = if (small) Modifier
+            .scale(0.7f)
+            .padding(end = dimensions.space05) else Modifier.padding(end = dimensions.space1)
+
+        val textStyle = if (small) typography.detailStrong else typography.title4
+
         leadingIcon?.let {
             Icon(
-                modifier = Modifier
-                    .padding(end = dimensions.space1),
+                modifier = iconModifier,
                 imageVector = ImageVector.vectorResource(leadingIcon),
-                contentDescription = leadingIconContentDescr
-            )
+                contentDescription = leadingIconContentDescr,
+
+                )
         }
         Text(
             text = text,
             modifier = Modifier
-                .padding(vertical = dimensions.space1)
                 .semantics(properties = { contentDescription = text }),
             overflow = TextOverflow.Ellipsis,
             maxLines = maxLines,
-            style = typography.title4,
+            style = textStyle,
         )
         trailingIcon?.let {
             Icon(
-                modifier = Modifier
-                    .padding(start = dimensions.space1),
+                modifier = iconModifier,
                 imageVector = ImageVector.vectorResource(trailingIcon),
                 contentDescription = trailingIconContentDescr
             )
@@ -119,6 +128,7 @@ fun WarpButton(
  * @param modifier Modifier for the button. Default value is Modifier
  * @param style Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
  * @param loading set to true to enable the loading state
+ * @param small set to true to get the small version. Default value is false
  * @param content The content to display inside the button
  */
 @Composable
@@ -128,6 +138,7 @@ fun WarpButton(
     enabled: Boolean = true,
     style: WarpButtonStyle = WarpButtonStyle.Primary,
     loading: Boolean = false,
+    small: Boolean = false,
     content: @Composable RowScope.() -> Unit
 ) {
     CompositionLocalProvider(
@@ -172,13 +183,18 @@ fun WarpButton(
         val elevation =
             if (!loading && style == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall else 0.dp
 
-        val buttonModifier = if (loading) modifier.loadingAnimation() else modifier
         val colors = if (loading) loadingColors else buttonColors
         //disable click when button is in loading state
         val clickAction = if (loading) {
             {}
         } else onClick
 
+        val paddingVertical = if (small) dimensions.space025 else dimensions.space2
+        val paddingHorizontal = if (small) dimensions.space025 else dimensions.space2
+        val loadingModifier = if (loading) modifier.loadingAnimation() else modifier
+        val smallModifier =
+            if (small) modifier.height(dimensions.components.smallButtonHeight) else modifier
+        val buttonModifier = loadingModifier.then(smallModifier)
         CompositionLocalProvider(
             LocalRippleTheme provides WarpRippleTheme(warpButtonColors.background.active)
         ) {
@@ -191,8 +207,8 @@ fun WarpButton(
                 border = borderStroke,
                 content = content,
                 contentPadding = PaddingValues(
-                    horizontal = dimensions.space2,
-                    vertical = dimensions.space1
+                    horizontal = paddingHorizontal,
+                    vertical = paddingVertical
                 ),
                 elevation = ButtonDefaults.buttonElevation(elevation)
             )

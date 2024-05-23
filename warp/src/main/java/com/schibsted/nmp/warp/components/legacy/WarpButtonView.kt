@@ -85,6 +85,12 @@ class WarpButtonView @JvmOverloads constructor(
             disposeComposition()
         }
 
+    var small = false
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
     private var clickListener = OnClickListener { }
 
     override fun setOnClickListener(onCLick: OnClickListener?) {
@@ -119,6 +125,7 @@ class WarpButtonView @JvmOverloads constructor(
             leadingIconContentDescription = getTextFromIdOrString(R.styleable.WarpButton_buttonLeadingIconContentDescr, context)
             trailingIcon = getResourceId(R.styleable.WarpButton_buttonTrailingIcon, 0)
             trailingIconContentDescription = getTextFromIdOrString(R.styleable.WarpButton_buttonTrailingIconContentDescr, context)
+            small = getBoolean(R.styleable.WarpButton_buttonSmall, false)
         }
     }
 
@@ -134,7 +141,8 @@ class WarpButtonView @JvmOverloads constructor(
                 leadingIcon = if(leadingIcon != 0) leadingIcon else null,
                 leadingIconContentDescr = leadingIconContentDescription,
                 trailingIcon = if(trailingIcon != 0) trailingIcon else null,
-                trailingIconContentDescr = trailingIconContentDescription
+                trailingIconContentDescr = trailingIconContentDescription,
+                small = small
             )
         }
     }
