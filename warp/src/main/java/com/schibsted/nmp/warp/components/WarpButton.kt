@@ -189,8 +189,8 @@ fun WarpButton(
             {}
         } else onClick
 
-        val paddingVertical = if (small) dimensions.space025 else dimensions.space2
-        val paddingHorizontal = if (small) dimensions.space025 else dimensions.space2
+        val paddingVertical = if (small) 0.dp else dimensions.space2
+        val paddingHorizontal = if (small) dimensions.space15 else dimensions.space2
         val loadingModifier = if (loading) modifier.loadingAnimation() else modifier
         val smallModifier =
             if (small) modifier.height(dimensions.components.smallButtonHeight) else modifier
