@@ -18,6 +18,7 @@
         <attr name="buttonLeadingIconContentDescr" format="reference|string" />
         <attr name="buttonTrailingIcon" format="reference" />
         <attr name="buttonTrailingIconContentDescr" format="reference|string" />
+        <attr name="buttonSmall" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="WarpText">
