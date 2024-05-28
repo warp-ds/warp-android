@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("maven-publish")
+    id("app.cash.paparazzi")
 }
 apply(plugin = "com.jfrog.artifactory")
 
@@ -28,12 +29,15 @@ android {
             isMinifyEnabled = false
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    testOptions.unitTests {
+        isIncludeAndroidResources = true
     }
-    kotlinOptions {
-        jvmTarget = Versions.jvm
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlin {
+        jvmToolchain(17)
     }
     @Suppress("UnstableApiUsage")
     buildFeatures {
