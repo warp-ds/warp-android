@@ -1,11 +1,12 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("maven-publish")
+    id("app.cash.paparazzi")
 }
-apply(plugin = "com.jfrog.artifactory")
 
 android {
+    namespace = "com.schibsted.snapshot"
+
     namespace = ConfigData.namespaceFinn
     compileSdk = ConfigData.compileSdkVersion
 
@@ -47,23 +48,6 @@ android {
     }
 }
 
-val androidSourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    from(android.sourceSets.getByName("main").java.srcDirs)
-}
-
-configure<PublishingExtension> {
-    publications {
-        create<MavenPublication>("aar") {
-            groupId = ConfigData.groupId
-            artifactId = ConfigData.artifactIdFinn
-            version = ConfigData.warpVersion
-            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
-            artifact(androidSourcesJar.get())
-        }
-    }
-}
-
 dependencies {
     val composeBom = platform(Dependencies.composeBom)
     implementation(composeBom)
@@ -72,7 +56,11 @@ dependencies {
     implementation(Dependencies.composeUiToolingPreview)
     debugImplementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeFoundation)
+    implementation("com.google.testparameterinjector:test-parameter-injector:1.9") {
+        exclude(group = "org.hamcrest")
+    }
 
     implementation(project(":warp"))
-
+    implementation(project(":warp-finn"))
+    implementation(project(":warp-tori"))
 }

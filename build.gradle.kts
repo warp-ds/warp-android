@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.8.22" apply false
     id("com.google.gms.google-services") version "4.4.0" apply false
     id("maven-publish")
+    id("app.cash.paparazzi") version "1.3.4" apply false
 }
 apply(plugin = "com.jfrog.artifactory")
 
