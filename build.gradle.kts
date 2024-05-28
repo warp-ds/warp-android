@@ -2,7 +2,7 @@
 plugins {
     id("com.android.application") version "8.2.1" apply false
     id("com.android.library") version "8.2.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.8.22" apply false
+    id("org.jetbrains.kotlin.android") version Versions.kotlin apply false
     id("com.google.gms.google-services") version Versions.googleServices apply false
     id("maven-publish")
     id("app.cash.paparazzi") version Versions.paparazzi apply false
@@ -30,6 +30,7 @@ buildscript {
         classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5")
         classpath("org.jfrog.buildinfo:build-info-extractor-gradle:5.1.14")
     }
+
 }
 configure<org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention> {
     publish {

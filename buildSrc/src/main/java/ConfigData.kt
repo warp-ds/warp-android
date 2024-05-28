@@ -1,6 +1,5 @@
 object ConfigData {
-    const val compileSdkVersion = 33
-    const val buildToolsVersion = "33.0.0"
+    const val compileSdkVersion = 34
     const val minSdkVersion = 24
     const val warpVersion = "0.0.22"
     const val groupId = "com.schibsted.nmp.warp"

@@ -15,7 +15,6 @@ android {
         targetSdk = ConfigData.compileSdkVersion
         versionCode = 2
         versionName = "2.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -39,6 +38,15 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.kotlinCompiler
+    }
+
+    testOptions.unitTests {
+        isReturnDefaultValues = true
+        isIncludeAndroidResources = true
+
+        tasks.withType<Test> {
+            useJUnitPlatform()
+        }
     }
 }
 allprojects {
@@ -77,7 +85,6 @@ dependencies {
     implementation(project(path = ":warp"))
     implementation(project(path = ":warp-tori"))
     implementation(project(path = ":warp-finn"))
-
 
     implementation(Dependencies.material)
     implementation(Dependencies.core)
