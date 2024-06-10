@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.theme
 
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -12,6 +13,7 @@ fun WarpTheme(
     shapes: WarpShapes,
     resources: WarpResources,
     dimensions: WarpDimensions,
+    rippleTheme: WarpRippleTheme,
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
@@ -20,6 +22,7 @@ fun WarpTheme(
         LocalShapes provides shapes,
         LocalResources provides resources,
         LocalDimensions provides dimensions,
+        LocalRippleTheme provides rippleTheme,
         LocalTextStyle provides typography.body,
         content = content
     )
