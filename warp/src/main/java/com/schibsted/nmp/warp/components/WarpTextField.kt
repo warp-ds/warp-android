@@ -33,7 +33,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
-import com.schibsted.nmp.warp.theme.WarpTheme.typography
 
 /**
  * A Textfield in the warp design system.
@@ -115,6 +114,7 @@ fun WarpTextField(
         errorPrefixColor = colors.text.negative,
         errorSuffixColor = colors.text.negative,
         errorTrailingIconColor = colors.icon.negative,
+        errorContainerColor = colors.background.default,
 
         disabledBorderColor = colors.border.disabled.ifTrueOtherwise(!readOnly) { Color.Transparent },
         disabledContainerColor = colors.background.disabledSubtle,
@@ -188,14 +188,17 @@ fun WarpTextField(
         }
         val textColor = rememberUpdatedState(textColorValue).value
         //Help text color should remain the same if isError is true and the textfield is focused
-        val helpTextColor = rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default).value
+        val helpTextColor =
+            rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default).value
         val mergedTextStyle = getTextStyle(style = textStyle).merge(TextStyle(color = textColor))
-        val cursorColor = rememberUpdatedState(if (isError) colors.icon.negative else colors.icon.default).value
-        val cursorHandleColor = rememberUpdatedState(if (isError) colors.icon.negative else colors.border.focus).value
+        val cursorColor =
+            rememberUpdatedState(if (isError) colors.icon.negative else colors.icon.default).value
+        val cursorHandleColor =
+            rememberUpdatedState(if (isError) colors.icon.negative else colors.border.focus).value
 
         val customTextSelectionColors = TextSelectionColors(
-                handleColor = cursorHandleColor,
-                backgroundColor = cursorHandleColor,
+            handleColor = cursorHandleColor,
+            backgroundColor = cursorHandleColor,
         )
         CompositionLocalProvider(
             LocalTextSelectionColors provides customTextSelectionColors
@@ -232,7 +235,12 @@ fun WarpTextField(
                         isError = isError,
                         interactionSource = interactionSource,
                         colors = textFieldColors,
-                        contentPadding = PaddingValues(start = dimensions.space2.ifTrueOtherwise(!readOnly) { 0.dp }, top = dimensions.space2, end = dimensions.space2, bottom = dimensions.space2),
+                        contentPadding = PaddingValues(
+                            start = dimensions.space2.ifTrueOtherwise(!readOnly) { 0.dp },
+                            top = dimensions.space2,
+                            end = dimensions.space2,
+                            bottom = dimensions.space2
+                        ),
                         container = {
                             OutlinedTextFieldDefaults.ContainerBox(
                                 enabled,
