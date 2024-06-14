@@ -7,6 +7,8 @@ import androidx.compose.ui.unit.sp
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpTypography
 
+//Author Daniel Talakoubi
+
 private val DbaRegular = FontFamily(
     Font(R.font.proxima_nova_regular)
 )
