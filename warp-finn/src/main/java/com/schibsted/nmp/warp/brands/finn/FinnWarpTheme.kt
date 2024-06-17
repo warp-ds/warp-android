@@ -12,7 +12,7 @@ fun FinnWarpTheme(
 ) {
     val finnColors = if (isSystemInDarkTheme()) FinnDarkColors else FinnColors
     val finnDimensions = WarpDimensions
-    val finnRippleTheme = WarpRippleTheme(rippleColor = finnColors.background.secondary, rippleColorAlpha = finnColors.background.secondary)
+    val finnRippleTheme = WarpRippleTheme(rippleColor = finnColors.background.primary, rippleColorAlpha = finnColors.background.primary)
     WarpTheme(
         colors = finnColors,
         typography = FinnTypography,
