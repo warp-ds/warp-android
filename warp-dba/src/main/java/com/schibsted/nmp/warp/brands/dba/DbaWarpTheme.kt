@@ -3,20 +3,23 @@ package com.schibsted.nmp.warp.brands.dba
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.theme.WarpDimensions
+import com.schibsted.nmp.warp.theme.WarpRippleTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
 fun DbaWarpTheme(
     content: @Composable () -> Unit
 ){
-    val colors = if (isSystemInDarkTheme()) DbaDarkColors else DbaColors
-    val dimensions = WarpDimensions
+    val dbaColors = if (isSystemInDarkTheme()) DbaDarkColors else DbaColors
+    val dbaDimensions = WarpDimensions
+    val dbaRippleTheme = WarpRippleTheme(rippleColor = dbaColors.background.primary, rippleColorAlpha = dbaColors.background.primary)
     WarpTheme(
-        colors = colors,
+        colors = dbaColors,
         typography = DbaTypography,
-        shapes = DbaShapes(dimensions),
+        shapes = DbaShapes(dbaDimensions),
         resources = DbaResources(),
         content = content,
-        dimensions = dimensions
+        rippleTheme = dbaRippleTheme,
+        dimensions = dbaDimensions
     )
 }

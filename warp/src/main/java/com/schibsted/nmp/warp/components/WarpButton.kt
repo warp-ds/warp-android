@@ -199,7 +199,7 @@ fun WarpButton(
             if (loading) modifier.loadingAnimation() else modifier
         }
         CompositionLocalProvider(
-            LocalRippleTheme provides WarpRippleTheme(warpButtonColors.background.active)
+            LocalRippleTheme provides WarpRippleTheme(rippleColor = warpButtonColors.background.active, rippleColorAlpha = warpButtonColors.background.active)
         ) {
             Button(
                 modifier = buttonModifier,
