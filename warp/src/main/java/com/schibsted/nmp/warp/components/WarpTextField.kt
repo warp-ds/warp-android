@@ -266,7 +266,7 @@ fun WarpTextField(
     }
 }
 
-fun <T> T.ifTrueOtherwise(predicate: Boolean, block: () -> T): T = if (predicate) {
+internal fun <T> T.ifTrueOtherwise(predicate: Boolean, block: () -> T): T = if (predicate) {
     this
 } else {
     block()
