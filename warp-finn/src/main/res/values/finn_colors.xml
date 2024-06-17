@@ -65,10 +65,10 @@
 
     <color name="gray50">#F6F6F6</color>
     <color name="gray100">#F0F0F2</color>
-    <color name="gray200">#D1D1D6</color>
-    <color name="gray300">#BBBBC2</color>
-    <color name="gray400">#A5A5AD</color>
-    <color name="gray500">#80808A</color>
+    <color name="gray200">#DEDEE3</color>
+    <color name="gray300">#CACAD1</color>
+    <color name="gray400">#AFAFB8</color>
+    <color name="gray500">#84848F</color>
     <color name="gray600">#5C5C66</color>
     <color name="gray700">#47474F</color>
     <color name="gray750">#333338</color>

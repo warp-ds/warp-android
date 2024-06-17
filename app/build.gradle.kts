@@ -73,11 +73,10 @@ dependencies {
     implementation(Dependencies.navigationCompose)
     implementation(Dependencies.koin)
 
-    //implementation("com.schibsted.nmp.warp:warp-android-tori:0.0.1")
-    //implementation("com.schibsted.nmp.warp:warp-android-finn:0.0.1")
     implementation(project(path = ":warp"))
     implementation(project(path = ":warp-tori"))
     implementation(project(path = ":warp-finn"))
+    implementation(project(path = ":warp-dba"))
 
 
     implementation(Dependencies.material)
