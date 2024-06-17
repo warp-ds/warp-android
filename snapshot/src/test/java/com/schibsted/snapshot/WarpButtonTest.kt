@@ -25,7 +25,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(TestParameterInjector::class)
-class SnapshotTest(
+class WarpButtonTest(
     @TestParameter val flavor: Flavor,
     @TestParameter val nightMode: NightMode,
     @TestParameter(valuesProvider = FontScaleProvider::class) private val fontScale: Float,

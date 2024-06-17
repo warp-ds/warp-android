@@ -63,4 +63,5 @@ dependencies {
     implementation(project(":warp"))
     implementation(project(":warp-finn"))
     implementation(project(":warp-tori"))
+    implementation(project(":warp-dba"))
 }
