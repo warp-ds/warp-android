@@ -66,7 +66,7 @@ fun WarpCheckbox(
             onCheckedChange = onCheckedChange,
             warpCheckboxColors = warpCheckboxColors,
             checked = checked,
-            enabled = enabled,
+            enabled = ((style != WarpCheckboxStyle.Disabled) && enabled),
             modifier = modifier
         )
 
