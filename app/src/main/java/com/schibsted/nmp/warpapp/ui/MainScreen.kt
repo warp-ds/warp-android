@@ -164,17 +164,17 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
             LazyColumn(contentPadding = PaddingValues(8.dp)) {
                 items(
                     listOf(
-                        "buttons" to "WarpButton",
-                        "box" to "WarpBox",
-                        "typography" to "Typography",
-                        "stepIndicator" to "WarpStepIndicator",
                         "alert" to "WarpAlert",
-                        "textField" to "WarpTextField",
-                        "expandable" to "WarpExpandable",
-                        "tabs" to "WarpTab and WarpTabGroup",
                         "badges" to "WarpBadge",
+                        "box" to "WarpBox",
+                        "buttons" to "WarpButton",
+                        "expandable" to "WarpExpandable",
+                        "modal" to "WarpModal",
                         "pill" to "WarpPill",
-                        "modal" to "WarpModal"
+                        "stepIndicator" to "WarpStepIndicator",
+                        "tabs" to "WarpTab and WarpTabGroup",
+                        "textField" to "WarpTextField",
+                        "typography" to "Typography",
                     )
                 )
                 {

@@ -88,19 +88,28 @@ fun WarpButton(
         loading = loading,
         small = small
     ) {
-        val iconModifier = if (small) Modifier
-            .scale(0.7f)
-            .padding(end = dimensions.space05) else Modifier.padding(end = dimensions.space1)
-
         val textStyle = if (small) typography.detailStrong else typography.title4
+
+        val leadingIconModifier = if (small)
+            Modifier
+                .scale(0.7f)
+                .padding(end = dimensions.space05) else
+            Modifier
+                .padding(end = dimensions.space1)
+
+        val trailingIconModifier = if (small)
+            Modifier
+                .scale(0.7f)
+                .padding(start = dimensions.space05) else
+            Modifier
+                .padding(start = dimensions.space1)
 
         leadingIcon?.let {
             Icon(
-                modifier = iconModifier,
+                modifier = leadingIconModifier,
                 imageVector = ImageVector.vectorResource(leadingIcon),
-                contentDescription = leadingIconContentDescr,
-
-                )
+                contentDescription = leadingIconContentDescr
+            )
         }
         Text(
             text = text,
@@ -112,7 +121,7 @@ fun WarpButton(
         )
         trailingIcon?.let {
             Icon(
-                modifier = iconModifier,
+                modifier = trailingIconModifier,
                 imageVector = ImageVector.vectorResource(trailingIcon),
                 contentDescription = trailingIconContentDescr
             )
@@ -194,7 +203,9 @@ fun WarpButton(
         val buttonModifier = if (small) {
             val smallModifier = modifier
                 .height(dimensions.components.smallButtonHeight)
-            if (loading) smallModifier.loadingAnimation() else smallModifier
+            if (loading) modifier
+                .loadingAnimation()
+                .then(smallModifier) else smallModifier
         } else {
             if (loading) modifier.loadingAnimation() else modifier
         }

@@ -79,7 +79,6 @@ fun WarpAlert(
             modifier = Modifier.constrainAs(iconRef) {
                 start.linkTo(parent.start)
                 top.linkTo(titleRef.top)
-                bottom.linkTo(titleRef.bottom)
             },
             tint = colors.icon,
             imageVector = icon,
