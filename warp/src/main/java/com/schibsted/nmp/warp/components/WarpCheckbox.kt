@@ -40,7 +40,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 @Composable
 fun WarpCheckbox(
     text: String,
-    onCheckedChange: ((Boolean) -> Unit)?,
+    onCheckedChange: ((Boolean) -> Unit) = {},
     modifier: Modifier = Modifier,
     style: WarpCheckboxStyle = WarpCheckboxStyle.Neutral,
     enabled: Boolean = true,
@@ -77,7 +77,7 @@ fun WarpCheckbox(
 @Composable
 private fun WarpCheckboxView(
     text: String,
-    onCheckedChange: ((Boolean) -> Unit)?,
+    onCheckedChange: ((Boolean) -> Unit) = {},
     modifier: Modifier = Modifier,
     warpCheckboxColors: WarpCheckboxStyleColors,
     enabled: Boolean = true,
@@ -106,9 +106,7 @@ private fun WarpCheckboxView(
                         checkboxBorder.value = warpCheckboxColors.border
                     }
 
-                    onCheckedChange?.let {
-                        it(checkboxChecked)
-                    }
+                    onCheckedChange(checkboxChecked)
                 }
             )
     } else modifier

@@ -43,7 +43,7 @@ class WarpCheckboxView @JvmOverloads constructor(
             disposeComposition()
         }
 
-    private var checkedChangeListener: ((Boolean) -> Unit)? = null
+    private var checkedChangeListener: ((Boolean) -> Unit) = {}
 
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
