@@ -27,9 +27,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
@@ -147,7 +150,7 @@ private fun WarpCheckboxView(
                 ),
                 exit = fadeOut()) {
                 Icon(
-                    Icons.Default.Check,
+                    imageVector = ImageVector.vectorResource(id = R.drawable.warp_check),
                     contentDescription = null,
                     tint = colors.icon.inverted,
                     modifier = Modifier.height(dimensions.components.checkbox.iconHeight)

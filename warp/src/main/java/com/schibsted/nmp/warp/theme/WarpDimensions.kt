@@ -55,7 +55,7 @@ object StepIndicatorDimensions {
 object CheckboxDimensions {
     val checkboxSize = 20.dp
     val cornerRadius = 4.dp
-    val iconHeight = 10.dp
+    val iconHeight = 16.dp
 }
 
 internal val LocalDimensions = staticCompositionLocalOf { WarpDimensions }
