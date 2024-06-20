@@ -1,6 +1,9 @@
 package com.schibsted.snapshot
 
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.HtmlReportWriter
@@ -17,15 +20,19 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(TestParameterInjector::class)
-class CheckbxoxSnapshotTest(
+class WarpCheckboxTest(
     @TestParameter val flavor: Flavor,
     @TestParameter val nightMode: NightMode,
+    @TestParameter(valuesProvider = FontScaleProvider::class) private val fontScale: Float,
 ) {
     @get:Rule
     val paparazzi = Paparazzi(
-        deviceConfig = DeviceConfig.PIXEL_5.copy(nightMode = nightMode),
+        deviceConfig = DeviceConfig.PIXEL_5.copy(
+            nightMode = nightMode,
+            fontScale = fontScale
+        ),
         theme = "android:Theme.Material.Light.NoActionBar",
-        renderingMode = SessionParams.RenderingMode.SHRINK,
+        renderingMode = SessionParams.RenderingMode.FULL_EXPAND,
         snapshotHandler = if (Config.isVerifying) {
             SnapshotVerifier(
                 maxPercentDifference = Config.maxPercentDifference,
@@ -37,80 +44,44 @@ class CheckbxoxSnapshotTest(
     )
 
     @Test
-    fun `warp checkbox neutral`() {
-        paparazzi.snapshot {
-            WarpTheme(flavor = flavor) {
-                WarpCheckbox(
-                    text = "This is a checkbox",
-                    modifier = Modifier.wrapContentSize(),
-                    onCheckedChange = { /*TODO*/ })
-            }
-        }
+    fun warp_checkbox_neutral() {
+        warpCheckbox(WarpCheckboxStyle.Neutral)
     }
 
     @Test
-    fun `warp checkbox selected neutral`() {
-        paparazzi.snapshot {
-            WarpTheme(flavor = flavor) {
-                WarpCheckbox(
-                    text = "This is a selected checkbox",
-                    modifier = Modifier.wrapContentSize(),
-                    checked = true,
-                    onCheckedChange = { /*TODO*/ })
-            }
-        }
+    fun warp_checkbox_disabled() {
+        warpCheckbox(WarpCheckboxStyle.Disabled)
     }
 
     @Test
-    fun `warp checkbox disabled`() {
-        paparazzi.snapshot {
-            WarpTheme(flavor = flavor) {
-                WarpCheckbox(
-                    text = "This is a disabled checkbox",
-                    modifier = Modifier.wrapContentSize(),
-                    enabled = false,
-                    onCheckedChange = { /*TODO*/ })
-            }
-        }
+    fun warp_checkbox_negative() {
+        warpCheckbox(WarpCheckboxStyle.Negative)
     }
 
-    @Test
-    fun `warp checkbox selected disabled`() {
+    private fun warpCheckbox(style: WarpCheckboxStyle) {
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
-                WarpCheckbox(
-                    text = "This is a selected disabled checkbox",
-                    modifier = Modifier.wrapContentSize(),
-                    checked = true,
-                    enabled = false,
-                    onCheckedChange = { /*TODO*/ })
-            }
-        }
-    }
-
-    @Test
-    fun `warp checkbox negative`() {
-        paparazzi.snapshot {
-            WarpTheme(flavor = flavor) {
-                WarpCheckbox(
-                    text = "This is a negative checkbox",
-                    style = WarpCheckboxStyle.Negative,
-                    modifier = Modifier.wrapContentSize(),
-                    onCheckedChange = { /*TODO*/ })
-            }
-        }
-    }
-
-    @Test
-    fun `warp checkbox selected negative`() {
-        paparazzi.snapshot {
-            WarpTheme(flavor = flavor) {
-                WarpCheckbox(
-                    text = "This is a selected negative checkbox",
-                    style = WarpCheckboxStyle.Negative,
-                    modifier = Modifier.wrapContentSize(),
-                    checked = true,
-                    onCheckedChange = { /*TODO*/ })
+                Column(
+                    modifier = Modifier
+                        .background(com.schibsted.nmp.warp.theme.WarpTheme.colors.surface.elevated100)
+                        .padding(
+                            horizontal = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2,
+                            vertical = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
+                ) {
+                    WarpCheckbox(
+                        text = "${style.name} checkbox",
+                        style = style,
+                        enabled = style != WarpCheckboxStyle.Disabled
+                    )
+                    WarpCheckbox(
+                        text = "${style.name} selected checkbox",
+                        style = style,
+                        checked = true,
+                        enabled = style != WarpCheckboxStyle.Disabled
+                    )
+                }
             }
         }
     }
