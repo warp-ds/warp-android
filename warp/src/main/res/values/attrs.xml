@@ -157,4 +157,10 @@
         <attr name="checked" format="boolean" />
         <attr name="checkboxText" format="reference|string" />
     </declare-styleable>
+
+    <declare-styleable name="WarpRadio">
+        <attr name="radioText" format="reference|string" />
+        <attr name="radioSelected" format="boolean" />
+        <attr name="radioEnabled" format="boolean" />
+    </declare-styleable>
 </resources>

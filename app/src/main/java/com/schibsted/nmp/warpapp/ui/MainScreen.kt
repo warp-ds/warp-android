@@ -48,6 +48,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 import com.schibsted.nmp.warpapp.MainViewModel
+import com.schibsted.nmp.warpapp.RadioScreen
 
 @Composable
 fun MainScreen() {
@@ -124,6 +125,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("radio") {
+                RadioScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -177,6 +183,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "expandable" to "WarpExpandable",
                         "modal" to "WarpModal",
                         "pill" to "WarpPill",
+                        "radio" to "WarpRadio",
                         "stepIndicator" to "WarpStepIndicator",
                         "tabs" to "WarpTab and WarpTabGroup",
                         "textField" to "WarpTextField",

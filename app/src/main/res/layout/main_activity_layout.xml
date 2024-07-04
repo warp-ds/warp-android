@@ -315,11 +315,23 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/space2"
             app:activeStep="0"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/radio"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/stepindicator_vertical"
             app:stepIndicatorOrientation="horizontal"
             app:steps="3" />
+
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stepindicator_horizontal"
+            app:radioSelected="false"
+            app:radioText="Radio button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
