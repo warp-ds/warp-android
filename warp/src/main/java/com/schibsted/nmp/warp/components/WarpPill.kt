@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
@@ -34,7 +33,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param icon The icon to be displayed in the pill. If provided, the dismiss icon will not be displayed.
  * @param iconContentDescription The content description to be used for the icon.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpPill(
     modifier: Modifier = Modifier,
@@ -63,8 +61,8 @@ fun WarpPill(
     )
 
     InputChip(
-        onClick = onClick,
         selected = selected,
+        onClick = onClick,
         label = {
             WarpText(
                 text = text,

@@ -36,7 +36,7 @@ class WarpAlertTest(
         ),
         validateAccessibility = true,
         theme = "android:Theme.Material.Light.NoActionBar",
-        renderingMode = SessionParams.RenderingMode.FULL_EXPAND,
+        renderingMode = SessionParams.RenderingMode.NORMAL,
         snapshotHandler = if (Config.isVerifying) {
             SnapshotVerifier(
                 maxPercentDifference = Config.maxPercentDifference,
