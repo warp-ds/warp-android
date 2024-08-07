@@ -12,6 +12,7 @@ import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpNavBarColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
+import com.schibsted.nmp.warp.theme.WarpSpinnerColors
 import com.schibsted.nmp.warp.theme.WarpSurfaceColors
 import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
@@ -197,6 +198,11 @@ internal object ToriComponentDarkColors : WarpComponentColors {
     override val navBar: WarpNavBarColors = ToriNavBarDarkColors
     override val tooltip: WarpTooltipColors = ToriTooltipDarkColors
     override val switch: WarpSwitchColors = ToriSwitchDarkColors
+    override val spinner: WarpSpinnerColors = ToriSpinnerDarkColors
+}
+
+private object ToriSpinnerDarkColors : WarpSpinnerColors {
+    override val color: Color = ToriDarkBackgroundColors.primary
 }
 
 private object ToriSwitchDarkColors : WarpSwitchColors {

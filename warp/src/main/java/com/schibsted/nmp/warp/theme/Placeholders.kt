@@ -184,6 +184,11 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
     override val navBar: WarpNavBarColors = PlaceholderNavBarColors
     override val tooltip: WarpTooltipColors = PlaceholderTooltipColors
     override val switch: WarpSwitchColors = PlaceholderSwitchColors
+    override val spinner: WarpSpinnerColors = PlaceholderSpinnerColors
+}
+
+private object PlaceholderSpinnerColors : WarpSpinnerColors {
+    override val color: Color = Color.Unspecified
 }
 
 private object PlaceholderSwitchColors : WarpSwitchColors {

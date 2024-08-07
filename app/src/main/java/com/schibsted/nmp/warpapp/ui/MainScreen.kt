@@ -124,6 +124,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("spinner") {
+                SpinnerScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -176,6 +181,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "checkbox" to "WarpCheckbox",
                         "expandable" to "WarpExpandable",
                         "modal" to "WarpModal",
+                        "spinner" to "WarpSpinner",
                         "pill" to "WarpPill",
                         "stepIndicator" to "WarpStepIndicator",
                         "tabs" to "WarpTab and WarpTabGroup",
