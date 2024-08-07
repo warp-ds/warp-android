@@ -146,4 +146,15 @@
         <attr name="steps" format="integer" />
         <attr name="activeStep" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="WarpCheckbox">
+        <attr name="warpCheckboxStyle" format="enum">
+            <enum name="neutral" value="0" />
+            <enum name="disabled" value="1" />
+            <enum name="negative" value="2" />
+        </attr>
+        <attr name="checkboxEnabled" format="boolean" />
+        <attr name="checked" format="boolean" />
+        <attr name="checkboxText" format="reference|string" />
+    </declare-styleable>
 </resources>

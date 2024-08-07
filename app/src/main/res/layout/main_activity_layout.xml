@@ -127,9 +127,9 @@
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space1"
             app:closable="true"
-            app:pillIconContentDescr="Close icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/alert_box_critical"
+            app:pillIconContentDescr="Close icon"
             app:pillText="Filter pill"
             app:selected="false"
             app:warpPillStyle="filter" />
@@ -141,9 +141,9 @@
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space1"
             app:closable="true"
-            app:pillIconContentDescr="Close icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/filter_pill"
+            app:pillIconContentDescr="Close icon"
             app:pillText="Suggestion pill"
             app:selected="false"
             app:warpPillStyle="suggestion" />
@@ -154,10 +154,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space1"
-            app:pillIcon="@drawable/blocket_badge"
-            app:pillIconContentDescr="Icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/suggestion_pill"
+            app:pillIcon="@drawable/blocket_badge"
+            app:pillIconContentDescr="Icon"
             app:pillText="Filter pill"
             app:selected="false"
             app:warpPillStyle="filter" />
@@ -168,10 +168,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space2"
             android:layout_marginVertical="@dimen/space1"
-            app:pillIcon="@drawable/blocket_badge"
-            app:pillIconContentDescr="Icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/filter_pill_link"
+            app:pillIcon="@drawable/blocket_badge"
+            app:pillIconContentDescr="Icon"
             app:pillText="Suggestion pill"
             app:selected="false"
             app:warpPillStyle="suggestion" />
@@ -231,16 +231,81 @@
             app:loading="false"
             app:warpButtonStyle="primary" />
 
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_neutral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxText="Neutral checkbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_button_three"
+            app:warpCheckboxStyle="neutral" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_neutral_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxText="Neutral selected checkbox"
+            app:checked="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_neutral"
+            app:warpCheckboxStyle="neutral" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_disabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxEnabled="false"
+            app:checkboxText="Disabled checkbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_neutral_selected"
+            app:warpCheckboxStyle="disabled" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_disabled_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxEnabled="false"
+            app:checkboxText="Disabled selected checkbox"
+            app:checked="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_disabled"
+            app:warpCheckboxStyle="neutral" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_negative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxText="Negative checkbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_disabled_selected"
+            app:warpCheckboxStyle="negative" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_negative_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxText="Disabled selected checkbox"
+            app:checked="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative"
+            app:warpCheckboxStyle="negative" />
+
         <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
             android:id="@+id/stepindicator_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space2"
             app:activeStep="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/warp_button_three"
             app:layout_constraintBottom_toTopOf="@id/stepindicator_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative_selected"
             app:stepIndicatorOrientation="vertical"
             app:steps="2" />
 

@@ -69,6 +69,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("checkbox") {
+                CheckboxScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("box") {
                 BoxScreen {
                     navController.navigateUp()
@@ -168,6 +173,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "badges" to "WarpBadge",
                         "box" to "WarpBox",
                         "buttons" to "WarpButton",
+                        "checkbox" to "WarpCheckbox",
                         "expandable" to "WarpExpandable",
                         "modal" to "WarpModal",
                         "pill" to "WarpPill",
