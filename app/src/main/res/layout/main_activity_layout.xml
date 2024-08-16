@@ -298,8 +298,8 @@
 
         <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
             android:id="@+id/stepindicator_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginTop="@dimen/space2"
             app:activeStep="0"
             app:layout_constraintBottom_toTopOf="@id/stepindicator_horizontal"
@@ -311,7 +311,7 @@
 
         <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
             android:id="@+id/stepindicator_horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/space2"
             app:activeStep="0"
@@ -320,6 +320,26 @@
             app:layout_constraintTop_toBottomOf="@id/stepindicator_vertical"
             app:stepIndicatorOrientation="horizontal"
             app:steps="3" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpSwitchView
+            android:id="@+id/warp_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stepindicator_horizontal"
+            app:switchChecked="true"
+            app:switchEnabled="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpSwitchView
+            android:id="@+id/warp_switch_disabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_switch"
+            app:switchChecked="false"
+            app:switchEnabled="false" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
