@@ -1,6 +1,5 @@
 package com.schibsted.nmp.warp.components
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -30,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
@@ -39,7 +37,13 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 import kotlinx.coroutines.launch
 
-@SuppressLint("RestrictedApi")
+/**
+ * A switch component that can be toggled on and off. The switch can be disabled.
+ * @param modifier Modifier applied to the view. Default value is Modifier
+ * @param checked State of the switch. Default value is false
+ * @param onCheckedChange Invoked when the switch is toggled
+ * @param enabled Set to false to disable the switch. Default value is true
+ */
 @Composable
 fun WarpSwitch(
     modifier: Modifier = Modifier,
@@ -77,12 +81,12 @@ fun WarpSwitch(
                 .clip(RoundedCornerShape(height))
                 .background(
                     lerp(
-                        switchColors.checkedTrackColor,
                         switchColors.uncheckedTrackColor,
+                        switchColors.checkedTrackColor,
                         offset.value
                     )
                 )
-                .toggleable(value = checked, onValueChange = onCheckedChange, role = Role.Switch)),
+                .toggleable(value = checked, enabled = enabled, onValueChange = onCheckedChange, role = Role.Switch)),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
@@ -118,18 +122,18 @@ internal fun disabledSwitchColors() = WarpSwitchColors(
     uncheckedTrackColor = colors.background.disabledSubtle,
 )
 
-@Preview(showBackground = true)
+@Preview(showBackground = false)
 @Composable
 fun WarpSwitchPreview() {
     Column {
         var value by remember { mutableStateOf(true) }
         WarpSwitch(
             checked = value,
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(dimensions.space2),
             onCheckedChange = { value = it })
         WarpSwitch(
             checked = value,
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(dimensions.space2),
             onCheckedChange = { value = it })
     }
 
