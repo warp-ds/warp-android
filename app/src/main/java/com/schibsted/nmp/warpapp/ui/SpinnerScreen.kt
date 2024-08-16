@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -33,8 +31,8 @@ fun SpinnerScreen(onUp: () -> Unit) {
 
 @Composable
 fun SpinnerScreenContent() {
-    var size by rememberSaveable { mutableIntStateOf(1) }
-    var strokeSize by rememberSaveable { mutableIntStateOf(1) }
+    var sizeStep by rememberSaveable { mutableIntStateOf(0) }
+    var strokeSizeStep by rememberSaveable { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier
@@ -57,21 +55,23 @@ fun SpinnerScreenContent() {
         }
 
         Text(text = "Custom", modifier = Modifier.padding(top = 16.dp, bottom = 4.dp))
-        HorizontalWarpStepIndicator(steps = 5, activeStep = size, onStepClicked = { size = it })
+        HorizontalWarpStepIndicator(
+            steps = 5,
+            activeStep = sizeStep,
+            onStepClicked = { sizeStep = it })
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = 4.dp)) {
-            WarpSpinner(size = WarpSpinnerSize.Custom(16.dp * size))
+            WarpSpinner(size = WarpSpinnerSize.Custom(16.dp * (sizeStep + 1)))
         }
-        HorizontalDivider()
+        HorizontalDivider(modifier = Modifier.padding(top = 4.dp))
 
 
         Text(text = "Stroke size", modifier = Modifier.padding(top = 16.dp, bottom = 4.dp))
         HorizontalWarpStepIndicator(
             steps = 5,
-            activeStep = strokeSize,
-            onStepClicked = { strokeSize = it })
+            activeStep = strokeSizeStep,
+            onStepClicked = { strokeSizeStep = it })
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = 4.dp)) {
-            WarpSpinner(strokeWidth = 2.dp * strokeSize)
+            WarpSpinner(strokeWidth = 2.dp * (strokeSizeStep + 1))
         }
-
     }
 }
