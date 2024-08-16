@@ -231,6 +231,7 @@ interface WarpButtonColors {
 
 interface WarpSpinnerColors {
     val color: Color
+    val trackColor: Color
 }
 
 val White = Color.White

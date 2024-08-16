@@ -189,6 +189,7 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
 
 private object PlaceholderSpinnerColors : WarpSpinnerColors {
     override val color: Color = Color.Unspecified
+    override val trackColor: Color = Color.Unspecified
 }
 
 private object PlaceholderSwitchColors : WarpSwitchColors {

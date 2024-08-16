@@ -202,7 +202,8 @@ internal object DbaComponentColors : WarpComponentColors {
 }
 
 private object DbaSpinnerColors : WarpSpinnerColors {
-    override val color: Color = DbaBackgroundColors.primary
+    override val color: Color = DbaBorderColors.primary
+    override val trackColor: Color = DbaBorderColors.primarySubtle
 }
 
 private object DbaSwitchColors : WarpSwitchColors {

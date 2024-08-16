@@ -202,7 +202,8 @@ internal object FinnComponentDarkColors : WarpComponentColors {
 }
 
 private object FinnSpinnerDarkColors : WarpSpinnerColors {
-    override val color: Color = FinnDarkBackgroundColors.primary
+    override val color: Color = FinnDarkBorderColors.primary
+    override val trackColor: Color = FinnDarkBorderColors.primarySubtle
 }
 
 private object FinnSwitchDarkColors : WarpSwitchColors {

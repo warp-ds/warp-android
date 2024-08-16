@@ -204,7 +204,8 @@ internal object ToriComponentColors : WarpComponentColors {
 }
 
 private object ToriSpinnerColors : WarpSpinnerColors {
-    override val color: Color = ToriBackgroundColors.primary
+    override val color: Color = ToriBorderColors.primary
+    override val trackColor: Color = ToriBorderColors.primarySubtle
 }
 
 private object ToriSwitchColors : WarpSwitchColors {
