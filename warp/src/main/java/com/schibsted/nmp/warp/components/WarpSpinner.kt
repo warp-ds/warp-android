@@ -19,7 +19,7 @@ fun WarpSpinner(
         modifier = modifier.size(size.size),
         strokeWidth = strokeWidth,
         color = WarpTheme.colors.components.spinner.color,
-        trackColor = WarpTheme.colors.components.spinner.trackColor
+        trackColor = WarpTheme.colors.components.spinner.trackColor.copy(alpha = .5f)
     )
 }
 
