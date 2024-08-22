@@ -5,14 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.Paparazzi
@@ -23,9 +19,6 @@ import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.HorizontalWarpRadioGroup
 import com.schibsted.nmp.warp.components.VerticalWarpRadioGroup
-import com.schibsted.nmp.warp.components.WarpRadio
-import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.components.WarpTextStyle
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -55,11 +48,7 @@ class WarpRadioTest(
     )
 
     @Test
-    fun warp_radio() {
-        warpRadio()
-    }
-
-    private fun warpRadio() {
+    fun warp_radio_vertical() {
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
@@ -72,58 +61,67 @@ class WarpRadioTest(
                         ),
                     verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
                 ) {
-                        WarpText(
-                            text = "Default",
-                            style = WarpTextStyle.Title3,
-                            modifier = Modifier.semantics { heading() })
-                        VerticalRadioGroupSample(enabled = true, valid = true)
+                    VerticalRadioGroupSample("Default", enabled = true, isError = false)
 
-                        WarpText(text = "Disabled", style = WarpTextStyle.Title3)
-                        VerticalRadioGroupSample(enabled = false, valid = true)
+                    VerticalRadioGroupSample("Disabled", enabled = false, isError = false)
 
-                        WarpText(text = "Invalid", style = WarpTextStyle.Title3)
-                        VerticalRadioGroupSample(enabled = true, valid = false)
-
-                        WarpText(
-                            text = "Default",
-                            style = WarpTextStyle.Title3,
-                            modifier = Modifier.semantics { heading() })
-                        HorizontalRadioGroupSample(enabled = true, valid = true)
-
-                        WarpText(text = "Disabled", style = WarpTextStyle.Title3)
-                        HorizontalRadioGroupSample(enabled = false, valid = true)
-
-                        WarpText(text = "Invalid", style = WarpTextStyle.Title3)
-                        HorizontalRadioGroupSample(enabled = true, valid = false)
-                    }
+                    VerticalRadioGroupSample("Error", enabled = true, isError = true)
+                }
             }
         }
     }
+
+    @Test
+    fun warp_radio_horizontal() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(com.schibsted.nmp.warp.theme.WarpTheme.colors.surface.elevated100)
+                        .padding(
+                            horizontal = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2,
+                            vertical = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
+                ) {
+                    HorizontalRadioGroupSample("Default", enabled = true, isError = false)
+
+                    HorizontalRadioGroupSample("Disabled", enabled = false, isError = false)
+
+                    HorizontalRadioGroupSample("Error", enabled = true, isError = true)
+                }
+            }
+        }
+    }
+
     @Composable
-    fun VerticalRadioGroupSample(enabled: Boolean, valid: Boolean) {
+    fun VerticalRadioGroupSample(title: String, enabled: Boolean, isError: Boolean) {
         val radioOptions = listOf("One", "Two")
         val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
         VerticalWarpRadioGroup(
+            title = title,
             options = radioOptions,
             selectedOption = selectedOption,
             enabled = enabled,
-            valid = valid,
+            isError = isError,
             onOptionSelected = onOptionSelected,
-            helpText = if (!valid) "Required" else null
+            helpText = "Required"
         )
     }
 
     @Composable
-    fun HorizontalRadioGroupSample(enabled: Boolean, valid: Boolean) {
-        val radioOptions = listOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten")
+    fun HorizontalRadioGroupSample(title: String, enabled: Boolean, isError: Boolean) {
+        val radioOptions = listOf("One", "Two")
         val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
         HorizontalWarpRadioGroup(
+            title = title,
             options = radioOptions,
             selectedOption = selectedOption,
             enabled = enabled,
-            valid = valid,
+            isError = isError,
             onOptionSelected = onOptionSelected,
-            helpText = if (!valid) "Required" else null
+            helpText = "Required"
         )
     }
 
