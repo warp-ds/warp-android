@@ -48,7 +48,7 @@ class WarpRadioTest(
     )
 
     @Test
-    fun warp_radio_vertical() {
+    fun warp_radio() {
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
@@ -66,25 +66,7 @@ class WarpRadioTest(
                     VerticalRadioGroupSample("Disabled", enabled = false, isError = false)
 
                     VerticalRadioGroupSample("Error", enabled = true, isError = true)
-                }
-            }
-        }
-    }
 
-    @Test
-    fun warp_radio_horizontal() {
-        paparazzi.snapshot {
-            WarpTheme(flavor = flavor) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(com.schibsted.nmp.warp.theme.WarpTheme.colors.surface.elevated100)
-                        .padding(
-                            horizontal = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2,
-                            vertical = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2
-                        ),
-                    verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
-                ) {
                     HorizontalRadioGroupSample("Default", enabled = true, isError = false)
 
                     HorizontalRadioGroupSample("Disabled", enabled = false, isError = false)

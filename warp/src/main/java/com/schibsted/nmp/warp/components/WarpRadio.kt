@@ -49,7 +49,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param isError Set to true if the radio button is in an invalid state. Default value is false.
  * @param enabled Set to false to disable the radio button. Default value is true.
  * @param onClick An optional click handler that will be invoked when the radio button is clicked.
- * @param interactionSource The [MutableInteractionSource] representing the stream of [Interaction]s for this radio button.
+ * @param interactionSource The [MutableInteractionSource] representing the stream of Interactions for this radio button.
  */
 @Composable
 fun WarpRadio(
@@ -210,9 +210,11 @@ internal object RadioButtonTokens {
 }
 
 /**
- * A group of Radio buttons in the warp design system.
+ * A vertical group of Radio buttons in the warp design system.
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/radio/)
  *
+ * @param modifier The modifier to be applied to the radio group.
+ * @param title The title of the radio group. Default value is null.
  * @param options The list of options for the radio group
  * @param selectedOption The currently selected option in the radio group
  * @param helpText An optional help text that will be displayed below the radio group. Null by default
@@ -263,6 +265,19 @@ fun VerticalWarpRadioGroup(
     }
 }
 
+/**
+ * A horizontal group of Radio buttons in the warp design system.
+ * For more info, look [here](https://warp-ds.github.io/tech-docs/components/radio/)
+ *
+ * @param modifier The modifier to be applied to the radio group.
+ * @param title The title of the radio group. Default value is null.
+ * @param options The list of options for the radio group
+ * @param selectedOption The currently selected option in the radio group
+ * @param helpText An optional help text that will be displayed below the radio group. Null by default
+ * @param enabled Set to false to disable the radio group. Default value is true
+ * @param isError Set to true if the radio group is in an error state. Default value is false
+ * @param onOptionSelected A function that will be invoked when an option in the radio group is selected. Make sure to change the state of currently selected option
+ */
 @Composable
 fun HorizontalWarpRadioGroup(
     modifier: Modifier = Modifier,
