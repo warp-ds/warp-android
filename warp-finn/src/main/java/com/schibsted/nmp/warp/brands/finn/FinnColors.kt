@@ -14,7 +14,6 @@ import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpNavBarColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
-import com.schibsted.nmp.warp.theme.WarpSpinnerColors
 import com.schibsted.nmp.warp.theme.WarpSurfaceColors
 import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
@@ -200,12 +199,6 @@ internal object FinnComponentColors : WarpComponentColors {
     override val navBar: WarpNavBarColors = FinnNavBarColors
     override val tooltip: WarpTooltipColors = FinnTooltipColors
     override val switch: WarpSwitchColors = FinnSwitchColors
-    override val spinner: WarpSpinnerColors = FinnSpinnerColors
-}
-
-private object FinnSpinnerColors : WarpSpinnerColors {
-    override val color: Color = FinnBorderColors.primary
-    override val trackColor: Color = FinnBorderColors.primarySubtle
 }
 
 private object FinnSwitchColors : WarpSwitchColors {

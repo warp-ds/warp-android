@@ -182,7 +182,6 @@ interface WarpComponentColors {
     val navBar: WarpNavBarColors
     val tooltip: WarpTooltipColors
     val switch: WarpSwitchColors
-    val spinner: WarpSpinnerColors
 }
 
 interface WarpSwitchColors {
@@ -227,11 +226,6 @@ interface WarpButtonColors {
     val primaryBackground: Color
     val primaryBackgroundHover: Color
     val primaryBackgroundActive: Color
-}
-
-interface WarpSpinnerColors {
-    val color: Color
-    val trackColor: Color
 }
 
 val White = Color.White

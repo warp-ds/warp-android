@@ -17,12 +17,14 @@ import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
 import com.schibsted.nmp.warp.components.WarpSpinner
 import com.schibsted.nmp.warp.components.WarpSpinnerSize
+import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
 fun SpinnerScreen(onUp: () -> Unit) {
     DetailsScaffold(
-        title = "WarpModal",
+        title = "WarpSpinner",
         onUp = onUp
     ) {
         SpinnerScreenContent()
@@ -39,39 +41,39 @@ fun SpinnerScreenContent() {
             .fillMaxWidth()
             .padding(dimensions.space2)
     ) {
-        Text(text = "Default", modifier = Modifier.padding(bottom = 4.dp))
+        WarpText(text = "Default", modifier = Modifier.padding(bottom = dimensions.space05))
         Row(horizontalArrangement = Arrangement.Center) {
             WarpSpinner()
         }
 
-        Text(text = "Small", modifier = Modifier.padding(top = 16.dp, bottom = 4.dp))
+        WarpText(text = "Small", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05))
         Row(horizontalArrangement = Arrangement.Center) {
             WarpSpinner(size = WarpSpinnerSize.Small)
         }
 
-        Text(text = "Large", modifier = Modifier.padding(top = 16.dp, bottom = 4.dp))
+        WarpText(text = "Large", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05))
         Row(horizontalArrangement = Arrangement.Center) {
             WarpSpinner(size = WarpSpinnerSize.Large)
         }
 
-        Text(text = "Custom", modifier = Modifier.padding(top = 16.dp, bottom = 4.dp))
+        WarpText(text = "Custom", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05))
         HorizontalWarpStepIndicator(
             steps = 5,
             activeStep = sizeStep,
             onStepClicked = { sizeStep = it })
-        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = 4.dp)) {
-            WarpSpinner(size = WarpSpinnerSize.Custom(16.dp * (sizeStep + 1)))
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = dimensions.space05)) {
+            WarpSpinner(size = WarpSpinnerSize.Custom(dimensions.space2 * (sizeStep + 1)))
         }
-        HorizontalDivider(modifier = Modifier.padding(top = 4.dp))
+        HorizontalDivider(modifier = Modifier.padding(top = dimensions.space05))
 
 
-        Text(text = "Stroke size", modifier = Modifier.padding(top = 16.dp, bottom = 4.dp))
+        WarpText(text = "Stroke size", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05))
         HorizontalWarpStepIndicator(
             steps = 5,
             activeStep = strokeSizeStep,
             onStepClicked = { strokeSizeStep = it })
-        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = 4.dp)) {
-            WarpSpinner(strokeWidth = 2.dp * (strokeSizeStep + 1))
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = dimensions.space2)) {
+            WarpSpinner(strokeWidth = dimensions.space025 * (strokeSizeStep + 1))
         }
     }
 }

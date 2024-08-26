@@ -12,7 +12,6 @@ import com.schibsted.nmp.warp.theme.WarpComponentColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpNavBarColors
 import com.schibsted.nmp.warp.theme.WarpPillColors
-import com.schibsted.nmp.warp.theme.WarpSpinnerColors
 import com.schibsted.nmp.warp.theme.WarpSurfaceColors
 import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
@@ -198,12 +197,6 @@ internal object DbaDarkComponentColors : WarpComponentColors {
     override val navBar: WarpNavBarColors = DbaNavBarDarkColors
     override val tooltip: WarpTooltipColors = DbaTooltipDarkColors
     override val switch: WarpSwitchColors = DbaSwitchDarkColors
-    override val spinner: WarpSpinnerColors = DbaSpinnerDarkColors
-}
-
-private object DbaSpinnerDarkColors : WarpSpinnerColors {
-    override val color: Color = DbaDarkBorderColors.primary
-    override val trackColor: Color = DbaDarkBorderColors.primarySubtle
 }
 
 private object DbaSwitchDarkColors : WarpSwitchColors {

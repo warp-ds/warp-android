@@ -18,8 +18,8 @@ fun WarpSpinner(
     CircularProgressIndicator(
         modifier = modifier.size(size.size),
         strokeWidth = strokeWidth,
-        color = WarpTheme.colors.components.spinner.color,
-        trackColor = WarpTheme.colors.components.spinner.trackColor.copy(alpha = .5f)
+        color = WarpTheme.colors.border.primary,
+        trackColor = WarpTheme.colors.border.primarySubtle.copy(alpha = .5f)
     )
 }
 
