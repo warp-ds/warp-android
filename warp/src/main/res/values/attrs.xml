@@ -157,4 +157,9 @@
         <attr name="checked" format="boolean" />
         <attr name="checkboxText" format="reference|string" />
     </declare-styleable>
+
+    <declare-styleable name="WarpSwitch">
+        <attr name="switchEnabled" format="boolean" />
+        <attr name="switchChecked" format="boolean" />
+    </declare-styleable>
 </resources>
