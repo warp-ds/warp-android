@@ -2,7 +2,6 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -13,11 +12,9 @@ import com.schibsted.nmp.warp.theme.WarpTheme
 fun WarpSpinner(
     modifier: Modifier = Modifier,
     size: WarpSpinnerSize = WarpSpinnerSize.Default,
-    strokeWidth: Dp = ProgressIndicatorDefaults.CircularStrokeWidth
 ) {
     CircularProgressIndicator(
         modifier = modifier.size(size.size),
-        strokeWidth = strokeWidth,
         color = WarpTheme.colors.border.primary,
         trackColor = WarpTheme.colors.border.primarySubtle.copy(alpha = .5f)
     )
@@ -36,9 +33,5 @@ sealed interface WarpSpinnerSize {
 
     data object Large : WarpSpinnerSize {
         override val size = 32.dp
-    }
-
-    data class Custom(val customSize: Dp) : WarpSpinnerSize {
-        override val size = customSize
     }
 }
