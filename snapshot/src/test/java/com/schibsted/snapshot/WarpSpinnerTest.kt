@@ -36,7 +36,7 @@ class WarpSpinnerTest(
         ),
         validateAccessibility = true,
         theme = "android:Theme.Material.Light.NoActionBar",
-        renderingMode = SessionParams.RenderingMode.NORMAL,
+        renderingMode = SessionParams.RenderingMode.SHRINK,
         snapshotHandler = if (Config.isVerifying) {
             SnapshotVerifier(
                 maxPercentDifference = Config.maxPercentDifference,
