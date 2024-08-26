@@ -29,14 +29,14 @@ fun SpinnerScreenContent() {
             .fillMaxWidth()
             .padding(dimensions.space2)
     ) {
-        WarpText(text = "Default", modifier = Modifier.padding(bottom = dimensions.space05))
-        Row(horizontalArrangement = Arrangement.Center) {
-            WarpSpinner()
-        }
-
         WarpText(text = "Small", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05))
         Row(horizontalArrangement = Arrangement.Center) {
             WarpSpinner(size = WarpSpinnerSize.Small)
+        }
+
+        WarpText(text = "Default", modifier = Modifier.padding(bottom = dimensions.space05))
+        Row(horizontalArrangement = Arrangement.Center) {
+            WarpSpinner()
         }
 
         WarpText(text = "Large", modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space05))
