@@ -347,7 +347,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/space2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/stepindicator_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/warp_switch_disabled"
             app:spinnerSize="small" />
 
         <com.schibsted.nmp.warp.components.legacy.WarpSpinnerView
