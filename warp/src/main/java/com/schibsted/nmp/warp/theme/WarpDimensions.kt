@@ -43,6 +43,7 @@ object WarpComponentDimensions {
     val pillIcon = 16.dp
     val smallButtonHeight = 35.dp
     val checkbox = CheckboxDimensions
+    val switch = SwitchDimensions
 }
 
 object StepIndicatorDimensions {
@@ -56,6 +57,13 @@ object CheckboxDimensions {
     val checkboxSize = 20.dp
     val cornerRadius = 4.dp
     val iconHeight = 16.dp
+}
+
+object SwitchDimensions {
+    val height = 24.dp
+    val width = 44.dp
+    val thumbSize = 24.dp
+    val thumbPadding = 4.dp
 }
 
 internal val LocalDimensions = staticCompositionLocalOf { WarpDimensions }

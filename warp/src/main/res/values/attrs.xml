@@ -165,4 +165,9 @@
             <enum name="large" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="WarpSwitch">
+        <attr name="switchEnabled" format="boolean" />
+        <attr name="switchChecked" format="boolean" />
+    </declare-styleable>
 </resources>

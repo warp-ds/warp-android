@@ -36,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -45,6 +44,7 @@ import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTopAppBar
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 import com.schibsted.nmp.warpapp.MainViewModel
@@ -129,6 +129,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("switch") {
+                SwitchScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -171,7 +176,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
-            LazyColumn(contentPadding = PaddingValues(8.dp)) {
+            LazyColumn(contentPadding = PaddingValues(dimensions.space1)) {
                 items(
                     listOf(
                         "alert" to "WarpAlert",
@@ -184,6 +189,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "pill" to "WarpPill",
                         "spinner" to "WarpSpinner",
                         "stepIndicator" to "WarpStepIndicator",
+                        "switch" to "WarpSwitch",
                         "tabs" to "WarpTab and WarpTabGroup",
                         "textField" to "WarpTextField",
                         "typography" to "Typography",
@@ -192,7 +198,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                 {
                     ElevatedCard(
                         modifier = Modifier
-                            .padding(vertical = 8.dp)
+                            .padding(vertical = dimensions.space1)
                             .clickable {
                                 onNavigate(it.first)
                             },
@@ -203,7 +209,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp),
+                                .padding(dimensions.space2),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             WarpText(it.second)
