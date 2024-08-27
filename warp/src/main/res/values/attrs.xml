@@ -158,6 +158,14 @@
         <attr name="checkboxText" format="reference|string" />
     </declare-styleable>
 
+    <declare-styleable name="WarpSpinner">
+        <attr name="spinnerSize" format="enum">
+            <enum name="small" value="0" />
+            <enum name="standard" value="1" />
+            <enum name="large" value="2" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="WarpSwitch">
         <attr name="switchEnabled" format="boolean" />
         <attr name="switchChecked" format="boolean" />
