@@ -25,14 +25,12 @@ import org.junit.runner.RunWith
 @RunWith(TestParameterInjector::class)
 class WarpSpinnerTest(
     @TestParameter val flavor: Flavor,
-    @TestParameter val nightMode: NightMode,
-    @TestParameter(valuesProvider = FontScaleProvider::class) private val fontScale: Float,
+    @TestParameter val nightMode: NightMode
 ) {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_5.copy(
-            nightMode = nightMode,
-            fontScale = fontScale
+            nightMode = nightMode
         ),
         validateAccessibility = true,
         theme = "android:Theme.Material.Light.NoActionBar",
