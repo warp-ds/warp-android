@@ -11,21 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.schibsted.nmp.warp.components.HorizontalWarpRadioGroup
 import com.schibsted.nmp.warp.components.VerticalWarpRadioGroup
-import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.ui.DetailsScaffold
 
 @Composable
 fun RadioScreen(onUp: () -> Unit) {
-    DetailsScaffold(title = "Buttons", onUp = onUp) {
+    DetailsScaffold(title = "Radio", onUp = onUp) {
         RadioScreenContent()
     }
 }

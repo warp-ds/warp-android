@@ -90,7 +90,7 @@ fun WarpRadio(
 }
 
 @Composable
-fun WarpRadioButtonView(
+internal fun WarpRadioButtonView(
     selected: Boolean = false,
     enabled: Boolean = true,
     isError: Boolean = false,
@@ -138,7 +138,7 @@ fun MutableInteractionSource.collectIsInteractedAsState(): State<Boolean> {
 }
 
 
-class WarpRadioButtonColors internal constructor(
+internal class WarpRadioButtonColors internal constructor(
     private val unselectedColor: Color,
     private val selectedColor: Color,
     private val pressedColor: Color,
@@ -233,7 +233,7 @@ fun VerticalWarpRadioGroup(
     isError: Boolean = false,
     onOptionSelected: (String) -> Unit
 ) {
-    require(options.isNotEmpty()) { "RadioGroup must have more than 1 element" }
+    require(options.size > 1) { "RadioGroup must have more than 1 element" }
     // Modifier.selectableGroup() is essential to ensure correct accessibility behavior
     Column(modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(dimensions.space2)) {
         title?.let {
@@ -252,14 +252,19 @@ fun VerticalWarpRadioGroup(
             )
         }
 
-        val helpTextColor =
-            rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.subtle).value
+        val helpTextColor = rememberUpdatedState(
+            when {
+                isError -> colors.text.negative
+                !enabled -> colors.text.disabled
+                else -> colors.text.subtle
+            }
+        )
         helpText?.let {
             WarpText(
                 modifier = Modifier.padding(vertical = dimensions.space025),
                 text = helpText,
                 style = WarpTextStyle.Detail,
-                color = helpTextColor
+                color = helpTextColor.value
             )
         }
     }

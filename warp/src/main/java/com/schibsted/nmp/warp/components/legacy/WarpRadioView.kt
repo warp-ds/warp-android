@@ -2,12 +2,14 @@ package com.schibsted.nmp.warp.components.legacy
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View.OnClickListener
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpRadio
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
+import org.koin.java.KoinJavaComponent.inject
 
 class WarpRadioView @JvmOverloads constructor(
     context: Context,
@@ -15,6 +17,7 @@ class WarpRadioView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : AbstractComposeView(context, attrs, defStyle) {
 
+    val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
     var text: String = ""
         set(value) {
             field = value
@@ -49,11 +52,13 @@ class WarpRadioView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
-        WarpRadio(
-            text = text,
-            onClick = { clickListener.onClick(this@WarpRadioView) },
-            selected = radioSelected,
-            enabled = radioEnabled
-        )
+        theme {
+            WarpRadio(
+                text = text,
+                onClick = { clickListener.onClick(this@WarpRadioView) },
+                selected = radioSelected,
+                enabled = radioEnabled
+            )
+        }
     }
 }
