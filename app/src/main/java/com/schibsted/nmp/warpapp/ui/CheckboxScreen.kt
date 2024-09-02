@@ -109,7 +109,7 @@ private fun CheckboxScreenContent() {
             orientation = Orientation.Horizontal,
             options = checkboxOptions,
             selectedOption = preSelectedOptions,
-            onOptionSelected = { },
+            onOptionSelected = { onOptionSelected },
             isError = false
         )
     }
