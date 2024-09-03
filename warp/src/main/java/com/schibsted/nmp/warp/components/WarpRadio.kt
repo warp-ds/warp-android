@@ -4,6 +4,11 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalOverscrollConfiguration
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
@@ -12,14 +17,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +41,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.RadioButtonTokens.RadioAnimationDuration
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -48,6 +54,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param selected Set to true if the radio button is selected. Default value is false.
  * @param isError Set to true if the radio button is in an invalid state. Default value is false.
  * @param enabled Set to false to disable the radio button. Default value is true.
+ * @param subText An optional composable view that will be displayed next to the text. Null by default.
  * @param onClick An optional click handler that will be invoked when the radio button is clicked.
  * @param interactionSource The [MutableInteractionSource] representing the stream of Interactions for this radio button.
  */
@@ -58,9 +65,17 @@ fun WarpRadio(
     selected: Boolean = false,
     isError: Boolean = false,
     enabled: Boolean = true,
+    subText: @Composable (() -> Unit)? = null,
     onClick: (() -> Unit)? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
+    val textColor = rememberUpdatedState(
+        when {
+            isError -> colors.text.default
+            !enabled -> colors.text.disabled
+            else -> colors.text.default
+        }
+    )
     val selectableModifier = Modifier
         .selectable(
             selected = selected,
@@ -70,7 +85,6 @@ fun WarpRadio(
             interactionSource = interactionSource,
             indication = null
         )
-
     Row(
         modifier = modifier
             .then(selectableModifier)
@@ -85,7 +99,13 @@ fun WarpRadio(
             colors = defaultRadioColors(),
         )
         Spacer(modifier = Modifier.width(dimensions.space1))
-        WarpText(text = text)
+        WarpText(
+            text = text,
+            style = WarpTextStyle.Body,
+            color = textColor.value,
+        )
+        Spacer(modifier = Modifier.width(dimensions.space05))
+        subText?.let { it() }
     }
 }
 
@@ -112,6 +132,10 @@ internal fun WarpRadioButtonView(
             .wrapContentSize(Alignment.Center)
             .padding(dimensions.space025)
             .requiredSize(iconSize)
+            .indication(
+                interactionSource,
+                rememberRipple(bounded = false, radius = dimensions.components.radioIconSize)
+            )
     ) {
         // Draw the radio button
         drawCircle(
@@ -137,7 +161,6 @@ fun MutableInteractionSource.collectIsInteractedAsState(): State<Boolean> {
     return remember { mutableStateOf(isPressed || isFocused || isHovered) }
 }
 
-
 internal class WarpRadioButtonColors internal constructor(
     private val unselectedColor: Color,
     private val selectedColor: Color,
@@ -148,7 +171,6 @@ internal class WarpRadioButtonColors internal constructor(
     private val pressedDefaultInteriorColor: Color,
     private val pressedErrorInteriorColor: Color
 ) {
-
     @Composable
     internal fun radioColor(
         enabled: Boolean,
@@ -204,16 +226,16 @@ internal fun defaultRadioColors() = WarpRadioButtonColors(
     pressedErrorInteriorColor = colors.background.negativeSubtle,
 )
 
-
 internal object RadioButtonTokens {
     const val RadioAnimationDuration = 100
 }
 
 /**
- * A vertical group of Radio buttons in the warp design system.
+ * A group of Radio buttons in the warp design system.
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/radio/)
  *
  * @param modifier The modifier to be applied to the radio group.
+ * @param orientation The orientation of the radio group. Default value is Vertical.
  * @param title The title of the radio group. Default value is null.
  * @param options The list of options for the radio group
  * @param selectedOption The currently selected option in the radio group
@@ -222,9 +244,11 @@ internal object RadioButtonTokens {
  * @param isError Set to true if the radio group is in an error state. Default value is false
  * @param onOptionSelected A function that will be invoked when an option in the radio group is selected. Make sure to change the state of currently selected option
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun VerticalWarpRadioGroup(
+fun WarpRadioGroup(
     modifier: Modifier = Modifier,
+    orientation: Orientation = Orientation.Vertical,
     title: String? = null,
     options: List<String>,
     selectedOption: String? = null,
@@ -233,105 +257,71 @@ fun VerticalWarpRadioGroup(
     isError: Boolean = false,
     onOptionSelected: (String) -> Unit
 ) {
-    require(options.size > 1) { "RadioGroup must have more than 1 element" }
-    // Modifier.selectableGroup() is essential to ensure correct accessibility behavior
-    Column(modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(dimensions.space2)) {
-        title?.let {
-            WarpText(
-                text = title,
-                style = WarpTextStyle.Title5,
-                modifier = Modifier.semantics { heading() })
-        }
-        options.forEach { text ->
-            WarpRadio(
-                text = text,
-                onClick = { onOptionSelected(text) },
-                selected = (text == selectedOption),
-                enabled = enabled,
-                isError = isError,
-            )
-        }
-
-        val helpTextColor = rememberUpdatedState(
-            when {
-                isError -> colors.text.negative
-                !enabled -> colors.text.disabled
-                else -> colors.text.subtle
+    CompositionLocalProvider(
+        LocalOverscrollConfiguration provides null
+    ) {
+        require(options.size > 1) { "RadioGroup must have more than 1 element" }
+        val verticalModifier =
+            if (orientation == Orientation.Vertical) modifier.selectableGroup() else modifier
+        Column(
+            verticalModifier,
+            verticalArrangement = Arrangement.spacedBy(dimensions.space2)
+        ) {
+            title?.let {
+                WarpText(
+                    text = title,
+                    style = WarpTextStyle.Title5,
+                    modifier = Modifier.semantics { heading() })
             }
-        )
-        helpText?.let {
-            WarpText(
-                modifier = Modifier.padding(vertical = dimensions.space025),
-                text = helpText,
-                style = WarpTextStyle.Detail,
-                color = helpTextColor.value
+            if (orientation == Orientation.Horizontal) {
+                Row(
+                    modifier
+                        .horizontalScroll(rememberScrollState())
+                        .selectableGroup(),
+                    horizontalArrangement = Arrangement.spacedBy(dimensions.space1)
+                ) {
+                    createRadio(options, onOptionSelected, selectedOption, enabled, isError)
+
+                }
+            } else {
+                createRadio(options, onOptionSelected, selectedOption, enabled, isError)
+            }
+
+            val helpTextColor = rememberUpdatedState(
+                when {
+                    isError -> colors.text.negative
+                    !enabled -> colors.text.disabled
+                    else -> colors.text.subtle
+                }
             )
+            helpText?.let {
+                WarpText(
+                    modifier = Modifier.padding(vertical = dimensions.space025),
+                    text = helpText,
+                    style = WarpTextStyle.Detail,
+                    color = helpTextColor.value
+                )
+            }
         }
     }
 }
 
-/**
- * A horizontal group of Radio buttons in the warp design system.
- * For more info, look [here](https://warp-ds.github.io/tech-docs/components/radio/)
- *
- * @param modifier The modifier to be applied to the radio group.
- * @param title The title of the radio group. Default value is null.
- * @param options The list of options for the radio group
- * @param selectedOption The currently selected option in the radio group
- * @param helpText An optional help text that will be displayed below the radio group. Null by default
- * @param enabled Set to false to disable the radio group. Default value is true
- * @param isError Set to true if the radio group is in an error state. Default value is false
- * @param onOptionSelected A function that will be invoked when an option in the radio group is selected. Make sure to change the state of currently selected option
- */
 @Composable
-fun HorizontalWarpRadioGroup(
-    modifier: Modifier = Modifier,
-    title: String? = null,
+private fun createRadio(
     options: List<String>,
-    selectedOption: String? = null,
-    helpText: String? = null,
-    enabled: Boolean = true,
-    isError: Boolean = false,
-    onOptionSelected: (String) -> Unit
+    onOptionSelected: (String) -> Unit,
+    selectedOption: String?,
+    enabled: Boolean,
+    isError: Boolean
 ) {
-    require(options.isNotEmpty()) { "RadioGroup must have more than 1 element" }
-    // Modifier.selectableGroup() is essential to ensure correct accessibility behavior
-    Column {
-        title?.let {
-            WarpText(
-                text = title,
-                style = WarpTextStyle.Title5,
-                modifier = Modifier.semantics { heading() })
-        }
-        Spacer(modifier = Modifier.height(dimensions.space2))
-        Row(
-            modifier.selectableGroup(),
-            horizontalArrangement = Arrangement.spacedBy(dimensions.space1)
-        ) {
-            options.forEach { text ->
-                WarpRadio(
-                    text = text,
-                    onClick = { onOptionSelected(text) },
-                    selected = (text == selectedOption),
-                    enabled = enabled,
-                    isError = isError,
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(dimensions.space2))
-        val helpTextColor =
-            rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default).value
-        helpText?.let {
-            WarpText(
-                modifier = Modifier.padding(
-                    vertical = dimensions.space025,
-                    horizontal = 0.dp
-                ),
-                text = helpText,
-                style = WarpTextStyle.Detail,
-                color = helpTextColor
-            )
-        }
+    options.forEach { text ->
+        WarpRadio(
+            text = text,
+            onClick = { onOptionSelected(text) },
+            selected = (text == selectedOption),
+            enabled = enabled,
+            isError = isError,
+        )
     }
 }
 

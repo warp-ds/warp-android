@@ -1,11 +1,14 @@
 package com.schibsted.snapshot
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -17,8 +20,11 @@ import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
-import com.schibsted.nmp.warp.components.HorizontalWarpRadioGroup
-import com.schibsted.nmp.warp.components.VerticalWarpRadioGroup
+import com.schibsted.nmp.warp.components.WarpRadio
+import com.schibsted.nmp.warp.components.WarpRadioGroup
+import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,7 +42,7 @@ class WarpRadioTest(
             fontScale = fontScale
         ),
         theme = "android:Theme.Material.Light.NoActionBar",
-        renderingMode = SessionParams.RenderingMode.FULL_EXPAND,
+        renderingMode = SessionParams.RenderingMode.V_SCROLL,
         snapshotHandler = if (Config.isVerifying) {
             SnapshotVerifier(
                 maxPercentDifference = Config.maxPercentDifference,
@@ -48,63 +54,93 @@ class WarpRadioTest(
     )
 
     @Test
-    fun warp_radio() {
+    fun warp_radio(){
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(com.schibsted.nmp.warp.theme.WarpTheme.colors.surface.elevated100)
+                        .background(colors.surface.elevated100)
                         .padding(
                             horizontal = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2,
                             vertical = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2
                         ),
                     verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
                 ) {
-                    VerticalRadioGroupSample("Default", enabled = true, isError = false)
-
-                    VerticalRadioGroupSample("Disabled", enabled = false, isError = false)
-
-                    VerticalRadioGroupSample("Error", enabled = true, isError = true)
-
-                    HorizontalRadioGroupSample("Default", enabled = true, isError = false)
-
-                    HorizontalRadioGroupSample("Disabled", enabled = false, isError = false)
-
-                    HorizontalRadioGroupSample("Error", enabled = true, isError = true)
+                    WarpRadio(text = "Single Radio on", selected = true, enabled = true)
+                    WarpRadio(text = "Single Radio off", selected = false, enabled = true)
+                    WarpRadio(text = "Radio with subText", selected = true, enabled = true, subText = {
+                        WarpText(
+                            text = "(SubText)",
+                            style = WarpTextStyle.Caption,
+                            color = colors.text.disabled,
+                            softWrap = false
+                        )
+                    })
+                    WarpRadio(text = "Radio with icon", selected = true, enabled = true, subText = {
+                        Icon(
+                            Icons.Filled.AccountCircle,
+                            contentDescription = "Content description for the leading icon",
+                            tint = colors.icon.disabled
+                        )
+                    })
                 }
             }
         }
     }
 
-    @Composable
-    fun VerticalRadioGroupSample(title: String, enabled: Boolean, isError: Boolean) {
-        val radioOptions = listOf("One", "Two")
-        val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
-        VerticalWarpRadioGroup(
-            title = title,
-            options = radioOptions,
-            selectedOption = selectedOption,
-            enabled = enabled,
-            isError = isError,
-            onOptionSelected = onOptionSelected,
-            helpText = "Required"
-        )
+    @Test
+    fun warp_radio_group_disabled(){
+        warp_radio_group("Disabled", enabled = false, isError = false)
     }
 
-    @Composable
-    fun HorizontalRadioGroupSample(title: String, enabled: Boolean, isError: Boolean) {
-        val radioOptions = listOf("One", "Two")
-        val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
-        HorizontalWarpRadioGroup(
-            title = title,
-            options = radioOptions,
-            selectedOption = selectedOption,
-            enabled = enabled,
-            isError = isError,
-            onOptionSelected = onOptionSelected,
-            helpText = "Required"
-        )
+    @Test
+    fun warp_radio_group_negative(){
+        warp_radio_group("Error", enabled = true, isError = true)
     }
 
+    @Test
+    fun warp_radio_group_default() {
+        warp_radio_group("Default", enabled = true, isError = false)
+    }
+
+    private fun warp_radio_group(title: String, enabled: Boolean, isError: Boolean) {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(colors.surface.elevated100)
+                        .padding(
+                            horizontal = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2,
+                            vertical = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
+                ) {
+                    val radioOptions = listOf("One", "Two", "Three")
+                    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+                    WarpRadioGroup(
+                        title = title,
+                        orientation = Orientation.Vertical,
+                        options = radioOptions,
+                        selectedOption = selectedOption,
+                        enabled = enabled,
+                        isError = isError,
+                        onOptionSelected = onOptionSelected,
+                        helpText = "Required"
+                    )
+                    WarpRadioGroup(
+                        title = title,
+                        orientation = Orientation.Horizontal,
+                        options = radioOptions,
+                        selectedOption = selectedOption,
+                        enabled = enabled,
+                        isError = isError,
+                        onOptionSelected = onOptionSelected,
+                        helpText = "Required"
+                    )
+                }
+            }
+        }
+    }
 }
