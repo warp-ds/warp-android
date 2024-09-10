@@ -171,6 +171,10 @@ Xml implementation example
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
+## Contribution
+We welcome contributions! To contribute, make sure you consider these:
+- **Legacy Support:** Ensure your changes include XML support for legacy views.
+- **Snapshot Testing:** Add Paparazzi snapshot tests for any UI changes.
 
 ## License
 
