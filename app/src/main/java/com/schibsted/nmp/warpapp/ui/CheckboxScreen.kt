@@ -42,24 +42,19 @@ private fun CheckboxScreenContent() {
             .padding(WarpTheme.dimensions.space2)
     ) {
         WarpCheckbox(
-            text = "Neutral checkbox",
+            label = "Neutral checkbox",
             onCheckedChange = { }
         )
         WarpCheckbox(
-            text = "With subText",
+            label = "With subText",
             onCheckedChange = { },
-            subText = {
-                WarpText(
-                    text = "(SubText)",
-                    style = WarpTextStyle.Caption,
-                    color = colors.text.disabled
-                )
-            }
+            extraText = "So extra"
         )
         WarpCheckbox(
-            text = "With icon",
+            label = "With extra text & icon",
             onCheckedChange = { },
-            subText = {
+            extraText = "So extra",
+            slot = {
                 Icon(
                     Icons.Filled.AccountCircle,
                     contentDescription = "Content description for the leading icon",
@@ -68,24 +63,35 @@ private fun CheckboxScreenContent() {
             }
         )
         WarpCheckbox(
-            text = "Selected neutral checkbox",
+            label = "With icon",
+            onCheckedChange = { },
+            slot = {
+                Icon(
+                    Icons.Filled.AccountCircle,
+                    contentDescription = "Content description for the leading icon",
+                    tint = colors.icon.disabled
+                )
+            }
+        )
+        WarpCheckbox(
+            label = "Selected neutral checkbox",
             checked = true,
             onCheckedChange = { })
         WarpCheckbox(
-            text = "Disabled checkbox",
+            label = "Disabled checkbox",
             style = WarpCheckboxStyle.Disabled,
             onCheckedChange = { })
         WarpCheckbox(
-            text = "Selected disabled checkbox",
+            label = "Selected disabled checkbox",
             checked = true,
             style = WarpCheckboxStyle.Disabled,
             onCheckedChange = { })
         WarpCheckbox(
-            text = "Negative checkbox",
+            label = "Negative checkbox",
             style = WarpCheckboxStyle.Negative,
             onCheckedChange = { })
         WarpCheckbox(
-            text = "Selected negative checkbox",
+            label = "Selected negative checkbox",
             checked = true,
             style = WarpCheckboxStyle.Negative,
             onCheckedChange = { })
@@ -93,14 +99,14 @@ private fun CheckboxScreenContent() {
 
         val checkboxOptions = listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5")
         val preSelectedOptions = listOf("Option 1", "Option 3")
-        val onOptionSelected = remember { mutableListOf(checkboxOptions) }
+        val onOptionsSelected = remember { mutableListOf(checkboxOptions) }
         WarpCheckboxGroup(
             title = "Vertical",
             helpText = "Help text",
             orientation = Orientation.Vertical,
             options = checkboxOptions,
-            selectedOption = preSelectedOptions,
-            onOptionSelected = { onOptionSelected },
+            selectedOptions = preSelectedOptions,
+            onOptionsSelected = { onOptionsSelected },
             isError = false
         )
         WarpCheckboxGroup(
@@ -108,8 +114,8 @@ private fun CheckboxScreenContent() {
             helpText = "Help me",
             orientation = Orientation.Horizontal,
             options = checkboxOptions,
-            selectedOption = preSelectedOptions,
-            onOptionSelected = { onOptionSelected },
+            selectedOptions = preSelectedOptions,
+            onOptionsSelected = { onOptionsSelected },
             isError = false
         )
     }

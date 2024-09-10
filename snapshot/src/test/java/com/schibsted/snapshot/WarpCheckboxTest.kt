@@ -21,9 +21,8 @@ import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.WarpCheckbox
 import com.schibsted.nmp.warp.components.WarpCheckboxGroup
 import com.schibsted.nmp.warp.components.WarpCheckboxStyle
-import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,8 +52,8 @@ class WarpCheckboxTest(
     )
 
     @Test
-    fun warp_checkbox_neutral() {
-        warpCheckbox(WarpCheckboxStyle.Neutral)
+    fun warp_checkbox_default() {
+        warpCheckbox(WarpCheckboxStyle.Default)
     }
 
     @Test
@@ -68,8 +67,8 @@ class WarpCheckboxTest(
     }
 
     @Test
-    fun warp_checkboxGroup_neutral() {
-        warpCheckboxGroup(WarpCheckboxStyle.Neutral)
+    fun warp_checkboxGroup_default() {
+        warpCheckboxGroup(WarpCheckboxStyle.Default)
     }
 
     @Test
@@ -87,45 +86,38 @@ class WarpCheckboxTest(
             WarpTheme(flavor = flavor) {
                 Column(
                     modifier = Modifier
-                        .background(com.schibsted.nmp.warp.theme.WarpTheme.colors.surface.elevated100)
+                        .background(colors.surface.elevated100)
                         .padding(
-                            horizontal = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2,
-                            vertical = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2
+                            horizontal = dimensions.space2,
+                            vertical = dimensions.space2
                         ),
-                    verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
+                    verticalArrangement = Arrangement.spacedBy(dimensions.space2)
                 ) {
                     WarpCheckbox(
-                        text = "${style.name}",
+                        label = style.name,
                         style = style,
                         enabled = style != WarpCheckboxStyle.Disabled
                     )
                     WarpCheckbox(
-                        text = "${style.name} selected",
+                        label = "${style.name} selected",
                         style = style,
                         checked = true,
                         enabled = style != WarpCheckboxStyle.Disabled
                     )
                     WarpCheckbox(
-                        text = "${style.name} With subText",
+                        label = "${style.name} With extraText",
                         onCheckedChange = { },
                         checked = true,
                         style = style,
-                        subText = {
-                            WarpText(
-                                text = "(SubText)",
-                                style = WarpTextStyle.Caption,
-                                color = colors.text.disabled,
-                                softWrap = false
-                            )
-                        },
+                        extraText = "So extra",
                         enabled = style != WarpCheckboxStyle.Disabled
                     )
                     WarpCheckbox(
-                        text = "${style.name} With icon",
+                        label = "${style.name} With icon",
                         onCheckedChange = { },
                         checked = true,
                         style = style,
-                        subText = {
+                        slot = {
                             Icon(
                                 Icons.Filled.AccountCircle,
                                 contentDescription = "Content description for the leading icon",
@@ -143,12 +135,13 @@ class WarpCheckboxTest(
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.space2),
                     modifier = Modifier
-                        .background(com.schibsted.nmp.warp.theme.WarpTheme.colors.surface.elevated100)
-                        .padding(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
+                        .background(colors.surface.elevated100)
+                        .padding(dimensions.space2)
                 ) {
-                    val checkboxOptions = listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5")
+                    val checkboxOptions =
+                        listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5")
                     val preSelectedOptions = listOf("Option 1", "Option 3")
                     val onOptionSelected = remember { mutableListOf(checkboxOptions) }
                     WarpCheckboxGroup(
@@ -156,8 +149,8 @@ class WarpCheckboxTest(
                         helpText = "Help me",
                         orientation = Orientation.Vertical,
                         options = checkboxOptions,
-                        selectedOption = preSelectedOptions,
-                        onOptionSelected = { onOptionSelected },
+                        selectedOptions = preSelectedOptions,
+                        onOptionsSelected = { onOptionSelected },
                         isError = style == WarpCheckboxStyle.Negative,
                         enabled = style != WarpCheckboxStyle.Disabled
                     )
@@ -166,8 +159,8 @@ class WarpCheckboxTest(
                         helpText = "Help me",
                         orientation = Orientation.Horizontal,
                         options = checkboxOptions,
-                        selectedOption = preSelectedOptions,
-                        onOptionSelected = { onOptionSelected },
+                        selectedOptions = preSelectedOptions,
+                        onOptionsSelected = { onOptionSelected },
                         isError = style == WarpCheckboxStyle.Negative,
                         enabled = style != WarpCheckboxStyle.Disabled
                     )
