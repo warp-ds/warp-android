@@ -19,13 +19,19 @@ class WarpCheckboxView @JvmOverloads constructor(
 
     val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
 
-    var style: WarpCheckboxStyle = WarpCheckboxStyle.Neutral
+    var style: WarpCheckboxStyle = WarpCheckboxStyle.Default
         set(value) {
             field = value
             disposeComposition()
         }
 
-    var text = ""
+    var label = ""
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var extraText: String? = null
         set(value) {
             field = value
             disposeComposition()
@@ -42,6 +48,19 @@ class WarpCheckboxView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
+
+    var isError = false
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var slot: @Composable (() -> Unit)? = null
+        set(value) {
+            field = value
+            disposeComposition()
+    }
+
 
     private var checkedChangeListener: ((Boolean) -> Unit) = {}
 
@@ -61,7 +80,7 @@ class WarpCheckboxView @JvmOverloads constructor(
     }
 
     private var stylesList = listOf(
-        WarpCheckboxStyle.Neutral,
+        WarpCheckboxStyle.Default,
         WarpCheckboxStyle.Disabled,
         WarpCheckboxStyle.Negative
     )
@@ -70,9 +89,11 @@ class WarpCheckboxView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.WarpCheckbox) {
             val styleInt = getInteger(R.styleable.WarpCheckbox_warpCheckboxStyle, 0)
             style = stylesList[styleInt]
-            text = getTextFromIdOrString(R.styleable.WarpCheckbox_checkboxText, context) ?: ""
+            label = getTextFromIdOrString(R.styleable.WarpCheckbox_checkboxLabel, context) ?: ""
+            extraText = getTextFromIdOrString(R.styleable.WarpCheckbox_checkboxExtraText, context)
             checkboxEnabled = getBoolean(R.styleable.WarpCheckbox_checkboxEnabled, true)
             checkboxChecked = getBoolean(R.styleable.WarpCheckbox_checked, false)
+            isError = getBoolean(R.styleable.WarpCheckbox_checkboxIsError, false)
         }
     }
 
@@ -80,11 +101,14 @@ class WarpCheckboxView @JvmOverloads constructor(
     override fun Content() {
         theme {
             WarpCheckbox(
-                text = text,
+                label = label,
+                extraText = extraText,
                 onCheckedChange = checkedChangeListener,
+                slot = slot,
                 style = style,
                 enabled = checkboxEnabled,
-                checked = checkboxChecked
+                checked = checkboxChecked,
+                isError = isError
             )
         }
     }

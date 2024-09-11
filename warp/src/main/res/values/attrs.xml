@@ -155,7 +155,9 @@
         </attr>
         <attr name="checkboxEnabled" format="boolean" />
         <attr name="checked" format="boolean" />
-        <attr name="checkboxText" format="reference|string" />
+        <attr name="checkboxLabel" format="reference|string" />
+        <attr name="checkboxExtraText" format="reference|string" />
+        <attr name="checkboxIsError" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="WarpSpinner">

@@ -1,10 +1,6 @@
 package com.schibsted.nmp.warp.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -17,8 +13,6 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -28,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,14 +33,31 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 
+/**
+ * A checkbox in the warp design system.
+ * For more info, look [here](https://warp-ds.github.io/tech-docs/components/checkbox/)
+ *
+ * @param modifier The modifier to be applied to the checkbox.
+ * @param label The text to be displayed next to the checkbox.
+ * @param extraText The optional text to be displayed next to the label.
+ * @param slot The optional composable to be displayed next to the label or extraText if provided.
+ * @param onCheckedChange A lambda that will be invoked when the checkbox is selected.
+ * @param style The style to be applied on the checkbox. Default is WarpCheckboxStyle.Default
+ * @param enabled Set to false to disable the checkbox. Default value is true.
+ * @param checked Set to true if the checkbox is selected. Default value is false.
+ * @param isError Set to true if the checkbox is in an invalid state. Default value is false.
+ */
 @Composable
 fun WarpCheckbox(
-    text: String,
-    onCheckedChange: ((Boolean) -> Unit) = {},
     modifier: Modifier = Modifier,
-    style: WarpCheckboxStyle = WarpCheckboxStyle.Neutral,
+    label: String,
+    extraText: String? = null,
+    slot: @Composable (() -> Unit)? = null,
+    onCheckedChange: ((Boolean) -> Unit) = {},
+    style: WarpCheckboxStyle = WarpCheckboxStyle.Default,
     enabled: Boolean = true,
     checked: Boolean = false,
+    isError: Boolean = false
 ) {
     CompositionLocalProvider(
         LocalColors provides colors,
@@ -55,7 +65,7 @@ fun WarpCheckbox(
         LocalDimensions provides dimensions
     ) {
         var warpCheckboxColors: WarpCheckboxStyleColors = when (style) {
-            WarpCheckboxStyle.Neutral -> checkboxStyleNeutral()
+            WarpCheckboxStyle.Default -> checkboxStyleDefault()
             WarpCheckboxStyle.Disabled -> checkboxStyleDisabled()
             WarpCheckboxStyle.Negative -> checkboxStyleNegative()
         }
@@ -64,55 +74,52 @@ fun WarpCheckbox(
             warpCheckboxColors = checkboxStyleDisabled()
         }
 
+        if (isError) {
+            warpCheckboxColors = checkboxStyleNegative()
+        }
+
         WarpCheckboxView(
-            text = text,
+            modifier = modifier,
+            label = label,
+            extraText = extraText,
+            slot = slot,
             onCheckedChange = onCheckedChange,
             warpCheckboxColors = warpCheckboxColors,
             checked = checked,
-            enabled = ((style != WarpCheckboxStyle.Disabled) && enabled),
-            modifier = modifier
+            enabled = ((style != WarpCheckboxStyle.Disabled) && enabled)
         )
-
     }
 }
 
-// Custom checkbox view as the Material 3 checkbox doesn't support setting the border color separately
 @Composable
 private fun WarpCheckboxView(
-    text: String,
-    onCheckedChange: ((Boolean) -> Unit) = {},
     modifier: Modifier = Modifier,
+    label: String,
+    extraText: String?,
+    slot: @Composable (() -> Unit)?,
+    onCheckedChange: (Boolean) -> Unit = {},
     warpCheckboxColors: WarpCheckboxStyleColors,
     enabled: Boolean = true,
     checked: Boolean = false,
 ) {
     val isChecked = remember { mutableStateOf(checked) }
-    val checkboxColor = remember {
-        mutableStateOf(if (checked) warpCheckboxColors.selectedBackground else warpCheckboxColors.background)
-    }
-    val checkboxBorder = remember {
-        mutableStateOf(if (checked) warpCheckboxColors.selectedBorder else warpCheckboxColors.border)
-    }
-    val rowModifier = if (enabled) {
-        modifier
-            .toggleable(
-                value = isChecked.value,
-                role = Role.Checkbox,
-                onValueChange = { checkboxChecked ->
-                    isChecked.value = checkboxChecked
+    val checkboxColor =
+        remember { mutableStateOf(if (checked) warpCheckboxColors.selectedBackground else warpCheckboxColors.background) }
+    val checkboxBorder =
+        remember { mutableStateOf(if (checked) warpCheckboxColors.selectedBorder else warpCheckboxColors.border) }
 
-                    if (isChecked.value) {
-                        checkboxColor.value = warpCheckboxColors.selectedBackground
-                        checkboxBorder.value = warpCheckboxColors.selectedBorder
-                    } else {
-                        checkboxColor.value = warpCheckboxColors.background
-                        checkboxBorder.value = warpCheckboxColors.border
-                    }
-
-                    onCheckedChange(checkboxChecked)
-                }
-            )
-    } else modifier
+    val rowModifier = modifier.toggleableIfEnabled(
+        enabled = enabled,
+        isChecked = isChecked.value,
+        onCheckedChange = { checkboxChecked ->
+            isChecked.value = checkboxChecked
+            checkboxColor.value =
+                if (checkboxChecked) warpCheckboxColors.selectedBackground else warpCheckboxColors.background
+            checkboxBorder.value =
+                if (checkboxChecked) warpCheckboxColors.selectedBorder else warpCheckboxColors.border
+            onCheckedChange(checkboxChecked)
+        }
+    )
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = rowModifier
@@ -136,19 +143,9 @@ private fun WarpCheckboxView(
                 ),
             contentAlignment = Alignment.Center
         ) {
-            val density = LocalDensity.current
-            val size = dimensions.components.checkbox.checkboxSize
-            val duration = 200
-
             this@Row.AnimatedVisibility(
                 visible = isChecked.value,
-                enter = slideInHorizontally(animationSpec = tween(duration)) {
-                    with(density) { (size * -0.5f).roundToPx() }
-                } + expandHorizontally(
-                    expandFrom = Alignment.Start,
-                    animationSpec = tween(duration)
-                ),
-                exit = fadeOut()) {
+            ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.warp_check),
                     contentDescription = null,
@@ -157,23 +154,54 @@ private fun WarpCheckboxView(
                 )
             }
         }
-        Spacer(modifier = Modifier.width(dimensions.space05))
+        Spacer(modifier = Modifier.width(dimensions.space1))
         WarpText(
-            text = text,
+            text = label,
             style = WarpTextStyle.Body,
             color = warpCheckboxColors.text
         )
+        Spacer(modifier = Modifier.width(dimensions.space05))
+        extraText?.let {
+            WarpText(
+                text = it,
+                style = WarpTextStyle.Body,
+                color = warpCheckboxColors.extraText,
+                softWrap = false
+            )
+        }
+        slot?.let {
+            Spacer(modifier = Modifier.width(dimensions.space05))
+            it()
+        }
+    }
+}
+
+@Composable
+private fun Modifier.toggleableIfEnabled(
+    enabled: Boolean,
+    isChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+): Modifier {
+    return if (enabled) {
+        this.toggleable(
+            value = isChecked,
+            role = Role.Checkbox,
+            onValueChange = onCheckedChange
+        )
+    } else {
+        this
     }
 }
 
 enum class WarpCheckboxStyle {
-    Neutral,
+    Default,
     Disabled,
     Negative,
 }
 
 data class WarpCheckboxStyleColors(
     val text: Color,
+    val extraText: Color,
     val background: Color,
     val border: Color,
     val selectedBackground: Color,
@@ -181,8 +209,9 @@ data class WarpCheckboxStyleColors(
 )
 
 @Composable
-internal fun checkboxStyleNeutral() = WarpCheckboxStyleColors(
+internal fun checkboxStyleDefault() = WarpCheckboxStyleColors(
     text = colors.text.default,
+    extraText = colors.text.subtle,
     background = colors.background.default,
     border = colors.border.default,
     selectedBackground = colors.background.primary,
@@ -192,6 +221,7 @@ internal fun checkboxStyleNeutral() = WarpCheckboxStyleColors(
 @Composable
 internal fun checkboxStyleDisabled() = WarpCheckboxStyleColors(
     text = colors.text.disabled,
+    extraText = colors.text.disabled,
     background = colors.background.disabledSubtle,
     border = colors.border.disabled,
     selectedBackground = colors.background.disabled,
@@ -201,6 +231,7 @@ internal fun checkboxStyleDisabled() = WarpCheckboxStyleColors(
 @Composable
 internal fun checkboxStyleNegative() = WarpCheckboxStyleColors(
     text = colors.text.default,
+    extraText = colors.text.subtle,
     background = colors.background.default,
     border = colors.border.negative,
     selectedBackground = colors.background.negative,
@@ -209,21 +240,21 @@ internal fun checkboxStyleNegative() = WarpCheckboxStyleColors(
 
 @Composable
 @Preview
-fun warpCheckboxPreview() {
+fun WarpCheckboxPreview() {
     Column(
         verticalArrangement = Arrangement.spacedBy(dimensions.space1)
     ) {
-        WarpCheckbox(text = "Neutral", onCheckedChange = { })
-        WarpCheckbox(text = "Selected", checked = true, onCheckedChange = { })
-        WarpCheckbox(text = "Disabled", style = WarpCheckboxStyle.Disabled, onCheckedChange = { })
+        WarpCheckbox(label = "Default", onCheckedChange = { })
+        WarpCheckbox(label = "Selected", checked = true, onCheckedChange = { })
+        WarpCheckbox(label = "Disabled", style = WarpCheckboxStyle.Disabled, onCheckedChange = { })
         WarpCheckbox(
-            text = "Selected disabled",
+            label = "Selected disabled",
             checked = true,
             style = WarpCheckboxStyle.Disabled,
             onCheckedChange = { })
-        WarpCheckbox(text = "Negative", style = WarpCheckboxStyle.Negative, onCheckedChange = { })
+        WarpCheckbox(label = "Negative", style = WarpCheckboxStyle.Negative, onCheckedChange = { })
         WarpCheckbox(
-            text = "Selected negative",
+            label = "Selected negative",
             checked = true,
             style = WarpCheckboxStyle.Negative,
             onCheckedChange = { })
