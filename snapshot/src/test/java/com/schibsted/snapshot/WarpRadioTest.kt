@@ -22,9 +22,8 @@ import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.WarpRadio
 import com.schibsted.nmp.warp.components.WarpRadioGroup
-import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -54,7 +53,7 @@ class WarpRadioTest(
     )
 
     @Test
-    fun warp_radio(){
+    fun warp_radio() {
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
@@ -62,22 +61,38 @@ class WarpRadioTest(
                         .fillMaxWidth()
                         .background(colors.surface.elevated100)
                         .padding(
-                            horizontal = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2,
-                            vertical = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2
+                            horizontal = dimensions.space2,
+                            vertical = dimensions.space2
                         ),
-                    verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
+                    verticalArrangement = Arrangement.spacedBy(dimensions.space2)
                 ) {
-                    WarpRadio(text = "Single Radio on", selected = true, enabled = true)
-                    WarpRadio(text = "Single Radio off", selected = false, enabled = true)
-                    WarpRadio(text = "Radio with subText", selected = true, enabled = true, subText = {
-                        WarpText(
-                            text = "(SubText)",
-                            style = WarpTextStyle.Caption,
-                            color = colors.text.disabled,
-                            softWrap = false
-                        )
-                    })
-                    WarpRadio(text = "Radio with icon", selected = true, enabled = true, subText = {
+                    WarpRadio(label = "Single Radio on", selected = true, enabled = true)
+                    WarpRadio(label = "Single Radio off", selected = false, enabled = true)
+                    WarpRadio(label = "Single Radio disabled on", selected = true, enabled = false)
+                    WarpRadio(
+                        label = "Single Radio disabled off",
+                        selected = false,
+                        enabled = false
+                    )
+                    WarpRadio(
+                        label = "Single Radio negative on",
+                        selected = true,
+                        enabled = true,
+                        isError = true
+                    )
+                    WarpRadio(
+                        label = "Single Radio negative off",
+                        selected = false,
+                        enabled = true,
+                        isError = true
+                    )
+                    WarpRadio(
+                        label = "Radio with extraText",
+                        selected = true,
+                        enabled = true,
+                        extraText = "(Extra)"
+                    )
+                    WarpRadio(label = "Radio with icon", selected = true, enabled = true, slot = {
                         Icon(
                             Icons.Filled.AccountCircle,
                             contentDescription = "Content description for the leading icon",
@@ -90,12 +105,12 @@ class WarpRadioTest(
     }
 
     @Test
-    fun warp_radio_group_disabled(){
+    fun warp_radio_group_disabled() {
         warp_radio_group("Disabled", enabled = false, isError = false)
     }
 
     @Test
-    fun warp_radio_group_negative(){
+    fun warp_radio_group_negative() {
         warp_radio_group("Error", enabled = true, isError = true)
     }
 
@@ -112,10 +127,10 @@ class WarpRadioTest(
                         .fillMaxWidth()
                         .background(colors.surface.elevated100)
                         .padding(
-                            horizontal = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2,
-                            vertical = com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2
+                            horizontal = dimensions.space2,
+                            vertical = dimensions.space2
                         ),
-                    verticalArrangement = Arrangement.spacedBy(com.schibsted.nmp.warp.theme.WarpTheme.dimensions.space2)
+                    verticalArrangement = Arrangement.spacedBy(dimensions.space2)
                 ) {
                     val radioOptions = listOf("One", "Two", "Three")
                     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }

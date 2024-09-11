@@ -1,4 +1,4 @@
-package com.schibsted.nmp.warpapp
+package com.schibsted.nmp.warpapp.ui
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
@@ -18,12 +18,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.schibsted.nmp.warp.components.WarpRadio
 import com.schibsted.nmp.warp.components.WarpRadioGroup
-import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
-import com.schibsted.nmp.warpapp.ui.DetailsScaffold
+import com.schibsted.nmp.warpapp.BrandTheme
 
 @Composable
 fun RadioScreen(onUp: () -> Unit) {
@@ -41,16 +39,10 @@ private fun RadioScreenContent() {
             .padding(dimensions.space2),
         verticalArrangement = Arrangement.spacedBy(dimensions.space2)
     ) {
-        WarpRadio(text = "Single Radio on", selected = true, enabled = true)
-        WarpRadio(text = "Single Radio off", selected = false, enabled = true)
-        WarpRadio(text = "Radio with subText", selected = true, enabled = true, subText = {
-            WarpText(
-                text = "(SubText)",
-                style = WarpTextStyle.Caption,
-                color = colors.text.disabled
-            )
-        })
-        WarpRadio(text = "Radio with icon", selected = true, enabled = true, subText = {
+        WarpRadio(label = "Single Radio on", selected = true, enabled = true)
+        WarpRadio(label = "Single Radio off", selected = false, enabled = true)
+        WarpRadio(label = "Radio with extraText", selected = true, enabled = true, extraText = "(Extra)")
+        WarpRadio(label = "Radio with icon", selected = true, enabled = true, slot = {
             Icon(
                 Icons.Filled.AccountCircle,
                 contentDescription = "Content description for the leading icon",

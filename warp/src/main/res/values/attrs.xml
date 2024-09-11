@@ -172,8 +172,10 @@
     </declare-styleable>
 
     <declare-styleable name="WarpRadio">
-        <attr name="radioText" format="reference|string" />
+        <attr name="radioLabel" format="reference|string" />
+        <attr name="radioExtraText" format="reference|string" />
         <attr name="radioSelected" format="boolean" />
         <attr name="radioEnabled" format="boolean" />
+        <attr name="radioIsError" format="boolean" />
     </declare-styleable>
 </resources>

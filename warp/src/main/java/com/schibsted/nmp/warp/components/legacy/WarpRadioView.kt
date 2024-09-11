@@ -18,7 +18,20 @@ class WarpRadioView @JvmOverloads constructor(
 ) : AbstractComposeView(context, attrs, defStyle) {
 
     val theme: LegacyWarpTheme by inject(LegacyWarpTheme::class.java)
-    var text: String = ""
+
+    var label: String = ""
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var extraText: String? = null
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var slot: @Composable (() -> Unit)? = null
         set(value) {
             field = value
             disposeComposition()
@@ -36,6 +49,12 @@ class WarpRadioView @JvmOverloads constructor(
             disposeComposition()
         }
 
+    var radioIsError: Boolean = false
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
     private var clickListener = OnClickListener { }
 
     override fun setOnClickListener(onClick: OnClickListener?) {
@@ -44,9 +63,11 @@ class WarpRadioView @JvmOverloads constructor(
 
     init {
         context.withStyledAttributes(attrs, R.styleable.WarpRadio) {
-            text = getTextFromIdOrString(R.styleable.WarpRadio_radioText, context) ?: ""
+            label = getTextFromIdOrString(R.styleable.WarpRadio_radioLabel, context) ?: ""
+            extraText = getTextFromIdOrString(R.styleable.WarpRadio_radioExtraText, context)
             radioSelected = getBoolean(R.styleable.WarpRadio_radioSelected, false)
             radioEnabled = getBoolean(R.styleable.WarpRadio_radioEnabled, true)
+            radioIsError = getBoolean(R.styleable.WarpRadio_radioIsError, false)
         }
     }
 
@@ -54,10 +75,13 @@ class WarpRadioView @JvmOverloads constructor(
     override fun Content() {
         theme {
             WarpRadio(
-                text = text,
+                label = label,
+                extraText = extraText,
+                slot = slot,
                 onClick = { clickListener.onClick(this@WarpRadioView) },
                 selected = radioSelected,
-                enabled = radioEnabled
+                enabled = radioEnabled,
+                isError = radioIsError
             )
         }
     }

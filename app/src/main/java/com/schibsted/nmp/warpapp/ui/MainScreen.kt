@@ -48,7 +48,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 import com.schibsted.nmp.warpapp.MainViewModel
-import com.schibsted.nmp.warpapp.RadioScreen
 
 @Composable
 fun MainScreen() {
