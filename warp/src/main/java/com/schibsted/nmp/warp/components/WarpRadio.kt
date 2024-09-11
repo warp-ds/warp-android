@@ -44,6 +44,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param selected Set to true if the radio button is selected. Default value is false.
  * @param isError Set to true if the radio button is in an invalid state. Default value is false.
  * @param enabled Set to false to disable the radio button. Default value is true.
+ * @param extraText An optional text that will be displayed next to the label. Null by default.
  * @param slot An optional composable view that will be displayed next to the text. Null by default.
  * @param onClick An optional click handler that will be invoked when the radio button is clicked.
  * @param interactionSource The [MutableInteractionSource] representing the stream of Interactions for this radio button.
