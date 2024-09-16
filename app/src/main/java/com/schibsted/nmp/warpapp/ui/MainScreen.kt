@@ -134,6 +134,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("card") {
+                CardScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -183,6 +188,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "badges" to "WarpBadge",
                         "box" to "WarpBox",
                         "buttons" to "WarpButton",
+                        "card" to "WarpCard",
                         "checkbox" to "WarpCheckbox",
                         "expandable" to "WarpExpandable",
                         "modal" to "WarpModal",
