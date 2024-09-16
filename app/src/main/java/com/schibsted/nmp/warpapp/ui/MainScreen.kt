@@ -134,6 +134,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("radio") {
+                RadioScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -187,6 +192,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "expandable" to "WarpExpandable",
                         "modal" to "WarpModal",
                         "pill" to "WarpPill",
+                        "radio" to "WarpRadio",
                         "spinner" to "WarpSpinner",
                         "stepIndicator" to "WarpStepIndicator",
                         "switch" to "WarpSwitch",
