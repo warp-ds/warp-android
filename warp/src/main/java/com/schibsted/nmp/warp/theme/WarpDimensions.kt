@@ -44,6 +44,7 @@ object WarpComponentDimensions {
     val smallButtonHeight = 35.dp
     val checkbox = CheckboxDimensions
     val switch = SwitchDimensions
+    val radioIconSize = 20.dp
 }
 
 object StepIndicatorDimensions {

@@ -365,10 +365,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/space2"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_default"
-            app:spinnerSize="large"/>
+            app:spinnerSize="large" />
+
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_large"
+            app:radioLabel="Radio button"
+            app:radioSelected="false" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio"
+            app:radioExtraText="Extra"
+            app:radioIsError="false"
+            app:radioLabel="Radio selected"
+            app:radioSelected="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio2"
+            app:radioIsError="true"
+            app:radioLabel="Radio negative"
+            app:radioSelected="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio3"
+            app:radioEnabled="false"
+            app:radioIsError="false"
+            app:radioLabel="Radio disabled"
+            app:radioSelected="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
