@@ -148,7 +148,7 @@ internal object DbaBorderColors : WarpBorderColors {
 }
 
 internal object DbaIconColors : WarpIconColors {
-    override val default = Gray800
+    override val default = Gray900
     override val static = Gray800
     override val hover = Jeanblue700
     override val active = Jeanblue800
@@ -175,9 +175,9 @@ internal object DbaIconColors : WarpIconColors {
 }
 
 internal object DbaTextColors : WarpTextColors {
-    override val default = Gray800
+    override val default = Gray900
     override val static = Gray800
-    override val subtle = Gray500
+    override val subtle = Gray600
     override val placeholder = Gray300
     override val inverted = White
     override val invertedStatic = White

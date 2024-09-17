@@ -104,7 +104,7 @@
     <color name="warp_border_info_subtle_active">@color/jeanblue500</color>
 
     <!--*** ICON ***-->
-    <color name="warp_icon_default">@color/gray800</color>
+    <color name="warp_icon_default">@color/gray900</color>
     <color name="warp_icon_static">@color/gray800</color>
     <color name="warp_icon_hover">@color/jeanblue700</color>
     <color name="warp_icon_active">@color/jeanblue800</color>
@@ -130,9 +130,9 @@
     <color name="warp_icon_notification">@color/white</color>
 
     <!--*** TEXT ***-->
-    <color name="warp_text_default">@color/gray800</color>
+    <color name="warp_text_default">@color/gray900</color>
     <color name="warp_text_static">@color/gray800</color>
-    <color name="warp_text_subtle">@color/gray500</color>
+    <color name="warp_text_subtle">@color/gray600</color>
     <color name="warp_text_placeholder">@color/gray300</color>
     <color name="warp_text_inverted">@color/white</color>
     <color name="warp_text_inverted_static">@color/white</color>
