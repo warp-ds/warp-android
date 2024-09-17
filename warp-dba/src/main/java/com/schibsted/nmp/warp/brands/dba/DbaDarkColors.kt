@@ -177,7 +177,7 @@ internal object DbaDarkIconColors : WarpIconColors {
 internal object DbaDarkTextColors : WarpTextColors {
     override val default = White
     override val static = Gray800
-    override val subtle = Gray100
+    override val subtle = Gray400
     override val placeholder = Gray500
     override val inverted = Gray900
     override val invertedStatic = White
