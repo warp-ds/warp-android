@@ -12,8 +12,8 @@ android {
         applicationId = "com.schibsted.nmp.warpapp"
         minSdk = ConfigData.minSdkVersion
         targetSdk = ConfigData.compileSdkVersion
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = ConfigData.sampleAppVersionCode
+        versionName = ConfigData.warpVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
