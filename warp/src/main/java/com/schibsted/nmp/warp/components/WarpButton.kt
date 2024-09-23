@@ -441,7 +441,7 @@ fun WarpButtonPreview(
             onClick = { },
             style = WarpButtonStyle.Primary,
             text = "With icon",
-            leadingIcon = R.drawable.ic_logo_finn,
+            leadingIcon = R.drawable.activeads,
             leadingIconContentDescr = "Clear icon",
         )
     }
