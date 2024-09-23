@@ -332,6 +332,165 @@ object WarpIcons {
     val engineBelt: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.enginebelt)
+
+    val error: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.error)
+
+    val exchange: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.exchange)
+
+    val expand: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.expand)
+
+    val eyeOff: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.eyeoff)
+
+    val eyeOn: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.eyeon)
+
+    val facebook: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.facebook)
+
+    val farm: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.farm)
+
+    val feedback: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.feedback)
+
+    val fileAdd: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.fileadd)
+
+    val filter: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.filter)
+
+    val fireplace: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.fireplace)
+
+    val fishing: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.fishing)
+
+    val fitness: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.fitness)
+
+    val frontWheelDrive: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.frontwheeldrive)
+
+    val gasDiesel: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.gasdiesel)
+
+    val gasFuel: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.gasfuel)
+
+    val gasHybrid: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.gashybrid)
+
+    val graphLine: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.graphline)
+
+    val graphPie: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.graphpie)
+
+    val grid: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.grid)
+
+    val grill: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.grill)
+
+    val headset: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.headset)
+
+    val heart: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.heart)
+
+    val heartRate: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.heartrate)
+
+    val hiking: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.hiking)
+
+    val history: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.history)
+
+    val house: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.house)
+
+    val houseBed: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.housebed)
+
+    val houseCabin: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.housecabin)
+
+    val houseFilled: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.housefilled)
+
+    val houseModern: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.housemodern)
+
+    val housePerson: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.houseperson)
+
+    val image: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.image)
+
+    val info: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.info)
+
+    val instagram: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.instagram)
+
+    val keys: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.keys)
+
+    val krone: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.krone)
+
+    val lamp: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.lamp)
+
+    val laundry: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.laundry)
+
+
+
 }
 
 internal val LocalResources = staticCompositionLocalOf { WarpResources }

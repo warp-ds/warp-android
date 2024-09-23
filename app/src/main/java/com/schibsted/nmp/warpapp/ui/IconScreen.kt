@@ -2,6 +2,7 @@ package com.schibsted.nmp.warpapp.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -9,10 +10,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
 fun IconScreen(onUp: () -> Unit) {
@@ -23,493 +26,166 @@ fun IconScreen(onUp: () -> Unit) {
 
 @Composable
 private fun CheckboxScreenContent() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(WarpTheme.dimensions.space2),
-        modifier = Modifier
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
-            .padding(WarpTheme.dimensions.space2)
-    ) {
-        Icon(
-            icons.activeAds,
-            contentDescription = "Active ads icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.ads,
-            contentDescription = "Ads icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.airCon,
-            contentDescription = "Air condition icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.allWheelDrive,
-            contentDescription = "All wheel drive icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.animalPaw,
-            contentDescription = "Animal paw icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.archway,
-            contentDescription = "Archway icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.arrowDown,
-            contentDescription = "Arrow down icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.arrowLeft,
-            contentDescription = "Arrow left icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.arrowRight,
-            contentDescription = "Arrow right icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.arrowUp,
-            contentDescription = "Arrow up icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.attachement,
-            contentDescription = "Attachment icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.automatic,
-            contentDescription = "Automatic icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.backWheelDrive,
-            contentDescription = "Back wheel drive icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bag,
-            contentDescription = "Bag icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bank,
-            contentDescription = "Bank icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bankIdNo,
-            contentDescription = "Bank ID number icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.batteryEmpty,
-            contentDescription = "Battery empty icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.batteryFull,
-            contentDescription = "Battery full icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.batteryHalfFull,
-            contentDescription = "Battery half full icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.beach,
-            contentDescription = "Beach icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bell,
-            contentDescription = "Bell icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bellFilled,
-            contentDescription = "Bell filled icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bin,
-            contentDescription = "Bin icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.block,
-            contentDescription = "Block icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.boatLength,
-            contentDescription = "Boat length icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bolt,
-            contentDescription = "Bolt icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bookmark,
-            contentDescription = "Bookmark icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.browser,
-            contentDescription = "Browser icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.browserVerified,
-            contentDescription = "Browser verified icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.building,
-            contentDescription = "Building icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.buildingPlot,
-            contentDescription = "Building plot icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bulb,
-            contentDescription = "Bulb icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.burger,
-            contentDescription = "Burger menu icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.bus,
-            contentDescription = "Bus icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.cabinHut,
-            contentDescription = "Cabin hut icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.calculator,
-            contentDescription = "Calculator icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.calendar,
-            contentDescription = "Calendar icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.camera,
-            contentDescription = "Camera icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.cancel,
-            contentDescription = "Cancel icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.car,
-            contentDescription = "Car icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.carKey,
-            contentDescription = "Car key icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.carService,
-            contentDescription = "Car service icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.charger,
-            contentDescription = "Charger icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.charter,
-            contentDescription = "Charter icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.chatRequest,
-            contentDescription = "Chat request icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.chatSupport,
-            contentDescription = "Chat support icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.check,
-            contentDescription = "Check icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.checkList,
-            contentDescription = "Checklist icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.checkShield,
-            contentDescription = "Check and shield icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.chevronDoubleLeft,
-            contentDescription = "Double left chevron icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.chevronDoubleRight,
-            contentDescription = "Double right chevron icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.chevronDown,
-            contentDescription = "Down chevron icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.chevronLeft,
-            contentDescription = "Left chevron icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.chevronRight,
-            contentDescription = "Right chevron icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.chevronUp,
-            contentDescription = "Up chevron icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.circlePlus,
-            contentDescription = "Circle plus icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.circlePlusFilled,
-            contentDescription = "Circle plus filled icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.circleUser,
-            contentDescription = "Circle user icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.circleUserFilled,
-            contentDescription = "Circle user filled icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.clock,
-            contentDescription = "Clock icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.close,
-            contentDescription = "Close icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.cog,
-            contentDescription = "Cog icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.colorPalette,
-            contentDescription = "Color palette icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.cottagePlot,
-            contentDescription = "Cottage plot icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.creditCard,
-            contentDescription = "Credit card icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.cursor,
-            contentDescription = "Cursor icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.delivery,
-            contentDescription = "Delivery icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.diner,
-            contentDescription = "Diner icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.discount,
-            contentDescription = "Discount icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.dislike,
-            contentDescription = "Dislike icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.door,
-            contentDescription = "Door icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.dots,
-            contentDescription = "Dots icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.doubleBed,
-            contentDescription = "Double bed icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.download,
-            contentDescription = "Download icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.drawer,
-            contentDescription = "Drawer icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.drink,
-            contentDescription = "Drink icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.edit,
-            contentDescription = "Edit icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.energy,
-            contentDescription = "Energy icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.engine,
-            contentDescription = "Engine icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-        Icon(
-            imageVector = icons.engineBelt,
-            contentDescription = "Engine belt icon",
-            tint = WarpTheme.colors.icon.primary,
-            modifier = Modifier.size(WarpTheme.dimensions.space4)
-        )
-    }
+        Row(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensions.space2),
+                modifier = Modifier
+
+                    .padding(dimensions.space2)
+            ) {
+                CreateIcons(dimensions.icon.small)
+            }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensions.space2),
+                modifier = Modifier
+                    .padding(dimensions.space2)
+            ) {
+                CreateIcons(dimensions.icon.default)
+            }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensions.space2),
+                modifier = Modifier
+                    .padding(dimensions.space2)
+            ) {
+                CreateIcons(dimensions.icon.large)
+            }
+        }
+}
+
+@Composable
+fun CreateIcons(size: Dp) {
+    CreateIcon(icons.activeAds, "Active ads icon", size)
+    CreateIcon(icons.ads, "Ads icon", size)
+    CreateIcon(icons.airCon, "Air condition icon", size)
+    CreateIcon(icons.allWheelDrive, "All wheel drive icon", size)
+    CreateIcon(icons.animalPaw, "Animal paw icon", size)
+    CreateIcon(icons.archway, "Archway icon", size)
+    CreateIcon(icons.arrowDown, "Arrow down icon", size)
+    CreateIcon(icons.arrowLeft, "Arrow left icon", size)
+    CreateIcon(icons.arrowRight, "Arrow right icon", size)
+    CreateIcon(icons.arrowUp, "Arrow up icon", size)
+    CreateIcon(icons.attachement, "Attachment icon", size)
+    CreateIcon(icons.automatic, "Automatic icon", size)
+    CreateIcon(icons.backWheelDrive, "Back wheel drive icon", size)
+    CreateIcon(icons.bag, "Bag icon", size)
+    CreateIcon(icons.bank, "Bank icon", size)
+    CreateIcon(icons.bankIdNo, "Bank ID number icon", size)
+    CreateIcon(icons.batteryEmpty, "Battery empty icon", size)
+    CreateIcon(icons.batteryFull, "Battery full icon", size)
+    CreateIcon(icons.batteryHalfFull, "Battery half full icon", size)
+    CreateIcon(icons.beach, "Beach icon", size)
+    CreateIcon(icons.bell, "Bell icon", size)
+    CreateIcon(icons.bellFilled, "Bell filled icon", size)
+    CreateIcon(icons.bin, "Bin icon", size)
+    CreateIcon(icons.block, "Block icon", size)
+    CreateIcon(icons.boatLength, "Boat length icon", size)
+    CreateIcon(icons.bolt, "Bolt icon", size)
+    CreateIcon(icons.bookmark, "Bookmark icon", size)
+    CreateIcon(icons.browser, "Browser icon", size)
+    CreateIcon(icons.browserVerified, "Browser verified icon", size)
+    CreateIcon(icons.building, "Building icon", size)
+    CreateIcon(icons.buildingPlot, "Building plot icon", size)
+    CreateIcon(icons.bulb, "Bulb icon", size)
+    CreateIcon(icons.burger, "Burger menu icon", size)
+    CreateIcon(icons.bus, "Bus icon", size)
+    CreateIcon(icons.cabinHut, "Cabin hut icon", size)
+    CreateIcon(icons.calculator, "Calculator icon", size)
+    CreateIcon(icons.calendar, "Calendar icon", size)
+    CreateIcon(icons.camera, "Camera icon", size)
+    CreateIcon(icons.cancel, "Cancel icon", size)
+    CreateIcon(icons.car, "Car icon", size)
+    CreateIcon(icons.carKey, "Car key icon", size)
+    CreateIcon(icons.carService, "Car service icon", size)
+    CreateIcon(icons.charger, "Charger icon", size)
+    CreateIcon(icons.charter, "Charter icon", size)
+    CreateIcon(icons.chatRequest, "Chat request icon", size)
+    CreateIcon(icons.chatSupport, "Chat support icon", size)
+    CreateIcon(icons.check, "Check icon", size)
+    CreateIcon(icons.checkList, "Checklist icon", size)
+    CreateIcon(icons.checkShield, "Check and shield icon", size)
+    CreateIcon(icons.chevronDoubleLeft, "Double left chevron icon", size)
+    CreateIcon(icons.chevronDoubleRight, "Double right chevron icon", size)
+    CreateIcon(icons.chevronDown, "Down chevron icon", size)
+    CreateIcon(icons.chevronLeft, "Left chevron icon", size)
+    CreateIcon(icons.chevronRight, "Right chevron icon", size)
+    CreateIcon(icons.chevronUp, "Up chevron icon", size)
+    CreateIcon(icons.circlePlus, "Circle plus icon", size)
+    CreateIcon(icons.circlePlusFilled, "Circle plus filled icon", size)
+    CreateIcon(icons.circleUser, "Circle user icon", size)
+    CreateIcon(icons.circleUserFilled, "Circle user filled icon", size)
+    CreateIcon(icons.clock, "Clock icon", size)
+    CreateIcon(icons.close, "Close icon", size)
+    CreateIcon(icons.cog, "Cog icon", size)
+    CreateIcon(icons.colorPalette, "Color palette icon", size)
+    CreateIcon(icons.cottagePlot, "Cottage plot icon", size)
+    CreateIcon(icons.creditCard, "Credit card icon", size)
+    CreateIcon(icons.cursor, "Cursor icon", size)
+    CreateIcon(icons.delivery, "Delivery icon", size)
+    CreateIcon(icons.diner, "Diner icon", size)
+    CreateIcon(icons.discount, "Discount icon", size)
+    CreateIcon(icons.dislike, "Dislike icon", size)
+    CreateIcon(icons.door, "Door icon", size)
+    CreateIcon(icons.dots, "Dots icon", size)
+    CreateIcon(icons.doubleBed, "Double bed icon", size)
+    CreateIcon(icons.download, "Download icon", size)
+    CreateIcon(icons.drawer, "Drawer icon", size)
+    CreateIcon(icons.drink, "Drink icon", size)
+    CreateIcon(icons.edit, "Edit icon", size)
+    CreateIcon(icons.energy, "Energy icon", size)
+    CreateIcon(icons.engine, "Engine icon", size)
+    CreateIcon(icons.engineBelt, "Engine belt icon", size)
+    CreateIcon(icons.error, "Error icon", size)
+    CreateIcon(icons.exchange, "Exchange icon", size)
+    CreateIcon(icons.expand, "Expand icon", size)
+    CreateIcon(icons.eyeOff, "Eye off icon", size)
+    CreateIcon(icons.eyeOn, "Eye on icon", size)
+    CreateIcon(icons.facebook, "Facebook icon", size)
+    CreateIcon(icons.farm, "Farm icon", size)
+    CreateIcon(icons.feedback, "Feedback icon", size)
+    CreateIcon(icons.fileAdd, "Add file icon", size)
+    CreateIcon(icons.filter, "Filter icon", size)
+    CreateIcon(icons.fireplace, "Fireplace icon", size)
+    CreateIcon(icons.fishing, "Fishing icon", size)
+    CreateIcon(icons.fitness, "Fitness icon", size)
+    CreateIcon(icons.frontWheelDrive, "Front wheel drive icon", size)
+    CreateIcon(icons.gasDiesel, "Diesel fuel icon", size)
+    CreateIcon(icons.gasFuel, "Fuel icon", size)
+    CreateIcon(icons.gasHybrid, "Hybrid fuel icon", size)
+    CreateIcon(icons.graphLine, "Graph line icon", size)
+    CreateIcon(icons.graphPie, "Graph pie icon", size)
+    CreateIcon(icons.grid, "Grid icon", size)
+    CreateIcon(icons.grill, "Grill icon", size)
+    CreateIcon(icons.headset, "Headset icon", size)
+    CreateIcon(icons.heart, "Heart icon", size)
+    CreateIcon(icons.heartRate, "Heart rate icon", size)
+    CreateIcon(icons.hiking, "Hiking icon", size)
+    CreateIcon(icons.history, "History icon", size)
+    CreateIcon(icons.house, "House icon", size)
+    CreateIcon(icons.houseBed, "House bed icon", size)
+    CreateIcon(icons.houseCabin, "House cabin icon", size)
+    CreateIcon(icons.houseFilled, "House filled icon", size)
+    CreateIcon(icons.houseModern, "House modern icon", size)
+    CreateIcon(icons.housePerson, "House person icon", size)
+    CreateIcon(icons.image, "Image icon", size)
+    CreateIcon(icons.info, "Info icon", size)
+    CreateIcon(icons.instagram, "Instagram icon", size)
+    CreateIcon(icons.keys, "Keys icon", size)
+    CreateIcon(icons.krone, "Krone icon", size)
+    CreateIcon(icons.lamp, "Lamp icon", size)
+    CreateIcon(icons.laundry, "Laundry icon", size)
+}
+
+@Composable
+private fun CreateIcon(icon: ImageVector, iconDescription: String, size: Dp) {
+    Icon(
+        imageVector = icon,
+        contentDescription = iconDescription,
+        tint = WarpTheme.colors.icon.primary,
+        modifier = Modifier.size(size)
+    )
 }
