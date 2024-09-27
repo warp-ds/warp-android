@@ -91,7 +91,7 @@ class WarpPillTest(
                         text = "Link",
                         onClick = { },
                         style = type,
-                        icon = R.drawable.ic_logo_tori,
+                        icon = R.drawable.link,
                         modifier = Modifier
                             .padding(bottom = dimensions.space2)
                     )
