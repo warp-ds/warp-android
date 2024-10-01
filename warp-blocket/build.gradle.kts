@@ -1,13 +1,18 @@
+import Dependencies.composeBom
+import Dependencies.composeFoundation
+import Dependencies.composeUi
+import Dependencies.composeUiTooling
+import Dependencies.composeUiToolingPreview
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("app.cash.paparazzi")
+    id("maven-publish")
 }
+apply(plugin = "com.jfrog.artifactory")
 
 android {
-    namespace = "com.schibsted.snapshot"
-
-    namespace = ConfigData.namespaceFinn
+    namespace = ConfigData.namespaceBlocket
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
@@ -29,8 +34,9 @@ android {
             isMinifyEnabled = false
         }
     }
-    testOptions.unitTests.isIncludeAndroidResources = true
-
+    testOptions.unitTests {
+        isIncludeAndroidResources = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -46,23 +52,31 @@ android {
         kotlinCompilerExtensionVersion = Versions.kotlinCompiler
     }
 }
+val androidSourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets.getByName("main").java.srcDirs)
+}
+configure<PublishingExtension> {
+    publications {
+        create<MavenPublication>("aar") {
+            groupId = ConfigData.groupId
+            artifactId = ConfigData.artifactIdBlocket
+            version = ConfigData.warpVersion
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+            artifact(androidSourcesJar.get())
+        }
+    }
+}
 
 dependencies {
-    val composeBom = platform(Dependencies.composeBom)
+    val composeBom = platform(composeBom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
-    implementation(Dependencies.composeMaterial3)
-    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeUiToolingPreview)
-    debugImplementation(Dependencies.composeUiTooling)
-    implementation(Dependencies.composeFoundation)
-    implementation("com.google.testparameterinjector:test-parameter-injector:1.9") {
-        exclude(group = "org.hamcrest")
-    }
+    implementation(composeUi)
+    implementation(composeUiToolingPreview)
+    debugImplementation(composeUiTooling)
+    implementation(composeFoundation)
 
     implementation(project(":warp"))
-    implementation(project(":warp-finn"))
-    implementation(project(":warp-tori"))
-    implementation(project(":warp-dba"))
-    implementation(project(":warp-blocket"))
+
 }
