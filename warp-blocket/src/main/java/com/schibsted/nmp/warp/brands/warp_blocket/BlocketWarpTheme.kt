@@ -9,20 +9,20 @@ import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
 fun BlocketWarpTheme(content: @Composable () -> Unit) {
-    val blocketColors = if(isSystemInDarkTheme()) BlocketDarkColors else BlocketColors
+    val blocketColors = if (isSystemInDarkTheme()) BlocketDarkColors else BlocketColors
     val blocketDimensions = WarpDimensions
-    val blocketRippleTheme = WarpRippleTheme(rippleColor = blocketColors.background.primary, rippleColorAlpha = blocketColors.background.primary)
+    val blocketResources = WarpResources
+    val blocketRippleTheme = WarpRippleTheme(
+        rippleColor = blocketColors.background.primary,
+        rippleColorAlpha = blocketColors.background.primary
+    )
     WarpTheme(
         colors = blocketColors,
         typography = BlocketTypography,
         shapes = BlocketShapes(blocketDimensions),
-        resources = BlocketResources(),
+        resources = blocketResources,
         content = content,
         rippleTheme = blocketRippleTheme,
         dimensions = blocketDimensions
     )
 }
-
-internal data class BlocketResources(
-    override val logo: Int = -1
-) : WarpResources
