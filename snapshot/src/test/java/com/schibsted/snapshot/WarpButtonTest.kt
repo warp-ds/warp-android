@@ -137,27 +137,27 @@ class WarpButtonTest(
                     WarpButton(
                         style = style,
                         text = "${style.name} leading icon",
-                        leadingIcon = R.drawable.ic_logo_tori,
+                        leadingIcon = R.drawable.animalpaw,
                         onClick = { /*TODO*/ }
                     )
                     WarpButton(
                         style = style,
                         text = "${style.name} leading icon loading",
-                        leadingIcon = R.drawable.ic_logo_tori,
+                        leadingIcon = R.drawable.animalpaw,
                         loading = true,
                         onClick = { /*TODO*/ }
                     )
                     WarpButton(
                         style = style,
                         text = "${style.name} small leading icon",
-                        leadingIcon = R.drawable.ic_logo_tori,
+                        leadingIcon = R.drawable.animalpaw,
                         onClick = { /*TODO*/ },
                         small = true
                     )
                     WarpButton(
                         style = style,
                         text = "${style.name} small leading icon loading",
-                        leadingIcon = R.drawable.ic_logo_tori,
+                        leadingIcon = R.drawable.animalpaw,
                         onClick = { /*TODO*/ },
                         loading = true,
                         small = true
@@ -165,27 +165,27 @@ class WarpButtonTest(
                     WarpButton(
                         style = style,
                         text = "${style.name} trailing icon",
-                        trailingIcon = R.drawable.ic_logo_tori,
+                        trailingIcon = R.drawable.animalpaw,
                         onClick = { /*TODO*/ }
                     )
                     WarpButton(
                         style = style,
                         text = "${style.name} trailing icon loading",
-                        trailingIcon = R.drawable.ic_logo_tori,
+                        trailingIcon = R.drawable.animalpaw,
                         onClick = { /*TODO*/ },
                         loading = true
                     )
                     WarpButton(
                         style = style,
                         text = "${style.name} small trailing icon",
-                        trailingIcon = R.drawable.ic_logo_tori,
+                        trailingIcon = R.drawable.animalpaw,
                         onClick = { /*TODO*/ },
                         small = true
                     )
                     WarpButton(
                         style = style,
                         text = "${style.name} small trailing icon loading",
-                        trailingIcon = R.drawable.ic_logo_tori,
+                        trailingIcon = R.drawable.animalpaw,
                         onClick = { /*TODO*/ },
                         small = true,
                         loading = true
@@ -210,7 +210,7 @@ class WarpButtonTest(
                             onClick = { /*TODO*/ },
                             style = style,
                             text = "${style.name} full width leading icon",
-                            leadingIcon = R.drawable.ic_logo_tori,
+                            leadingIcon = R.drawable.animalpaw,
                             modifier = Modifier
                                 .fillMaxWidth()
                         )
@@ -223,7 +223,7 @@ class WarpButtonTest(
                             onClick = { /*TODO*/ },
                             style = style,
                             text = "${style.name} full width trailing icon",
-                            trailingIcon = R.drawable.ic_logo_tori,
+                            trailingIcon = R.drawable.animalpaw,
                             modifier = Modifier
                                 .fillMaxWidth()
                         )
@@ -276,7 +276,7 @@ class WarpButtonTest(
                             style = style,
                             small = true,
                             text = "${style.name} full width small leading icon",
-                            leadingIcon = R.drawable.ic_logo_tori,
+                            leadingIcon = R.drawable.animalpaw,
                             modifier = Modifier
                                 .fillMaxWidth()
                         )
@@ -290,7 +290,7 @@ class WarpButtonTest(
                             style = style,
                             small = true,
                             text = "${style.name} full width small trailing icon",
-                            trailingIcon = R.drawable.ic_logo_tori,
+                            trailingIcon = R.drawable.animalpaw,
                             modifier = Modifier
                                 .fillMaxWidth()
                         )
