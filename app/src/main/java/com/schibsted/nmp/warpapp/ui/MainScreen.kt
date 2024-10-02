@@ -139,6 +139,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("icons") {
+                IconScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -193,6 +198,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "buttons" to "WarpButton",
                         "checkbox" to "WarpCheckbox",
                         "expandable" to "WarpExpandable",
+                        "icons" to "WarpIcons",
                         "modal" to "WarpModal",
                         "pill" to "WarpPill",
                         "radio" to "WarpRadio",

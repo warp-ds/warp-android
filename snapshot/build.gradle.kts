@@ -59,6 +59,7 @@ dependencies {
     implementation("com.google.testparameterinjector:test-parameter-injector:1.9") {
         exclude(group = "org.hamcrest")
     }
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.0")
 
     implementation(project(":warp"))
     implementation(project(":warp-finn"))

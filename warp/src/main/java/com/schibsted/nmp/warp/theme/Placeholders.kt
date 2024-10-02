@@ -230,10 +230,6 @@ private object PlaceholderButtonColors : WarpButtonColors {
     override val primaryBackgroundActive: Color = Color.Unspecified
 }
 
-internal object PlaceholderResources : WarpResources {
-    override val logo: Int = 0
-}
-
 internal object PlaceholderShapes : WarpShapes {
     override val roundedMedium: Shape = CircleShape
     override val ellipse: Shape = CircleShape
