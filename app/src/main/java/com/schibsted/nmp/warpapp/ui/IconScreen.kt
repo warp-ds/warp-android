@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -45,6 +46,13 @@ private fun CheckboxScreenContent() {
                 modifier = Modifier
                     .padding(dimensions.space2)
             ) {
+
+                Icon(
+                    imageVector = icons.getIconByName(LocalContext.current, "animalpaw") ?: icons.animalPaw,
+                    contentDescription = "Animal paw",
+                    tint = WarpTheme.colors.icon.primary,
+                    modifier = Modifier.size(dimensions.icon.default)
+                )
                 CreateIcons(dimensions.icon.default)
             }
             Column(

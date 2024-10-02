@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.theme
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -13,6 +14,17 @@ object WarpResources {
 }
 
 object WarpIcons {
+
+    @Composable
+    fun getIconByName(context: Context, resourceName: String): ImageVector? {
+        val resourceId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+        return if (resourceId != 0) {
+            ImageVector.vectorResource(id = resourceId)
+        } else {
+            null
+        }
+    }
+
     val activeAds : ImageVector
     @Composable
     get() =  ImageVector.vectorResource(id = R.drawable.activeads)
