@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.theme
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -15,6 +16,7 @@ object WarpResources {
 
 object WarpIcons {
 
+    @SuppressLint("DiscouragedApi")
     @Composable
     fun getIconByName(context: Context, resourceName: String): ImageVector? {
         val resourceId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
