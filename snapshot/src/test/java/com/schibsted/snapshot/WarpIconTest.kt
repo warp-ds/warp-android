@@ -57,7 +57,7 @@ class WarpIconTest(
     fun warp_icon_count() {
         val count =
             WarpIcons::class.memberProperties.count { it.returnType.classifier == ImageVector::class }
-        Assert.assertEquals(227, count)
+        Assert.assertEquals(274, count)
     }
 
     @Test
@@ -67,7 +67,11 @@ class WarpIconTest(
                 listOf(
                     icons.activeAds,
                     icons.ads,
+                    icons.ai,
                     icons.airCon,
+                    icons.airplane,
+                    icons.airplaneHotel,
+                    icons.alert,
                     icons.allWheelDrive,
                     icons.animalPaw,
                     icons.archway,
@@ -77,6 +81,7 @@ class WarpIconTest(
                     icons.arrowUp,
                     icons.attachement,
                     icons.automatic,
+                    icons.autovex
                 )
             )
         }
@@ -87,6 +92,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.babyOnesie,
                     icons.backWheelDrive,
                     icons.bag,
                     icons.bank,
@@ -107,6 +113,7 @@ class WarpIconTest(
                     icons.building,
                     icons.buildingPlot,
                     icons.bulb,
+                    icons.bulldozer,
                     icons.burger,
                     icons.bus,
                 )
@@ -119,14 +126,23 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.cabin,
                     icons.cabinHut,
                     icons.calculator,
                     icons.calendar,
                     icons.camera,
+                    icons.camping,
                     icons.cancel,
                     icons.car,
+                    icons.carFront,
                     icons.carKey,
+                    icons.carPart,
+                    icons.carRent,
                     icons.carService,
+                    icons.carSubscription,
+                    icons.cart,
+                    icons.chainsaw,
+                    icons.chair,
                     icons.charger,
                     icons.charter,
                     icons.chatRequest,
@@ -161,6 +177,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.dating,
                     icons.delivery,
                     icons.diner,
                     icons.discount,
@@ -181,6 +198,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.economy,
                     icons.edit,
                     icons.energy,
                     icons.engine,
@@ -208,6 +226,7 @@ class WarpIconTest(
                     icons.fireplace,
                     icons.fishing,
                     icons.fitness,
+                    icons.football,
                     icons.frontWheelDrive,
                 )
             )
@@ -222,10 +241,12 @@ class WarpIconTest(
                     icons.gasDiesel,
                     icons.gasFuel,
                     icons.gasHybrid,
+                    icons.geometricShapes,
                     icons.graphLine,
                     icons.graphPie,
                     icons.grid,
                     icons.grill,
+                    icons.guitarBat
                 )
             )
         }
@@ -241,6 +262,8 @@ class WarpIconTest(
                     icons.heartRate,
                     icons.hiking,
                     icons.history,
+                    icons.honk,
+                    icons.hotel,
                     icons.house,
                     icons.houseBed,
                     icons.houseCabin,
@@ -257,9 +280,21 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.iceSkater,
                     icons.image,
                     icons.info,
                     icons.instagram,
+                )
+            )
+        }
+    }
+
+    @Test
+    fun warp_icons_J() {
+        paparazzi.snapshot {
+            WarpIconsAllSizes(
+                listOf(
+                    icons.job,
                 )
             )
         }
@@ -283,6 +318,7 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.lamp,
+                    icons.landscape,
                     icons.laundry,
                     icons.layers,
                     icons.leaf,
@@ -311,9 +347,12 @@ class WarpIconTest(
                     icons.message,
                     icons.messages,
                     icons.messagesFilled,
+                    icons.minivan,
                     icons.minus,
+                    icons.mittAnbud,
                     icons.mixer,
                     icons.money,
+                    icons.motorcycle,
                     icons.mountain,
                 )
             )
@@ -325,6 +364,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.nettbil,
                     icons.newAd,
                     icons.norwegianMotor,
                     icons.noSmoking,
@@ -339,6 +379,7 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.officeDesk,
+                    icons.oikotie,
                     icons.organize,
                 )
             )
@@ -350,8 +391,11 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.paintRoller,
                     icons.parking,
+                    icons.paw,
                     icons.phone,
+                    icons.phoneBadgeCheck,
                     icons.phoneScratched,
                     icons.phoneUsed,
                     icons.pictureStack,
@@ -392,7 +436,9 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.realEstate,
                     icons.refresh,
+                    icons.remppatori,
                     icons.roomService,
                 )
             )
@@ -404,6 +450,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.sailboat,
                     icons.sailing,
                     icons.sauna,
                     icons.scrollUp,
@@ -414,14 +461,17 @@ class WarpIconTest(
                     icons.service,
                     icons.share,
                     icons.shipping,
+                    icons.shirt,
                     icons.shoes,
                     icons.shoppingCart,
                     icons.shower,
                     icons.skyscraper,
+                    icons.smartphone,
                     icons.smileyGood,
                     icons.smileyHappy,
                     icons.smileyNeutral,
                     icons.smileySad,
+                    icons.sofa,
                     icons.sorting,
                     icons.spa,
                     icons.speedometer,
@@ -431,10 +481,13 @@ class WarpIconTest(
                     icons.starFull,
                     icons.starHalf,
                     icons.store,
+                    icons.storeFront,
                     icons.stove,
+                    icons.stroller,
                     icons.success,
                     icons.suitcase,
                     icons.support,
+                    icons.sweater,
                     icons.swimming,
                 )
             )
@@ -454,7 +507,9 @@ class WarpIconTest(
                     icons.textUnderline,
                     icons.theater,
                     icons.threeSixty,
+                    icons.tools,
                     icons.townhouse,
+                    icons.tractor,
                     icons.tv,
                     icons.twitter,
                 )
@@ -484,6 +539,8 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.vacuum,
+                    icons.van,
+                    icons.vase,
                     icons.verification,
                 )
             )
