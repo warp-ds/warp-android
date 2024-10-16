@@ -36,10 +36,6 @@ object WarpIcons {
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.ads)
 
-    val ai: ImageVector
-        @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.ai)
-
     val airCon: ImageVector
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.aircon)
@@ -944,6 +940,10 @@ object WarpIcons {
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.spa)
 
+    val sparkles: ImageVector
+        @Composable
+        get() = ImageVector.vectorResource(id = R.drawable.sparkles)
+
     val speedometer: ImageVector
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.speedometer)
@@ -1047,6 +1047,18 @@ object WarpIcons {
     val tractor: ImageVector
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.tractor)
+
+    val trendDown: ImageVector
+        @Composable
+        get() = ImageVector.vectorResource(id = R.drawable.trenddown)
+
+    val trendFlat: ImageVector
+        @Composable
+        get() = ImageVector.vectorResource(id = R.drawable.trendflat)
+
+    val trendUp: ImageVector
+        @Composable
+        get() = ImageVector.vectorResource(id = R.drawable.trendup)
 
     val tv: ImageVector
         @Composable

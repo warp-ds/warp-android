@@ -61,7 +61,7 @@ private fun CheckboxScreenContent() {
 fun CreateIcons(size: Dp) {
     CreateIcon(icons.activeAds, "Active ads icon", size)
     CreateIcon(icons.ads, "Ads icon", size)
-    CreateIcon(icons.ai, "3 stars symbolising artificial intelligence", size)
+    CreateIcon(icons.sparkles, "3 stars symbolising artificial intelligence", size)
     CreateIcon(icons.airCon, "Air condition icon", size)
     CreateIcon(icons.airplane, "Airplane icon", size)
     CreateIcon(icons.airplaneHotel, "Airplane and a hotel icon", size)
@@ -314,6 +314,9 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.tools, "Tools icon", size)
     CreateIcon(icons.townhouse, "Townhouse icon", size)
     CreateIcon(icons.tractor, "Tractor icon", size)
+    CreateIcon(icons.trendDown, "Trend down icon", size)
+    CreateIcon(icons.trendFlat, "Trend flat icon", size)
+    CreateIcon(icons.trendUp, "Trend up icon", size)
     CreateIcon(icons.tv, "TV icon", size)
     CreateIcon(icons.twitter, "Twitter icon", size)
     CreateIcon(icons.up, "Up icon", size)
