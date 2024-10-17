@@ -126,7 +126,7 @@ private fun WarpCheckboxView(
     ) {
 
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .requiredSize(dimensions.components.checkbox.checkboxSize)
                 .background(
                     checkboxColor.value,
