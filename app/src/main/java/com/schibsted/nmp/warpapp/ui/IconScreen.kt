@@ -148,6 +148,7 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.dislike, "Dislike icon", size)
     CreateIcon(icons.door, "Door icon", size)
     CreateIcon(icons.dots, "Dots icon", size)
+    CreateIcon(icons.dotsVertical, "Vertical dots icon", size)
     CreateIcon(icons.doubleBed, "Double bed icon", size)
     CreateIcon(icons.download, "Download icon", size)
     CreateIcon(icons.drawer, "Drawer icon", size)
