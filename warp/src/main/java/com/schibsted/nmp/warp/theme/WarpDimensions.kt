@@ -53,6 +53,13 @@ object WarpComponentDimensions {
     val checkbox = CheckboxDimensions
     val switch = SwitchDimensions
     val radioIconSize = 20.dp
+    val callout = CalloutDimensions
+}
+
+object CalloutDimensions {
+    val arrowHeight = 10.dp
+    val arrowWidth = 20.dp
+    val cornerRadius = 8.dp
 }
 
 object StepIndicatorDimensions {
