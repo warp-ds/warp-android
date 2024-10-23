@@ -380,6 +380,10 @@ object WarpIcons {
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.dots)
 
+    val dotsVertical: ImageVector
+        @Composable
+        get() = ImageVector.vectorResource(id = R.drawable.dotsvertical)
+
     val doubleBed: ImageVector
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.doublebed)
