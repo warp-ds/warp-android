@@ -92,6 +92,23 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
                 WarpText(
+                    "With a label and a placeholder with min lines of 3",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+                WarpTextField(
+                    value = text,
+                    onValueChange = { text = it },
+                    placeholderText = "A placeholder",
+                    label = "A label",
+                    modifier = Modifier.fillMaxWidth(),
+                    minLines = 3
+                )
+            }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText(
                     "With a label, optional label, placeholder and help text",
                     style = WarpTextStyle.Body,
                     modifier = Modifier.padding(vertical = 16.dp)
