@@ -78,6 +78,7 @@ fun WarpTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
+    minLines: Int = 1,
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     textStyle: WarpTextStyle = WarpTextStyle.Body,
@@ -216,7 +217,7 @@ fun WarpTextField(
                 keyboardActions = keyboardActions,
                 singleLine = singleLine,
                 maxLines = maxLines,
-                minLines = 1,
+                minLines = minLines,
                 interactionSource = interactionSource,
                 decorationBox = @Composable { innerTextField ->
                     OutlinedTextFieldDefaults.DecorationBox(
