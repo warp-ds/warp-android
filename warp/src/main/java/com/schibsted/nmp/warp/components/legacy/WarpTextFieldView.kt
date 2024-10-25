@@ -106,6 +106,11 @@ class WarpTextFieldView @JvmOverloads constructor(
             field = value
             disposeComposition()
         }
+    var minLines = 1
+        set(value) {
+            field = value
+            disposeComposition()
+        }
     var maxLines = Int.MAX_VALUE
         set(value) {
             field = value
@@ -154,6 +159,7 @@ class WarpTextFieldView @JvmOverloads constructor(
                 getTextFromIdOrString(R.styleable.WarpTextField_trailingIconContentDescr, context)
             isError = getBoolean(R.styleable.WarpTextField_isError, false)
             singleLine = getBoolean(R.styleable.WarpTextField_singleLine, false)
+            minLines = getInt(R.styleable.WarpTextField_minLines, 1)
             maxLines = getInt(R.styleable.WarpTextField_maxLines, Int.MAX_VALUE)
             val styleInt = getInteger(R.styleable.WarpTextField_textStyle, 8)
             textStyle = stylesList[styleInt]
@@ -204,6 +210,7 @@ class WarpTextFieldView @JvmOverloads constructor(
                 } else null,
                 isError = isError,
                 singleLine = singleLine,
+                minLines = minLines,
                 maxLines = maxLines,
                 textStyle = textStyle,
             )
