@@ -134,6 +134,16 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("radio") {
+                RadioScreen {
+                    navController.navigateUp()
+                }
+            }
+            composable("icons") {
+                IconScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -169,6 +179,9 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         DropdownMenuItem(text = { WarpText("DBA") }, onClick = {
                             viewModel.setFlavor("dba")
                         })
+                        DropdownMenuItem(text = { WarpText("Blocket") }, onClick = {
+                            viewModel.setFlavor("blocket")
+                        })
                     }
                 }
 
@@ -185,8 +198,10 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "buttons" to "WarpButton",
                         "checkbox" to "WarpCheckbox",
                         "expandable" to "WarpExpandable",
+                        "icons" to "WarpIcons",
                         "modal" to "WarpModal",
                         "pill" to "WarpPill",
+                        "radio" to "WarpRadio",
                         "spinner" to "WarpSpinner",
                         "stepIndicator" to "WarpStepIndicator",
                         "switch" to "WarpSwitch",

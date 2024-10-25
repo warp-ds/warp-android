@@ -237,7 +237,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space2"
-            app:checkboxText="Neutral checkbox"
+            app:checkboxLabel="Neutral checkbox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/warp_button_three"
             app:warpCheckboxStyle="neutral" />
@@ -247,7 +247,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space2"
-            app:checkboxText="Neutral selected checkbox"
+            app:checkboxLabel="Neutral selected checkbox"
             app:checked="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/warp_checkbox_neutral"
@@ -259,7 +259,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space2"
             app:checkboxEnabled="false"
-            app:checkboxText="Disabled checkbox"
+            app:checkboxLabel="Disabled checkbox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/warp_checkbox_neutral_selected"
             app:warpCheckboxStyle="disabled" />
@@ -270,7 +270,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space2"
             app:checkboxEnabled="false"
-            app:checkboxText="Disabled selected checkbox"
+            app:checkboxLabel="Disabled selected checkbox"
             app:checked="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/warp_checkbox_disabled"
@@ -281,7 +281,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space2"
-            app:checkboxText="Negative checkbox"
+            app:checkboxExtraText="Extra text"
+            app:checkboxLabel="Negative checkbox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/warp_checkbox_disabled_selected"
             app:warpCheckboxStyle="negative" />
@@ -291,11 +292,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space2"
-            app:checkboxText="Disabled selected checkbox"
+            app:checkboxLabel="Disabled selected checkbox"
             app:checked="true"
+            app:checkboxIsError="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative"
-            app:warpCheckboxStyle="negative" />
+             />
 
         <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
             android:id="@+id/stepindicator_vertical"
@@ -364,10 +366,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/space2"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_default"
-            app:spinnerSize="large"/>
+            app:spinnerSize="large" />
+
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_large"
+            app:radioLabel="Radio button"
+            app:radioSelected="false" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio"
+            app:radioExtraText="Extra"
+            app:radioIsError="false"
+            app:radioLabel="Radio selected"
+            app:radioSelected="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio2"
+            app:radioIsError="true"
+            app:radioLabel="Radio negative"
+            app:radioSelected="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio3"
+            app:radioEnabled="false"
+            app:radioIsError="false"
+            app:radioLabel="Radio disabled"
+            app:radioSelected="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

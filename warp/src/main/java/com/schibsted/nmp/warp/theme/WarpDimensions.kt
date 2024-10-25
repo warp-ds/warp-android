@@ -36,6 +36,14 @@ object WarpDimensions {
     val shadowXLarge: Dp = 16.dp
 
     val components = WarpComponentDimensions
+
+    val icon = WarpIconDimensions
+}
+
+object WarpIconDimensions {
+    val small = 16.dp
+    val default = 24.dp
+    val large = 32.dp
 }
 
 object WarpComponentDimensions {
@@ -44,6 +52,7 @@ object WarpComponentDimensions {
     val smallButtonHeight = 35.dp
     val checkbox = CheckboxDimensions
     val switch = SwitchDimensions
+    val radioIconSize = 20.dp
 }
 
 object StepIndicatorDimensions {

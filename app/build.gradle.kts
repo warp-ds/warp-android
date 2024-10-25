@@ -12,8 +12,8 @@ android {
         applicationId = "com.schibsted.nmp.warpapp"
         minSdk = ConfigData.minSdkVersion
         targetSdk = ConfigData.compileSdkVersion
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = ConfigData.sampleAppVersionCode
+        versionName = ConfigData.warpVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -77,6 +77,7 @@ dependencies {
     implementation(project(path = ":warp-tori"))
     implementation(project(path = ":warp-finn"))
     implementation(project(path = ":warp-dba"))
+    implementation(project(path = ":warp-blocket"))
 
 
     implementation(Dependencies.material)

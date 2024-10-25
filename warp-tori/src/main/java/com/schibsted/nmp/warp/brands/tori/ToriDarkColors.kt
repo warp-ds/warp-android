@@ -177,7 +177,7 @@ internal object ToriDarkIconColors : WarpIconColors {
 internal object ToriDarkTextColors : WarpTextColors {
     override val default = White
     override val static = Gray900
-    override val subtle = Gray100
+    override val subtle = Gray400
     override val placeholder = Gray500
     override val inverted = Gray900
     override val invertedStatic = White

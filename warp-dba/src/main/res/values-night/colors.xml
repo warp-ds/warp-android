@@ -133,7 +133,7 @@
     <!--*** TEXT ***-->
     <color name="warp_text_default">@color/white</color>
     <color name="warp_text_static">@color/gray800</color>
-    <color name="warp_text_subtle">@color/gray100</color>
+    <color name="warp_text_subtle">@color/gray400</color>
     <color name="warp_text_placeholder">@color/gray500</color>
     <color name="warp_text_inverted">@color/gray900</color>
     <color name="warp_text_inverted_subtle">@color/gray800</color>

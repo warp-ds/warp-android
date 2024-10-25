@@ -156,7 +156,9 @@
         </attr>
         <attr name="checkboxEnabled" format="boolean" />
         <attr name="checked" format="boolean" />
-        <attr name="checkboxText" format="reference|string" />
+        <attr name="checkboxLabel" format="reference|string" />
+        <attr name="checkboxExtraText" format="reference|string" />
+        <attr name="checkboxIsError" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="WarpSpinner">
@@ -170,5 +172,13 @@
     <declare-styleable name="WarpSwitch">
         <attr name="switchEnabled" format="boolean" />
         <attr name="switchChecked" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpRadio">
+        <attr name="radioLabel" format="reference|string" />
+        <attr name="radioExtraText" format="reference|string" />
+        <attr name="radioSelected" format="boolean" />
+        <attr name="radioEnabled" format="boolean" />
+        <attr name="radioIsError" format="boolean" />
     </declare-styleable>
 </resources>
