@@ -266,6 +266,13 @@ class WarpTextFieldTest(
                         textStyle = WarpTextStyle.DetailStrong,
                         modifier = Modifier.fillMaxWidth()
                     )
+                    WarpTextField(
+                        value = "Multiline with a minimum of three lines and label",
+                        onValueChange = { },
+                        label = "A label",
+                        modifier = Modifier.fillMaxWidth(),
+                        minLines = 3
+                    )
                 }
             }
         }
