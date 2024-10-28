@@ -3,23 +3,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathFillType
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -37,21 +33,30 @@ import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.components.ext.shadowMedium
+import com.schibsted.nmp.warp.components.shapes.CalloutShape
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
-import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 
 
 @Composable
 fun WarpCallout(
     text: String,
-    arrowDirection: WarpCalloutDirection = WarpCalloutDirection.Top,
+    size: CalloutSize = CalloutSize.Default,
+    type: CalloutType = CalloutType.Popover,
+    edge: Edge = Edge.Top,
     //position: CalloutPosition,
-    closable: Boolean = true,
+    closable: Boolean = false,
     onDismiss: () -> Unit
 ) {
     val calloutColors = getCalloutColors()
+    val textStyle = when(size){
+        CalloutSize.Small -> WarpTextStyle.Caption
+        CalloutSize.Default -> WarpTextStyle.Body
+    }
+    val shadowModifier = if (type == CalloutType.Popover) Modifier.shadowMedium(CalloutShape(edge)) else Modifier
+
     //var offset = position.offset
     val horizontalPaddingInPx = with(LocalDensity.current) {
         16.dp.toPx()
@@ -69,36 +74,32 @@ fun WarpCallout(
         }
     }*/
     Popup(
-        alignment = Alignment.TopCenter,
-        offset = IntOffset(0, 0),
+        alignment = Alignment.TopStart,
+        offset = IntOffset(20, 30),
         onDismissRequest = onDismiss,
         properties = PopupProperties(focusable = true)
     ) {
         Box(
             modifier = Modifier
-
-                .padding(dimensions.space15)
-                .drawBehind { drawTooltipArrow(arrowDirection) }
+                .then(shadowModifier)
                 .border(
                     dimensions.borderWidth2,
-                    calloutColors.border,
-                    shape = shapes.components.callout
+                    calloutColors.border, CalloutShape(edge)
                 )
-                .background(calloutColors.background, shape = shapes.components.callout)
-                .padding(dimensions.space15)
+                .background(calloutColors.background)
+                .calloutPadding(edge)
         ) {
-            //content
             Row(
-                modifier = Modifier.wrapContentSize(),
-                verticalAlignment = Alignment.CenterVertically
+                horizontalArrangement = Arrangement.spacedBy(dimensions.space05),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 WarpText(
                     text = text,
                     color = calloutColors.text,
-                    style = WarpTextStyle.Body,
+                    style = textStyle,
                     softWrap = true,
 
-                )
+                    )
                 if (closable) {
                     Icon(
                         imageVector = icons.close,
@@ -117,7 +118,6 @@ fun WarpCallout(
                 }
             }
         }
-
     }
 }
 
@@ -223,7 +223,7 @@ internal class CalloutPositionProvider(
 fun calculateCalloutPosition(
     coordinates: LayoutCoordinates?,
     view: View,
-    arrowDirection: WarpCalloutDirection
+    arrowDirection: Edge
 ): CalloutPosition {
     coordinates ?: return CalloutPosition()
 
@@ -246,7 +246,7 @@ fun calculateCalloutPosition(
         )
         CalloutPosition(
             offset = offset,
-            arrowDirection = WarpCalloutDirection.Top,
+            arrowDirection = Edge.Top,
             centerPositionX = centerPositionX,
         )
     } else {
@@ -255,7 +255,7 @@ fun calculateCalloutPosition(
                 y = -coordinates.size.height,
                 x = offsetX.toInt()
             ),
-            arrowDirection = WarpCalloutDirection.Bottom,
+            arrowDirection = Edge.Bottom,
             centerPositionX = centerPositionX,
         )
     }
@@ -264,52 +264,57 @@ fun calculateCalloutPosition(
 class CalloutPosition(
     val offset: IntOffset = IntOffset(0, 0),
     val centerPositionX: Float = 0f,
-    val arrowDirection: WarpCalloutDirection = WarpCalloutDirection.Top,
+    val arrowDirection: Edge = Edge.Top,
 )
 
-fun DrawScope.drawTooltipArrow(arrowDirection: WarpCalloutDirection) {
-    val arrowWidth = 20.dp.toPx()
-    val arrowHeight = 10.dp.toPx()
-    val path = Path().apply {
-        when (arrowDirection) {
-            WarpCalloutDirection.Top -> {
-                moveTo(size.width / 2 - arrowWidth / 2, 0f)
-                lineTo(size.width / 2 + arrowWidth / 2, 0f)
-                lineTo(size.width / 2, -arrowHeight)
-            }
-
-            WarpCalloutDirection.Bottom -> {
-                moveTo(size.width / 2 - arrowWidth / 2, size.height)
-                lineTo(size.width / 2 + arrowWidth / 2, size.height)
-                lineTo(size.width / 2, size.height + arrowHeight)
-            }
-
-            WarpCalloutDirection.Start -> {
-                moveTo(0f, size.height / 2 - arrowWidth / 2)
-                lineTo(0f, size.height / 2 + arrowWidth / 2)
-                lineTo(-arrowHeight, size.height / 2)
-            }
-
-            WarpCalloutDirection.End -> {
-                moveTo(size.width, size.height / 2 - arrowWidth / 2)
-                lineTo(size.width, size.height / 2 + arrowWidth / 2)
-                lineTo(size.width + arrowHeight, size.height / 2)
-            }
-        }
-        close()
-        fillType = PathFillType.EvenOdd
-    }
-
-    drawPath(path, color = Green400, style = Stroke(width = 4.dp.toPx()))
-    drawPath(path, color = Green200)
+enum class CalloutType {
+    Popover,
+    Inline
 }
 
+enum class CalloutSize {
+    Small,
+    Default
+}
 
-enum class WarpCalloutDirection {
+enum class Edge {
     Top,
     Bottom,
-    Start,
-    End
+    Leading,
+    Trailing
+}
+
+@Composable
+private fun Modifier.calloutPadding(edge: Edge): Modifier = composed {
+    when (edge) {
+        Edge.Top -> this.padding(
+            top = dimensions.space25,
+            bottom = dimensions.space1,
+            start = dimensions.space2,
+            end = dimensions.space2
+        )
+
+        Edge.Bottom -> this.padding(
+            top = dimensions.space1,
+            bottom = dimensions.space25,
+            start = dimensions.space2,
+            end = dimensions.space2
+        )
+
+        Edge.Leading -> this.padding(
+            top = dimensions.space1,
+            bottom = dimensions.space1,
+            start = dimensions.space25,
+            end = dimensions.space2
+        )
+
+        Edge.Trailing -> this.padding(
+            top = dimensions.space1,
+            bottom = dimensions.space1,
+            start = dimensions.space2,
+            end = dimensions.space25
+        )
+    }
 }
 
 /*
@@ -341,8 +346,8 @@ data class DefaultWarpCalloutColors(
 @Composable
 fun PreviewWarpCallout() {
     Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize()
+
     ) {
         var coordinates: LayoutCoordinates? = null
         val view = LocalView.current.rootView
@@ -354,8 +359,18 @@ fun PreviewWarpCallout() {
         )
 
         WarpCallout(
-            text = "This is a callout callout ",
-            arrowDirection = WarpCalloutDirection.Start,
+            text = "This is a small callout ",
+            edge = Edge.Top,
+            closable = true,
+            size = CalloutSize.Small,
+            //position = CalloutPosition(),
+            onDismiss = {}
+        )
+        WarpCallout(
+            text = "This is a default callout ",
+            edge = Edge.Trailing,
+            closable = true,
+            size = CalloutSize.Default,
             //position = CalloutPosition(),
             onDismiss = {}
         )

@@ -1,8 +1,9 @@
 package com.schibsted.nmp.warpapp.ui
 
 import CalloutPosition
+import CalloutSize
+import Edge
 import WarpCallout
-import WarpCalloutDirection
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -44,7 +45,7 @@ fun CalloutScreenContent() {
         WarpButton(
             modifier = Modifier
                 .onGloballyPositioned {
-                    position = calculateCalloutPosition(it, view,WarpCalloutDirection.Top)
+                    position = calculateCalloutPosition(it, view,Edge.Leading)
             },
             text = "Show callout",
             onClick = {
@@ -54,7 +55,8 @@ fun CalloutScreenContent() {
         if (show.value){
             WarpCallout(
                 text = "This is a callout",
-                arrowDirection = WarpCalloutDirection.Top,
+                edge = Edge.Leading,
+                size = CalloutSize.Small,
                 closable = true,
                 onDismiss = { show.value = false },
                 //position = position
