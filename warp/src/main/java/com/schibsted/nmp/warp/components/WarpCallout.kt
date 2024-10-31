@@ -1,4 +1,3 @@
-import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,22 +10,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.LayoutCoordinates
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
@@ -36,97 +37,99 @@ import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.components.ext.shadowMedium
 import com.schibsted.nmp.warp.components.shapes.CalloutShape
 import com.schibsted.nmp.warp.theme.WarpResources.icons
-import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 
 @Composable
 fun WarpCallout(
     text: String,
+    state: CalloutState,
     size: CalloutSize = CalloutSize.Default,
     type: CalloutType = CalloutType.Popover,
+    horizontalOffset: Dp = 0.dp,
+    verticalOffset: Dp = 0.dp,
     edge: Edge = Edge.Top,
-    //position: CalloutPosition,
     closable: Boolean = false,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    anchorView: @Composable () -> Unit,
 ) {
     val calloutColors = getCalloutColors()
-    val textStyle = when(size){
+
+    val textStyle = when (size) {
         CalloutSize.Small -> WarpTextStyle.Caption
         CalloutSize.Default -> WarpTextStyle.Body
     }
-    val shadowModifier = if (type == CalloutType.Popover) Modifier.shadowMedium(CalloutShape(edge)) else Modifier
+    val popupPositionProvider = CalloutPositionProvider(
+        offset = DpOffset(horizontalOffset, verticalOffset),
+        density = LocalDensity.current,
+        edge = edge
+    )
+    val shadowModifier =
+        if (type == CalloutType.Popover) Modifier.shadowMedium(CalloutShape(edge)) else Modifier
 
-    //var offset = position.offset
-    val horizontalPaddingInPx = with(LocalDensity.current) {
-        16.dp.toPx()
-    }
-
-    /*var arrowPositionX by remember { mutableStateOf(position.centerPositionX) }
-    val popupPositionProvider = remember(arrowDirection, offset) {
-        CalloutPositionProvider(
-            alignment = Alignment.TopCenter,
-            offset = offset,
-            horizontalPaddingInPx = horizontalPaddingInPx,
-            centerPositionX = position.centerPositionX,
-        ) { position ->
-            arrowPositionX = position
-        }
-    }*/
-    Popup(
-        alignment = Alignment.TopStart,
-        offset = IntOffset(20, 30),
-        onDismissRequest = onDismiss,
-        properties = PopupProperties(focusable = true)
-    ) {
-        Box(
-            modifier = Modifier
-                .then(shadowModifier)
-                .border(
-                    dimensions.borderWidth2,
-                    calloutColors.border, CalloutShape(edge)
-                )
-                .background(calloutColors.background)
-                .calloutPadding(edge)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(dimensions.space05),
-                verticalAlignment = Alignment.CenterVertically,
+    Box {
+        anchorView()
+        if (state.isVisible) {
+            Popup(
+                popupPositionProvider = popupPositionProvider,
+                onDismissRequest = onDismiss,
+                properties = PopupProperties(focusable = true)
             ) {
-                WarpText(
-                    text = text,
-                    color = calloutColors.text,
-                    style = textStyle,
-                    softWrap = true,
+                Box(
+                    modifier = Modifier
+                        .then(shadowModifier)
+                        .border(
+                            dimensions.borderWidth2,
+                            calloutColors.border, CalloutShape(edge)
+                        )
+                        .background(calloutColors.background)
+                        .calloutPadding(edge)
 
-                    )
-                if (closable) {
-                    Icon(
-                        imageVector = icons.close,
-                        contentDescription = "Close",
-                        tint = WarpTheme.colors.icon.default,
-                        modifier = Modifier
-                            .padding(start = dimensions.space05)
-                            .size(dimensions.icon.small)
-                            .clickable(
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() }) {
-                                onDismiss()
-                            }
-
-                    )
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(dimensions.space05),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        WarpText(
+                            text = text,
+                            color = calloutColors.text,
+                            style = textStyle,
+                            softWrap = true,
+                        )
+                        if (closable) {
+                            Icon(
+                                imageVector = icons.close,
+                                contentDescription = "Close",
+                                tint = colors.icon.default,
+                                modifier = Modifier
+                                    .padding(start = dimensions.space05)
+                                    .size(dimensions.icon.small)
+                                    .clickable(
+                                        indication = null,
+                                        interactionSource = remember { MutableInteractionSource() }) {
+                                        onDismiss()
+                                    }
+                            )
+                        }
+                    }
                 }
             }
         }
     }
 }
 
+@Stable
+class CalloutState(
+    isVisible: Boolean = false
+) {
+    var isVisible: Boolean by mutableStateOf(isVisible)
+}
+
 internal class CalloutPositionProvider(
-    val alignment: Alignment,
-    val offset: IntOffset,
-    val centerPositionX: Float,
-    val horizontalPaddingInPx: Float,
-    private val onArrowPositionX: (Float) -> Unit,
+    val offset: DpOffset,
+    val density: Density,
+    val edge: Edge,
 ) : PopupPositionProvider {
 
     override fun calculatePosition(
@@ -135,137 +138,49 @@ internal class CalloutPositionProvider(
         layoutDirection: LayoutDirection,
         popupContentSize: IntSize
     ): IntOffset {
-        var popupPosition = IntOffset(0, 0)
+        val contentOffsetX = with(density) { offset.x.roundToPx() }
+        val contentOffsetY = with(density) { offset.y.roundToPx() }
 
-        // Get the aligned point inside the parent
-        val parentAlignmentPoint = alignment.align(
-            IntSize.Zero,
-            IntSize(anchorBounds.width, anchorBounds.height),
-            layoutDirection
-        )
-        // Get the aligned point inside the child
-        val relativePopupPos = alignment.align(
-            IntSize.Zero,
-            IntSize(popupContentSize.width, popupContentSize.height),
-            layoutDirection
-        )
-
-        // Add the position of the parent
-        popupPosition += IntOffset(anchorBounds.left, anchorBounds.top)
-
-        // Add the distance between the parent's top left corner and the alignment point
-        popupPosition += parentAlignmentPoint
-
-        // Subtract the distance between the children's top left corner and the alignment point
-        popupPosition -= IntOffset(relativePopupPos.x, relativePopupPos.y)
-
-        // Add the user offset
-        val resolvedOffset = IntOffset(
-            offset.x * (if (layoutDirection == LayoutDirection.Ltr) 1 else -1),
-            offset.y
-        )
-
-        popupPosition += resolvedOffset
-
-        val leftSpace = centerPositionX - horizontalPaddingInPx
-        val rightSpace = windowSize.width - centerPositionX - horizontalPaddingInPx
-
-        val tooltipWidth = popupContentSize.width
-        val halfPopupContentSize = popupContentSize.center.x
-
-        val fullPadding = horizontalPaddingInPx * 2
-
-        val maxTooltipSize = windowSize.width - fullPadding
-
-        val isCentralPositionTooltip =
-            halfPopupContentSize <= leftSpace && halfPopupContentSize <= rightSpace
-
-        when {
-            isCentralPositionTooltip -> {
-                popupPosition =
-                    IntOffset(centerPositionX.toInt() - halfPopupContentSize, popupPosition.y)
-                val arrowPosition = halfPopupContentSize.toFloat() - horizontalPaddingInPx
-                onArrowPositionX.invoke(arrowPosition)
-            }
-
-            tooltipWidth >= maxTooltipSize -> {
-                popupPosition =
-                    IntOffset(windowSize.center.x - halfPopupContentSize, popupPosition.y)
-                val arrowPosition = centerPositionX - popupPosition.x - horizontalPaddingInPx
-                onArrowPositionX.invoke(arrowPosition)
-            }
-
-            halfPopupContentSize > rightSpace -> {
-                popupPosition = IntOffset(centerPositionX.toInt(), popupPosition.y)
-                val arrowPosition =
-                    halfPopupContentSize + (halfPopupContentSize - rightSpace) - fullPadding
-
-                onArrowPositionX.invoke(arrowPosition)
-            }
-
-            halfPopupContentSize > leftSpace -> {
-                popupPosition = IntOffset(0, popupPosition.y)
-                val arrowPosition = centerPositionX - horizontalPaddingInPx
-                onArrowPositionX.invoke(arrowPosition)
-            }
-
-            else -> {
-                val position = centerPositionX
-                onArrowPositionX.invoke(position)
-            }
+        val xOffset = when (edge) {
+            Edge.Top -> 0
+            Edge.Bottom -> 0
+            Edge.Leading -> -anchorBounds.width
+            Edge.Trailing -> anchorBounds.width
         }
+        val yOffset = when (edge) {
+            Edge.Top -> anchorBounds.height
+            Edge.Bottom -> -anchorBounds.height
+            Edge.Leading -> 0
+            Edge.Trailing -> 0
+        }
+        val alignment = when (edge) {
+            Edge.Top -> Alignment.TopCenter
+            Edge.Bottom -> Alignment.BottomCenter
+            Edge.Leading -> Alignment.CenterStart
+            Edge.Trailing -> Alignment.CenterEnd
+        }
+        val anchorAlignmentPoint = alignment.align(
+            IntSize.Zero,
+            anchorBounds.size,
+            layoutDirection
+        )
+        val popupAlignmentPoint = -alignment.align(
+            IntSize.Zero,
+            popupContentSize,
+            layoutDirection
+        )
+        val resolvedUserOffset = IntOffset(
+            contentOffsetX * (if (layoutDirection == LayoutDirection.Ltr) 1 else -1) - xOffset,
+            contentOffsetY + yOffset
+        )
 
-        return popupPosition
+        return anchorBounds.topLeft +
+                anchorAlignmentPoint +
+                popupAlignmentPoint +
+                resolvedUserOffset
+
     }
 }
-
-
-fun calculateCalloutPosition(
-    coordinates: LayoutCoordinates?,
-    view: View,
-    arrowDirection: Edge
-): CalloutPosition {
-    coordinates ?: return CalloutPosition()
-
-    val visibleWindowBounds = android.graphics.Rect()
-    view.getWindowVisibleDisplayFrame(visibleWindowBounds)
-
-    val boundsInWindow = coordinates.boundsInWindow()
-
-    val heightAbove = boundsInWindow.top - visibleWindowBounds.top
-    val heightBelow = visibleWindowBounds.bottom - visibleWindowBounds.top - boundsInWindow.bottom
-
-    val centerPositionX = boundsInWindow.right - (boundsInWindow.right - boundsInWindow.left) / 2
-
-    val offsetX = centerPositionX - visibleWindowBounds.centerX()
-
-    return if (heightAbove < heightBelow) {
-        val offset = IntOffset(
-            y = coordinates.size.height,
-            x = offsetX.toInt()
-        )
-        CalloutPosition(
-            offset = offset,
-            arrowDirection = Edge.Top,
-            centerPositionX = centerPositionX,
-        )
-    } else {
-        CalloutPosition(
-            offset = IntOffset(
-                y = -coordinates.size.height,
-                x = offsetX.toInt()
-            ),
-            arrowDirection = Edge.Bottom,
-            centerPositionX = centerPositionX,
-        )
-    }
-}
-
-class CalloutPosition(
-    val offset: IntOffset = IntOffset(0, 0),
-    val centerPositionX: Float = 0f,
-    val arrowDirection: Edge = Edge.Top,
-)
 
 enum class CalloutType {
     Popover,
@@ -317,23 +232,12 @@ private fun Modifier.calloutPadding(edge: Edge): Modifier = composed {
     }
 }
 
-/*
+
 @Composable
 fun getCalloutColors() = DefaultWarpCalloutColors(
     text = colors.components.callout.text,
     background = colors.components.callout.background,
     border = colors.components.callout.border
-)*/
-internal val Green200 = Color(0xffaad6c4)
-internal val Green400 = Color(0xff62b294)
-internal val Gray900 = Color(0xff1b1b1f)
-
-
-@Composable
-fun getCalloutColors() = DefaultWarpCalloutColors(
-    text = Gray900,
-    background = Green200,
-    border = Green400
 )
 
 data class DefaultWarpCalloutColors(
@@ -349,30 +253,29 @@ fun PreviewWarpCallout() {
         modifier = Modifier.fillMaxSize()
 
     ) {
-        var coordinates: LayoutCoordinates? = null
-        val view = LocalView.current.rootView
-        WarpText(
-            modifier = Modifier.onGloballyPositioned {
-                coordinates = it
-            },
-            text = "meow"
-        )
-
         WarpCallout(
             text = "This is a small callout ",
+            state = CalloutState(),
             edge = Edge.Top,
             closable = true,
             size = CalloutSize.Small,
-            //position = CalloutPosition(),
             onDismiss = {}
-        )
+        ){
+            WarpText(
+                text = "meow"
+            )
+        }
         WarpCallout(
             text = "This is a default callout ",
+            state = CalloutState(),
             edge = Edge.Trailing,
             closable = true,
             size = CalloutSize.Default,
-            //position = CalloutPosition(),
             onDismiss = {}
-        )
+        ){
+            WarpText(
+                text = "meow"
+            )
+        }
     }
 }
