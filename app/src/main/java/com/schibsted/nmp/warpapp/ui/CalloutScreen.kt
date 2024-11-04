@@ -42,7 +42,7 @@ fun CalloutScreenContent() {
         val topStartState = remember { CalloutState(false) }
         val bottomStartState = remember { CalloutState(false) }
         val bottomCenterState = remember { CalloutState(false) }
-        val bottomEndState = remember { CalloutState(true) }
+        val bottomEndState = remember { CalloutState(false) }
         val topCenterState = remember { CalloutState(false) }
         val topEndState = remember { CalloutState(false) }
 
@@ -57,7 +57,7 @@ fun CalloutScreenContent() {
                 type = CalloutType.Popover,
                 size = CalloutSize.Small,
                 closable = false,
-                onDismiss = { topStartState.isVisible = true },
+                onDismiss = { topStartState.isVisible = false },
             ) {
                 WarpButton (
                     text = "Start",
@@ -139,12 +139,12 @@ fun CalloutScreenContent() {
                 edge = Edge.Trailing,
                 size = CalloutSize.Small,
                 closable = true,
-                onDismiss = { },
+                onDismiss = { bottomEndState.isVisible = false },
             ) {
                 WarpButton(
-                    text = "On",
+                    text = "End",
                     onClick = {
-                        bottomEndState.isVisible = bottomEndState.isVisible
+                        bottomEndState.isVisible = !bottomEndState.isVisible
                     }
                 )
             }
