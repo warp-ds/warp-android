@@ -49,6 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView"
             app:leadingIcon="@drawable/blocket_badge"
+            app:minLines="2"
             app:maxLines="4"
             app:optionalLabel="Optional"
             app:placeholderText="Meow here"

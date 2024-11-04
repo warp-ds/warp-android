@@ -57,6 +57,7 @@
         <attr name="trailingIconContentDescr" format="reference|string" />
         <attr name="isError" format="boolean" />
         <attr name="singleLine" format="boolean" />
+        <attr name="minLines" format="integer" />
         <attr name="maxLines" format="integer" />
         <attr name="textStyle" format="enum">
             <enum name="display" value="0" />
