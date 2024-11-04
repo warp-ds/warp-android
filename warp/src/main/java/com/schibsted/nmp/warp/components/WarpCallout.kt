@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +37,7 @@ import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.components.ext.shadowMedium
 import com.schibsted.nmp.warp.components.shapes.CalloutShape
+import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -47,12 +49,13 @@ fun WarpCallout(
     state: CalloutState,
     size: CalloutSize = CalloutSize.Default,
     type: CalloutType = CalloutType.Popover,
+    inlineModifier: Modifier = Modifier,
     horizontalOffset: Dp = 0.dp,
     verticalOffset: Dp = 0.dp,
     edge: Edge = Edge.Top,
     closable: Boolean = false,
     onDismiss: () -> Unit,
-    anchorView: @Composable () -> Unit,
+    anchorView: @Composable (() -> Unit)? = null,
 ) {
     val calloutColors = getCalloutColors()
 
@@ -66,54 +69,97 @@ fun WarpCallout(
         edge = edge
     )
     val shadowModifier =
-        if (type == CalloutType.Popover) Modifier.shadowMedium(CalloutShape(edge)) else Modifier
+        if (type == CalloutType.Popover) Modifier.shadowMedium(CalloutShape(edge)) else Modifier.shadow(
+            0.5.dp,
+            CalloutShape(edge)
+        )
 
     Box {
-        anchorView()
+        anchorView?.let { it() }
         if (state.isVisible) {
-            Popup(
-                popupPositionProvider = popupPositionProvider,
-                onDismissRequest = onDismiss,
-                properties = PopupProperties(focusable = true)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .then(shadowModifier)
-                        .border(
-                            dimensions.borderWidth2,
-                            calloutColors.border, CalloutShape(edge)
-                        )
-                        .background(calloutColors.background)
-                        .calloutPadding(edge)
-
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(dimensions.space05),
-                        verticalAlignment = Alignment.CenterVertically,
+            when (type) {
+                CalloutType.Popover -> {
+                    Popup(
+                        popupPositionProvider = popupPositionProvider,
+                        onDismissRequest = onDismiss,
+                        properties = PopupProperties(focusable = true)
                     ) {
-                        WarpText(
-                            text = text,
-                            color = calloutColors.text,
-                            style = textStyle,
-                            softWrap = true,
+                        CalloutView(
+                            shadowModifier,
+                            dimensions,
+                            calloutColors,
+                            edge,
+                            text,
+                            textStyle,
+                            closable,
+                            onDismiss
                         )
-                        if (closable) {
-                            Icon(
-                                imageVector = icons.close,
-                                contentDescription = "Close",
-                                tint = colors.icon.default,
-                                modifier = Modifier
-                                    .padding(start = dimensions.space05)
-                                    .size(dimensions.icon.small)
-                                    .clickable(
-                                        indication = null,
-                                        interactionSource = remember { MutableInteractionSource() }) {
-                                        onDismiss()
-                                    }
-                            )
-                        }
                     }
                 }
+
+                CalloutType.Inline -> {
+                    CalloutView(
+                        inlineModifier.then(shadowModifier),
+                        dimensions,
+                        calloutColors,
+                        edge,
+                        text,
+                        textStyle,
+                        closable,
+                        onDismiss
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CalloutView(
+    inlineModifier: Modifier,
+    dimensions: WarpDimensions,
+    calloutColors: DefaultWarpCalloutColors,
+    edge: Edge,
+    text: String,
+    textStyle: WarpTextStyle,
+    closable: Boolean,
+    onDismiss: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .then(inlineModifier)
+            .border(
+                dimensions.borderWidth2,
+                calloutColors.border, CalloutShape(edge)
+            )
+            .background(calloutColors.background)
+            .calloutPadding(edge)
+
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(dimensions.space05),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            WarpText(
+                text = text,
+                color = calloutColors.text,
+                style = textStyle,
+                softWrap = true,
+            )
+            if (closable) {
+                Icon(
+                    imageVector = icons.close,
+                    contentDescription = "Close",
+                    tint = colors.icon.default,
+                    modifier = Modifier
+                        .padding(start = dimensions.space05)
+                        .size(dimensions.icon.small)
+                        .clickable(
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() }) {
+                            onDismiss()
+                        }
+                )
             }
         }
     }
@@ -260,7 +306,7 @@ fun PreviewWarpCallout() {
             closable = true,
             size = CalloutSize.Small,
             onDismiss = {}
-        ){
+        ) {
             WarpText(
                 text = "meow"
             )
@@ -272,7 +318,7 @@ fun PreviewWarpCallout() {
             closable = true,
             size = CalloutSize.Default,
             onDismiss = {}
-        ){
+        ) {
             WarpText(
                 text = "meow"
             )

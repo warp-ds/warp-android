@@ -291,12 +291,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space2"
+            app:checkboxIsError="true"
             app:checkboxLabel="Disabled selected checkbox"
             app:checked="true"
-            app:checkboxIsError="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative"
-             />
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative" />
 
         <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
             android:id="@+id/stepindicator_vertical"
@@ -408,13 +407,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space2"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radio3"
             app:radioEnabled="false"
             app:radioIsError="false"
             app:radioLabel="Radio disabled"
             app:radioSelected="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCalloutView
+            android:id="@+id/callout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:calloutEdge="leading"
+            app:calloutHorizontalOffset="0"
+            app:calloutIsClosable="false"
+            app:calloutIsVisible="false"
+            app:calloutSize="small"
+            app:calloutText="This is the callout text"
+            app:calloutType="popover"
+            app:calloutVerticalOffset="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

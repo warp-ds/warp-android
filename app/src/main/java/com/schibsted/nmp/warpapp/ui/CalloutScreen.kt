@@ -2,6 +2,7 @@ package com.schibsted.nmp.warpapp.ui
 
 import CalloutSize
 import CalloutState
+import CalloutType
 import Edge
 import WarpCallout
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
@@ -40,7 +42,7 @@ fun CalloutScreenContent() {
         val topStartState = remember { CalloutState(false) }
         val bottomStartState = remember { CalloutState(false) }
         val bottomCenterState = remember { CalloutState(false) }
-        val bottomEndState = remember { CalloutState(false) }
+        val bottomEndState = remember { CalloutState(true) }
         val topCenterState = remember { CalloutState(false) }
         val topEndState = remember { CalloutState(false) }
 
@@ -52,11 +54,10 @@ fun CalloutScreenContent() {
                 text = "This is a callout",
                 edge = Edge.Leading,
                 state = topStartState,
-                horizontalOffset = dimensions.space05,
-                verticalOffset = dimensions.space05,
+                type = CalloutType.Popover,
                 size = CalloutSize.Small,
-                closable = true,
-                onDismiss = { topStartState.isVisible = false },
+                closable = false,
+                onDismiss = { topStartState.isVisible = true },
             ) {
                 WarpButton (
                     text = "Start",
@@ -70,11 +71,11 @@ fun CalloutScreenContent() {
                 state = topCenterState,
                 edge = Edge.Top,
                 size = CalloutSize.Small,
-                closable = true,
+                closable = false,
                 onDismiss = { topCenterState.isVisible = false },
             ) {
                 WarpButton(
-                    text = "Center",
+                    text = "Center Top",
                     onClick = {
                         topCenterState.isVisible = !topCenterState.isVisible
                     }
@@ -85,7 +86,7 @@ fun CalloutScreenContent() {
                 state = topEndState,
                 edge = Edge.Trailing,
                 size = CalloutSize.Small,
-                closable = true,
+                closable = false,
                 onDismiss = { topEndState.isVisible = false },
             ) {
                 WarpButton(
@@ -103,13 +104,15 @@ fun CalloutScreenContent() {
             WarpCallout(
                 text = "This is a callout",
                 state = bottomStartState,
+                type = CalloutType.Inline,
+                inlineModifier = Modifier.padding(0.dp),
                 edge = Edge.Leading,
                 size = CalloutSize.Small,
                 closable = true,
                 onDismiss = { bottomStartState.isVisible = false },
             ) {
                 WarpButton(
-                    text = "Start",
+                    text = "Inline",
                     onClick = {
                         bottomStartState.isVisible = !bottomStartState.isVisible
                     }
@@ -124,7 +127,7 @@ fun CalloutScreenContent() {
                 onDismiss = { bottomCenterState.isVisible = false },
             ) {
                 WarpButton(
-                    text = "Center",
+                    text = "Center Bottom",
                     onClick = {
                         bottomCenterState.isVisible = !bottomCenterState.isVisible
                     }
@@ -136,12 +139,12 @@ fun CalloutScreenContent() {
                 edge = Edge.Trailing,
                 size = CalloutSize.Small,
                 closable = true,
-                onDismiss = { bottomEndState.isVisible = false },
+                onDismiss = { },
             ) {
                 WarpButton(
-                    text = "End",
+                    text = "On",
                     onClick = {
-                        bottomEndState.isVisible = !bottomEndState.isVisible
+                        bottomEndState.isVisible = bottomEndState.isVisible
                     }
                 )
             }
