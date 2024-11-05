@@ -76,6 +76,7 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.attachement, "Attachment icon", size)
     CreateIcon(icons.automatic, "Automatic icon", size)
     CreateIcon(icons.autovex, "Autovex darkmode icon", size)
+    CreateIcon(icons.awardMedal, "Award medal icon", size)
     CreateIcon(icons.babyOnesie, "Baby onesie icon", size)
     CreateIcon(icons.backWheelDrive, "Back wheel drive icon", size)
     CreateIcon(icons.bag, "Bag icon", size)

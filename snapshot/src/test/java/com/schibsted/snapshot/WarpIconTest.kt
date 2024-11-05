@@ -57,7 +57,7 @@ class WarpIconTest(
     fun warp_icon_count() {
         val count =
             WarpIcons::class.memberProperties.count { it.returnType.classifier == ImageVector::class }
-        Assert.assertEquals(278, count)
+        Assert.assertEquals(279, count)
     }
 
     @Test
@@ -80,7 +80,8 @@ class WarpIconTest(
                     icons.arrowUp,
                     icons.attachement,
                     icons.automatic,
-                    icons.autovex
+                    icons.autovex,
+                    icons.awardMedal
                 )
             )
         }

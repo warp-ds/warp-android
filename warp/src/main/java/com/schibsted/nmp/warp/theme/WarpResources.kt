@@ -92,6 +92,10 @@ object WarpIcons {
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.autovex)
 
+    val awardMedal: ImageVector
+        @Composable
+        get() = ImageVector.vectorResource(id = R.drawable.awardmedal)
+
     val babyOnesie: ImageVector
         @Composable
         get() = ImageVector.vectorResource(id = R.drawable.babyonesie)
