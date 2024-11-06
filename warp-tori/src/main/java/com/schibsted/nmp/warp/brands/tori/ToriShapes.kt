@@ -21,6 +21,7 @@ internal class ToriComponentShapes(
     dimensions: WarpDimensions
 ) : WarpComponentShapes {
     override val badge = ToriBadgeShapes(dimensions)
+    override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
 }
 
 internal class ToriBadgeShapes(

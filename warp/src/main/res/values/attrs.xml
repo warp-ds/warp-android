@@ -158,7 +158,7 @@
         <attr name="checked" format="boolean" />
         <attr name="checkboxLabel" format="reference|string" />
         <attr name="checkboxExtraText" format="reference|string" />
-        <attr name="checkboxIsError" format="boolean"/>
+        <attr name="checkboxIsError" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="WarpSpinner">
@@ -180,5 +180,27 @@
         <attr name="radioSelected" format="boolean" />
         <attr name="radioEnabled" format="boolean" />
         <attr name="radioIsError" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpCallout">
+        <attr name="calloutText" format="reference|string" />
+        <attr name="calloutIsVisible" format="boolean" />
+        <attr name="calloutSize" format="enum">
+            <enum name="small" value="0" />
+            <enum name="defaultSize" value="1" />
+        </attr>
+        <attr name="calloutType" format="enum">
+            <enum name="popover" value="0" />
+            <enum name="inline" value="1" />
+        </attr>
+        <attr name="calloutHorizontalOffset" format="integer" />
+        <attr name="calloutVerticalOffset" format="integer" />
+        <attr name="calloutEdge" format="enum">
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+            <enum name="leading" value="2" />
+            <enum name="trailing" value="3" />
+        </attr>
+        <attr name="calloutIsClosable" format="boolean" />
     </declare-styleable>
 </resources>

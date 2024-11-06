@@ -11,6 +11,7 @@ interface WarpShapes {
 
 interface WarpComponentShapes {
     val badge: WarpBadgeShapes
+    val callout: Shape
 }
 
 interface WarpBadgeShapes {
