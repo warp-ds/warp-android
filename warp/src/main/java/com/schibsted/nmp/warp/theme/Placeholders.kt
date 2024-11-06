@@ -1,9 +1,11 @@
 package com.schibsted.nmp.warp.theme
 
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
 
 internal object Placeholders : WarpColors {
     override val surface: WarpSurfaceColors = PlaceholderWarpSurfaceColors
@@ -238,6 +240,7 @@ internal object PlaceholderShapes : WarpShapes {
 
 private object PlaceholderComponentShapes : WarpComponentShapes {
     override val badge: WarpBadgeShapes = PlaceholderBadgeShapes
+    override val callout = RoundedCornerShape(8.dp)
 }
 
 private object PlaceholderBadgeShapes : WarpBadgeShapes {
