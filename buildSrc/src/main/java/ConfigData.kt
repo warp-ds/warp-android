@@ -1,8 +1,8 @@
 object ConfigData {
     const val compileSdkVersion = 34
     const val minSdkVersion = 24
-    const val warpVersion = "0.0.32"
-    const val sampleAppVersionCode = 32
+    const val warpVersion = "0.0.33"
+    const val sampleAppVersionCode = 33
     const val groupId = "com.schibsted.nmp.warp"
     const val artifactIdWarp = "warp-android"
     const val artifactIdFinn = "warp-android-finn"
