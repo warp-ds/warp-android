@@ -9,21 +9,25 @@ import androidx.compose.ui.graphics.Shape
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
-fun Modifier.shadowSmall(shape : Shape = RoundedCornerShape(dimensions.borderRadius3)): Modifier = composed {
-    this.shadow(elevation = dimensions.shadowSmall, shape = shape)
-}
+fun Modifier.shadowSmall(shape: Shape = RoundedCornerShape(dimensions.borderRadius3)): Modifier =
+    composed {
+        this.shadow(elevation = dimensions.shadowSmall, shape = shape)
+    }
 
 @Composable
-fun Modifier.shadowMedium(shape : Shape = RoundedCornerShape(dimensions.borderRadius3)): Modifier = composed {
-    this.shadow(elevation = dimensions.shadowMedium, shape = shape)
-}
+fun Modifier.shadowMedium(shape: Shape = RoundedCornerShape(dimensions.borderRadius3)): Modifier =
+    composed {
+        this.shadow(elevation = dimensions.shadowMedium, shape = shape)
+    }
 
 @Composable
-fun Modifier.shadowLarge(shape : Shape = RoundedCornerShape(dimensions.borderRadius3)): Modifier = composed {
-    this.shadow(elevation = dimensions.shadowLarge, shape = shape)
-}
+fun Modifier.shadowLarge(shape: Shape = RoundedCornerShape(dimensions.borderRadius3)): Modifier =
+    composed {
+        this.shadow(elevation = dimensions.shadowLarge, shape = shape)
+    }
 
 @Composable
-fun Modifier.shadowXLarge(shape : Shape = RoundedCornerShape(dimensions.borderRadius3)): Modifier = composed {
-    this.shadow(elevation = dimensions.shadowXLarge, shape = shape)
-}
+fun Modifier.shadowXLarge(shape: Shape = RoundedCornerShape(dimensions.borderRadius3)): Modifier =
+    composed {
+        this.shadow(elevation = dimensions.shadowXLarge, shape = shape)
+    }

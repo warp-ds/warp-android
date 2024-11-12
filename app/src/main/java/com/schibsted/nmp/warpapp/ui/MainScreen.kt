@@ -144,6 +144,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("callout") {
+                CalloutScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -196,6 +201,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "badges" to "WarpBadge",
                         "box" to "WarpBox",
                         "buttons" to "WarpButton",
+                        "callout" to "WarpCallout",
                         "checkbox" to "WarpCheckbox",
                         "expandable" to "WarpExpandable",
                         "icons" to "WarpIcons",

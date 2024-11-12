@@ -21,6 +21,7 @@ internal class BlocketComponentShapes(
     dimensions: WarpDimensions
 ) : WarpComponentShapes {
     override val badge = BlocketBadgeShapes(dimensions)
+    override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
 }
 
 internal class BlocketBadgeShapes(
