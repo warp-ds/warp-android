@@ -7,29 +7,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
+import com.schibsted.nmp.warp.theme.WarpBrandIconResource
+import com.schibsted.nmp.warp.theme.WarpIconResource
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
 fun WarpIcon(
-    icon: Pair<String, ImageVector>,
+    icon: WarpIconResource,
     size: Dp = dimensions.icon.default,
-    color: Color = Color.Unspecified,
-
+    color: Color = colors.icon.default,
 ) {
-    val (name, vector) = icon
-    IconView(vector, name, color, size)
+    val tint = if(icon is WarpBrandIconResource) {
+        Color.Unspecified
+    } else {
+        color
+    }
+    IconView(icon.vector, icon.description, tint, size)
 }
 
 @Composable
 private fun IconView(
     vector: ImageVector,
-    name: String,
+    description: String,
     color: Color,
     size: Dp
 ) {
     Icon(
         imageVector = vector,
-        contentDescription = name,
+        contentDescription = description,
         tint = color,
         modifier = Modifier.size(size)
     )

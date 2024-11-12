@@ -8,9 +8,6 @@ object WarpResources {
     val icons: WarpIconResources
         @Composable
         get() = WarpIconResources
-    val taxonomyIcons: WarpTaxonomyIcons
-        @Composable
-        get() = WarpTaxonomyIcons
 }
 
 internal val LocalResources = staticCompositionLocalOf { WarpResources }

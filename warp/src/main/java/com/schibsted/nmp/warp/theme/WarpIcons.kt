@@ -21,18 +21,21 @@ open class WarpIconResource(
  * Can be retrieved by unique identifier which is identical across all platforms.
  */
 
-class WarpTaxonomyIconResource(
+open class WarpTaxonomyIconResource(
     override val vector: ImageVector,
     override val description: String,
-    val identifier: String,
-    val isTinted: Boolean = true
+    val identifier: String
 ) : WarpIconResource(
     vector = vector,
     description = description)
 
-object WarpTaxonomyIcons {
-
-}
+class WarpBrandIconResource(
+    override val vector: ImageVector,
+    override val description: String,
+    val identifier: String
+) : WarpIconResource(
+    vector = vector,
+    description = description)
 
 object WarpIconResources {
 
@@ -155,13 +158,12 @@ object WarpIconResources {
             stringResource(R.string.automatic)
         )
 
-    val autovex: WarpTaxonomyIconResource
+    val autovex: WarpBrandIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
+        get() = WarpBrandIconResource(
             ImageVector.vectorResource(id = R.drawable.autovex),
             stringResource(R.string.autovex),
-            identifier = "autovex",
-            isTinted = false
+            identifier = "autovex"
         )
 
     val awardMedal: WarpIconResource
@@ -964,13 +966,12 @@ object WarpIconResources {
             stringResource(R.string.history)
         )
 
-    val honk: WarpTaxonomyIconResource
+    val honk: WarpBrandIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
+        get() = WarpBrandIconResource(
             ImageVector.vectorResource(id = R.drawable.honk),
             stringResource(R.string.honk),
-            identifier = "honk",
-            isTinted = false
+            identifier = "honk"
         )
 
     val hotel: WarpTaxonomyIconResource
@@ -1229,13 +1230,12 @@ object WarpIconResources {
             stringResource(R.string.minus)
         )
 
-    val mittAnbud: WarpTaxonomyIconResource
+    val mittAnbud: WarpBrandIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
+        get() = WarpBrandIconResource(
             ImageVector.vectorResource(id = R.drawable.mittanbud),
             stringResource(R.string.mittanbud),
-            identifier = "mitt-anbud",
-            isTinted = false
+            identifier = "mitt-anbud"
         )
 
     val mixer: WarpIconResource
@@ -1267,13 +1267,12 @@ object WarpIconResources {
             stringResource(R.string.mountain)
         )
 
-    val nettbil: WarpTaxonomyIconResource
+    val nettbil: WarpBrandIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
+        get() = WarpBrandIconResource(
             ImageVector.vectorResource(id = R.drawable.nettbil),
             stringResource(R.string.nettbil),
-            identifier = "nettbil",
-            isTinted = false
+            identifier = "nettbil"
         )
 
     val newAd: WarpIconResource
@@ -1304,13 +1303,12 @@ object WarpIconResources {
             stringResource(R.string.officedesk)
         )
 
-    val oikotie: WarpTaxonomyIconResource
+    val oikotie: WarpBrandIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
+        get() = WarpBrandIconResource(
             ImageVector.vectorResource(id = R.drawable.oikotie),
             stringResource(R.string.oikotie),
-            identifier = "oikotie",
-            isTinted = false
+            identifier = "oikotie"
         )
 
     val organize: WarpIconResource
@@ -1513,13 +1511,12 @@ object WarpIconResources {
             stringResource(R.string.refresh)
         )
 
-    val remppatori: WarpTaxonomyIconResource
+    val remppatori: WarpBrandIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
+        get() = WarpBrandIconResource(
             ImageVector.vectorResource(id = R.drawable.remppatori),
             stringResource(R.string.remppatori),
-            identifier = "remppatori",
-            isTinted = false
+            identifier = "remppatori"
         )
 
     val roomService: WarpIconResource

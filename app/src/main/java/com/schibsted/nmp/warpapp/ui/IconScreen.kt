@@ -5,16 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.components.WarpIcon
-import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -49,9 +45,6 @@ private fun CheckboxScreenContent() {
             modifier = Modifier
                 .padding(dimensions.space2)
         ) {
-            val icon = icons.nettbil
-            WarpText(text = icon.description, style = WarpTextStyle.Body)
-            WarpIcon( icon.description to icon.vector)
             CreateIcons(dimensions.icon.default)
         }
         Column(
@@ -350,10 +343,9 @@ fun CreateIcons(size: Dp) {
 
 @Composable
 private fun CreateIcon(icon: WarpIconResource, size: Dp) {
-    Icon(
-        imageVector = icon.vector,
-        contentDescription = icon.description,
-        tint = WarpTheme.colors.icon.primary,
-        modifier = Modifier.size(size)
+    WarpIcon(
+        icon = icon,
+        color = WarpTheme.colors.icon.primary,
+        size = size
     )
 }
