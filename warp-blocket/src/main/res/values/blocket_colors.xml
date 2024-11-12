@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--***  Blocket brand colors
+        This is the Blocket brand color palette and should never be used directly.
+        Please use the semantic colors located in res/values/colors.xml instead.
+        Cheers!  ***-->
+
+    <color name="coral50">#faf3f2</color>
+    <color name="coral100">#f7d7d5</color>
+    <color name="coral200">#f1b8b3</color>
+    <color name="coral300">#eb9991</color>
+    <color name="coral400">#e57a6f</color>
+    <color name="coral500">#df5b4d</color>
+    <color name="coral600">#d93c2b</color>
+    <color name="coral700">#9b2b1e</color>
+    <color name="coral800">#5d1a11</color>
+    <color name="coral900">#1f0805</color>
+
+    <color name="blue50">#f0f7ff</color>
+    <color name="blue100">#c8dffa</color>
+    <color name="blue200">#a0c9f7</color>
+    <color name="blue300">#78b3f4</color>
+    <color name="blue400">#509df1</color>
+    <color name="blue500">#2887ee</color>
+    <color name="blue600">#0071eb</color>
+    <color name="blue700">#0051a9</color>
+    <color name="blue800">#003167</color>
+    <color name="blue900">#001124</color>
+
+    <color name="green50">#f7fdfa</color>
+    <color name="green100">#d3ecdf</color>
+    <color name="green200">#b0dac5</color>
+    <color name="green300">#8dc8ab</color>
+    <color name="green400">#6ab691</color>
+    <color name="green500">#47a477</color>
+    <color name="green600">#24925d</color>
+    <color name="green700">#1a6b44</color>
+    <color name="green800">#10442b</color>
+    <color name="green900">#071d12</color>
+
+    <color name="yellow50">#fcf5e3</color>
+    <color name="yellow100">#fff1c8</color>
+    <color name="yellow200">#ffe5a0</color>
+    <color name="yellow300">#ffd978</color>
+    <color name="yellow400">#ffcd50</color>
+    <color name="yellow500">#ffc128</color>
+    <color name="yellow600">#ffb500</color>
+    <color name="yellow700">#b67b00</color>
+    <color name="yellow800">#6d4100</color>
+    <color name="yellow900">#240700</color>
+
+    <color name="red50">#FFF0F1</color>
+    <color name="red100">#fdc8cb</color>
+    <color name="red200">#f9a0a7</color>
+    <color name="red300">#f57883</color>
+    <color name="red400">#f1505f</color>
+    <color name="red500">#ed283b</color>
+    <color name="red600">#e90017</color>
+    <color name="red700">#a70011</color>
+    <color name="red800">#65000b</color>
+    <color name="red900">#240004</color>
+
+    <color name="gray50">#F6F6F6</color>
+    <color name="gray100">#F0F0F2</color>
+    <color name="gray200">#DEDEE3</color>
+    <color name="gray300">#CACAD1</color>
+    <color name="gray400">#AFAFB8</color>
+    <color name="gray500">#84848F</color>
+    <color name="gray600">#5C5C66</color>
+    <color name="gray700">#47474F</color>
+    <color name="gray750">#333338</color>
+    <color name="gray800">#2B2B30</color>
+    <color name="gray850">#26262B</color>
+    <color name="gray900">#1B1B1F</color>
+    <color name="gray950">#121212</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="black70alpha">#B3000000</color>
+
+    <!--
+    
+internal val Coral50 > #faf3f2</color>
+internal val Coral100> #f7d7d5</color>
+internal val Coral200> #f1b8b3</color>
+internal val Coral300> #eb9991</color>
+internal val Coral400> #e57a6f</color>
+internal val Coral500> #df5b4d</color>
+internal val Coral600> #d93c2b</color>
+internal val Coral700> #9b2b1e</color>
+internal val Coral800> #5d1a11</color>
+internal val Coral900> #1f0805</color>
+
+internal val Yellow50 > #fcf5e3</color>
+internal val Yellow100> #fff1c8</color>
+internal val Yellow200> #ffe5a0</color>
+internal val Yellow300> #ffd978</color>
+internal val Yellow400> #ffcd50</color>
+internal val Yellow500> #ffc128</color>
+internal val Yellow600> #ffb500</color>
+internal val Yellow700> #b67b00</color>
+internal val Yellow800> #6d4100</color>
+internal val Yellow900> #240700</color>
+
+internal val Green50 > #f7fdfa</color>
+internal val Green100> #d3ecdf</color>
+internal val Green200> #b0dac5</color>
+internal val Green300> #8dc8ab</color>
+internal val Green400> #6ab691</color>
+internal val Green500> #47a477</color>
+internal val Green600> #24925d</color>
+internal val Green700> #1a6b44</color>
+internal val Green800> #10442b</color>
+internal val Green900> #071d12</color>
+
+internal val Red50 > #fff0f1</color>
+internal val Red100> #fdc8cb</color>
+internal val Red200> #f9a0a7</color>
+internal val Red300> #f57883</color>
+internal val Red400> #f1505f</color>
+internal val Red500> #ed283b</color>
+internal val Red600> #e90017</color>
+internal val Red700> #a70011</color>
+internal val Red800> #65000b</color>
+internal val Red900> #240004</color>
+
+internal val Blue50 > #f0f7ff</color>
+internal val Blue100> #c8dffa</color>
+internal val Blue200> #a0c9f7</color>
+internal val Blue300> #78b3f4</color>
+internal val Blue400> #509df1</color>
+internal val Blue500> #2887ee</color>
+internal val Blue600> #0071eb</color>
+internal val Blue700> #0051a9</color>
+internal val Blue800> #003167</color>
+internal val Blue900> #001124</color>
+
+//Gray
+internal val Gray50> #f6f6f6</color>
+internal val Gray100> #f0f0f2</color>
+internal val Gray200> #dedee3</color>
+internal val Gray300> #cacad1</color>
+internal val Gray400> #afafb8</color>
+internal val Gray500> #84848f</color>
+internal val Gray600> #5c5c66</color>
+internal val Gray700> #47474f</color>
+internal val Gray750> #333338</color>
+internal val Gray800> #2b2b30</color>
+internal val Gray850> #26262b</color>
+internal val Gray900> #1b1b1f</color>
+internal val Gray950> #121212</color> 
+    -->
+
+</resources>

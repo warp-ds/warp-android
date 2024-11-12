@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WarpButton">
+        <attr name="warpButtonStyle" format="enum">
+            <enum name="primary" value="0" />
+            <enum name="secondary" value="1" />
+            <enum name="quiet" value="2" />
+            <enum name="negative" value="3" />
+            <enum name="negativeQuiet" value="4" />
+            <enum name="utility" value="5" />
+            <enum name="utilityQuiet" value="6" />
+            <enum name="utilityOverlay" value="7" />
+        </attr>
+        <attr name="enabled" format="boolean" />
+        <attr name="loading" format="boolean" />
+        <attr name="buttonText" format="reference|string" />
+        <attr name="buttonLeadingIcon" format="reference" />
+        <attr name="buttonLeadingIconContentDescr" format="reference|string" />
+        <attr name="buttonTrailingIcon" format="reference" />
+        <attr name="buttonTrailingIconContentDescr" format="reference|string" />
+        <attr name="buttonSmall" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpText">
+        <attr name="warpTextStyle" format="enum">
+            <enum name="display" value="0" />
+            <enum name="title1" value="1" />
+            <enum name="title2" value="2" />
+            <enum name="title3" value="3" />
+            <enum name="title4" value="4" />
+            <enum name="title5" value="5" />
+            <enum name="title6" value="6" />
+            <enum name="preamble" value="7" />
+            <enum name="body" value="8" />
+            <enum name="bodyStrong" value="9" />
+            <enum name="caption" value="10" />
+            <enum name="captionStrong" value="11" />
+            <enum name="detail" value="12" />
+            <enum name="detailStrong" value="13" />
+        </attr>
+        <attr name="text" format="reference|string" />
+        <attr name="color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpTextField">
+        <attr name="textFieldEnabled" format="boolean" />
+        <attr name="readOnly" format="boolean" />
+        <attr name="label" format="reference|string" />
+        <attr name="optionalLabel" format="reference|string" />
+        <attr name="placeholderText" format="reference|string" />
+        <attr name="helpText" format="reference|string" />
+        <attr name="prefixText" format="reference|string" />
+        <attr name="suffixText" format="reference|string" />
+        <attr name="leadingIcon" format="reference" />
+        <attr name="leadingIconContentDescr" format="reference|string" />
+        <attr name="trailingIcon" format="reference" />
+        <attr name="trailingIconContentDescr" format="reference|string" />
+        <attr name="isError" format="boolean" />
+        <attr name="singleLine" format="boolean" />
+        <attr name="minLines" format="integer" />
+        <attr name="maxLines" format="integer" />
+        <attr name="textStyle" format="enum">
+            <enum name="display" value="0" />
+            <enum name="title1" value="1" />
+            <enum name="title2" value="2" />
+            <enum name="title3" value="3" />
+            <enum name="title4" value="4" />
+            <enum name="title5" value="5" />
+            <enum name="title6" value="6" />
+            <enum name="preamble" value="7" />
+            <enum name="body" value="8" />
+            <enum name="bodyStrong" value="9" />
+            <enum name="caption" value="10" />
+            <enum name="captionStrong" value="11" />
+            <enum name="detail" value="12" />
+            <enum name="detailStrong" value="13" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="WarpBadge">
+        <attr name="warpBadgeStyle" format="enum">
+            <enum name="info" value="0" />
+            <enum name="success" value="1" />
+            <enum name="warning" value="2" />
+            <enum name="error" value="3" />
+            <enum name="disabled" value="4" />
+            <enum name="neutral" value="5" />
+            <enum name="sponsored" value="6" />
+            <enum name="price" value="7" />
+        </attr>
+        <attr name="alignmentStyle" format="enum">
+            <enum name="none" value="0" />
+            <enum name="topStart" value="1" />
+            <enum name="topEnd" value="2" />
+            <enum name="bottomStart" value="3" />
+            <enum name="bottomEnd" value="4" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="WarpAlert">
+        <attr name="warpAlertType" format="enum">
+            <enum name="info" value="0" />
+            <enum name="positive" value="1" />
+            <enum name="critical" value="2" />
+            <enum name="warning" value="3" />
+        </attr>
+        <attr name="title" format="reference|string" />
+        <attr name="body" format="reference|string" />
+        <attr name="linkText" format="reference|string" />
+        <attr name="secondaryButtonText" format="reference|string" />
+        <attr name="quietButtonText" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpPill">
+        <attr name="warpPillStyle" format="enum">
+            <enum name="filter" value="0" />
+            <enum name="suggestion" value="1" />
+        </attr>
+        <attr name="selected" format="boolean" />
+        <attr name="closable" format="boolean" />
+        <attr name="pillText" format="reference|string" />
+        <attr name="pillIcon" format="reference" />
+        <attr name="pillIconContentDescr" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpBox">
+        <attr name="boxStyle" format="enum">
+            <enum name="neutral" value="0" />
+            <enum name="bordered" value="1" />
+            <enum name="info" value="2" />
+        </attr>
+        <attr name="boxHeading" format="reference|string" />
+        <attr name="boxText" format="reference|string" />
+        <attr name="boxLink" format="reference|string" />
+        <attr name="boxButtonText" format="reference|string" />
+        <attr name="boxIcon" format="reference" />
+        <attr name="boxIconContentDescr" format="reference|string" />
+        <attr name="boxIconColor" format="color" />
+
+    </declare-styleable>
+
+    <declare-styleable name="WarpStepIndicator">
+        <attr name="stepIndicatorOrientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="steps" format="integer" />
+        <attr name="activeStep" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpCheckbox">
+        <attr name="warpCheckboxStyle" format="enum">
+            <enum name="neutral" value="0" />
+            <enum name="disabled" value="1" />
+            <enum name="negative" value="2" />
+        </attr>
+        <attr name="checkboxEnabled" format="boolean" />
+        <attr name="checked" format="boolean" />
+        <attr name="checkboxLabel" format="reference|string" />
+        <attr name="checkboxExtraText" format="reference|string" />
+        <attr name="checkboxIsError" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpSpinner">
+        <attr name="spinnerSize" format="enum">
+            <enum name="small" value="0" />
+            <enum name="standard" value="1" />
+            <enum name="large" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="WarpSwitch">
+        <attr name="switchEnabled" format="boolean" />
+        <attr name="switchChecked" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpRadio">
+        <attr name="radioLabel" format="reference|string" />
+        <attr name="radioExtraText" format="reference|string" />
+        <attr name="radioSelected" format="boolean" />
+        <attr name="radioEnabled" format="boolean" />
+        <attr name="radioIsError" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WarpCallout">
+        <attr name="calloutText" format="reference|string" />
+        <attr name="calloutIsVisible" format="boolean" />
+        <attr name="calloutSize" format="enum">
+            <enum name="small" value="0" />
+            <enum name="defaultSize" value="1" />
+        </attr>
+        <attr name="calloutType" format="enum">
+            <enum name="popover" value="0" />
+            <enum name="inline" value="1" />
+        </attr>
+        <attr name="calloutHorizontalOffset" format="integer" />
+        <attr name="calloutVerticalOffset" format="integer" />
+        <attr name="calloutEdge" format="enum">
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+            <enum name="leading" value="2" />
+            <enum name="trailing" value="3" />
+        </attr>
+        <attr name="calloutIsClosable" format="boolean" />
+    </declare-styleable>
+</resources>
