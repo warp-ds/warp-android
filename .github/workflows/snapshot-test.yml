@@ -1,0 +1,23 @@
+name: "Snapshot tests"
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+jobs:
+  check-title:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+      - name: Setup Gradle 8.9
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.9
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Run Paparazzi tests
+        run: ./gradlew snapshot:verifyPaparazziDebug
