@@ -21,8 +21,8 @@ import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
-import com.schibsted.nmp.warp.theme.WarpIcons
-import com.schibsted.nmp.warp.theme.WarpResources.icons
+import com.schibsted.nmp.warp.theme.WarpIconResources
+import com.schibsted.nmp.warp.theme.WarpResources.vectors
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import org.junit.Assert
@@ -56,8 +56,8 @@ class WarpIconTest(
     @Test
     fun warp_icon_count() {
         val count =
-            WarpIcons::class.memberProperties.count { it.returnType.classifier == ImageVector::class }
-        Assert.assertEquals(279, count)
+            WarpIconResources::class.memberProperties.count { it.returnType.classifier == ImageVector::class }
+        Assert.assertEquals(280, count)
     }
 
     @Test
@@ -65,23 +65,23 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.activeAds,
-                    icons.ads,
-                    icons.airCon,
-                    icons.airplane,
-                    icons.airplaneHotel,
-                    icons.alert,
-                    icons.allWheelDrive,
-                    icons.animalPaw,
-                    icons.archway,
-                    icons.arrowDown,
-                    icons.arrowLeft,
-                    icons.arrowRight,
-                    icons.arrowUp,
-                    icons.attachement,
-                    icons.automatic,
-                    icons.autovex,
-                    icons.awardMedal
+                    vectors.activeAds,
+                    vectors.ads,
+                    vectors.airCon,
+                    vectors.airplane,
+                    vectors.airplaneHotel,
+                    vectors.alert,
+                    vectors.allWheelDrive,
+                    vectors.animalPaw,
+                    vectors.archway,
+                    vectors.arrowDown,
+                    vectors.arrowLeft,
+                    vectors.arrowRight,
+                    vectors.arrowUp,
+                    vectors.attachement,
+                    vectors.automatic,
+                    vectors.autovex,
+                    vectors.awardMedal
                 )
             )
         }
@@ -92,30 +92,30 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.babyOnesie,
-                    icons.backWheelDrive,
-                    icons.bag,
-                    icons.bank,
-                    icons.bankIdNo,
-                    icons.batteryEmpty,
-                    icons.batteryFull,
-                    icons.batteryHalfFull,
-                    icons.beach,
-                    icons.bell,
-                    icons.bellFilled,
-                    icons.bin,
-                    icons.block,
-                    icons.boatLength,
-                    icons.bolt,
-                    icons.bookmark,
-                    icons.browser,
-                    icons.browserVerified,
-                    icons.building,
-                    icons.buildingPlot,
-                    icons.bulb,
-                    icons.bulldozer,
-                    icons.burger,
-                    icons.bus,
+                    vectors.babyOnesie,
+                    vectors.backWheelDrive,
+                    vectors.bag,
+                    vectors.bank,
+                    vectors.bankIdNo,
+                    vectors.batteryEmpty,
+                    vectors.batteryFull,
+                    vectors.batteryHalfFull,
+                    vectors.beach,
+                    vectors.bell,
+                    vectors.bellFilled,
+                    vectors.bin,
+                    vectors.block,
+                    vectors.boatLength,
+                    vectors.bolt,
+                    vectors.bookmark,
+                    vectors.browser,
+                    vectors.browserVerified,
+                    vectors.building,
+                    vectors.buildingPlot,
+                    vectors.bulb,
+                    vectors.bulldozer,
+                    vectors.burger,
+                    vectors.bus,
                 )
             )
         }
@@ -126,47 +126,47 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.cabin,
-                    icons.cabinHut,
-                    icons.calculator,
-                    icons.calendar,
-                    icons.camera,
-                    icons.camping,
-                    icons.cancel,
-                    icons.car,
-                    icons.carFront,
-                    icons.carKey,
-                    icons.carPart,
-                    icons.carRent,
-                    icons.carService,
-                    icons.carSubscription,
-                    icons.cart,
-                    icons.chainsaw,
-                    icons.chair,
-                    icons.charger,
-                    icons.charter,
-                    icons.chatRequest,
-                    icons.chatSupport,
-                    icons.check,
-                    icons.checkList,
-                    icons.checkShield,
-                    icons.chevronDoubleLeft,
-                    icons.chevronDoubleRight,
-                    icons.chevronDown,
-                    icons.chevronLeft,
-                    icons.chevronRight,
-                    icons.chevronUp,
-                    icons.circlePlus,
-                    icons.circlePlusFilled,
-                    icons.circleUser,
-                    icons.circleUserFilled,
-                    icons.clock,
-                    icons.close,
-                    icons.cog,
-                    icons.colorPalette,
-                    icons.cottagePlot,
-                    icons.creditCard,
-                    icons.cursor,
+                    vectors.cabin,
+                    vectors.cabinHut,
+                    vectors.calculator,
+                    vectors.calendar,
+                    vectors.camera,
+                    vectors.camping,
+                    vectors.cancel,
+                    vectors.car,
+                    vectors.carFront,
+                    vectors.carKey,
+                    vectors.carPart,
+                    vectors.carRent,
+                    vectors.carService,
+                    vectors.carSubscription,
+                    vectors.cart,
+                    vectors.chainsaw,
+                    vectors.chair,
+                    vectors.charger,
+                    vectors.charter,
+                    vectors.chatRequest,
+                    vectors.chatSupport,
+                    vectors.check,
+                    vectors.checkList,
+                    vectors.checkShield,
+                    vectors.chevronDoubleLeft,
+                    vectors.chevronDoubleRight,
+                    vectors.chevronDown,
+                    vectors.chevronLeft,
+                    vectors.chevronRight,
+                    vectors.chevronUp,
+                    vectors.circlePlus,
+                    vectors.circlePlusFilled,
+                    vectors.circleUser,
+                    vectors.circleUserFilled,
+                    vectors.clock,
+                    vectors.close,
+                    vectors.cog,
+                    vectors.colorPalette,
+                    vectors.cottagePlot,
+                    vectors.creditCard,
+                    vectors.cursor,
                 )
             )
         }
@@ -177,18 +177,18 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.dating,
-                    icons.delivery,
-                    icons.diner,
-                    icons.discount,
-                    icons.dislike,
-                    icons.door,
-                    icons.dots,
-                    icons.dotsVertical,
-                    icons.doubleBed,
-                    icons.download,
-                    icons.drawer,
-                    icons.drink,
+                    vectors.dating,
+                    vectors.delivery,
+                    vectors.diner,
+                    vectors.discount,
+                    vectors.dislike,
+                    vectors.door,
+                    vectors.dots,
+                    vectors.dotsVertical,
+                    vectors.doubleBed,
+                    vectors.download,
+                    vectors.drawer,
+                    vectors.drink,
                 )
             )
         }
@@ -199,16 +199,16 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.economy,
-                    icons.edit,
-                    icons.energy,
-                    icons.engine,
-                    icons.engineBelt,
-                    icons.error,
-                    icons.exchange,
-                    icons.expand,
-                    icons.eyeOff,
-                    icons.eyeOn,
+                    vectors.economy,
+                    vectors.edit,
+                    vectors.energy,
+                    vectors.engine,
+                    vectors.engineBelt,
+                    vectors.error,
+                    vectors.exchange,
+                    vectors.expand,
+                    vectors.eyeOff,
+                    vectors.eyeOn,
                 )
             )
         }
@@ -219,16 +219,16 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.facebook,
-                    icons.farm,
-                    icons.feedback,
-                    icons.fileAdd,
-                    icons.filter,
-                    icons.fireplace,
-                    icons.fishing,
-                    icons.fitness,
-                    icons.football,
-                    icons.frontWheelDrive,
+                    vectors.facebook,
+                    vectors.farm,
+                    vectors.feedback,
+                    vectors.fileAdd,
+                    vectors.filter,
+                    vectors.fireplace,
+                    vectors.fishing,
+                    vectors.fitness,
+                    vectors.football,
+                    vectors.frontWheelDrive,
                 )
             )
         }
@@ -239,15 +239,15 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.gasDiesel,
-                    icons.gasFuel,
-                    icons.gasHybrid,
-                    icons.geometricShapes,
-                    icons.graphLine,
-                    icons.graphPie,
-                    icons.grid,
-                    icons.grill,
-                    icons.guitarBat
+                    vectors.gasDiesel,
+                    vectors.gasFuel,
+                    vectors.gasHybrid,
+                    vectors.geometricShapes,
+                    vectors.graphLine,
+                    vectors.graphPie,
+                    vectors.grid,
+                    vectors.grill,
+                    vectors.guitarBat
                 )
             )
         }
@@ -258,19 +258,19 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.headset,
-                    icons.heart,
-                    icons.heartRate,
-                    icons.hiking,
-                    icons.history,
-                    icons.honk,
-                    icons.hotel,
-                    icons.house,
-                    icons.houseBed,
-                    icons.houseCabin,
-                    icons.houseFilled,
-                    icons.houseModern,
-                    icons.housePerson,
+                    vectors.headset,
+                    vectors.heart,
+                    vectors.heartRate,
+                    vectors.hiking,
+                    vectors.history,
+                    vectors.honk,
+                    vectors.hotel,
+                    vectors.house,
+                    vectors.houseBed,
+                    vectors.houseCabin,
+                    vectors.houseFilled,
+                    vectors.houseModern,
+                    vectors.housePerson,
                 )
             )
         }
@@ -281,10 +281,10 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.iceSkater,
-                    icons.image,
-                    icons.info,
-                    icons.instagram,
+                    vectors.iceSkater,
+                    vectors.image,
+                    vectors.info,
+                    vectors.instagram,
                 )
             )
         }
@@ -295,7 +295,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.job,
+                    vectors.job,
                 )
             )
         }
@@ -306,8 +306,8 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.keys,
-                    icons.krone,
+                    vectors.keys,
+                    vectors.krone,
                 )
             )
         }
@@ -318,18 +318,18 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.lamp,
-                    icons.landscape,
-                    icons.laundry,
-                    icons.layers,
-                    icons.leaf,
-                    icons.lift,
-                    icons.like,
-                    icons.link,
-                    icons.linkExternal,
-                    icons.listSort,
-                    icons.lockShield,
-                    icons.logout,
+                    vectors.lamp,
+                    vectors.landscape,
+                    vectors.laundry,
+                    vectors.layers,
+                    vectors.leaf,
+                    vectors.lift,
+                    vectors.like,
+                    vectors.link,
+                    vectors.linkExternal,
+                    vectors.listSort,
+                    vectors.lockShield,
+                    vectors.logout,
                 )
             )
         }
@@ -340,21 +340,21 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.mail,
-                    icons.mailbox,
-                    icons.manual,
-                    icons.map,
-                    icons.measure,
-                    icons.message,
-                    icons.messages,
-                    icons.messagesFilled,
-                    icons.minivan,
-                    icons.minus,
-                    icons.mittAnbud,
-                    icons.mixer,
-                    icons.money,
-                    icons.motorcycle,
-                    icons.mountain,
+                    vectors.mail,
+                    vectors.mailbox,
+                    vectors.manual,
+                    vectors.map,
+                    vectors.measure,
+                    vectors.message,
+                    vectors.messages,
+                    vectors.messagesFilled,
+                    vectors.minivan,
+                    vectors.minus,
+                    vectors.mittAnbud,
+                    vectors.mixer,
+                    vectors.money,
+                    vectors.motorcycle,
+                    vectors.mountain,
                 )
             )
         }
@@ -365,10 +365,10 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.nettbil,
-                    icons.newAd,
-                    icons.norwegianMotor,
-                    icons.noSmoking,
+                    vectors.nettbil,
+                    vectors.newAd,
+                    vectors.norwegianMotor,
+                    vectors.noSmoking,
                 )
             )
         }
@@ -379,9 +379,9 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.officeDesk,
-                    icons.oikotie,
-                    icons.organize,
+                    vectors.officeDesk,
+                    vectors.oikotie,
+                    vectors.organize,
                 )
             )
         }
@@ -392,30 +392,30 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.paintRoller,
-                    icons.parking,
-                    icons.paw,
-                    icons.phone,
-                    icons.phoneBadgeCheck,
-                    icons.phoneScratched,
-                    icons.phoneUsed,
-                    icons.pictureStack,
-                    icons.pinMarker,
-                    icons.pinRound,
-                    icons.planeTicket,
-                    icons.play,
-                    icons.playhouse,
-                    icons.plots,
-                    icons.plus,
-                    icons.productBlink,
-                    icons.productBump,
-                    icons.productCarousel,
-                    icons.productHighlightListing,
-                    icons.productNaBolagsProfil,
-                    icons.productNoAds,
-                    icons.productStarred,
-                    icons.productTop,
-                    icons.propeller,
+                    vectors.paintRoller,
+                    vectors.parking,
+                    vectors.paw,
+                    vectors.phone,
+                    vectors.phoneBadgeCheck,
+                    vectors.phoneScratched,
+                    vectors.phoneUsed,
+                    vectors.pictureStack,
+                    vectors.pinMarker,
+                    vectors.pinRound,
+                    vectors.planeTicket,
+                    vectors.play,
+                    vectors.playhouse,
+                    vectors.plots,
+                    vectors.plus,
+                    vectors.productBlink,
+                    vectors.productBump,
+                    vectors.productCarousel,
+                    vectors.productHighlightListing,
+                    vectors.productNaBolagsProfil,
+                    vectors.productNoAds,
+                    vectors.productStarred,
+                    vectors.productTop,
+                    vectors.propeller,
                 )
             )
         }
@@ -426,7 +426,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.question,
+                    vectors.question,
                 )
             )
         }
@@ -437,10 +437,10 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.realEstate,
-                    icons.refresh,
-                    icons.remppatori,
-                    icons.roomService,
+                    vectors.realEstate,
+                    vectors.refresh,
+                    vectors.remppatori,
+                    vectors.roomService,
                 )
             )
         }
@@ -451,46 +451,46 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.sailboat,
-                    icons.sailing,
-                    icons.sauna,
-                    icons.scrollUp,
-                    icons.search,
-                    icons.searchFavorites,
-                    icons.seat,
-                    icons.send,
-                    icons.service,
-                    icons.share,
-                    icons.shipping,
-                    icons.shirt,
-                    icons.shoes,
-                    icons.shoppingCart,
-                    icons.shower,
-                    icons.skyscraper,
-                    icons.smartphone,
-                    icons.smileyGood,
-                    icons.smileyHappy,
-                    icons.smileyNeutral,
-                    icons.smileySad,
-                    icons.sofa,
-                    icons.sorting,
-                    icons.spa,
-                    icons.sparkles,
-                    icons.speedometer,
-                    icons.stairs,
-                    icons.starCheck,
-                    icons.starEmpty,
-                    icons.starFull,
-                    icons.starHalf,
-                    icons.store,
-                    icons.storeFront,
-                    icons.stove,
-                    icons.stroller,
-                    icons.success,
-                    icons.suitcase,
-                    icons.support,
-                    icons.sweater,
-                    icons.swimming,
+                    vectors.sailboat,
+                    vectors.sailing,
+                    vectors.sauna,
+                    vectors.scrollUp,
+                    vectors.search,
+                    vectors.searchFavorites,
+                    vectors.seat,
+                    vectors.send,
+                    vectors.service,
+                    vectors.share,
+                    vectors.shipping,
+                    vectors.shirt,
+                    vectors.shoes,
+                    vectors.shoppingCart,
+                    vectors.shower,
+                    vectors.skyscraper,
+                    vectors.smartphone,
+                    vectors.smileyGood,
+                    vectors.smileyHappy,
+                    vectors.smileyNeutral,
+                    vectors.smileySad,
+                    vectors.sofa,
+                    vectors.sorting,
+                    vectors.spa,
+                    vectors.sparkles,
+                    vectors.speedometer,
+                    vectors.stairs,
+                    vectors.starCheck,
+                    vectors.starEmpty,
+                    vectors.starFull,
+                    vectors.starHalf,
+                    vectors.store,
+                    vectors.storeFront,
+                    vectors.stove,
+                    vectors.stroller,
+                    vectors.success,
+                    vectors.suitcase,
+                    vectors.support,
+                    vectors.sweater,
+                    vectors.swimming,
                 )
             )
         }
@@ -501,22 +501,22 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.tag,
-                    icons.taskList,
-                    icons.textBold,
-                    icons.textItalic,
-                    icons.textStrikethrough,
-                    icons.textUnderline,
-                    icons.theater,
-                    icons.threeSixty,
-                    icons.tools,
-                    icons.townhouse,
-                    icons.tractor,
-                    icons.trendDown,
-                    icons.trendFlat,
-                    icons.trendUp,
-                    icons.tv,
-                    icons.twitter,
+                    vectors.tag,
+                    vectors.taskList,
+                    vectors.textBold,
+                    vectors.textItalic,
+                    vectors.textStrikethrough,
+                    vectors.textUnderline,
+                    vectors.theater,
+                    vectors.threeSixty,
+                    vectors.tools,
+                    vectors.townhouse,
+                    vectors.tractor,
+                    vectors.trendDown,
+                    vectors.trendFlat,
+                    vectors.trendUp,
+                    vectors.tv,
+                    vectors.twitter,
                 )
             )
         }
@@ -527,12 +527,12 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.up,
-                    icons.upload,
-                    icons.user,
-                    icons.userGroup,
-                    icons.users,
-                    icons.userWoman,
+                    vectors.up,
+                    vectors.upload,
+                    vectors.user,
+                    vectors.userGroup,
+                    vectors.users,
+                    vectors.userWoman,
                 )
             )
         }
@@ -543,10 +543,10 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.vacuum,
-                    icons.van,
-                    icons.vase,
-                    icons.verification,
+                    vectors.vacuum,
+                    vectors.van,
+                    vectors.vase,
+                    vectors.verification,
                 )
             )
         }
@@ -557,12 +557,13 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.wallet,
-                    icons.warning,
-                    icons.warranty,
-                    icons.wheelchair,
-                    icons.wifi,
-                    icons.woods,
+                    vectors.wallet,
+                    vectors.warning,
+                    vectors.warranty,
+                    vectors.waterPitcher,
+                    vectors.wheelchair,
+                    vectors.wifi,
+                    vectors.woods,
                 )
             )
         }
@@ -573,7 +574,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.youtube
+                    vectors.youtube
                 )
             )
         }

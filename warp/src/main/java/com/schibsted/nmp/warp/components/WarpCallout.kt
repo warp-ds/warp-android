@@ -148,8 +148,8 @@ private fun CalloutView(
             )
             if (closable) {
                 Icon(
-                    imageVector = icons.close,
-                    contentDescription = "Close",
+                    imageVector = icons.close.vector,
+                    contentDescription = icons.close.description,
                     tint = colors.icon.default,
                     modifier = Modifier
                         .padding(start = dimensions.space05)

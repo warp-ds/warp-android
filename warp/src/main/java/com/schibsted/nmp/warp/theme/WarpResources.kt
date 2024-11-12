@@ -5,16 +5,36 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import com.schibsted.nmp.warp.R
 
 object WarpResources {
-    val icons: WarpIcons
+    val icons: WarpIconResources
         @Composable
-        get() = WarpIcons
+        get() = WarpIconResources
+    val taxonomyIcons: WarpTaxonomyIcons
+        @Composable
+        get() = WarpTaxonomyIcons
+    val brandIcons: WarpBrandIcons
+        @Composable
+        get() = WarpBrandIcons
 }
 
-object WarpIcons {
+data class WarpIconResource(
+    val vector: ImageVector,
+    val description: String
+)
+
+object WarpBrandIcons {
+
+}
+
+object WarpTaxonomyIcons {
+
+}
+
+object WarpIconResources {
 
     @SuppressLint("DiscouragedApi")
     @Composable
@@ -28,1121 +48,1965 @@ object WarpIcons {
         }
     }
 
-    val activeAds: ImageVector
+    val activeAds: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.activeads)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.activeads),
+            stringResource(R.string.activeads)
+        )
 
-    val ads: ImageVector
+    val ads: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.ads)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.ads),
+            stringResource(R.string.ads)
+        )
 
-    val airCon: ImageVector
+    val airCon: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.aircon)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.aircon),
+            stringResource(R.string.aircon)
+        )
 
-    val airplane: ImageVector
+    val airplane: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.airplane)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.airplane),
+            stringResource(R.string.airplane)
+        )
 
-    val airplaneHotel: ImageVector
+    val airplaneHotel: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.airplanehotel)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.airplanehotel),
+            stringResource(R.string.airplanehotel)
+        )
 
-    val alert: ImageVector
+    val alert: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.alert)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.alert),
+            stringResource(R.string.alert)
+        )
 
-    val allWheelDrive: ImageVector
+    val allWheelDrive: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.allwheeldrive)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.allwheeldrive),
+            stringResource(R.string.allwheeldrive)
+        )
 
-    val animalPaw: ImageVector
+    val animalPaw: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.animalpaw)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.animalpaw),
+            stringResource(R.string.animalpaw)
+        )
 
-    val archway: ImageVector
+    val archway: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.archway)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.archway),
+            stringResource(R.string.archway)
+        )
 
-    val arrowDown: ImageVector
+    val arrowDown: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.arrowdown)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.arrowdown),
+            stringResource(R.string.arrowdown)
+        )
 
-    val arrowLeft: ImageVector
+    val arrowLeft: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.arrowleft)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.arrowleft),
+            stringResource(R.string.arrowleft)
+        )
 
-    val arrowRight: ImageVector
+    val arrowRight: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.arrowright)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.arrowright),
+            stringResource(R.string.arrowright)
+        )
 
-    val arrowUp: ImageVector
+    val arrowUp: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.arrowup)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.arrowup),
+            stringResource(R.string.arrowup)
+        )
 
-    val attachement: ImageVector
+    val attachement: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.attachment)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.attachment),
+            stringResource(R.string.attachment)
+        )
 
-    val automatic: ImageVector
+    val automatic: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.automatic)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.automatic),
+            stringResource(R.string.automatic)
+        )
 
-    val autovex: ImageVector
+    val autovex: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.autovex)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.autovex),
+            stringResource(R.string.autovex)
+        )
 
-    val awardMedal: ImageVector
+    val awardMedal: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.awardmedal)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.awardmedal),
+            stringResource(R.string.awardmedal)
+        )
 
-    val babyOnesie: ImageVector
+    val babyOnesie: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.babyonesie)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.babyonesie),
+            stringResource(R.string.babyonesie)
+        )
 
-    val backWheelDrive: ImageVector
+    val backWheelDrive: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.backwheeldrive)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.backwheeldrive),
+            stringResource(R.string.backwheeldrive)
+        )
 
-    val bag: ImageVector
+    val bag: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bag)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bag),
+            stringResource(R.string.bag)
+        )
 
-    val bank: ImageVector
+    val bank: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bank)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bank),
+            stringResource(R.string.bank)
+        )
 
-    val bankIdNo: ImageVector
+    val bankIdNo: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bankidno)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bankidno),
+            stringResource(R.string.bankidno)
+        )
 
-    val batteryEmpty: ImageVector
+    val batteryEmpty: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.batteryempty)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.batteryempty),
+            stringResource(R.string.batteryempty)
+        )
 
-    val batteryFull: ImageVector
+    val batteryFull: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.batteryfull)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.batteryfull),
+            stringResource(R.string.batteryfull)
+        )
 
-    val batteryHalfFull: ImageVector
+    val batteryHalfFull: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.batteryhalffull)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.batteryhalffull),
+            stringResource(R.string.batteryhalffull)
+        )
 
-    val beach: ImageVector
+    val beach: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.beach)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.beach),
+            stringResource(R.string.beach)
+        )
 
-    val bell: ImageVector
+    val bell: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bell)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bell),
+            stringResource(R.string.bell)
+        )
 
-    val bellFilled: ImageVector
+    val bellFilled: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bellfilled)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bellfilled),
+            stringResource(R.string.bellfilled)
+        )
 
-    val bin: ImageVector
+    val bin: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bin)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bin),
+            stringResource(R.string.bin)
+        )
 
-    val block: ImageVector
+    val block: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.block)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.block),
+            stringResource(R.string.block)
+        )
 
-    val boatLength: ImageVector
+    val boatLength: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.boatlength)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.boatlength),
+            stringResource(R.string.boatlength)
+        )
 
-    val bolt: ImageVector
+    val bolt: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bolt)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bolt),
+            stringResource(R.string.bolt)
+        )
 
-    val bookmark: ImageVector
+    val bookmark: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bookmark)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bookmark),
+            stringResource(R.string.bookmark)
+        )
 
-    val browser: ImageVector
+    val browser: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.browser)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.browser),
+            stringResource(R.string.browser)
+        )
 
-    val browserVerified: ImageVector
+    val browserVerified: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.browserverified)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.browserverified),
+            stringResource(R.string.browserverified)
+        )
 
-    val building: ImageVector
+    val building: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.building)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.building),
+            stringResource(R.string.building)
+        )
 
-    val buildingPlot: ImageVector
+    val buildingPlot: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.buildingplot)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.buildingplot),
+            stringResource(R.string.buildingplot)
+        )
 
-    val bulb: ImageVector
+    val bulb: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bulb)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bulb),
+            stringResource(R.string.bulb)
+        )
 
-    val bulldozer: ImageVector
+    val bulldozer: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bulldozer)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bulldozer),
+            stringResource(R.string.bulldozer)
+        )
 
-    val burger: ImageVector
+    val burger: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.burger)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.burger),
+            stringResource(R.string.burger)
+        )
 
-    val bus: ImageVector
+    val bus: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.bus)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.bus),
+            stringResource(R.string.bus)
+        )
 
-    val cabin: ImageVector
+    val cabin: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.cabin)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.cabin),
+            stringResource(R.string.cabin)
+        )
 
-    val cabinHut: ImageVector
+    val cabinHut: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.cabinhut)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.cabinhut),
+            stringResource(R.string.cabinhut)
+        )
 
-    val calculator: ImageVector
+    val calculator: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.calculator)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.calculator),
+            stringResource(R.string.calculator)
+        )
 
-    val calendar: ImageVector
+    val calendar: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.calendar)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.calendar),
+            stringResource(R.string.calendar)
+        )
 
-    val camera: ImageVector
+    val camera: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.camera)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.camera),
+            stringResource(R.string.camera)
+        )
 
-    val camping: ImageVector
+    val camping: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.camping)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.camping),
+            stringResource(R.string.camping)
+        )
 
-    val cancel: ImageVector
+    val cancel: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.cancel)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.cancel),
+            stringResource(R.string.cancel)
+        )
 
-    val car: ImageVector
+    val car: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.car)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.car),
+            stringResource(R.string.car)
+        )
 
-    val carFront: ImageVector
+    val carFront: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.carfront)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.carfront),
+            stringResource(R.string.carfront)
+        )
 
-    val carKey: ImageVector
+    val carKey: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.carkey)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.carkey),
+            stringResource(R.string.carkey)
+        )
 
-    val carPart: ImageVector
+    val carPart: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.carpart)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.carpart),
+            stringResource(R.string.carpart)
+        )
 
-    val carRent: ImageVector
+    val carRent: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.carrent)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.carrent),
+            stringResource(R.string.carrent)
+        )
 
-    val carService: ImageVector
+    val carService: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.carservice)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.carservice),
+            stringResource(R.string.carservice)
+        )
 
-    val carSubscription: ImageVector
+    val carSubscription: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.carsubscription)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.carsubscription),
+            stringResource(R.string.carsubscription)
+        )
 
-    val cart: ImageVector
+    val cart: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.cart)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.cart),
+            stringResource(R.string.cart)
+        )
 
-    val chainsaw: ImageVector
+    val chainsaw: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chainsaw)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chainsaw),
+            stringResource(R.string.chainsaw)
+        )
 
-    val chair: ImageVector
+    val chair: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chair)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chair),
+            stringResource(R.string.chair)
+        )
 
-    val charger: ImageVector
+    val charger: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.charger)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.charger),
+            stringResource(R.string.charger)
+        )
 
-    val charter: ImageVector
+    val charter: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.charter)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.charter),
+            stringResource(R.string.charter)
+        )
 
-    val chatRequest: ImageVector
+    val chatRequest: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chatrequest)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chatrequest),
+            stringResource(R.string.chatrequest)
+        )
 
-    val chatSupport: ImageVector
+    val chatSupport: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chatsupport)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chatsupport),
+            stringResource(R.string.chatsupport)
+        )
 
-    val check: ImageVector
+    val check: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.check)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.check),
+            stringResource(R.string.check)
+        )
 
-    val checkList: ImageVector
+    val checkList: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.checklist)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.checklist),
+            stringResource(R.string.checklist)
+        )
 
-    val checkShield: ImageVector
+    val checkShield: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.checkshield)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.checkshield),
+            stringResource(R.string.checkshield)
+        )
 
-    val chevronDoubleLeft: ImageVector
+    val chevronDoubleLeft: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chevrondoubleleft)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chevrondoubleleft),
+            stringResource(R.string.chevrondoubleleft)
+        )
 
-    val chevronDoubleRight: ImageVector
+    val chevronDoubleRight: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chevrondoubleright)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chevrondoubleright),
+            stringResource(R.string.chevrondoubleright)
+        )
 
-    val chevronDown: ImageVector
+    val chevronDown: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chevrondown)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chevrondown),
+            stringResource(R.string.chevrondown)
+        )
 
-    val chevronLeft: ImageVector
+    val chevronLeft: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chevronleft)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chevronleft),
+            stringResource(R.string.chevronleft)
+        )
 
-    val chevronRight: ImageVector
+    val chevronRight: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chevronright)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chevronright),
+            stringResource(R.string.chevronright)
+        )
 
-    val chevronUp: ImageVector
+    val chevronUp: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.chevronup)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.chevronup),
+            stringResource(R.string.chevronup)
+        )
 
-    val circlePlus: ImageVector
+    val circlePlus: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.circleplus)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.circleplus),
+            stringResource(R.string.circleplus)
+        )
 
-    val circlePlusFilled: ImageVector
+    val circlePlusFilled: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.circleplusfilled)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.circleplusfilled),
+            stringResource(R.string.circleplusfilled)
+        )
 
-    val circleUser: ImageVector
+    val circleUser: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.circleuser)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.circleuser),
+            stringResource(R.string.circleuser)
+        )
 
-    val circleUserFilled: ImageVector
+    val circleUserFilled: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.circleuserfilled)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.circleuserfilled),
+            stringResource(R.string.circleuserfilled)
+        )
 
-    val clock: ImageVector
+    val clock: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.clock)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.clock),
+            stringResource(R.string.clock)
+        )
 
-    val close: ImageVector
+    val close: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.close)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.close),
+            stringResource(R.string.close)
+        )
 
-    val cog: ImageVector
+    val cog: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.cog)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.cog),
+            stringResource(R.string.cog)
+        )
 
-    val colorPalette: ImageVector
+    val colorPalette: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.colorpalette)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.colorpalette),
+            stringResource(R.string.colorpalette)
+        )
 
-    val cottagePlot: ImageVector
+    val cottagePlot: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.cottageplot)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.cottageplot),
+            stringResource(R.string.cottageplot)
+        )
 
-    val creditCard: ImageVector
+    val creditCard: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.creditcard)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.creditcard),
+            stringResource(R.string.creditcard)
+        )
 
-    val cursor: ImageVector
+    val cursor: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.cursor)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.cursor),
+            stringResource(R.string.cursor)
+        )
 
-    val dating: ImageVector
+    val dating: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.dating)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.dating),
+            stringResource(R.string.dating)
+        )
 
-    val delivery: ImageVector
+    val delivery: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.delivery)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.delivery),
+            stringResource(R.string.delivery)
+        )
 
-    val diner: ImageVector
+    val diner: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.diner)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.diner),
+            stringResource(R.string.diner)
+        )
 
-    val discount: ImageVector
+    val discount: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.discount)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.discount),
+            stringResource(R.string.discount)
+        )
 
-    val dislike: ImageVector
+    val dislike: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.dislike)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.dislike),
+            stringResource(R.string.dislike)
+        )
 
-    val door: ImageVector
+    val door: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.door)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.door),
+            stringResource(R.string.door)
+        )
 
-    val dots: ImageVector
+    val dots: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.dots)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.dots),
+            stringResource(R.string.dots)
+        )
 
-    val dotsVertical: ImageVector
+    val dotsVertical: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.dotsvertical)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.dotsvertical),
+            stringResource(R.string.dotsvertical)
+        )
 
-    val doubleBed: ImageVector
+    val doubleBed: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.doublebed)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.doublebed),
+            stringResource(R.string.doublebed)
+        )
 
-    val download: ImageVector
+    val download: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.download)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.download),
+            stringResource(R.string.download)
+        )
 
-    val drawer: ImageVector
+    val drawer: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.drawer)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.drawer),
+            stringResource(R.string.drawer)
+        )
 
-    val drink: ImageVector
+    val drink: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.drink)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.drink),
+            stringResource(R.string.drink)
+        )
 
-    val economy: ImageVector
+    val economy: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.economy)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.economy),
+            stringResource(R.string.economy)
+        )
 
-    val edit: ImageVector
+    val edit: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.edit)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.edit),
+            stringResource(R.string.edit)
+        )
 
-    val energy: ImageVector
+    val energy: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.energy)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.energy),
+            stringResource(R.string.energy)
+        )
 
-    val engine: ImageVector
+    val engine: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.engine)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.engine),
+            stringResource(R.string.engine)
+        )
 
-    val engineBelt: ImageVector
+    val engineBelt: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.enginebelt)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.enginebelt),
+            stringResource(R.string.enginebelt)
+        )
 
-    val error: ImageVector
+    val error: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.error)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.error),
+            stringResource(R.string.error)
+        )
 
-    val exchange: ImageVector
+    val exchange: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.exchange)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.exchange),
+            stringResource(R.string.exchange)
+        )
 
-    val expand: ImageVector
+    val expand: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.expand)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.expand),
+            stringResource(R.string.expand)
+        )
 
-    val eyeOff: ImageVector
+    val eyeOff: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.eyeoff)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.eyeoff),
+            stringResource(R.string.eyeoff)
+        )
 
-    val eyeOn: ImageVector
+    val eyeOn: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.eyeon)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.eyeon),
+            stringResource(R.string.eyeon)
+        )
 
-    val facebook: ImageVector
+    val facebook: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.facebook)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.facebook),
+            stringResource(R.string.facebook)
+        )
 
-    val farm: ImageVector
+    val farm: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.farm)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.farm),
+            stringResource(R.string.farm)
+        )
 
-    val feedback: ImageVector
+    val feedback: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.feedback)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.feedback),
+            stringResource(R.string.feedback)
+        )
 
-    val fileAdd: ImageVector
+    val fileAdd: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.fileadd)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.fileadd),
+            stringResource(R.string.fileadd)
+        )
 
-    val filter: ImageVector
+    val filter: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.filter)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.filter),
+            stringResource(R.string.filter)
+        )
 
-    val fireplace: ImageVector
+    val fireplace: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.fireplace)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.fireplace),
+            stringResource(R.string.fireplace)
+        )
 
-    val fishing: ImageVector
+    val fishing: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.fishing)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.fishing),
+            stringResource(R.string.fishing)
+        )
 
-    val fitness: ImageVector
+    val fitness: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.fitness)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.fitness),
+            stringResource(R.string.fitness)
+        )
 
-    val football: ImageVector
+    val football: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.football)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.football),
+            stringResource(R.string.football)
+        )
 
-    val frontWheelDrive: ImageVector
+    val frontWheelDrive: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.frontwheeldrive)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.frontwheeldrive),
+            stringResource(R.string.frontwheeldrive)
+        )
 
-    val gasDiesel: ImageVector
+    val gasDiesel: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.gasdiesel)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.gasdiesel),
+            stringResource(R.string.gasdiesel)
+        )
 
-    val gasFuel: ImageVector
+    val gasFuel: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.gasfuel)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.gasfuel),
+            stringResource(R.string.gasfuel)
+        )
 
-    val gasHybrid: ImageVector
+    val gasHybrid: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.gashybrid)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.gashybrid),
+            stringResource(R.string.gashybrid)
+        )
 
-    val geometricShapes: ImageVector
+    val geometricShapes: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.geometricshapes)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.geometricshapes),
+            stringResource(R.string.geometricshapes)
+        )
 
-    val graphLine: ImageVector
+    val graphLine: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.graphline)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.graphline),
+            stringResource(R.string.graphline)
+        )
 
-    val graphPie: ImageVector
+    val graphPie: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.graphpie)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.graphpie),
+            stringResource(R.string.graphpie)
+        )
 
-    val grid: ImageVector
+    val grid: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.grid)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.grid),
+            stringResource(R.string.grid)
+        )
 
-    val grill: ImageVector
+    val grill: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.grill)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.grill),
+            stringResource(R.string.grill)
+        )
 
-    val guitarBat: ImageVector
+    val guitarBat: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.guitarbat)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.guitarbat),
+            stringResource(R.string.guitarbat)
+        )
 
-    val headset: ImageVector
+    val headset: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.headset)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.headset),
+            stringResource(R.string.headset)
+        )
 
-    val heart: ImageVector
+    val heart: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.heart)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.heart),
+            stringResource(R.string.heart)
+        )
 
-    val heartRate: ImageVector
+    val heartRate: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.heartrate)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.heartrate),
+            stringResource(R.string.heartrate)
+        )
 
-    val hiking: ImageVector
+    val hiking: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.hiking)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.hiking),
+            stringResource(R.string.hiking)
+        )
 
-    val history: ImageVector
+    val history: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.history)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.history),
+            stringResource(R.string.history)
+        )
 
-    val honk: ImageVector
+    val honk: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.honk)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.honk),
+            stringResource(R.string.honk)
+        )
 
-    val hotel: ImageVector
+    val hotel: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.hotel)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.hotel),
+            stringResource(R.string.hotel)
+        )
 
-    val house: ImageVector
+    val house: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.house)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.house),
+            stringResource(R.string.house)
+        )
 
-    val houseBed: ImageVector
+    val houseBed: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.housebed)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.housebed),
+            stringResource(R.string.housebed)
+        )
 
-    val houseCabin: ImageVector
+    val houseCabin: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.housecabin)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.housecabin),
+            stringResource(R.string.housecabin)
+        )
 
-    val houseFilled: ImageVector
+    val houseFilled: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.housefilled)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.housefilled),
+            stringResource(R.string.housefilled)
+        )
 
-    val houseModern: ImageVector
+    val houseModern: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.housemodern)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.housemodern),
+            stringResource(R.string.housemodern)
+        )
 
-    val housePerson: ImageVector
+    val housePerson: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.houseperson)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.houseperson),
+            stringResource(R.string.houseperson)
+        )
 
-    val iceSkater: ImageVector
+    val iceSkater: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.iceskater)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.iceskater),
+            stringResource(R.string.iceskater)
+        )
 
-    val image: ImageVector
+    val image: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.image)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.image),
+            stringResource(R.string.image)
+        )
 
-    val info: ImageVector
+    val info: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.info)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.info),
+            stringResource(R.string.info)
+        )
 
-    val instagram: ImageVector
+    val instagram: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.instagram)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.instagram),
+            stringResource(R.string.instagram)
+        )
 
-    val job: ImageVector
+    val job: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.job)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.job),
+            stringResource(R.string.job)
+        )
 
-    val keys: ImageVector
+    val keys: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.keys)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.keys),
+            stringResource(R.string.keys)
+        )
 
-    val krone: ImageVector
+    val krone: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.krone)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.krone),
+            stringResource(R.string.krone)
+        )
 
-    val lamp: ImageVector
+    val lamp: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.lamp)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.lamp),
+            stringResource(R.string.lamp)
+        )
 
-    val landscape: ImageVector
+    val landscape: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.landscape)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.landscape),
+            stringResource(R.string.landscape)
+        )
 
-    val laundry: ImageVector
+    val laundry: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.laundry)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.laundry),
+            stringResource(R.string.laundry)
+        )
 
-    val layers: ImageVector
+    val layers: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.layers)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.layers),
+            stringResource(R.string.layers)
+        )
 
-    val leaf: ImageVector
+    val leaf: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.leaf)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.leaf),
+            stringResource(R.string.leaf)
+        )
 
-    val lift: ImageVector
+    val lift: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.lift)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.lift),
+            stringResource(R.string.lift)
+        )
 
-    val like: ImageVector
+    val like: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.like)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.like),
+            stringResource(R.string.like)
+        )
 
-    val link: ImageVector
+    val link: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.link)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.link),
+            stringResource(R.string.link)
+        )
 
-    val linkExternal: ImageVector
+    val linkExternal: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.linkexternal)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.linkexternal),
+            stringResource(R.string.linkexternal)
+        )
 
-    val listSort: ImageVector
+    val listSort: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.listsort)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.listsort),
+            stringResource(R.string.listsort)
+        )
 
-    val lockShield: ImageVector
+    val lockShield: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.lockshield)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.lockshield),
+            stringResource(R.string.lockshield)
+        )
 
-    val logout: ImageVector
+    val logout: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.logout)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.logout),
+            stringResource(R.string.logout)
+        )
 
-    val mail: ImageVector
+    val mail: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.mail)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.mail),
+            stringResource(R.string.mail)
+        )
 
-    val mailbox: ImageVector
+    val mailbox: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.mailbox)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.mailbox),
+            stringResource(R.string.mailbox)
+        )
 
-    val manual: ImageVector
+    val manual: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.manual)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.manual),
+            stringResource(R.string.manual)
+        )
 
-    val map: ImageVector
+    val map: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.map)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.map),
+            stringResource(R.string.map)
+        )
 
-    val measure: ImageVector
+    val measure: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.measure)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.measure),
+            stringResource(R.string.measure)
+        )
 
-    val message: ImageVector
+    val message: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.message)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.message),
+            stringResource(R.string.message)
+        )
 
-    val messages: ImageVector
+    val messages: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.messages)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.messages),
+            stringResource(R.string.messages)
+        )
 
-    val messagesFilled: ImageVector
+    val messagesFilled: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.messagesfilled)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.messagesfilled),
+            stringResource(R.string.messagesfilled)
+        )
 
-    val minivan: ImageVector
+    val minivan: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.minivan)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.minivan),
+            stringResource(R.string.minivan)
+        )
 
-    val minus: ImageVector
+    val minus: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.minus)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.minus),
+            stringResource(R.string.minus)
+        )
 
-    val mittAnbud: ImageVector
+    val mittAnbud: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.mittanbud)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.mittanbud),
+            stringResource(R.string.mittanbud)
+        )
 
-    val mixer: ImageVector
+    val mixer: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.mixer)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.mixer),
+            stringResource(R.string.mixer)
+        )
 
-    val money: ImageVector
+    val money: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.money)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.money),
+            stringResource(R.string.money)
+        )
 
-    val motorcycle: ImageVector
+    val motorcycle: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.motorcycle)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.motorcycle),
+            stringResource(R.string.motorcycle)
+        )
 
-    val mountain: ImageVector
+    val mountain: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.mountain)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.mountain),
+            stringResource(R.string.mountain)
+        )
 
-    val nettbil: ImageVector
+    val nettbil: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.nettbil)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.nettbil),
+            stringResource(R.string.nettbil)
+        )
 
-    val newAd: ImageVector
+    val newAd: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.newad)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.newad),
+            stringResource(R.string.newad)
+        )
 
-    val norwegianMotor: ImageVector
+    val norwegianMotor: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.norwegianmotor)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.norwegianmotor),
+            stringResource(R.string.norwegianmotor)
+        )
 
-    val noSmoking: ImageVector
+    val noSmoking: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.nosmoking)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.nosmoking),
+            stringResource(R.string.nosmoking)
+        )
 
-    val officeDesk: ImageVector
+    val officeDesk: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.officedesk)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.officedesk),
+            stringResource(R.string.officedesk)
+        )
 
-    val oikotie: ImageVector
+    val oikotie: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.oikotie)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.oikotie),
+            stringResource(R.string.oikotie)
+        )
 
-    val organize: ImageVector
+    val organize: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.organize)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.organize),
+            stringResource(R.string.organize)
+        )
 
-    val paintRoller: ImageVector
+    val paintRoller: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.paintroller)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.paintroller),
+            stringResource(R.string.paintroller)
+        )
 
-    val parking: ImageVector
+    val parking: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.parking)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.parking),
+            stringResource(R.string.parking)
+        )
 
-    val paw: ImageVector
+    val paw: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.paw)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.paw),
+            stringResource(R.string.paw)
+        )
 
-    val phone: ImageVector
+    val phone: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.phone)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.phone),
+            stringResource(R.string.phone)
+        )
 
-    val phoneBadgeCheck: ImageVector
+    val phoneBadgeCheck: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.phonebadgecheck)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.phonebadgecheck),
+            stringResource(R.string.phonebadgecheck)
+        )
 
-    val phoneScratched: ImageVector
+    val phoneScratched: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.phonescratched)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.phonescratched),
+            stringResource(R.string.phonescratched)
+        )
 
-    val phoneUsed: ImageVector
+    val phoneUsed: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.phoneused)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.phoneused),
+            stringResource(R.string.phoneused)
+        )
 
-    val pictureStack: ImageVector
+    val pictureStack: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.picturestack)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.picturestack),
+            stringResource(R.string.picturestack)
+        )
 
-    val pinMarker: ImageVector
+    val pinMarker: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.pinmarker)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.pinmarker),
+            stringResource(R.string.pinmarker)
+        )
 
-    val pinRound: ImageVector
+    val pinRound: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.pinround)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.pinround),
+            stringResource(R.string.pinround)
+        )
 
-    val planeTicket: ImageVector
+    val planeTicket: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.planeticket)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.planeticket),
+            stringResource(R.string.planeticket)
+        )
 
-    val play: ImageVector
+    val play: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.play)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.play),
+            stringResource(R.string.play)
+        )
 
-    val playhouse: ImageVector
+    val playhouse: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.playhouse)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.playhouse),
+            stringResource(R.string.playhouse)
+        )
 
-    val plots: ImageVector
+    val plots: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.plots)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.plots),
+            stringResource(R.string.plots)
+        )
 
-    val plus: ImageVector
+    val plus: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.plus)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.plus),
+            stringResource(R.string.plus)
+        )
 
-    val productBlink: ImageVector
+    val productBlink: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.productblink)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.productblink),
+            stringResource(R.string.productblink)
+        )
 
-    val productBump: ImageVector
+    val productBump: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.productbump)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.productbump),
+            stringResource(R.string.productbump)
+        )
 
-    val productCarousel: ImageVector
+    val productCarousel: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.productcarousel)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.productcarousel),
+            stringResource(R.string.productcarousel)
+        )
 
-    val productHighlightListing: ImageVector
+    val productHighlightListing: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.producthighlightlisting)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.producthighlightlisting),
+            stringResource(R.string.producthighlightlisting)
+        )
 
-    val productNaBolagsProfil: ImageVector
+    val productNaBolagsProfil: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.productnabolagsprofil)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.productnabolagsprofil),
+            stringResource(R.string.productnabolagsprofil)
+        )
 
-    val productNoAds: ImageVector
+    val productNoAds: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.productnoads)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.productnoads),
+            stringResource(R.string.productnoads)
+        )
 
-    val productStarred: ImageVector
+    val productStarred: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.productstarred)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.productstarred),
+            stringResource(R.string.productstarred)
+        )
 
-    val productTop: ImageVector
+    val productTop: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.producttop)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.producttop),
+            stringResource(R.string.producttop)
+        )
 
-    val propeller: ImageVector
+    val propeller: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.propeller)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.propeller),
+            stringResource(R.string.propeller)
+        )
 
-    val question: ImageVector
+    val question: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.question)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.question),
+            stringResource(R.string.question)
+        )
 
-    val realEstate: ImageVector
+    val realEstate: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.realestate)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.realestate),
+            stringResource(R.string.realestate)
+        )
 
-    val refresh: ImageVector
+    val refresh: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.refresh)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.refresh),
+            stringResource(R.string.refresh)
+        )
 
-    val remppatori: ImageVector
+    val remppatori: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.remppatori)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.remppatori),
+            stringResource(R.string.remppatori)
+        )
 
-    val roomService: ImageVector
+    val roomService: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.roomservice)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.roomservice),
+            stringResource(R.string.roomservice)
+        )
 
-    val sailboat: ImageVector
+    val sailboat: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.sailboat)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.sailboat),
+            stringResource(R.string.sailboat)
+        )
 
-    val sailing: ImageVector
+    val sailing: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.sailing)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.sailing),
+            stringResource(R.string.sailing)
+        )
 
-    val sauna: ImageVector
+    val sauna: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.sauna)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.sauna),
+            stringResource(R.string.sauna)
+        )
 
-    val scrollUp: ImageVector
+    val scrollUp: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.scrollup)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.scrollup),
+            stringResource(R.string.scrollup)
+        )
 
-    val search: ImageVector
+    val search: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.search)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.search),
+            stringResource(R.string.search)
+        )
 
-    val searchFavorites: ImageVector
+    val searchFavorites: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.searchfavorites)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.searchfavorites),
+            stringResource(R.string.searchfavorites)
+        )
 
-    val seat: ImageVector
+    val seat: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.seat)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.seat),
+            stringResource(R.string.seat)
+        )
 
-    val send: ImageVector
+    val send: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.send)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.send),
+            stringResource(R.string.send)
+        )
 
-    val service: ImageVector
+    val service: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.service)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.service),
+            stringResource(R.string.service)
+        )
 
-    val share: ImageVector
+    val share: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.share)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.share),
+            stringResource(R.string.share)
+        )
 
-    val shipping: ImageVector
+    val shipping: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.shipping)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.shipping),
+            stringResource(R.string.shipping)
+        )
 
-    val shirt: ImageVector
+    val shirt: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.shirt)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.shirt),
+            stringResource(R.string.shirt)
+        )
 
-    val shoes: ImageVector
+    val shoes: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.shoes)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.shoes),
+            stringResource(R.string.shoes)
+        )
 
-    val shoppingCart: ImageVector
+    val shoppingCart: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.shoppingcart)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.shoppingcart),
+            stringResource(R.string.shoppingcart)
+        )
 
-    val shower: ImageVector
+    val shower: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.shower)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.shower),
+            stringResource(R.string.shower)
+        )
 
-    val skyscraper: ImageVector
+    val skyscraper: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.skyscraper)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.skyscraper),
+            stringResource(R.string.skyscraper)
+        )
 
-    val smartphone: ImageVector
+    val smartphone: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.smartphone)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.smartphone),
+            stringResource(R.string.smartphone)
+        )
 
-    val smileyGood: ImageVector
+    val smileyGood: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.smileygood)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.smileygood),
+            stringResource(R.string.smileygood)
+        )
 
-    val smileyHappy: ImageVector
+    val smileyHappy: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.smileyhappy)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.smileyhappy),
+            stringResource(R.string.smileyhappy)
+        )
 
-    val smileyNeutral: ImageVector
+    val smileyNeutral: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.smileyneutral)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.smileyneutral),
+            stringResource(R.string.smileyneutral)
+        )
 
-    val smileySad: ImageVector
+    val smileySad: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.smileysad)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.smileysad),
+            stringResource(R.string.smileysad)
+        )
 
-    val sofa: ImageVector
+    val sofa: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.sofa)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.sofa),
+            stringResource(R.string.sofa)
+        )
 
-    val sorting: ImageVector
+    val sorting: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.sorting)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.sorting),
+            stringResource(R.string.sorting)
+        )
 
-    val spa: ImageVector
+    val spa: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.spa)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.spa),
+            stringResource(R.string.spa)
+        )
 
-    val sparkles: ImageVector
+    val sparkles: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.sparkles)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.sparkles),
+            stringResource(R.string.sparkles)
+        )
 
-    val speedometer: ImageVector
+    val speedometer: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.speedometer)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.speedometer),
+            stringResource(R.string.speedometer)
+        )
 
-    val stairs: ImageVector
+    val stairs: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.stairs)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.stairs),
+            stringResource(R.string.stairs)
+        )
 
-    val starCheck: ImageVector
+    val starCheck: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.starcheck)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.starcheck),
+            stringResource(R.string.starcheck)
+        )
 
-    val starEmpty: ImageVector
+    val starEmpty: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.starempty)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.starempty),
+            stringResource(R.string.starempty)
+        )
 
-    val starFull: ImageVector
+    val starFull: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.starfull)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.starfull),
+            stringResource(R.string.starfull)
+        )
 
-    val starHalf: ImageVector
+    val starHalf: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.starhalf)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.starhalf),
+            stringResource(R.string.starhalf)
+        )
 
-    val store: ImageVector
+    val store: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.store)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.store),
+            stringResource(R.string.store)
+        )
 
-    val storeFront: ImageVector
+    val storeFront: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.storefront)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.storefront),
+            stringResource(R.string.storefront)
+        )
 
-    val stove: ImageVector
+    val stove: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.stove)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.stove),
+            stringResource(R.string.stove)
+        )
 
-    val stroller: ImageVector
+    val stroller: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.stroller)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.stroller),
+            stringResource(R.string.stroller)
+        )
 
-    val success: ImageVector
+    val success: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.success)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.success),
+            stringResource(R.string.success)
+        )
 
-    val suitcase: ImageVector
+    val suitcase: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.suitcase)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.suitcase),
+            stringResource(R.string.suitcase)
+        )
 
-    val support: ImageVector
+    val support: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.support)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.support),
+            stringResource(R.string.support)
+        )
 
-    val sweater: ImageVector
+    val sweater: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.sweater)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.sweater),
+            stringResource(R.string.sweater)
+        )
 
-    val swimming: ImageVector
+    val swimming: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.swimming)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.swimming),
+            stringResource(R.string.swimming)
+        )
 
-    val tag: ImageVector
+    val tag: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.tag)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.tag),
+            stringResource(R.string.tag)
+        )
 
-    val taskList: ImageVector
+    val taskList: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.tasklist)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.tasklist),
+            stringResource(R.string.tasklist)
+        )
 
-    val textBold: ImageVector
+    val textBold: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.textbold)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.textbold),
+            stringResource(R.string.textbold)
+        )
 
-    val textItalic: ImageVector
+    val textItalic: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.textitalic)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.textitalic),
+            stringResource(R.string.textitalic)
+        )
 
-    val textStrikethrough: ImageVector
+    val textStrikethrough: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.textstrikethrough)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.textstrikethrough),
+            stringResource(R.string.textstrikethrough)
+        )
 
-    val textUnderline: ImageVector
+    val textUnderline: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.textunderline)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.textunderline),
+            stringResource(R.string.textunderline)
+        )
 
-    val theater: ImageVector
+    val theater: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.theater)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.theater),
+            stringResource(R.string.theater)
+        )
 
-    val threeSixty: ImageVector
+    val threeSixty: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.threesixty)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.threesixty),
+            stringResource(R.string.threesixty)
+        )
 
-    val tools: ImageVector
+    val tools: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.tools)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.tools),
+            stringResource(R.string.tools)
+        )
 
-    val townhouse: ImageVector
+    val townhouse: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.townhouse)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.townhouse),
+            stringResource(R.string.townhouse)
+        )
 
-    val tractor: ImageVector
+    val tractor: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.tractor)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.tractor),
+            stringResource(R.string.tractor)
+        )
 
-    val trendDown: ImageVector
+    val trendDown: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.trenddown)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.trenddown),
+            stringResource(R.string.trenddown)
+        )
 
-    val trendFlat: ImageVector
+    val trendFlat: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.trendflat)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.trendflat),
+            stringResource(R.string.trendflat)
+        )
 
-    val trendUp: ImageVector
+    val trendUp: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.trendup)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.trendup),
+            stringResource(R.string.trendup)
+        )
 
-    val tv: ImageVector
+    val tv: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.tv)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.tv),
+            stringResource(R.string.tv)
+        )
 
-    val twitter: ImageVector
+    val twitter: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.twitter)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.twitter),
+            stringResource(R.string.twitter)
+        )
 
-    val up: ImageVector
+    val up: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.up)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.up),
+            stringResource(R.string.up)
+        )
 
-    val upload: ImageVector
+    val upload: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.upload)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.upload),
+            stringResource(R.string.upload)
+        )
 
-    val user: ImageVector
+    val user: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.user)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.user),
+            stringResource(R.string.user)
+        )
 
-    val userGroup: ImageVector
+    val userGroup: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.usergroup)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.usergroup),
+            stringResource(R.string.usergroup)
+        )
 
-    val users: ImageVector
+    val users: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.users)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.users),
+            stringResource(R.string.users)
+        )
 
-    val userWoman: ImageVector
+    val userWoman: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.userwoman)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.userwoman),
+            stringResource(R.string.userwoman)
+        )
 
-    val vacuum: ImageVector
+    val vacuum: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.vacuum)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.vacuum),
+            stringResource(R.string.vacuum)
+        )
 
-    val van: ImageVector
+    val van: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.van)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.van),
+            stringResource(R.string.van)
+        )
 
-    val vase: ImageVector
+    val vase: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.vase)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.vase),
+            stringResource(R.string.vase)
+        )
 
-    val verification: ImageVector
+    val verification: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.verification)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.verification),
+            stringResource(R.string.verification)
+        )
 
-    val wallet: ImageVector
+    val wallet: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.wallet)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.wallet),
+            stringResource(R.string.wallet)
+        )
 
-    val warning: ImageVector
+    val warning: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.warning)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warning),
+            stringResource(R.string.warning)
+        )
 
-    val warranty: ImageVector
+    val warranty: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.warranty)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warranty),
+            stringResource(R.string.warranty)
+        )
 
-    val wheelchair: ImageVector
+    val waterPitcher: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.wheelchair)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.waterpitcher),
+            stringResource(R.string.waterpitcher)
+        )
 
-    val wifi: ImageVector
+    val wheelchair: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.wifi)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.wheelchair),
+            stringResource(R.string.wheelchair)
+        )
 
-    val woods: ImageVector
+    val wifi: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.woods)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.wifi),
+            stringResource(R.string.wifi)
+        )
 
-    val youtube: ImageVector
+    val woods: WarpIconResource
         @Composable
-        get() = ImageVector.vectorResource(id = R.drawable.youtube)
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.woods),
+            stringResource(R.string.woods)
+        )
+
+    val youtube: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.youtube),
+            stringResource(R.string.youtube)
+        )
 }
 
 internal val LocalResources = staticCompositionLocalOf { WarpResources }

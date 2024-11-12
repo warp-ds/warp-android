@@ -1,10 +1,10 @@
 package com.schibsted.nmp.warpapp
 
 import androidx.compose.runtime.Composable
+import com.schibsted.nmp.warp.brands.blocket.BlocketWarpTheme
 import com.schibsted.nmp.warp.brands.dba.DbaWarpTheme
 import com.schibsted.nmp.warp.brands.finn.FinnWarpTheme
 import com.schibsted.nmp.warp.brands.tori.ToriWarpTheme
-import com.schibsted.nmp.warp.brands.warp_blocket.BlocketWarpTheme
 import com.schibsted.nmp.warp.components.legacy.LegacyWarpTheme
 
 const val FINN = "finn"
