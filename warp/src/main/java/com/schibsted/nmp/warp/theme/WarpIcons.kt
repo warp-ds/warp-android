@@ -27,7 +27,8 @@ open class WarpTaxonomyIconResource(
     val identifier: String
 ) : WarpIconResource(
     vector = vector,
-    description = description)
+    description = description
+)
 
 class WarpBrandIconResource(
     override val vector: ImageVector,
@@ -35,21 +36,79 @@ class WarpBrandIconResource(
     val identifier: String
 ) : WarpIconResource(
     vector = vector,
-    description = description)
+    description = description
+)
 
 object WarpIconResources {
 
+    @Composable
+    fun getIconByIdentifier(identifier: String): WarpIconResource? {
+        return taxonomyIconList.find { it is WarpTaxonomyIconResource && it.identifier == identifier || it is WarpBrandIconResource && it.identifier == identifier }
+    }
+
     @SuppressLint("DiscouragedApi")
     @Composable
-    fun getIconByName(context: Context, resourceName: String): ImageVector? {
+    fun getIconByName(context: Context, resourceName: String): WarpIconResource? {
         val resourceId =
             context.resources.getIdentifier(resourceName, "drawable", context.packageName)
         return if (resourceId != 0) {
-            ImageVector.vectorResource(id = resourceId)
+            WarpIconResource(
+                ImageVector.vectorResource(id = resourceId),
+                stringResource(resourceId)
+            )
         } else {
             null
         }
     }
+
+    private val taxonomyIconList: List<WarpIconResource>
+        @Composable
+        get() = listOf(
+            airplane,
+            airplaneHotel,
+            autovex,
+            babyOnesie,
+            bulldozer,
+            cabin,
+            camping,
+            carFront,
+            carPart,
+            carRent,
+            carSubscription,
+            cart,
+            chainsaw,
+            chair,
+            dating,
+            economy,
+            football,
+            geometricShapes,
+            guitarBat,
+            honk,
+            hotel,
+            iceSkater,
+            job,
+            minivan,
+            mittAnbud,
+            motorcycle,
+            nettbil,
+            oikotie,
+            paintRoller,
+            paw,
+            phoneBadgeCheck,
+            realEstate,
+            remppatori,
+            sailboat,
+            shirt,
+            smartphone,
+            sofa,
+            storeFront,
+            stroller,
+            sweater,
+            tools,
+            tractor,
+            van,
+            vase
+        )
 
     val activeAds: WarpIconResource
         @Composable
