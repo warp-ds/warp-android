@@ -1,9 +1,9 @@
 package com.schibsted.nmp.warp.theme
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import com.schibsted.nmp.warp.R
@@ -21,7 +21,7 @@ open class WarpIconResource(
  * Can be retrieved by unique identifier which is identical across all platforms.
  */
 
-open class WarpTaxonomyIconResource(
+class WarpTaxonomyIconResource(
     override val vector: ImageVector,
     override val description: String,
     val identifier: String
@@ -48,13 +48,15 @@ object WarpIconResources {
 
     @SuppressLint("DiscouragedApi")
     @Composable
-    fun getIconByName(context: Context, resourceName: String): WarpIconResource? {
-        val resourceId =
-            context.resources.getIdentifier(resourceName, "drawable", context.packageName)
-        return if (resourceId != 0) {
+    fun getIconByName(resourceName: String): WarpIconResource? {
+        val context = LocalContext.current
+        val drawableResourceId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+        val stringResourceId = context.resources.getIdentifier(resourceName, "string", context.packageName)
+
+        return if (drawableResourceId != 0) {
             WarpIconResource(
-                ImageVector.vectorResource(id = resourceId),
-                stringResource(resourceId)
+                ImageVector.vectorResource(id = drawableResourceId),
+                stringResource(stringResourceId)
             )
         } else {
             null

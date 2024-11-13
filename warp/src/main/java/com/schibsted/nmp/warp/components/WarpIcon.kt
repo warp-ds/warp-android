@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.theme.WarpBrandIconResource
 import com.schibsted.nmp.warp.theme.WarpIconResource
@@ -35,10 +34,7 @@ fun WarpIcon(
     color: Color = colors.icon.default,
 ) {
     val taxonomyIcon = icons.getIconByIdentifier(identifier)
-    val icon = taxonomyIcon ?: icons.getIconByName(
-        LocalContext.current,
-        identifier
-    )
+    val icon = taxonomyIcon ?: icons.getIconByName(identifier)
     val tint = if (icon is WarpBrandIconResource) {
         Color.Unspecified
     } else {
@@ -46,7 +42,7 @@ fun WarpIcon(
     }
     icon?.let {
         IconView(it.vector, it.description, tint, size)
-    } ?: throw IllegalArgumentException("Icon with identifier $identifier not found")
+    }
 }
 
 @Composable
