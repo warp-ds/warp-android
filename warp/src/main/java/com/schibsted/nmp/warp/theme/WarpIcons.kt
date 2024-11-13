@@ -61,7 +61,7 @@ object WarpIconResources {
         }
     }
 
-    private val taxonomyIconList: List<WarpIconResource>
+    val taxonomyIconList: List<WarpIconResource>
         @Composable
         get() = listOf(
             airplane,
