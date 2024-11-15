@@ -150,7 +150,6 @@ private fun CalloutView(
                     icon = icons.close,
                     size = dimensions.icon.small,
                     modifier = Modifier
-                        .padding(start = dimensions.space05)
                         .clickable(
                             indication = null,
                             interactionSource = remember { MutableInteractionSource() }) {
