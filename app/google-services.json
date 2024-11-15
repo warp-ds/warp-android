@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "697403733116",
+    "project_id": "warp-8c486",
+    "storage_bucket": "warp-8c486.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697403733116:android:4d9f69ce74bc8d6c3c85f9",
+        "android_client_info": {
+          "package_name": "com.schibsted.nmp.warpapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtJSfJhA_EgaMO6WEmhfDfybplIhDvolE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

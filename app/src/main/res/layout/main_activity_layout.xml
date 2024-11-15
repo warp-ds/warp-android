@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.schibsted.nmp.warp.components.legacy.WarpButtonView
+            android:id="@+id/warp_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:buttonText="Meowza"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loading="false"
+            app:warpButtonStyle="primary" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpButtonView
+            android:id="@+id/warp_button_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buttonText="Meowings"
+            app:layout_constraintStart_toEndOf="@id/warp_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loading="false"
+            app:warpButtonStyle="primary" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpTextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_button"
+            app:text="Warpy meowz textview"
+            app:warpTextStyle="title1" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpTextFieldView
+            android:id="@+id/textField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space2"
+            android:layout_marginEnd="@dimen/space2"
+            app:helpText="Meow here"
+            app:label="Label here"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:leadingIcon="@drawable/blocket_badge"
+            app:minLines="2"
+            app:maxLines="4"
+            app:optionalLabel="Optional"
+            app:placeholderText="Meow here"
+            app:prefixText="Meowz"
+            app:singleLine="false"
+            app:suffixText="mw"
+            app:trailingIcon="@drawable/blocket_badge" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpBadgeView
+            android:id="@+id/badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            app:alignmentStyle="topEnd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textField"
+            app:warpBadgeStyle="sponsored" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpAlertView
+            android:id="@+id/alert_box_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:body="This is the body"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/badge"
+            app:title="This is the title"
+            app:warpAlertType="info" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpAlertView
+            android:id="@+id/alert_box_positive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:body="This is the body"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/alert_box_info"
+            app:linkText="This is the link"
+            app:title="This is the title"
+            app:warpAlertType="positive" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpAlertView
+            android:id="@+id/alert_box_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:body="This is the body"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/alert_box_positive"
+            app:quietButtonText="Button"
+            app:title="This is the title"
+            app:warpAlertType="warning" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpAlertView
+            android:id="@+id/alert_box_critical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:body="This is the body"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/alert_box_warning"
+            app:linkText="This is the link"
+            app:quietButtonText="Button"
+            app:secondaryButtonText="Button"
+            app:title="This is the title"
+            app:warpAlertType="critical" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpPillView
+            android:id="@+id/filter_pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:closable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/alert_box_critical"
+            app:pillIconContentDescr="Close icon"
+            app:pillText="Filter pill"
+            app:selected="false"
+            app:warpPillStyle="filter" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpPillView
+            android:id="@+id/suggestion_pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:closable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filter_pill"
+            app:pillIconContentDescr="Close icon"
+            app:pillText="Suggestion pill"
+            app:selected="false"
+            app:warpPillStyle="suggestion" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpPillView
+            android:id="@+id/filter_pill_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suggestion_pill"
+            app:pillIcon="@drawable/blocket_badge"
+            app:pillIconContentDescr="Icon"
+            app:pillText="Filter pill"
+            app:selected="false"
+            app:warpPillStyle="filter" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpPillView
+            android:id="@+id/suggestion_pill_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filter_pill_link"
+            app:pillIcon="@drawable/blocket_badge"
+            app:pillIconContentDescr="Icon"
+            app:pillText="Suggestion pill"
+            app:selected="false"
+            app:warpPillStyle="suggestion" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpBoxView
+            android:id="@+id/box_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space1"
+            app:boxStyle="neutral"
+            app:boxText="This is the box text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/suggestion_pill_link" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpBoxView
+            android:id="@+id/box_bordered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space2"
+            app:boxHeading="Warp Box!"
+            app:boxStyle="bordered"
+            app:boxText="This is the box text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/box_info" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpBoxView
+            android:id="@+id/box_neutral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space2"
+            android:layout_marginVertical="@dimen/space2"
+            app:boxButtonText="Button"
+            app:boxHeading="Warp Box!"
+            app:boxIcon="@drawable/blocket_badge"
+            app:boxIconColor="@color/warp_icon_primary"
+            app:boxIconContentDescr="Icon content description"
+            app:boxLink="This is the link"
+            app:boxStyle="info"
+            app:boxText="This is the box text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/box_bordered" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpButtonView
+            android:id="@+id/warp_button_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:buttonLeadingIcon="@drawable/blocket_badge"
+            app:buttonLeadingIconContentDescr="Icon content description"
+            app:buttonText="Icon"
+            app:buttonTrailingIcon="@drawable/blocket_badge"
+            app:buttonTrailingIconContentDescr="Icon content description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/box_neutral"
+            app:loading="false"
+            app:warpButtonStyle="primary" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_neutral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxLabel="Neutral checkbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_button_three"
+            app:warpCheckboxStyle="neutral" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_neutral_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxLabel="Neutral selected checkbox"
+            app:checked="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_neutral"
+            app:warpCheckboxStyle="neutral" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_disabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxEnabled="false"
+            app:checkboxLabel="Disabled checkbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_neutral_selected"
+            app:warpCheckboxStyle="disabled" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_disabled_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxEnabled="false"
+            app:checkboxLabel="Disabled selected checkbox"
+            app:checked="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_disabled"
+            app:warpCheckboxStyle="neutral" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_negative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxExtraText="Extra text"
+            app:checkboxLabel="Negative checkbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_disabled_selected"
+            app:warpCheckboxStyle="negative" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_negative_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:checkboxIsError="true"
+            app:checkboxLabel="Disabled selected checkbox"
+            app:checked="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
+            android:id="@+id/stepindicator_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/space2"
+            app:activeStep="0"
+            app:layout_constraintBottom_toTopOf="@id/stepindicator_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative_selected"
+            app:stepIndicatorOrientation="vertical"
+            app:steps="2" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
+            android:id="@+id/stepindicator_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space2"
+            app:activeStep="0"
+            app:layout_constraintBottom_toTopOf="@id/spinner_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stepindicator_vertical"
+            app:stepIndicatorOrientation="horizontal"
+            app:steps="3" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpSwitchView
+            android:id="@+id/warp_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stepindicator_horizontal"
+            app:switchChecked="true"
+            app:switchEnabled="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpSwitchView
+            android:id="@+id/warp_switch_disabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_switch"
+            app:switchChecked="false"
+            app:switchEnabled="false" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpSpinnerView
+            android:id="@+id/spinner_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_switch_disabled"
+            app:spinnerSize="small" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpSpinnerView
+            android:id="@+id/spinner_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_small" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpSpinnerView
+            android:id="@+id/spinner_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_default"
+            app:spinnerSize="large" />
+
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_large"
+            app:radioLabel="Radio button"
+            app:radioSelected="false" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio"
+            app:radioExtraText="Extra"
+            app:radioIsError="false"
+            app:radioLabel="Radio selected"
+            app:radioSelected="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio2"
+            app:radioIsError="true"
+            app:radioLabel="Radio negative"
+            app:radioSelected="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpRadioView
+            android:id="@+id/radio4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio3"
+            app:radioEnabled="false"
+            app:radioIsError="false"
+            app:radioLabel="Radio disabled"
+            app:radioSelected="true" />
+
+        <com.schibsted.nmp.warp.components.legacy.WarpCalloutView
+            android:id="@+id/callout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:calloutEdge="leading"
+            app:calloutHorizontalOffset="0"
+            app:calloutIsClosable="false"
+            app:calloutIsVisible="false"
+            app:calloutSize="small"
+            app:calloutText="This is the callout text"
+            app:calloutType="popover"
+            app:calloutVerticalOffset="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
