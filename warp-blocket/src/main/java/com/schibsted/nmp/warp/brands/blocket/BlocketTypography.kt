@@ -1,4 +1,4 @@
-package com.schibsted.nmp.warp.brands.warp_blocket
+package com.schibsted.nmp.warp.brands.blocket
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
