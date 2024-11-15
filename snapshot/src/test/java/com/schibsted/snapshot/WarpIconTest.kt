@@ -6,11 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
@@ -21,8 +18,12 @@ import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
-import com.schibsted.nmp.warp.theme.WarpIcons
+import com.schibsted.nmp.warp.components.WarpIcon
+import com.schibsted.nmp.warp.theme.WarpBrandIconResource
+import com.schibsted.nmp.warp.theme.WarpIconResource
+import com.schibsted.nmp.warp.theme.WarpIconResources
 import com.schibsted.nmp.warp.theme.WarpResources.icons
+import com.schibsted.nmp.warp.theme.WarpTaxonomyIconResource
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import org.junit.Assert
@@ -56,8 +57,10 @@ class WarpIconTest(
     @Test
     fun warp_icon_count() {
         val count =
-            WarpIcons::class.memberProperties.count { it.returnType.classifier == ImageVector::class }
-        Assert.assertEquals(278, count)
+            WarpIconResources::class.memberProperties.count { it.returnType.classifier == WarpIconResource::class
+                    || it.returnType.classifier == WarpTaxonomyIconResource::class
+                    || it.returnType.classifier == WarpBrandIconResource::class }
+        Assert.assertEquals(280, count)
     }
 
     @Test
@@ -80,7 +83,8 @@ class WarpIconTest(
                     icons.arrowUp,
                     icons.attachement,
                     icons.automatic,
-                    icons.autovex
+                    icons.autovex,
+                    icons.awardMedal
                 )
             )
         }
@@ -559,6 +563,7 @@ class WarpIconTest(
                     icons.wallet,
                     icons.warning,
                     icons.warranty,
+                    icons.waterPitcher,
                     icons.wheelchair,
                     icons.wifi,
                     icons.woods,
@@ -578,8 +583,64 @@ class WarpIconTest(
         }
     }
 
+    @Test
+    fun warp_taxonomy_icons() {
+        paparazzi.snapshot {
+            WarpIconsAllSizes(icons.taxonomyIconList.filter { it is WarpTaxonomyIconResource })
+        }
+    }
+
+    @Test
+    fun warp_brand_icons() {
+        paparazzi.snapshot {
+            WarpIconsAllSizes(icons.taxonomyIconList.filter { it is WarpBrandIconResource })
+        }
+    }
+
+    @Test
+    fun warp_icon_by_identifier() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                Column(
+                    modifier = Modifier
+                        .background(colors.surface.elevated100)
+                        .padding(
+                            horizontal = dimensions.space2,
+                            vertical = dimensions.space2
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.space2)
+                ) {
+                    WarpIcon(identifier = "airplane", color = colors.icon.secondary)
+                    WarpIcon(identifier = "sofa", color = colors.icon.secondary)
+                    WarpIcon(identifier = "oikotie", color = colors.icon.secondary)
+                }
+            }
+        }
+    }
+
+    @Test
+    fun warp_icon_by_name() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                Column(
+                    modifier = Modifier
+                        .background(colors.surface.elevated100)
+                        .padding(
+                            horizontal = dimensions.space2,
+                            vertical = dimensions.space2
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.space2)
+                ) {
+                    WarpIcon(identifier = "spa", color = colors.icon.secondary)
+                    WarpIcon(identifier = "paw", color = colors.icon.secondary)
+                    WarpIcon(identifier = "hotel", color = colors.icon.secondary)
+                }
+            }
+        }
+    }
+
     @Composable
-    private fun WarpIconsAllSizes(icons: List<ImageVector>) {
+    private fun WarpIconsAllSizes(icons: List<WarpIconResource>) {
         WarpTheme(flavor = flavor) {
             Column(
                 modifier = Modifier
@@ -601,28 +662,28 @@ class WarpIconTest(
 
                             .padding(dimensions.space2)
                     ) {
-                        icons.forEach { CreateIcon(it, it.name, dimensions.icon.small) }
+                        icons.forEach { CreateIcon(it, dimensions.icon.small) }
                     }
                     Column(
                         verticalArrangement = Arrangement.spacedBy(dimensions.space2),
                         modifier = Modifier
                             .padding(dimensions.space2)
                     ) {
-                        icons.forEach { CreateIcon(it, it.name, dimensions.icon.default) }
+                        icons.forEach { CreateIcon(it, dimensions.icon.default) }
                     }
                     Column(
                         verticalArrangement = Arrangement.spacedBy(dimensions.space2),
                         modifier = Modifier
                             .padding(dimensions.space2)
                     ) {
-                        icons.forEach { CreateIcon(it, it.name, dimensions.icon.large) }
+                        icons.forEach { CreateIcon(it, dimensions.icon.large) }
                     }
                     Column(
                         verticalArrangement = Arrangement.spacedBy(dimensions.space2),
                         modifier = Modifier
                             .padding(dimensions.space2)
                     ) {
-                        icons.forEach { CreateIcon(it, it.name, 28.dp) }
+                        icons.forEach { CreateIcon(it, 28.dp) }
                     }
                 }
             }
@@ -631,12 +692,11 @@ class WarpIconTest(
     }
 
     @Composable
-    private fun CreateIcon(icon: ImageVector, iconDescription: String, size: Dp) {
-        Icon(
-            imageVector = icon,
-            contentDescription = iconDescription,
-            tint = colors.icon.primary,
-            modifier = Modifier.size(size)
+    private fun CreateIcon(icon: WarpIconResource, size: Dp) {
+        WarpIcon(
+            icon = icon,
+            color = colors.icon.primary,
+            size = size
         )
     }
 }

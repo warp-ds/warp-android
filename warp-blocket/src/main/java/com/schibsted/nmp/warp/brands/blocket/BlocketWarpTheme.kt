@@ -1,4 +1,4 @@
-package com.schibsted.nmp.warp.brands.warp_blocket
+package com.schibsted.nmp.warp.brands.blocket
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
