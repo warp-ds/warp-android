@@ -5,7 +5,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.theme.WarpBrandIconResource
 import com.schibsted.nmp.warp.theme.WarpIconResource
@@ -15,47 +14,47 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
 fun WarpIcon(
+    modifier: Modifier = Modifier,
     icon: WarpIconResource,
     size: Dp = dimensions.icon.default,
     color: Color = colors.icon.default,
 ) {
-    val tint = if (icon is WarpBrandIconResource) {
-        Color.Unspecified
-    } else {
-        color
-    }
-    IconView(icon.vector, icon.description, tint, size)
+    IconView(modifier, icon, color, size)
 }
 
 @Composable
 fun WarpIcon(
+    modifier: Modifier = Modifier,
     identifier: String,
     size: Dp = dimensions.icon.default,
     color: Color = colors.icon.default,
 ) {
     val taxonomyIcon = icons.getIconByIdentifier(identifier)
     val icon = taxonomyIcon ?: icons.getIconByName(identifier)
-    val tint = if (icon is WarpBrandIconResource) {
-        Color.Unspecified
-    } else {
-        color
-    }
     icon?.let {
-        IconView(it.vector, it.description, tint, size)
+        IconView(modifier, it, color, size)
     }
 }
 
 @Composable
 private fun IconView(
-    vector: ImageVector,
-    description: String,
+    modifier: Modifier,
+    icon: WarpIconResource,
     color: Color,
-    size: Dp
+    size: Dp,
 ) {
+    val iconModifier = Modifier
+        .size(size)
+        .then(modifier)
+    val tint = if (icon is WarpBrandIconResource) {
+        Color.Unspecified
+    } else {
+        color
+    }
     Icon(
-        imageVector = vector,
-        contentDescription = description,
-        tint = color,
-        modifier = Modifier.size(size)
+        imageVector = icon.vector,
+        contentDescription = icon.description,
+        tint = tint,
+        modifier = iconModifier
     )
 }
