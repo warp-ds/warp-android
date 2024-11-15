@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -148,7 +149,7 @@ private fun WarpCheckboxView(
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.warp_check),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.check),
                     tint = colors.icon.inverted,
                     modifier = Modifier.height(dimensions.components.checkbox.iconHeight)
                 )
