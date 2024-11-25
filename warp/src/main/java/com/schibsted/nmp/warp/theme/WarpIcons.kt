@@ -1706,7 +1706,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.smartphone),
             stringResource(R.string.smartphone),
-            identifier = "smartphone"
+            identifier = "smart-phone"
         )
 
     val smileyGood: WarpIconResource
