@@ -222,7 +222,7 @@ object WarpIconResources {
     val autovex: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.autovex),
+            ImageVector.vectorResource(id = R.drawable.autovex_),
             stringResource(R.string.autovex),
             identifier = "autovex"
         )
@@ -1030,7 +1030,7 @@ object WarpIconResources {
     val honk: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.honk),
+            ImageVector.vectorResource(id = R.drawable.honk_),
             stringResource(R.string.honk),
             identifier = "honk"
         )
@@ -1294,7 +1294,7 @@ object WarpIconResources {
     val mittAnbud: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.mittanbud),
+            ImageVector.vectorResource(id = R.drawable.mitt_anbud),
             stringResource(R.string.mittanbud),
             identifier = "mitt-anbud"
         )
@@ -1331,7 +1331,7 @@ object WarpIconResources {
     val nettbil: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.nettbil),
+            ImageVector.vectorResource(id = R.drawable.nett_bil),
             stringResource(R.string.nettbil),
             identifier = "nettbil"
         )
@@ -1367,7 +1367,7 @@ object WarpIconResources {
     val oikotie: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.oikotie),
+            ImageVector.vectorResource(id = R.drawable.oikotie_),
             stringResource(R.string.oikotie),
             identifier = "oikotie"
         )
@@ -1575,7 +1575,7 @@ object WarpIconResources {
     val remppatori: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.remppatori),
+            ImageVector.vectorResource(id = R.drawable.remppa_tori),
             stringResource(R.string.remppatori),
             identifier = "remppatori"
         )
@@ -1706,7 +1706,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.smartphone),
             stringResource(R.string.smartphone),
-            identifier = "smartphone"
+            identifier = "smart-phone"
         )
 
     val smileyGood: WarpIconResource
