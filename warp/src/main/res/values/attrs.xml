@@ -203,4 +203,16 @@
         </attr>
         <attr name="calloutIsClosable" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="WarpIcon">
+        <attr name="iconId" format="reference|string" />
+        <attr name="size" format="enum">
+            <enum name="small" value="0" />
+            <enum name="standard" value="1" />
+            <enum name="large" value="2" />
+        </attr>
+        <attr name="iconCustomSize" format="integer" />
+        <attr name="iconColor" format="color" />
+        <attr name="iconDrawable" format="reference" />
+    </declare-styleable>
 </resources>
