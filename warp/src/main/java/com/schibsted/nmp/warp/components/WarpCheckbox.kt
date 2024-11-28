@@ -51,7 +51,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 @Composable
 fun WarpCheckbox(
     modifier: Modifier = Modifier,
-    label: String,
+    label: String = "",
     extraText: String? = null,
     slot: @Composable (() -> Unit)? = null,
     onCheckedChange: ((Boolean) -> Unit) = {},
@@ -155,14 +155,16 @@ private fun WarpCheckboxView(
                 )
             }
         }
-        Spacer(modifier = Modifier.width(dimensions.space1))
-        WarpText(
-            text = label,
-            style = WarpTextStyle.Body,
-            color = warpCheckboxColors.text
-        )
-        Spacer(modifier = Modifier.width(dimensions.space05))
+        label.takeIf { it.isNotEmpty() }?.let {
+            Spacer(modifier = Modifier.width(dimensions.space1))
+            WarpText(
+                text = label,
+                style = WarpTextStyle.Body,
+                color = warpCheckboxColors.text
+            )
+        }
         extraText?.let {
+            Spacer(modifier = Modifier.width(dimensions.space05))
             WarpText(
                 text = it,
                 style = WarpTextStyle.Body,
