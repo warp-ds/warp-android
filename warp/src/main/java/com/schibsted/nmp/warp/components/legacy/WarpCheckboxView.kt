@@ -59,7 +59,7 @@ class WarpCheckboxView @JvmOverloads constructor(
         set(value) {
             field = value
             disposeComposition()
-    }
+        }
 
 
     private var checkedChangeListener: ((Boolean) -> Unit) = {}
@@ -100,16 +100,26 @@ class WarpCheckboxView @JvmOverloads constructor(
     @Composable
     override fun Content() {
         theme {
-            WarpCheckbox(
-                label = label,
-                extraText = extraText,
-                onCheckedChange = checkedChangeListener,
-                slot = slot,
-                style = style,
-                enabled = checkboxEnabled,
-                checked = checkboxChecked,
-                isError = isError
-            )
+            if (label.isEmpty()) {
+                WarpCheckbox(
+                    onCheckedChange = checkedChangeListener,
+                    style = style,
+                    enabled = checkboxEnabled,
+                    checked = checkboxChecked,
+                    isError = isError
+                )
+            } else {
+                WarpCheckbox(
+                    label = label,
+                    extraText = extraText,
+                    onCheckedChange = checkedChangeListener,
+                    slot = slot,
+                    style = style,
+                    enabled = checkboxEnabled,
+                    checked = checkboxChecked,
+                    isError = isError
+                )
+            }
         }
     }
 

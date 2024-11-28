@@ -20,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -51,7 +52,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 @Composable
 fun WarpCheckbox(
     modifier: Modifier = Modifier,
-    label: String = "",
+    label: String,
     extraText: String? = null,
     slot: @Composable (() -> Unit)? = null,
     onCheckedChange: ((Boolean) -> Unit) = {},
@@ -125,36 +126,11 @@ private fun WarpCheckboxView(
         verticalAlignment = Alignment.CenterVertically,
         modifier = rowModifier
     ) {
-
-        Box(
-            modifier = Modifier
-                .requiredSize(dimensions.components.checkbox.checkboxSize)
-                .background(
-                    checkboxColor.value,
-                    shape = RoundedCornerShape(
-                        dimensions.components.checkbox.cornerRadius
-                    )
-                )
-                .border(
-                    width = dimensions.borderWidth1,
-                    color = checkboxBorder.value,
-                    shape = RoundedCornerShape(
-                        dimensions.components.checkbox.cornerRadius
-                    )
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            this@Row.AnimatedVisibility(
-                visible = isChecked.value,
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.warp_check),
-                    contentDescription = stringResource(R.string.check),
-                    tint = colors.icon.inverted,
-                    modifier = Modifier.height(dimensions.components.checkbox.iconHeight)
-                )
-            }
-        }
+        WarpCheckboxIndicator(
+            isChecked = isChecked.value,
+            checkboxColor = checkboxColor.value,
+            checkboxBorder = checkboxBorder.value
+        )
         label.takeIf { it.isNotEmpty() }?.let {
             Spacer(modifier = Modifier.width(dimensions.space1))
             WarpText(
@@ -162,9 +138,9 @@ private fun WarpCheckboxView(
                 style = WarpTextStyle.Body,
                 color = warpCheckboxColors.text
             )
+            Spacer(modifier = Modifier.width(dimensions.space05))
         }
         extraText?.let {
-            Spacer(modifier = Modifier.width(dimensions.space05))
             WarpText(
                 text = it,
                 style = WarpTextStyle.Body,
@@ -177,6 +153,65 @@ private fun WarpCheckboxView(
             it()
         }
     }
+}
+
+@Composable
+fun WarpCheckbox(
+    modifier: Modifier = Modifier,
+    onCheckedChange: ((Boolean) -> Unit) = {},
+    style: WarpCheckboxStyle = WarpCheckboxStyle.Default,
+    enabled: Boolean = true,
+    checked: Boolean = false,
+    isError: Boolean = false
+) {
+    WarpCheckbox(
+        modifier = modifier.clip(warpCheckboxShape()),
+        label = "",
+        onCheckedChange = onCheckedChange,
+        style = style,
+        enabled = enabled,
+        checked = checked,
+        isError = isError
+    )
+}
+
+@Composable
+private fun WarpCheckboxIndicator(
+    isChecked: Boolean,
+    checkboxColor: Color,
+    checkboxBorder: Color
+) {
+    val checkboxShape = warpCheckboxShape()
+    Box(
+        modifier = Modifier
+            .requiredSize(dimensions.components.checkbox.checkboxSize)
+            .background(
+                color = checkboxColor,
+                shape = checkboxShape
+            )
+            .border(
+                width = dimensions.borderWidth1,
+                color = checkboxBorder,
+                shape = checkboxShape
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        AnimatedVisibility(
+            visible = isChecked,
+        ) {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.warp_check),
+                contentDescription = stringResource(R.string.check),
+                tint = colors.icon.inverted,
+                modifier = Modifier.height(dimensions.components.checkbox.iconHeight)
+            )
+        }
+    }
+}
+
+@Composable
+private fun warpCheckboxShape(): RoundedCornerShape {
+    return RoundedCornerShape(dimensions.components.checkbox.cornerRadius)
 }
 
 @Composable
