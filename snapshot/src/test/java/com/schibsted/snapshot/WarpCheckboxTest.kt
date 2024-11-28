@@ -126,6 +126,10 @@ class WarpCheckboxTest(
                         },
                         enabled = style != WarpCheckboxStyle.Disabled
                     )
+                    WarpCheckbox(
+                        style = style,
+                        enabled = style != WarpCheckboxStyle.Disabled
+                    )
                 }
             }
         }

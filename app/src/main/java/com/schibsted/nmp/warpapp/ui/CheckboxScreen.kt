@@ -118,6 +118,9 @@ private fun CheckboxScreenContent() {
             onOptionsSelected = { onOptionsSelected },
             isError = false
         )
+        WarpText(text = "Checkbox without label", style = WarpTextStyle.Title3)
+        WarpCheckbox(onCheckedChange = { })
+        WarpCheckbox(onCheckedChange = { }, checked = true)
     }
 }
 

@@ -298,6 +298,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative" />
 
+        <com.schibsted.nmp.warp.components.legacy.WarpCheckboxView
+            android:id="@+id/warp_checkbox_no_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative_selected"
+            app:warpCheckboxStyle="neutral" />
+
         <com.schibsted.nmp.warp.components.legacy.WarpStepIndicatorView
             android:id="@+id/stepindicator_vertical"
             android:layout_width="wrap_content"
@@ -307,7 +316,7 @@
             app:layout_constraintBottom_toTopOf="@id/stepindicator_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_negative_selected"
+            app:layout_constraintTop_toBottomOf="@id/warp_checkbox_no_label"
             app:stepIndicatorOrientation="vertical"
             app:steps="2" />
 
