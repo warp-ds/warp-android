@@ -162,7 +162,7 @@ fun WarpTextField(
     Column(modifier) {
         Row(
             horizontalArrangement = Arrangement.Start,
-            modifier = Modifier.padding(vertical = dimensions.space025, horizontal = 0.dp),
+            modifier = Modifier.padding(top = dimensions.space025, bottom = dimensions.space05),
             verticalAlignment = Alignment.CenterVertically
         ) {
             label?.let {
@@ -258,7 +258,7 @@ fun WarpTextField(
         helpText?.let {
             Row(
                 horizontalArrangement = Arrangement.Start,
-                modifier = Modifier.padding(vertical = dimensions.space025, horizontal = 0.dp),
+                modifier = Modifier.padding(top = dimensions.space05, bottom = dimensions.space025),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 WarpText(text = helpText, style = WarpTextStyle.Detail, color = helpTextColor)
