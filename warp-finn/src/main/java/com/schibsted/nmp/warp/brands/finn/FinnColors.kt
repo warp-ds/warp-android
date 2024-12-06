@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 
-// Generated on Wed, 04 Dec 2024 13:53:37 GMT by https://github.com/warp-ds/tokens
+// Generated on Fri, 06 Dec 2024 09:42:33 GMT by https://github.com/warp-ds/tokens
 
 internal object FinnColors : WarpColors {
     override val surface: WarpSurfaceColors = FinnSurfaceColors
@@ -244,15 +244,19 @@ private object FinnPageIndicatorColors : WarpPageIndicatorColors {
 }
     internal val White = Color(0xFFffffff)
     internal val Black = Color(0xFF000000)
-    internal val Gray50 = Color(0xFFfafafa)
-    internal val Gray100 = Color(0xFFf4f4f5)
-    internal val Gray200 = Color(0xFFe4e4e7)
-    internal val Gray300 = Color(0xFFd4d4d8)
-    internal val Gray400 = Color(0xFFa1a1aa)
-    internal val Gray500 = Color(0xFF71717a)
-    internal val Gray700 = Color(0xFF3f3f46)
-    internal val Gray800 = Color(0xFF27272a)
-    internal val Gray900 = Color(0xFF18181b)
+    internal val Gray50 = Color(0xFFf6f6f6)
+    internal val Gray100 = Color(0xFFf0f0f2)
+    internal val Gray200 = Color(0xFFdedee3)
+    internal val Gray300 = Color(0xFFcacad1)
+    internal val Gray400 = Color(0xFFafafb8)
+    internal val Gray500 = Color(0xFF84848f)
+    internal val Gray600 = Color(0xFF5c5c66)
+    internal val Gray700 = Color(0xFF47474f)
+    internal val Gray750 = Color(0xFF333338)
+    internal val Gray800 = Color(0xFF2b2b30)
+    internal val Gray850 = Color(0xFF26262b)
+    internal val Gray900 = Color(0xFF1b1b1f)
+    internal val Gray950 = Color(0xFF121212)
     internal val Blue50 = Color(0xFFeff5ff)
     internal val Blue100 = Color(0xFFe1edfe)
     internal val Blue200 = Color(0xFFc2dafe)

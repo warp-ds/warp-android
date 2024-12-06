@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 
-// Generated on Wed, 04 Dec 2024 13:53:37 GMT by https://github.com/warp-ds/tokens
+// Generated on Fri, 06 Dec 2024 09:42:33 GMT by https://github.com/warp-ds/tokens
 
 internal object FinnDarkColors : WarpColors {
     override val surface: WarpSurfaceColors = FinnDarkSurfaceColors
