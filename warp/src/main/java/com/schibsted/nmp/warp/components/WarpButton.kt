@@ -8,6 +8,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -403,8 +404,8 @@ internal fun buttonStyleUtilityQuiet() = WarpButtonStyleColors(
 internal fun buttonStyleLoading() = WarpButtonStyleColors(
     text = colors.text.default,
     background = WarpButtonElementColors(
-        default = colors.components.button.loading.first,
-        active = colors.components.button.loading.second
+        default = if(isSystemInDarkTheme()) Color(0xFF47474f) else Color(0xfff6f6f6), //light - Gray50 dark- Gray700
+        active = if(isSystemInDarkTheme()) Color(0xFF1b1b1f) else Color(0XFFDEDEE3) //light - Gray200 dark - Gray900
     ),
     border = null
 )
