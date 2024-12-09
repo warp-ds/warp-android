@@ -4,12 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -25,13 +27,15 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param text The badge text.
  * @param style The badge style. Defaults to [WarpBadgeStyle.Neutral].
  * @param alignmentStyle The badge alignment style. Defaults to [WarpBadgeAlignment.None].
+ * @param icon The badge icon.
  */
 @Composable
 fun WarpBadge(
     modifier: Modifier = Modifier,
     text: String,
     style: WarpBadgeStyle = WarpBadgeStyle.Neutral,
-    alignmentStyle: WarpBadgeAlignment = WarpBadgeAlignment.None
+    alignmentStyle: WarpBadgeAlignment = WarpBadgeAlignment.None,
+    icon: WarpIconResource? = null
 ) {
     val backgroundColor = when (style) {
         WarpBadgeStyle.Info -> colors.components.badge.infoBackground
@@ -51,6 +55,7 @@ fun WarpBadge(
         WarpBadgeStyle.Disabled,
         WarpBadgeStyle.Neutral,
         WarpBadgeStyle.Sponsored -> colors.text.default
+
         WarpBadgeStyle.Price -> colors.text.invertedStatic
     }
     val shape = when (alignmentStyle) {
@@ -60,7 +65,9 @@ fun WarpBadge(
         WarpBadgeAlignment.BottomStart -> shapes.components.badge.bottomStart
         WarpBadgeAlignment.BottomEnd -> shapes.components.badge.bottomEnd
     }
-    WarpText(
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .then(
                 Modifier
@@ -70,11 +77,21 @@ fun WarpBadge(
                         vertical = dimensions.space05
                     )
             ),
-        color = textColor,
-        text = text,
-        style = WarpTextStyle.Detail,
-    )
-
+    ) {
+        icon?.let {
+            WarpIcon(
+                icon = icon,
+                modifier = Modifier.padding(end = dimensions.space05),
+                size = dimensions.icon.small,
+                color = textColor
+            )
+        }
+        WarpText(
+            color = textColor,
+            text = text,
+            style = WarpTextStyle.Detail,
+        )
+    }
 }
 
 @Composable
@@ -83,6 +100,7 @@ fun BoxScope.WarpBadge(
     style: WarpBadgeStyle = WarpBadgeStyle.Neutral,
     text: String,
     alignment: Alignment = Alignment.TopStart,
+    icon: WarpIconResource? = null
 ) {
     val alignmentStyle = when (alignment) {
         Alignment.TopStart, Alignment.Start -> WarpBadgeAlignment.TopStart
@@ -95,7 +113,8 @@ fun BoxScope.WarpBadge(
         text = text,
         style = style,
         modifier = modifier.then(Modifier.align(alignment)),
-        alignmentStyle = alignmentStyle
+        alignmentStyle = alignmentStyle,
+        icon = icon
     )
 }
 
@@ -122,7 +141,7 @@ enum class WarpBadgeAlignment {
 @Composable
 fun WarpBadgePreview() {
     Column {
-        WarpBadgeStyle.values().forEach {
+        WarpBadgeStyle.entries.forEach {
             Box {
                 WarpBadge(
                     modifier = Modifier.padding(4.dp),

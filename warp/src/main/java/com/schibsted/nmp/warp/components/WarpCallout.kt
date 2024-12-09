@@ -81,7 +81,7 @@ fun WarpCallout(
                     Popup(
                         popupPositionProvider = popupPositionProvider,
                         onDismissRequest = onDismiss,
-                        properties = PopupProperties(focusable = true)
+                        properties = PopupProperties()
                     ) {
                         CalloutView(
                             shadowModifier,

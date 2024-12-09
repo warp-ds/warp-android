@@ -9,9 +9,11 @@ import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
 fun FinnWarpTheme(
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
+    forceDarkMode: Boolean? = null
 ) {
-    val finnColors = if (isSystemInDarkTheme()) FinnDarkColors else FinnColors
+    val finnColors = forceDarkMode?.let { if (it) FinnDarkColors else FinnColors }
+        ?: if (isSystemInDarkTheme()) FinnDarkColors else FinnColors
     val finnDimensions = WarpDimensions
     val finnResources = WarpResources
     val finnRippleTheme = WarpRippleTheme(rippleColor = finnColors.background.primary, rippleColorAlpha = finnColors.background.primary)

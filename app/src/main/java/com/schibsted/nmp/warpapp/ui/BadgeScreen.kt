@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
@@ -17,7 +16,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpBadge
 import com.schibsted.nmp.warp.components.WarpBadgeStyle
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 
@@ -33,11 +35,11 @@ private fun BadgeContent() {
     Column {
         Card(
             Modifier
-                .padding(8.dp)
+                .padding(dimensions.space1)
                 .background(WarpTheme.colors.background.default),
             colors = CardDefaults.cardColors(containerColor = WarpTheme.colors.background.default),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            shape = RoundedCornerShape(4.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = dimensions.space05),
+            shape = shapes.roundedSmall
         ) {
             Box(
                 modifier = Modifier
@@ -82,6 +84,12 @@ private fun BadgeContent() {
                     text = "Price",
                     style = WarpBadgeStyle.Price,
                     alignment = Alignment.BottomCenter
+                )
+                WarpBadge(
+                    text = "Icon",
+                    style = WarpBadgeStyle.Sponsored,
+                    alignment = Alignment.CenterEnd,
+                    icon = icons.awardMedal
                 )
             }
         }
