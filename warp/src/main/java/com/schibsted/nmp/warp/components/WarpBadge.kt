@@ -67,6 +67,7 @@ fun WarpBadge(
     }
 
     Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .then(
                 Modifier
