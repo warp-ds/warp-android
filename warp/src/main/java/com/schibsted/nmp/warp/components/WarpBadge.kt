@@ -42,7 +42,7 @@ fun WarpBadge(
         WarpBadgeStyle.Success -> colors.components.badge.positiveBackground
         WarpBadgeStyle.Warning -> colors.components.badge.warningBackground
         WarpBadgeStyle.Error -> colors.components.badge.negativeBackground
-        WarpBadgeStyle.Disabled -> colors.components.badge.disabledBackground
+        WarpBadgeStyle.Disabled -> colors.background.disabled
         WarpBadgeStyle.Neutral -> colors.components.badge.neutralBackground
         WarpBadgeStyle.Sponsored -> colors.components.badge.sponsoredBackground
         WarpBadgeStyle.Price -> colors.components.badge.priceBackground

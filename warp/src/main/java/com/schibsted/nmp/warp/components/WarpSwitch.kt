@@ -112,7 +112,7 @@ internal data class WarpSwitchColors(
 internal fun neutralSwitchColors() = WarpSwitchColors(
     thumbColor = colors.background.default,
     checkedTrackColor = colors.background.primary,
-    uncheckedTrackColor = colors.components.switch.trackBackground
+    uncheckedTrackColor = colors.components.switch.handleBackground
 )
 
 @Composable
