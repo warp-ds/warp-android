@@ -84,12 +84,16 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
     override val infoSubtleActive = Color.Unspecified
 
     override val notification = Color.Unspecified
+    override val transparent0 = Color.Unspecified
 }
 
 private object PlaceholderWarpBorderColors : WarpBorderColors {
     override val default = Color.Unspecified
     override val hover = Color.Unspecified
     override val active = Color.Unspecified
+    override val subtle = Color.Unspecified
+    override val subtleHover = Color.Unspecified
+    override val subtleActive = Color.Unspecified
     override val disabled = Color.Unspecified
     override val selected = Color.Unspecified
     override val selectedHover = Color.Unspecified
@@ -175,7 +179,6 @@ private object PlaceholderWarpTextColors : WarpTextColors {
     override val disabled = Color.Unspecified
     override val negative = Color.Unspecified
     override val positive = Color.Unspecified
-    override val notification = Color.Unspecified
 }
 
 private object PlaceholderWarpComponentColors : WarpComponentColors {
@@ -186,11 +189,22 @@ private object PlaceholderWarpComponentColors : WarpComponentColors {
     override val navBar: WarpNavBarColors = PlaceholderNavBarColors
     override val tooltip: WarpTooltipColors = PlaceholderTooltipColors
     override val switch: WarpSwitchColors = PlaceholderSwitchColors
+    override val card: WarpCardColors = PlaceholderCardColors
+    override val pageIndicator: WarpPageIndicatorColors = PlaceholderPageIndicatorColors
+}
+
+private object PlaceholderPageIndicatorColors : WarpPageIndicatorColors {
+    override val indicatorBackground = Color.Unspecified
+    override val indicatorBackgroundHover = Color.Unspecified
+}
+
+private object PlaceholderCardColors : WarpCardColors {
+    override val defaultBackground = Color.Unspecified
 }
 
 private object PlaceholderSwitchColors : WarpSwitchColors {
-    override val trackBackground: Color = Color.Unspecified
-    override val trackBackgroundHover: Color = Color.Unspecified
+    override val handleBackground: Color = Color.Unspecified
+    override val handleBackgroundHover: Color = Color.Unspecified
 }
 
 private object PlaceholderTooltipColors : WarpTooltipColors {
@@ -211,7 +225,6 @@ private object PlaceholderPillColors : WarpPillColors {
 private object PlaceholderCalloutColors : WarpCalloutColors {
     override val background: Color = Color.Unspecified
     override val border: Color = Color.Unspecified
-    override val text: Color = Color.Unspecified
 }
 
 private object PlaceholderBadgeColors : WarpBadgeColors {
@@ -219,17 +232,17 @@ private object PlaceholderBadgeColors : WarpBadgeColors {
     override val positiveBackground: Color = Color.Unspecified
     override val warningBackground: Color = Color.Unspecified
     override val negativeBackground: Color = Color.Unspecified
-    override val disabledBackground: Color = Color.Unspecified
     override val neutralBackground: Color = Color.Unspecified
     override val priceBackground: Color = Color.Unspecified
     override val sponsoredBackground: Color = Color.Unspecified
 }
 
 private object PlaceholderButtonColors : WarpButtonColors {
-    override val loading: Pair<Color, Color> = Color.Unspecified to Color.Unspecified
     override val primaryBackground: Color = Color.Unspecified
     override val primaryBackgroundHover: Color = Color.Unspecified
     override val primaryBackgroundActive: Color = Color.Unspecified
+    override val pillBackgroundHover = Color.Unspecified
+    override val pillBackgroundActive = Color.Unspecified
 }
 
 internal object PlaceholderShapes : WarpShapes {
