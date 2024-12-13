@@ -81,7 +81,7 @@ fun WarpCallout(
                     Popup(
                         popupPositionProvider = popupPositionProvider,
                         onDismissRequest = onDismiss,
-                        properties = PopupProperties(focusable = true)
+                        properties = PopupProperties()
                     ) {
                         CalloutView(
                             shadowModifier,
@@ -277,7 +277,7 @@ private fun Modifier.calloutPadding(edge: Edge): Modifier = composed {
 
 @Composable
 fun getCalloutColors() = DefaultWarpCalloutColors(
-    text = colors.components.callout.text,
+    text = colors.text.default,
     background = colors.components.callout.background,
     border = colors.components.callout.border
 )

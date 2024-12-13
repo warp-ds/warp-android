@@ -9,9 +9,11 @@ import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
 fun ToriWarpTheme(
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
+    forceDarkMode: Boolean? = null
 ) {
-    val toriColors = if (isSystemInDarkTheme()) ToriDarkColors else ToriColors
+    val toriColors = forceDarkMode?.let { if (it) ToriDarkColors else ToriColors }
+        ?: if (isSystemInDarkTheme()) ToriDarkColors else ToriColors
     val toriDimensions = WarpDimensions
     val toriResources = WarpResources
     val toriRippleTheme = WarpRippleTheme(rippleColor = toriColors.background.primary, rippleColorAlpha = toriColors.background.primary)
