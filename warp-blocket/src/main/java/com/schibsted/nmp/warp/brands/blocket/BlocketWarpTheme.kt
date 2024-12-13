@@ -8,8 +8,12 @@ import com.schibsted.nmp.warp.theme.WarpRippleTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
-fun BlocketWarpTheme(content: @Composable () -> Unit) {
-    val blocketColors = if (isSystemInDarkTheme()) BlocketDarkColors else BlocketColors
+fun BlocketWarpTheme(
+    content: @Composable () -> Unit,
+    forceDarkMode: Boolean? = null
+) {
+    val blocketColors = forceDarkMode?.let { if (it) BlocketDarkColors else BlocketColors }
+        ?: if (isSystemInDarkTheme()) BlocketDarkColors else BlocketColors
     val blocketDimensions = WarpDimensions
     val blocketResources = WarpResources
     val blocketRippleTheme = WarpRippleTheme(

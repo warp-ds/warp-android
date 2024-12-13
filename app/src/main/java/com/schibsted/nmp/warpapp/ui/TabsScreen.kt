@@ -42,7 +42,7 @@ private fun TabsContent() {
                 selected = selectedTab == 0,
                 onClick = { selectedTab = 0 },
                 icon = {},
-                text = "Option 1"
+                text = "Loooong Option 1"
             )
             WarpTab(
                 selected = selectedTab == 1,

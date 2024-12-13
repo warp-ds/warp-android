@@ -10,7 +10,6 @@ import androidx.compose.material3.LeadingIconTab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -63,7 +62,7 @@ fun WarpTab(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        text = { Text(text, style = WarpTheme.typography.title4) },
+        text = { WarpText(text = text, style = WarpTextStyle.Title4, softWrap = false) },
         selectedContentColor = WarpTheme.colors.text.link,
         unselectedContentColor = WarpTheme.colors.text.subtle,
         icon = icon,

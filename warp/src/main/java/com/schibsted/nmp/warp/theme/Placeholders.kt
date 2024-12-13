@@ -246,6 +246,7 @@ private object PlaceholderButtonColors : WarpButtonColors {
 }
 
 internal object PlaceholderShapes : WarpShapes {
+    override val roundedSmall: Shape = CircleShape
     override val roundedMedium: Shape = CircleShape
     override val ellipse: Shape = CircleShape
     override val components: WarpComponentShapes = PlaceholderComponentShapes

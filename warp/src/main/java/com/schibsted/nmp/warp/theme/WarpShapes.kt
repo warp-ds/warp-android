@@ -4,6 +4,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Shape
 
 interface WarpShapes {
+    val roundedSmall: Shape
     val roundedMedium: Shape
     val ellipse: Shape
     val components: WarpComponentShapes

@@ -11,6 +11,7 @@ import com.schibsted.nmp.warp.theme.WarpShapes
 
 internal data class DbaShapes(
     val dimensions: WarpDimensions,
+    override val roundedSmall: Shape = RoundedCornerShape(dimensions.borderRadius1),
     override val roundedMedium: Shape = RoundedCornerShape(dimensions.borderRadius3),
     override val ellipse: Shape = CircleShape
 ) : WarpShapes {
