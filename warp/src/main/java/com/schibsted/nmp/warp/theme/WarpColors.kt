@@ -80,12 +80,16 @@ interface WarpBackgroundColors {
     val infoSubtleActive: Color
 
     val notification: Color
+    val transparent0: Color
 }
 
 interface WarpBorderColors {
     val default: Color
     val hover: Color
     val active: Color
+    val subtle: Color
+    val subtleHover: Color
+    val subtleActive: Color
     val disabled: Color
     val selected: Color
     val selectedHover: Color
@@ -171,7 +175,6 @@ interface WarpTextColors {
     val disabled: Color
     val negative: Color
     val positive: Color
-    val notification: Color
 }
 
 interface WarpComponentColors {
@@ -182,11 +185,22 @@ interface WarpComponentColors {
     val navBar: WarpNavBarColors
     val tooltip: WarpTooltipColors
     val switch: WarpSwitchColors
+    val card: WarpCardColors
+    val pageIndicator: WarpPageIndicatorColors
+}
+
+interface WarpPageIndicatorColors {
+    val indicatorBackground: Color
+    val indicatorBackgroundHover: Color
+}
+
+interface WarpCardColors {
+    val defaultBackground: Color
 }
 
 interface WarpSwitchColors {
-    val trackBackground: Color
-    val trackBackgroundHover: Color
+    val handleBackground: Color
+    val handleBackgroundHover: Color
 }
 
 interface WarpTooltipColors {
@@ -207,7 +221,6 @@ interface WarpPillColors {
 interface WarpCalloutColors {
     val background: Color
     val border: Color
-    val text: Color
 }
 
 interface WarpBadgeColors {
@@ -215,17 +228,17 @@ interface WarpBadgeColors {
     val positiveBackground: Color
     val warningBackground: Color
     val negativeBackground: Color
-    val disabledBackground: Color
     val neutralBackground: Color
     val sponsoredBackground: Color
     val priceBackground: Color
 }
 
 interface WarpButtonColors {
-    val loading: Pair<Color, Color>
     val primaryBackground: Color
     val primaryBackgroundHover: Color
     val primaryBackgroundActive: Color
+    val pillBackgroundHover: Color
+    val pillBackgroundActive: Color
 }
 
 val White = Color.White
