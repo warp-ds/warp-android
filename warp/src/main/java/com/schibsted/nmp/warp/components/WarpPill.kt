@@ -1,19 +1,16 @@
 package com.schibsted.nmp.warp.components
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
+import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
+import com.schibsted.nmp.warp.theme.WarpIconResource
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -31,7 +28,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param style The style of the pill. Defaults to [WarpPillStyle.Filter].
  * @param closable Whether the pill is closable. When true, the pill will display a dismiss icon. Defaults to false.
  * @param icon The icon to be displayed in the pill. If provided, the dismiss icon will not be displayed.
- * @param iconContentDescription The content description to be used for the icon.
  */
 @Composable
 fun WarpPill(
@@ -41,8 +37,7 @@ fun WarpPill(
     selected: Boolean = false,
     style: WarpPillStyle = WarpPillStyle.Filter,
     closable: Boolean = false,
-    @DrawableRes icon: Int? = null,
-    iconContentDescription: String? = null
+    icon: WarpIconResource? = null
 ) {
     val warpPillColors: WarpPillStyleColors = when (style) {
         WarpPillStyle.Filter -> pillStyleFilter()
@@ -59,6 +54,15 @@ fun WarpPill(
         selectedLeadingIconColor = warpPillColors.icon,
         selectedTrailingIconColor = warpPillColors.icon,
     )
+    val configuration = LocalConfiguration.current
+    val iconSizeDimension = dimensions.components.pillIcon
+    val iconSize =
+        remember(configuration.fontScale, iconSizeDimension) {
+            adaptDpToFontScale(
+                configuration = configuration,
+                dimension = iconSizeDimension
+            )
+        }
 
     InputChip(
         selected = selected,
@@ -67,9 +71,7 @@ fun WarpPill(
             WarpText(
                 text = text,
                 style = WarpTextStyle.CaptionStrong,
-                color = warpPillColors.text,
-                modifier = Modifier
-                    .padding(vertical = dimensions.space1)
+                color = warpPillColors.text
             )
         },
         shape = shapes.ellipse,
@@ -78,21 +80,19 @@ fun WarpPill(
         modifier = modifier,
         trailingIcon = if (closable) {
             {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    tint = warpPillColors.icon,
-                    contentDescription = iconContentDescription,
-                    modifier = Modifier.size(dimensions.components.pillIcon)
+                WarpIcon(
+                    icon = icons.close,
+                    color = warpPillColors.icon,
+                    size = iconSize
                 )
             }
 
         } else if (icon != null) {
             {
-                Icon(
-                    imageVector = ImageVector.vectorResource(icon),
-                    tint = warpPillColors.icon,
-                    contentDescription = iconContentDescription,
-                    modifier = Modifier.size(dimensions.components.pillIcon)
+                WarpIcon(
+                    icon = icon,
+                    color = warpPillColors.icon,
+                    size = iconSize
                 )
             }
         } else null
