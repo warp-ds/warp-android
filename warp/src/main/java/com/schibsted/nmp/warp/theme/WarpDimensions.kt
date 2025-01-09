@@ -37,6 +37,8 @@ object WarpDimensions {
     val shadowLarge: Dp = 12.dp
     val shadowXLarge: Dp = 16.dp
 
+    val minimumTouchSize: Dp = 48.dp
+
     val components = WarpComponentDimensions
 
     val icon = WarpIconDimensions
@@ -45,6 +47,7 @@ object WarpDimensions {
     /**
      * Helper methods contributed by Shiva Bernhard
      */
+
     fun calculateDimensionResource(context: Context, resId: Int): Dp {
         val resources = context.resources
         val displayMetrics = resources.displayMetrics
