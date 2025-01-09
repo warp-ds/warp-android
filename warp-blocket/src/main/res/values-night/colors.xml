@@ -11,7 +11,7 @@
    <color name="warp_text_inverted_subtle">#ff5c5c66</color>
    <color name="warp_text_inverted_static">#ffffffff</color>
    <color name="warp_text_link">#ff509df1</color>
-   <color name="warp_text_disabled">#ff5c5c66</color>
+   <color name="warp_text_disabled">#ff84848f</color>
    <color name="warp_text_negative">#ffe57a6f</color>
    <color name="warp_text_positive">#ff47a477</color>
    <color name="warp_background_default">#ff1b1b1f</color>
@@ -20,8 +20,8 @@
    <color name="warp_background_subtle">#ff333338</color>
    <color name="warp_background_subtle_hover">#ff47474f</color>
    <color name="warp_background_subtle_active">#ff5c5c66</color>
-   <color name="warp_background_disabled">#ff5c5c66</color>
-   <color name="warp_background_disabled_subtle">#ff333338</color>
+   <color name="warp_background_disabled">#ff47474f</color>
+   <color name="warp_background_disabled_subtle">#ff5c5c66</color>
    <color name="warp_background_selected">#ff001d3d</color>
    <color name="warp_background_selected_hover">#ff003977</color>
    <color name="warp_background_selected_active">#ff0055b1</color>
@@ -71,16 +71,14 @@
    <color name="warp_surface_elevated_300">#ff333338</color>
    <color name="warp_surface_elevated_300_hover">#ff47474f</color>
    <color name="warp_surface_elevated_300_active">#ff5c5c66</color>
-   <color name="warp_border_default">#ff84848f</color>
-   <color name="warp_border_hover">#ffafafb8</color>
-   <color name="warp_border_active">#ffcacad1</color>
-   <color name="warp_border_subtle">#ff47474f</color>
-   <color name="warp_border_subtle_hover">#ff5c5c66</color>
-   <color name="warp_border_subtle_active">#ff84848f</color>
-   <color name="warp_border_disabled">#ff5c5c66</color>
+   <color name="warp_border_default">#ff5c5c66</color>
+   <color name="warp_border_hover">#ff84848f</color>
+   <color name="warp_border_active">#ffafafb8</color>
+   <color name="warp_border_disabled">#ff47474f</color>
    <color name="warp_border_selected">#ff509df1</color>
    <color name="warp_border_selected_hover">#ff78b3f4</color>
    <color name="warp_border_selected_active">#ffa0c9f7</color>
+   <color name="warp_border_inverted">#ff1b1b1f</color>
    <color name="warp_border_primary">#ff509df1</color>
    <color name="warp_border_primary_hover">#ff78b3f4</color>
    <color name="warp_border_primary_active">#ffa0c9f7</color>
@@ -167,6 +165,8 @@
    <color name="warp_tooltip_background_static">#ff333338</color>
    <color name="warp_switch_handle_background">#ff84848f</color>
    <color name="warp_switch_handle_background_hover">#ffafafb8</color>
+   <color name="warp_switch_track_border">#ff84848f</color>
+   <color name="warp_switch_track_border_hover">#ffafafb8</color>
   
   <!--*** PRIMITIVE COLORS ***-->
 

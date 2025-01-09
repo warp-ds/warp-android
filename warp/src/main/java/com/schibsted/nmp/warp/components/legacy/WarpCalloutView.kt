@@ -1,10 +1,5 @@
 package com.schibsted.nmp.warp.components.legacy
 
-import CalloutSize
-import CalloutState
-import CalloutType
-import Edge
-import WarpCallout
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View.OnClickListener
@@ -14,6 +9,11 @@ import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.unit.dp
 import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
+import com.schibsted.nmp.warp.components.CalloutSize
+import com.schibsted.nmp.warp.components.CalloutState
+import com.schibsted.nmp.warp.components.CalloutType
+import com.schibsted.nmp.warp.components.Edge
+import com.schibsted.nmp.warp.components.WarpCallout
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
 import org.koin.java.KoinJavaComponent.inject
 

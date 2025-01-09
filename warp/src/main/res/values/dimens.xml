@@ -25,5 +25,10 @@
     <dimen name="borderWidth2">2dp</dimen>
     <dimen name="borderWidth3">4dp</dimen>
 
-    <dimen name="shadowSmall">1dp</dimen>
+    <dimen name="shadowSmall">2dp</dimen>
+    <dimen name="shadowMedium">5dp</dimen>
+    <dimen name="shadowLarge">12dp</dimen>
+    <dimen name="shadowXLarge">16dp</dimen>
+
+    <dimen name="minimum_touch_size">48dp</dimen>
 </resources>

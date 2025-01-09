@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 
-// Generated on Wed, 04 Dec 2024 13:53:37 GMT by https://github.com/warp-ds/tokens
+// Generated on Thu, 09 Jan 2025 13:37:44 GMT by https://github.com/warp-ds/tokens
 
 internal object BlocketColors : WarpColors {
     override val surface: WarpSurfaceColors = BlocketSurfaceColors
@@ -48,7 +48,7 @@ internal object BlocketBackgroundColors : WarpBackgroundColors {
     override val subtle = Color(0xFFf0f0f2)
     override val subtleHover = Color(0xFFdedee3)
     override val subtleActive = Color(0xFFcacad1)
-    override val disabled = Color(0xFFafafb8)
+    override val disabled = Color(0xFFcacad1)
     override val disabledSubtle = Color(0xFFdedee3)
     override val selected = Color(0xFFf0f7ff)
     override val selectedHover = Color(0xFFc8dffa)
@@ -87,21 +87,19 @@ internal object BlocketBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFf0f7ff)
     override val infoSubtleHover = Color(0xFFc8dffa)
     override val infoSubtleActive = Color(0xFFa0c9f7)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color(0x00ffffff)
     override val notification = Color(0xFFe90017)
 }
 
 internal object BlocketBorderColors : WarpBorderColors {
-    override val default = Color(0xFF84848f)
-    override val hover = Color(0xFF5c5c66)
-    override val active = Color(0xFF47474f)
-    override val subtle = Color(0xFFcacad1)
-    override val subtleHover = Color(0xFFafafb8)
-    override val subtleActive = Color(0xFF84848f)
-    override val disabled = Color(0xFFafafb8)
+    override val default = Color(0xFFcacad1)
+    override val hover = Color(0xFFafafb8)
+    override val active = Color(0xFF84848f)
+    override val disabled = Color(0xFFcacad1)
     override val selected = Color(0xFF0071eb)
     override val selectedHover = Color(0xFF0055b1)
     override val selectedActive = Color(0xFF003977)
+    override val inverted = Color(0xFFffffff)
     override val primary = Color(0xFF0071eb)
     override val primaryHover = Color(0xFF0055b1)
     override val primaryActive = Color(0xFF003977)
@@ -146,7 +144,7 @@ internal object BlocketIconColors : WarpIconColors {
     override val selected = Color(0xFF0071eb)
     override val selectedHover = Color(0xFF0055b1)
     override val selectedActive = Color(0xFF003977)
-    override val disabled = Color(0xFFafafb8)
+    override val disabled = Color(0xFFcacad1)
     override val subtle = Color(0xFF5c5c66)
     override val subtleHover = Color(0xFF47474f)
     override val subtleActive = Color(0xFF2b2b30)
@@ -174,7 +172,7 @@ internal object BlocketTextColors : WarpTextColors {
     override val invertedSubtle = Color(0xFFafafb8)
     override val invertedStatic = Color(0xFFffffff)
     override val link = Color(0xFF0071eb)
-    override val disabled = Color(0xFFafafb8)
+    override val disabled = Color(0xFFcacad1)
     override val negative = Color(0xFFd93c2b)
     override val positive = Color(0xFF24925d)
 }
@@ -232,6 +230,8 @@ internal object BlocketTooltipColors : WarpTooltipColors {
 private object BlocketSwitchColors : WarpSwitchColors {
     override val handleBackground = Color(0xFF84848f)
     override val handleBackgroundHover = Color(0xFF5c5c66)
+    override val trackBorder = Color(0xFF84848f)
+    override val trackBorderHover = Color(0xFF5c5c66)
 }
 
 private object BlocketCardColors : WarpCardColors {
@@ -310,4 +310,4 @@ private object BlocketPageIndicatorColors : WarpPageIndicatorColors {
     internal val Gray850 = Color(0xFF26262b)
     internal val Gray900 = Color(0xFF1b1b1f)
     internal val Gray950 = Color(0xFF121212)
-    internal val Transparent = Color(0xFFffffff00)
+    internal val Transparent = Color(0x00ffffff)

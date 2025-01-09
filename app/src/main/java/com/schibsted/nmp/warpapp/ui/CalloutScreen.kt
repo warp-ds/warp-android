@@ -1,10 +1,5 @@
 package com.schibsted.nmp.warpapp.ui
 
-import CalloutSize
-import CalloutState
-import CalloutType
-import Edge
-import WarpCallout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.components.CalloutSize
+import com.schibsted.nmp.warp.components.CalloutState
+import com.schibsted.nmp.warp.components.CalloutType
+import com.schibsted.nmp.warp.components.Edge
 import com.schibsted.nmp.warp.components.WarpButton
+import com.schibsted.nmp.warp.components.WarpCallout
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable

@@ -14,9 +14,9 @@ import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
-import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpPill
 import com.schibsted.nmp.warp.components.WarpPillStyle
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import org.junit.Rule
@@ -91,7 +91,7 @@ class WarpPillTest(
                         text = "Link",
                         onClick = { },
                         style = type,
-                        icon = R.drawable.link,
+                        icon = icons.linkExternal,
                         modifier = Modifier
                             .padding(bottom = dimensions.space2)
                     )
