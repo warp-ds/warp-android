@@ -91,13 +91,11 @@ private object PlaceholderWarpBorderColors : WarpBorderColors {
     override val default = Color.Unspecified
     override val hover = Color.Unspecified
     override val active = Color.Unspecified
-    override val subtle = Color.Unspecified
-    override val subtleHover = Color.Unspecified
-    override val subtleActive = Color.Unspecified
     override val disabled = Color.Unspecified
     override val selected = Color.Unspecified
     override val selectedHover = Color.Unspecified
     override val selectedActive = Color.Unspecified
+    override val inverted = Color.Unspecified
     override val focus: Color = Color.Unspecified
 
     override val primary = Color.Unspecified
@@ -205,6 +203,8 @@ private object PlaceholderCardColors : WarpCardColors {
 private object PlaceholderSwitchColors : WarpSwitchColors {
     override val handleBackground: Color = Color.Unspecified
     override val handleBackgroundHover: Color = Color.Unspecified
+    override val trackBorder: Color = Color.Unspecified
+    override val trackBorderHover: Color = Color.Unspecified
 }
 
 private object PlaceholderTooltipColors : WarpTooltipColors {

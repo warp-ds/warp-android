@@ -1,6 +1,5 @@
 package com.schibsted.nmp.warp.components.shapes
 
-import Edge
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Rect
@@ -9,6 +8,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.LayoutDirection
+import com.schibsted.nmp.warp.components.Edge
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 

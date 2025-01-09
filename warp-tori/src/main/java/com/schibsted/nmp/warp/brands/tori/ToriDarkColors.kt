@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 
-// Generated on Wed, 04 Dec 2024 13:53:37 GMT by https://github.com/warp-ds/tokens
+// Generated on Thu, 09 Jan 2025 13:37:44 GMT by https://github.com/warp-ds/tokens
 
 internal object ToriDarkColors : WarpColors {
     override val surface: WarpSurfaceColors = ToriDarkSurfaceColors
@@ -48,8 +48,8 @@ internal object ToriDarkBackgroundColors : WarpBackgroundColors {
     override val subtle = Color(0xFF333338)
     override val subtleHover = Color(0xFF47474f)
     override val subtleActive = Color(0xFF5c5c66)
-    override val disabled = Color(0xFF5c5c66)
-    override val disabledSubtle = Color(0xFF333338)
+    override val disabled = Color(0xFF47474f)
+    override val disabledSubtle = Color(0xFF5c5c66)
     override val selected = Color(0xFF0b1936)
     override val selectedHover = Color(0xFF153568)
     override val selectedActive = Color(0xFF1f519a)
@@ -87,21 +87,19 @@ internal object ToriDarkBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFF021622)
     override val infoSubtleHover = Color(0xFF063d61)
     override val infoSubtleActive = Color(0xFF0a659f)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color(0x00ffffff)
     override val notification = Color(0xFFf95157)
 }
 
 internal object ToriDarkBorderColors : WarpBorderColors {
-    override val default = Color(0xFF84848f)
-    override val hover = Color(0xFFafafb8)
-    override val active = Color(0xFFcacad1)
-    override val subtle = Color(0xFF47474f)
-    override val subtleHover = Color(0xFF5c5c66)
-    override val subtleActive = Color(0xFF84848f)
-    override val disabled = Color(0xFF5c5c66)
+    override val default = Color(0xFF5c5c66)
+    override val hover = Color(0xFF84848f)
+    override val active = Color(0xFFafafb8)
+    override val disabled = Color(0xFF47474f)
     override val selected = Color(0xFF6e9bdc)
     override val selectedHover = Color(0xFF91b2e4)
     override val selectedActive = Color(0xFFb4c9ec)
+    override val inverted = Color(0xFF1b1b1f)
     override val primary = Color(0xFF6e9bdc)
     override val primaryHover = Color(0xFF91b2e4)
     override val primaryActive = Color(0xFFb4c9ec)
@@ -174,7 +172,7 @@ internal object ToriDarkTextColors : WarpTextColors {
     override val invertedSubtle = Color(0xFF5c5c66)
     override val invertedStatic = Color(0xFFffffff)
     override val link = Color(0xFF6e9bdc)
-    override val disabled = Color(0xFF5c5c66)
+    override val disabled = Color(0xFF84848f)
     override val negative = Color(0xFFc98089)
     override val positive = Color(0xFF3ea07c)
 }
@@ -232,6 +230,8 @@ internal object ToriDarkTooltipColors : WarpTooltipColors {
 private object ToriDarkSwitchColors : WarpSwitchColors {
     override val handleBackground = Color(0xFF84848f)
     override val handleBackgroundHover = Color(0xFFafafb8)
+    override val trackBorder = Color(0xFF84848f)
+    override val trackBorderHover = Color(0xFFafafb8)
 }
 
 private object ToriDarkCardColors : WarpCardColors {
