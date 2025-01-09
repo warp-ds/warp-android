@@ -1,10 +1,5 @@
 package com.schibsted.snapshot
 
-import CalloutSize
-import CalloutState
-import CalloutType
-import Edge
-import WarpCallout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +16,11 @@ import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
+import com.schibsted.nmp.warp.components.CalloutSize
+import com.schibsted.nmp.warp.components.CalloutState
+import com.schibsted.nmp.warp.components.CalloutType
+import com.schibsted.nmp.warp.components.Edge
+import com.schibsted.nmp.warp.components.WarpCallout
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import org.junit.Rule
