@@ -264,7 +264,7 @@ fun WarpButton(
                 .height(dimensions.components.smallButtonHeight)
             if (loading) modifier
                 .loadingAnimation()
-                .then(smallModifier) else smallModifier
+                .then(smallModifier) else modifier.then(smallModifier)
         } else {
             if (loading) modifier.loadingAnimation() else modifier
         }

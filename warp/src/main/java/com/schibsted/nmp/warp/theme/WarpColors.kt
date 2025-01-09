@@ -87,13 +87,11 @@ interface WarpBorderColors {
     val default: Color
     val hover: Color
     val active: Color
-    val subtle: Color
-    val subtleHover: Color
-    val subtleActive: Color
     val disabled: Color
     val selected: Color
     val selectedHover: Color
     val selectedActive: Color
+    val inverted: Color
     val focus: Color
 
     val primary: Color
@@ -201,6 +199,8 @@ interface WarpCardColors {
 interface WarpSwitchColors {
     val handleBackground: Color
     val handleBackgroundHover: Color
+    val trackBorder: Color
+    val trackBorderHover: Color
 }
 
 interface WarpTooltipColors {

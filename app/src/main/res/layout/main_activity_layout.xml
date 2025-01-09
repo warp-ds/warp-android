@@ -130,7 +130,6 @@
             app:closable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/alert_box_critical"
-            app:pillIconContentDescr="Close icon"
             app:pillText="Filter pill"
             app:selected="false"
             app:warpPillStyle="filter" />
@@ -144,7 +143,6 @@
             app:closable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/filter_pill"
-            app:pillIconContentDescr="Close icon"
             app:pillText="Suggestion pill"
             app:selected="false"
             app:warpPillStyle="suggestion" />
@@ -157,8 +155,7 @@
             android:layout_marginVertical="@dimen/space1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/suggestion_pill"
-            app:pillIcon="@drawable/blocket_badge"
-            app:pillIconContentDescr="Icon"
+            app:pillIcon="linkexternal"
             app:pillText="Filter pill"
             app:selected="false"
             app:warpPillStyle="filter" />
@@ -171,8 +168,7 @@
             android:layout_marginVertical="@dimen/space1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/filter_pill_link"
-            app:pillIcon="@drawable/blocket_badge"
-            app:pillIconContentDescr="Icon"
+            app:pillIcon="linkexternal"
             app:pillText="Suggestion pill"
             app:selected="false"
             app:warpPillStyle="suggestion" />
