@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 
-// Generated on Wed, 04 Dec 2024 13:53:37 GMT by https://github.com/warp-ds/tokens
+// Generated on Thu, 09 Jan 2025 13:37:44 GMT by https://github.com/warp-ds/tokens
 
 internal object DbaColors : WarpColors {
     override val surface: WarpSurfaceColors = DbaSurfaceColors
@@ -48,7 +48,7 @@ internal object DbaBackgroundColors : WarpBackgroundColors {
     override val subtle = Color(0xFFf0f0f2)
     override val subtleHover = Color(0xFFdedee3)
     override val subtleActive = Color(0xFFcacad1)
-    override val disabled = Color(0xFFafafb8)
+    override val disabled = Color(0xFFcacad1)
     override val disabledSubtle = Color(0xFFdedee3)
     override val selected = Color(0xFFf3f6fc)
     override val selectedHover = Color(0xFFd2e1f5)
@@ -87,21 +87,19 @@ internal object DbaBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFf3f6fc)
     override val infoSubtleHover = Color(0xFFd2e1f5)
     override val infoSubtleActive = Color(0xFFb2c9ec)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color(0x00ffffff)
     override val notification = Color(0xFFcf070e)
 }
 
 internal object DbaBorderColors : WarpBorderColors {
-    override val default = Color(0xFF84848f)
-    override val hover = Color(0xFF5c5c66)
-    override val active = Color(0xFF47474f)
-    override val subtle = Color(0xFFcacad1)
-    override val subtleHover = Color(0xFFafafb8)
-    override val subtleActive = Color(0xFF84848f)
-    override val disabled = Color(0xFFafafb8)
+    override val default = Color(0xFFcacad1)
+    override val hover = Color(0xFFafafb8)
+    override val active = Color(0xFF84848f)
+    override val disabled = Color(0xFFcacad1)
     override val selected = Color(0xFF3269c8)
     override val selectedHover = Color(0xFF264f96)
     override val selectedActive = Color(0xFF1a3564)
+    override val inverted = Color(0xFFffffff)
     override val primary = Color(0xFF3269c8)
     override val primaryHover = Color(0xFF264f96)
     override val primaryActive = Color(0xFF1a3564)
@@ -146,7 +144,7 @@ internal object DbaIconColors : WarpIconColors {
     override val selected = Color(0xFF3269c8)
     override val selectedHover = Color(0xFF264f96)
     override val selectedActive = Color(0xFF1a3564)
-    override val disabled = Color(0xFFafafb8)
+    override val disabled = Color(0xFFcacad1)
     override val subtle = Color(0xFF5c5c66)
     override val subtleHover = Color(0xFF47474f)
     override val subtleActive = Color(0xFF2b2b30)
@@ -174,7 +172,7 @@ internal object DbaTextColors : WarpTextColors {
     override val invertedSubtle = Color(0xFFafafb8)
     override val invertedStatic = Color(0xFFffffff)
     override val link = Color(0xFF3269c8)
-    override val disabled = Color(0xFFafafb8)
+    override val disabled = Color(0xFFcacad1)
     override val negative = Color(0xFFcf070e)
     override val positive = Color(0xFF1a8f64)
 }
@@ -232,6 +230,8 @@ internal object DbaTooltipColors : WarpTooltipColors {
 private object DbaSwitchColors : WarpSwitchColors {
     override val handleBackground = Color(0xFF84848f)
     override val handleBackgroundHover = Color(0xFF5c5c66)
+    override val trackBorder = Color(0xFF84848f)
+    override val trackBorderHover = Color(0xFF5c5c66)
 }
 
 private object DbaCardColors : WarpCardColors {
@@ -310,4 +310,4 @@ private object DbaPageIndicatorColors : WarpPageIndicatorColors {
     internal val Gray950 = Color(0xFF121212)
     internal val White = Color(0xFFffffff)
     internal val Black = Color(0xFF000000)
-    internal val Transparent = Color(0xFFffffff00)
+    internal val Transparent = Color(0x00ffffff)

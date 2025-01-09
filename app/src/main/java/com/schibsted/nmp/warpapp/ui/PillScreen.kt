@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import com.schibsted.nmp.warp.components.WarpPill
 import com.schibsted.nmp.warp.components.WarpPillStyle
 import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
@@ -51,7 +52,7 @@ fun PillScreenContent() {
                 text = "Link",
                 onClick = { },
                 style = WarpPillStyle.Suggestion,
-                icon = com.google.android.material.R.drawable.material_ic_keyboard_arrow_next_black_24dp,
+                icon = icons.linkExternal,
                 modifier = Modifier
                     .padding(bottom = dimensions.space2)
             )
@@ -77,7 +78,7 @@ fun PillScreenContent() {
             WarpPill(
                 text = "Link",
                 onClick = { },
-                icon = com.google.android.material.R.drawable.material_ic_keyboard_arrow_next_black_24dp,
+                icon = icons.linkExternal,
                 style = WarpPillStyle.Filter
             )
         }

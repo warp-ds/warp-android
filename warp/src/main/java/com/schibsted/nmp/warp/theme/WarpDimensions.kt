@@ -1,5 +1,7 @@
 package com.schibsted.nmp.warp.theme
 
+import android.content.Context
+import android.content.res.Configuration
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -35,9 +37,42 @@ object WarpDimensions {
     val shadowLarge: Dp = 12.dp
     val shadowXLarge: Dp = 16.dp
 
+    val minimumTouchSize: Dp = 48.dp
+
     val components = WarpComponentDimensions
 
     val icon = WarpIconDimensions
+
+
+    /**
+     * Helper methods contributed by Shiva Bernhard
+     */
+
+    fun calculateDimensionResource(context: Context, resId: Int): Dp {
+        val resources = context.resources
+        val displayMetrics = resources.displayMetrics
+        val pixels = resources.getDimension(resId)
+        val density = displayMetrics.density
+        return (pixels / density).dp
+    }
+
+    fun adaptDpToFontScale(configuration: Configuration, dimension: Dp): Dp {
+        val fontScale = configuration.fontScale
+        return dimension.times(fontScale)
+    }
+
+    fun adaptDimensionResourceToFontScale(
+        context: Context,
+        configuration: Configuration,
+        resId: Int
+    ): Dp {
+        val resources = context.resources
+        val displayMetrics = resources.displayMetrics
+        val fontScale = configuration.fontScale
+        val pixels = resources.getDimension(resId)
+        val density = displayMetrics.density
+        return (fontScale * (pixels / density)).dp
+    }
 }
 
 object WarpIconDimensions {

@@ -3,7 +3,6 @@ package com.schibsted.nmp.warp.components.legacy
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View.OnClickListener
-import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.core.content.withStyledAttributes
@@ -11,6 +10,7 @@ import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpPill
 import com.schibsted.nmp.warp.components.WarpPillStyle
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
+import com.schibsted.nmp.warp.theme.WarpIconResources
 import org.koin.java.KoinJavaComponent
 
 class WarpPillView @JvmOverloads constructor(
@@ -50,18 +50,12 @@ class WarpPillView @JvmOverloads constructor(
         pillSelected = selected
     }
 
-    var iconContentDescription : String? = null
+    var iconName: String? = null
         set(value) {
             field = value
             disposeComposition()
         }
 
-    @DrawableRes
-    var icon: Int = 0
-        set(value) {
-            field = value
-            disposeComposition()
-        }
 
     private var clickListener = OnClickListener { }
 
@@ -79,9 +73,7 @@ class WarpPillView @JvmOverloads constructor(
             val styleInt = getInteger(R.styleable.WarpPill_warpPillStyle, 0)
             style = stylesList[styleInt]
             text = getTextFromIdOrString(R.styleable.WarpPill_pillText, context) ?: ""
-            icon = getResourceId(R.styleable.WarpPill_pillIcon, 0)
-            iconContentDescription =
-                getTextFromIdOrString(R.styleable.WarpPill_pillIconContentDescr, context)
+            iconName = getString(R.styleable.WarpPill_pillIcon)
             pillSelected = getBoolean(R.styleable.WarpPill_selected, false)
             closable = getBoolean(R.styleable.WarpPill_closable, false)
         }
@@ -95,9 +87,8 @@ class WarpPillView @JvmOverloads constructor(
                 onClick = { clickListener.onClick(this@WarpPillView) },
                 style = style,
                 closable = closable,
-                icon = if(icon != 0) icon else null,
-                selected = pillSelected,
-                iconContentDescription = iconContentDescription
+                icon = iconName?.let { WarpIconResources.getIconByName(it) },
+                selected = pillSelected
             )
         }
     }

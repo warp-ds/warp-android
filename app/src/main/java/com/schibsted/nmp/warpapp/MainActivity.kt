@@ -10,8 +10,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*
-        setContentView(R.layout.main_activity_layout)
+
+        /*setContentView(R.layout.main_activity_layout)
 
         val callout = findViewById<WarpCalloutView>(R.id.callout1)
         callout.setAnchorView {
@@ -19,8 +19,8 @@ class MainActivity : ComponentActivity() {
                 text = "Show me a callout",
                 onClick = { callout.state.isVisible = !callout.state.isVisible }
             )
-        }
-        */
+        }*/
+
 
         setContent {
             MainScreen()
