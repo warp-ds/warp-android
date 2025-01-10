@@ -64,19 +64,6 @@ object WarpDimensions {
         return coercedMax
     }
 
-    @Composable
-    fun adaptDimensionResourceToFontScale(
-        resId: Int,
-        coerceMinSize: Dp? = null,
-        coerceMaxSize: Dp? = null
-    ): Dp {
-        return adaptDpToFontScale(
-            baseSize = dimensionResource(resId),
-            coerceMinSize = coerceMinSize,
-            coerceMaxSize = coerceMaxSize
-        )
-    }
-
 }
 
 object WarpIconDimensions {
