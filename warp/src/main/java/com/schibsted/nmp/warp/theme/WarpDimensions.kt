@@ -2,7 +2,10 @@ package com.schibsted.nmp.warp.theme
 
 import android.content.Context
 import android.content.res.Configuration
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -47,32 +50,33 @@ object WarpDimensions {
     /**
      * Helper methods contributed by Shiva Bernhard
      */
-
-    fun calculateDimensionResource(context: Context, resId: Int): Dp {
-        val resources = context.resources
-        val displayMetrics = resources.displayMetrics
-        val pixels = resources.getDimension(resId)
-        val density = displayMetrics.density
-        return (pixels / density).dp
-    }
-
-    fun adaptDpToFontScale(configuration: Configuration, dimension: Dp): Dp {
-        val fontScale = configuration.fontScale
-        return dimension.times(fontScale)
-    }
-
-    fun adaptDimensionResourceToFontScale(
-        context: Context,
-        configuration: Configuration,
-        resId: Int
+    @Composable
+    fun adaptDpToFontScale(
+        baseSize: Dp,
+        coerceMinSize: Dp? = null,
+        coerceMaxSize: Dp? = null
     ): Dp {
-        val resources = context.resources
-        val displayMetrics = resources.displayMetrics
-        val fontScale = configuration.fontScale
-        val pixels = resources.getDimension(resId)
-        val density = displayMetrics.density
-        return (fontScale * (pixels / density)).dp
+        val density = LocalDensity.current
+        val fontScale = density.fontScale
+        val scaledBase = baseSize * fontScale
+        val coercedMin = coerceMinSize?.let { scaledBase.coerceAtLeast(it) } ?: scaledBase
+        val coercedMax = coerceMaxSize?.let { coercedMin.coerceAtMost(it) } ?: scaledBase
+        return coercedMax
     }
+
+    @Composable
+    fun adaptDimensionResourceToFontScale(
+        resId: Int,
+        coerceMinSize: Dp? = null,
+        coerceMaxSize: Dp? = null
+    ): Dp {
+        return adaptDpToFontScale(
+            baseSize = dimensionResource(resId),
+            coerceMinSize = coerceMinSize,
+            coerceMaxSize = coerceMaxSize
+        )
+    }
+
 }
 
 object WarpIconDimensions {
