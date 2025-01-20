@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 
-// Generated on Fri, 06 Dec 2024 09:42:33 GMT by https://github.com/warp-ds/tokens
+// Generated on Thu, 09 Jan 2025 13:37:44 GMT by https://github.com/warp-ds/tokens
 
 internal object FinnDarkColors : WarpColors {
     override val surface: WarpSurfaceColors = FinnDarkSurfaceColors
@@ -48,8 +48,8 @@ internal object FinnDarkBackgroundColors : WarpBackgroundColors {
     override val subtle = Color(0xFF333338)
     override val subtleHover = Color(0xFF47474f)
     override val subtleActive = Color(0xFF5c5c66)
-    override val disabled = Color(0xFF5c5c66)
-    override val disabledSubtle = Color(0xFF333338)
+    override val disabled = Color(0xFF47474f)
+    override val disabledSubtle = Color(0xFF5c5c66)
     override val selected = Color(0xFF001b41)
     override val selectedHover = Color(0xFF00337f)
     override val selectedActive = Color(0xFF004bbd)
@@ -87,21 +87,19 @@ internal object FinnDarkBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFF15242f)
     override val infoSubtleHover = Color(0xFF1d435a)
     override val infoSubtleActive = Color(0xFF1e648a)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color(0x00ffffff)
     override val notification = Color(0xFFfa270f)
 }
 
 internal object FinnDarkBorderColors : WarpBorderColors {
-    override val default = Color(0xFF84848f)
-    override val hover = Color(0xFFafafb8)
-    override val active = Color(0xFFcacad1)
-    override val subtle = Color(0xFF47474f)
-    override val subtleHover = Color(0xFF5c5c66)
-    override val subtleActive = Color(0xFF84848f)
-    override val disabled = Color(0xFF5c5c66)
+    override val default = Color(0xFF5c5c66)
+    override val hover = Color(0xFF84848f)
+    override val active = Color(0xFFafafb8)
+    override val disabled = Color(0xFF47474f)
     override val selected = Color(0xFF5c9cff)
     override val selectedHover = Color(0xFF9ac1fe)
     override val selectedActive = Color(0xFFc2dafe)
+    override val inverted = Color(0xFF1b1b1f)
     override val primary = Color(0xFF5c9cff)
     override val primaryHover = Color(0xFF9ac1fe)
     override val primaryActive = Color(0xFFc2dafe)
@@ -174,7 +172,7 @@ internal object FinnDarkTextColors : WarpTextColors {
     override val invertedSubtle = Color(0xFF5c5c66)
     override val invertedStatic = Color(0xFFffffff)
     override val link = Color(0xFF5c9cff)
-    override val disabled = Color(0xFF5c5c66)
+    override val disabled = Color(0xFF84848f)
     override val negative = Color(0xFFff5844)
     override val positive = Color(0xFF18c884)
 }
@@ -232,6 +230,8 @@ internal object FinnDarkTooltipColors : WarpTooltipColors {
 private object FinnDarkSwitchColors : WarpSwitchColors {
     override val handleBackground = Color(0xFF84848f)
     override val handleBackgroundHover = Color(0xFFafafb8)
+    override val trackBorder = Color(0xFF84848f)
+    override val trackBorderHover = Color(0xFFafafb8)
 }
 
 private object FinnDarkCardColors : WarpCardColors {

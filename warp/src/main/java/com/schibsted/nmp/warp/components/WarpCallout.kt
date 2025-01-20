@@ -1,3 +1,5 @@
+package com.schibsted.nmp.warp.components
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -31,9 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
-import com.schibsted.nmp.warp.components.WarpIcon
-import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.components.ext.shadowMedium
 import com.schibsted.nmp.warp.components.shapes.CalloutShape
 import com.schibsted.nmp.warp.theme.WarpDimensions
@@ -81,7 +80,7 @@ fun WarpCallout(
                     Popup(
                         popupPositionProvider = popupPositionProvider,
                         onDismissRequest = onDismiss,
-                        properties = PopupProperties(focusable = true)
+                        properties = PopupProperties()
                     ) {
                         CalloutView(
                             shadowModifier,
