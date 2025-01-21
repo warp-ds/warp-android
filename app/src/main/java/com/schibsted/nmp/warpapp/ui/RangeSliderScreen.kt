@@ -8,7 +8,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.schibsted.nmp.warp.components.SliderValue
 import com.schibsted.nmp.warp.components.WarpRangeSlider
 import com.schibsted.nmp.warp.components.WarpRangeSliderState
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -27,12 +26,13 @@ fun RangeSliderScreen(onUp: () -> Unit) {
 @Composable
 fun RangeSliderScreenContent() {
     val WarpRangeSliderState: WarpRangeSliderState = WarpRangeSliderState(
-        initialStartItem = SliderValue(2),
-        initialEndItem = SliderValue(17),
+        initialStartItem = 0,
+        initialEndItem = 20,
         items = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20),
         resetAtStartTerminal = true,
         resetAtEndTerminal = false,
-        onLeftValueChanged = {
+        onLeftValueChanged = { rV ->
+            rV
 
         },
         onRightValueChanged = {
@@ -42,6 +42,7 @@ fun RangeSliderScreenContent() {
 
         }
     )
+    val items = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
     Column(
         modifier = Modifier
             .padding(dimensions.space2)
@@ -50,14 +51,16 @@ fun RangeSliderScreenContent() {
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         WarpRangeSlider(
-            state = WarpRangeSliderState,
-            blockDrag = false,
+            items = items,
+            initialStartItem = 1,
+            initialEndItem = 20,
         )
 
         WarpRangeSlider(
-            state = WarpRangeSliderState,
+            items = items,
             enabled = false,
-            blockDrag = false,
+            initialStartItem = 1,
+            initialEndItem = 20,
         )
     }
 }

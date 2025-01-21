@@ -118,12 +118,30 @@ import kotlin.math.sign
 @ExperimentalMaterial3Api
 fun WarpRangeSlider(
     modifier: Modifier = Modifier,
-    state: WarpRangeSliderState,
+    items: List<Any>,
     enabled: Boolean = true,
+    initialStartItem: Any,
+    initialEndItem: Any,
+    onValueChangeFinished: (() -> Unit) = {},
+    onLeftValueChanged: ((Any) -> Unit) = {},
+    onRightValueChanged: ((Any) -> Unit) = {},
+    resetAtStartTerminal: Boolean = false,
+    resetAtEndTerminal: Boolean = false,
     blockDrag: Boolean = false,
     startInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     endInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
+    val rangeSliderState = WarpRangeSliderState(
+        initialStartItem = initialStartItem,
+        initialEndItem = initialEndItem,
+        items = items,
+        resetAtStartTerminal = resetAtStartTerminal,
+        resetAtEndTerminal = resetAtEndTerminal,
+        onLeftValueChanged = onLeftValueChanged,
+        onRightValueChanged = onRightValueChanged,
+        onValueChangeFinished = onValueChangeFinished
+    )
+
     val startThumb: @Composable (WarpRangeSliderState) -> Unit = {
         WarpSliderDefaults.Thumb(
             interactionSource = startInteractionSource,
@@ -136,20 +154,20 @@ fun WarpRangeSlider(
             enabled = enabled
         )
     }
-    val track: @Composable (WarpRangeSliderState) -> Unit = { rangeSliderState ->
+    val track: @Composable (WarpRangeSliderState) -> Unit = { state ->
         WarpSliderDefaults.Track(
             enabled = enabled,
-            WarpRangeSliderState = rangeSliderState
+            WarpRangeSliderState = state
         )
     }
 
     LaunchedEffect(blockDrag) {
-        state.blockDrag = blockDrag
+        rangeSliderState.blockDrag = blockDrag
     }
 
     WarpRangeSliderImpl(
         modifier = modifier,
-        state = state,
+        state = rangeSliderState,
         enabled = enabled,
         startInteractionSource = startInteractionSource,
         endInteractionSource = endInteractionSource,
@@ -789,26 +807,15 @@ private enum class WarpRangeSliderComponents {
     TRACK
 }
 
-/**
- * Items passed to this class must implement this interface. This forces the user to think about
- * the values that the slider will be using. This was chosen over Any to guard against wrong data items
- * being passed to setLeftSliderFromItem and setRightSliderFromItem in [WarpRangeSliderState].
- *
- * The developer must handle the retrieval of any value before passing them to the
- * [WarpRangeSliderState].
- */
 
-interface WarpSliderValue
-data object ResetStart : WarpSliderValue
-data object ResetEnd : WarpSliderValue
-data class SliderValue(val value: Any) : WarpSliderValue
-
+//todo maybe use this instead of raw ANY?
+data class WarpSliderValue(val value: Any? = null)
 /**
  * Class that holds information about [WarpRangeSlider]'s active state.
  *
- * @param initialStartItem [WarpSliderValue] indicates the initial
+ * @param initialStartItem [SliderValue] indicates the initial
  * start item of the active range of the slider.
- * @param initialEndItem [WarpSliderValue] indicates the initial
+ * @param initialEndItem [SliderValue] indicates the initial
  * start item of the active range of the slider. If outside of [valueRange]
  * provided, value will be coerced to this range.
  * @param items if greater than 0, specifies the items that the slider can consume. These are evenly distributed
@@ -829,14 +836,14 @@ data class SliderValue(val value: Any) : WarpSliderValue
 @Stable
 @ExperimentalMaterial3Api
 data class WarpRangeSliderState(
-    private val initialStartItem: WarpSliderValue,
-    private val initialEndItem: WarpSliderValue,
+    private val initialStartItem: Any,
+    private val initialEndItem: Any,
     private val items: List<Any>,
     private val resetAtStartTerminal: Boolean = false,
     private val resetAtEndTerminal: Boolean = false,
     val onValueChangeFinished: (() -> Unit) = {},
-    val onLeftValueChanged: ((WarpSliderValue) -> Unit) = {},
-    val onRightValueChanged: ((WarpSliderValue) -> Unit) = {},
+    val onLeftValueChanged: ((Any) -> Unit) = {},
+    val onRightValueChanged: ((Any) -> Unit) = {},
 ) {
 
     init {
@@ -849,19 +856,19 @@ data class WarpRangeSliderState(
 
     private val sliderValues = when {
         resetAtStartTerminal && resetAtEndTerminal -> {
-            listOf(ResetStart) + items.map { SliderValue(it) } + ResetEnd
+            listOf(Any()) + items.map { it } + Any()
         }
 
         resetAtStartTerminal && !resetAtEndTerminal -> {
-            listOf(ResetStart) + items.map { SliderValue(it) }
+            listOf(Any()) + items.map { it }
         }
 
         !resetAtStartTerminal && resetAtEndTerminal -> {
-            items.map { SliderValue(it) } + ResetEnd
+            items.map { it } + Any()
         }
 
         else -> {
-            items.map { SliderValue(it) }
+            items.map { it }
         }
     }
 
@@ -876,11 +883,8 @@ data class WarpRangeSliderState(
     private var activeRangeStartState by mutableFloatStateOf(0f)
     private var activeRangeEndState by mutableFloatStateOf(1f)
 
-    private var currentLeftItem by mutableStateOf<WarpSliderValue>(
-        initialStartItem
-    )
-
-    private var currentRightItem by mutableStateOf<WarpSliderValue>(initialEndItem)
+    private var currentLeftItem by mutableStateOf(initialStartItem)
+    private var currentRightItem by mutableStateOf(initialEndItem)
 
     private var leftItemCoordinates by mutableStateOf<List<ItemCoordinate>>(emptyList())
     private var rightItemCoordinates by mutableStateOf<List<ItemCoordinate>>(emptyList())
@@ -917,14 +921,14 @@ data class WarpRangeSliderState(
         }
         get() = activeRangeEndState
 
-    fun setLeftSliderFromItem(targetItem: WarpSliderValue) {
+    fun setLeftSliderFromItem(targetItem: Any) {
         //Get the coordinate value of the target item
         val targetItemIndex = sliderValues.indexOf(targetItem)
         val targetItemCoordinate = leftItemCoordinates[targetItemIndex].xPosition
         setClosestStartItem(targetItemCoordinate, fromSlider = false)
     }
 
-    fun setRightSliderFromItem(targetItem: WarpSliderValue) {
+    fun setRightSliderFromItem(targetItem: Any) {
         //Get the coordinate value of the target item
         val targetItemIndex = sliderValues.indexOf(targetItem)
         val targetItemCoordinate = rightItemCoordinates[targetItemIndex].xPosition
