@@ -56,6 +56,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.setProgress
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -67,6 +68,7 @@ import androidx.compose.ui.util.packFloats
 import androidx.compose.ui.util.unpackFloat1
 import androidx.compose.ui.util.unpackFloat2
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -77,41 +79,39 @@ import kotlin.math.floor
 import kotlin.math.roundToInt
 import kotlin.math.sign
 
+
 /**
+ * [WarpRangeSlider] is an adaptation of Material 3 RangeSlider that operates on a discrete set of items.
  *
- * [WarpRangeSlider] adaptation of Material 3 RangeSlider.
+ * It allows the user to select a range of values from a provided list of items.
+ * The two thumbs, representing the start and end of the selection, can be moved independently
+ * but are constrained to prevent overlap.
  *
- * The two values are bound by the value range but they also cannot cross each other.
+ * Unlike the standard Material 3 RangeSlider, this component uses [WarpRangeSliderState] to manage
+ * the selected items and their positions. Each step on the slider corresponds to an item in the list.
  *
- * It uses the provided startThumb for the slider's start thumb and endThumb for the
- * slider's end thumb. It also uses the provided track for the slider's track. If nothing is
- * passed for these parameters, it will use [WarpSliderDefaults.Thumb] and [WarpSliderDefaults.Track]
- * for the thumbs and track.
+ * **Key differences from Material 3 RangeSlider:**
  *
- * Unlike Material 3 RangeSlider, [WarpRangeSlider] acts on a list of items in [WarpRangeSliderState].
- * This is used to create a discrete slider with the number of steps provided, each step corresponds to
- * an index in the list of values passed to the state.
+ * * Operates on a discrete set of items instead of a continuous range.
+ * * Uses [WarpRangeSliderState] to manage the selected items and their positions.
+ * * Prevents thumb overlap by constraining their movement based on the selected items.
+ * * Provides callbacks for value changes and when the drag gesture is finished.
+ * * Offers options to reset the selection to the start or end when the corresponding thumb reaches the terminal.
+ * * Allows blocking the drag gesture.
  *
- * [WarpRangeSlider] maps the steps of each thump separately. This means that the start thumb
- * and end thumb can be limited to current the step of the other and never overlap, which is an constraint that is
- * not overridable in Material 3 RangeSlider.
- *
- * @param state [WarpRangeSliderState] which contains the current values of the RangeSlider.
- * @param modifier modifiers for the Range Slider layout
- * @param enabled whether or not component is enabled and can we interacted with or not.
- * parts in different state. See [WarpSliderDefaults.colors] to customize.
- * @param startInteractionSource the [MutableInteractionSource] representing the stream of
- * [Interaction]s for the start thumb. You can create and pass in your own
- * `remember`ed instance to observe.
- * @param endInteractionSource the [MutableInteractionSource] representing the stream of
- * [Interaction]s for the end thumb. You can create and pass in your own
- * `remember`ed instance to observe.
- * @param startThumb the start thumb to be displayed on the Range Slider. The lambda receives a
- * [WarpRangeSliderState] which is used to obtain the current startThumb x position.
- * @param endThumb the end thumb to be displayed on the Range Slider. The lambda receives a
- * [WarpRangeSliderState] which is used to obtain the current endThumb x position.
- * @param track the track to be displayed on the range slider, it is placed underneath the thumb.
- * The lambda receives a [WarpRangeSliderState] which is used to obtain the current active track.
+ * @param modifier Modifiers to be applied to the Range Slider layout.
+ * @param items The list of items to be displayed on the slider.
+ * @param enabled Whether the component is enabled and can be interacted with.
+ * @param initialStartItem The initial item selected by the start thumb.
+ * @param initialEndItem The initial item selected by the end thumb.
+ * @param onValueChangeFinished Callback invoked when the user finishes dragging either thumb.
+ * @param onLeftValueChanged Callback invoked when the value of the left thumb changes.
+ * @param onRightValueChanged Callback invoked when the value of the right thumb changes.
+ * @param resetAtStartTerminal Whether to reset the selection to the start when the start thumb reaches the start terminal.
+ * @param resetAtEndTerminal Whether to reset the selection to the end when the end thumb reaches the end terminal.
+ * @param blockDrag Whether to block the drag gesture.
+ * @param startInteractionSource The [MutableInteractionSource] for the start thumb.
+ * @param endInteractionSource The [MutableInteractionSource] for the end thumb.
  */
 
 @Composable
@@ -120,8 +120,8 @@ fun WarpRangeSlider(
     modifier: Modifier = Modifier,
     items: List<Any>,
     enabled: Boolean = true,
-    initialStartItem: Any,
-    initialEndItem: Any,
+    initialStartItem: Any? = null,
+    initialEndItem: Any? = null,
     onValueChangeFinished: (() -> Unit) = {},
     onLeftValueChanged: ((Any) -> Unit) = {},
     onRightValueChanged: ((Any) -> Unit) = {},
@@ -131,9 +131,11 @@ fun WarpRangeSlider(
     startInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     endInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
+    val startItem = initialStartItem ?: items.first()
+    val endItem = initialEndItem ?: items.last()
     val rangeSliderState = WarpRangeSliderState(
-        initialStartItem = initialStartItem,
-        initialEndItem = initialEndItem,
+        initialStartItem = startItem,
+        initialEndItem = endItem,
         items = items,
         resetAtStartTerminal = resetAtStartTerminal,
         resetAtEndTerminal = resetAtEndTerminal,
@@ -157,7 +159,7 @@ fun WarpRangeSlider(
     val track: @Composable (WarpRangeSliderState) -> Unit = { state ->
         WarpSliderDefaults.Track(
             enabled = enabled,
-            WarpRangeSliderState = state
+            state = state
         )
     }
 
@@ -229,8 +231,8 @@ private fun WarpRangeSliderImpl(
         modifier = modifier
             .minimumInteractiveComponentSize()
             .requiredSizeIn(
-                minWidth = 20.dp,
-                minHeight = 20.dp
+                minWidth = dimensions.space25,
+                minHeight = dimensions.space25
             )
             .then(pressDrag)
     ) { measurables, constraints ->
@@ -634,11 +636,8 @@ private class WarpRangeSliderLogic(
     }
 }
 
-/**
- * Object to hold defaults used by [WarpSliderRange]
- */
 @Stable
-object WarpSliderDefaults {
+internal object WarpSliderDefaults {
 
     private val warpSliderColors: SliderColors
         @Composable
@@ -657,25 +656,15 @@ object WarpSliderDefaults {
             )
         }
 
-    /**
-     * The Default thumb for [WarpRangeSlider].
-     *
-     * @param interactionSource the [MutableInteractionSource] representing the stream of
-     * [Interaction]s for this thumb. You can create and pass in your own `remember`ed
-     * instance to observe
-     * @param modifier the [Modifier] to be applied to the thumb.
-     * @param colors [SliderColors] that will be used to resolve the colors used for this thumb in
-     * different states. See [SliderDefaults.colors].
-     * @param enabled controls the enabled state of this slider. When `false`, this component will
-     * not respond to user input, and it will appear visually disabled and disabled to
-     * accessibility services.
-     */
     @Composable
-    fun Thumb(
+    internal fun Thumb(
         interactionSource: MutableInteractionSource,
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        thumbSize: DpSize = ThumbSize,
+        thumbSize: DpSize = DpSize(
+            dimensions.components.sliderThumbSize,
+            dimensions.components.sliderThumbSize
+        ),
     ) {
         val interactions = remember { mutableStateListOf<Interaction>() }
         LaunchedEffect(interactionSource) {
@@ -692,9 +681,9 @@ object WarpSliderDefaults {
         }
 
         val elevation = if (interactions.isNotEmpty()) {
-            ThumbPressedElevation
+            6.dp
         } else {
-            ThumbDefaultElevation
+            1.dp
         }
 
         val shape = shapes.roundedMedium
@@ -721,25 +710,27 @@ object WarpSliderDefaults {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun Track(
-        WarpRangeSliderState: WarpRangeSliderState,
+    internal fun Track(
+        state: WarpRangeSliderState,
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
     ) {
         val inactiveTrackColor = trackColor(warpSliderColors, enabled, false)
         val activeTrackColor = trackColor(warpSliderColors, enabled, true)
+        val trackStrokeWidth = dimensions.components.sliderTrackHeight
 
         Canvas(
             modifier
                 .fillMaxWidth()
-                .height(TrackHeight)
+                .height(dimensions.components.sliderTrackHeight)
         ) {
             drawTrack(
-                endThumbWidth = WarpRangeSliderState.endThumbWidth,
-                WarpRangeSliderState.activeRangeStart,
-                WarpRangeSliderState.activeRangeEnd,
+                endThumbWidth = state.endThumbWidth,
+                state.activeRangeStart,
+                state.activeRangeEnd,
                 inactiveTrackColor,
-                activeTrackColor
+                activeTrackColor,
+                trackStrokeWidth
             )
         }
     }
@@ -750,18 +741,18 @@ object WarpSliderDefaults {
         activeRangeEnd: Float,
         inactiveTrackColor: Color,
         activeTrackColor: Color,
+        trackStrokeWidth: Dp
     ) {
         val isRtl = layoutDirection == LayoutDirection.Rtl
         val sliderLeft = Offset(0f, center.y)
         val sliderRight = Offset(size.width, center.y)
         val sliderStart = if (isRtl) sliderRight else sliderLeft
         val sliderEnd = if (isRtl) sliderLeft else sliderRight
-        val trackStrokeWidth = TrackHeight.toPx()
         drawLine(
             inactiveTrackColor,
             sliderStart,
             sliderEnd,
-            trackStrokeWidth,
+            trackStrokeWidth.toPx(),
             StrokeCap.Round
         )
 
@@ -779,7 +770,7 @@ object WarpSliderDefaults {
             activeTrackColor,
             sliderValueStart,
             sliderValueEnd,
-            trackStrokeWidth,
+            trackStrokeWidth.toPx(),
             StrokeCap.Round
         )
     }
@@ -793,13 +784,6 @@ object WarpSliderDefaults {
         }
 }
 
-private val ThumbWidth = 28.dp
-private val ThumbHeight = 28.dp
-private val ThumbSize = DpSize(ThumbWidth, ThumbHeight)
-private val ThumbDefaultElevation = 1.dp
-private val ThumbPressedElevation = 6.dp
-
-private val TrackHeight = 4.0.dp
 
 private enum class WarpRangeSliderComponents {
     ENDTHUMB,
@@ -808,14 +792,12 @@ private enum class WarpRangeSliderComponents {
 }
 
 
-//todo maybe use this instead of raw ANY?
-data class WarpSliderValue(val value: Any? = null)
 /**
  * Class that holds information about [WarpRangeSlider]'s active state.
  *
- * @param initialStartItem [SliderValue] indicates the initial
+ * @param initialStartItem [Any] indicates the initial
  * start item of the active range of the slider.
- * @param initialEndItem [SliderValue] indicates the initial
+ * @param initialEndItem [Any] indicates the initial
  * start item of the active range of the slider. If outside of [valueRange]
  * provided, value will be coerced to this range.
  * @param items if greater than 0, specifies the items that the slider can consume. These are evenly distributed
@@ -824,7 +806,7 @@ data class WarpSliderValue(val value: Any? = null)
  * is used when the user has completed selecting a new value by ending a drag or a click.
  * @param onLeftValueChanged emits a new value when the left thumb is moved. This can be used to update
  * state elsewhere, for example a text input view.
- * and [onRightValueChanged] emits a new value when the right thumb is moved. This can be used to update
+ * @param onRightValueChanged emits a new value when the right thumb is moved. This can be used to update
  * state elsewhere, for example a text input view.
  * @param resetAtStartTerminal if true, the slider will reset to an unselected state when the left thumb
  * reaches the start of the slider.
@@ -835,7 +817,7 @@ data class WarpSliderValue(val value: Any? = null)
 
 @Stable
 @ExperimentalMaterial3Api
-data class WarpRangeSliderState(
+internal data class WarpRangeSliderState(
     private val initialStartItem: Any,
     private val initialEndItem: Any,
     private val items: List<Any>,
@@ -920,20 +902,6 @@ data class WarpRangeSliderState(
             activeRangeEndState = newVal
         }
         get() = activeRangeEndState
-
-    fun setLeftSliderFromItem(targetItem: Any) {
-        //Get the coordinate value of the target item
-        val targetItemIndex = sliderValues.indexOf(targetItem)
-        val targetItemCoordinate = leftItemCoordinates[targetItemIndex].xPosition
-        setClosestStartItem(targetItemCoordinate, fromSlider = false)
-    }
-
-    fun setRightSliderFromItem(targetItem: Any) {
-        //Get the coordinate value of the target item
-        val targetItemIndex = sliderValues.indexOf(targetItem)
-        val targetItemCoordinate = rightItemCoordinates[targetItemIndex].xPosition
-        setClosestEndItem(targetItemCoordinate, fromSlider = false)
-    }
 
     private fun setClosestStartItem(offset: Float, fromSlider: Boolean) {
         val closestStartStep =

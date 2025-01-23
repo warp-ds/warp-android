@@ -89,6 +89,8 @@ object WarpComponentDimensions {
     val switch = SwitchDimensions
     val radioIconSize = 20.dp
     val callout = CalloutDimensions
+    val sliderThumbSize = 28.dp
+    val sliderTrackHeight = 4.dp
 }
 
 object CalloutDimensions {
