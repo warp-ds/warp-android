@@ -97,8 +97,8 @@ fun RangeSliderScreenContent() {
             onValueChangeFinished = {
 
             },
-            resetAtStartTerminal = true,
-            resetAtEndTerminal = true
+            resetAtStartTerminal = false,
+            resetAtEndTerminal = false
         )
         val formattedItems = listOf(
             "1000",
