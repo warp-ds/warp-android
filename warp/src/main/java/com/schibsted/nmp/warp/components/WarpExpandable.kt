@@ -29,65 +29,38 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 /**
  * A component that can hide and show content. This version handles the expanded state internally
  * @param modifier Modifier applied to the view
- * @param initiallyExpanded state the view will start in
  * @param title Text displayed next to the button
+ * @param initiallyExpanded state the view will start in
  * @param type Type of the view. Default is [WarpExpandableType.Default]
  * @param expandedContent The content to display when the view is expanded
  */
 @Composable
 fun WarpExpandable(
     modifier: Modifier = Modifier,
-    initiallyExpanded: Boolean = false,
     title: String,
+    initiallyExpanded: Boolean = false,
     type: WarpExpandableType = WarpExpandableType.Default,
     expandedContent: @Composable () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(initiallyExpanded) }
-    WarpExpandable(
-        modifier = modifier,
-        expanded = expanded,
-        title = title,
-        type = type,
-        expandedContent = expandedContent,
-        onExpandButtonClicked = { expanded = !expanded },
-    )
-}
 
-/**
- * A version of Expandable that gives the user more control over the content and flow
- * @param modifier Modifier applied to the view
- * @param expanded State which the view should be in
- * @param title Text displayed next to the button
- * @param type Type of the view. Default is [WarpExpandableType.Default]
- * @param expandedContent Content displayed when expanded
- * @param onExpandButtonClicked Invoked when the button to expand is clicked
- */
-@Composable
-fun WarpExpandable(
-    modifier: Modifier = Modifier,
-    expanded: Boolean,
-    title: String,
-    type: WarpExpandableType = WarpExpandableType.Default,
-    expandedContent: @Composable () -> Unit,
-    onExpandButtonClicked: () -> Unit
-) {
     val transition = updateTransition(targetState = expanded, label = "expansionTransition")
     val rotation by transition.animateFloat(label = "iconRotation") { exp ->
         if (exp) -180f else 0f
     }
-    var hArrangement: Arrangement.HorizontalOrVertical
+    val hArrangement: Arrangement.HorizontalOrVertical
     when (type) {
         WarpExpandableType.Box -> {
             hArrangement = Arrangement.SpaceBetween
             WarpBox(boxStyle = WarpBoxStyle.Neutral) {
                 ExpandableContent(
-                    modifier,
-                    hArrangement,
-                    title,
-                    onExpandButtonClicked,
-                    rotation,
-                    transition,
-                    expandedContent
+                    modifier = modifier,
+                    hArrangement = hArrangement,
+                    title = title,
+                    onExpandButtonClicked = { expanded = !expanded },
+                    rotation = rotation,
+                    transition = transition,
+                    expandedContent = expandedContent
                 )
             }
         }
@@ -95,17 +68,16 @@ fun WarpExpandable(
         WarpExpandableType.Default -> {
             hArrangement = Arrangement.spacedBy(0.dp)
             ExpandableContent(
-                modifier,
-                hArrangement,
-                title,
-                onExpandButtonClicked,
-                rotation,
-                transition,
-                expandedContent
+                modifier = modifier,
+                hArrangement = hArrangement,
+                title = title,
+                onExpandButtonClicked = { expanded = !expanded },
+                rotation = rotation,
+                transition = transition,
+                expandedContent = expandedContent
             )
         }
     }
-
 }
 
 @Composable
@@ -159,18 +131,16 @@ private fun ExpandablePreview() {
                 .padding(dimensions.space1),
             initiallyExpanded = false,
             title = "title",
-            expandedContent = { WarpText("body text") }
+            expandedContent = { WarpText("Expanded content") }
         )
 
-        var expanded by remember { mutableStateOf(false) }
         WarpExpandable(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensions.space1),
-            expanded = !expanded,
+            initiallyExpanded = true,
             title = "Title",
-            expandedContent = { WarpText("body text") },
-            onExpandButtonClicked = { expanded = !expanded }
+            expandedContent = { WarpText("Expanded content") },
         )
     }
 }
