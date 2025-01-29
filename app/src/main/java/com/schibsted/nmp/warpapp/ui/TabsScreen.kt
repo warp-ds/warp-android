@@ -1,13 +1,9 @@
 package com.schibsted.nmp.warpapp.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +15,11 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpTab
 import com.schibsted.nmp.warp.components.WarpTabRow
+import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.theme.WarpResources.icons
+import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 
@@ -35,50 +36,58 @@ private fun TabsContent() {
     var selectedTab2 by remember { mutableStateOf(0) }
 
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(WarpTheme.colors.background.default)
     ) {
+        WarpText(
+            text = "WarpTabs without icon",
+            style = WarpTextStyle.Title3,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
         WarpTabRow(selectedTabIndex = selectedTab) {
             WarpTab(
                 selected = selectedTab == 0,
                 onClick = { selectedTab = 0 },
-                icon = {},
                 text = "Loooong Option 1"
             )
             WarpTab(
                 selected = selectedTab == 1,
                 onClick = { selectedTab = 1 },
-                icon = {},
                 text = "Option 2"
             )
             WarpTab(
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2 },
-                icon = {},
                 text = "Option 3"
             )
         }
+        WarpText(
+            text = "WarpTabs with icon",
+            style = WarpTextStyle.Title3,
+            modifier = Modifier.padding(top = dimensions.space2, bottom = dimensions.space2)
+        )
 
-        WarpTabRow(selectedTabIndex = selectedTab2, modifier = Modifier.padding(top = 16.dp)) {
+        WarpTabRow(selectedTabIndex = selectedTab2, modifier = Modifier.padding(top = dimensions.space2)) {
             WarpTab(
                 selected = selectedTab2 == 0,
                 onClick = { selectedTab2 = 0 },
-                icon = { Icon(Icons.Filled.Info, "First Option")},
+                icon = icons.spa,
                 text = "Option 1"
             )
             WarpTab(
                 selected = selectedTab2 == 1,
                 onClick = { selectedTab2 = 1 },
-                icon = { Icon(Icons.Filled.DateRange, "Second Option")},
+                icon = icons.animalPaw,
                 text = "Option 2"
             )
             WarpTab(
                 selected = selectedTab2 == 2,
                 onClick = { selectedTab2 = 2 },
-                icon = { Icon(Icons.Filled.Email, "Third Option")},
+                icon = icons.awardMedal,
                 text = "Option 3"
             )
         }
-
     }
 }
 
