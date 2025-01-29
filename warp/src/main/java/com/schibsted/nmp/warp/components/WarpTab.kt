@@ -4,6 +4,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LeadingIconTab
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
@@ -23,27 +24,46 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 /**
  * @param selectedTabIndex The index of the currently selected tab.
  * @param modifier The modifier to be applied to the tab row.
+ * @param scrollable Whether the tab row should be scrollable.
  * @param tabs The tabs to be displayed in the tab row.
  */
 @Composable
 fun WarpTabRow(
     selectedTabIndex: Int,
     modifier: Modifier = Modifier,
+    scrollable: Boolean = false,
     tabs: @Composable () -> Unit
 ) {
-    TabRow(
-        selectedTabIndex = selectedTabIndex,
-        modifier = modifier,
-        containerColor = colors.background.default,
-        contentColor = colors.text.subtle,
-        indicator = { tabPositions ->
-            TabRowDefaults.SecondaryIndicator(
-                Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                color = colors.icon.selected
-            )
-        },
-        tabs = tabs,
-    )
+    if (scrollable) {
+        ScrollableTabRow(
+            selectedTabIndex = selectedTabIndex,
+            modifier = modifier,
+            containerColor = colors.background.default,
+            contentColor = colors.text.subtle,
+            edgePadding = dimensions.space1,
+            indicator = { tabPositions ->
+                TabRowDefaults.SecondaryIndicator(
+                    Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                    color = colors.icon.selected
+                )
+            },
+            tabs = tabs,
+        )
+    } else {
+        TabRow(
+            selectedTabIndex = selectedTabIndex,
+            modifier = modifier,
+            containerColor = colors.background.default,
+            contentColor = colors.text.subtle,
+            indicator = { tabPositions ->
+                TabRowDefaults.SecondaryIndicator(
+                    Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                    color = colors.icon.selected
+                )
+            },
+            tabs = tabs,
+        )
+    }
 }
 
 /**
