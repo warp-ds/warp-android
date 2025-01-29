@@ -48,7 +48,7 @@ fun WarpExpandable(
     val rotation by transition.animateFloat(label = "iconRotation") { exp ->
         if (exp) -180f else 0f
     }
-    val hArrangement: Arrangement.HorizontalOrVertical
+    val hArrangement: Arrangement.Horizontal
     when (type) {
         WarpExpandableType.Box -> {
             hArrangement = Arrangement.SpaceBetween
@@ -83,7 +83,7 @@ fun WarpExpandable(
 @Composable
 private fun ExpandableContent(
     modifier: Modifier,
-    hArrangement: Arrangement.HorizontalOrVertical,
+    hArrangement: Arrangement.Horizontal,
     title: String,
     onExpandButtonClicked: () -> Unit,
     rotation: Float,
