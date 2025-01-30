@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -76,13 +77,15 @@ fun WarpTabRow(
  */
 @Composable
 fun WarpTab(
-    selected: Boolean,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    selected: Boolean,
+    onClick: () -> Unit = {},
     text: String,
     icon: WarpIconResource? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
+    val iconSize = adaptDpToFontScale(dimensions.icon.default)
+
     LeadingIconTab(
         selected = selected,
         onClick = onClick,
@@ -100,7 +103,7 @@ fun WarpTab(
         icon = {
             icon?.let {
                 Icon(
-                    modifier = Modifier.size(dimensions.icon.default),
+                    modifier = Modifier.size(iconSize),
                     imageVector = it.vector,
                     contentDescription = it.description,
                 )
@@ -116,19 +119,19 @@ fun WarpTabsPreview() {
     var selectedIndex by remember { mutableStateOf(0) }
     WarpTabRow(selectedIndex) {
         WarpTab(
-            selectedIndex == 0,
+            selected = selectedIndex == 0,
             onClick = { selectedIndex = 0 },
             text = "First",
             icon = icons.spa
         )
         WarpTab(
-            selectedIndex == 1,
+            selected = selectedIndex == 1,
             onClick = { selectedIndex = 1 },
             text = "Second",
             icon = icons.animalPaw
         )
         WarpTab(
-            selectedIndex == 2,
+            selected = selectedIndex == 2,
             onClick = { selectedIndex = 2 },
             text = "Third",
             icon = icons.awardMedal
