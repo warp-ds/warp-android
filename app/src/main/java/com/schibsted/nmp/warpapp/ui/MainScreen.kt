@@ -163,6 +163,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
         topBar = {
             WarpTopAppBar(
                 titleText = "Warp components",
+                centered = true,
                 actions = {
                     IconButton(onClick = { menuVisible = !menuVisible }) {
                         Icon(
