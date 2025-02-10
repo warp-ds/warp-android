@@ -149,6 +149,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("toast") {
+                ToastScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -213,6 +218,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "switch" to "WarpSwitch",
                         "tabs" to "WarpTab and WarpTabGroup",
                         "textField" to "WarpTextField",
+                        "toast" to "WarpToast",
                         "typography" to "Typography",
                     )
                 )
