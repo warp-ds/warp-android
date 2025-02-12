@@ -1,9 +1,5 @@
 package com.schibsted.nmp.warp.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -35,7 +33,7 @@ import kotlin.concurrent.schedule
 @Composable
 fun WarpToast(
     modifier: Modifier = Modifier,
-    text: String,
+    state: WarpToastState,
     type: WarpToastType = WarpToastType.Success,
     duration: Long = WarpToastDuration.SHORT,
     onDismiss: () -> Unit = { },
@@ -66,15 +64,9 @@ fun WarpToast(
     }
     var showToast by remember { mutableStateOf(false) }
     val timer = Timer("ToastTimer", true)
-    val dismissAction = {
-        showToast = false
-        timer.cancel()
-        timer.purge()
-        onDismiss.invoke()
-    }
 
     DisposableEffect(
-        key1 = false
+        key1 = state.updateState
     ) {
         showToast = true
         timer.schedule(duration) {
@@ -86,19 +78,13 @@ fun WarpToast(
             timer.purge()
         }
     }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = dimensions.space2),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AnimatedVisibility(
-            visible = showToast,
-            enter = fadeIn(),
-            exit = fadeOut()
-
+    if(state.isNotEmpty() && showToast) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = dimensions.space2),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier
@@ -112,7 +98,6 @@ fun WarpToast(
                         shape = shapes.roundedMedium
                     )
                     .padding(dimensions.space05)
-                    .animateContentSize()
                     .then(modifier),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -127,28 +112,36 @@ fun WarpToast(
                     WarpIcon(
                         icon = icon,
                         color = colors.icon,
-                        size = dimensions.icon.small
+                        size = adaptDpToFontScale(dimensions.icon.small)
                     )
                     Spacer(modifier = Modifier.width(dimensions.space1))
-                    WarpText(
-                        text = text,
-                        style = WarpTextStyle.Caption,
-                        maxLines = 2
-                    )
+                    state.message.value?.let {
+                        WarpText(
+                            text = it,
+                            style = WarpTextStyle.Caption,
+                            maxLines = 2
+                        )
+                    }
                 }
                 IconButton(
                     onClick = {
-                        dismissAction()
+                        onDismiss.invoke()
+                        showToast = false
+                        timer.cancel()
+                        timer.purge()
                     },
                 ) {
                     WarpIcon(
                         modifier = Modifier.clickable(
                             indication = null,
                             interactionSource = remember { MutableInteractionSource() }) {
-                            dismissAction()
+                            onDismiss.invoke()
+                            showToast = false
+                            timer.cancel()
+                            timer.purge()
                         },
                         icon = icons.close,
-                        size = dimensions.icon.small
+                        size = adaptDpToFontScale(dimensions.icon.small)
                     )
                 }
             }
@@ -172,4 +165,22 @@ object WarpToastDuration {
     const val SHORT = 3000L
     const val LONG = 10000L
     const val INFINITE = 6000000L
+}
+
+class WarpToastState {
+
+    private val _message = mutableStateOf<String?>(null)
+    val message: State<String?> = _message
+
+    var updateState by mutableStateOf(false)
+        private set
+
+    fun showToast(message: String) {
+        _message.value = message
+        updateState = !updateState
+    }
+
+    fun isNotEmpty(): Boolean {
+        return _message.value != null
+    }
 }
