@@ -57,10 +57,12 @@ class WarpIconTest(
     @Test
     fun warp_icon_count() {
         val count =
-            WarpIconResources::class.memberProperties.count { it.returnType.classifier == WarpIconResource::class
-                    || it.returnType.classifier == WarpTaxonomyIconResource::class
-                    || it.returnType.classifier == WarpBrandIconResource::class }
-        Assert.assertEquals(280, count)
+            WarpIconResources::class.memberProperties.count {
+                it.returnType.classifier == WarpIconResource::class
+                        || it.returnType.classifier == WarpTaxonomyIconResource::class
+                        || it.returnType.classifier == WarpBrandIconResource::class
+            }
+        Assert.assertEquals(289, count)
     }
 
     @Test
@@ -70,6 +72,7 @@ class WarpIconTest(
                 listOf(
                     icons.activeAds,
                     icons.ads,
+                    icons.agricultureMachine,
                     icons.airCon,
                     icons.airplane,
                     icons.airplaneHotel,
@@ -108,6 +111,7 @@ class WarpIconTest(
                     icons.bellFilled,
                     icons.bin,
                     icons.block,
+                    icons.boat,
                     icons.boatLength,
                     icons.bolt,
                     icons.bookmark,
@@ -137,6 +141,7 @@ class WarpIconTest(
                     icons.camping,
                     icons.cancel,
                     icons.car,
+                    icons.carEngine,
                     icons.carFront,
                     icons.carKey,
                     icons.carPart,
@@ -298,6 +303,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.jetSki,
                     icons.job,
                 )
             )
@@ -443,7 +449,10 @@ class WarpIconTest(
                     icons.realEstate,
                     icons.refresh,
                     icons.remppatori,
+                    icons.road,
                     icons.roomService,
+                    icons.rowingBoat,
+                    icons.ruler
                 )
             )
         }
@@ -469,6 +478,7 @@ class WarpIconTest(
                     icons.shoes,
                     icons.shoppingCart,
                     icons.shower,
+                    icons.singleCylinder,
                     icons.skyscraper,
                     icons.smartphone,
                     icons.smileyGood,
@@ -564,6 +574,7 @@ class WarpIconTest(
                     icons.warning,
                     icons.warranty,
                     icons.waterPitcher,
+                    icons.weight,
                     icons.wheelchair,
                     icons.wifi,
                     icons.woods,
