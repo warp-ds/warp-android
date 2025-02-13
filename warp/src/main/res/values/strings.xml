@@ -280,5 +280,14 @@
     <string name="wifi">Wi-Fi symbol</string>
     <string name="woods">Two spruce trees</string>
     <string name="youtube">YouTube logo</string>
+    <string name="agriculturemachine">Agriculture machine</string>
+    <string name="boat">Boat</string>
+    <string name="carengine">Car engine</string>
+    <string name="jetski">Jet ski</string>
+    <string name="road">Road</string>
+    <string name="rowingboat">Rowing boat</string>
+    <string name="ruler">Ruler</string>
+    <string name="singlecylinder">Single cylinder</string>
+    <string name="weight">Weight</string>
 
 </resources>
