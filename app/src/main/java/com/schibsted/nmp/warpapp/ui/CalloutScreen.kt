@@ -124,6 +124,7 @@ fun CalloutScreenContent() {
                 edge = Edge.Bottom,
                 size = CalloutSize.Small,
                 closable = true,
+                dismissPopoverOnClickOutside = false,
                 onDismiss = { bottomCenterState.isVisible = false },
             ) {
                 WarpButton(
