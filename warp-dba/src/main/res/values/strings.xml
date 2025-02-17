@@ -280,4 +280,13 @@
     <string name="wifi">Wi-Fi-symbol</string>
     <string name="woods">To grantræer</string>
     <string name="youtube">YouTube-logo</string>
+    <string name="agriculturemachine">Landbrugsmaskine</string>
+    <string name="boat">Båd</string>
+    <string name="carengine">Bilmotor</string>
+    <string name="jetski">Vandscooter</string>
+    <string name="road">Vej</string>
+    <string name="rowingboat">Robåd</string>
+    <string name="ruler">Lineal</string>
+    <string name="singlecylinder">Enkeltcylinder</string>
+    <string name="weight">Vægt</string>
 </resources>
