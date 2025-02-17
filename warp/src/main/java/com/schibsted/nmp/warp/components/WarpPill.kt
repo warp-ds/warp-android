@@ -54,15 +54,8 @@ fun WarpPill(
         selectedLeadingIconColor = warpPillColors.icon,
         selectedTrailingIconColor = warpPillColors.icon,
     )
-    val configuration = LocalConfiguration.current
-    val iconSizeDimension = dimensions.components.pillIcon
-    val iconSize =
-        remember(configuration.fontScale, iconSizeDimension) {
-            adaptDpToFontScale(
-                configuration = configuration,
-                dimension = iconSizeDimension
-            )
-        }
+
+    val iconSize = adaptDpToFontScale(dimensions.components.pillIcon)
 
     InputChip(
         selected = selected,

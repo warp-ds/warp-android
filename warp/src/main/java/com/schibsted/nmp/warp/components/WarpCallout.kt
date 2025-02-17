@@ -52,6 +52,7 @@ fun WarpCallout(
     verticalOffset: Dp = 0.dp,
     edge: Edge = Edge.Top,
     closable: Boolean = false,
+    dismissPopoverOnClickOutside: Boolean = true,
     onDismiss: () -> Unit,
     anchorView: @Composable (() -> Unit)? = null,
 ) {
@@ -80,7 +81,9 @@ fun WarpCallout(
                     Popup(
                         popupPositionProvider = popupPositionProvider,
                         onDismissRequest = onDismiss,
-                        properties = PopupProperties()
+                        properties = PopupProperties(
+                            dismissOnClickOutside = dismissPopoverOnClickOutside
+                        )
                     ) {
                         CalloutView(
                             shadowModifier,
