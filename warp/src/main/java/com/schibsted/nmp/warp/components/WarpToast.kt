@@ -30,6 +30,13 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 import java.util.Timer
 import kotlin.concurrent.schedule
 
+/**
+ * @param modifier Modifier for the toast
+ * @param state State of the toast. Used to show or hide the toast and to set/change the text.
+ * @param type Type of the toast. Success, Warning or Error.
+ * @param duration Duration of the toast. Short, long or infinite.
+ * @param onDismiss Callback to be invoked when the toast is dismissed.
+ */
 @Composable
 fun WarpToast(
     modifier: Modifier = Modifier,
