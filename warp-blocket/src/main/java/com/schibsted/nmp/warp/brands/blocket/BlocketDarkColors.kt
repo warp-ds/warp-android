@@ -8,6 +8,7 @@ import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpCardColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpDatavizColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpNavBarColors
 import com.schibsted.nmp.warp.theme.WarpPageIndicatorColors
@@ -16,6 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpSurfaceColors
 import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
+import com.schibsted.nmp.warp.theme.dataviz.DatavizDarkColors
 
 // Generated on Thu, 09 Jan 2025 13:37:44 GMT by https://github.com/warp-ds/tokens
 
@@ -26,6 +28,8 @@ internal object BlocketDarkColors : WarpColors {
     override val icon: WarpIconColors = BlocketDarkIconColors
     override val text: WarpTextColors = BlocketDarkTextColors
     override val components: WarpComponentColors = BlocketDarkComponentColors
+    override val dataviz: WarpDatavizColors = DatavizDarkColors
+
 }
 
 internal object BlocketDarkSurfaceColors : WarpSurfaceColors {

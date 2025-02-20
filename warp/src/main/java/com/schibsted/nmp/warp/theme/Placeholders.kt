@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.theme.dataviz.DatavizColors
 
 internal object Placeholders : WarpColors {
     override val surface: WarpSurfaceColors = PlaceholderWarpSurfaceColors
@@ -14,6 +15,7 @@ internal object Placeholders : WarpColors {
     override val icon: WarpIconColors = PlaceholderWarpIconColors
     override val text: WarpTextColors = PlaceholderWarpTextColors
     override val components: WarpComponentColors = PlaceholderWarpComponentColors
+    override val dataviz: WarpDatavizColors = DatavizColors
 }
 
 private object PlaceholderWarpSurfaceColors : WarpSurfaceColors {

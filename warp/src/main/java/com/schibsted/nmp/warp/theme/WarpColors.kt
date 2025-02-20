@@ -24,10 +24,10 @@ interface WarpDatavizColors {
 
 interface WarpDatavizChartColors {
     val backgroundDefault: Color
-    val chartLineDefault: Color
-    val chartLineSubtle: Color
-    val chartTextDefault: Color
-    val chartTextSubtle: Color
+    val lineDefault: Color
+    val lineSubtle: Color
+    val textDefault: Color
+    val textSubtle: Color
 }
 
 interface WarpDatavizBackgroundColors {
