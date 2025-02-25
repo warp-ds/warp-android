@@ -13,15 +13,15 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 
 @Composable
-fun CalloutShape(arrowEdge: Edge): Shape {
+fun TooltipShape(arrowEdge: Edge): Shape {
     val tipHeight = with(LocalDensity.current) {
-        dimensions.components.callout.arrowHeight.toPx()
+        dimensions.components.tooltip.arrowHeight.toPx()
     }
     val tipWidth = with(LocalDensity.current) {
-        dimensions.components.callout.arrowWidth.toPx()
+        dimensions.components.tooltip.arrowWidth.toPx()
     }
     val cornerRadius = with(LocalDensity.current) {
-        dimensions.components.callout.cornerRadius.toPx()
+        dimensions.components.tooltip.cornerRadius.toPx()
     }
 
     return when (arrowEdge) {
