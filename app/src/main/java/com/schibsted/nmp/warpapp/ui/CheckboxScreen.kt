@@ -11,7 +11,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -34,6 +37,7 @@ fun CheckboxScreen(onUp: () -> Unit) {
 
 @Composable
 private fun CheckboxScreenContent() {
+
     Column(
         verticalArrangement = Arrangement.spacedBy(WarpTheme.dimensions.space2),
         modifier = Modifier
@@ -41,18 +45,24 @@ private fun CheckboxScreenContent() {
             .verticalScroll(rememberScrollState())
             .padding(WarpTheme.dimensions.space2)
     ) {
+        var isNeutralChecked by remember { mutableStateOf(false) }
         WarpCheckbox(
+            checked = isNeutralChecked,
             label = "Neutral checkbox",
-            onCheckedChange = { }
+            onCheckedChange = { isNeutralChecked = it }
         )
+        var isSubTextChecked by remember { mutableStateOf(false) }
         WarpCheckbox(
+            checked = isSubTextChecked,
             label = "With subText",
-            onCheckedChange = { },
+            onCheckedChange = { isSubTextChecked = it },
             extraText = "So extra"
         )
+        var isExtraTextWithIconChecked by remember { mutableStateOf(false) }
         WarpCheckbox(
+            checked = isExtraTextWithIconChecked,
             label = "With extra text & icon",
-            onCheckedChange = { },
+            onCheckedChange = { isExtraTextWithIconChecked = it },
             extraText = "So extra",
             slot = {
                 Icon(
@@ -62,9 +72,11 @@ private fun CheckboxScreenContent() {
                 )
             }
         )
+        var isIconOnlyChecked by remember { mutableStateOf(false) }
         WarpCheckbox(
+            checked = isIconOnlyChecked,
             label = "With icon",
-            onCheckedChange = { },
+            onCheckedChange = { isIconOnlyChecked = it },
             slot = {
                 Icon(
                     Icons.Filled.AccountCircle,
@@ -73,40 +85,46 @@ private fun CheckboxScreenContent() {
                 )
             }
         )
+        var isSelectedNeutralChecked by remember { mutableStateOf(true) }
         WarpCheckbox(
+            checked = isSelectedNeutralChecked,
             label = "Selected neutral checkbox",
-            checked = true,
-            onCheckedChange = { })
+            onCheckedChange = { isSelectedNeutralChecked = it })
+        var isDisabledChecked by remember { mutableStateOf(false) }
         WarpCheckbox(
+            checked = isDisabledChecked,
             label = "Disabled checkbox",
             style = WarpCheckboxStyle.Disabled,
-            onCheckedChange = { })
+            onCheckedChange = { isDisabledChecked = it })
+        var isSelectedDisabledChecked by remember { mutableStateOf(true) }
         WarpCheckbox(
             label = "Selected disabled checkbox",
-            checked = true,
+            checked = isSelectedDisabledChecked,
             style = WarpCheckboxStyle.Disabled,
-            onCheckedChange = { })
+            onCheckedChange = { isSelectedDisabledChecked = it })
+        var isNegativeChecked by remember { mutableStateOf(false) }
         WarpCheckbox(
+            checked = isNegativeChecked,
             label = "Negative checkbox",
             style = WarpCheckboxStyle.Negative,
-            onCheckedChange = { })
+            onCheckedChange = { isNegativeChecked = it })
+        var isSelectedNegativeChecked by remember { mutableStateOf(true) }
         WarpCheckbox(
             label = "Selected negative checkbox",
-            checked = true,
+            checked = isSelectedNegativeChecked,
             style = WarpCheckboxStyle.Negative,
-            onCheckedChange = { })
+            onCheckedChange = { isSelectedNegativeChecked = it })
         WarpText(text = "Checkbox group", style = WarpTextStyle.Title3)
 
         val checkboxOptions = listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5")
-        val preSelectedOptions = listOf("Option 1", "Option 3")
-        val onOptionsSelected = remember { mutableListOf(checkboxOptions) }
+        var preSelectedOptions by remember { mutableStateOf(listOf("Option 1", "Option 3")) }
         WarpCheckboxGroup(
             title = "Vertical",
             helpText = "Help text",
             orientation = Orientation.Vertical,
             options = checkboxOptions,
             selectedOptions = preSelectedOptions,
-            onOptionsSelected = { onOptionsSelected },
+            onOptionsSelected = { preSelectedOptions = it },
             isError = false
         )
         WarpCheckboxGroup(
@@ -115,12 +133,19 @@ private fun CheckboxScreenContent() {
             orientation = Orientation.Horizontal,
             options = checkboxOptions,
             selectedOptions = preSelectedOptions,
-            onOptionsSelected = { onOptionsSelected },
+            onOptionsSelected = { preSelectedOptions = it },
             isError = false
         )
         WarpText(text = "Checkbox without label", style = WarpTextStyle.Title3)
-        WarpCheckbox(onCheckedChange = { })
-        WarpCheckbox(onCheckedChange = { }, checked = true)
+        var isCheckboxWithoutLabelChecked by remember { mutableStateOf(false) }
+        WarpCheckbox(
+            checked = isCheckboxWithoutLabelChecked,
+            onCheckedChange = { isCheckboxWithoutLabelChecked = it })
+        var isCheckboxWithoutLabelSelected by remember { mutableStateOf(true) }
+        WarpCheckbox(
+            onCheckedChange = { isCheckboxWithoutLabelSelected = it },
+            checked = isCheckboxWithoutLabelSelected
+        )
     }
 }
 
