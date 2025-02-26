@@ -280,4 +280,13 @@
     <string name="wifi">Wi-Fi-symboli</string>
     <string name="woods">Kaksi kuusta</string>
     <string name="youtube">YouTube-logo</string>
+    <string name="agriculturemachine">Maatalouskone</string>
+    <string name="boat">Vene</string>
+    <string name="carengine">Auton moottori</string>
+    <string name="jetski">Vesiskootteri</string>
+    <string name="road">Tie</string>
+    <string name="rowingboat">Soutuvene</string>
+    <string name="ruler">Viivain</string>
+    <string name="singlecylinder">Yksisylinterinen</string>
+    <string name="weight">Paino</string>
 </resources>

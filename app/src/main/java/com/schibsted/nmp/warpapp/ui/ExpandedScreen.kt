@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.components.WarpBox
-import com.schibsted.nmp.warp.components.WarpBoxStyle
-import com.schibsted.nmp.warp.components.WarpButton
-import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpExpandable
+import com.schibsted.nmp.warp.components.WarpExpandableType
 import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
 fun ExpandableScreen(onUp: () -> Unit) {
@@ -23,27 +20,42 @@ fun ExpandableScreen(onUp: () -> Unit) {
 
 @Composable
 private fun ExpandableScreenContent() {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        WarpText("Just an expandable")
-        WarpExpandable(title = "Title", modifier = Modifier.padding(16.dp)) {
-            WarpText("This is the hidden content")
+    Column(
+        modifier = Modifier
+            .padding(dimensions.space2)
+            .fillMaxWidth()
+    ) {
+        WarpText("Default expandable")
+        WarpExpandable(
+            modifier = Modifier.padding(
+                vertical = dimensions.space1,
+                horizontal = dimensions.space2
+            ),
+            title = "Title",
+            initiallyExpanded = true
+        ) {
+            WarpText("Byte was a sleek, silver-furred cat with LED-bright eyes and a knack for coding.")
         }
 
-        WarpText(modifier = Modifier.padding(top = 16.dp), text = "WarpExpandable inside box")
-        WarpBox(modifier = Modifier.padding(16.dp), boxStyle = WarpBoxStyle.Info) {
-            WarpExpandable(
-                modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
-                title = "Title",
-                initiallyExpanded = true
-            ) {
-                Column(Modifier.padding(bottom = 8.dp)) {
-                    WarpText("Here we have a little text. But we can add pretty much anything so why not a button")
-                    WarpButton(onClick = {  }, style = WarpButtonStyle.Utility) {
-                        WarpText("Click me")
-                    }
-                }
+        WarpText(
+            modifier = Modifier.padding(top = dimensions.space3, bottom = dimensions.space2),
+            text = "Boxed style"
+        )
+
+        WarpExpandable(
+            modifier = Modifier.padding(
+                vertical = dimensions.space1,
+                horizontal = dimensions.space2
+            ),
+            title = "Title",
+            type = WarpExpandableType.Box,
+            initiallyExpanded = false
+        ) {
+            Column(Modifier.padding(bottom = dimensions.space1)) {
+                WarpText("Byte was a sleek, silver-furred cat with LED-bright eyes and a knack for coding. By day, she prowled the office, batting at stray USB cables and diagnosing minor hardware issues with a tilt of her head. By night, Byte tapped her paws on a miniature keyboard, crafting clever hacks and futuristic software. ")
             }
         }
+
     }
 }
 
