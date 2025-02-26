@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
@@ -19,8 +20,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.schibsted.nmp.warp.components.ext.shadowMedium
 import com.schibsted.nmp.warp.components.ext.tooltipPadding
-import com.schibsted.nmp.warp.components.shapes.CalloutShape
-import com.schibsted.nmp.warp.components.shapes.TooltipShape
+import com.schibsted.nmp.warp.components.shapes.tooltipShape
 import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.components.utils.EdgePositionProvider
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -35,6 +35,7 @@ fun WarpTooltip(
     dismissOnClickOutside: Boolean = true,
     horizontalOffset: Dp = 0.dp,
     verticalOffset: Dp = 0.dp,
+    inline: Boolean = false,
     anchorView: @Composable (() -> Unit)? = null,
 ) {
     val popupPositionProvider = EdgePositionProvider(
@@ -42,41 +43,58 @@ fun WarpTooltip(
         density = LocalDensity.current,
         edge = edge
     )
+    val shadow = if (inline) Modifier.shadow(0.5.dp, tooltipShape(edge)) else {
+        Modifier.shadowMedium(tooltipShape(edge))
+    }
 
-    Box {
-        anchorView?.let { it() }
-        if (state.isVisible) {
-            Popup(
-                popupPositionProvider = popupPositionProvider,
-                properties = PopupProperties(
-                    dismissOnClickOutside = dismissOnClickOutside
-                )
-            ) {
-                Box(
-                    modifier = Modifier
-                        .shadowMedium(TooltipShape(edge))
-                        .then(modifier)
-                        .border(
-                            dimensions.borderWidth2,
-                            colors.components.tooltip.backgroundStatic, CalloutShape(edge)
-                        )
-                        .background(colors.components.tooltip.backgroundStatic)
-                        .tooltipPadding(edge)
-
+    if (inline) {
+        if(state.isVisible) {
+            WarpTooltipView(edge, modifier.then(shadow), text)
+        }
+    } else {
+        Box {
+            anchorView?.let { it() }
+            if (state.isVisible) {
+                Popup(
+                    popupPositionProvider = popupPositionProvider,
+                    properties = PopupProperties(
+                        dismissOnClickOutside = dismissOnClickOutside
+                    )
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(dimensions.space05),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        WarpText(
-                            text = text,
-                            color = colors.text.invertedStatic,
-                            style = WarpTextStyle.Caption,
-                            softWrap = true,
-                        )
-                    }
+                    WarpTooltipView(edge, modifier.then(shadow), text)
                 }
             }
+        }
+    }
+}
+
+@Composable
+internal fun WarpTooltipView(
+    edge: Edge,
+    modifier: Modifier,
+    text: String
+) {
+    Box(
+        modifier = Modifier
+            .then(modifier)
+            .border(
+                dimensions.borderWidth2,
+                colors.components.tooltip.backgroundStatic, tooltipShape(edge)
+            )
+            .background(colors.components.tooltip.backgroundStatic)
+            .tooltipPadding(edge)
+
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(dimensions.space05),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            WarpText(
+                text = text,
+                color = colors.text.invertedStatic,
+                style = WarpTextStyle.Caption,
+                softWrap = true,
+            )
         }
     }
 }

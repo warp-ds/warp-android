@@ -37,6 +37,7 @@ fun TooltipScreenContent() {
         val leadingState = remember { WarpTooltipState(false) }
         val trailingState = remember { WarpTooltipState(false) }
         val bottomState = remember { WarpTooltipState(false) }
+        val inlineState = remember { WarpTooltipState(true) }
 
         WarpTooltip(
             state = topState,
@@ -74,5 +75,12 @@ fun TooltipScreenContent() {
                 "Bottom Tooltip",
                 { bottomState.isVisible = !bottomState.isVisible })
         }
+        WarpTooltip(
+            modifier = Modifier.padding(top = dimensions.space4),
+            state = inlineState,
+            inline = true,
+            text = "Inline",
+            edge = Edge.Top
+        )
     }
 }

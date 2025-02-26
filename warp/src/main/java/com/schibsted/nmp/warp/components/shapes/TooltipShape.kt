@@ -13,7 +13,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 
 @Composable
-fun TooltipShape(arrowEdge: Edge): Shape {
+fun tooltipShape(arrowEdge: Edge): Shape {
     val tipHeight = with(LocalDensity.current) {
         dimensions.components.tooltip.arrowHeight.toPx()
     }
