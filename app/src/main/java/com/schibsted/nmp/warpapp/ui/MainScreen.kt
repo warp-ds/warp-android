@@ -16,15 +16,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -40,9 +36,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTopAppBar
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
@@ -168,12 +166,11 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
         topBar = {
             WarpTopAppBar(
                 titleText = "Warp components",
+                centered = true,
                 actions = {
                     IconButton(onClick = { menuVisible = !menuVisible }) {
-                        Icon(
-                            imageVector = Icons.Filled.MoreVert,
-                            contentDescription = "Menu",
-                            tint = colors.icon.default
+                        WarpIcon(
+                            icon = icons.dotsVertical
                         )
                     }
                     DropdownMenu(
@@ -240,11 +237,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             WarpText(it.second)
-                            Icon(
-                                imageVector = Icons.Filled.KeyboardArrowRight,
-                                contentDescription = null,
-                                tint = colors.icon.default
-                            )
+                            WarpIcon(icon = icons.chevronRight, size = dimensions.icon.small)
                         }
                     }
                 }
