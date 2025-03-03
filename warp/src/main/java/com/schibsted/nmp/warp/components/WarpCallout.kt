@@ -40,7 +40,20 @@ import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
-
+/**
+ * @param text The text to be displayed in the callout
+ * @param state The state of the callout. Used to show or hide the callout.
+ * @param size The size of the callout. Small or Default.
+ * @param type The type of the callout. Popover or Inline.
+ * @param inlineModifier Modifier for the inline callout.
+ * @param horizontalOffset The horizontal offset of the callout.
+ * @param verticalOffset The vertical offset of the callout.
+ * @param edge The edge of the callout. Top, Bottom, Leading, Trailing.
+ * @param closable Whether the callout is closable.
+ * @param dismissPopoverOnClickOutside Whether the popover should be dismissed when clicking outside.
+ * @param onDismiss The callback to be invoked when the callout is dismissed.
+ * @param anchorView The view to be used as the anchor for the callout.
+ */
 @Composable
 fun WarpCallout(
     text: String,

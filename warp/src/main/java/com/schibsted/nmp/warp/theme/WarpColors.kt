@@ -10,6 +10,207 @@ interface WarpColors {
     val icon: WarpIconColors
     val text: WarpTextColors
     val components: WarpComponentColors
+    val dataviz: WarpDatavizColors
+}
+
+interface WarpDatavizColors {
+    val chart: WarpDatavizChartColors
+    val background: WarpDatavizBackgroundColors
+    val line: WarpDatavizLineColors
+    val border: WarpDatavizBorderColors
+    val text: WarpDatavizTextColors
+    val icon: WarpDatavizIconColors
+}
+
+interface WarpDatavizChartColors {
+    val backgroundDefault: Color
+    val lineDefault: Color
+    val lineSubtle: Color
+    val textDefault: Color
+    val textSubtle: Color
+}
+
+interface WarpDatavizBackgroundColors {
+    val primary: Color
+    val primarySubtle: Color
+    val primaryHighlight: Color
+    val primarySubtleHighlight: Color
+    val secondary: Color
+    val secondarySubtle: Color
+    val secondaryHighlight: Color
+    val secondarySubtleHighlight: Color
+    val category1: Color
+    val category1Subtle: Color
+    val category1Highlight: Color
+    val category1SubtleHighlight: Color
+    val category2: Color
+    val category2Subtle: Color
+    val category2Highlight: Color
+    val category2SubtleHighlight: Color
+    val category3: Color
+    val category3Subtle: Color
+    val category3Highlight: Color
+    val category3SubtleHighlight: Color
+    val category4: Color
+    val category4Subtle: Color
+    val category4Highlight: Color
+    val category4SubtleHighlight: Color
+    val category5: Color
+    val category5Subtle: Color
+    val category5Highlight: Color
+    val category5SubtleHighlight: Color
+    val category6: Color
+    val category6Subtle: Color
+    val category6Highlight: Color
+    val category6SubtleHighlight: Color
+    val category7: Color
+    val category7Subtle: Color
+    val category7Highlight: Color
+    val category7SubtleHighlight: Color
+    val category8: Color
+    val category8Subtle: Color
+    val category8Highlight: Color
+    val category8SubtleHighlight: Color
+    val positive: Color
+    val positiveSubtle: Color
+    val positiveHighlight: Color
+    val positiveSubtleHighlight: Color
+    val warning: Color
+    val warningSubtle: Color
+    val warningHighlight: Color
+    val warningSubtleHighlight: Color
+    val negative: Color
+    val negativeSubtle: Color
+    val negativeHighlight: Color
+    val negativeSubtleHighlight: Color
+    val neutral: Color
+    val neutralSubtle: Color
+    val neutralHighlight: Color
+    val neutralSubtleHighlight: Color
+}
+
+interface WarpDatavizLineColors {
+    val primary: Color
+    val primaryHighlight: Color
+    val secondary: Color
+    val secondaryHighlight: Color
+    val category1: Color
+    val category1Highlight: Color
+    val category2: Color
+    val category2Highlight: Color
+    val category3: Color
+    val category3Highlight: Color
+    val category4: Color
+    val category4Highlight: Color
+    val category5: Color
+    val category5Highlight: Color
+    val category6: Color
+    val category6Highlight: Color
+    val category7: Color
+    val category7Highlight: Color
+    val category8: Color
+    val category8Highlight: Color
+    val positive: Color
+    val positiveHighlight: Color
+    val warning: Color
+    val warningHighlight: Color
+    val negative: Color
+    val negativeHighlight: Color
+    val neutral: Color
+    val neutralHighlight: Color
+}
+
+interface WarpDatavizBorderColors {
+    val primary: Color
+    val primaryHighlight: Color
+    val secondary: Color
+    val secondaryHighlight: Color
+    val category1: Color
+    val category1Highlight: Color
+    val category2: Color
+    val category2Highlight: Color
+    val category3: Color
+    val category3Highlight: Color
+    val category4: Color
+    val category4Highlight: Color
+    val category5: Color
+    val category5Highlight: Color
+    val category6: Color
+    val category6Highlight: Color
+    val category7: Color
+    val category7Highlight: Color
+    val category8: Color
+    val category8Highlight: Color
+    val positive: Color
+    val positiveHighlight: Color
+    val warning: Color
+    val warningHighlight: Color
+    val negative: Color
+    val negativeHighlight: Color
+    val neutral: Color
+    val neutralHighlight: Color
+}
+
+interface WarpDatavizTextColors {
+    val primary: Color
+    val primaryHighlight: Color
+    val secondary: Color
+    val secondaryHighlight: Color
+    val category1: Color
+    val category1Highlight: Color
+    val category2: Color
+    val category2Highlight: Color
+    val category3: Color
+    val category3Highlight: Color
+    val category4: Color
+    val category4Highlight: Color
+    val category5: Color
+    val category5Highlight: Color
+    val category6: Color
+    val category6Highlight: Color
+    val category7: Color
+    val category7Highlight: Color
+    val category8: Color
+    val category8Highlight: Color
+    val positive: Color
+    val positiveHighlight: Color
+    val warning: Color
+    val warningHighlight: Color
+    val negative: Color
+    val negativeHighlight: Color
+    val neutral: Color
+    val neutralHighlight: Color
+}
+
+interface WarpDatavizIconColors {
+    val primary: Color
+    val primaryHighlight: Color
+    val secondary: Color
+    val secondaryHighlight: Color
+    val category1: Color
+    val category1Highlight: Color
+    val category2: Color
+    val category2Highlight: Color
+    val category3: Color
+    val category3Highlight: Color
+    val category4: Color
+    val category4Highlight: Color
+    val category5: Color
+    val category5Highlight: Color
+    val category6: Color
+    val category6Highlight: Color
+    val category7: Color
+    val category7Highlight: Color
+    val category8: Color
+    val category8Highlight: Color
+    val positive: Color
+    val positiveHighlight: Color
+    val warning: Color
+    val warningHighlight: Color
+    val negative: Color
+    val negativeHighlight: Color
+    val neutral: Color
+    val neutralHighlight: Color
 }
 
 interface WarpSurfaceColors {
