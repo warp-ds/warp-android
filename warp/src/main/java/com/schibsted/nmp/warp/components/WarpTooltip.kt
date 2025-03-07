@@ -12,6 +12,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
@@ -43,17 +46,25 @@ fun WarpTooltip(
         density = LocalDensity.current,
         edge = edge
     )
-    val shadow = if (inline) Modifier.shadow(0.5.dp, tooltipShape(edge)) else {
-        Modifier.shadowMedium(tooltipShape(edge))
-    }
+    var anchorWidth: Dp? = null
+    var anchorPosition: Offset? = null
 
     if (inline) {
-        if(state.isVisible) {
-            WarpTooltipView(edge, modifier.then(shadow), text)
+        if (state.isVisible) {
+            WarpTooltipView(edge, modifier, text, anchorWidth, inline, anchorPosition)
         }
     } else {
         Box {
-            anchorView?.let { it() }
+            anchorView?.let { view ->
+                Box(
+                    modifier = Modifier.onGloballyPositioned { coordinates ->
+                        anchorWidth = coordinates.size.width.dp
+                        anchorPosition = coordinates.positionInWindow()
+                    }
+                ) {
+                    view()
+                }
+            }
             if (state.isVisible) {
                 Popup(
                     popupPositionProvider = popupPositionProvider,
@@ -61,7 +72,7 @@ fun WarpTooltip(
                         dismissOnClickOutside = dismissOnClickOutside
                     )
                 ) {
-                    WarpTooltipView(edge, modifier.then(shadow), text)
+                    WarpTooltipView(edge, modifier, text, anchorWidth, inline, anchorPosition)
                 }
             }
         }
@@ -72,14 +83,24 @@ fun WarpTooltip(
 internal fun WarpTooltipView(
     edge: Edge,
     modifier: Modifier,
-    text: String
+    text: String,
+    offset: Dp?,
+    inline: Boolean,
+    anchorPosition: Offset?
 ) {
+    val shadow = if (inline) Modifier.shadow(
+        0.5.dp, tooltipShape(edge)
+    ) else {
+        Modifier.shadowMedium(tooltipShape(edge, offset, anchorPosition))
+    }
     Box(
         modifier = Modifier
             .then(modifier)
+            .then(shadow)
             .border(
                 dimensions.borderWidth2,
-                colors.components.tooltip.backgroundStatic, tooltipShape(edge)
+                colors.components.tooltip.backgroundStatic,
+                tooltipShape(edge, offset, anchorPosition)
             )
             .background(colors.components.tooltip.backgroundStatic)
             .tooltipPadding(edge)
@@ -93,6 +114,7 @@ internal fun WarpTooltipView(
                 text = text,
                 color = colors.text.invertedStatic,
                 style = WarpTextStyle.Caption,
+                maxLines = 1,
                 softWrap = true,
             )
         }

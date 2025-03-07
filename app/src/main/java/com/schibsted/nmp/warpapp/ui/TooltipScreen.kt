@@ -26,9 +26,10 @@ fun TooltipScreen(onUp: () -> Unit) {
 
 @Composable
 fun TooltipScreenContent() {
+    val paddingValue = dimensions.space1
     Column(
         modifier = Modifier
-            .padding(dimensions.space1)
+            .padding(paddingValue)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(dimensions.space2, Alignment.CenterVertically)
@@ -40,13 +41,14 @@ fun TooltipScreenContent() {
         val inlineState = remember { WarpTooltipState(true) }
 
         WarpTooltip(
+            modifier = Modifier.padding(horizontal = dimensions.space1),
             state = topState,
             text = "Top",
             edge = Edge.Bottom
         ) {
             WarpButton(
-                "Top Tooltip",
-                { topState.isVisible = !topState.isVisible })
+                text = "Top Tooltip",
+                onClick = { topState.isVisible = !topState.isVisible })
         }
         WarpTooltip(
             state = leadingState,
@@ -67,13 +69,14 @@ fun TooltipScreenContent() {
                 { trailingState.isVisible = !trailingState.isVisible })
         }
         WarpTooltip(
+            modifier = Modifier.padding(horizontal = dimensions.space1),
             state = bottomState,
             text = "Bottom",
             edge = Edge.Top
         ) {
             WarpButton(
-                "Bottom Tooltip",
-                { bottomState.isVisible = !bottomState.isVisible })
+                text = "Bottom Tooltip",
+                onClick = { bottomState.isVisible = !bottomState.isVisible })
         }
         WarpTooltip(
             modifier = Modifier.padding(top = dimensions.space4),
