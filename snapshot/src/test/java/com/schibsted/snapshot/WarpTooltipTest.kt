@@ -78,6 +78,12 @@ class WarpTooltipTest(
                     )
                     WarpTooltip(
                         inline = true,
+                        state = topState,
+                        text = "1",
+                        edge = Edge.Bottom
+                    )
+                    WarpTooltip(
+                        inline = true,
                         state = leadingState,
                         text = "Trailing",
                         edge = Edge.Trailing
@@ -92,6 +98,12 @@ class WarpTooltipTest(
                         inline = true,
                         state = bottomState,
                         text = "Top",
+                        edge = Edge.Top
+                    )
+                    WarpTooltip(
+                        inline = true,
+                        state = bottomState,
+                        text = "Looong long long long longalong longjohn long text. Also long.",
                         edge = Edge.Top
                     )
                 }

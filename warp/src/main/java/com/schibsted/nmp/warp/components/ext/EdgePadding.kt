@@ -46,29 +46,29 @@ internal fun Modifier.tooltipPadding(edge: Edge): Modifier = composed {
         Edge.Top -> this.padding(
             top = dimensions.space2,
             bottom = dimensions.space1,
-            start = dimensions.space1,
-            end = dimensions.space1
+            start = dimensions.space15,
+            end = dimensions.space15
         )
 
         Edge.Bottom -> this.padding(
             top = dimensions.space1,
             bottom = dimensions.space2,
-            start = dimensions.space1,
-            end = dimensions.space1
+            start = dimensions.space15,
+            end = dimensions.space15
         )
 
         Edge.Leading -> this.padding(
             top = dimensions.space1,
             bottom = dimensions.space1,
-            start = dimensions.space15,
-            end = dimensions.space1
+            start = dimensions.space2,
+            end = dimensions.space15
         )
 
         Edge.Trailing -> this.padding(
             top = dimensions.space1,
             bottom = dimensions.space1,
-            start = dimensions.space1,
-            end = dimensions.space15
+            start = dimensions.space15,
+            end = dimensions.space2
         )
     }
 }
