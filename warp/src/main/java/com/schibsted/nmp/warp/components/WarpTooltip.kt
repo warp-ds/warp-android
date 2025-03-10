@@ -29,6 +29,17 @@ import com.schibsted.nmp.warp.components.utils.EdgePositionProvider
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
+/**
+ * @param modifier Modifier for the tooltip
+ * @param state WarpTooltipState of the tooltip. used to toggle hide/show
+ * @param text Text to be displayed in the tooltip
+ * @param edge Edge of the tooltip that indicates the anchor of the tooltip
+ * @param dismissOnClickOutside If true, the tooltip will be dismissed when clicking outside of it
+ * @param horizontalOffset Horizontal offset of the tooltip
+ * @param verticalOffset Vertical offset of the tooltip
+ * @param inline If true, the tooltip will be displayed inline, no anchor is needed
+ * @param anchorView The view which the Tooltip is anchored to. Will always align on the center point.
+ */
 @Composable
 fun WarpTooltip(
     modifier: Modifier = Modifier,
