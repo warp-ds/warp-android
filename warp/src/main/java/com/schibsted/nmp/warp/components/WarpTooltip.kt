@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupProperties
 import com.schibsted.nmp.warp.components.ext.shadowMedium
 import com.schibsted.nmp.warp.components.ext.tooltipPadding
 import com.schibsted.nmp.warp.components.shapes.tooltipShape
@@ -34,7 +33,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param state WarpTooltipState of the tooltip. used to toggle hide/show
  * @param text Text to be displayed in the tooltip
  * @param edge Edge of the tooltip that indicates the anchor of the tooltip
- * @param dismissOnClickOutside If true, the tooltip will be dismissed when clicking outside of it
  * @param horizontalOffset Horizontal offset of the tooltip
  * @param verticalOffset Vertical offset of the tooltip
  * @param inline If true, the tooltip will be displayed inline, no anchor is needed
@@ -46,7 +44,6 @@ fun WarpTooltip(
     state: WarpTooltipState,
     text: String,
     edge: Edge = Edge.Top,
-    dismissOnClickOutside: Boolean = true,
     horizontalOffset: Dp = 0.dp,
     verticalOffset: Dp = 0.dp,
     inline: Boolean = false,
@@ -78,10 +75,7 @@ fun WarpTooltip(
             }
             if (state.isVisible) {
                 Popup(
-                    popupPositionProvider = popupPositionProvider,
-                    properties = PopupProperties(
-                        dismissOnClickOutside = dismissOnClickOutside
-                    )
+                    popupPositionProvider = popupPositionProvider
                 ) {
                     WarpTooltipView(edge, modifier, text, anchorWidth, inline, anchorPosition)
                 }
