@@ -289,7 +289,7 @@
     <string name="ruler">Ruler</string>
     <string name="singlecylinder">Single cylinder</string>
     <string name="weight">Weight</string>
-    <string name="carleft">Car facing left\n</string>
+    <string name="carleft">Car facing left</string>
     <string name="carright">Car facing right</string>
     <string name="planeland">Airplane landing</string>
     <string name="planetakeoff">Airplane taking off</string>
