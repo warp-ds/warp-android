@@ -119,9 +119,7 @@ internal fun WarpTooltipView(
                 text = text,
                 color = colors.text.invertedStatic,
                 style = WarpTextStyle.Caption,
-                maxLines = 1,
-                softWrap = true,
-            )
+                maxLines = 1)
         }
     }
 }
