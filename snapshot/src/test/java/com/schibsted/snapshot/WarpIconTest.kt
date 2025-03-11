@@ -62,7 +62,7 @@ class WarpIconTest(
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
                         || it.returnType.classifier == WarpBrandIconResource::class
             }
-        Assert.assertEquals(289, count)
+        Assert.assertEquals(293, count)
     }
 
     @Test
@@ -144,8 +144,10 @@ class WarpIconTest(
                     icons.carEngine,
                     icons.carFront,
                     icons.carKey,
+                    icons.carLeft,
                     icons.carPart,
                     icons.carRent,
+                    icons.carRight,
                     icons.carService,
                     icons.carSubscription,
                     icons.cart,
@@ -411,6 +413,8 @@ class WarpIconTest(
                     icons.pictureStack,
                     icons.pinMarker,
                     icons.pinRound,
+                    icons.planeLand,
+                    icons.planeTakeOff,
                     icons.planeTicket,
                     icons.play,
                     icons.playhouse,

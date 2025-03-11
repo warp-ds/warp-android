@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.LayoutDirection
-import com.schibsted.nmp.warp.components.Edge
+import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 

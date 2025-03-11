@@ -94,6 +94,7 @@ class WarpCheckboxTest(
                     verticalArrangement = Arrangement.spacedBy(dimensions.space2)
                 ) {
                     WarpCheckbox(
+                        checked = false,
                         label = style.name,
                         style = style,
                         enabled = style != WarpCheckboxStyle.Disabled

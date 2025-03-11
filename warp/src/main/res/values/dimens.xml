@@ -31,4 +31,6 @@
     <dimen name="shadowXLarge">16dp</dimen>
 
     <dimen name="minimum_touch_size">48dp</dimen>
+
+    <dimen name="top_app_bar_height">64dp</dimen>
 </resources>

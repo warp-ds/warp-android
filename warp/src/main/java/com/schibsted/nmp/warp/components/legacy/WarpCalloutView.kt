@@ -12,9 +12,9 @@ import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.CalloutSize
 import com.schibsted.nmp.warp.components.CalloutState
 import com.schibsted.nmp.warp.components.CalloutType
-import com.schibsted.nmp.warp.components.Edge
 import com.schibsted.nmp.warp.components.WarpCallout
 import com.schibsted.nmp.warp.components.ext.getTextFromIdOrString
+import com.schibsted.nmp.warp.components.utils.Edge
 import org.koin.java.KoinJavaComponent.inject
 
 class WarpCalloutView @JvmOverloads constructor(

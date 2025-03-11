@@ -289,4 +289,8 @@
     <string name="ruler">Linjal</string>
     <string name="singlecylinder">Enkelsylinder</string>
     <string name="weight">Vekt</string>
+    <string name="carleft">Bil som vender mot venstre</string>
+    <string name="carright">Bil som vender mot høyre</string>
+    <string name="planeland">Fly lander</string>
+    <string name="planetakeoff">Fly tar av</string>
 </resources>

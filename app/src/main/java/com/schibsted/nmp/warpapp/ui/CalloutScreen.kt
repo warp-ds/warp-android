@@ -15,9 +15,9 @@ import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.CalloutSize
 import com.schibsted.nmp.warp.components.CalloutState
 import com.schibsted.nmp.warp.components.CalloutType
-import com.schibsted.nmp.warp.components.Edge
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpCallout
+import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
