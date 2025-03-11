@@ -19,8 +19,8 @@ import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.CalloutSize
 import com.schibsted.nmp.warp.components.CalloutState
 import com.schibsted.nmp.warp.components.CalloutType
-import com.schibsted.nmp.warp.components.Edge
 import com.schibsted.nmp.warp.components.WarpCallout
+import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import org.junit.Rule

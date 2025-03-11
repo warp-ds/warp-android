@@ -78,6 +78,13 @@ object WarpComponentDimensions {
     val radioIconSize = 20.dp
     val callout = CalloutDimensions
     val topAppBarHeight = 64.dp
+    val tooltip = TooltipDimensions
+}
+
+object TooltipDimensions {
+    val arrowHeight = 7.dp
+    val arrowWidth = 18.dp
+    val cornerRadius = 8.dp
 }
 
 object CalloutDimensions {

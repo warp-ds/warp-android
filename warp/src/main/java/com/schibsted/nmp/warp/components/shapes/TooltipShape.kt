@@ -2,26 +2,52 @@ package com.schibsted.nmp.warp.components.shapes
 
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
-
 @Composable
-fun CalloutShape(arrowEdge: Edge): Shape {
-    val tipHeight = with(LocalDensity.current) {
-        dimensions.components.callout.arrowHeight.toPx()
+fun tooltipShape(arrowEdge: Edge, anchorWidth: Dp? = null, anchorPosition: Offset? = null): Shape {
+    val density = LocalDensity.current
+    val configuration = LocalConfiguration.current
+
+    val tipHeight = with(density) {
+        dimensions.components.tooltip.arrowHeight.toPx()
     }
-    val tipWidth = with(LocalDensity.current) {
-        dimensions.components.callout.arrowWidth.toPx()
+    val tipWidth = with(density) {
+        dimensions.components.tooltip.arrowWidth.toPx()
     }
-    val cornerRadius = with(LocalDensity.current) {
-        dimensions.components.callout.cornerRadius.toPx()
+    val cornerRadius = with(density) {
+        dimensions.components.tooltip.cornerRadius.toPx()
+    }
+
+    var alignment = Alignment.CenterHorizontally
+
+    if (anchorPosition != null && anchorWidth != null) {
+
+        val screenHeightPx = with(density) { configuration.screenHeightDp.dp.toPx() }
+        val anchorWidthPx = with(density) { anchorWidth.toPx() }
+        val anchorCenterX = anchorPosition.x + (anchorWidthPx / 2)
+
+        val leftThreshold = screenHeightPx / 3
+        val rightThreshold = screenHeightPx * 2 / 3
+        val centerThreshold = screenHeightPx / 2
+
+        alignment = when {
+            anchorCenterX < leftThreshold && anchorCenterX < centerThreshold -> Alignment.Start
+            anchorCenterX < rightThreshold && anchorCenterX > centerThreshold -> Alignment.End
+            else -> Alignment.CenterHorizontally
+        }
     }
 
     return when (arrowEdge) {
@@ -117,14 +143,23 @@ fun CalloutShape(arrowEdge: Edge): Shape {
 
         Edge.Top -> {
             GenericShape { size: Size, layoutDirection: LayoutDirection ->
+                val shapeWidth = size.width
+                var diff = 0f
+                if (anchorWidth != null && shapeWidth > anchorWidth.value) {
+                    diff = when (alignment) {
+                        Alignment.Start -> -(shapeWidth - anchorWidth.value) / 2
+                        Alignment.End -> (shapeWidth - anchorWidth.value) / 2
+                        else -> 0f
+                    }
+                }
                 addPath(Path().apply {
                     moveTo(cornerRadius, tipHeight)
-                    lineTo(size.width / 2 - tipWidth / 2, tipHeight)
+                    lineTo((size.width / 2 - tipWidth / 2) + diff, tipHeight)
                     arcTo(
                         rect = Rect(
-                            left = size.width / 2 - tipWidth / 6,
+                            left = (size.width / 2 - tipWidth / 6) + diff,
                             top = -tipHeight / 6,
-                            right = size.width / 2 + tipWidth / 4,
+                            right = (size.width / 2 + tipWidth / 4) + diff,
                             bottom = tipHeight / 2
                         ),
                         startAngleDegrees = 200f,
@@ -133,16 +168,16 @@ fun CalloutShape(arrowEdge: Edge): Shape {
                     )
                     arcTo(
                         rect = Rect(
-                            left = size.width / 2 - tipWidth / 4,
+                            left = (size.width / 2 - tipWidth / 4) + diff,
                             top = -tipHeight / 6,
-                            right = size.width / 2 + tipWidth / 6,
+                            right = (size.width / 2 + tipWidth / 6) + diff,
                             bottom = tipHeight / 2
                         ),
                         startAngleDegrees = 270f,
                         sweepAngleDegrees = 70f,
                         forceMoveTo = false
                     )
-                    lineTo(size.width / 2 + tipWidth / 2, tipHeight)
+                    lineTo((size.width / 2 + tipWidth / 2) + diff, tipHeight)
                     lineTo(size.width - cornerRadius, tipHeight)
                     arcTo(
                         rect = Rect(
@@ -198,6 +233,15 @@ fun CalloutShape(arrowEdge: Edge): Shape {
 
         Edge.Bottom -> {
             GenericShape { size: Size, layoutDirection: LayoutDirection ->
+                val shapeWidth = size.width
+                var diff = 0f
+                if (anchorWidth != null && shapeWidth > anchorWidth.value) {
+                    diff = when (alignment) {
+                        Alignment.Start -> -(shapeWidth - anchorWidth.value) / 2
+                        Alignment.End -> (shapeWidth - anchorWidth.value) / 2
+                        else -> 0f
+                    }
+                }
                 addPath(Path().apply {
                     moveTo(cornerRadius, 0f)
                     lineTo(size.width - cornerRadius, 0f)
@@ -224,19 +268,19 @@ fun CalloutShape(arrowEdge: Edge): Shape {
                         sweepAngleDegrees = 90f,
                         forceMoveTo = false
                     )
-                    lineTo(size.width / 2 + tipWidth / 2, size.height - tipHeight)
+                    lineTo((size.width / 2 + tipWidth / 2) + diff, size.height - tipHeight)
                     arcTo(
                         rect = Rect(
-                            left = size.width / 2 - tipWidth / 5,
+                            left = (size.width / 2 - tipWidth / 5) + diff,
                             top = size.height - tipHeight - tipWidth / 6,
-                            right = size.width / 2 + tipWidth / 6,
+                            right = (size.width / 2 + tipWidth / 6) + diff,
                             bottom = size.height
                         ),
                         startAngleDegrees = 50f,
                         sweepAngleDegrees = 80f,
                         forceMoveTo = false
                     )
-                    lineTo(size.width / 2 - tipWidth / 2, size.height - tipHeight)
+                    lineTo((size.width / 2 - tipWidth / 2) + diff, size.height - tipHeight)
                     lineTo(cornerRadius, size.height - tipHeight)
                     arcTo(
                         rect = Rect(
