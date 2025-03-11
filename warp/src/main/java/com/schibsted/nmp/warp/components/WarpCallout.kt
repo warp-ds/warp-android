@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -17,30 +16,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.IntRect
-import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
+import com.schibsted.nmp.warp.components.ext.edgePadding
 import com.schibsted.nmp.warp.components.ext.shadowMedium
 import com.schibsted.nmp.warp.components.shapes.CalloutShape
+import com.schibsted.nmp.warp.components.utils.Edge
+import com.schibsted.nmp.warp.components.utils.EdgePositionProvider
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
-
+/**
+ * @param text The text to be displayed in the callout
+ * @param state The state of the callout. Used to show or hide the callout.
+ * @param size The size of the callout. Small or Default.
+ * @param type The type of the callout. Popover or Inline.
+ * @param inlineModifier Modifier for the inline callout.
+ * @param horizontalOffset The horizontal offset of the callout.
+ * @param verticalOffset The vertical offset of the callout.
+ * @param edge The edge of the callout. Top, Bottom, Leading, Trailing.
+ * @param closable Whether the callout is closable.
+ * @param dismissPopoverOnClickOutside Whether the popover should be dismissed when clicking outside.
+ * @param onDismiss The callback to be invoked when the callout is dismissed.
+ * @param anchorView The view to be used as the anchor for the callout.
+ */
 @Composable
 fun WarpCallout(
     text: String,
@@ -62,7 +70,7 @@ fun WarpCallout(
         CalloutSize.Small -> WarpTextStyle.Caption
         CalloutSize.Default -> WarpTextStyle.Body
     }
-    val popupPositionProvider = CalloutPositionProvider(
+    val popupPositionProvider = EdgePositionProvider(
         offset = DpOffset(horizontalOffset, verticalOffset),
         density = LocalDensity.current,
         edge = edge
@@ -134,7 +142,7 @@ private fun CalloutView(
                 calloutColors.border, CalloutShape(edge)
             )
             .background(calloutColors.background)
-            .calloutPadding(edge)
+            .edgePadding(edge)
 
     ) {
         Row(
@@ -170,62 +178,6 @@ class CalloutState(
     var isVisible: Boolean by mutableStateOf(isVisible)
 }
 
-internal class CalloutPositionProvider(
-    val offset: DpOffset,
-    val density: Density,
-    val edge: Edge,
-) : PopupPositionProvider {
-
-    override fun calculatePosition(
-        anchorBounds: IntRect,
-        windowSize: IntSize,
-        layoutDirection: LayoutDirection,
-        popupContentSize: IntSize
-    ): IntOffset {
-        val contentOffsetX = with(density) { offset.x.roundToPx() }
-        val contentOffsetY = with(density) { offset.y.roundToPx() }
-
-        val xOffset = when (edge) {
-            Edge.Top -> 0
-            Edge.Bottom -> 0
-            Edge.Leading -> -anchorBounds.width
-            Edge.Trailing -> anchorBounds.width
-        }
-        val yOffset = when (edge) {
-            Edge.Top -> anchorBounds.height
-            Edge.Bottom -> -anchorBounds.height
-            Edge.Leading -> 0
-            Edge.Trailing -> 0
-        }
-        val alignment = when (edge) {
-            Edge.Top -> Alignment.TopCenter
-            Edge.Bottom -> Alignment.BottomCenter
-            Edge.Leading -> Alignment.CenterStart
-            Edge.Trailing -> Alignment.CenterEnd
-        }
-        val anchorAlignmentPoint = alignment.align(
-            IntSize.Zero,
-            anchorBounds.size,
-            layoutDirection
-        )
-        val popupAlignmentPoint = -alignment.align(
-            IntSize.Zero,
-            popupContentSize,
-            layoutDirection
-        )
-        val resolvedUserOffset = IntOffset(
-            contentOffsetX * (if (layoutDirection == LayoutDirection.Ltr) 1 else -1) - xOffset,
-            contentOffsetY + yOffset
-        )
-
-        return anchorBounds.topLeft +
-                anchorAlignmentPoint +
-                popupAlignmentPoint +
-                resolvedUserOffset
-
-    }
-}
-
 enum class CalloutType {
     Popover,
     Inline
@@ -235,47 +187,6 @@ enum class CalloutSize {
     Small,
     Default
 }
-
-enum class Edge {
-    Top,
-    Bottom,
-    Leading,
-    Trailing
-}
-
-@Composable
-private fun Modifier.calloutPadding(edge: Edge): Modifier = composed {
-    when (edge) {
-        Edge.Top -> this.padding(
-            top = dimensions.space25,
-            bottom = dimensions.space1,
-            start = dimensions.space2,
-            end = dimensions.space2
-        )
-
-        Edge.Bottom -> this.padding(
-            top = dimensions.space1,
-            bottom = dimensions.space25,
-            start = dimensions.space2,
-            end = dimensions.space2
-        )
-
-        Edge.Leading -> this.padding(
-            top = dimensions.space1,
-            bottom = dimensions.space1,
-            start = dimensions.space25,
-            end = dimensions.space2
-        )
-
-        Edge.Trailing -> this.padding(
-            top = dimensions.space1,
-            bottom = dimensions.space1,
-            start = dimensions.space2,
-            end = dimensions.space25
-        )
-    }
-}
-
 
 @Composable
 fun getCalloutColors() = DefaultWarpCalloutColors(

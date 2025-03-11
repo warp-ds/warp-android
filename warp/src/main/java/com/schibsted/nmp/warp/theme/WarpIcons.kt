@@ -500,6 +500,13 @@ object WarpIconResources {
             stringResource(R.string.carkey)
         )
 
+    val carLeft: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.carleft),
+            stringResource(R.string.carleft)
+        )
+
     val carPart: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
@@ -514,6 +521,13 @@ object WarpIconResources {
             ImageVector.vectorResource(id = R.drawable.carrent),
             stringResource(R.string.carrent),
             identifier = "car-rent"
+        )
+
+    val carRight: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.carright),
+            stringResource(R.string.carright)
         )
 
     val carService: WarpIconResource
@@ -1480,6 +1494,20 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.pinround),
             stringResource(R.string.pinround)
+        )
+
+    val planeLand: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.planeland),
+            stringResource(R.string.planeland)
+        )
+
+    val planeTakeOff: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.planetakeoff),
+            stringResource(R.string.planetakeoff)
         )
 
     val planeTicket: WarpIconResource
