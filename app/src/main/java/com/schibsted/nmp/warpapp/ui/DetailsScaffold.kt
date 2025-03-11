@@ -6,13 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,9 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTopAppBar
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warpapp.MainViewModel
 
@@ -42,13 +40,15 @@ internal fun DetailsScaffold(title: String, onUp: () -> Unit, content: @Composab
                     IconButton(
                         onClick = onUp
                     ) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                        WarpIcon(icon = icons.arrowLeft)
                     }
                 },
                 titleText = "$title (${flavor.value})",
                 actions = {
                     IconButton(onClick = { menuVisible = !menuVisible }) {
-                        Icon(Icons.Filled.MoreVert, contentDescription = "Menu")
+                        WarpIcon(
+                            icon = icons.dotsVertical
+                        )
                     }
                     DropdownMenu(
                         modifier = Modifier.background(WarpTheme.colors.background.subtle),
