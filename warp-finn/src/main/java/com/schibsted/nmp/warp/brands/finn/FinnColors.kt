@@ -8,6 +8,7 @@ import com.schibsted.nmp.warp.theme.WarpCalloutColors
 import com.schibsted.nmp.warp.theme.WarpCardColors
 import com.schibsted.nmp.warp.theme.WarpColors
 import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpDatavizColors
 import com.schibsted.nmp.warp.theme.WarpIconColors
 import com.schibsted.nmp.warp.theme.WarpNavBarColors
 import com.schibsted.nmp.warp.theme.WarpPageIndicatorColors
@@ -16,6 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpSurfaceColors
 import com.schibsted.nmp.warp.theme.WarpSwitchColors
 import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
+import com.schibsted.nmp.warp.theme.dataviz.DatavizColors
 
 // Generated on Thu, 09 Jan 2025 13:37:44 GMT by https://github.com/warp-ds/tokens
 
@@ -26,6 +28,7 @@ internal object FinnColors : WarpColors {
     override val icon: WarpIconColors = FinnIconColors
     override val text: WarpTextColors = FinnTextColors
     override val components: WarpComponentColors = FinnComponentColors
+    override val dataviz: WarpDatavizColors = DatavizColors
 }
 
 internal object FinnSurfaceColors : WarpSurfaceColors {

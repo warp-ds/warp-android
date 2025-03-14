@@ -1,11 +1,8 @@
 package com.schibsted.nmp.warp.theme
 
-import android.content.Context
-import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -80,8 +77,16 @@ object WarpComponentDimensions {
     val switch = SwitchDimensions
     val radioIconSize = 20.dp
     val callout = CalloutDimensions
+    val topAppBarHeight = 64.dp
+    val tooltip = TooltipDimensions
     val sliderThumbSize = 28.dp
     val sliderTrackHeight = 4.dp
+}
+
+object TooltipDimensions {
+    val arrowHeight = 7.dp
+    val arrowWidth = 18.dp
+    val cornerRadius = 8.dp
 }
 
 object CalloutDimensions {
