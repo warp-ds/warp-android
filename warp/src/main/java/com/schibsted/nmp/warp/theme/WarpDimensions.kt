@@ -79,8 +79,12 @@ object WarpComponentDimensions {
     val callout = CalloutDimensions
     val topAppBarHeight = 64.dp
     val tooltip = TooltipDimensions
-    val sliderThumbSize = 28.dp
-    val sliderTrackHeight = 4.dp
+    val slider = SliderDimensions
+}
+
+object SliderDimensions {
+    val thumbSize = 28.dp
+    val trackHeight = 6.dp
 }
 
 object TooltipDimensions {

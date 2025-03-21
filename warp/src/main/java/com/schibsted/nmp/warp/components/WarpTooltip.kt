@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -47,6 +48,7 @@ fun WarpTooltip(
     horizontalOffset: Dp = 0.dp,
     verticalOffset: Dp = 0.dp,
     inline: Boolean = false,
+    autoCenter: Boolean = true,
     anchorView: @Composable (() -> Unit)? = null,
 ) {
     val popupPositionProvider = EdgePositionProvider(
@@ -63,14 +65,18 @@ fun WarpTooltip(
         }
     } else {
         Box {
-            anchorView?.let { view ->
-                Box(
-                    modifier = Modifier.onGloballyPositioned { coordinates ->
-                        anchorWidth = coordinates.size.width.dp
-                        anchorPosition = coordinates.positionInWindow()
+            anchorView?.let {
+                if(autoCenter) {
+                    Box(
+                        modifier = Modifier.onGloballyPositioned { coordinates ->
+                            anchorWidth = coordinates.size.width.dp
+                            anchorPosition = coordinates.positionInWindow()
+                        }
+                    ) {
+                        it()
                     }
-                ) {
-                    view()
+                } else {
+                    it()
                 }
             }
             if (state.isVisible) {
@@ -124,7 +130,7 @@ internal fun WarpTooltipView(
     }
 }
 
-
+@Stable
 class WarpTooltipState(isVisible: Boolean = false) {
     var isVisible: Boolean by mutableStateOf(isVisible)
 }

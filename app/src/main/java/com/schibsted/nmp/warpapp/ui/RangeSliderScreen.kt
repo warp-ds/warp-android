@@ -47,6 +47,7 @@ fun RangeSliderScreenContent() {
         )
         WarpText("From $from to $to")
         WarpRangeSlider(
+            showTooltips = false,
             items = items,
             onRightValueChanged = {
                 to = it.toString()

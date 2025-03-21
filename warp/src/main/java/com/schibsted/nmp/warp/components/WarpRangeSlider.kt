@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -50,6 +51,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.ViewConfiguration
 import androidx.compose.ui.semantics.contentDescription
@@ -67,6 +69,7 @@ import androidx.compose.ui.util.lerp
 import androidx.compose.ui.util.packFloats
 import androidx.compose.ui.util.unpackFloat1
 import androidx.compose.ui.util.unpackFloat2
+import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -128,11 +131,14 @@ fun WarpRangeSlider(
     resetAtStartTerminal: Boolean = false,
     resetAtEndTerminal: Boolean = false,
     blockDrag: Boolean = false,
+    showTooltips: Boolean = true,
     startInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     endInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val startItem = initialStartItem ?: items.first()
     val endItem = initialEndItem ?: items.last()
+
+
     val rangeSliderState = WarpRangeSliderState(
         initialStartItem = startItem,
         initialEndItem = endItem,
@@ -144,12 +150,14 @@ fun WarpRangeSlider(
         onValueChangeFinished = onValueChangeFinished
     )
 
+
     val startThumb: @Composable (WarpRangeSliderState) -> Unit = {
         WarpSliderDefaults.Thumb(
             interactionSource = startInteractionSource,
             enabled = enabled
         )
     }
+
     val endThumb: @Composable (WarpRangeSliderState) -> Unit = {
         WarpSliderDefaults.Thumb(
             interactionSource = endInteractionSource,
@@ -175,7 +183,8 @@ fun WarpRangeSlider(
         endInteractionSource = endInteractionSource,
         startThumb = startThumb,
         endThumb = endThumb,
-        track = track
+        track = track,
+        showTooltips = showTooltips
     )
 }
 
@@ -189,7 +198,8 @@ private fun WarpRangeSliderImpl(
     endInteractionSource: MutableInteractionSource,
     startThumb: @Composable ((WarpRangeSliderState) -> Unit),
     endThumb: @Composable ((WarpRangeSliderState) -> Unit),
-    track: @Composable ((WarpRangeSliderState) -> Unit)
+    track: @Composable ((WarpRangeSliderState) -> Unit),
+    showTooltips: Boolean
 ) {
     state.isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
 
@@ -206,8 +216,81 @@ private fun WarpRangeSliderImpl(
     val startContentDescription = "Slider Range Start"
     val endContentDescription = "Slider Range End"
 
+    val tooltipPaddingPx = with(LocalDensity.current) { dimensions.space1.roundToPx() }
+
+    val startTooltipText by remember {
+        derivedStateOf { state.currentLeftItem.toString() }
+    }
+    val startTooltipState = remember { WarpTooltipState(false) }
+
+    val endTooltipText by remember {
+        derivedStateOf { state.currentRightItem.toString() }
+    }
+    val endTooltipState = remember { WarpTooltipState(false) }
+
+    if (showTooltips) {
+        LaunchedEffect(startInteractionSource) {
+            startInteractionSource.interactions.collect { interaction ->
+                when (interaction) {
+                    is PressInteraction.Press -> startTooltipState.isVisible = true
+                    is PressInteraction.Release -> startTooltipState.isVisible = false
+                    is PressInteraction.Cancel -> startTooltipState.isVisible = false
+                    is DragInteraction.Start -> startTooltipState.isVisible = true
+                    is DragInteraction.Stop -> startTooltipState.isVisible = false
+                    is DragInteraction.Cancel -> startTooltipState.isVisible = false
+                }
+            }
+        }
+        LaunchedEffect(endInteractionSource) {
+            endInteractionSource.interactions.collect { interaction ->
+                when (interaction) {
+                    is PressInteraction.Press -> endTooltipState.isVisible = true
+                    is PressInteraction.Release -> endTooltipState.isVisible = false
+                    is PressInteraction.Cancel -> endTooltipState.isVisible = false
+                    is DragInteraction.Start -> endTooltipState.isVisible = true
+                    is DragInteraction.Stop -> endTooltipState.isVisible = false
+                    is DragInteraction.Cancel -> endTooltipState.isVisible = false
+                }
+            }
+        }
+    }
+
     Layout(
         {
+            if (showTooltips) {
+                Box(modifier = Modifier
+                    .layoutId(WarpRangeSliderComponents.STARTTOOLTIP)
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = startContentDescription
+                    }
+                    .focusable(enabled, startInteractionSource)
+                    .then(startThumbSemantics))
+                {
+                    WarpTooltip(
+                        state = startTooltipState,
+                        text = startTooltipText,
+                        edge = Edge.Bottom,
+                        autoCenter = false,
+                        inline = true
+                    )
+                }
+                Box(modifier = Modifier
+                    .layoutId(WarpRangeSliderComponents.ENDTOOLTIP)
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = startContentDescription
+                    }
+                    .focusable(enabled, startInteractionSource)
+                    .then(startThumbSemantics))
+                {
+                    WarpTooltip(
+                        state = endTooltipState,
+                        text = endTooltipText,
+                        edge = Edge.Bottom,
+                        autoCenter = false,
+                        inline = true
+                    )
+                }
+            }
             Box(modifier = Modifier
                 .layoutId(WarpRangeSliderComponents.STARTTHUMB)
                 .semantics(mergeDescendants = true) {
@@ -215,7 +298,9 @@ private fun WarpRangeSliderImpl(
                 }
                 .focusable(enabled, startInteractionSource)
                 .then(startThumbSemantics)
-            ) { startThumb(state) }
+            ) {
+                startThumb(state)
+            }
             Box(modifier = Modifier
                 .layoutId(WarpRangeSliderComponents.ENDTHUMB)
                 .semantics(mergeDescendants = true) {
@@ -242,6 +327,22 @@ private fun WarpRangeSliderImpl(
         }.measure(
             constraints
         )
+
+        val startTooltipPlaceable = if (showTooltips) {
+            measurables.fastFirst {
+                it.layoutId == WarpRangeSliderComponents.STARTTOOLTIP
+            }.measure(
+                constraints
+            )
+        } else null
+
+        val endTooltipPlaceable = if (showTooltips) {
+            measurables.fastFirst {
+                it.layoutId == WarpRangeSliderComponents.ENDTOOLTIP
+            }.measure(
+                constraints
+            )
+        } else null
 
         val endThumbPlaceable = measurables.fastFirst {
             it.layoutId == WarpRangeSliderComponents.ENDTHUMB
@@ -287,10 +388,31 @@ private fun WarpRangeSliderImpl(
         val startThumbOffsetY = (sliderHeight - startThumbPlaceable.height) / 2
         val endThumbOffsetY = (sliderHeight - endThumbPlaceable.height) / 2
 
+        val startTooltipOffsetX =
+            startTooltipPlaceable?.let { startThumbOffsetX + (startThumbPlaceable.width - startTooltipPlaceable.width) / 2 }
+                ?: 0
+        val startTooltipOffsetY =
+            startTooltipPlaceable?.let { startThumbOffsetY - tooltipPaddingPx - startTooltipPlaceable.height }
+                ?: 0
+        val endTooltipOffsetX =
+            endTooltipPlaceable?.let { endThumbOffsetX + (endThumbPlaceable.width - endTooltipPlaceable.width) / 2 }
+                ?: 0
+        val endTooltipOffsetY =
+            endTooltipPlaceable?.let { endThumbOffsetY - tooltipPaddingPx - endTooltipPlaceable.height }
+                ?: 0
+
         layout(
             sliderWidth,
             sliderHeight
         ) {
+            startTooltipPlaceable?.placeRelative(
+                startTooltipOffsetX,
+                startTooltipOffsetY
+            )
+            endTooltipPlaceable?.placeRelative(
+                endTooltipOffsetX,
+                endTooltipOffsetY
+            )
             trackPlaceable.placeRelative(
                 trackOffsetX,
                 trackOffsetY
@@ -662,8 +784,8 @@ internal object WarpSliderDefaults {
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
         thumbSize: DpSize = DpSize(
-            dimensions.components.sliderThumbSize,
-            dimensions.components.sliderThumbSize
+            dimensions.components.slider.thumbSize,
+            dimensions.components.slider.thumbSize
         ),
     ) {
         val interactions = remember { mutableStateListOf<Interaction>() }
@@ -686,7 +808,13 @@ internal object WarpSliderDefaults {
             1.dp
         }
 
-        val shape = shapes.roundedMedium
+        val shape = shapes.ellipse
+        val thumbColor = if (enabled) {
+            if (interactions.isNotEmpty() && interactions.last() is DragInteraction.Start) {
+                colors.background.primaryActive
+            } else
+                warpSliderColors.thumbColor
+        } else warpSliderColors.disabledThumbColor
 
         @Suppress("DEPRECATION_ERROR")
         Spacer(
@@ -702,7 +830,7 @@ internal object WarpSliderDefaults {
                 .hoverable(interactionSource = interactionSource)
                 .shadow(if (enabled) elevation else 0.dp, shape, clip = false)
                 .background(
-                    if (enabled) warpSliderColors.thumbColor else warpSliderColors.disabledThumbColor,
+                    thumbColor,
                     shape
                 )
         )
@@ -717,12 +845,12 @@ internal object WarpSliderDefaults {
     ) {
         val inactiveTrackColor = trackColor(warpSliderColors, enabled, false)
         val activeTrackColor = trackColor(warpSliderColors, enabled, true)
-        val trackStrokeWidth = dimensions.components.sliderTrackHeight
+        val trackStrokeWidth = dimensions.components.slider.trackHeight
 
         Canvas(
             modifier
                 .fillMaxWidth()
-                .height(dimensions.components.sliderTrackHeight)
+                .height(dimensions.components.slider.trackHeight)
         ) {
             drawTrack(
                 endThumbWidth = state.endThumbWidth,
@@ -788,7 +916,9 @@ internal object WarpSliderDefaults {
 private enum class WarpRangeSliderComponents {
     ENDTHUMB,
     STARTTHUMB,
-    TRACK
+    TRACK,
+    STARTTOOLTIP,
+    ENDTOOLTIP
 }
 
 
@@ -865,8 +995,8 @@ internal data class WarpRangeSliderState(
     private var activeRangeStartState by mutableFloatStateOf(0f)
     private var activeRangeEndState by mutableFloatStateOf(1f)
 
-    private var currentLeftItem by mutableStateOf(initialStartItem)
-    private var currentRightItem by mutableStateOf(initialEndItem)
+    internal var currentLeftItem by mutableStateOf(initialStartItem)
+    internal var currentRightItem by mutableStateOf(initialEndItem)
 
     private var leftItemCoordinates by mutableStateOf<List<ItemCoordinate>>(emptyList())
     private var rightItemCoordinates by mutableStateOf<List<ItemCoordinate>>(emptyList())
