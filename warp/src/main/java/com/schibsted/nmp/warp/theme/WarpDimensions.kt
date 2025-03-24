@@ -84,7 +84,8 @@ object WarpComponentDimensions {
 
 object SliderDimensions {
     val thumbSize = 28.dp
-    val trackHeight = 6.dp
+    val activeTrackHeight = 6.dp
+    val inactiveTrackHeight = 4.dp
 }
 
 object TooltipDimensions {

@@ -845,31 +845,36 @@ internal object WarpSliderDefaults {
     ) {
         val inactiveTrackColor = trackColor(warpSliderColors, enabled, false)
         val activeTrackColor = trackColor(warpSliderColors, enabled, true)
-        val trackStrokeWidth = dimensions.components.slider.trackHeight
+        val inactiveTrackStrokeWidth = dimensions.components.slider.inactiveTrackHeight
+        val activeTrackStrokeWidth = dimensions.components.slider.activeTrackHeight
 
         Canvas(
             modifier
                 .fillMaxWidth()
-                .height(dimensions.components.slider.trackHeight)
+                .height(dimensions.components.slider.activeTrackHeight)
         ) {
             drawTrack(
+                startThumbWidth = state.startThumbWidth,
                 endThumbWidth = state.endThumbWidth,
                 state.activeRangeStart,
                 state.activeRangeEnd,
                 inactiveTrackColor,
                 activeTrackColor,
-                trackStrokeWidth
+                inactiveTrackStrokeWidth,
+                activeTrackStrokeWidth
             )
         }
     }
 
     private fun DrawScope.drawTrack(
+        startThumbWidth: Float,
         endThumbWidth: Float,
         activeRangeStart: Float,
         activeRangeEnd: Float,
         inactiveTrackColor: Color,
         activeTrackColor: Color,
-        trackStrokeWidth: Dp
+        inactiveTrackStrokeWidth: Dp,
+        activeTrackStrokeWidth: Dp
     ) {
         val isRtl = layoutDirection == LayoutDirection.Rtl
         val sliderLeft = Offset(0f, center.y)
@@ -880,17 +885,16 @@ internal object WarpSliderDefaults {
             inactiveTrackColor,
             sliderStart,
             sliderEnd,
-            trackStrokeWidth.toPx(),
+            inactiveTrackStrokeWidth.toPx(),
             StrokeCap.Round
         )
 
-        val sliderValueEnd = Offset(
-            sliderStart.x + (activeRangeEnd - endThumbWidth / 2),
+        val sliderValueStart = Offset(
+            sliderStart.x + activeRangeStart + startThumbWidth / 2,
             center.y
         )
-
-        val sliderValueStart = Offset(
-            sliderStart.x + activeRangeStart,
+        val sliderValueEnd = Offset(
+            sliderStart.x + activeRangeEnd - endThumbWidth / 2,
             center.y
         )
 
@@ -898,7 +902,7 @@ internal object WarpSliderDefaults {
             activeTrackColor,
             sliderValueStart,
             sliderValueEnd,
-            trackStrokeWidth.toPx(),
+            activeTrackStrokeWidth.toPx(),
             StrokeCap.Round
         )
     }
