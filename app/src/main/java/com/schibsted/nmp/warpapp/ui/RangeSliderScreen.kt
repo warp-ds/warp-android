@@ -97,9 +97,7 @@ fun RangeSliderScreenContent() {
             },
             onValueChangeFinished = {
 
-            },
-            resetAtStartTerminal = false,
-            resetAtEndTerminal = false
+            }
         )
         val formattedItems = listOf(
             "1000",
@@ -125,9 +123,11 @@ fun RangeSliderScreenContent() {
             "300 000",
             "400 000"
         )
+        val resetStart = "Min"
+        val resetEnd = "Max"
 
-        var from3 by remember { mutableStateOf("Min") }
-        var to3 by remember { mutableStateOf("Max") }
+        var from3 by remember { mutableStateOf(resetStart) }
+        var to3 by remember { mutableStateOf(resetEnd) }
 
         WarpText(
             "Range slider with resets",
@@ -139,16 +139,16 @@ fun RangeSliderScreenContent() {
             modifier = Modifier.padding(bottom = dimensions.space1),
             items = formattedItems,
             onRightValueChanged = {
-                to3 = if (it is String) { it } else { "Max" }
+                to3 = it.toString()
             },
             onLeftValueChanged = {
-                from3 = if (it is String) { it } else { "Min" }
+                from3 = it.toString()
             },
             onValueChangeFinished = {
 
             },
-            resetAtStartTerminal = true,
-            resetAtEndTerminal = true
+            resetAtStartText = resetStart,
+            resetAtEndText = resetEnd
         )
 
         WarpText(

@@ -110,9 +110,10 @@ import kotlin.math.sign
  * @param onValueChangeFinished Callback invoked when the user finishes dragging either thumb.
  * @param onLeftValueChanged Callback invoked when the value of the left thumb changes.
  * @param onRightValueChanged Callback invoked when the value of the right thumb changes.
- * @param resetAtStartTerminal Whether to reset the selection to the start when the start thumb reaches the start terminal.
- * @param resetAtEndTerminal Whether to reset the selection to the end when the end thumb reaches the end terminal.
+ * @param resetAtStartText Whether to reset the selection to the start when the start thumb reaches the start terminal and which text to show.
+ * @param resetAtEndText Whether to reset the selection to the end when the end thumb reaches the end terminal and which text to show.
  * @param blockDrag Whether to block the drag gesture.
+ * @param showTooltips Whether to show the tooltips for each thumb. The text will be the value's toString
  * @param startInteractionSource The [MutableInteractionSource] for the start thumb.
  * @param endInteractionSource The [MutableInteractionSource] for the end thumb.
  */
@@ -128,8 +129,8 @@ fun WarpRangeSlider(
     onValueChangeFinished: (() -> Unit) = {},
     onLeftValueChanged: ((Any) -> Unit) = {},
     onRightValueChanged: ((Any) -> Unit) = {},
-    resetAtStartTerminal: Boolean = false,
-    resetAtEndTerminal: Boolean = false,
+    resetAtStartText: String? = null,
+    resetAtEndText: String? = null,
     blockDrag: Boolean = false,
     showTooltips: Boolean = true,
     startInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -143,8 +144,8 @@ fun WarpRangeSlider(
         initialStartItem = startItem,
         initialEndItem = endItem,
         items = items,
-        resetAtStartTerminal = resetAtStartTerminal,
-        resetAtEndTerminal = resetAtEndTerminal,
+        resetAtStartText = resetAtStartText,
+        resetAtEndText = resetAtEndText,
         onLeftValueChanged = onLeftValueChanged,
         onRightValueChanged = onRightValueChanged,
         onValueChangeFinished = onValueChangeFinished
@@ -854,7 +855,6 @@ internal object WarpSliderDefaults {
                 .height(dimensions.components.slider.activeTrackHeight)
         ) {
             drawTrack(
-                startThumbWidth = state.startThumbWidth,
                 endThumbWidth = state.endThumbWidth,
                 state.activeRangeStart,
                 state.activeRangeEnd,
@@ -867,7 +867,6 @@ internal object WarpSliderDefaults {
     }
 
     private fun DrawScope.drawTrack(
-        startThumbWidth: Float,
         endThumbWidth: Float,
         activeRangeStart: Float,
         activeRangeEnd: Float,
@@ -890,7 +889,7 @@ internal object WarpSliderDefaults {
         )
 
         val sliderValueStart = Offset(
-            sliderStart.x + activeRangeStart + startThumbWidth / 2,
+            sliderStart.x + activeRangeStart,
             center.y
         )
         val sliderValueEnd = Offset(
@@ -942,10 +941,10 @@ private enum class WarpRangeSliderComponents {
  * state elsewhere, for example a text input view.
  * @param onRightValueChanged emits a new value when the right thumb is moved. This can be used to update
  * state elsewhere, for example a text input view.
- * @param resetAtStartTerminal if true, the slider will reset to an unselected state when the left thumb
- * reaches the start of the slider.
- * @param resetAtEndTerminal if true, the slider will reset to an unselected state when the right thumb
- * reaches the end of the slider.
+ * @param resetAtStartText if not null, the slider will reset to an unselected state when the left thumb
+ * reaches the start of the slider and show the provided text.
+ * @param resetAtEndText if not null, the slider will reset to an unselected state when the right thumb
+ * reaches the end of the slider and show the provided text.
  */
 
 
@@ -955,8 +954,8 @@ internal data class WarpRangeSliderState(
     private val initialStartItem: Any,
     private val initialEndItem: Any,
     private val items: List<Any>,
-    private val resetAtStartTerminal: Boolean = false,
-    private val resetAtEndTerminal: Boolean = false,
+    private val resetAtStartText: String? = null,
+    private val resetAtEndText: String? = null,
     val onValueChangeFinished: (() -> Unit) = {},
     val onLeftValueChanged: ((Any) -> Unit) = {},
     val onRightValueChanged: ((Any) -> Unit) = {},
@@ -970,17 +969,22 @@ internal data class WarpRangeSliderState(
 
     private data class ItemCoordinate(val xPosition: Float)
 
+    private val resetAtStartTerminal = resetAtStartText != null
+    private val resetAtEndTerminal = resetAtEndText != null
+    private val resetItemStart = ResetItem(resetAtStartText)
+    private val resetItemEnd = ResetItem(resetAtEndText)
+
     private val sliderValues = when {
         resetAtStartTerminal && resetAtEndTerminal -> {
-            listOf(Any()) + items.map { it } + Any()
+            listOf(resetItemStart) + items.map { it } + resetItemEnd
         }
 
         resetAtStartTerminal && !resetAtEndTerminal -> {
-            listOf(Any()) + items.map { it }
+            listOf(resetItemStart) + items.map { it }
         }
 
         !resetAtStartTerminal && resetAtEndTerminal -> {
-            items.map { it } + Any()
+            items.map { it } + resetItemEnd
         }
 
         else -> {
@@ -1037,6 +1041,8 @@ internal data class WarpRangeSliderState(
         }
         get() = activeRangeEndState
 
+    private val padding = 20.dp.value
+
     private fun setClosestStartItem(offset: Float, fromSlider: Boolean) {
         val closestStartStep =
             leftItemCoordinates.map { it.xPosition }.toFloatArray().findClosestValueIndex(offset)
@@ -1044,7 +1050,7 @@ internal data class WarpRangeSliderState(
         if (closestStartStep <= activeEndStepIndex) {
             activeStartStepIndex = closestStartStep
             currentLeftItem = sliderValues[activeStartStepIndex]
-            activeRangeStartState = leftItemCoordinates[closestStartStep].xPosition
+            activeRangeStartState = leftItemCoordinates[closestStartStep].xPosition + padding
             if (fromSlider) {
                 onLeftValueChanged(currentLeftItem)
             }
@@ -1052,7 +1058,7 @@ internal data class WarpRangeSliderState(
             // Ensure the left thumb can reach the exact step of the right thumb but not go past it
             activeStartStepIndex = activeEndStepIndex
             currentLeftItem = sliderValues[activeStartStepIndex]
-            activeRangeStartState = leftItemCoordinates[activeStartStepIndex].xPosition
+            activeRangeStartState = leftItemCoordinates[activeStartStepIndex].xPosition + padding
             if (fromSlider) {
                 onLeftValueChanged(currentLeftItem)
             }
@@ -1066,7 +1072,7 @@ internal data class WarpRangeSliderState(
         if (closestEndStep >= activeStartStepIndex) {
             activeEndStepIndex = closestEndStep
             currentRightItem = sliderValues[activeEndStepIndex]
-            activeRangeEndState = rightItemCoordinates[closestEndStep].xPosition
+            activeRangeEndState = rightItemCoordinates[closestEndStep].xPosition - padding
             if (fromSlider) {
                 onRightValueChanged(currentRightItem)
             }
@@ -1074,7 +1080,7 @@ internal data class WarpRangeSliderState(
             // Ensure the right thumb can reach the exact step of the left thumb
             activeEndStepIndex = activeStartStepIndex
             currentRightItem = sliderValues[activeEndStepIndex]
-            activeRangeEndState = rightItemCoordinates[activeEndStepIndex].xPosition
+            activeRangeEndState = rightItemCoordinates[activeEndStepIndex].xPosition - padding
             if (fromSlider) {
                 onRightValueChanged(currentRightItem)
             }
@@ -1213,7 +1219,12 @@ internal data class WarpRangeSliderState(
             activeRangeStart = leftItemCoordinates[activeStartStepIndex].xPosition
 
             activeEndStepIndexState = sliderValues.indexOf(currentRightItem)
-            activeRangeEnd = rightItemCoordinates[activeEndStepIndex].xPosition
+            activeRangeEnd = if (sliderValues.last() is ResetItem) {
+                rightItemCoordinates[activeEndStepIndex].xPosition
+            } else {
+                rightItemCoordinates[activeEndStepIndex].xPosition - padding
+            }
+
 
             valueRange =
                 leftItemCoordinates.first().xPosition..rightItemCoordinates.last().xPosition
@@ -1229,6 +1240,12 @@ internal data class WarpRangeSliderState(
                 activeRangeEnd
             )
         }
+    }
+}
+
+internal data class ResetItem(val text: String?) : Any() {
+    override fun toString(): String {
+        return text ?: "null"
     }
 }
 
