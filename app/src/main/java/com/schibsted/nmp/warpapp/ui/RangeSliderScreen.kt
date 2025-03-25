@@ -57,7 +57,8 @@ fun RangeSliderScreenContent() {
             },
             onValueChangeFinished = {
 
-            }
+            },
+            showRange = false
         )
         val stringItems = listOf(
             "1900",
@@ -97,7 +98,9 @@ fun RangeSliderScreenContent() {
             },
             onValueChangeFinished = {
 
-            }
+            },
+            showRange = false
+
         )
         val formattedItems = listOf(
             "1000",
@@ -148,7 +151,42 @@ fun RangeSliderScreenContent() {
 
             },
             resetAtStartText = resetStart,
-            resetAtEndText = resetEnd
+            resetAtEndText = resetEnd,
+            showRange = false
+        )
+
+        val items4 = listOf(
+            100,
+            200,
+            300,
+            400,
+            500,
+            600,
+            700,
+            800,
+            900
+        )
+
+        var from4 by remember { mutableStateOf(items4[2].toString()) }
+        var to4 by remember { mutableStateOf(items4.last().toString()) }
+        WarpText(
+            "Range slider with indicators",
+            style = WarpTextStyle.Title3,
+            modifier = Modifier.padding(bottom = dimensions.space1)
+        )
+        WarpText("From $from4 to $to4")
+        WarpRangeSlider(
+            showTooltips = true,
+            items = items4,
+            initialStartItem = items4[2],
+            onRightValueChanged = {
+                to4 = it.toString()
+            },
+            onLeftValueChanged = {
+                from4 = it.toString()
+            },
+            onValueChangeFinished = {},
+            showRange = true
         )
 
         WarpText(

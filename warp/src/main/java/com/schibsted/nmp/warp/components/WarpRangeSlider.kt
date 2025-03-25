@@ -12,10 +12,13 @@ import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSizeIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.progressSemantics
@@ -34,6 +37,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
@@ -114,6 +118,7 @@ import kotlin.math.sign
  * @param resetAtEndText Whether to reset the selection to the end when the end thumb reaches the end terminal and which text to show.
  * @param blockDrag Whether to block the drag gesture.
  * @param showTooltips Whether to show the tooltips for each thumb. The text will be the value's toString
+ * @param showRange Whether to show the static range indicator.
  * @param startInteractionSource The [MutableInteractionSource] for the start thumb.
  * @param endInteractionSource The [MutableInteractionSource] for the end thumb.
  */
@@ -133,6 +138,7 @@ fun WarpRangeSlider(
     resetAtEndText: String? = null,
     blockDrag: Boolean = false,
     showTooltips: Boolean = true,
+    showRange: Boolean = false,
     startInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     endInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
@@ -185,7 +191,8 @@ fun WarpRangeSlider(
         startThumb = startThumb,
         endThumb = endThumb,
         track = track,
-        showTooltips = showTooltips
+        showTooltips = showTooltips,
+        showRange = showRange
     )
 }
 
@@ -200,7 +207,8 @@ private fun WarpRangeSliderImpl(
     startThumb: @Composable ((WarpRangeSliderState) -> Unit),
     endThumb: @Composable ((WarpRangeSliderState) -> Unit),
     track: @Composable ((WarpRangeSliderState) -> Unit),
-    showTooltips: Boolean
+    showTooltips: Boolean,
+    showRange: Boolean
 ) {
     state.isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
 
@@ -313,6 +321,34 @@ private fun WarpRangeSliderImpl(
             Box(modifier = Modifier.layoutId(WarpRangeSliderComponents.TRACK)) {
                 track(state)
             }
+            Box(modifier = Modifier.layoutId(WarpRangeSliderComponents.STARTINDICATOR)) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    WarpSliderDefaults.Indicator()
+                    WarpText(
+                        modifier = Modifier.padding(top = dimensions.space1),
+                        text = state.sliderItems.first().toString(),
+                        style = WarpTextStyle.Caption,
+                        color = colors.text.subtle
+                    )
+                }
+            }
+            Box(modifier = Modifier.layoutId(WarpRangeSliderComponents.ENDINDICATOR)) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    WarpSliderDefaults.Indicator()
+                    WarpText(
+                        modifier = Modifier.padding(top = dimensions.space1),
+                        text = state.sliderItems.last().toString(),
+                        style = WarpTextStyle.Caption,
+                        color = colors.text.subtle
+                    )
+                }
+            }
         },
         modifier = modifier
             .minimumInteractiveComponentSize()
@@ -359,6 +395,23 @@ private fun WarpRangeSliderImpl(
             ).copy(minHeight = 0)
         )
 
+        val startIndicatorPlaceable = if (showRange) {
+            measurables.fastFirst {
+                it.layoutId == WarpRangeSliderComponents.STARTINDICATOR
+            }.measure(
+                constraints
+            )
+        } else null
+
+
+        val endIndicatorPlaceable = if (showRange) {
+            measurables.fastFirst {
+                it.layoutId == WarpRangeSliderComponents.ENDINDICATOR
+            }.measure(
+                constraints
+            )
+        } else null
+
         val sliderWidth = trackPlaceable.width +
                 (startThumbPlaceable.width + endThumbPlaceable.width) / 2
 
@@ -384,6 +437,7 @@ private fun WarpRangeSliderImpl(
         val endThumbOffsetX =
             (trackPlaceable.width * state.coercedActiveRangeEndAsFraction + endCorrection)
                 .roundToInt()
+        val padding = 20
 
         val trackOffsetY = (sliderHeight - trackPlaceable.height) / 2
         val startThumbOffsetY = (sliderHeight - startThumbPlaceable.height) / 2
@@ -402,10 +456,34 @@ private fun WarpRangeSliderImpl(
             endTooltipPlaceable?.let { endThumbOffsetY - tooltipPaddingPx - endTooltipPlaceable.height }
                 ?: 0
 
+
+        val startIndicatorOffsetX = startIndicatorPlaceable?.let {
+            startThumbPlaceable.width / 2 - (startIndicatorPlaceable.width / 2) + padding
+        } ?: 0
+
+        val startIndicatorOffsetY = startIndicatorPlaceable?.let {
+            sliderHeight / 2 + (startIndicatorPlaceable.height / 2)
+        } ?: 0
+
+        val endIndicatorOffsetX = endIndicatorPlaceable?.let {
+            sliderWidth - (endThumbPlaceable.width / 2) - (endIndicatorPlaceable.width / 2) - padding
+        } ?: 0
+        val endIndicatorOffsetY = endIndicatorPlaceable?.let {
+            sliderHeight / 2 + (endIndicatorPlaceable.height / 2)
+        } ?: 0
+
         layout(
             sliderWidth,
             sliderHeight
         ) {
+            startIndicatorPlaceable?.placeRelative(
+                startIndicatorOffsetX,
+                startIndicatorOffsetY
+            )
+            endIndicatorPlaceable?.placeRelative(
+                endIndicatorOffsetX,
+                endIndicatorOffsetY
+            )
             startTooltipPlaceable?.placeRelative(
                 startTooltipOffsetX,
                 startTooltipOffsetY
@@ -426,6 +504,7 @@ private fun WarpRangeSliderImpl(
                 endThumbOffsetX,
                 endThumbOffsetY
             )
+
         }
     }
 }
@@ -866,6 +945,28 @@ internal object WarpSliderDefaults {
         }
     }
 
+    @Composable
+    internal fun Indicator() {
+        val indicatorColor = colors.background.disabledSubtle
+        val indicatorHeight = dimensions.components.slider.indicatorHeight
+        val indicatorWidth = dimensions.components.slider.indicatorWidth
+
+        Canvas(
+            modifier = Modifier.size(width = indicatorWidth, height = indicatorHeight)
+        ) {
+            // Draw a vertical line from the top center to the bottom center.
+            val start = Offset(x = center.x, y = 0f)
+            val end = Offset(x = center.x, y = size.height)
+            drawLine(
+                color = indicatorColor,
+                start = start,
+                end = end,
+                strokeWidth = indicatorWidth.toPx(),
+                cap = StrokeCap.Round
+            )
+        }
+    }
+
     private fun DrawScope.drawTrack(
         endThumbWidth: Float,
         activeRangeStart: Float,
@@ -921,7 +1022,9 @@ private enum class WarpRangeSliderComponents {
     STARTTHUMB,
     TRACK,
     STARTTOOLTIP,
-    ENDTOOLTIP
+    ENDTOOLTIP,
+    STARTINDICATOR,
+    ENDINDICATOR
 }
 
 
@@ -973,6 +1076,7 @@ internal data class WarpRangeSliderState(
     private val resetAtEndTerminal = resetAtEndText != null
     private val resetItemStart = ResetItem(resetAtStartText)
     private val resetItemEnd = ResetItem(resetAtEndText)
+    internal val sliderItems = items
 
     private val sliderValues = when {
         resetAtStartTerminal && resetAtEndTerminal -> {
