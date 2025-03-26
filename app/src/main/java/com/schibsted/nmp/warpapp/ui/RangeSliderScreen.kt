@@ -168,7 +168,7 @@ fun RangeSliderScreenContent() {
         )
 
         var from4 by remember { mutableStateOf(items4[2].toString()) }
-        var to4 by remember { mutableStateOf(items4.last().toString()) }
+        var to4 by remember { mutableStateOf(items4[7].toString()) }
         WarpText(
             "Range slider with indicators",
             style = WarpTextStyle.Title3,
@@ -179,6 +179,7 @@ fun RangeSliderScreenContent() {
             showTooltips = true,
             items = items4,
             initialStartItem = items4[2],
+            initialEndItem = items4[7],
             onRightValueChanged = {
                 to4 = it.toString()
             },

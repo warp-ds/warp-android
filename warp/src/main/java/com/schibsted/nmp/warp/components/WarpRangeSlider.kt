@@ -142,13 +142,9 @@ fun WarpRangeSlider(
     startInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     endInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val startItem = initialStartItem ?: items.first()
-    val endItem = initialEndItem ?: items.last()
-
-
     val rangeSliderState = WarpRangeSliderState(
-        initialStartItem = startItem,
-        initialEndItem = endItem,
+        initialStartItem = initialStartItem,
+        initialEndItem = initialEndItem,
         items = items,
         resetAtStartText = resetAtStartText,
         resetAtEndText = resetAtEndText,
@@ -1054,8 +1050,8 @@ private enum class WarpRangeSliderComponents {
 @Stable
 @ExperimentalMaterial3Api
 internal data class WarpRangeSliderState(
-    private val initialStartItem: Any,
-    private val initialEndItem: Any,
+    private val initialStartItem: Any?,
+    private val initialEndItem: Any?,
     private val items: List<Any>,
     private val resetAtStartText: String? = null,
     private val resetAtEndText: String? = null,
@@ -1106,9 +1102,18 @@ internal data class WarpRangeSliderState(
 
     private var activeRangeStartState by mutableFloatStateOf(0f)
     private var activeRangeEndState by mutableFloatStateOf(1f)
+    private val startItemIndex =
+        initialStartItem?.let {
+            val index = sliderValues.indexOf(initialStartItem)
+            if (index != -1) index else 0
+        } ?: 0
+    private val endItemIndex = initialEndItem?.let {
+        val index = sliderValues.indexOf(initialEndItem)
+        if (index != -1) index else sliderValues.lastIndex
+    } ?: sliderValues.lastIndex
 
-    internal var currentLeftItem by mutableStateOf(initialStartItem)
-    internal var currentRightItem by mutableStateOf(initialEndItem)
+    internal var currentLeftItem by mutableStateOf(sliderValues[startItemIndex])
+    internal var currentRightItem by mutableStateOf(sliderValues[endItemIndex])
 
     private var leftItemCoordinates by mutableStateOf<List<ItemCoordinate>>(emptyList())
     private var rightItemCoordinates by mutableStateOf<List<ItemCoordinate>>(emptyList())
@@ -1320,7 +1325,11 @@ internal data class WarpRangeSliderState(
             }
 
             activeStartStepIndexState = sliderValues.indexOf(currentLeftItem)
-            activeRangeStart = leftItemCoordinates[activeStartStepIndex].xPosition
+            activeRangeStart = if (sliderValues.first() is ResetItem) {
+                leftItemCoordinates[activeStartStepIndex].xPosition
+            } else {
+                leftItemCoordinates[activeStartStepIndex].xPosition + padding
+            }
 
             activeEndStepIndexState = sliderValues.indexOf(currentRightItem)
             activeRangeEnd = if (sliderValues.last() is ResetItem) {

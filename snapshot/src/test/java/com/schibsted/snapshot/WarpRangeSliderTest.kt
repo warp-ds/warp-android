@@ -45,14 +45,14 @@ class WarpRangeSliderTest(
     )
 
     @Test
-    fun warp_range_slider_int() {
-        val items = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
-        warpRangeSlider(items, startItem = 7, endItem = 17)
+    fun warp_range_slider_ints() {
+        val ints = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+        warpRangeSlider(ints)
     }
 
     @Test
-    fun warp_range_slider_same_start_end_value_with_reset() {
-        val items = listOf(
+    fun warp_range_slider_strings() {
+        val strings = listOf(
             "1900",
             "1910",
             "1920",
@@ -67,33 +67,84 @@ class WarpRangeSliderTest(
             "2010",
             "2020"
         )
-        warpRangeSlider(items, startItem = "1930", endItem = "1930", reset = true)
+        warpRangeSlider(strings)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
-    private fun warpRangeSlider(items: List<Any>, startItem: Any? = null, endItem: Any? = null, reset: Boolean = false) {
+    private fun warpRangeSlider(items: List<Any>) {
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
                     modifier = Modifier
                         .background(colors.background.default)
-                        .padding(dimensions.space2),
+                        .padding(dimensions.space4),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(dimensions.space3)
                 ) {
+                    //Regular
                     WarpRangeSlider(items = items)
+                    //Range selected
                     WarpRangeSlider(
                         items = items,
-                        initialStartItem = startItem,
-                        initialEndItem = endItem,
-                        resetAtStartTerminal = reset,
-                        resetAtEndTerminal = reset
+                        initialStartItem = items[3],
+                        initialEndItem = items[7],
                     )
+                    //Range indicators
                     WarpRangeSlider(
                         items = items,
+                        showRange = true,
+                        showTooltips = true
+                    )
+                    //With resets
+                    WarpRangeSlider(
+                        items = items,
+                        initialStartItem = null,
+                        initialEndItem = null,
+                        resetAtStartText =  "Min",
+                        resetAtEndText = "Max"
+                    )
+                    //With resets and range
+                    WarpRangeSlider(
+                        items = items,
+                        initialStartItem = items[7],
+                        initialEndItem = items[9],
+                        resetAtStartText =  "Min",
+                        resetAtEndText = "Max",
+                        showRange = true
+                    )
+                    //All of the above but disabled
+                    //Regular
+                    WarpRangeSlider(items = items, enabled = false)
+                    //Range selected
+                    WarpRangeSlider(
+                        items = items,
+                        initialStartItem = items[3],
+                        initialEndItem = items[7],
+                        enabled = false
+                    )
+                    //Range indicators
+                    WarpRangeSlider(
+                        items = items,
+                        showRange = true,
+                        showTooltips = true,
+                        enabled = false
+                    )
+                    //With resets
+                    WarpRangeSlider(
+                        items = items,
+                        resetAtStartText =  "Min",
+                        resetAtEndText = "Max",
+                        enabled = false
+                    )
+                    //With resets and range
+                    WarpRangeSlider(
+                        items = items,
+                        initialStartItem = items[3],
+                        initialEndItem = items[7],
+                        resetAtStartText =  "Min",
+                        resetAtEndText = "Max",
                         enabled = false,
-                        initialStartItem = startItem,
-                        initialEndItem = endItem
+                        showRange = true
                     )
                 }
             }
