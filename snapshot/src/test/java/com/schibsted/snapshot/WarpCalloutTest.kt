@@ -92,10 +92,7 @@ class WarpCalloutTest(
                 Column(
                     modifier = Modifier
                         .background(colors.surface.elevated100)
-                        .padding(
-                            horizontal = dimensions.space1,
-                            vertical = dimensions.space1
-                        ),
+                        .padding(dimensions.space1),
                     verticalArrangement = Arrangement.spacedBy(dimensions.space2)
                 ) {
                     val calloutState = remember { CalloutState(true) }
@@ -128,6 +125,17 @@ class WarpCalloutTest(
                         inlineModifier = Modifier.padding(vertical = vOffset, horizontal = hOffset),
                         size = CalloutSize.Default,
                         closable = true,
+                        onDismiss = { calloutState.isVisible = false },
+                    )
+                    WarpCallout(
+                        text = "Looong loooooooooong oh looong john text! Very long and also longer text. Did i mention longa long? Japp, it's  ${edge.name} and it's long",
+                        edge = edge,
+                        state = calloutState,
+                        type = type,
+                        inlineModifier = Modifier.padding(vertical = vOffset, horizontal = hOffset),
+                        size = CalloutSize.Default,
+                        closable = true,
+                        paddingOffset = dimensions.space1,
                         onDismiss = { calloutState.isVisible = false },
                     )
                 }
