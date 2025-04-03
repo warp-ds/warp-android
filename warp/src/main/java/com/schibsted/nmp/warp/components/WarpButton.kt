@@ -15,10 +15,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalRippleConfiguration
+import androidx.compose.material3.RippleConfiguration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -45,7 +48,6 @@ import com.schibsted.nmp.warp.theme.LocalShapes
 import com.schibsted.nmp.warp.theme.LocalTypography
 import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpResources.icons
-import com.schibsted.nmp.warp.theme.WarpRippleTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -199,6 +201,7 @@ fun WarpButton(
  * @param small set to true to get the small version. Default value is false
  * @param content The content to display inside the button
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpButton(
     onClick: () -> Unit,
@@ -268,11 +271,10 @@ fun WarpButton(
         } else {
             if (loading) modifier.loadingAnimation() else modifier
         }
+
+        val rippleConfiguration = RippleConfiguration(color = warpButtonColors.background.active, rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f))
         CompositionLocalProvider(
-            LocalRippleTheme provides WarpRippleTheme(
-                rippleColor = warpButtonColors.background.active,
-                rippleColorAlpha = warpButtonColors.background.active
-            )
+            LocalRippleConfiguration provides rippleConfiguration
         ) {
             Button(
                 modifier = buttonModifier,

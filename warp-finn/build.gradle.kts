@@ -72,6 +72,7 @@ dependencies {
     implementation(Dependencies.composeUiToolingPreview)
     debugImplementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeFoundation)
+    implementation(Dependencies.composeMaterial3)
 
     implementation(project(":warp"))
 
