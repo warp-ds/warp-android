@@ -1,7 +1,7 @@
 object Versions {
     const val kotlinCompiler = "1.5.14"
     const val core = "1.9.0"
-    const val compose = "2025.03.01"//"2024.06.00"
+    const val compose = "2025.03.01"
     const val constraintLayout = "1.0.1"
     const val appCompat = "1.4.1"
     const val junit = "4.13.2"
