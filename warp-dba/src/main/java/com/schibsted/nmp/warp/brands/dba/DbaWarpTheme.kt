@@ -19,7 +19,7 @@ fun DbaWarpTheme(
         ?: if (isSystemInDarkTheme()) DbaDarkColors else DbaColors
     val dbaDimensions = WarpDimensions
     val dbaResources = WarpResources
-    val dbaRippleConfig = RippleConfiguration(color = dbaColors.background.primary, rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f))
+    val dbaRippleConfig = RippleConfiguration(color = dbaColors.background.primary, rippleAlpha = RippleAlpha(0.5f, 0.5f, 0.5f, 0.5f))
 
     WarpTheme(
         colors = dbaColors,

@@ -22,10 +22,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSizeIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.progressSemantics
+import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
+import androidx.compose.material3.RippleConfiguration
 import androidx.compose.material3.SliderColors
 import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -854,6 +859,7 @@ internal object WarpSliderDefaults {
             )
         }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     internal fun Thumb(
         interactionSource: MutableInteractionSource,
@@ -891,25 +897,29 @@ internal object WarpSliderDefaults {
             } else
                 warpSliderColors.thumbColor
         } else warpSliderColors.disabledThumbColor
-
-        @Suppress("DEPRECATION_ERROR")
-        Spacer(
-            modifier
-                .size(thumbSize)
-                .indication(
-                    interactionSource = interactionSource,
-                    indication = androidx.compose.material.ripple.rememberRipple(
-                        bounded = false,
-                        radius = 40.dp / 2
+        val rippleConfiguration = RippleConfiguration(color = Color.Black, rippleAlpha = RippleAlpha(0.1f, 0f, 0f, 0.2f))
+        CompositionLocalProvider(
+            LocalRippleConfiguration provides rippleConfiguration
+        ){
+            @Suppress("DEPRECATION_ERROR")
+            Spacer(
+                modifier
+                    .size(thumbSize)
+                    .indication(
+                        interactionSource = interactionSource,
+                        indication = ripple(
+                            bounded = false,
+                            radius = 45.dp / 2
+                        )
                     )
-                )
-                .hoverable(interactionSource = interactionSource)
-                .shadow(if (enabled) elevation else 0.dp, shape, clip = false)
-                .background(
-                    thumbColor,
-                    shape
-                )
-        )
+                    .hoverable(interactionSource = interactionSource)
+                    .shadow(if (enabled) elevation else 0.dp, shape, clip = false)
+                    .background(
+                        thumbColor,
+                        shape
+                    )
+            )
+        }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
