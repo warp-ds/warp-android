@@ -328,7 +328,7 @@ private fun WarpRangeSliderImpl(
                 ) {
                     WarpSliderDefaults.Indicator()
                     WarpText(
-                        modifier = Modifier.padding(top = dimensions.space025),
+                        modifier = Modifier.padding(top = dimensions.space05),
                         text = state.sliderItems.first().toString(),
                         style = WarpTextStyle.Caption,
                         color = colors.text.subtle
@@ -342,7 +342,7 @@ private fun WarpRangeSliderImpl(
                 ) {
                     WarpSliderDefaults.Indicator()
                     WarpText(
-                        modifier = Modifier.padding(top = dimensions.space025),
+                        modifier = Modifier.padding(top = dimensions.space05),
                         text = state.sliderItems.last().toString(),
                         style = WarpTextStyle.Caption,
                         color = colors.text.subtle
