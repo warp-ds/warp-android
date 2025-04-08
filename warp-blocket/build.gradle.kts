@@ -1,5 +1,6 @@
 import Dependencies.composeBom
 import Dependencies.composeFoundation
+import Dependencies.composeMaterial3
 import Dependencies.composeUi
 import Dependencies.composeUiTooling
 import Dependencies.composeUiToolingPreview
@@ -76,6 +77,8 @@ dependencies {
     implementation(composeUiToolingPreview)
     debugImplementation(composeUiTooling)
     implementation(composeFoundation)
+    implementation(composeMaterial3)
+
 
     implementation(project(":warp"))
 

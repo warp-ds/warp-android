@@ -66,6 +66,7 @@ configure<PublishingExtension> {
 }
 
 dependencies {
+
     val composeBom = platform(Dependencies.composeBom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -73,6 +74,7 @@ dependencies {
     implementation(Dependencies.composeUiToolingPreview)
     debugImplementation(Dependencies.composeUiTooling)
     implementation(Dependencies.composeFoundation)
+    implementation(Dependencies.composeMaterial3)
 
     implementation(project(":warp"))
 

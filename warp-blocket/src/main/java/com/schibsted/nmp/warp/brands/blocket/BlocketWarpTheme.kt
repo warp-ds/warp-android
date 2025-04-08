@@ -1,12 +1,15 @@
 package com.schibsted.nmp.warp.brands.blocket
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.RippleConfiguration
 import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
-import com.schibsted.nmp.warp.theme.WarpRippleTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BlocketWarpTheme(
     content: @Composable () -> Unit,
@@ -16,17 +19,15 @@ fun BlocketWarpTheme(
         ?: if (isSystemInDarkTheme()) BlocketDarkColors else BlocketColors
     val blocketDimensions = WarpDimensions
     val blocketResources = WarpResources
-    val blocketRippleTheme = WarpRippleTheme(
-        rippleColor = blocketColors.background.primary,
-        rippleColorAlpha = blocketColors.background.primary
-    )
+    val blocketRippleConfig = RippleConfiguration(color = blocketColors.background.primary, rippleAlpha = RippleAlpha(0.5f, 0.5f, 0.5f, 0.5f))
+
     WarpTheme(
         colors = blocketColors,
         typography = BlocketTypography,
         shapes = BlocketShapes(blocketDimensions),
         resources = blocketResources,
         content = content,
-        rippleTheme = blocketRippleTheme,
+        rippleConfig = blocketRippleConfig,
         dimensions = blocketDimensions
     )
 }

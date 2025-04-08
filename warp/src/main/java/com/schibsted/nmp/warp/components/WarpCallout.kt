@@ -17,8 +17,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
@@ -27,7 +31,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.schibsted.nmp.warp.components.ext.edgePadding
 import com.schibsted.nmp.warp.components.ext.shadowMedium
-import com.schibsted.nmp.warp.components.shapes.CalloutShape
+import com.schibsted.nmp.warp.components.shapes.calloutShape
 import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.components.utils.EdgePositionProvider
 import com.schibsted.nmp.warp.theme.WarpDimensions
@@ -47,6 +51,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param closable Whether the callout is closable.
  * @param dismissPopoverOnClickOutside Whether the popover should be dismissed when clicking outside.
  * @param onDismiss The callback to be invoked when the callout is dismissed.
+ * @param paddingOffset The padding offset of the parent layout. This is needed when the callout is too large and needs to re-adjust it's arrow towards the anchor.
  * @param anchorView The view to be used as the anchor for the callout.
  */
 @Composable
@@ -62,6 +67,7 @@ fun WarpCallout(
     closable: Boolean = false,
     dismissPopoverOnClickOutside: Boolean = true,
     onDismiss: () -> Unit,
+    paddingOffset: Dp? = null,
     anchorView: @Composable (() -> Unit)? = null,
 ) {
     val calloutColors = getCalloutColors()
@@ -75,14 +81,22 @@ fun WarpCallout(
         density = LocalDensity.current,
         edge = edge
     )
-    val shadowModifier =
-        if (type == CalloutType.Popover) Modifier.shadowMedium(CalloutShape(edge)) else Modifier.shadow(
-            0.5.dp,
-            CalloutShape(edge)
-        )
+
+    var anchorWidth: Dp? = null
+    var anchorPosition: Offset? = null
 
     Box {
-        anchorView?.let { it() }
+        anchorView?.let { anchor ->
+            Box(
+                modifier = Modifier
+                    .onGloballyPositioned { coordinates ->
+                        anchorWidth = coordinates.size.width.dp
+                        anchorPosition = coordinates.positionInWindow()
+                    }
+            ) {
+                anchor()
+            }
+        }
         if (state.isVisible) {
             when (type) {
                 CalloutType.Popover -> {
@@ -94,13 +108,17 @@ fun WarpCallout(
                         )
                     ) {
                         CalloutView(
-                            shadowModifier,
+                            Modifier,
                             dimensions,
                             calloutColors,
                             edge,
                             text,
                             textStyle,
                             closable,
+                            anchorWidth,
+                            anchorPosition,
+                            paddingOffset,
+                            false,
                             onDismiss
                         )
                     }
@@ -108,13 +126,17 @@ fun WarpCallout(
 
                 CalloutType.Inline -> {
                     CalloutView(
-                        inlineModifier.then(shadowModifier),
+                        inlineModifier,
                         dimensions,
                         calloutColors,
                         edge,
                         text,
                         textStyle,
                         closable,
+                        anchorWidth,
+                        anchorPosition,
+                        paddingOffset,
+                        true,
                         onDismiss
                     )
                 }
@@ -125,21 +147,31 @@ fun WarpCallout(
 
 @Composable
 private fun CalloutView(
-    inlineModifier: Modifier,
+    modifier: Modifier,
     dimensions: WarpDimensions,
     calloutColors: DefaultWarpCalloutColors,
     edge: Edge,
     text: String,
     textStyle: WarpTextStyle,
     closable: Boolean,
+    anchorWidth: Dp?,
+    anchorPosition: Offset?,
+    paddingOffset: Dp? = null,
+    inline: Boolean,
     onDismiss: () -> Unit
 ) {
+    val shadowModifier =
+        if (inline) Modifier.shadow(
+            0.5.dp,
+            calloutShape(edge, anchorWidth, anchorPosition, paddingOffset)
+        ) else Modifier.shadowMedium(calloutShape(edge, anchorWidth, anchorPosition, paddingOffset))
     Box(
         modifier = Modifier
-            .then(inlineModifier)
+            .then(modifier)
+            .then(shadowModifier)
             .border(
                 dimensions.borderWidth2,
-                calloutColors.border, CalloutShape(edge)
+                calloutColors.border, calloutShape(edge, anchorWidth, anchorPosition, paddingOffset)
             )
             .background(calloutColors.background)
             .edgePadding(edge)
@@ -150,9 +182,12 @@ private fun CalloutView(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             WarpText(
+                modifier = Modifier
+                    .weight(if (closable) 0.9f else 1f, fill = false),
                 text = text,
                 color = calloutColors.text,
                 style = textStyle,
+                overflow = TextOverflow.Clip,
                 softWrap = true,
             )
             if (closable) {
@@ -160,6 +195,8 @@ private fun CalloutView(
                     icon = icons.close,
                     size = dimensions.icon.small,
                     modifier = Modifier
+                        .weight(0.1f, fill = false)
+                        .align(Alignment.CenterVertically)
                         .clickable(
                             indication = null,
                             interactionSource = remember { MutableInteractionSource() }) {
