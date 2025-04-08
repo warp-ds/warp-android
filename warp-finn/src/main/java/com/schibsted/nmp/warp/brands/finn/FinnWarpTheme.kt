@@ -1,12 +1,15 @@
 package com.schibsted.nmp.warp.brands.finn
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.RippleConfiguration
 import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
-import com.schibsted.nmp.warp.theme.WarpRippleTheme
 import com.schibsted.nmp.warp.theme.WarpTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FinnWarpTheme(
     content: @Composable () -> Unit,
@@ -16,14 +19,15 @@ fun FinnWarpTheme(
         ?: if (isSystemInDarkTheme()) FinnDarkColors else FinnColors
     val finnDimensions = WarpDimensions
     val finnResources = WarpResources
-    val finnRippleTheme = WarpRippleTheme(rippleColor = finnColors.background.primary, rippleColorAlpha = finnColors.background.primary)
+    val finnRippleConfig = RippleConfiguration(color = finnColors.background.primary, rippleAlpha = RippleAlpha(0.5f, 0.5f, 0.5f, 0.5f))
+
     WarpTheme(
         colors = finnColors,
         typography = FinnTypography,
         shapes = FinnShapes(finnDimensions),
         resources = finnResources,
         content = content,
-        rippleTheme = finnRippleTheme,
+        rippleConfig = finnRippleConfig,
         dimensions = finnDimensions
     )
 }

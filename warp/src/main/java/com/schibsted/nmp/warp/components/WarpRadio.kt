@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
@@ -144,7 +144,7 @@ internal fun WarpRadioButtonView(
             .requiredSize(iconSize)
             .indication(
                 interactionSource,
-                rememberRipple(bounded = false, radius = dimensions.components.radioIconSize)
+                ripple(bounded = false, radius = dimensions.components.radioIconSize)
             )
     ) {
         // Draw the radio button

@@ -45,6 +45,9 @@ fun CalloutScreenContent() {
         val bottomEndState = remember { CalloutState(false) }
         val topCenterState = remember { CalloutState(false) }
         val topEndState = remember { CalloutState(false) }
+        val centerStartState = remember { CalloutState(false) }
+        val centerCenterState = remember { CalloutState(false) }
+        val centerEndState = remember { CalloutState(false) }
 
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -93,6 +96,60 @@ fun CalloutScreenContent() {
                     text = "End",
                     onClick = {
                         topEndState.isVisible = !topEndState.isVisible
+                    }
+                )
+            }
+        }
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            WarpCallout(
+                text = "This is a dynamic arrow callout",
+                edge = Edge.Bottom,
+                state = centerStartState,
+                type = CalloutType.Popover,
+                size = CalloutSize.Small,
+                closable = true,
+                paddingOffset = dimensions.space2,
+                onDismiss = { centerStartState.isVisible = false },
+            ) {
+                WarpButton (
+                    text = "Start",
+                    onClick = {
+                        centerStartState.isVisible = !centerStartState.isVisible
+                    }
+                )
+            }
+            WarpCallout(
+                text = "This is a dynamic callout",
+                state = centerCenterState,
+                edge = Edge.Top,
+                size = CalloutSize.Default,
+                closable = false,
+                paddingOffset = dimensions.space2,
+                onDismiss = { centerCenterState.isVisible = false },
+            ) {
+                WarpButton(
+                    text = "Center Top",
+                    onClick = {
+                        centerCenterState.isVisible = !centerCenterState.isVisible
+                    }
+                )
+            }
+            WarpCallout(
+                text = "This is a dynamic arrow callout end aligned",
+                state = centerEndState,
+                edge = Edge.Top,
+                size = CalloutSize.Small,
+                closable = true,
+                paddingOffset = dimensions.space2,
+                onDismiss = { centerEndState.isVisible = false },
+            ) {
+                WarpButton(
+                    text = "End",
+                    onClick = {
+                        centerEndState.isVisible = !centerEndState.isVisible
                     }
                 )
             }
