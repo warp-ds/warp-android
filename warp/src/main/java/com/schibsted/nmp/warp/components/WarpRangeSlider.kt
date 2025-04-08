@@ -44,7 +44,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -329,7 +328,7 @@ private fun WarpRangeSliderImpl(
                 ) {
                     WarpSliderDefaults.Indicator()
                     WarpText(
-                        modifier = Modifier.padding(top = dimensions.space1),
+                        modifier = Modifier.padding(top = dimensions.space025),
                         text = state.sliderItems.first().toString(),
                         style = WarpTextStyle.Caption,
                         color = colors.text.subtle
@@ -343,7 +342,7 @@ private fun WarpRangeSliderImpl(
                 ) {
                     WarpSliderDefaults.Indicator()
                     WarpText(
-                        modifier = Modifier.padding(top = dimensions.space1),
+                        modifier = Modifier.padding(top = dimensions.space025),
                         text = state.sliderItems.last().toString(),
                         style = WarpTextStyle.Caption,
                         color = colors.text.subtle
@@ -884,12 +883,6 @@ internal object WarpSliderDefaults {
             }
         }
 
-        val elevation = if (interactions.isNotEmpty()) {
-            6.dp
-        } else {
-            1.dp
-        }
-
         val shape = shapes.ellipse
         val thumbColor = if (enabled) {
             if (interactions.isNotEmpty() && interactions.last() is DragInteraction.Start) {
@@ -913,7 +906,6 @@ internal object WarpSliderDefaults {
                         )
                     )
                     .hoverable(interactionSource = interactionSource)
-                    .shadow(if (enabled) elevation else 0.dp, shape, clip = false)
                     .background(
                         thumbColor,
                         shape
@@ -958,7 +950,9 @@ internal object WarpSliderDefaults {
         val indicatorWidth = dimensions.components.slider.indicatorWidth
 
         Canvas(
-            modifier = Modifier.size(width = indicatorWidth, height = indicatorHeight)
+            modifier = Modifier
+                .padding(top = 3.dp)
+                .size(width = indicatorWidth, height = indicatorHeight)
         ) {
             // Draw a vertical line from the top center to the bottom center.
             val start = Offset(x = center.x, y = 0f)

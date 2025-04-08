@@ -86,7 +86,7 @@ object SliderDimensions {
     val thumbSize = 28.dp
     val activeTrackHeight = 6.dp
     val inactiveTrackHeight = 4.dp
-    val indicatorHeight = 8.dp
+    val indicatorHeight = 4.dp
     val indicatorWidth = 4.dp
 }
 
