@@ -19,7 +19,7 @@ fun ToriWarpTheme(
         ?: if (isSystemInDarkTheme()) ToriDarkColors else ToriColors
     val toriDimensions = WarpDimensions
     val toriResources = WarpResources
-    val toriRippleConfig = RippleConfiguration(color = toriColors.background.primary, rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f))
+    val toriRippleConfig = RippleConfiguration(color = toriColors.background.primary, rippleAlpha = RippleAlpha(0.5f, 0.5f, 0.5f, 0.5f))
 
     WarpTheme(
         colors = toriColors,

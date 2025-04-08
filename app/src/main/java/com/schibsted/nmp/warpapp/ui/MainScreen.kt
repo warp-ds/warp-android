@@ -157,6 +157,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("rangeSlider") {
+                RangeSliderScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -215,6 +220,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "modal" to "WarpModal",
                         "pill" to "WarpPill",
                         "radio" to "WarpRadio",
+                        "rangeSlider" to "WarpRangeSlider",
                         "spinner" to "WarpSpinner",
                         "stepIndicator" to "WarpStepIndicator",
                         "switch" to "WarpSwitch",

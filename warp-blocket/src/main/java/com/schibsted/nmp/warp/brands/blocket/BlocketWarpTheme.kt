@@ -19,7 +19,7 @@ fun BlocketWarpTheme(
         ?: if (isSystemInDarkTheme()) BlocketDarkColors else BlocketColors
     val blocketDimensions = WarpDimensions
     val blocketResources = WarpResources
-    val blocketRippleConfig = RippleConfiguration(color = blocketColors.background.primary, rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f))
+    val blocketRippleConfig = RippleConfiguration(color = blocketColors.background.primary, rippleAlpha = RippleAlpha(0.5f, 0.5f, 0.5f, 0.5f))
 
     WarpTheme(
         colors = blocketColors,
