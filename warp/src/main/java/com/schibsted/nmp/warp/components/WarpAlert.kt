@@ -5,11 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.schibsted.nmp.warp.components.ext.alertBorder
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -53,10 +49,10 @@ fun WarpAlert(
     quietButtonAction: (() -> Unit)? = null,
 ) {
     val (colors, icon) = when (type) {
-        WarpAlertType.Info -> alertStyleInfo() to Icons.Filled.Info
-        WarpAlertType.Positive -> alertStylePositive() to Icons.Filled.CheckCircle
-        WarpAlertType.Critical -> alertStyleNegative() to Icons.Filled.Info
-        WarpAlertType.Warning -> alertStyleWarning() to Icons.Filled.Warning
+        WarpAlertType.Info -> alertStyleInfo() to icons.info
+        WarpAlertType.Positive -> alertStylePositive() to icons.success
+        WarpAlertType.Critical -> alertStyleNegative() to icons.error
+        WarpAlertType.Warning -> alertStyleWarning() to icons.warning
     }
 
     ConstraintLayout(
@@ -75,14 +71,14 @@ fun WarpAlert(
             )
     ) {
         val (iconRef, titleRef, bodyRef, linkRef, secondaryBtnRef, quietBtnRef) = createRefs()
-        Icon(
+        WarpIcon(
             modifier = Modifier.constrainAs(iconRef) {
                 start.linkTo(parent.start)
                 top.linkTo(titleRef.top)
             },
-            tint = colors.icon,
-            imageVector = icon,
-            contentDescription = ""
+            color = colors.icon,
+            size = dimensions.icon.small,
+            icon = icon
         )
 
         val margin = dimensions.space1
