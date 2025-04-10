@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warpapp
 
+import VendWarpTheme
 import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.brands.blocket.BlocketWarpTheme
 import com.schibsted.nmp.warp.brands.dba.DbaWarpTheme
@@ -11,6 +12,7 @@ const val FINN = "finn"
 const val TORI = "tori"
 const val DBA = "dba"
 const val BLOCKET = "blocket"
+const val VEND = "vend"
 
 //To be able to use the theme in legacy xml views we need to implement LegacyWarpTheme.
 // This class will be then injected into the legacy implementation of Warp components
@@ -22,6 +24,7 @@ class BrandTheme(val flavor: String) : LegacyWarpTheme {
             TORI -> ToriWarpTheme(content)
             DBA -> DbaWarpTheme (content)
             BLOCKET -> BlocketWarpTheme(content)
+            VEND -> VendWarpTheme(content)
         }
     }
 }
