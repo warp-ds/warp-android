@@ -69,6 +69,7 @@ private fun StepIndicatorScreenContent() {
             steps = 5,
             activeStep = wState,
             onStepClicked = { wState = it },
+            stepContentDescription =  { labels[it] },
             stepTitle = { labels[it] },
             stepDescription = { descriptions[it] }
         ) {
