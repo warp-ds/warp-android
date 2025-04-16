@@ -2,6 +2,7 @@ package com.schibsted.snapshot
 
 import androidx.compose.runtime.Composable
 import com.google.testing.junit.testparameterinjector.TestParameter
+import com.schibsted.nmp.warp.brands.blocket.BlocketWarpTheme
 import com.schibsted.nmp.warp.brands.dba.DbaWarpTheme
 import com.schibsted.nmp.warp.brands.finn.FinnWarpTheme
 import com.schibsted.nmp.warp.brands.tori.ToriWarpTheme
@@ -11,6 +12,7 @@ object Config {
     val dirFinn = File("src/test/snapshots/finn")
     val dirTori = File("src/test/snapshots/tori")
     val dirDba = File("src/test/snapshots/dba")
+    val dirBlocket = File("src/test/snapshots/blocket")
     val isVerifying: Boolean = System.getProperty("paparazzi.test.verify")?.toBoolean() == true
     const val maxPercentDifference = 0.1
 }
@@ -21,13 +23,15 @@ fun WarpTheme(flavor: Flavor, content: @Composable () -> Unit) {
         Flavor.Finn -> FinnWarpTheme(content)
         Flavor.Tori -> ToriWarpTheme(content)
         Flavor.Dba -> DbaWarpTheme(content)
+        Flavor.Blocket -> BlocketWarpTheme(content)
     }
 }
 
 enum class Flavor(val dir: File) {
     Finn(Config.dirFinn),
     Tori(Config.dirTori),
-    Dba(Config.dirDba)
+    Dba(Config.dirDba),
+    Blocket(Config.dirBlocket)
 }
 
 internal object FontScaleProvider : TestParameter.TestParameterValuesProvider {
