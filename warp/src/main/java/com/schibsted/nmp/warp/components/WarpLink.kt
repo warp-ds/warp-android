@@ -4,11 +4,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextDecoration
+import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -36,10 +38,9 @@ fun WarpLink(
             )
             .semantics(mergeDescendants = true) { }
             .clickable { onClick.invoke() }
-            .then(modifier),
     ) {
         WarpText(
-            modifier = Modifier.weight(if (icon != null) 0.9f else 1f, fill = false),
+            modifier = modifier.then(Modifier.weight(if (icon != null) 0.9f else 1f, fill = false)),
             text = text,
             color = textColor,
             style = style,
@@ -49,8 +50,9 @@ fun WarpLink(
             WarpIcon(
                 icon = icon,
                 modifier = Modifier
+                    .padding(start = dimensions.space1)
                     .weight(0.1f),
-                size = dimensions.icon.small,
+                size = adaptDpToFontScale(dimensions.icon.small),
                 color = textColor
             )
         }
