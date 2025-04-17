@@ -55,8 +55,7 @@ fun WarpCheckboxGroup(
         LocalOverscrollConfiguration provides null
     ) {
         Column(
-            modifier = verticalModifier,
-            verticalArrangement = Arrangement.spacedBy(dimensions.space2)
+            modifier = verticalModifier
         ) {
             title?.let {
                 WarpText(

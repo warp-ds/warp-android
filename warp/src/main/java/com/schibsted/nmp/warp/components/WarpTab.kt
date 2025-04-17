@@ -15,6 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.invisibleToUser
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
@@ -103,7 +105,9 @@ fun WarpTab(
         icon = {
             icon?.let {
                 Icon(
-                    modifier = Modifier.size(iconSize),
+                    modifier = Modifier
+                        .size(iconSize)
+                        .semantics { this.invisibleToUser() },
                     imageVector = it.vector,
                     contentDescription = it.description,
                 )

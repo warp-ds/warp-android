@@ -28,6 +28,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
@@ -50,6 +52,7 @@ fun WarpSwitch(
     checked: Boolean = false,
     onCheckedChange: ((Boolean) -> Unit) = { },
     enabled: Boolean = true,
+    contentDescr: String? = null
 ) {
     CompositionLocalProvider(
         LocalColors provides colors,
@@ -76,6 +79,7 @@ fun WarpSwitch(
 
         Row(
             modifier = modifier.then(Modifier
+                .semantics { contentDescription = contentDescr ?: "" }
                 .height(height)
                 .width(width)
                 .clip(RoundedCornerShape(height))

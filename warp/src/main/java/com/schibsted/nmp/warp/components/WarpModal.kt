@@ -7,25 +7,38 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
+
+/**
+ * A modal dialog that displays a title, subtitle, body, and optional buttons.
+ * @param modifier The modifier to be applied to the dialog.
+ * @param title The title of the dialog.
+ * @param body The body of the dialog.
+ * @param onDismiss The callback to be invoked when the dialog is dismissed.
+ * @param dismissOnClickOutside Whether the dialog should be dismissed when clicked outside of it.
+ * @param dismissOnBackPress Whether the dialog should be dismissed when the back button is pressed.
+ * @param subtitle The subtitle of the dialog.
+ * @param primaryButtonText The text of the primary button.
+ * @param onPrimaryButtonClick The callback to be invoked when the primary button is clicked.
+ * @param secondaryButtonText The text of the secondary button.
+ * @param onSecondaryButtonClick The callback to be invoked when the secondary button is clicked.
+ * @param showCloseIcon Whether to show a close icon in the top right corner of the dialog.
+ */
 @Composable
 fun WarpModal(
     modifier: Modifier = Modifier,
@@ -39,8 +52,7 @@ fun WarpModal(
     onPrimaryButtonClick: (() -> Unit)? = null,
     secondaryButtonText: String? = null,
     onSecondaryButtonClick: (() -> Unit)? = null,
-    showCloseIcon: Boolean = false,
-    closeIconContentDescription: String? = null
+    showCloseIcon: Boolean = false
 ) {
     Dialog(
         onDismissRequest = onDismiss,
@@ -79,12 +91,9 @@ fun WarpModal(
                                 .weight(1f)
                         )
                         if (showCloseIcon) {
-                            Icon(
-                                imageVector = Icons.Default.Close,
-                                tint = colors.icon.default,
-                                contentDescription = closeIconContentDescription,
+                            WarpIcon(
+                                icon = icons.close,
                                 modifier = Modifier
-                                    .size(dimensions.space3)
                                     .clickable { onDismiss() }
                             )
                         }

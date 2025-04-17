@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -115,7 +116,8 @@ fun WarpBox(
                 }
             }
             //Optional link
-            Box(modifier = Modifier
+            Box(
+                modifier = Modifier
                 .fillMaxWidth()
                 .constrainAs(linkRef) {
                     start.linkTo(iconRef.end)
@@ -131,8 +133,8 @@ fun WarpBox(
                         color = colors.text.link,
                         textDecoration = TextDecoration.Underline,
                         modifier = Modifier
+                            .defaultMinSize(minWidth = dimensions.minimumTouchSize, minHeight = dimensions.minimumTouchSize)
                             .clickable { linkAction?.invoke() }
-                            .then(buttonText?.let { bottomPadding } ?: Modifier)
                     )
                 }
             }

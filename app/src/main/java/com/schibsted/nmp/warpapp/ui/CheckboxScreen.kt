@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpCheckbox
 import com.schibsted.nmp.warp.components.WarpCheckboxGroup
 import com.schibsted.nmp.warp.components.WarpCheckboxStyle
@@ -39,7 +40,7 @@ fun CheckboxScreen(onUp: () -> Unit) {
 private fun CheckboxScreenContent() {
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(WarpTheme.dimensions.space2),
+        verticalArrangement = Arrangement.spacedBy(0.dp),
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())

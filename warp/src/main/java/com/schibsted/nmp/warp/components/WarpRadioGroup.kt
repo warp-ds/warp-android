@@ -53,8 +53,7 @@ fun WarpRadioGroup(
         val verticalModifier =
             if (orientation == Orientation.Vertical) modifier.selectableGroup() else modifier
         Column(
-            verticalModifier,
-            verticalArrangement = Arrangement.spacedBy(dimensions.space2)
+            modifier = verticalModifier
         ) {
             title?.let {
                 WarpText(

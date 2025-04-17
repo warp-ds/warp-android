@@ -37,7 +37,7 @@ object WarpDimensions {
     val shadowLarge: Dp = 12.dp
     val shadowXLarge: Dp = 16.dp
 
-    val minimumTouchSize: Dp = 48.dp
+    val minimumTouchSize: Dp = 44.dp
 
     val components = WarpComponentDimensions
 

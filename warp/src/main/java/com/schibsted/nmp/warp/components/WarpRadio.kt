@@ -11,6 +11,7 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
@@ -86,6 +87,10 @@ fun WarpRadio(
         )
     Row(
         modifier = modifier
+            .defaultMinSize(
+                minWidth = dimensions.minimumTouchSize,
+                minHeight = dimensions.minimumTouchSize
+            )
             .then(selectableModifier)
             .semantics(mergeDescendants = true) {},
         verticalAlignment = Alignment.CenterVertically,
