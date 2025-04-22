@@ -17,6 +17,12 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 /**
  * A Link component in the warp design system.
+ * @param modifier The modifier to be applied to the link.
+ * @param text The text to be displayed in the link.
+ * @param onClick The callback to be invoked when the link is clicked.
+ * @param style The style of the text in the link. Defaults to [WarpTextStyle.Body].
+ * @param icon The icon to be displayed in the link.
+ * @param underline Whether the link should be underlined. Defaults to false.
  */
 @Composable
 fun WarpLink(
