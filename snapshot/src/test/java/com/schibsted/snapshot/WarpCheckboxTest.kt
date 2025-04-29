@@ -2,7 +2,6 @@ package com.schibsted.snapshot
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -91,7 +90,6 @@ class WarpCheckboxTest(
                             horizontal = dimensions.space2,
                             vertical = dimensions.space2
                         ),
-                    verticalArrangement = Arrangement.spacedBy(dimensions.space2)
                 ) {
                     WarpCheckbox(
                         checked = false,
@@ -140,7 +138,6 @@ class WarpCheckboxTest(
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(dimensions.space2),
                     modifier = Modifier
                         .background(colors.surface.elevated100)
                         .padding(dimensions.space2)

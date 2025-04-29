@@ -70,6 +70,10 @@ internal fun DetailsScaffold(title: String, onUp: () -> Unit, content: @Composab
                             viewModel.setFlavor("blocket")
                             menuVisible = false
                         })
+                        DropdownMenuItem(text = { WarpText("Vend") }, onClick = {
+                            viewModel.setFlavor("vend")
+                            menuVisible = false
+                        })
                     }
                 }
             )
