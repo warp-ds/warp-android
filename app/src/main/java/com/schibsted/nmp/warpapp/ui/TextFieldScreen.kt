@@ -69,6 +69,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 WarpTextField(
                     value = text,
                     onValueChange = { text = it },
+                    placeholderText = "Placeholder",
                     modifier = Modifier.fillMaxWidth()
                 )
             }

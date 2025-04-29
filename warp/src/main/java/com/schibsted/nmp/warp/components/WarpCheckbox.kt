@@ -8,27 +8,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.invisibleToUser
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
-import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.LocalColors
 import com.schibsted.nmp.warp.theme.LocalDimensions
 import com.schibsted.nmp.warp.theme.LocalShapes
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -107,14 +106,20 @@ private fun WarpCheckboxView(
     val checkboxBorder =
         if (checked) warpCheckboxColors.selectedBorder else warpCheckboxColors.border
 
-    val rowModifier = modifier.toggleableIfEnabled(
-        enabled = enabled,
-        isChecked = checked,
-        onCheckedChange = onCheckedChange
-    )
+    val rowModifier = modifier
+        .semantics(mergeDescendants = true) {}
+        .toggleableIfEnabled(
+            enabled = enabled,
+            isChecked = checked,
+            onCheckedChange = onCheckedChange
+        )
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = rowModifier
+            .defaultMinSize(
+                minWidth = dimensions.minimumTouchSize,
+                minHeight = dimensions.minimumTouchSize
+            )
     ) {
         WarpCheckboxIndicator(
             isChecked = checked,
@@ -189,11 +194,13 @@ private fun WarpCheckboxIndicator(
         AnimatedVisibility(
             visible = isChecked,
         ) {
-            Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.warp_check),
-                contentDescription = stringResource(R.string.check),
-                tint = colors.icon.inverted,
-                modifier = Modifier.height(dimensions.components.checkbox.iconHeight)
+            WarpIcon(
+                modifier = Modifier
+                    .height(dimensions.components.checkbox.iconHeight)
+                    .semantics { this.invisibleToUser() },
+                size = dimensions.icon.small,
+                icon = icons.check,
+                color = colors.icon.inverted
             )
         }
     }
