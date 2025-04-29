@@ -1,7 +1,6 @@
 package com.schibsted.nmp.warpapp.ui
 
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -37,7 +36,6 @@ private fun RadioScreenContent() {
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
             .padding(dimensions.space2),
-        verticalArrangement = Arrangement.spacedBy(dimensions.space2)
     ) {
         WarpRadio(label = "Single Radio on", selected = true, enabled = true)
         WarpRadio(label = "Single Radio off", selected = false, enabled = true)

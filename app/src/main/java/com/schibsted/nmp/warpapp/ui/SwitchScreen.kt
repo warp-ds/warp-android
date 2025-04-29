@@ -40,7 +40,8 @@ fun SwitchScreenContent() {
             var checked by remember { mutableStateOf(true) }
             WarpSwitch(
                 checked = checked,
-                onCheckedChange = { checked = it }
+                onCheckedChange = { checked = it },
+                contentDescr = "Switch"
             )
         }
         Row(
@@ -51,7 +52,8 @@ fun SwitchScreenContent() {
             WarpSwitch(
                 modifier = Modifier.padding(end = dimensions.space2),
                 checked = checked,
-                onCheckedChange = { checked = it }
+                onCheckedChange = { checked = it },
+                contentDescr = "Switch"
             )
         }
         Row(
@@ -65,7 +67,8 @@ fun SwitchScreenContent() {
             WarpSwitch(
                 checked = checked,
                 onCheckedChange = { checked = it },
-                enabled = false
+                enabled = false,
+                contentDescr = "Switch"
             )
         }
         Row(
@@ -79,7 +82,8 @@ fun SwitchScreenContent() {
             WarpSwitch(
                 checked = checked,
                 onCheckedChange = { checked = it },
-                enabled = false
+                enabled = false,
+                contentDescr = "Switch"
             )
         }
     }
