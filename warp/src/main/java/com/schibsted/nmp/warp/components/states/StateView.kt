@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -24,7 +26,6 @@ import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpDimensions
-import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
 fun StateView(
@@ -145,13 +146,14 @@ private fun MatchedMaxWidthComposables(
 @Composable
 fun StateViewPreview() {
     StateView(
-        painter = painterResource(R.drawable.smileyhappy),
-        tintColor = WarpTheme.colors.icon.primary,
-        title = "Title",
-        description = "Description description description description description description description description description description description description description description description",
-        primaryButtonText = "Primary Button",
+        modifier = Modifier.fillMaxSize(),
+        painter = painterResource(R.drawable.sparkles),
+        imageContentDescription = stringResource(R.string.sparkles),
+        title = "No data",
+        description = "No data available",
+        primaryButtonText = "Retry",
         onPrimaryButtonClicked = {},
-        secondaryButtonText = "Secondary Button",
-        onSecondaryButtonClicked = {}
+        secondaryButtonText = "Get something random",
+        onSecondaryButtonClicked = {},
     )
 }
