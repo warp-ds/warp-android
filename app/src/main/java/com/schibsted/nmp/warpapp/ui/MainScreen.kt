@@ -167,6 +167,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("popover") {
+                PopoverScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -228,6 +233,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "link" to "WarpLink",
                         "modal" to "WarpModal",
                         "pill" to "WarpPill",
+                        "popover" to "WarpPopover",
                         "radio" to "WarpRadio",
                         "rangeSlider" to "WarpRangeSlider",
                         "spinner" to "WarpSpinner",
