@@ -11,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
@@ -111,9 +110,7 @@ internal fun WarpPopoverView(
     inline: Boolean,
     anchorPosition: Offset?
 ) {
-    val shadow = if (inline) Modifier.shadow(
-        5.dp, popoverShape(edge)
-    ) else {
+    val shadow = if (inline) Modifier.shadowMedium(popoverShape(edge)) else {
         Modifier.shadowMedium(popoverShape(edge, offset, anchorPosition))
     }
     Box(
