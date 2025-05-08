@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -82,7 +83,7 @@ fun WarpBadge(
             WarpIcon(
                 icon = icon,
                 modifier = Modifier.padding(end = dimensions.space05),
-                size = dimensions.icon.small,
+                size = adaptDpToFontScale(dimensions.icon.small),
                 color = textColor
             )
         }
