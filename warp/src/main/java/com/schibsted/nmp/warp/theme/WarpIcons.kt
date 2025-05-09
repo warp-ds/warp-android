@@ -40,6 +40,12 @@ class WarpBrandIconResource(
 )
 
 object WarpIconResources {
+    @SuppressLint("DiscouragedApi")
+    @Composable
+    fun getResourceIdByName(resourceName: String): Int {
+        val context = LocalContext.current
+        return context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    }
 
     @Composable
     fun getIconByIdentifier(identifier: String): WarpIconResource? {
