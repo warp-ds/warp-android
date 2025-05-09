@@ -33,7 +33,7 @@ internal fun StateView(
     tintColor: Color? = null,
     imageSize: ImageSize = ImageSize.ICON,
     imageContentDescription: String? = null,
-    title: String,
+    title: String? = null,
     description: String? = null,
     primaryButtonText: String? = null,
     onPrimaryButtonClicked: () -> Unit = {},
