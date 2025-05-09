@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +25,6 @@ import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpDimensions
-import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
 internal fun StateView(
@@ -35,7 +33,7 @@ internal fun StateView(
     tintColor: Color? = null,
     imageSize: ImageSize = ImageSize.ICON,
     imageContentDescription: String? = null,
-    title: String? = null,
+    title: String,
     description: String? = null,
     primaryButtonText: String? = null,
     onPrimaryButtonClicked: () -> Unit = {},
