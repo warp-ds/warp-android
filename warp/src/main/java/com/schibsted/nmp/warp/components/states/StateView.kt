@@ -26,9 +26,10 @@ import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpDimensions
+import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
-fun StateView(
+internal fun StateView(
     modifier: Modifier = Modifier,
     painter: Painter? = null,
     tintColor: Color? = null,
@@ -42,7 +43,7 @@ fun StateView(
     onSecondaryButtonClicked: () -> Unit = {}
 ) {
     Column(
-        modifier = modifier.padding(WarpDimensions.space4),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
