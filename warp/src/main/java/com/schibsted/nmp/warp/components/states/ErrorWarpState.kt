@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpDimensions.maximumStateWidth
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
-fun ErrorStateView(
+fun ErrorWarpState(
     modifier: Modifier = Modifier,
     painter: Painter? = painterResource(R.drawable.smileyneutral),
     tintColor: Color? = WarpTheme.colors.icon.primary,
@@ -32,7 +32,7 @@ fun ErrorStateView(
     secondaryButtonText: String? = null,
     onSecondaryButtonClicked: () -> Unit = {}
 ) {
-    StateView(
+    WarpState(
         modifier = modifier
             .padding(WarpDimensions.space4)
             .width(maximumStateWidth)
@@ -53,6 +53,6 @@ fun ErrorStateView(
 @Suppress("ThrowingExceptionsWithoutMessageOrCause")
 @Preview(showBackground = true)
 @Composable
-fun ErrorStateViewPreview() {
-    ErrorStateView()
+fun ErrorWarpStatePreview() {
+    ErrorWarpState()
 }

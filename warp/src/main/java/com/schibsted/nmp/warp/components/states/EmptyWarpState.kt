@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpDimensions.maximumStateWidth
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
-fun EmptyStateView(
+fun EmptyWarpState(
     modifier: Modifier = Modifier,
     painter: Painter? = painterResource(R.drawable.sparkles),
     tintColor: Color? = WarpTheme.colors.icon.primary,
@@ -30,7 +30,7 @@ fun EmptyStateView(
     secondaryButtonText: String? = null,
     onSecondaryButtonClicked: () -> Unit = {}
 ) {
-    StateView(
+    WarpState(
         modifier = modifier
             .padding(WarpDimensions.space4)
             .width(maximumStateWidth)
@@ -51,8 +51,8 @@ fun EmptyStateView(
 @Suppress("ThrowingExceptionsWithoutMessageOrCause")
 @Preview(showBackground = true)
 @Composable
-fun EmptyStateViewPreview() {
-    EmptyStateView(
+fun EmptyWarpStatePreview() {
+    EmptyWarpState(
         title = "No data",
         description = "No data available",
         primaryButtonText = "Retry",

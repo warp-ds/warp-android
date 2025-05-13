@@ -22,7 +22,7 @@ import com.schibsted.nmp.warp.theme.WarpDimensions.maximumStateWidth
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
-fun LoginStateView(
+fun LoginWarpState(
     modifier: Modifier = Modifier,
     painter: Painter? = painterResource(R.drawable.circleuser),
     tintColor: Color? = WarpTheme.colors.icon.primary,
@@ -44,7 +44,7 @@ fun LoginStateView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        StateView(
+        WarpState(
             modifier = Modifier
                 .width(maximumStateWidth)
                 .fillMaxWidth(),
@@ -70,6 +70,6 @@ fun LoginStateView(
 @Suppress("ThrowingExceptionsWithoutMessageOrCause")
 @Preview(showBackground = true)
 @Composable
-fun LoginStateViewPreview() {
-    LoginStateView()
+fun LoginWarpStatePreview() {
+    LoginWarpState()
 }

@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
-fun LoadingStateView(
+fun LoadingWarpState(
     modifier: Modifier = Modifier.fillMaxSize(),
     color: Color = WarpTheme.colors.background.secondary,
 ) {
@@ -25,6 +25,6 @@ fun LoadingStateView(
 
 @Preview(showBackground = true)
 @Composable
-fun LoadingStateViewPreview() {
-    LoadingStateView()
+fun LoadingWarpStatePreview() {
+    LoadingWarpState()
 }

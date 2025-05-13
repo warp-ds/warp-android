@@ -28,7 +28,7 @@ import com.schibsted.nmp.warp.theme.ImageSize
 import com.schibsted.nmp.warp.theme.WarpDimensions
 
 @Composable
-internal fun StateView(
+internal fun WarpState(
     modifier: Modifier = Modifier,
     painter: Painter? = null,
     tintColor: Color? = null,
@@ -138,7 +138,7 @@ private fun MatchedMaxWidthComposables(
 @Preview(showBackground = true)
 @Composable
 fun StateViewPreview() {
-    StateView(
+    WarpState(
         modifier = Modifier.fillMaxSize(),
         painter = painterResource(R.drawable.sparkles),
         imageContentDescription = stringResource(R.string.sparkles),

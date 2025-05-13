@@ -17,7 +17,7 @@ import com.schibsted.nmp.warp.theme.WarpDimensions.maximumStateWidth
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
-fun OfflineStateView(
+fun OfflineWarpState(
     modifier: Modifier = Modifier,
     painter: Painter? = painterResource(R.drawable.wifi),
     imageSize: ImageSize = ImageSize.ICON,
@@ -30,7 +30,7 @@ fun OfflineStateView(
     secondaryButtonText: String? = null,
     onSecondaryButtonClicked: () -> Unit = {}
 ) {
-    StateView(
+    WarpState(
         modifier = modifier
             .padding(WarpDimensions.space4)
             .width(maximumStateWidth)
@@ -51,6 +51,6 @@ fun OfflineStateView(
 @Suppress("ThrowingExceptionsWithoutMessageOrCause")
 @Preview(showBackground = true)
 @Composable
-fun OfflineStateViewPreview() {
-    OfflineStateView()
+fun OfflineWarpStatePreview() {
+    OfflineWarpState()
 }
