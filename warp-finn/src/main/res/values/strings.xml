@@ -100,6 +100,8 @@
     <string name="engine">Motor</string>
     <string name="enginebelt">Viftereim</string>
     <string name="error">Oktagon med utropstegn</string>
+    <string name="error_title">Beklager, nå er det rusk i maskineriet.</string>
+    <string name="error_message">Prøv igjen om litt, eller få mer informasjon hos kundeservice.</string>
     <string name="exchange">To piler som danner en sirkel</string>
     <string name="expand">Piler som peker utover</string>
     <string name="eyeoff">Lukket øye</string>
@@ -154,6 +156,10 @@
     <string name="linkexternal">Firkant med en pil som peker oppover til høyre</string>
     <string name="listsort">Vertikal liste med sorteringspil</string>
     <string name="lockshield">Skjold med hengelås</string>
+    <string name="login">Logg inn</string>
+    <string name="login_title_default">Mulighetenes marked</string>
+    <string name="login_message_default">Logg inn for å sende meldinger, lagre favoritter og søk. Du får også nyttige varsler for hva som er viktig for deg.</string>
+    <string name="login_button_open_account">Opprett en konto</string>
     <string name="logout">Utgangsdør</string>
     <string name="mail">Konvolutt med brev</string>
     <string name="mailbox">Postkasse med flagg som indikerer ny post</string>
@@ -175,6 +181,8 @@
     <string name="norwegianmotor">Sirkel med NBF</string>
     <string name="nosmoking">Overlagt sigarett</string>
     <string name="officedesk">Kontorpult med dataskjerm</string>
+    <string name="offline_title">Frakoblet?</string>
+    <string name="offline_message">Vi får ikke kontaktet serveren. Sjekk at du er koblet til trådløst nett eller mobildata.</string>
     <string name="oikotie">Oikotie</string>
     <string name="organize">To horisontale linjer mellom to motsatte vertikale piler</string>
     <string name="paintroller">Malingsrulle i bruk</string>

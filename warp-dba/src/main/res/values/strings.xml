@@ -100,6 +100,8 @@
     <string name="engine">Motor</string>
     <string name="enginebelt">Ventilatorrem</string>
     <string name="error">Oktagon med udråbstegn</string>
+    <string name="error_title">Beklager, noget gik galt.</string>
+    <string name="error_message">Prøv igen om lidt, eller få mere information fra kundeservice.</string>
     <string name="exchange">To pile, der danner en cirkel</string>
     <string name="expand">Pile, der peger udad</string>
     <string name="eyeoff">Lukket øje</string>
@@ -154,6 +156,10 @@
     <string name="linkexternal">Firkant med en pil opad mod højre</string>
     <string name="listsort">Vertikal liste med sorteringspil</string>
     <string name="lockshield">Skjold med hængelås</string>
+    <string name="login">Log ind</string>
+    <string name="login_title_default">Mulighedernes markedsplads</string>
+    <string name="login_message_default">Log ind for at sende beskeder, gemme favoritter og annonceagenter. Du vil også modtage nyttige notifikationer omkring det som er vigtigt for dig.</string>
+    <string name="login_button_open_account">Opret en konto</string>
     <string name="logout">Udgangsdør</string>
     <string name="mail">Konvolut med brev</string>
     <string name="mailbox">Postkasse med et flag, der angiver ny post</string>
@@ -175,6 +181,8 @@
     <string name="norwegianmotor">Cirkel med NBF</string>
     <string name="nosmoking">Overlagt cigaret</string>
     <string name="officedesk">Skrivebord med computerskærm</string>
+    <string name="offline_title">Offline?</string>
+    <string name="offline_message">Vi kan ikke kommunikere med serveren. Tjek om du er tilsluttet wi-fi eller har adgang til mobildata.</string>
     <string name="oikotie">Oikotie</string>
     <string name="organize">To vandrette linjer mellem to modsatte lodrette pile</string>
     <string name="paintroller">Malerrulle i brug</string>

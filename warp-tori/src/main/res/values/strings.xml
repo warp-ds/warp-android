@@ -100,6 +100,8 @@
     <string name="engine">Moottori</string>
     <string name="enginebelt">Hihna</string>
     <string name="error">Kahdeksankulmainen kuvio, jossa huutomerkki</string>
+    <string name="error_title">Pahoittelut, jotain meni pieleen.</string>
+    <string name="error_message">Yritä uudelleen hetken kuluttua tai kysy lisätietoja asiakaspalvelusta.</string>
     <string name="exchange">Kaksi nuolta muodostaen ympyrän</string>
     <string name="expand">Nuolia, jotka osoittavat ulospäin</string>
     <string name="eyeoff">Suljettu silmä</string>
@@ -154,6 +156,10 @@
     <string name="linkexternal">Neliö, jossa ylöspäin oikealle osoittava nuoli</string>
     <string name="listsort">Pystysuora lista ja lajittelunuoli</string>
     <string name="lockshield">Kilpi, jossa lukko</string>
+    <string name="login">Kirjaudu sisään</string>
+    <string name="login_title_default">Kaikille hyvät kaupat</string>
+    <string name="login_message_default">Kirjautuneena voit lähettää viestejä, tallentaa hakuvahteja ja lisätä suosikkeja. Saat myös ilmoituksia sinulle tärkeistä asioista.</string>
+    <string name="login_button_open_account">Luo tili</string>
     <string name="logout">Poistumisoikeus</string>
     <string name="mail">Kirjekuori</string>
     <string name="mailbox">Postilaatikko lipulla</string>
@@ -175,6 +181,8 @@
     <string name="norwegianmotor">Ympyrä, jossa NBF</string>
     <string name="nosmoking">Ylikierretty savuke</string>
     <string name="officedesk">Toimistopöytä, jossa tietokone</string>
+    <string name="offline_title">Frakoblet?</string>
+    <string name="offline_message">Vi får ikke kontaktet serveren. Sjekk at du er koblet til trådløst nett eller mobildata.</string>
     <string name="oikotie">Oikotie</string>
     <string name="organize">Kaksi vaakasuoraa viivaa kahden vastakkaisen pystysuoran nuolen välissä</string>
     <string name="paintroller">Maalaustela käytössä</string>

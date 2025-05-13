@@ -99,7 +99,8 @@
     <string name="energy">Lightning bolt</string>
     <string name="engine">Engine</string>
     <string name="enginebelt">Fan belt</string>
-    <string name="error">Octagon with exclamation point</string>
+    <string name="error">Octagon with exclamation point</string><string name="error_title">Sorry, something went wrong.</string>
+    <string name="error_message">Try again in a little while, or get more information from customer support.</string>
     <string name="exchange">Two arrows forming a circle</string>
     <string name="expand">Arrows pointing outwards</string>
     <string name="eyeoff">Closed eye</string>
@@ -154,6 +155,10 @@
     <string name="linkexternal">Square with an upward arrow to the right</string>
     <string name="listsort">Vertical list with sorting arrow</string>
     <string name="lockshield">Shield with padlock</string>
+    <string name="login">Log in</string>
+    <string name="login_title_default">The marketplace of possibilities</string>
+    <string name="login_message_default">Log in to send messages, save favourites and searches. You’ll also receive handy notifications for what’s important to you.</string>
+    <string name="login_button_open_account">Create an account</string>
     <string name="logout">Exit door</string>
     <string name="mail">Envelope with letter</string>
     <string name="mailbox">Mailbox with a flag indicating new mail</string>
@@ -175,6 +180,8 @@
     <string name="norwegianmotor">Circle with NBF</string>
     <string name="nosmoking">Overlaid cigarette</string>
     <string name="officedesk">Office desk with a computer screen</string>
+    <string name="offline_title">Offline?</string>
+    <string name="offline_message">We\'re not able to communicate with the server. Check your wireless or mobile connection.</string>
     <string name="oikotie">Oikotie</string>
     <string name="organize">Two horizontal lines between two opposite vertical arrows</string>
     <string name="paintroller">Paint roller in action</string>
@@ -260,6 +267,7 @@
     <string name="trenddown">Wavy arrow pointing down right</string>
     <string name="trendflat">Wavy arrow pointing right</string>
     <string name="trendup">Wavy arrow pointing up right</string>
+    <string name="try_again">Please try again</string>
     <string name="tv">Flat screen TV</string>
     <string name="twitter">Twitter logo</string>
     <string name="up">Square with arrow pointing up</string>

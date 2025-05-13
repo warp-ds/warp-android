@@ -100,6 +100,8 @@
     <string name="engine">Motor</string>
     <string name="enginebelt">Rem</string>
     <string name="error">Åttkant med utropstecken</string>
+    <string name="error_title">Äsch, något gick fel.</string>
+    <string name="error_message">Försök igen om en liten stund, eller få mer information från kundservice.</string>
     <string name="exchange">Två pilar som bildar en cirkel</string>
     <string name="expand">Pilar som pekar utåt</string>
     <string name="eyeoff">Stängt öga</string>
@@ -154,6 +156,10 @@
     <string name="linkexternal">Fyrkant med en uppåtriktad pil åt höger</string>
     <string name="listsort">Vertikal lista med sorteringspil</string>
     <string name="lockshield">Sköld med lås</string>
+    <string name="login">Logga in</string>
+    <string name="login_title_default">Möjliheternas marknadsplats</string>
+    <string name="login_message_default">Logga in för att skicka meddelanden, spara favoriter och skapa bevakningar. Du får också praktiska notiser om det som är viktigt för dig.</string>
+    <string name="login_button_open_account">Skapa konto</string>
     <string name="logout">Utgångsdörr</string>
     <string name="mail">Kuvert med brev</string>
     <string name="mailbox">Brevlåda med en flagga för ny post</string>
@@ -175,6 +181,8 @@
     <string name="norwegianmotor">Cirkel med NBF</string>
     <string name="nosmoking">Överlagd cigarett</string>
     <string name="officedesk">Skrivbord med datorskärm</string>
+    <string name="offline_title">Inte ansluten?</string>
+    <string name="offline_message">Vi kunde inte kommunicera med servern. Kontrollera din anslutning.</string>
     <string name="oikotie">Oikotie</string>
     <string name="organize">Två horisontella linjer mellan två motsatta vertikala pilar</string>
     <string name="paintroller">Färgrulle i aktion</string>
