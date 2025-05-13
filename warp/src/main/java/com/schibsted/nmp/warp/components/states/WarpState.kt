@@ -24,6 +24,7 @@ import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.theme.ImageSize
 import com.schibsted.nmp.warp.theme.WarpDimensions
 
 @Composable
@@ -49,14 +50,7 @@ internal fun StateView(
             Image(
                 painter = it,
                 contentDescription = imageContentDescription,
-                modifier = Modifier
-                    .size(
-                        if (imageSize == ImageSize.ILLUSTRATION) {
-                            200.dp
-                        } else {
-                            64.dp
-                        }
-                    ),
+                modifier = Modifier.size(imageSize.size),
                 colorFilter = tintColor?.let { ColorFilter.tint(it) }
             )
             Spacer(modifier = Modifier.size(WarpDimensions.space2))

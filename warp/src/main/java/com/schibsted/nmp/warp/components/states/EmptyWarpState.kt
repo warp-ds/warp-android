@@ -11,7 +11,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.R
+import com.schibsted.nmp.warp.theme.ImageSize
 import com.schibsted.nmp.warp.theme.WarpDimensions
+import com.schibsted.nmp.warp.theme.WarpDimensions.maximumStateWidth
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
@@ -31,7 +33,7 @@ fun EmptyStateView(
     StateView(
         modifier = modifier
             .padding(WarpDimensions.space4)
-            .width(MAX_STATE_WIDTH)
+            .width(maximumStateWidth)
             .fillMaxSize(),
         painter = painter,
         imageSize = imageSize,
