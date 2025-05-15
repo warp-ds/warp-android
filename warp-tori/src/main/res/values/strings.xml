@@ -181,9 +181,9 @@
     <string name="norwegianmotor">Ympyrä, jossa NBF</string>
     <string name="nosmoking">Ylikierretty savuke</string>
     <string name="officedesk">Toimistopöytä, jossa tietokone</string>
-    <string name="offline_title">Frakoblet?</string>
-    <string name="offline_message">Vi får ikke kontaktet serveren. Sjekk at du er koblet til trådløst nett eller mobildata.</string>
-    <string name="oikotie">Oikotie</string>
+    <string name="offline_title">Yhteysongelmia?</string>
+    <string name="offline_message">Palvelimeen ei saada yhteyttä. Tarkista, että olet yhteydessä langattomaan verkkoon tai mobiilidataan.</string>
+     <string name="oikotie">Oikotie</string>
     <string name="organize">Kaksi vaakasuoraa viivaa kahden vastakkaisen pystysuoran nuolen välissä</string>
     <string name="paintroller">Maalaustela käytössä</string>
     <string name="parking">Pysäköintimerkki</string>
