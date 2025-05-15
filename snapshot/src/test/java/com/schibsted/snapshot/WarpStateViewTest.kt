@@ -12,7 +12,7 @@ import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
-import com.schibsted.nmp.warp.components.states.StateViewPreview
+import com.schibsted.nmp.warp.complexcomponents.states.StateViewPreview
 import com.schibsted.nmp.warp.theme.WarpTheme
 import org.junit.Rule
 import org.junit.Test

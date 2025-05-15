@@ -1,15 +1,13 @@
-package com.schibsted.nmp.warp.components.states
+package com.schibsted.nmp.warp.complexcomponents.states
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.components.WarpSpinner
 import com.schibsted.nmp.warp.components.WarpSpinnerSize
-import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
 fun LoadingWarpState(

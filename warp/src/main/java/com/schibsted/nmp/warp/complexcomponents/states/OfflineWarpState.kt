@@ -1,4 +1,4 @@
-package com.schibsted.nmp.warp.components.states
+package com.schibsted.nmp.warp.complexcomponents.states
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,16 +17,14 @@ import com.schibsted.nmp.warp.theme.WarpDimensions.maximumStateWidth
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @Composable
-fun ErrorWarpState(
+fun OfflineWarpState(
     modifier: Modifier = Modifier,
-    painter: Painter? = painterResource(R.drawable.smileyneutral),
-    tintColor: Color? = WarpTheme.colors.icon.primary,
+    painter: Painter? = painterResource(R.drawable.wifi),
     imageSize: ImageSize = ImageSize.ICON,
-    imageContentDescription: String? = stringResource(
-        R.string.smileyneutral
-    ),
-    title: String? = stringResource(R.string.error_title),
-    description: String? = stringResource(R.string.error_message),
+    tintColor: Color? = WarpTheme.colors.icon.primary,
+    imageContentDescription: String? = stringResource(R.string.wifi),
+    title: String? = stringResource(R.string.offline_title),
+    description: String? = stringResource(R.string.offline_message),
     primaryButtonText: String? = stringResource(R.string.try_again),
     onPrimaryButtonClicked: () -> Unit = {},
     secondaryButtonText: String? = null,
@@ -53,6 +51,6 @@ fun ErrorWarpState(
 @Suppress("ThrowingExceptionsWithoutMessageOrCause")
 @Preview(showBackground = true)
 @Composable
-fun ErrorWarpStatePreview() {
-    ErrorWarpState()
+fun OfflineWarpStatePreview() {
+    OfflineWarpState()
 }

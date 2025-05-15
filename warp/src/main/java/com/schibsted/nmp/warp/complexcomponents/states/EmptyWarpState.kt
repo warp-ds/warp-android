@@ -1,4 +1,4 @@
-package com.schibsted.nmp.warp.components.states
+package com.schibsted.nmp.warp.complexcomponents.states
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
