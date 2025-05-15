@@ -301,4 +301,5 @@
     <string name="carright">Bil som vänder till höger</string>
     <string name="planeland">Flygplan landar</string>
     <string name="planetakeoff">Flygplan lyfter</string>
+    <string name="login_branding">En del av Vend</string>
 </resources>

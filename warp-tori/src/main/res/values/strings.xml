@@ -301,4 +301,5 @@
     <string name="carright">Auto oikealle päin</string>
     <string name="planeland">Lentokone laskeutuu</string>
     <string name="planetakeoff">Lentokone nousee</string>
+    <string name="login_branding">Osa Vendistä</string>
 </resources>

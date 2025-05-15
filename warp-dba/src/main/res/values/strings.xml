@@ -301,4 +301,5 @@
     <string name="carright">Bil der vender mod højre</string>
     <string name="planeland">Fly lander</string>
     <string name="planetakeoff">Fly letter</string>
+    <string name="login_branding">En del af Vend</string>
 </resources>

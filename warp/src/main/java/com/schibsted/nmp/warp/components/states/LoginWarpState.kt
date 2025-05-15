@@ -62,7 +62,7 @@ fun LoginWarpState(
         Image(
             modifier = Modifier.padding(top = WarpDimensions.space2),
             painter = painterResource(R.drawable.login_branding),
-            contentDescription = null,
+            contentDescription = stringResource(R.string.login_branding),
         )
     }
 }
