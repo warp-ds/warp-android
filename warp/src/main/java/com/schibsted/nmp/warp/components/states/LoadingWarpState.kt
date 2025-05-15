@@ -14,7 +14,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme
 @Composable
 fun LoadingWarpState(
     modifier: Modifier = Modifier.fillMaxSize(),
-    color: Color = WarpTheme.colors.background.secondary,
 ) {
     Box(
         modifier = modifier, contentAlignment = Alignment.Center
