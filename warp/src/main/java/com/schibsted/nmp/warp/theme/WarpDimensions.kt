@@ -43,6 +43,7 @@ object WarpDimensions {
 
     val icon = WarpIconDimensions
 
+    val maximumStateWidth = 420.dp
 
     /**
      * Helper methods contributed by Shiva Bernhard
@@ -61,6 +62,11 @@ object WarpDimensions {
         return coercedMax
     }
 
+}
+
+enum class ImageSize(val size: Dp) {
+    ICON(64.dp),
+    ILLUSTRATION(200.dp),
 }
 
 object WarpIconDimensions {
