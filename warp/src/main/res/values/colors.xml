@@ -177,4 +177,6 @@
     <color name="warp_dataviz_charttext_default">#ff1b1b1f</color>
     <color name="warp_dataviz_charttext_subtle">#ff5c5c66</color>
 
+    <color name="warp_icon_default">#ff1b1b1f</color>
+
 </resources>
