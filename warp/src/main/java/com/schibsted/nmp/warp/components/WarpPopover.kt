@@ -36,7 +36,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param edge Edge of the popover. Defaults to [Edge.Top]
  * @param horizontalOffset Horizontal offset of the popover. Defaults to 0.dp
  * @param verticalOffset Vertical offset of the popover. Defaults to 0.dp
- * @param inline If true, the popover will be inline with the anchor view. Defaults to false
+ * @param inline If true, the popover will be inline, meaning it can be used as a standalone component. Defaults to false
  * @param dismissPopoverOnClickOutside If true, the popover will be dismissed when clicking outside. Defaults to true
  * @param onDismiss Callback to be invoked when the popover is dismissed.
  * @param anchorView View to anchor the popover to. Defaults to null
@@ -114,8 +114,7 @@ internal fun WarpPopoverView(
         Modifier.shadowMedium(popoverShape(edge, offset, anchorPosition))
     }
     Box(
-        modifier = Modifier
-            .then(modifier)
+        modifier = modifier
             .then(shadow)
             .background(colors.surface.elevated300)
             .popoverPadding(edge)
