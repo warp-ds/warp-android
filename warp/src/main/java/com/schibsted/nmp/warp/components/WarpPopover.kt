@@ -55,6 +55,7 @@ fun WarpPopover(
     onDismiss: () -> Unit = {},
     anchorView: @Composable (() -> Unit)? = null,
 ) {
+    require((title.isNotBlank() && title.isNotEmpty()) && (body.isNotBlank() && body.isNotEmpty())) {"Title and body text must not be empty"}
     val popupPositionProvider = EdgePositionProvider(
         offset = DpOffset(horizontalOffset, verticalOffset),
         density = LocalDensity.current,
