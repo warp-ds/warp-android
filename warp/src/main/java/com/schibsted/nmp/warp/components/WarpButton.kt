@@ -8,6 +8,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,11 +27,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.clipRect
@@ -244,12 +249,14 @@ fun WarpButton(
             disabledContentColor = colors.text.inverted
         )
 
-        val borderStroke = warpButtonColors.border?.let {
+        val defaultBorder = warpButtonColors.border?.let {
             BorderStroke(
                 dimensions.space025,
                 it.default
             )
         }
+        val focusedBorder = BorderStroke(dimensions.space025, colors.border.focus)
+        var borderColor by remember { mutableStateOf(defaultBorder) }
 
         val elevation =
             if (!loading && style == WarpButtonStyle.UtilityOverlay) dimensions.shadowSmall else 0.dp
@@ -272,17 +279,24 @@ fun WarpButton(
             if (loading) modifier.loadingAnimation() else modifier
         }
 
-        val rippleConfiguration = RippleConfiguration(color = warpButtonColors.background.active, rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f))
+        val rippleConfiguration = RippleConfiguration(
+            color = warpButtonColors.background.active,
+            rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f)
+        )
         CompositionLocalProvider(
             LocalRippleConfiguration provides rippleConfiguration
         ) {
             Button(
-                modifier = buttonModifier,
+                modifier = buttonModifier
+                    .onFocusChanged {
+                        borderColor = if (it.isFocused) focusedBorder else defaultBorder
+                    }
+                    .focusable(),
                 onClick = clickAction,
                 enabled = enabled,
                 shape = shapes.roundedMedium,
                 colors = colors,
-                border = borderStroke,
+                border = borderColor,
                 content = content,
                 contentPadding = PaddingValues(
                     horizontal = paddingHorizontal,
@@ -406,8 +420,8 @@ internal fun buttonStyleUtilityQuiet() = WarpButtonStyleColors(
 internal fun buttonStyleLoading() = WarpButtonStyleColors(
     text = colors.text.default,
     background = WarpButtonElementColors(
-        default = if(isSystemInDarkTheme()) Color(0xFF47474f) else Color(0xfff6f6f6), //light - Gray50 dark- Gray700
-        active = if(isSystemInDarkTheme()) Color(0xFF1b1b1f) else Color(0XFFDEDEE3) //light - Gray200 dark - Gray900
+        default = if (isSystemInDarkTheme()) Color(0xFF47474f) else Color(0xfff6f6f6), //light - Gray50 dark- Gray700
+        active = if (isSystemInDarkTheme()) Color(0xFF1b1b1f) else Color(0XFFDEDEE3) //light - Gray200 dark - Gray900
     ),
     border = null
 )
