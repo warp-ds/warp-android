@@ -13,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.schibsted.nmp.warp.components.WarpRadio
@@ -39,7 +41,12 @@ private fun RadioScreenContent() {
     ) {
         WarpRadio(label = "Single Radio on", selected = true, enabled = true)
         WarpRadio(label = "Single Radio off", selected = false, enabled = true)
-        WarpRadio(label = "Radio with extraText", selected = true, enabled = true, extraText = "(Extra)")
+        WarpRadio(
+            label = "Radio with extraText",
+            selected = true,
+            enabled = true,
+            extraText = "(Extra)"
+        )
         WarpRadio(label = "Radio with icon", selected = true, enabled = true, slot = {
             Icon(
                 Icons.Filled.AccountCircle,
@@ -47,13 +54,50 @@ private fun RadioScreenContent() {
                 tint = colors.icon.disabled
             )
         })
+        val focus = remember { FocusRequester() }
+        WarpRadio(
+            modifier = Modifier.focusRequester(focus),
+            label = "Focus Radio on",
+            selected = true,
+            enabled = true,
+            onClick = { focus.requestFocus() })
 
-        RadioGroupSample("Default", enabled = true, isError = false, orientation = Orientation.Vertical)
-        RadioGroupSample("Disabled", enabled = false, isError = false, orientation = Orientation.Vertical)
-        RadioGroupSample("Error", enabled = true, isError = true, orientation = Orientation.Vertical)
-        RadioGroupSample("Default", enabled = true, isError = false, orientation = Orientation.Horizontal)
-        RadioGroupSample("Disabled", enabled = false, isError = false, orientation = Orientation.Horizontal)
-        RadioGroupSample("Error", enabled = true, isError = true, orientation = Orientation.Horizontal)
+        RadioGroupSample(
+            "Default",
+            enabled = true,
+            isError = false,
+            orientation = Orientation.Vertical
+        )
+        RadioGroupSample(
+            "Disabled",
+            enabled = false,
+            isError = false,
+            orientation = Orientation.Vertical
+        )
+        RadioGroupSample(
+            "Error",
+            enabled = true,
+            isError = true,
+            orientation = Orientation.Vertical
+        )
+        RadioGroupSample(
+            "Default",
+            enabled = true,
+            isError = false,
+            orientation = Orientation.Horizontal
+        )
+        RadioGroupSample(
+            "Disabled",
+            enabled = false,
+            isError = false,
+            orientation = Orientation.Horizontal
+        )
+        RadioGroupSample(
+            "Error",
+            enabled = true,
+            isError = true,
+            orientation = Orientation.Horizontal
+        )
     }
 }
 

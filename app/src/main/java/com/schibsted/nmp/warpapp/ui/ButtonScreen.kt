@@ -11,7 +11,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.schibsted.nmp.warp.components.WarpButton
@@ -51,10 +54,10 @@ private fun ButtonScreenContent() {
                     .fillMaxWidth()
                     .padding(horizontal = dimensions.space2)
             ) {
-                WarpButton(onClick = { /*TODO*/ }, style = style, text = "Click me")
-                WarpButton(onClick = { /*TODO*/ }, style = style, text = "Loading", loading = true)
+                WarpButton(onClick = { }, style = style, text = "Click me")
+                WarpButton(onClick = { }, style = style, text = "Loading", loading = true)
                 WarpButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { },
                     style = style,
                     text = "Disabled",
                     enabled = false
@@ -184,6 +187,29 @@ private fun ButtonScreenContent() {
                 modifier = Modifier
                     .fillMaxWidth()
             )
+        }
+        WarpText(
+            text = "Focused",
+            modifier = Modifier.padding(
+                top = dimensions.space2,
+                bottom = dimensions.space05,
+                start = dimensions.space2,
+                end = dimensions.space2
+            )
+        )
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = dimensions.space2)
+        ) {
+            val focus = remember { FocusRequester() }
+
+            WarpButton(
+                modifier = Modifier.focusRequester(focus),
+                onClick = { focus.requestFocus() },
+                style = WarpButtonStyle.Quiet,
+                text = "Click to focus",
+                )
         }
     }
 }
