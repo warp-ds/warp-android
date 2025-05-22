@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
@@ -24,15 +25,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.RadioButtonTokens.RadioAnimationDuration
+import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
@@ -140,8 +145,12 @@ internal fun WarpRadioButtonView(
         animationSpec = tween(durationMillis = RadioAnimationDuration), label = ""
     )
     val radioColor = colors.radioColor(enabled, selected, isError, interacted)
+    val radioFocusColor = WarpTheme.colors.border.focus
+    var borderColor by remember { mutableStateOf(Color.Transparent) }
     val optionalFillColor = colors.optionalFillColor(enabled, isError, interacted)
     val iconSize = dimensions.components.radioIconSize
+    val focusStrokeWidth = dimensions.borderWidth3
+    val focusRadius = 24.dp
     Canvas(
         Modifier
             .wrapContentSize(Alignment.Center)
@@ -151,8 +160,17 @@ internal fun WarpRadioButtonView(
                 interactionSource,
                 ripple(bounded = false, radius = dimensions.components.radioIconSize)
             )
+            .onFocusChanged {
+                borderColor = if (it.isFocused) radioFocusColor else Color.Transparent
+            }
+            .focusable()
     ) {
         // Draw the radio button
+        drawCircle(
+            borderColor,
+            radius = (focusRadius / 2).toPx() - focusStrokeWidth.toPx() / 2,
+            style = Stroke(focusStrokeWidth.toPx())
+        )
         drawCircle(
             radioColor.value,
             radius = (iconSize / 2).toPx() - strokeWidth.value.toPx() / 2,
