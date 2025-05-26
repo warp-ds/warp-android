@@ -72,3 +72,36 @@ internal fun Modifier.tooltipPadding(edge: Edge): Modifier = composed {
         )
     }
 }
+
+@Composable
+internal fun Modifier.popoverPadding(edge: Edge): Modifier = composed {
+    when (edge) {
+        Edge.Top -> this.padding(
+            top = dimensions.space3,
+            bottom = dimensions.space2,
+            start = dimensions.space2,
+            end = dimensions.space2
+        )
+
+        Edge.Bottom -> this.padding(
+            top = dimensions.space2,
+            bottom = dimensions.space3,
+            start = dimensions.space2,
+            end = dimensions.space2
+        )
+
+        Edge.Leading -> this.padding(
+            top = dimensions.space2,
+            bottom = dimensions.space2,
+            start = dimensions.space3,
+            end = dimensions.space2
+        )
+
+        Edge.Trailing -> this.padding(
+            top = dimensions.space2,
+            bottom = dimensions.space2,
+            start = dimensions.space2,
+            end = dimensions.space3
+        )
+    }
+}
