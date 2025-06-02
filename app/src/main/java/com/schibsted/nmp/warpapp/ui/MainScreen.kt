@@ -62,6 +62,11 @@ fun MainScreen() {
                     navController.navigate(it)
                 }
             }
+            composable("states") {
+                WarpStateScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("buttons") {
                 ButtonScreen {
                     navController.navigateUp()
@@ -222,6 +227,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
             LazyColumn(contentPadding = PaddingValues(dimensions.space1)) {
                 items(
                     listOf(
+                        "states" to "WarpState",
                         "alert" to "WarpAlert",
                         "badges" to "WarpBadge",
                         "box" to "WarpBox",
