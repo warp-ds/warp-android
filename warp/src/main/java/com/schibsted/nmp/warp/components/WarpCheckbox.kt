@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,9 +17,14 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.invisibleToUser
@@ -177,6 +183,8 @@ private fun WarpCheckboxIndicator(
     checkboxBorder: Color
 ) {
     val checkboxShape = warpCheckboxShape()
+    var borderColor by remember { mutableStateOf(checkboxBorder) }
+    val focusedBorderColor = colors.border.focus
     Box(
         modifier = Modifier
             .requiredSize(dimensions.components.checkbox.checkboxSize)
@@ -184,9 +192,13 @@ private fun WarpCheckboxIndicator(
                 color = checkboxColor,
                 shape = checkboxShape
             )
+            .onFocusChanged {
+                borderColor = if (it.isFocused) focusedBorderColor else checkboxBorder
+            }
+            .focusable()
             .border(
                 width = dimensions.borderWidth1,
-                color = checkboxBorder,
+                color = borderColor,
                 shape = checkboxShape
             ),
         contentAlignment = Alignment.Center
