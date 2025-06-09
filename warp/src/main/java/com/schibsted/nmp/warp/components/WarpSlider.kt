@@ -96,14 +96,20 @@ fun WarpSlider(
                             .fillMaxWidth(fraction)
                             .align(Alignment.CenterStart)
                             .height(dimensions.components.slider.activeTrackHeight)
-                            .background(warpSliderColors.activeTrackColor, CircleShape)
+                            .background(
+                                if (enabled) warpSliderColors.activeTrackColor else warpSliderColors.disabledActiveTrackColor,
+                                CircleShape
+                            )
                     )
                     Box(
                         Modifier
                             .fillMaxWidth(1f - fraction)
                             .align(Alignment.CenterEnd)
                             .height(dimensions.components.slider.inactiveTrackHeight)
-                            .background(warpSliderColors.inactiveTrackColor, CircleShape)
+                            .background(
+                                if (enabled) warpSliderColors.inactiveTrackColor else warpSliderColors.disabledInactiveTrackColor,
+                                CircleShape
+                            )
                     )
                     if (showRange) {
                         val startText =
@@ -115,9 +121,15 @@ fun WarpSlider(
                                 .padding(top = dimensions.space8)
                                 .fillMaxWidth()
                         ) {
-                            WarpText(startText)
+                            WarpText(
+                                text = startText,
+                                color = if (enabled) colors.text.default else colors.text.disabled
+                            )
                             Spacer(modifier = Modifier.weight(1f))
-                            WarpText(endText)
+                            WarpText(
+                                text = endText,
+                                color = if (enabled) colors.text.default else colors.text.disabled
+                            )
                         }
                     }
                 }
@@ -141,7 +153,7 @@ fun WarpSlider(
                                 )
                             )
                             .background(
-                                warpSliderColors.thumbColor,
+                                if(enabled) warpSliderColors.thumbColor else warpSliderColors.disabledThumbColor,
                                 WarpTheme.shapes.ellipse
                             )
                     )

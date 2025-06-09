@@ -45,6 +45,20 @@ fun SliderScreenContent() {
             formattedTooltipText = "${value.roundToInt()}"
             )
 
+        WarpText("Disabled slider")
+        WarpSlider(
+            modifier = Modifier.padding(bottom = dimensions.space4),
+            value = value,
+            onValueChange = { value = it },
+            valueRange = values,
+            showTooltip = true,
+            enabled = false,
+            showRange = true,
+            rangeStartText = values.start.roundToInt().toString(),
+            rangeEndText = values.endInclusive.roundToInt().toString(),
+            formattedTooltipText = "${value.roundToInt()}"
+        )
+
         WarpText("Regular Slider with range")
 
         WarpSlider(
