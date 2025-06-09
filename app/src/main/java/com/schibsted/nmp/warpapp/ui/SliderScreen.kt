@@ -11,7 +11,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.schibsted.nmp.warp.components.WarpSlider
+import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import kotlin.math.roundToInt
 
 @Composable
 fun SliderScreen(onUp: () -> Unit) {
@@ -27,13 +29,33 @@ fun SliderScreen(onUp: () -> Unit) {
 fun SliderScreenContent() {
     Column(
         modifier = Modifier
-            .padding(dimensions.space3),
+            .padding(vertical = dimensions.space7, horizontal = dimensions.space2),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        var value by remember { mutableFloatStateOf(.5f) }
+        var value by remember { mutableFloatStateOf(33f) }
+        val values = 0f..100f
+        WarpText("Slider with tooltip")
         WarpSlider(
+            modifier = Modifier.padding(bottom = dimensions.space4),
             value = value,
-            onValueChange = { value = it })
+            onValueChange = { value = it },
+            valueRange = values,
+            showTooltip = true,
+            formattedTooltipText = "${value.roundToInt()}"
+            )
+
+        WarpText("Regular Slider with range")
+
+        WarpSlider(
+            modifier = Modifier.padding(horizontal = dimensions.space2),
+            value = value,
+            onValueChange = { value = it },
+            valueRange = values,
+            showRange = true,
+            rangeStartText = values.start.roundToInt().toString(),
+            rangeEndText = values.endInclusive.roundToInt().toString(),
+            showTooltip = false
+        )
     }
 }
