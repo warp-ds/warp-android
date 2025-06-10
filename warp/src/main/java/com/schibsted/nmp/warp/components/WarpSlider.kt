@@ -37,12 +37,28 @@ import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
+/**
+ * A Slider component in the Warp design system.
+ * @param modifier Modifier for the slider. Default value is Modifier
+ * @param onValueChange The callback that is triggered when the value is changed. Returns a float value.
+ * @param value The current value of the slider. Default value is 0f
+ * @param valueRange The range of the slider. Default value is 0f..1f
+ * @param enabled Whether the slider is enabled. Default value is true
+ * @param onValueChangeFinished The callback that is triggered when the value change is finished. Default value is null
+ * @param showRange Whether to show the range of the slider as text below the track. Default value is false
+ * @param rangeStartText The text to be displayed on the start of the range. Default value is null, but if showRange is true, it will be the first value of the range using its toString() method
+ * @param rangeEndText The text to be displayed on the end of the range. Default value is null, but if showRange is true, it will be the last value of the range using its toString() method
+ * @param showTooltip Whether to show the tooltip. Default value is true
+ * @param formattedTooltipText The text to be displayed in the tooltip. Default value is null, but if showTooltip is true, it will be the current value of the slider using its toString() method
+ * @param steps The number of steps the slider can have. Default value is 0
+ * @param interactionSource The interaction source for the slider. Default value is remember { MutableInteractionSource() }
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpSlider(
     modifier: Modifier = Modifier,
-    value: Float,
     onValueChange: (Float) -> Unit,
+    value: Float = 0f,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     enabled: Boolean = true,
     onValueChangeFinished: (() -> Unit)? = null,
