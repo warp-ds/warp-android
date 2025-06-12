@@ -211,6 +211,29 @@ private fun ButtonScreenContent() {
                 text = "Click to focus",
                 )
         }
+        WarpText(
+            text = "With multiple lines",
+            modifier = Modifier.padding(
+                top = dimensions.space2,
+                bottom = dimensions.space05,
+                start = dimensions.space2,
+                end = dimensions.space2
+            )
+        )
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = dimensions.space2)
+        ) {
+            val focus = remember { FocusRequester() }
+
+            WarpButton(
+                modifier = Modifier.focusRequester(focus),
+                onClick = { focus.requestFocus() },
+                text = "Explore All Features and Compare Plans Before You Choose",
+                maxLines = 2
+            )
+        }
     }
 }
 
