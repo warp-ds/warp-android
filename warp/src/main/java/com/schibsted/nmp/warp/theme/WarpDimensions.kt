@@ -88,6 +88,7 @@ object SliderDimensions {
     val inactiveTrackHeight = 4.dp
     val indicatorHeight = 4.dp
     val indicatorWidth = 4.dp
+    val tooltipWidth = 60.dp
 }
 
 object TooltipDimensions {
