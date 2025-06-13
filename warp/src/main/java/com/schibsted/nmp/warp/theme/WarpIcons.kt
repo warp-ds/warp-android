@@ -44,7 +44,8 @@ object WarpIconResources {
     @Composable
     fun getResourceIdByName(resourceName: String): Int {
         val context = LocalContext.current
-        return context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+        val resourceNameWithAppendix = if(!resourceName.contains("warp_")) "warp_$resourceName" else resourceName
+        return context.resources.getIdentifier(resourceNameWithAppendix, "drawable", context.packageName)
     }
 
     @Composable
@@ -56,8 +57,9 @@ object WarpIconResources {
     @Composable
     fun getIconByName(resourceName: String): WarpIconResource? {
         val context = LocalContext.current
+        val resourceNameWithAppendix = if(!resourceName.contains("warp_")) "warp_$resourceName" else resourceName
         val drawableResourceId =
-            context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+            context.resources.getIdentifier(resourceNameWithAppendix, "drawable", context.packageName)
         val stringResourceId =
             context.resources.getIdentifier(resourceName, "string", context.packageName)
 

@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -100,7 +101,7 @@ private fun ExpandableContent(
             IconButton(onClick = onExpandButtonClicked) {
                 WarpIcon(
                     icon = icons.chevronDown,
-                    size = dimensions.icon.small,
+                    size = adaptDpToFontScale(dimensions.icon.small),
                     color = WarpTheme.colors.icon.default,
                     modifier = Modifier.rotate(rotation)
                 )
