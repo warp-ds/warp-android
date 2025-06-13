@@ -62,7 +62,7 @@ class WarpIconTest(
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
                         || it.returnType.classifier == WarpBrandIconResource::class
             }
-        Assert.assertEquals(295, count)
+        Assert.assertEquals(294, count)
     }
 
     @Test
@@ -275,7 +275,6 @@ class WarpIconTest(
                     icons.heartRate,
                     icons.hiking,
                     icons.history,
-                    icons.honk,
                     icons.hotel,
                     icons.house,
                     icons.houseBed,

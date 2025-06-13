@@ -192,7 +192,6 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.heartRate, size)
     CreateIcon(icons.hiking, size)
     CreateIcon(icons.history, size)
-    CreateIcon(icons.honk, size)
     CreateIcon(icons.hotel, size)
     CreateIcon(icons.house, size)
     CreateIcon(icons.houseBed, size)

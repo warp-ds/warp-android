@@ -95,7 +95,6 @@ object WarpIconResources {
             football,
             geometricShapes,
             guitarBat,
-            honk,
             hotel,
             iceSkater,
             job,
@@ -1084,14 +1083,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_history),
             stringResource(R.string.history)
-        )
-
-    val honk: WarpBrandIconResource
-        @Composable
-        get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.honk_),
-            stringResource(R.string.honk),
-            identifier = "honk"
         )
 
     val hotel: WarpTaxonomyIconResource
