@@ -267,6 +267,7 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.productStarred, size)
     CreateIcon(icons.productTop, size)
     CreateIcon(icons.propeller, size)
+    CreateIcon(icons.qasa, size)
     CreateIcon(icons.question, size)
     CreateIcon(icons.realEstate, size)
     CreateIcon(icons.refresh, size)

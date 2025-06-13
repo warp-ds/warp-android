@@ -106,6 +106,7 @@ object WarpIconResources {
             paintRoller,
             paw,
             phoneBadgeCheck,
+            qasa,
             realEstate,
             remppatori,
             sailboat,
@@ -1619,6 +1620,14 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_propeller),
             stringResource(R.string.propeller)
+        )
+
+    val qasa: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.qasa),
+            stringResource(R.string.qasa),
+            identifier = "qasa"
         )
 
     val question: WarpIconResource

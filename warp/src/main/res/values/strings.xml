@@ -295,5 +295,6 @@
     <string name="planetakeoff">Plane taking off</string>
     <string name="copy">Two overlapping squares</string>
     <string name="dragdots">Two-column, three-row grid of dots</string>
+    <string name="qasa">Qasa logo</string>
 
 </resources>
