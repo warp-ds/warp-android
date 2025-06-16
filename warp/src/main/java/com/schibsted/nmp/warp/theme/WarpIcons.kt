@@ -239,7 +239,7 @@ object WarpIconResources {
     val autovex: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.autovex_),
+            ImageVector.vectorResource(id = R.drawable.warp_autovex),
             stringResource(R.string.autovex),
             identifier = "autovex"
         )
@@ -1352,7 +1352,7 @@ object WarpIconResources {
     val mittAnbud: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.mitt_anbud),
+            ImageVector.vectorResource(id = R.drawable.warp_mitt_anbud),
             stringResource(R.string.mittanbud),
             identifier = "mitt-anbud"
         )
@@ -1389,7 +1389,7 @@ object WarpIconResources {
     val nettbil: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.nett_bil),
+            ImageVector.vectorResource(id = R.drawable.warp_nett_bil),
             stringResource(R.string.nettbil),
             identifier = "nettbil"
         )
@@ -1425,7 +1425,7 @@ object WarpIconResources {
     val oikotie: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.oikotie_),
+            ImageVector.vectorResource(id = R.drawable.warp_oikotie),
             stringResource(R.string.oikotie),
             identifier = "oikotie"
         )
@@ -1625,7 +1625,7 @@ object WarpIconResources {
     val qasa: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.qasa),
+            ImageVector.vectorResource(id = R.drawable.warp_qasa),
             stringResource(R.string.qasa),
             identifier = "qasa"
         )
@@ -1655,7 +1655,7 @@ object WarpIconResources {
     val remppatori: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.remppa_tori),
+            ImageVector.vectorResource(id = R.drawable.warp_remppa_tori),
             stringResource(R.string.remppatori),
             identifier = "remppatori"
         )
