@@ -2,10 +2,8 @@ package com.schibsted.nmp.warp.components
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -15,7 +13,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -127,14 +124,10 @@ fun WarpBox(
                     width = Dimension.preferredWrapContent
                 }) {
                 link?.let {
-                    WarpText(
+                    WarpLink(
                         text = link,
-                        style = WarpTextStyle.Body,
-                        color = colors.text.link,
-                        textDecoration = TextDecoration.Underline,
-                        modifier = Modifier
-                            .defaultMinSize(minWidth = dimensions.minimumTouchSize, minHeight = dimensions.minimumTouchSize)
-                            .clickable { linkAction?.invoke() }
+                        onClick = { linkAction?.invoke() },
+                        underline = true
                     )
                 }
             }
