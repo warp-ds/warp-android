@@ -3,6 +3,8 @@ package com.schibsted.nmp.warpapp.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -29,7 +31,8 @@ fun SliderScreen(onUp: () -> Unit) {
 fun SliderScreenContent() {
     Column(
         modifier = Modifier
-            .padding(vertical = dimensions.space7, horizontal = dimensions.space2),
+            .padding(vertical = dimensions.space7, horizontal = dimensions.space2)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -37,7 +40,7 @@ fun SliderScreenContent() {
         val values = 0f..100f
         WarpText("Slider with tooltip")
         WarpSlider(
-            modifier = Modifier.padding(bottom = dimensions.space4),
+            modifier = Modifier.padding(vertical = dimensions.space4),
             value = value,
             onValueChange = { value = it },
             valueRange = values,

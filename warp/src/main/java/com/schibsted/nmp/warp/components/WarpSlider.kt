@@ -31,7 +31,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.core.view.HapticFeedbackConstantsCompat
 import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -90,10 +92,16 @@ fun WarpSlider(
     CompositionLocalProvider(
         LocalRippleConfiguration provides rippleConfiguration
     ) {
+        require(valueRange.endInclusive > valueRange.start)
+
+        val view = LocalView.current
         Slider(
             modifier = modifier,
             value = value,
-            onValueChange = onValueChange,
+            onValueChange = {
+                view.performHapticFeedback(HapticFeedbackConstantsCompat.CLOCK_TICK)
+                onValueChange.invoke(it)
+            },
             enabled = enabled,
             onValueChangeFinished = onValueChangeFinished,
             valueRange = valueRange,
@@ -169,7 +177,7 @@ fun WarpSlider(
                                 )
                             )
                             .background(
-                                if(enabled) warpSliderColors.thumbColor else warpSliderColors.disabledThumbColor,
+                                if (enabled) warpSliderColors.thumbColor else warpSliderColors.disabledThumbColor,
                                 WarpTheme.shapes.ellipse
                             )
                     )
