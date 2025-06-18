@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.schibsted.nmp.warp.components.ext.alertBorder
+import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -74,7 +75,7 @@ fun WarpAlert(
                 top.linkTo(titleRef.top)
             },
             color = colors.icon,
-            size = dimensions.icon.small,
+            size = adaptDpToFontScale(dimensions.icon.default),
             icon = icon
         )
 
