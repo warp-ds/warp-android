@@ -119,7 +119,7 @@ fun WarpToast(
                     WarpIcon(
                         icon = icon,
                         color = colors.icon,
-                        size = adaptDpToFontScale(dimensions.icon.small)
+                        size = adaptDpToFontScale(dimensions.icon.default)
                     )
                     Spacer(modifier = Modifier.width(dimensions.space1))
                     state.message.value?.let {
