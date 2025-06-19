@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextDecoration
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
@@ -37,16 +39,16 @@ fun WarpLink(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier
+        modifier = modifier.then(Modifier
             .defaultMinSize(
                 minWidth = dimensions.minimumTouchSize,
                 minHeight = dimensions.minimumTouchSize
             )
-            .semantics(mergeDescendants = true) { }
-            .clickable { onClick.invoke() }
+            .semantics(mergeDescendants = true, properties = { role = Role.Button })
+            .clickable { onClick.invoke() })
     ) {
         WarpText(
-            modifier = modifier.then(Modifier.weight(if (icon != null) 0.9f else 1f, fill = false)),
+            modifier = Modifier.weight(if (icon != null) 0.9f else 1f, fill = false),
             text = text,
             color = textColor,
             style = style,
