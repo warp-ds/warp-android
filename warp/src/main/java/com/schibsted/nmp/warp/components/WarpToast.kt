@@ -34,7 +34,7 @@ import kotlin.concurrent.schedule
  * @param modifier Modifier for the toast
  * @param state State of the toast. Used to show or hide the toast and to set/change the text.
  * @param type Type of the toast. Success, Warning or Error.
- * @param duration Duration of the toast. Short, long or infinite.
+ * @param duration Duration of the toast. Short, medium or infinite.
  * @param onDismiss Callback to be invoked when the toast is dismissed.
  */
 @Composable
@@ -169,8 +169,8 @@ enum class WarpToastType {
 }
 
 object WarpToastDuration {
-    const val SHORT = 3000L
-    const val LONG = 10000L
+    const val SHORT = 5000L
+    const val MEDIUM = 10000L
     const val INFINITE = 6000000L
 }
 
