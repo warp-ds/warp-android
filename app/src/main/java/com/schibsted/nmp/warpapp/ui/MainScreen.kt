@@ -97,6 +97,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("textFieldWithFieldValue") {
+                TextFieldWithTextFieldValueScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("expandable") {
                 ExpandableScreen {
                     navController.navigateUp()
@@ -247,6 +252,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "switch" to "WarpSwitch",
                         "tabs" to "WarpTab and WarpTabGroup",
                         "textField" to "WarpTextField",
+                        "textFieldWithFieldValue" to "WarpTextField with TextFieldValue",
                         "toast" to "WarpToast",
                         "tooltip" to "WarpTooltip",
                         "typography" to "Typography",
