@@ -59,7 +59,7 @@ fun ToastScreenContent() {
         WarpToast(
             state = toastWarning,
             type = WarpToastType.Warning,
-            duration = WarpToastDuration.LONG
+            duration = WarpToastDuration.MEDIUM
         )
         WarpToast(
             state = toastError,
