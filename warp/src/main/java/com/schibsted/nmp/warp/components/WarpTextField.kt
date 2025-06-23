@@ -238,30 +238,6 @@ fun WarpTextField(
     }
 }
 
-/**
- * A Textfield in the warp design system.
- * For more info, look [here](https://warp-ds.github.io/tech-docs/components/textfield/)
- * @param textFieldValue The text entered by user
- * @param onValueChange lambda to be invoked when text is changed
- * @param modifier Modifier for the textfield. Default value is Modifier
- * @param enabled set to false to disable the textfield. default value is true
- * @param readOnly set to true to disable the textfield but show the value. default value is false
- * @param label The label to be displayed on the textfield
- * @param optionalLabel The optional label to be displayed on the textfield horizontally next to the label
- * @param placeholderText The hint text to be displayed on the textfield
- * @param helpText The help text to be displayed below the textfield
- * @param prefixText The text to be displayed on the left side of the textfield before the input text
- * @param suffixText The text to be displayed on the right side of the textfield after the input text
- * @param leadingIcon The icon to be displayed on the left side of the textfield
- * @param trailingIcon The icon to be displayed on the right side of the textfield
- * @param isError set to true to show the error state of the textfield. default value is false
- * @param visualTransformation The visual transformation to be applied on the textfield. default value is VisualTransformation.None
- * @param keyboardOptions The keyboard options to be applied on the textfield. default value is KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
- * @param keyboardActions The keyboard actions to be applied on the textfield. default value is KeyboardActions.Default
- * @param singleLine set to true to limit the textfield to single line. default value is false
- * @param maxLines The maximum number of lines to be displayed on the textfield. default value is Int.MAX_VALUE
- * @param interactionSource The interaction source to be applied on the textfield. default value is MutableInteractionSource()
- */
 @Composable
 private fun WarpTextFieldContainer(
     modifier: Modifier = Modifier,
