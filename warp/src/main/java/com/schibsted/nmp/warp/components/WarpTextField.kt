@@ -17,17 +17,16 @@ import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
@@ -86,40 +85,62 @@ fun WarpTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     textStyle: WarpTextStyle = WarpTextStyle.Body,
 ) {
-    val textState = remember { mutableStateOf(TextFieldValue(value, TextRange(value.length))) }
-    WarpTextFieldInternal(
-        value = textState.value,
-        onValueChange = {
-            textState.value = it
-            onValueChange(it.text)
-        },
+    WarpTextFieldContainer(
         modifier = modifier,
         label = label,
         enabled = enabled,
-        readOnly = readOnly,
         optionalLabel = optionalLabel,
-        placeholderText = placeholderText,
         helpText = helpText,
-        prefixText = prefixText,
-        suffixText = suffixText,
-        leadingIcon = leadingIcon,
-        trailingIcon = trailingIcon,
-        isError = isError,
-        visualTransformation = visualTransformation,
-        keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions,
-        singleLine = singleLine,
-        minLines = minLines,
-        maxLines = maxLines,
-        interactionSource = interactionSource,
-        textStyle = textStyle
-    )
+        isError = isError
+    ) {
+        val focused by interactionSource.collectIsFocusedAsState()
+
+        //Value text color should change to default if isError is true and the textfield is focused
+        val textColorValue = getTextColor(
+            isError = isError, enabled = enabled, focused = focused
+        )
+        val textColor = rememberUpdatedState(textColorValue).value
+        val mergedTextStyle = getTextStyle(style = textStyle).merge(TextStyle(color = textColor))
+        val cursorColor =
+            rememberUpdatedState(if (isError) colors.icon.negative else colors.icon.default).value
+
+        BasicTextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            readOnly = readOnly,
+            textStyle = mergedTextStyle,
+            cursorBrush = SolidColor(cursorColor),
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            singleLine = singleLine,
+            maxLines = maxLines,
+            minLines = minLines,
+            interactionSource = interactionSource,
+            decorationBox = getOutlineDecorationBox(
+                value,
+                visualTransformation,
+                placeholderText,
+                leadingIcon,
+                trailingIcon,
+                prefixText,
+                suffixText,
+                singleLine,
+                enabled,
+                isError,
+                interactionSource,
+                readOnly
+            )
+        )
+    }
 }
 
 /**
  * A Textfield in the warp design system.
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/textfield/)
- * @param textFieldValue The text entered by user
+ * @param textFieldValue The text entered by user handled as [TextFieldValue]
  * @param onValueChange lambda to be invoked when text is changed
  * @param modifier Modifier for the textfield. Default value is Modifier
  * @param enabled set to false to disable the textfield. default value is true
@@ -165,58 +186,187 @@ fun WarpTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     textStyle: WarpTextStyle = WarpTextStyle.Body,
 ) {
-    WarpTextFieldInternal(
-        value = textFieldValue,
-        onValueChange = onValueChange,
+    WarpTextFieldContainer(
         modifier = modifier,
         label = label,
         enabled = enabled,
-        readOnly = readOnly,
         optionalLabel = optionalLabel,
-        placeholderText = placeholderText,
         helpText = helpText,
-        prefixText = prefixText,
-        suffixText = suffixText,
-        leadingIcon = leadingIcon,
-        trailingIcon = trailingIcon,
-        isError = isError,
-        visualTransformation = visualTransformation,
-        keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions,
-        singleLine = singleLine,
-        minLines = minLines,
-        maxLines = maxLines,
-        interactionSource = interactionSource,
-        textStyle = textStyle
-    )
+        isError = isError
+    ) {
+        val focused by interactionSource.collectIsFocusedAsState()
+
+        //Value text color should change to default if isError is true and the textfield is focused
+        val textColorValue = getTextColor(
+            isError = isError, enabled = enabled, focused = focused
+        )
+        val textColor = rememberUpdatedState(textColorValue).value
+        val mergedTextStyle = getTextStyle(style = textStyle).merge(TextStyle(color = textColor))
+        val cursorColor =
+            rememberUpdatedState(if (isError) colors.icon.negative else colors.icon.default).value
+
+        BasicTextField(
+            value = textFieldValue,
+            onValueChange = onValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            readOnly = readOnly,
+            textStyle = mergedTextStyle,
+            cursorBrush = SolidColor(cursorColor),
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            singleLine = singleLine,
+            maxLines = maxLines,
+            minLines = minLines,
+            interactionSource = interactionSource,
+            decorationBox = getOutlineDecorationBox(
+                textFieldValue.text,
+                visualTransformation,
+                placeholderText,
+                leadingIcon,
+                trailingIcon,
+                prefixText,
+                suffixText,
+                singleLine,
+                enabled,
+                isError,
+                interactionSource,
+                readOnly
+            )
+        )
+    }
 }
 
+/**
+ * A Textfield in the warp design system.
+ * For more info, look [here](https://warp-ds.github.io/tech-docs/components/textfield/)
+ * @param textFieldValue The text entered by user
+ * @param onValueChange lambda to be invoked when text is changed
+ * @param modifier Modifier for the textfield. Default value is Modifier
+ * @param enabled set to false to disable the textfield. default value is true
+ * @param readOnly set to true to disable the textfield but show the value. default value is false
+ * @param label The label to be displayed on the textfield
+ * @param optionalLabel The optional label to be displayed on the textfield horizontally next to the label
+ * @param placeholderText The hint text to be displayed on the textfield
+ * @param helpText The help text to be displayed below the textfield
+ * @param prefixText The text to be displayed on the left side of the textfield before the input text
+ * @param suffixText The text to be displayed on the right side of the textfield after the input text
+ * @param leadingIcon The icon to be displayed on the left side of the textfield
+ * @param trailingIcon The icon to be displayed on the right side of the textfield
+ * @param isError set to true to show the error state of the textfield. default value is false
+ * @param visualTransformation The visual transformation to be applied on the textfield. default value is VisualTransformation.None
+ * @param keyboardOptions The keyboard options to be applied on the textfield. default value is KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
+ * @param keyboardActions The keyboard actions to be applied on the textfield. default value is KeyboardActions.Default
+ * @param singleLine set to true to limit the textfield to single line. default value is false
+ * @param maxLines The maximum number of lines to be displayed on the textfield. default value is Int.MAX_VALUE
+ * @param interactionSource The interaction source to be applied on the textfield. default value is MutableInteractionSource()
+ */
 @Composable
-private fun WarpTextFieldInternal(
-    value: TextFieldValue,
-    onValueChange: (TextFieldValue) -> Unit,
+private fun WarpTextFieldContainer(
     modifier: Modifier = Modifier,
     label: String? = null,
     enabled: Boolean = true,
-    readOnly: Boolean = false,
     optionalLabel: String? = null,
-    placeholderText: String? = null,
     helpText: String? = null,
-    prefixText: String? = null,
-    suffixText: String? = null,
-    leadingIcon: @Composable (() -> Unit)? = null,
-    trailingIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    keyboardOptions: KeyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
-    singleLine: Boolean = false,
-    minLines: Int = 1,
-    maxLines: Int = Int.MAX_VALUE,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    textStyle: WarpTextStyle = WarpTextStyle.Body,
+    textField: @Composable () -> Unit,
 ) {
-    val textFieldColors = OutlinedTextFieldDefaults.colors(
+    Column(modifier) {
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.padding(top = dimensions.space025, bottom = dimensions.space05),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            label?.let {
+                WarpText(text = label, style = WarpTextStyle.Title5, color = colors.text.default)
+                optionalLabel?.let {
+                    WarpText(
+                        text = it,
+                        style = WarpTextStyle.Detail,
+                        color = colors.text.default,
+                        modifier = Modifier.padding(horizontal = dimensions.space1)
+                    )
+                }
+            }
+        }
+        //Help text color should remain the same if isError is true and the textfield is focused
+        val helpTextColor =
+            rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default).value
+        val cursorHandleColor =
+            rememberUpdatedState(if (isError) colors.icon.negative else colors.border.focus).value
+
+        val customTextSelectionColors = TextSelectionColors(
+            handleColor = cursorHandleColor,
+            backgroundColor = cursorHandleColor,
+        )
+        CompositionLocalProvider(
+            LocalTextSelectionColors provides customTextSelectionColors
+        ) {
+            textField()
+        }
+        helpText?.let {
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier.padding(top = dimensions.space05, bottom = dimensions.space025),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                WarpText(text = helpText, style = WarpTextStyle.Detail, color = helpTextColor)
+            }
+        }
+    }
+}
+
+@Composable
+private fun getOutlineDecorationBox(
+    value: String,
+    visualTransformation: VisualTransformation,
+    placeholderText: String?,
+    leadingIcon: @Composable (() -> Unit)?,
+    trailingIcon: @Composable (() -> Unit)?,
+    prefixText: String?,
+    suffixText: String?,
+    singleLine: Boolean,
+    enabled: Boolean,
+    isError: Boolean,
+    interactionSource: MutableInteractionSource,
+    readOnly: Boolean
+) = @Composable { innerTextField: @Composable () -> Unit ->
+    OutlinedTextFieldDefaults.DecorationBox(
+        value = value,
+        visualTransformation = visualTransformation,
+        innerTextField = innerTextField,
+        placeholder = { placeholder(placeholderText) },
+        label = null,
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
+        prefix = { prefix(prefixText) },
+        suffix = { suffix(suffixText) },
+        supportingText = null,
+        singleLine = singleLine,
+        enabled = enabled,
+        isError = isError,
+        interactionSource = interactionSource,
+        colors = textFieldColors(readOnly),
+        contentPadding = PaddingValues(
+            start = dimensions.space2.ifTrueOtherwise(!readOnly) { 0.dp },
+            top = dimensions.space2,
+            end = dimensions.space2,
+            bottom = dimensions.space2
+        ),
+        container = {
+            OutlinedTextFieldDefaults.ContainerBox(
+                enabled,
+                isError,
+                interactionSource,
+                textFieldColors(readOnly),
+                OutlinedTextFieldDefaults.shape
+            )
+        })
+}
+
+private val textFieldColors: @Composable (Boolean) -> TextFieldColors = { readOnly ->
+    OutlinedTextFieldDefaults.colors(
         unfocusedTextColor = colors.text.default,
         unfocusedBorderColor = colors.border.default.ifTrueOtherwise(!readOnly) { Color.Transparent },
         unfocusedLabelColor = colors.text.default,
@@ -261,142 +411,41 @@ private fun WarpTextFieldInternal(
         disabledTrailingIconColor = colors.icon.disabled,
         disabledPlaceholderColor = colors.text.disabled
     )
+}
 
-    val placeholder: @Composable () -> Unit = {
-        placeholderText?.let {
-            WarpText(
-                text = it,
-                style = WarpTextStyle.Body,
-                color = colors.text.placeholder
-            )
-        }
-    }
-
-    val prefix: @Composable () -> Unit = {
-        prefixText?.let {
-            WarpText(
-                text = it,
-                style = WarpTextStyle.Body,
-                color = colors.text.default
-            )
-        }
-    }
-
-    val suffix: @Composable () -> Unit = {
-        suffixText?.let {
-            WarpText(
-                text = it,
-                style = WarpTextStyle.Body,
-                color = colors.text.default
-            )
-        }
-    }
-
-    Column(modifier) {
-        Row(
-            horizontalArrangement = Arrangement.Start,
-            modifier = Modifier.padding(top = dimensions.space025, bottom = dimensions.space05),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            label?.let {
-                WarpText(text = label, style = WarpTextStyle.Title5, color = colors.text.default)
-                optionalLabel?.let {
-                    WarpText(
-                        text = it,
-                        style = WarpTextStyle.Detail,
-                        color = colors.text.default,
-                        modifier = Modifier.padding(horizontal = dimensions.space1)
-                    )
-                }
-            }
-        }
-
-        val focused by interactionSource.collectIsFocusedAsState()
-
-        //Value text color should change to default if isError is true and the textfield is focused
-        val textColorValue = when {
-            !enabled -> colors.text.disabled
-            focused -> colors.text.default
-            isError -> colors.text.negative
-            else -> colors.text.default
-        }
-        val textColor = rememberUpdatedState(textColorValue).value
-        //Help text color should remain the same if isError is true and the textfield is focused
-        val helpTextColor =
-            rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default).value
-        val mergedTextStyle = getTextStyle(style = textStyle).merge(TextStyle(color = textColor))
-        val cursorColor =
-            rememberUpdatedState(if (isError) colors.icon.negative else colors.icon.default).value
-        val cursorHandleColor =
-            rememberUpdatedState(if (isError) colors.icon.negative else colors.border.focus).value
-
-        val customTextSelectionColors = TextSelectionColors(
-            handleColor = cursorHandleColor,
-            backgroundColor = cursorHandleColor,
+private val placeholder: @Composable (String?) -> Unit = { placeholderText ->
+    placeholderText?.let {
+        WarpText(
+            text = it, style = WarpTextStyle.Body, color = colors.text.placeholder
         )
-        CompositionLocalProvider(
-            LocalTextSelectionColors provides customTextSelectionColors
-        ) {
-            BasicTextField(
-                value = value,
-                onValueChange = onValueChange,
-                modifier = Modifier.fillMaxWidth(),
-                enabled = enabled,
-                readOnly = readOnly,
-                textStyle = mergedTextStyle,
-                cursorBrush = SolidColor(cursorColor),
-                visualTransformation = visualTransformation,
-                keyboardOptions = keyboardOptions,
-                keyboardActions = keyboardActions,
-                singleLine = singleLine,
-                maxLines = maxLines,
-                minLines = minLines,
-                interactionSource = interactionSource,
-                decorationBox = @Composable { innerTextField ->
-                    OutlinedTextFieldDefaults.DecorationBox(
-                        value = value.text,
-                        visualTransformation = visualTransformation,
-                        innerTextField = innerTextField,
-                        placeholder = placeholder,
-                        label = null,
-                        leadingIcon = leadingIcon,
-                        trailingIcon = trailingIcon,
-                        prefix = prefix,
-                        suffix = suffix,
-                        supportingText = null,
-                        singleLine = singleLine,
-                        enabled = enabled,
-                        isError = isError,
-                        interactionSource = interactionSource,
-                        colors = textFieldColors,
-                        contentPadding = PaddingValues(
-                            start = dimensions.space2.ifTrueOtherwise(!readOnly) { 0.dp },
-                            top = dimensions.space2,
-                            end = dimensions.space2,
-                            bottom = dimensions.space2
-                        ),
-                        container = {
-                            OutlinedTextFieldDefaults.ContainerBox(
-                                enabled,
-                                isError,
-                                interactionSource,
-                                textFieldColors,
-                                OutlinedTextFieldDefaults.shape
-                            )
-                        }
-                    )
-                }
-            )
-        }
-        helpText?.let {
-            Row(
-                horizontalArrangement = Arrangement.Start,
-                modifier = Modifier.padding(top = dimensions.space05, bottom = dimensions.space025),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                WarpText(text = helpText, style = WarpTextStyle.Detail, color = helpTextColor)
-            }
-        }
+    }
+}
+
+private val prefix: @Composable (String?) -> Unit = { prefixText ->
+    prefixText?.let {
+        WarpText(
+            text = it, style = WarpTextStyle.Body, color = colors.text.default
+        )
+    }
+}
+
+private val suffix: @Composable (String?) -> Unit = { suffixText ->
+    suffixText?.let {
+        WarpText(
+            text = it, style = WarpTextStyle.Body, color = colors.text.default
+        )
+    }
+}
+
+@Composable
+private fun getTextColor(
+    isError: Boolean, enabled: Boolean, focused: Boolean
+): Color {
+    return when {
+        !enabled -> colors.text.disabled
+        focused -> colors.text.default
+        isError -> colors.text.negative
+        else -> colors.text.default
     }
 }
 
@@ -416,6 +465,5 @@ fun WarpTextFieldPreview() {
         optionalLabel = "Hey hey",
         helpText = "Help text",
         placeholderText = "Hint",
-        onValueChange = {}
-    )
+        onValueChange = {})
 }
