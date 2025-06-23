@@ -62,7 +62,7 @@ class WarpIconTest(
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
                         || it.returnType.classifier == WarpBrandIconResource::class
             }
-        Assert.assertEquals(293, count)
+        Assert.assertEquals(295, count)
     }
 
     @Test
@@ -174,6 +174,7 @@ class WarpIconTest(
                     icons.close,
                     icons.cog,
                     icons.colorPalette,
+                    icons.copy,
                     icons.cottagePlot,
                     icons.creditCard,
                     icons.cursor,
@@ -197,6 +198,7 @@ class WarpIconTest(
                     icons.dotsVertical,
                     icons.doubleBed,
                     icons.download,
+                    icons.dragDots,
                     icons.drawer,
                     icons.drink,
                 )
@@ -273,7 +275,6 @@ class WarpIconTest(
                     icons.heartRate,
                     icons.hiking,
                     icons.history,
-                    icons.honk,
                     icons.hotel,
                     icons.house,
                     icons.houseBed,
@@ -439,6 +440,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.qasa,
                     icons.question,
                 )
             )

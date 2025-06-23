@@ -1,20 +1,18 @@
 package com.schibsted.nmp.warp.components
 
 import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.schibsted.nmp.warp.components.ext.alertBorder
+import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpResources.icons
-import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
@@ -77,7 +75,7 @@ fun WarpAlert(
                 top.linkTo(titleRef.top)
             },
             color = colors.icon,
-            size = dimensions.icon.small,
+            size = adaptDpToFontScale(dimensions.icon.default),
             icon = icon
         )
 
@@ -88,7 +86,12 @@ fun WarpAlert(
             WarpText(
                 modifier = Modifier
                     .constrainAs(titleRef) {
-                        linkTo(start = iconRef.end, end = parent.end, startMargin = margin, bias = 0f)
+                        linkTo(
+                            start = iconRef.end,
+                            end = parent.end,
+                            startMargin = margin,
+                            bias = 0f
+                        )
                         top.linkTo(parent.top)
                         width = Dimension.preferredWrapContent
                     },
@@ -114,23 +117,21 @@ fun WarpAlert(
             style = WarpTextStyle.Body
         )
         linkText?.let {
-            WarpText(
-                modifier = Modifier
-                    .constrainAs(linkRef) {
-                        linkTo(
-                            start = iconRef.end,
-                            startMargin = margin,
-                            end = parent.end,
-                            bias = 0f
-                        )
-                        top.linkTo(bodyRef.bottom, margin = margin)
-                        width = Dimension.preferredWrapContent
-                    }
-                    .clickable { linkAction?.invoke() },
+            WarpLink(
+                modifier = Modifier.constrainAs(linkRef) {
+                    linkTo(
+                        start = iconRef.end,
+                        startMargin = margin,
+                        end = parent.end,
+                        bias = 0f
+                    )
+                    top.linkTo(bodyRef.bottom, margin = margin)
+                    width = Dimension.preferredWrapContent
+                },
                 text = linkText,
+                onClick = { linkAction?.invoke() },
                 style = WarpTextStyle.Body,
-                color = WarpTheme.colors.text.link,
-                textDecoration = TextDecoration.Underline,
+                underline = true
             )
         }
         secondaryButtonText?.let {

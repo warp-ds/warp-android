@@ -13,9 +13,11 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -43,6 +45,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -105,6 +108,7 @@ fun WarpButton(
             overflow = TextOverflow.Ellipsis,
             maxLines = maxLines,
             style = textStyle,
+            textAlign = TextAlign.Center
         )
         trailingIcon?.let {
             it()
@@ -519,7 +523,7 @@ fun WarpButtonPreview(
             onClick = { },
             style = WarpButtonStyle.Primary,
             text = "With icon",
-            leadingIcon = R.drawable.activeads,
+            leadingIcon = R.drawable.warp_activeads,
             leadingIconContentDescr = "Clear icon",
         )
         WarpButton(
