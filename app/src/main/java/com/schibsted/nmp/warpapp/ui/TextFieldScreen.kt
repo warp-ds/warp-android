@@ -12,12 +12,18 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextField
@@ -57,7 +63,34 @@ fun TextFieldScreen(onUp: () -> Unit) {
                 )
             }
 
+            val focusRequester = remember { FocusRequester() }
+            val initialText = "Initial text"
+            val textState = remember { mutableStateOf(TextFieldValue(initialText, TextRange(initialText.length))) }
 
+            LaunchedEffect(Unit) {
+                snapshotFlow {}
+                    .collect { _ ->
+                        focusRequester.requestFocus()
+                    }
+            }
+
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText(
+                    "Text field only with focus request using TextFieldValue",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+                WarpTextField(
+                    textFieldValue = textState.value,
+                    onValueChange = { textState.value = it },
+                    placeholderText = "Placeholder",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(focusRequester),
+                )
+            }
             Column(
                 modifier = Modifier.padding(vertical = 8.dp)
             ) {
