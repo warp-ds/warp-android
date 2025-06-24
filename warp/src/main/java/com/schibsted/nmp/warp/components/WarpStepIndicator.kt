@@ -387,6 +387,8 @@ private fun customVerticalMeasurePolicy(
  * A component for showing progress through a series of steps.
  * @param modifier Modifier to be applied to the component
  * @param steps Number of steps to display in the component. Must be greater than 1
+ * @param highestEnabledStep Steps with an index greater than this number will not be clickable.
+ * Defaults to steps - 1
  * @param activeStep The currently active step
  * @param onStepClicked Optional callback for when a step is clicked
  * @param stepContentDescription Optional function to provide content descriptions for each step
@@ -398,6 +400,7 @@ fun HorizontalWarpStepIndicator(
     modifier: Modifier = Modifier,
     steps: Int,
     activeStep: Int = 0,
+    highestEnabledStep: Int = steps - 1,
     onStepClicked: ((Int) -> Unit)? = null,
     stepContentDescription: (@Composable (Int) -> String)? = null,
     stepTitle: ((Int) -> String)? = null,
@@ -484,7 +487,7 @@ fun HorizontalWarpStepIndicator(
                         .layoutId(StepIndicatorIds.INDICATOR)
                         .clip(CircleShape)
                         .let {
-                            if (onStepClicked != null) {
+                            if (onStepClicked != null && i <= highestEnabledStep) {
                                 val mod = it.clickable {
                                     onStepClicked(i)
                                 }
