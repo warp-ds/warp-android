@@ -112,12 +112,12 @@ fun calloutShape(
                     )
 
                     lineTo(
-                        x = size.width - tipHeight - sizeOffset,
+                        x = size.width - tipHeight - sizeOffset/2,
                         y = size.height / 2 + tipWidth / 2
                     )
                     lineTo(
                         size.width - tipHeight + sizeOffset / 2,
-                        size.height - cornerRadius - sizeOffset
+                        size.height - cornerRadius - sizeOffset/2
                     )
                     arcTo(
                         rect = Rect(

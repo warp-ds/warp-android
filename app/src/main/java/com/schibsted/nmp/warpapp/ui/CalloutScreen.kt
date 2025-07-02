@@ -192,7 +192,7 @@ fun CalloutScreenContent() {
                 )
             }
             WarpCallout(
-                text = "This is a callout",
+                text = "This is a callout ",
                 state = bottomEndState,
                 edge = Edge.Trailing,
                 size = CalloutSize.Default,
