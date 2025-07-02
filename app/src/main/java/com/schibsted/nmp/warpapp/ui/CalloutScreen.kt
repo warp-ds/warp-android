@@ -162,9 +162,9 @@ fun CalloutScreenContent() {
                 text = "This is a callout",
                 state = bottomStartState,
                 type = CalloutType.Inline,
-                inlineModifier = Modifier.padding(0.dp),
+                modifier = Modifier.padding(0.dp),
                 edge = Edge.Leading,
-                size = CalloutSize.Small,
+                size = CalloutSize.Default,
                 closable = true,
                 onDismiss = { bottomStartState.isVisible = false },
             ) {
@@ -179,7 +179,7 @@ fun CalloutScreenContent() {
                 text = "This is a callout",
                 state = bottomCenterState,
                 edge = Edge.Bottom,
-                size = CalloutSize.Small,
+                size = CalloutSize.Default,
                 closable = true,
                 dismissPopoverOnClickOutside = false,
                 onDismiss = { bottomCenterState.isVisible = false },
@@ -192,10 +192,10 @@ fun CalloutScreenContent() {
                 )
             }
             WarpCallout(
-                text = "This is a callout",
+                text = "This is a callout ",
                 state = bottomEndState,
                 edge = Edge.Trailing,
-                size = CalloutSize.Small,
+                size = CalloutSize.Default,
                 closable = true,
                 onDismiss = { bottomEndState.isVisible = false },
             ) {

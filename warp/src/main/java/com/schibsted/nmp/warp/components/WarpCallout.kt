@@ -40,11 +40,11 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 /**
+ * @param modifier Modifier applied to the view. Default value is Modifier
  * @param text The text to be displayed in the callout
  * @param state The state of the callout. Used to show or hide the callout.
  * @param size The size of the callout. Small or Default.
  * @param type The type of the callout. Popover or Inline.
- * @param inlineModifier Modifier for the inline callout.
  * @param horizontalOffset The horizontal offset of the callout.
  * @param verticalOffset The vertical offset of the callout.
  * @param edge The edge of the callout. Top, Bottom, Leading, Trailing.
@@ -56,11 +56,11 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  */
 @Composable
 fun WarpCallout(
+    modifier: Modifier = Modifier,
     text: String,
     state: CalloutState,
     size: CalloutSize = CalloutSize.Default,
     type: CalloutType = CalloutType.Popover,
-    inlineModifier: Modifier = Modifier,
     horizontalOffset: Dp = 0.dp,
     verticalOffset: Dp = 0.dp,
     edge: Edge = Edge.Top,
@@ -108,9 +108,10 @@ fun WarpCallout(
                         )
                     ) {
                         CalloutView(
-                            Modifier,
+                            modifier,
                             dimensions,
                             calloutColors,
+                            size,
                             edge,
                             text,
                             textStyle,
@@ -126,9 +127,10 @@ fun WarpCallout(
 
                 CalloutType.Inline -> {
                     CalloutView(
-                        inlineModifier,
+                        modifier,
                         dimensions,
                         calloutColors,
+                        size,
                         edge,
                         text,
                         textStyle,
@@ -150,6 +152,7 @@ private fun CalloutView(
     modifier: Modifier,
     dimensions: WarpDimensions,
     calloutColors: DefaultWarpCalloutColors,
+    size: CalloutSize,
     edge: Edge,
     text: String,
     textStyle: WarpTextStyle,
@@ -163,15 +166,27 @@ private fun CalloutView(
     val shadowModifier =
         if (inline) Modifier.shadow(
             0.5.dp,
-            calloutShape(edge, anchorWidth, anchorPosition, paddingOffset)
-        ) else Modifier.shadowMedium(calloutShape(edge, anchorWidth, anchorPosition, paddingOffset))
+            calloutShape(edge, anchorWidth, anchorPosition, paddingOffset, size)
+        ) else Modifier.shadowMedium(calloutShape(
+            edge,
+            anchorWidth,
+            anchorPosition,
+            paddingOffset,
+            size
+        ))
     Box(
         modifier = Modifier
             .then(modifier)
             .then(shadowModifier)
             .border(
                 dimensions.borderWidth2,
-                calloutColors.border, calloutShape(edge, anchorWidth, anchorPosition, paddingOffset)
+                calloutColors.border, calloutShape(
+                    edge,
+                    anchorWidth,
+                    anchorPosition,
+                    paddingOffset,
+                    size
+                )
             )
             .background(calloutColors.background)
             .edgePadding(edge)
