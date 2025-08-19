@@ -8,7 +8,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
@@ -30,7 +29,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param closable Whether the pill is closable. When true, the pill will display a dismiss icon. Defaults to false.
  * @param icon The icon to be displayed in the pill. If provided, the dismiss icon will not be displayed.
  * @param semanticRole The semantic role of the pill. Defaults to [Role.Checkbox].
- * @param semanticStateDescription The semantic state description of the pill. Defaults to "Selected" if the pill is selected, "Not selected" otherwise.
  */
 @Composable
 fun WarpPill(
@@ -41,8 +39,7 @@ fun WarpPill(
     style: WarpPillStyle = WarpPillStyle.Filter,
     closable: Boolean = false,
     icon: WarpIconResource? = null,
-    semanticRole: Role? = null,
-    semanticStateDescription: String? = null
+    semanticRole: Role = Role.Checkbox
 ) {
     val warpPillColors: WarpPillStyleColors = when (style) {
         WarpPillStyle.Filter -> pillStyleFilter()
@@ -77,8 +74,7 @@ fun WarpPill(
         border = null,
         modifier = Modifier
             .semantics {
-                role = semanticRole ?: Role.Checkbox;
-                stateDescription = semanticStateDescription ?: if (selected) "Selected" else "Not selected"
+                role = semanticRole
             }
             .then(modifier),
         trailingIcon = if (closable) {
