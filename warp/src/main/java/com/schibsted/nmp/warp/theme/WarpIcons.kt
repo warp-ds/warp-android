@@ -43,7 +43,7 @@ object WarpIconResources {
     @SuppressLint("DiscouragedApi")
     @Composable
     fun getResourceIdByName(resourceName: String): Int {
-        if(resourceName.isBlank() || resourceName.isEmpty()) return 0
+        if(resourceName.isBlank()) return 0
         val context = LocalContext.current
         val resourceNameWithAppendix = if(!resourceName.contains("warp_")) "warp_$resourceName" else resourceName
         return context.resources.getIdentifier(resourceNameWithAppendix, "drawable", context.packageName)
