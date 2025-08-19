@@ -13,12 +13,19 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.components.CalloutSize
 import com.schibsted.nmp.warp.components.utils.Edge
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 
 @Composable
-fun calloutShape(arrowEdge: Edge, anchorWidth: Dp? = null, anchorPosition: Offset? = null, padding: Dp? = null): Shape {
+fun calloutShape(
+    arrowEdge: Edge,
+    anchorWidth: Dp? = null,
+    anchorPosition: Offset? = null,
+    padding: Dp? = null,
+    size: CalloutSize
+): Shape {
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
 
@@ -33,9 +40,14 @@ fun calloutShape(arrowEdge: Edge, anchorWidth: Dp? = null, anchorPosition: Offse
     }
     var alignment = Alignment.CenterHorizontally
 
-    val paddingOffset : Float = with(density){
+    val paddingOffset: Float = with(density) {
         padding?.toPx()
     } ?: 0f
+
+    val sizeOffset = when (size) {
+        CalloutSize.Small -> 0f
+        CalloutSize.Default -> 3f
+    }
 
     if (anchorPosition != null && anchorWidth != null) {
         val screenHeightPx = with(density) { configuration.screenHeightDp.dp.toPx() }
@@ -71,8 +83,8 @@ fun calloutShape(arrowEdge: Edge, anchorWidth: Dp? = null, anchorPosition: Offse
                         forceMoveTo = false
                     )
                     lineTo(
-                        x = size.width - tipHeight,
-                        y = size.height / 2 - tipWidth / 2
+                        x = size.width - tipHeight + sizeOffset,
+                        y = size.height / 2 - tipWidth / 2 + sizeOffset
                     )
 
                     arcTo(
@@ -100,10 +112,13 @@ fun calloutShape(arrowEdge: Edge, anchorWidth: Dp? = null, anchorPosition: Offse
                     )
 
                     lineTo(
-                        x = size.width - tipHeight,
+                        x = size.width - tipHeight - sizeOffset/2,
                         y = size.height / 2 + tipWidth / 2
                     )
-                    lineTo(size.width - tipHeight, size.height - cornerRadius)
+                    lineTo(
+                        size.width - tipHeight + sizeOffset / 2,
+                        size.height - cornerRadius - sizeOffset/2
+                    )
                     arcTo(
                         rect = Rect(
                             left = size.width - tipHeight - 2 * cornerRadius,
@@ -341,7 +356,7 @@ fun calloutShape(arrowEdge: Edge, anchorWidth: Dp? = null, anchorPosition: Offse
                         sweepAngleDegrees = 90f,
                         forceMoveTo = false
                     )
-                    lineTo(tipHeight + cornerRadius, size.height)
+                    lineTo(tipHeight + cornerRadius + sizeOffset / 2, size.height)
                     arcTo(
                         rect = Rect(
                             left = tipHeight,
@@ -353,7 +368,7 @@ fun calloutShape(arrowEdge: Edge, anchorWidth: Dp? = null, anchorPosition: Offse
                         sweepAngleDegrees = 90f,
                         forceMoveTo = false
                     )
-                    lineTo(tipHeight, size.height / 2 + tipWidth / 2)
+                    lineTo(tipHeight + sizeOffset, size.height / 2 + tipWidth / 2 + sizeOffset / 2)
                     arcTo(
                         rect = Rect(
                             left = 0f,
@@ -365,7 +380,7 @@ fun calloutShape(arrowEdge: Edge, anchorWidth: Dp? = null, anchorPosition: Offse
                         sweepAngleDegrees = 120f,
                         forceMoveTo = false
                     )
-                    lineTo(tipHeight, size.height / 2 - tipWidth / 2)
+                    lineTo(tipHeight, size.height / 2 - tipWidth / 2 + sizeOffset / 2)
                     lineTo(tipHeight, cornerRadius)
                     arcTo(
                         rect = Rect(
