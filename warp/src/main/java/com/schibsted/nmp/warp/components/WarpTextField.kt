@@ -83,51 +83,7 @@ fun WarpTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     textStyle: WarpTextStyle = WarpTextStyle.Body,
 ) {
-    val textFieldColors = OutlinedTextFieldDefaults.colors(
-        unfocusedTextColor = colors.text.default,
-        unfocusedBorderColor = colors.border.default.ifTrueOtherwise(!readOnly) { Color.Transparent },
-        unfocusedLabelColor = colors.text.default,
-        unfocusedLeadingIconColor = colors.icon.default,
-        unfocusedTrailingIconColor = colors.icon.default,
-        unfocusedSupportingTextColor = colors.text.default,
-        unfocusedPlaceholderColor = colors.text.placeholder,
-        unfocusedPrefixColor = colors.text.default,
-        unfocusedSuffixColor = colors.text.default,
-        unfocusedContainerColor = colors.background.default,
-
-        focusedTextColor = colors.text.default,
-        focusedBorderColor = colors.border.focus.ifTrueOtherwise(!readOnly) { Color.Transparent },
-        focusedLeadingIconColor = colors.icon.default,
-        focusedSupportingTextColor = colors.text.default,
-        focusedTrailingIconColor = colors.icon.default,
-        focusedPlaceholderColor = colors.text.placeholder,
-        focusedPrefixColor = colors.text.default,
-        focusedSuffixColor = colors.text.default,
-        focusedContainerColor = colors.background.default,
-
-        cursorColor = colors.icon.default,
-        errorTextColor = colors.text.negative,
-        errorCursorColor = colors.border.negative,
-        errorLabelColor = colors.text.negative,
-        errorBorderColor = colors.border.negative.ifTrueOtherwise(!readOnly) { Color.Transparent },
-        errorLeadingIconColor = colors.icon.negative,
-        errorSupportingTextColor = colors.text.negative,
-        errorPrefixColor = colors.text.negative,
-        errorSuffixColor = colors.text.negative,
-        errorTrailingIconColor = colors.icon.negative,
-        errorContainerColor = colors.background.default,
-
-        disabledBorderColor = colors.border.disabled.ifTrueOtherwise(!readOnly) { Color.Transparent },
-        disabledContainerColor = colors.background.disabledSubtle,
-        disabledTextColor = colors.text.disabled,
-        disabledLabelColor = colors.text.disabled,
-        disabledPrefixColor = colors.text.disabled,
-        disabledSuffixColor = colors.text.disabled,
-        disabledSupportingTextColor = colors.text.disabled,
-        disabledLeadingIconColor = colors.icon.disabled,
-        disabledTrailingIconColor = colors.icon.disabled,
-        disabledPlaceholderColor = colors.text.disabled
-    )
+    val textFieldColors = warpTextFieldColors(readOnly)
 
     val placeholder: @Composable () -> Unit = {
         placeholderText?.let {
@@ -272,6 +228,53 @@ internal fun <T> T.ifTrueOtherwise(predicate: Boolean, block: () -> T): T = if (
 } else {
     block()
 }
+
+@Composable
+fun warpTextFieldColors(readOnly: Boolean = false) = OutlinedTextFieldDefaults.colors(
+    unfocusedTextColor = colors.text.default,
+    unfocusedBorderColor = colors.border.default.ifTrueOtherwise(!readOnly) { Color.Transparent },
+    unfocusedLabelColor = colors.text.default,
+    unfocusedLeadingIconColor = colors.icon.default,
+    unfocusedTrailingIconColor = colors.icon.default,
+    unfocusedSupportingTextColor = colors.text.default,
+    unfocusedPlaceholderColor = colors.text.placeholder,
+    unfocusedPrefixColor = colors.text.default,
+    unfocusedSuffixColor = colors.text.default,
+    unfocusedContainerColor = colors.background.default,
+
+    focusedTextColor = colors.text.default,
+    focusedBorderColor = colors.border.focus.ifTrueOtherwise(!readOnly) { Color.Transparent },
+    focusedLeadingIconColor = colors.icon.default,
+    focusedSupportingTextColor = colors.text.default,
+    focusedTrailingIconColor = colors.icon.default,
+    focusedPlaceholderColor = colors.text.placeholder,
+    focusedPrefixColor = colors.text.default,
+    focusedSuffixColor = colors.text.default,
+    focusedContainerColor = colors.background.default,
+
+    cursorColor = colors.icon.default,
+    errorTextColor = colors.text.negative,
+    errorCursorColor = colors.border.negative,
+    errorLabelColor = colors.text.negative,
+    errorBorderColor = colors.border.negative.ifTrueOtherwise(!readOnly) { Color.Transparent },
+    errorLeadingIconColor = colors.icon.negative,
+    errorSupportingTextColor = colors.text.negative,
+    errorPrefixColor = colors.text.negative,
+    errorSuffixColor = colors.text.negative,
+    errorTrailingIconColor = colors.icon.negative,
+    errorContainerColor = colors.background.default,
+
+    disabledBorderColor = colors.border.disabled.ifTrueOtherwise(!readOnly) { Color.Transparent },
+    disabledContainerColor = colors.background.disabledSubtle,
+    disabledTextColor = colors.text.disabled,
+    disabledLabelColor = colors.text.disabled,
+    disabledPrefixColor = colors.text.disabled,
+    disabledSuffixColor = colors.text.disabled,
+    disabledSupportingTextColor = colors.text.disabled,
+    disabledLeadingIconColor = colors.icon.disabled,
+    disabledTrailingIconColor = colors.icon.disabled,
+    disabledPlaceholderColor = colors.text.disabled
+)
 
 
 @Preview
