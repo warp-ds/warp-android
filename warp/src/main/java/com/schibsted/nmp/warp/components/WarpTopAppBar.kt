@@ -40,6 +40,7 @@ fun WarpTopAppBar(
         titleContentColor = colors.text.default,
         navigationIconContentColor = colors.icon.default,
         actionIconContentColor = colors.icon.default,
+        scrolledContainerColor = colors.background.default
     )
     if (centered) {
         CenterAlignedTopAppBar(
