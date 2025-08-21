@@ -296,4 +296,14 @@
     <string name="copy">Två överlappande kvadrater</string>
     <string name="dragdots">Två kolumner med tre rader punkter</string>
     <string name="qasa">Qasa-logotyp</string>
+    <string name="briefcaseuser">Användare framför en portfölj</string>
+    <string name="calendarplus">Kalender med ett plustecken</string>
+    <string name="confetti">Konfetti som sprutar ut från en strut</string>
+    <string name="draw">Penna som ritar en böjd linje</string>
+    <string name="luggage">Bagage på två hjul med handtag</string>
+    <string name="rotateleft">Vänstervänd böjd pil ovanför en fyrkant</string>
+    <string name="rotateright">Högervänd böjd pil ovanför en fyrkant</string>
+    <string name="shrink">Två inåtriktade pilar</string>
+    <string name="suitcasetrolley">Resväska på en plattformsvagn</string>
+    <string name="tshirt">T-shirt</string>
 </resources>

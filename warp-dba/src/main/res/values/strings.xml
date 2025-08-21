@@ -296,4 +296,15 @@
     <string name="copy">To overlappende firkanter</string>
     <string name="dragdots">To kolonner med tre rækker prikker</string>
     <string name="qasa">Qasa-logo</string>
+    <string name="briefcaseuser">Bruger foran en mappe</string>
+    <string name="calendarplus">Kalender indeholdende et plus</string>
+    <string name="confetti">Konfetti, der sprænger ud af et kræmmerhus</string>
+    <string name="draw">Blyant, der tegner en buet linje</string>
+    <string name="luggage">Bagage på to hjul med et håndtag</string>
+    <string name="rotateleft">Venstrevendt buet pil over en firkant</string>
+    <string name="rotateright">Højrevendt buet pil over en firkant</string>
+    <string name="shrink">To indadpegende pile</string>
+    <string name="suitcasetrolley">Kuffert på en platformsvogn</string>
+    <string name="tshirt">T-shirt</string>
+
 </resources>
