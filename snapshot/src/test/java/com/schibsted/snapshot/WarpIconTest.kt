@@ -62,7 +62,7 @@ class WarpIconTest(
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
                         || it.returnType.classifier == WarpBrandIconResource::class
             }
-        Assert.assertEquals(295, count)
+        Assert.assertEquals(254, count)
     }
 
     @Test
@@ -618,9 +618,9 @@ class WarpIconTest(
                         ),
                     verticalArrangement = Arrangement.spacedBy(dimensions.space2)
                 ) {
-                    WarpIcon(identifier = "spa", color = colors.icon.secondary)
-                    WarpIcon(identifier = "paw", color = colors.icon.secondary)
-                    WarpIcon(identifier = "hotel", color = colors.icon.secondary)
+                    WarpIcon(identifier = "lotusflower", color = colors.icon.secondary)
+                    WarpIcon(identifier = "animalpaw", color = colors.icon.secondary)
+                    WarpIcon(identifier = "house", color = colors.icon.secondary)
                 }
             }
         }
