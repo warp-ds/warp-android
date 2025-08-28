@@ -9,7 +9,7 @@ import androidx.compose.ui.res.vectorResource
 import com.schibsted.nmp.warp.R
 
 /**
- * A collection of Warp icons. Default size 32x32dp.
+ * A collection of Warp icons. Default size 24x24dp.
  */
 open class WarpIconResource(
     open val vector: ImageVector,
@@ -79,49 +79,35 @@ object WarpIconResources {
     val taxonomyIconList: List<WarpIconResource>
         @Composable
         get() = listOf(
-            airplane,
-            airplaneHotel,
+            airplaneBed,
+            animalPaw,
             autovex,
-            babyOnesie,
-            bulldozer,
-            cabin,
-            camping,
-            carFront,
+            briefcase,
+            boat,
+            building,
+            cabinHut,
             carPart,
             carRent,
-            carSubscription,
-            cart,
-            chainsaw,
+            carRight,
             chair,
-            dating,
-            economy,
-            football,
-            geometricShapes,
-            guitarBat,
-            hotel,
+            drill,
+            guitar,
+            houseModern,
             iceSkater,
-            job,
-            minivan,
             mittAnbud,
             motorcycle,
             nettbil,
             oikotie,
-            paintRoller,
-            paw,
-            phoneBadgeCheck,
+            phone,
+            phoneCheck,
+            planeTakeOff,
             qasa,
-            realEstate,
             remppatori,
-            sailboat,
             shirt,
-            smartphone,
             sofa,
             storeFront,
             stroller,
-            sweater,
-            tools,
             tractor,
-            van,
             vase
         )
 
@@ -139,13 +125,6 @@ object WarpIconResources {
             stringResource(R.string.ads)
         )
 
-    val agricultureMachine: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_agriculturemachine),
-            stringResource(R.string.agriculturemachine)
-        )
-
     val airCon: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -153,27 +132,12 @@ object WarpIconResources {
             stringResource(R.string.aircon)
         )
 
-    val airplane: WarpTaxonomyIconResource
+    val airplaneBed: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.airplane),
-            stringResource(R.string.airplane),
-            identifier = "airplane"
-        )
-
-    val airplaneHotel: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.airplanehotel),
-            stringResource(R.string.airplanehotel),
+            ImageVector.vectorResource(id = R.drawable.warp_airplanebed),
+            stringResource(R.string.airplanebed),
             identifier = "airplane-hotel"
-        )
-
-    val alert: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.alert),
-            stringResource(R.string.alert)
         )
 
     val allWheelDrive: WarpIconResource
@@ -183,11 +147,12 @@ object WarpIconResources {
             stringResource(R.string.allwheeldrive)
         )
 
-    val animalPaw: WarpIconResource
+    val animalPaw: WarpTaxonomyIconResource
         @Composable
-        get() = WarpIconResource(
+        get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_animalpaw),
-            stringResource(R.string.animalpaw)
+            stringResource(R.string.animalpaw),
+            identifier = "paw"
         )
 
     val archway: WarpIconResource
@@ -225,20 +190,6 @@ object WarpIconResources {
             stringResource(R.string.arrowup)
         )
 
-    val attachement: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_attachment),
-            stringResource(R.string.attachment)
-        )
-
-    val automatic: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_automatic),
-            stringResource(R.string.automatic)
-        )
-
     val autovex: WarpBrandIconResource
         @Composable
         get() = WarpBrandIconResource(
@@ -252,14 +203,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_awardmedal),
             stringResource(R.string.awardmedal)
-        )
-
-    val babyOnesie: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.babyonesie),
-            stringResource(R.string.babyonesie),
-            identifier = "baby-onesie"
         )
 
     val backWheelDrive: WarpIconResource
@@ -346,18 +289,12 @@ object WarpIconResources {
             stringResource(R.string.block)
         )
 
-    val boat: WarpIconResource
+    val boat: WarpTaxonomyIconResource
         @Composable
-        get() = WarpIconResource(
+        get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_boat),
-            stringResource(R.string.boat)
-        )
-
-    val boatLength: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_boatlength),
-            stringResource(R.string.boatlength)
+            stringResource(R.string.boat),
+            identifier = "sailboat"
         )
 
     val bolt: WarpIconResource
@@ -374,6 +311,14 @@ object WarpIconResources {
             stringResource(R.string.bookmark)
         )
 
+    val briefcase: WarpTaxonomyIconResource
+        @Composable
+        get() = WarpTaxonomyIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_briefcase),
+            stringResource(R.string.briefcase),
+            identifier = "job"
+        )
+
     val browser: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -388,11 +333,12 @@ object WarpIconResources {
             stringResource(R.string.browserverified)
         )
 
-    val building: WarpIconResource
+    val building: WarpTaxonomyIconResource
         @Composable
-        get() = WarpIconResource(
+        get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_building),
-            stringResource(R.string.building)
+            stringResource(R.string.building),
+            identifier = "hotel"
         )
 
     val buildingPlot: WarpIconResource
@@ -409,14 +355,6 @@ object WarpIconResources {
             stringResource(R.string.bulb)
         )
 
-    val bulldozer: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.bulldozer),
-            stringResource(R.string.bulldozer),
-            identifier = "bulldozer"
-        )
-
     val burger: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -431,19 +369,12 @@ object WarpIconResources {
             stringResource(R.string.bus)
         )
 
-    val cabin: WarpTaxonomyIconResource
+    val cabinHut: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.cabin),
-            stringResource(R.string.cabin),
-            identifier = "cabin"
-        )
-
-    val cabinHut: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_cabinhut),
-            stringResource(R.string.cabinhut)
+            stringResource(R.string.cabinhut),
+            identifier = "cabin"
         )
 
     val calculator: WarpIconResource
@@ -467,14 +398,6 @@ object WarpIconResources {
             stringResource(R.string.camera)
         )
 
-    val camping: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.camping),
-            stringResource(R.string.camping),
-            identifier = "camping"
-        )
-
     val cancel: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -489,28 +412,6 @@ object WarpIconResources {
             stringResource(R.string.car)
         )
 
-    val carEngine: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_carengine),
-            stringResource(R.string.carengine)
-        )
-
-    val carFront: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.carfront),
-            stringResource(R.string.carfront),
-            identifier = "car-front"
-        )
-
-    val carKey: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_carkey),
-            stringResource(R.string.carkey)
-        )
-
     val carLeft: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -521,7 +422,7 @@ object WarpIconResources {
     val carPart: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.carpart),
+            ImageVector.vectorResource(id = R.drawable.warp_carpart),
             stringResource(R.string.carpart),
             identifier = "car-part"
         )
@@ -529,53 +430,23 @@ object WarpIconResources {
     val carRent: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.carrent),
+            ImageVector.vectorResource(id = R.drawable.warp_carrent),
             stringResource(R.string.carrent),
             identifier = "car-rent"
         )
 
-    val carRight: WarpIconResource
+    val carRight: WarpTaxonomyIconResource
         @Composable
-        get() = WarpIconResource(
+        get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_carright),
-            stringResource(R.string.carright)
-        )
-
-    val carService: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_carservice),
-            stringResource(R.string.carservice)
-        )
-
-    val carSubscription: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.carsubscription),
-            stringResource(R.string.carsubscription),
-            identifier = "car-subscription"
-        )
-
-    val cart: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.cart),
-            stringResource(R.string.cart),
-            identifier = "cart"
-        )
-
-    val chainsaw: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.chainsaw),
-            stringResource(R.string.chainsaw),
-            identifier = "chainsaw"
+            stringResource(R.string.carright),
+            identifier = "minivan"
         )
 
     val chair: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.chair),
+            ImageVector.vectorResource(id = R.drawable.warp_chair),
             stringResource(R.string.chair),
             identifier = "chair"
         )
@@ -592,13 +463,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_charter),
             stringResource(R.string.charter)
-        )
-
-    val chatRequest: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_chatrequest),
-            stringResource(R.string.chatrequest)
         )
 
     val chatSupport: WarpIconResource
@@ -734,13 +598,6 @@ object WarpIconResources {
             stringResource(R.string.copy)
         )
 
-    val cottagePlot: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_cottageplot),
-            stringResource(R.string.cottageplot)
-        )
-
     val creditCard: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -753,14 +610,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_cursor),
             stringResource(R.string.cursor)
-        )
-
-    val dating: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.dating),
-            stringResource(R.string.dating),
-            identifier = "dating"
         )
 
     val delivery: WarpIconResource
@@ -840,6 +689,14 @@ object WarpIconResources {
             stringResource(R.string.drawer)
         )
 
+    val drill: WarpTaxonomyIconResource
+        @Composable
+        get() = WarpTaxonomyIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_drill),
+            stringResource(R.string.drill),
+            identifier = "tools"
+        )
+
     val drink: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -847,12 +704,11 @@ object WarpIconResources {
             stringResource(R.string.drink)
         )
 
-    val economy: WarpTaxonomyIconResource
+    val dumbbell: WarpIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.economy),
-            stringResource(R.string.economy),
-            identifier = "economy"
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_dumbbell),
+            stringResource(R.string.dumbbell)
         )
 
     val edit: WarpIconResource
@@ -932,13 +788,6 @@ object WarpIconResources {
             stringResource(R.string.farm)
         )
 
-    val feedback: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_feedback),
-            stringResource(R.string.feedback)
-        )
-
     val fileAdd: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -965,21 +814,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_fishing),
             stringResource(R.string.fishing)
-        )
-
-    val fitness: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_fitness),
-            stringResource(R.string.fitness)
-        )
-
-    val football: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.football),
-            stringResource(R.string.football),
-            identifier = "football"
         )
 
     val frontWheelDrive: WarpIconResource
@@ -1010,12 +844,18 @@ object WarpIconResources {
             stringResource(R.string.gashybrid)
         )
 
-    val geometricShapes: WarpTaxonomyIconResource
+    val gearAutomatic: WarpIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.geometricshapes),
-            stringResource(R.string.geometricshapes),
-            identifier = "geometric-shapes"
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_gearautomatic),
+            stringResource(R.string.gearautomatic)
+        )
+
+    val gearManual: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_gearmanual),
+            stringResource(R.string.gearmanual)
         )
 
     val graphLine: WarpIconResource
@@ -1046,11 +886,11 @@ object WarpIconResources {
             stringResource(R.string.grill)
         )
 
-    val guitarBat: WarpTaxonomyIconResource
+    val guitar: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.guitarbat),
-            stringResource(R.string.guitarbat),
+            ImageVector.vectorResource(id = R.drawable.warp_guitar),
+            stringResource(R.string.guitar),
             identifier = "guitar-bat"
         )
 
@@ -1089,14 +929,6 @@ object WarpIconResources {
             stringResource(R.string.history)
         )
 
-    val hotel: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.hotel),
-            stringResource(R.string.hotel),
-            identifier = "hotel"
-        )
-
     val house: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1111,13 +943,6 @@ object WarpIconResources {
             stringResource(R.string.housebed)
         )
 
-    val houseCabin: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_housecabin),
-            stringResource(R.string.housecabin)
-        )
-
     val houseFilled: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1125,11 +950,12 @@ object WarpIconResources {
             stringResource(R.string.housefilled)
         )
 
-    val houseModern: WarpIconResource
+    val houseModern: WarpTaxonomyIconResource
         @Composable
-        get() = WarpIconResource(
+        get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_housemodern),
-            stringResource(R.string.housemodern)
+            stringResource(R.string.housemodern),
+            identifier = "real-estate"
         )
 
     val housePerson: WarpIconResource
@@ -1142,7 +968,7 @@ object WarpIconResources {
     val iceSkater: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.iceskater),
+            ImageVector.vectorResource(id = R.drawable.warp_iceskater),
             stringResource(R.string.iceskater),
             identifier = "ice-skater"
         )
@@ -1175,26 +1001,11 @@ object WarpIconResources {
             stringResource(R.string.jetski)
         )
 
-    val job: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.job),
-            stringResource(R.string.job),
-            identifier = "job"
-        )
-
-    val keys: WarpIconResource
+    val key: WarpIconResource
         @Composable
         get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_keys),
-            stringResource(R.string.keys)
-        )
-
-    val krone: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_krone),
-            stringResource(R.string.krone)
+            ImageVector.vectorResource(id = R.drawable.warp_key),
+            stringResource(R.string.key)
         )
 
     val lamp: WarpIconResource
@@ -1207,15 +1018,8 @@ object WarpIconResources {
     val landscape: WarpIconResource
         @Composable
         get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.landscape),
+            ImageVector.vectorResource(id = R.drawable.warp_landscape),
             stringResource(R.string.landscape)
-        )
-
-    val laundry: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_laundry),
-            stringResource(R.string.laundry)
         )
 
     val layers: WarpIconResource
@@ -1281,6 +1085,13 @@ object WarpIconResources {
             stringResource(R.string.logout)
         )
 
+    val lotusFlower: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_lotusflower),
+            stringResource(R.string.lotusflower)
+        )
+
     val mail: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1295,13 +1106,6 @@ object WarpIconResources {
             stringResource(R.string.mailbox)
         )
 
-    val manual: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_manual),
-            stringResource(R.string.manual)
-        )
-
     val map: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1309,18 +1113,11 @@ object WarpIconResources {
             stringResource(R.string.map)
         )
 
-    val measure: WarpIconResource
+    val megaphone: WarpIconResource
         @Composable
         get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_measure),
-            stringResource(R.string.measure)
-        )
-
-    val message: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_message),
-            stringResource(R.string.message)
+            ImageVector.vectorResource(id = R.drawable.warp_megaphone),
+            stringResource(R.string.megaphone)
         )
 
     val messages: WarpIconResource
@@ -1335,14 +1132,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_messagesfilled),
             stringResource(R.string.messagesfilled)
-        )
-
-    val minivan: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.minivan),
-            stringResource(R.string.minivan),
-            identifier = "minivan"
         )
 
     val minus: WarpIconResource
@@ -1377,7 +1166,7 @@ object WarpIconResources {
     val motorcycle: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.motorcycle),
+            ImageVector.vectorResource(id = R.drawable.warp_motorcycle),
             stringResource(R.string.motorcycle),
             identifier = "motorcycle"
         )
@@ -1395,20 +1184,6 @@ object WarpIconResources {
             ImageVector.vectorResource(id = R.drawable.warp_nett_bil),
             stringResource(R.string.nettbil),
             identifier = "nettbil"
-        )
-
-    val newAd: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_newad),
-            stringResource(R.string.newad)
-        )
-
-    val norwegianMotor: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_norwegianmotor),
-            stringResource(R.string.norwegianmotor)
         )
 
     val noSmoking: WarpIconResource
@@ -1440,12 +1215,11 @@ object WarpIconResources {
             stringResource(R.string.organize)
         )
 
-    val paintRoller: WarpTaxonomyIconResource
+    val paperclip: WarpIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.paintroller),
-            stringResource(R.string.paintroller),
-            identifier = "paint-roller"
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_paperclip),
+            stringResource(R.string.paperclip)
         )
 
     val parking: WarpIconResource
@@ -1455,26 +1229,19 @@ object WarpIconResources {
             stringResource(R.string.parking)
         )
 
-    val paw: WarpTaxonomyIconResource
+    val phone: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.paw),
-            stringResource(R.string.paw),
-            identifier = "paw"
-        )
-
-    val phone: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_phone),
-            stringResource(R.string.phone)
+            stringResource(R.string.phone),
+            identifier = "smart-phone"
         )
 
-    val phoneBadgeCheck: WarpTaxonomyIconResource
+    val phoneCheck: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.phonebadgecheck),
-            stringResource(R.string.phonebadgecheck),
+            ImageVector.vectorResource(id = R.drawable.warp_phonecheck),
+            stringResource(R.string.phonecheck),
             identifier = "phone-badge-check"
         )
 
@@ -1520,18 +1287,12 @@ object WarpIconResources {
             stringResource(R.string.planeland)
         )
 
-    val planeTakeOff: WarpIconResource
+    val planeTakeOff: WarpTaxonomyIconResource
         @Composable
-        get() = WarpIconResource(
+        get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_planetakeoff),
-            stringResource(R.string.planetakeoff)
-        )
-
-    val planeTicket: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_planeticket),
-            stringResource(R.string.planeticket)
+            stringResource(R.string.planetakeoff),
+            identifier = "airplane"
         )
 
     val play: WarpIconResource
@@ -1548,25 +1309,12 @@ object WarpIconResources {
             stringResource(R.string.playhouse)
         )
 
-    val plots: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_plots),
-            stringResource(R.string.plots)
-        )
 
     val plus: WarpIconResource
         @Composable
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_plus),
             stringResource(R.string.plus)
-        )
-
-    val productBlink: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_productblink),
-            stringResource(R.string.productblink)
         )
 
     val productBump: WarpIconResource
@@ -1595,13 +1343,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_productnabolagsprofil),
             stringResource(R.string.productnabolagsprofil)
-        )
-
-    val productNoAds: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_productnoads),
-            stringResource(R.string.productnoads)
         )
 
     val productStarred: WarpIconResource
@@ -1640,14 +1381,6 @@ object WarpIconResources {
             stringResource(R.string.question)
         )
 
-    val realEstate: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.realestate),
-            stringResource(R.string.realestate),
-            identifier = "real-estate"
-        )
-
     val refresh: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1668,6 +1401,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_road),
             stringResource(R.string.road)
+        )
+
+    val rocket: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_rocket),
+            stringResource(R.string.rocket)
         )
 
     val roomService: WarpIconResource
@@ -1691,21 +1431,6 @@ object WarpIconResources {
             stringResource(R.string.ruler)
         )
 
-    val sailboat: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.sailboat),
-            stringResource(R.string.sailboat),
-            identifier = "sailboat"
-        )
-
-    val sailing: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_sailing),
-            stringResource(R.string.sailing)
-        )
-
     val sauna: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1727,13 +1452,6 @@ object WarpIconResources {
             stringResource(R.string.search)
         )
 
-    val searchFavorites: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_searchfavorites),
-            stringResource(R.string.searchfavorites)
-        )
-
     val seat: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1746,13 +1464,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_send),
             stringResource(R.string.send)
-        )
-
-    val service: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_service),
-            stringResource(R.string.service)
         )
 
     val share: WarpIconResource
@@ -1772,7 +1483,7 @@ object WarpIconResources {
     val shirt: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.shirt),
+            ImageVector.vectorResource(id = R.drawable.warp_shirt),
             stringResource(R.string.shirt),
             identifier = "shirt"
         )
@@ -1812,14 +1523,6 @@ object WarpIconResources {
             stringResource(R.string.skyscraper)
         )
 
-    val smartphone: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.smartphone),
-            stringResource(R.string.smartphone),
-            identifier = "smart-phone"
-        )
-
     val smileyGood: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1851,7 +1554,7 @@ object WarpIconResources {
     val sofa: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.sofa),
+            ImageVector.vectorResource(id = R.drawable.warp_sofa),
             stringResource(R.string.sofa),
             identifier = "sofa"
         )
@@ -1861,13 +1564,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_sorting),
             stringResource(R.string.sorting)
-        )
-
-    val spa: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_spa),
-            stringResource(R.string.spa)
         )
 
     val sparkles: WarpIconResource
@@ -1929,7 +1625,7 @@ object WarpIconResources {
     val storeFront: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.storefront),
+            ImageVector.vectorResource(id = R.drawable.warp_storefront),
             stringResource(R.string.storefront),
             identifier = "store-front"
         )
@@ -1944,7 +1640,7 @@ object WarpIconResources {
     val stroller: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.stroller),
+            ImageVector.vectorResource(id = R.drawable.warp_stroller),
             stringResource(R.string.stroller),
             identifier = "stroller"
         )
@@ -1968,14 +1664,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_support),
             stringResource(R.string.support)
-        )
-
-    val sweater: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.sweater),
-            stringResource(R.string.sweater),
-            identifier = "sweater"
         )
 
     val swimming: WarpIconResource
@@ -2041,12 +1729,11 @@ object WarpIconResources {
             stringResource(R.string.threesixty)
         )
 
-    val tools: WarpTaxonomyIconResource
+    val ticket: WarpIconResource
         @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.tools),
-            stringResource(R.string.tools),
-            identifier = "tools"
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_ticket),
+            stringResource(R.string.ticket)
         )
 
     val townhouse: WarpIconResource
@@ -2059,9 +1746,16 @@ object WarpIconResources {
     val tractor: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.tractor),
+            ImageVector.vectorResource(id = R.drawable.warp_tractor),
             stringResource(R.string.tractor),
             identifier = "tractor"
+        )
+
+    val tree: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_tree),
+            stringResource(R.string.tree)
         )
 
     val trendDown: WarpIconResource
@@ -2090,13 +1784,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_tv),
             stringResource(R.string.tv)
-        )
-
-    val twitter: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_twitter),
-            stringResource(R.string.twitter)
         )
 
     val up: WarpIconResource
@@ -2134,13 +1821,6 @@ object WarpIconResources {
             stringResource(R.string.users)
         )
 
-    val userWoman: WarpIconResource
-        @Composable
-        get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_userwoman),
-            stringResource(R.string.userwoman)
-        )
-
     val vacuum: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -2148,18 +1828,10 @@ object WarpIconResources {
             stringResource(R.string.vacuum)
         )
 
-    val van: WarpTaxonomyIconResource
-        @Composable
-        get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.van),
-            stringResource(R.string.van),
-            identifier = "van"
-        )
-
     val vase: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
-            ImageVector.vectorResource(id = R.drawable.vase),
+            ImageVector.vectorResource(id = R.drawable.warp_vase),
             stringResource(R.string.vase),
             identifier = "vase"
         )
@@ -2192,6 +1864,13 @@ object WarpIconResources {
             stringResource(R.string.warranty)
         )
 
+    val washingMachine: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_washingmachine),
+            stringResource(R.string.washingmachine)
+        )
+
     val waterPitcher: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -2220,11 +1899,18 @@ object WarpIconResources {
             stringResource(R.string.wifi)
         )
 
-    val woods: WarpIconResource
+    val wrench: WarpIconResource
         @Composable
         get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_woods),
-            stringResource(R.string.woods)
+            ImageVector.vectorResource(id = R.drawable.warp_wrench),
+            stringResource(R.string.wrench)
+        )
+
+    val x: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_x),
+            stringResource(R.string.x)
         )
 
     val youtube: WarpIconResource
