@@ -19,7 +19,10 @@ fun FinnWarpTheme(
         ?: if (isSystemInDarkTheme()) FinnDarkColors else FinnColors
     val finnDimensions = WarpDimensions
     val finnResources = WarpResources
-    val finnRippleConfig = RippleConfiguration(color = finnColors.background.primary, rippleAlpha = RippleAlpha(0.5f, 0.5f, 0.5f, 0.5f))
+    val finnRippleConfig = RippleConfiguration(
+        color = finnColors.components.button.primaryBackgroundActive,
+        rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f)
+    )
 
     WarpTheme(
         colors = finnColors,
