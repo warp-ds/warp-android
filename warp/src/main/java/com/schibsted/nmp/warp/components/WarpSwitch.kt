@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,6 +46,7 @@ import kotlinx.coroutines.launch
  * @param checked State of the switch. Default value is false
  * @param onCheckedChange Invoked when the switch is toggled
  * @param enabled Set to false to disable the switch. Default value is true
+ * @param contentDescr Content description of the switch. Default value is null
  */
 @Composable
 fun WarpSwitch(
@@ -90,7 +92,20 @@ fun WarpSwitch(
                         offset.value
                     )
                 )
-                .toggleable(value = checked, enabled = enabled, onValueChange = onCheckedChange, role = Role.Switch)),
+                .border(
+                    dimensions.borderWidth1, lerp(
+                        switchColors.uncheckedBorderColor,
+                        switchColors.checkedBorderColor,
+                        offset.value
+                    ),
+                    RoundedCornerShape(height)
+                )
+                .toggleable(
+                    value = checked,
+                    enabled = enabled,
+                    onValueChange = onCheckedChange,
+                    role = Role.Switch
+                )),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
@@ -100,30 +115,45 @@ fun WarpSwitch(
                     .padding(dimensions.components.switch.thumbPadding)
                     .align(Alignment.CenterVertically)
                     .clip(CircleShape)
-                    .background(switchColors.thumbColor)
+                    .background(
+                        lerp(
+                            switchColors.uncheckedThumbColor,
+                            switchColors.checkedThumbColor,
+                            offset.value
+                        )
+                    )
             )
         }
     }
 }
 
 internal data class WarpSwitchColors(
-    val thumbColor: Color,
+    val checkedThumbColor: Color,
+    val uncheckedThumbColor: Color,
     val checkedTrackColor: Color,
-    val uncheckedTrackColor: Color
+    val uncheckedTrackColor: Color,
+    val checkedBorderColor: Color,
+    val uncheckedBorderColor: Color
 )
 
 @Composable
 internal fun neutralSwitchColors() = WarpSwitchColors(
-    thumbColor = colors.background.default,
+    checkedThumbColor = colors.background.default,
+    uncheckedThumbColor = colors.components.switch.handleBackground,
     checkedTrackColor = colors.background.primary,
-    uncheckedTrackColor = colors.components.switch.handleBackground
-)
+    uncheckedTrackColor = colors.background.default,
+    checkedBorderColor = Color.Transparent,
+    uncheckedBorderColor = colors.components.switch.handleBackground
+    )
 
 @Composable
 internal fun disabledSwitchColors() = WarpSwitchColors(
-    thumbColor = colors.background.disabled,
-    checkedTrackColor = colors.background.disabledSubtle,
+    checkedThumbColor = colors.background.disabledSubtle,
+    uncheckedThumbColor = colors.background.disabled,
+    checkedTrackColor = colors.background.disabled,
     uncheckedTrackColor = colors.background.disabledSubtle,
+    checkedBorderColor = Color.Transparent,
+    uncheckedBorderColor = colors.border.disabled
 )
 
 @Preview(showBackground = false)

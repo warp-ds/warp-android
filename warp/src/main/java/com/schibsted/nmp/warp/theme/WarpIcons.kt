@@ -43,6 +43,7 @@ object WarpIconResources {
     @SuppressLint("DiscouragedApi")
     @Composable
     fun getResourceIdByName(resourceName: String): Int {
+        if(resourceName.isBlank()) return 0
         val context = LocalContext.current
         val resourceNameWithAppendix = if(!resourceName.contains("warp_")) "warp_$resourceName" else resourceName
         return context.resources.getIdentifier(resourceNameWithAppendix, "drawable", context.packageName)
@@ -50,12 +51,14 @@ object WarpIconResources {
 
     @Composable
     fun getIconByIdentifier(identifier: String): WarpIconResource? {
+        if(identifier.isBlank() || identifier.isEmpty()) return null
         return taxonomyIconList.find { it is WarpTaxonomyIconResource && it.identifier == identifier || it is WarpBrandIconResource && it.identifier == identifier }
     }
 
     @SuppressLint("DiscouragedApi")
     @Composable
     fun getIconByName(resourceName: String): WarpIconResource? {
+        if(resourceName.isBlank() || resourceName.isEmpty()) return null
         val context = LocalContext.current
         val resourceNameWithAppendix = if(!resourceName.contains("warp_")) "warp_$resourceName" else resourceName
         val drawableResourceId =

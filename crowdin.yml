@@ -1,0 +1,15 @@
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_API_TOKEN
+base_url_env: CROWDIN_BASE_URL
+base_path: .
+preserve_hierarchy: true
+files:
+  [
+    {
+      "source": "/warp/src/main/res/values/strings.xml",
+      "translation": "/warp-%two_letters_code%/src/main/res/values/strings.xml",
+      "languages_mapping":
+        { "two_letters_code": { "nb": "finn", "fi": "tori", "da": "dba", "sv": "blocket" } },
+      "type": "android",
+    },
+  ]

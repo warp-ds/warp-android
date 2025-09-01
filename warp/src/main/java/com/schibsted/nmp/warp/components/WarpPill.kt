@@ -3,10 +3,11 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
@@ -20,7 +21,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * Supports two styles: filter and suggestion.
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/pill/)
  *
- *
  * @param modifier The modifier to be applied to the pill. Defaults to [Modifier].
  * @param text The text to be displayed in the pill.
  * @param onClick The callback to be invoked when the pill is clicked.
@@ -28,6 +28,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param style The style of the pill. Defaults to [WarpPillStyle.Filter].
  * @param closable Whether the pill is closable. When true, the pill will display a dismiss icon. Defaults to false.
  * @param icon The icon to be displayed in the pill. If provided, the dismiss icon will not be displayed.
+ * @param semanticRole The semantic role of the pill. Defaults to [Role.Checkbox].
  */
 @Composable
 fun WarpPill(
@@ -37,7 +38,8 @@ fun WarpPill(
     selected: Boolean = false,
     style: WarpPillStyle = WarpPillStyle.Filter,
     closable: Boolean = false,
-    icon: WarpIconResource? = null
+    icon: WarpIconResource? = null,
+    semanticRole: Role = Role.Checkbox
 ) {
     val warpPillColors: WarpPillStyleColors = when (style) {
         WarpPillStyle.Filter -> pillStyleFilter()
@@ -70,7 +72,11 @@ fun WarpPill(
         shape = shapes.ellipse,
         colors = pillColors,
         border = null,
-        modifier = modifier,
+        modifier = Modifier
+            .semantics {
+                role = semanticRole
+            }
+            .then(modifier),
         trailingIcon = if (closable) {
             {
                 WarpIcon(
