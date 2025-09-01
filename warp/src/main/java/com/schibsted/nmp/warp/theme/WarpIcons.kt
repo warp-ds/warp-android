@@ -137,7 +137,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_airplanebed),
             stringResource(R.string.airplanebed),
-            identifier = "airplane-hotel"
+            identifier = "airplane-bed"
         )
 
     val allWheelDrive: WarpIconResource
@@ -152,7 +152,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_animalpaw),
             stringResource(R.string.animalpaw),
-            identifier = "paw"
+            identifier = "animal-paw"
         )
 
     val archway: WarpIconResource
@@ -294,7 +294,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_boat),
             stringResource(R.string.boat),
-            identifier = "sailboat"
+            identifier = "boat"
         )
 
     val bolt: WarpIconResource
@@ -316,7 +316,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_briefcase),
             stringResource(R.string.briefcase),
-            identifier = "job"
+            identifier = "briefcase"
         )
 
     val browser: WarpIconResource
@@ -338,7 +338,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_building),
             stringResource(R.string.building),
-            identifier = "hotel"
+            identifier = "building"
         )
 
     val buildingPlot: WarpIconResource
@@ -374,7 +374,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_cabinhut),
             stringResource(R.string.cabinhut),
-            identifier = "cabin"
+            identifier = "cabin-hut"
         )
 
     val calculator: WarpIconResource
@@ -440,7 +440,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_carright),
             stringResource(R.string.carright),
-            identifier = "minivan"
+            identifier = "car-right"
         )
 
     val chair: WarpTaxonomyIconResource
@@ -694,7 +694,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_drill),
             stringResource(R.string.drill),
-            identifier = "tools"
+            identifier = "drill"
         )
 
     val drink: WarpIconResource
@@ -891,7 +891,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_guitar),
             stringResource(R.string.guitar),
-            identifier = "guitar-bat"
+            identifier = "guitar"
         )
 
     val headset: WarpIconResource
@@ -955,7 +955,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_housemodern),
             stringResource(R.string.housemodern),
-            identifier = "real-estate"
+            identifier = "house-modern"
         )
 
     val housePerson: WarpIconResource
@@ -1234,7 +1234,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_phone),
             stringResource(R.string.phone),
-            identifier = "smart-phone"
+            identifier = "phone"
         )
 
     val phoneCheck: WarpTaxonomyIconResource
@@ -1242,7 +1242,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_phonecheck),
             stringResource(R.string.phonecheck),
-            identifier = "phone-badge-check"
+            identifier = "phone-check"
         )
 
     val phoneScratched: WarpIconResource
@@ -1292,7 +1292,7 @@ object WarpIconResources {
         get() = WarpTaxonomyIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_planetakeoff),
             stringResource(R.string.planetakeoff),
-            identifier = "airplane"
+            identifier = "plane-take-off"
         )
 
     val play: WarpIconResource
