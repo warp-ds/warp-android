@@ -297,4 +297,14 @@
     <string name="copy">Kaksi päällekkäistä neliötä</string>
     <string name="dragdots">Kaksisarakkeinen ja kolmirivinen pisteruudukko</string>
     <string name="qasa">Qasa logo</string>
+    <string name="briefcaseuser">Käyttäjä salkun edessä</string>
+    <string name="calendarplus">Kalenteri, jossa on plusmerkki</string>
+    <string name="confetti">Konfetti pursuaa kartiosta</string>
+    <string name="draw">Kynä piirtää kaarevan viivan</string>
+    <string name="luggage">Matkalaukku kahdella pyörällä ja kahvalla</string>
+    <string name="rotateleft">Vasemmalle osoittava kaareva nuoli neliön yläpuolella</string>
+    <string name="rotateright">Oikealle osoittava kaareva nuoli neliön yläpuolella</string>
+    <string name="shrink">Kaksi sisäänpäin osoittavaa nuolta</string>
+    <string name="suitcasetrolley">Matkalaukku laiturikärryllä</string>
+    <string name="tshirt">T-paita</string>
 </resources>
