@@ -91,6 +91,7 @@ object WarpIconResources {
             carRight,
             chair,
             drill,
+            geometricShapes,
             guitar,
             houseModern,
             iceSkater,
@@ -856,6 +857,14 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_gearmanual),
             stringResource(R.string.gearmanual)
+        )
+
+    val geometricShapes: WarpTaxonomyIconResource
+        @Composable
+        get() = WarpTaxonomyIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_geometricshapes),
+            stringResource(R.string.geometricshapes),
+            identifier = "geometric-shapes"
         )
 
     val graphLine: WarpIconResource

@@ -62,7 +62,7 @@ class WarpIconTest(
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
                         || it.returnType.classifier == WarpBrandIconResource::class
             }
-        Assert.assertEquals(254, count)
+        Assert.assertEquals(255, count)
     }
 
     @Test
@@ -234,6 +234,7 @@ class WarpIconTest(
                     icons.gasFuel,
                     icons.gasHybrid,
                     icons.gearManual,
+                    icons.geometricShapes,
                     icons.gearAutomatic,
                     icons.graphLine,
                     icons.graphPie,
@@ -597,7 +598,7 @@ class WarpIconTest(
                         ),
                     verticalArrangement = Arrangement.spacedBy(dimensions.space2)
                 ) {
-                    WarpIcon(identifier = "airplane", color = colors.icon.secondary)
+                    WarpIcon(identifier = "lotusflower", color = colors.icon.secondary)
                     WarpIcon(identifier = "sofa", color = colors.icon.secondary)
                     WarpIcon(identifier = "oikotie", color = colors.icon.secondary)
                 }

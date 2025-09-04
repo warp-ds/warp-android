@@ -198,6 +198,7 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.mail, size)
     CreateIcon(icons.mailbox, size)
     CreateIcon(icons.gearManual, size)
+    CreateIcon(icons.geometricShapes, size)
     CreateIcon(icons.map, size)
     CreateIcon(icons.messages, size)
     CreateIcon(icons.messagesFilled, size)

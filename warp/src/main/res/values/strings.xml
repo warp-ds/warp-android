@@ -254,4 +254,5 @@
     <string name="dragdots">Two-column, three-row grid of dots</string>
     <string name="qasa">Qasa logo</string>
     <string name="briefcase">Briefcase</string>
+    <string name="geometricshapes">Four geometrics shapes in a grid</string>
 </resources>
