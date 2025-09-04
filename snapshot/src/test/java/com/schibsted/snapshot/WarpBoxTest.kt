@@ -101,7 +101,7 @@ class WarpBoxTest(
                             .fillMaxWidth(),
                         boxStyle = style,
                         heading = "Hello Box! ",
-                        icon = { WarpIcon(icon = icons.spa) },
+                        icon = { WarpIcon(icon = icons.lotusFlower) },
                         text = "This is a box has all optional UI elements.",
                         link = "This is a link",
                         linkAction = { Log.d("Meow", "Link click") },
@@ -124,7 +124,7 @@ class WarpBoxTest(
                             .fillMaxWidth(),
                         boxStyle = style,
                         heading = "Warp Box!",
-                        icon = { WarpIcon(icon = icons.spa) },
+                        icon = { WarpIcon(icon = icons.lotusFlower) },
                         text = "${style.name} box with optional heading and icon"
                     )
                 }

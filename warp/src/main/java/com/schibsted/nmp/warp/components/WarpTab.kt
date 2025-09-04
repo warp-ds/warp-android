@@ -126,7 +126,7 @@ fun WarpTabsPreview() {
             selected = selectedIndex == 0,
             onClick = { selectedIndex = 0 },
             text = "First",
-            icon = icons.spa
+            icon = icons.lotusFlower
         )
         WarpTab(
             selected = selectedIndex == 1,
