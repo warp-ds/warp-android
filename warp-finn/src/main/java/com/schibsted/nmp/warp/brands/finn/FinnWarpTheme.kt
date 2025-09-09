@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
 import com.schibsted.nmp.warp.theme.WarpTheme
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,7 +20,10 @@ fun FinnWarpTheme(
         ?: if (isSystemInDarkTheme()) FinnDarkColors else FinnColors
     val finnDimensions = WarpDimensions
     val finnResources = WarpResources
-    val finnRippleConfig = RippleConfiguration(color = finnColors.background.primary, rippleAlpha = RippleAlpha(0.5f, 0.5f, 0.5f, 0.5f))
+    val finnRippleConfig = RippleConfiguration(
+        color = finnColors.background.active,
+        rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f)
+    )
 
     WarpTheme(
         colors = finnColors,
