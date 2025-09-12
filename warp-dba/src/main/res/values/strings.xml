@@ -14,7 +14,7 @@
     <string name="arrowleft">Pil, som peger til venstre</string>
     <string name="arrowright">Pil, som peger til højre</string>
     <string name="arrowup">Pil opad</string>
-    <string name="attachment">Papirclips</string>
+    <string name="attachment">Papirklip</string>
     <string name="automatic">Automatgear</string>
     <string name="autovex">Autovex\' logo</string>
     <string name="awardmedal">Medaljeikon</string>
@@ -297,15 +297,14 @@
     <string name="copy">To overlappende firkanter</string>
     <string name="dragdots">Gitter af prikker med to kolonner og tre rækker</string>
     <string name="qasa">Qasa-logo</string>
-    <string name="briefcaseuser">Bruger foran en mappe</string>
-    <string name="calendarplus">Kalender indeholdende et plus</string>
-    <string name="confetti">Konfetti, der sprænger ud af et kræmmerhus</string>
-    <string name="draw">Blyant, der tegner en buet linje</string>
-    <string name="luggage">Bagage på to hjul med et håndtag</string>
-    <string name="rotateleft">Venstrevendt buet pil over en firkant</string>
-    <string name="rotateright">Højrevendt buet pil over en firkant</string>
-    <string name="shrink">To indadpegende pile</string>
-    <string name="suitcasetrolley">Kuffert på en platformsvogn</string>
+    <string name="briefcaseuser">Bruger foran en attachétaske</string>
+    <string name="calendarplus">Kalender med et plus på</string>
+    <string name="confetti">Konfetti, der flyver ud af en kegle</string>
+    <string name="draw">Blyant, der tegner en buet streg</string>
+    <string name="luggage">Kuffert med to hjul og hank</string>
+    <string name="rotateleft">Buet venstrepil oven over en firkant</string>
+    <string name="rotateright">Buet højrepil oven over en firkant</string>
+    <string name="shrink">To indadgående pile</string>
+    <string name="suitcasetrolley">Kuffert på en rullevogn</string>
     <string name="tshirt">T-shirt</string>
-
 </resources>
