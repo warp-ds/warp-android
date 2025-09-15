@@ -4,7 +4,6 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerColors
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DatePickerFormatter
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,7 +30,6 @@ import kotlinx.coroutines.flow.filterNotNull
  * @param onDismiss A callback that is invoked when the date picker is dismissed. Applies only to [WarpDatePickerType.DIALOG].
  * @param preselectedDateMillis The preselected date in milliseconds. Todays' date will be used if nothing is provided
  * @param type The type of the date picker. Defaults to [WarpDatePickerType.DIALOG].
- * @param dateFormatter The date formatter to be used. Defaults to [DatePickerDefaults.dateFormatter].
  * @param selectableDates The selectable dates to be used. Defaults to [DatePickerDefaults.AllDates].
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +40,6 @@ fun WarpDatePicker(
     onDismiss: (() -> Unit)? = null,
     preselectedDateMillis: Long? = null,
     type: WarpDatePickerType = WarpDatePickerType.DIALOG,
-    dateFormatter: DatePickerFormatter = remember { DatePickerDefaults.dateFormatter() },
     selectableDates: SelectableDates = DatePickerDefaults.AllDates
 ) {
     var selectedDate by remember {
@@ -79,7 +76,7 @@ fun WarpDatePicker(
                 },
                 colors = datePickerColors()
             ) {
-                DatePickerView(datePickerState, modifier, dateFormatter)
+                DatePickerView(datePickerState, modifier)
             }
         }
 
@@ -94,7 +91,7 @@ fun WarpDatePicker(
                         selectedDate = newSelectedTimestamp
                     }
             }
-            DatePickerView(datePickerState, modifier, dateFormatter)
+            DatePickerView(datePickerState, modifier)
         }
     }
 }
@@ -103,13 +100,11 @@ fun WarpDatePicker(
 @OptIn(ExperimentalMaterial3Api::class)
 private fun DatePickerView(
     datePickerState: DatePickerState,
-    modifier: Modifier,
-    dateFormatter: DatePickerFormatter
+    modifier: Modifier
 ) {
     DatePicker(
         state = datePickerState,
         modifier = modifier,
-        dateFormatter = dateFormatter,
         title = null,
         headline = null,
         showModeToggle = false,
