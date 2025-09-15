@@ -25,10 +25,11 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 
 /**
- * A date picker in the warp design system.
+ * A date picker in the warp design system. Uses default Locale
  * @param modifier The modifier to be applied to the date picker.
- * @param onDateSelected A callback that is invoked when a date is selected.
- * @param preselectedDateMillis The preselected date in milliseconds. Todays date will be used if not provided
+ * @param onDateSelected A callback that is invoked when a date is selected. Returns time in millis
+ * @param onDismiss A callback that is invoked when the date picker is dismissed. Applies only to [WarpDatePickerType.DIALOG].
+ * @param preselectedDateMillis The preselected date in milliseconds. Todays' date will be used if nothing is provided
  * @param type The type of the date picker. Defaults to [WarpDatePickerType.DIALOG].
  * @param dateFormatter The date formatter to be used. Defaults to [DatePickerDefaults.dateFormatter].
  * @param selectableDates The selectable dates to be used. Defaults to [DatePickerDefaults.AllDates].
@@ -44,29 +45,19 @@ fun WarpDatePicker(
     dateFormatter: DatePickerFormatter = remember { DatePickerDefaults.dateFormatter() },
     selectableDates: SelectableDates = DatePickerDefaults.AllDates
 ) {
-    val displayMode = when (type) {
-        WarpDatePickerType.DIALOG -> {
-            DisplayMode.Picker
-        }
-
-        WarpDatePickerType.INLINE -> {
-            DisplayMode.Picker
-        }
-
-        WarpDatePickerType.TEXTFIELD -> {
-            DisplayMode.Input
-        }
+    var selectedDate by remember {
+        mutableStateOf(
+            preselectedDateMillis ?: System.currentTimeMillis()
+        )
     }
-    var selectedDate by remember { mutableStateOf(preselectedDateMillis ?: System.currentTimeMillis()) }
 
     val datePickerState: DatePickerState = rememberDatePickerState(
-            initialSelectedDateMillis = preselectedDateMillis ?: selectedDate,
-            initialDisplayMode = displayMode,
-            selectableDates = selectableDates
-        )
+        initialSelectedDateMillis = preselectedDateMillis ?: selectedDate,
+        initialDisplayMode = DisplayMode.Picker,
+        selectableDates = selectableDates
+    )
 
     when (type) {
-
         WarpDatePickerType.DIALOG -> {
             DatePickerDialog(
                 onDismissRequest = { onDismiss?.invoke() },
@@ -77,11 +68,14 @@ fun WarpDatePicker(
                             selectedDate = it
                         }
                         onDismiss
-                    } )
+                    })
 
                 },
                 dismissButton = {
-                    WarpButton(style = WarpButtonStyle.Quiet, text = stringResource(id = R.string.cancel), onClick = onDismiss ?: {} )
+                    WarpButton(
+                        style = WarpButtonStyle.Quiet,
+                        text = stringResource(id = R.string.cancel),
+                        onClick = onDismiss ?: {})
                 },
                 colors = datePickerColors()
             ) {
@@ -101,20 +95,6 @@ fun WarpDatePicker(
                     }
             }
             DatePickerView(datePickerState, modifier, dateFormatter)
-        }
-
-        WarpDatePickerType.TEXTFIELD -> {
-            //Keep track of the value change
-            LaunchedEffect(datePickerState) {
-                snapshotFlow { datePickerState.selectedDateMillis }
-                    .filterNotNull()
-                    .distinctUntilChanged()
-                    .collect { newSelectedTimestamp ->
-                        onDateSelected(newSelectedTimestamp)
-                        selectedDate = newSelectedTimestamp
-                    }
-            }
-
         }
     }
 }
@@ -164,12 +144,10 @@ private fun datePickerColors(): DatePickerColors = DatePickerDefaults
         todayDateBorderColor = colors.border.focus,
         dayInSelectionRangeContentColor = colors.text.default,
         dayInSelectionRangeContainerColor = colors.background.primary,
-        dividerColor = colors.background.subtle,
-        dateTextFieldColors = warpTextFieldColors()
+        dividerColor = colors.background.subtle
     )
 
 enum class WarpDatePickerType {
     DIALOG,
-    INLINE,
-    TEXTFIELD
+    INLINE
 }
