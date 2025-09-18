@@ -9,11 +9,11 @@ import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpTypography
 
 private val NeutralSansBold = FontFamily(
-    Font(R.font.vendsanstext_bold)
+    Font(R.font.inter_bold)
 )
 
 private val NeutralSansRegular = FontFamily(
-    Font(R.font.vendsanstext_regular)
+    Font(R.font.inter_regular)
 )
 
 internal object NeutralTypography : WarpTypography {
