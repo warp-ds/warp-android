@@ -177,6 +177,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("datePicker") {
+                DatePickerScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -233,6 +238,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "buttons" to "WarpButton",
                         "callout" to "WarpCallout",
                         "checkbox" to "WarpCheckbox",
+                        "datePicker" to "WarpDatePicker",
                         "expandable" to "WarpExpandable",
                         "icons" to "WarpIcons",
                         "link" to "WarpLink",
