@@ -79,7 +79,7 @@ dependencies {
     implementation(project(path = ":warp-dba"))
     implementation(project(path = ":warp-blocket"))
     implementation(project(path = ":warp-vend"))
-
+    implementation(project(path = ":warp-neutral"))
 
     implementation(Dependencies.material)
     implementation(Dependencies.core)
