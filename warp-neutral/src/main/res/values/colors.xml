@@ -22,9 +22,9 @@
    <color name="warp_background_subtle_active">#ffcacad1</color>
    <color name="warp_background_disabled">#ffcacad1</color>
    <color name="warp_background_disabled_subtle">#ffdedee3</color>
-   <color name="warp_background_selected">#fff6f6f6</color>
-   <color name="warp_background_selected_hover">#fff0f0f2</color>
-   <color name="warp_background_selected_active">#ffdedee3</color>
+   <color name="warp_background_selected">#fff0f7ff</color>
+   <color name="warp_background_selected_hover">#ffc8dffa</color>
+   <color name="warp_background_selected_active">#ffa0c9f7</color>
    <color name="warp_background_inverted">#ff1b1b1f</color>
    <color name="warp_background_primary">#ff0071eb</color>
    <color name="warp_background_primary_hover">#ff0055b1</color>
@@ -155,8 +155,8 @@
    <color name="warp_callout_background">#ffe3f1da</color>
    <color name="warp_callout_border">#ff8dc570</color>
    <color name="warp_card_default_background">#ffffffff</color>
-   <color name="warp_navbar_icon_selected">#ff1b1b1f</color>
-   <color name="warp_navbar_border_selected">#ff1b1b1f</color>
+   <color name="warp_navbar_icon_selected">#ff0071eb</color>
+   <color name="warp_navbar_border_selected">#ff0071eb</color>
    <color name="warp_page_indicator_background">#ffcacad1</color>
    <color name="warp_page_indicator_background_hover">#ffafafb8</color>
    <color name="warp_pill_suggestion_background">#ffdedee3</color>

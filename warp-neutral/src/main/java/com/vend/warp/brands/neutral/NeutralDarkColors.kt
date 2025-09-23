@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizDarkColors
 
-// Generated on Wed, 17 Sep 2025 09:11:09 GMT by https://github.com/warp-ds/tokens
+// Generated on Tue, 23 Sep 2025 08:01:15 GMT by https://github.com/warp-ds/tokens
 
 internal object NeutralDarkColors : WarpColors {
     override val surface: WarpSurfaceColors = NeutralDarkSurfaceColors
@@ -53,9 +53,9 @@ internal object NeutralDarkBackgroundColors : WarpBackgroundColors {
     override val subtleActive = Color(0xFF5c5c66)
     override val disabled = Color(0xFF47474f)
     override val disabledSubtle = Color(0xFF5c5c66)
-    override val selected = Color(0xFF1b1b1f)
-    override val selectedHover = Color(0xFF2b2b30)
-    override val selectedActive = Color(0xFF47474f)
+    override val selected = Color(0xFF001d3d)
+    override val selectedHover = Color(0xFF003977)
+    override val selectedActive = Color(0xFF0055b1)
     override val inverted = Color(0xFFf6f6f6)
     override val primary = Color(0xFF509df1)
     override val primaryHover = Color(0xFF78b3f4)
@@ -222,8 +222,8 @@ internal object NeutralDarkPillColors : WarpPillColors {
 }
 
 internal object NeutralDarkNavBarColors : WarpNavBarColors {
-    override val iconSelected = Color(0xFFffffff)
-    override val borderSelected = Color(0xFFffffff)
+    override val iconSelected = Color(0xFF509df1)
+    override val borderSelected = Color(0xFF509df1)
 }
 
 internal object NeutralDarkTooltipColors : WarpTooltipColors {
