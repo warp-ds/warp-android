@@ -138,7 +138,7 @@
     <string name="housemodern">Moderne hus-ikon med højt glasparti og smalt, fladt tag</string>
     <string name="houseperson">Hus med en person</string>
     <string name="iceskater">Skøjteløber</string>
-    <string name="image">Pladsholderbillede med omridset af bjerge og solen</string>
+    <string name="image">Billedepladsholder med omridset af bjerge og solen</string>
     <string name="info">Cirkel med brev indeni</string>
     <string name="instagram">Instagram-ikon</string>
     <string name="job">Dokumentmappe</string>
@@ -155,9 +155,9 @@
     <string name="linkexternal">Firkant med diagonal pil ud af højre hjørne foroven</string>
     <string name="listsort">Punktopstilling</string>
     <string name="lockshield">Skjold med hængelås</string>
-    <string name="logout">Højrepil ud af en kasse</string>
+    <string name="logout">Højrepil pegende ud af en kasse</string>
     <string name="mail">Kuvert</string>
-    <string name="mailbox">Postkasse med stående flag</string>
+    <string name="mailbox">Postkasse med et hævet flag</string>
     <string name="manual">Manuelt gear</string>
     <string name="map">Papirlandkort</string>
     <string name="measure">Lineal</string>
@@ -206,7 +206,7 @@
     <string name="realestate">Hus med en have</string>
     <string name="refresh">Rund pil</string>
     <string name="remppatori">RemppaTori</string>
-    <string name="roomservice">Receptionsklokke</string>
+    <string name="roomservice">Ringeklokke</string>
     <string name="sailboat">To fugle og en sejlbåd på vand</string>
     <string name="sailing">Sejlbåd</string>
     <string name="sauna">Sauna</string>
