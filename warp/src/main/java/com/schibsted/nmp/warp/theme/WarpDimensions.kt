@@ -80,6 +80,7 @@ object WarpComponentDimensions {
     val topAppBarHeight = 64.dp
     val tooltip = TooltipDimensions
     val slider = SliderDimensions
+    val indicatorDotSize = 10.dp
 }
 
 object SliderDimensions {
