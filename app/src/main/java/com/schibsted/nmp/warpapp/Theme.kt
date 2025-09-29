@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warpapp
 
+import NeutralWarpTheme
 import VendWarpTheme
 import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.brands.blocket.BlocketWarpTheme
@@ -13,6 +14,7 @@ const val TORI = "tori"
 const val DBA = "dba"
 const val BLOCKET = "blocket"
 const val VEND = "vend"
+const val NEUTRAL = "neutral"
 
 //To be able to use the theme in legacy xml views we need to implement LegacyWarpTheme.
 // This class will be then injected into the legacy implementation of Warp components
@@ -25,6 +27,7 @@ class BrandTheme(val flavor: String) : LegacyWarpTheme {
             DBA -> DbaWarpTheme (content)
             BLOCKET -> BlocketWarpTheme(content)
             VEND -> VendWarpTheme(content)
+            NEUTRAL -> NeutralWarpTheme(content)
         }
     }
 }
