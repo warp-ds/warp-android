@@ -182,6 +182,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("divider") {
+                DividerScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -242,6 +247,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "callout" to "WarpCallout",
                         "checkbox" to "WarpCheckbox",
                         "datePicker" to "WarpDatePicker",
+                        "divider" to "WarpDivider",
                         "expandable" to "WarpExpandable",
                         "icons" to "WarpIcons",
                         "link" to "WarpLink",
