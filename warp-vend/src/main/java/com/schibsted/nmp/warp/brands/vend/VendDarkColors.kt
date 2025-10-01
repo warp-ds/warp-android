@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizDarkColors
 
-// Generated on Thu, 10 Apr 2025 12:07:40 GMT by https://github.com/warp-ds/tokens
+// Generated on Wed, 01 Oct 2025 09:00:59 GMT by https://github.com/warp-ds/tokens
 
 internal object VendDarkColors : WarpColors {
     override val surface: WarpSurfaceColors = VendDarkSurfaceColors
@@ -90,7 +90,7 @@ internal object VendDarkBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFF071f37)
     override val infoSubtleHover = Color(0xFF0d3862)
     override val infoSubtleActive = Color(0xFF14579a)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color(0x00ffffff)
     override val notification = Color(0xFFe53f3e)
 }
 
@@ -98,6 +98,8 @@ internal object VendDarkBorderColors : WarpBorderColors {
     override val default = Color(0xFF5c5c66)
     override val hover = Color(0xFF84848f)
     override val active = Color(0xFFa0a0a8)
+    override val strong = Color(0xFF84848f)
+    override val strongHover = Color(0xFFa0a0a8)
     override val disabled = Color(0xFF47474f)
     override val selected = Color(0xFFffffff)
     override val selectedHover = Color(0xFFefeff2)

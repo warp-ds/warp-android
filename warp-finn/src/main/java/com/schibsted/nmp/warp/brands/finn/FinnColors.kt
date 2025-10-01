@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizColors
 
-// Generated on Thu, 09 Jan 2025 13:37:44 GMT by https://github.com/warp-ds/tokens
+// Generated on Wed, 01 Oct 2025 09:00:59 GMT by https://github.com/warp-ds/tokens
 
 internal object FinnColors : WarpColors {
     override val surface: WarpSurfaceColors = FinnSurfaceColors
@@ -98,6 +98,8 @@ internal object FinnBorderColors : WarpBorderColors {
     override val default = Color(0xFFcacad1)
     override val hover = Color(0xFFafafb8)
     override val active = Color(0xFF84848f)
+    override val strong = Color(0xFF84848f)
+    override val strongHover = Color(0xFF5c5c66)
     override val disabled = Color(0xFFcacad1)
     override val selected = Color(0xFF0063fb)
     override val selectedHover = Color(0xFF004bbd)

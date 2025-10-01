@@ -288,6 +288,8 @@ interface WarpBorderColors {
     val default: Color
     val hover: Color
     val active: Color
+    val strong: Color
+    val strongHover: Color
     val disabled: Color
     val selected: Color
     val selectedHover: Color
