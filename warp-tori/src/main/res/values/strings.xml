@@ -4,6 +4,7 @@
     <string name="activeads">Ilmoituskortti, jossa on kuva, otsikko ja valintamerkki</string>
     <string name="ads">Ilmoituskortti, jossa on kuva ja otsikko</string>
     <string name="aircon">Ilmastointi</string>
+    <string name="airplanebed">Sänky, jonka taustalla on lentokone</string>
     <string name="allwheeldrive">Nelivetoajoneuvo</string>
     <string name="animalpaw">Koiran tassu</string>
     <string name="archway">Kaari</string>
@@ -102,6 +103,7 @@
     <string name="graphpie">Ympyrädiagrammi</string>
     <string name="grid">Neliruutuinen ruudukko</string>
     <string name="grill">Hiiligrilli</string>
+    <string name="guitar">Kitara</string>
     <string name="headset">Kuulokkeet</string>
     <string name="heart">Sydän</string>
     <string name="heartrate">Sydän ja sydänfilmi</string>
@@ -214,7 +216,7 @@
     <string name="textunderline">Alleviivattu teksti</string>
     <string name="theater">Teatterinaamio, jossa on hymynaama</string>
     <string name="threesixty">360° näkymä</string>
-    <string name="drill">Työkalut</string>
+    <string name="drill">Sähköpora</string>
     <string name="townhouse">Kaksi kaupunkitaloa</string>
     <string name="tractor">Traktori</string>
     <string name="trenddown">Laskeva trendiviiva</string>
@@ -252,8 +254,8 @@
     <string name="copy">Kaksi päällekkäistä neliötä</string>
     <string name="dragdots">Kaksisarakkeinen ja kolmirivinen pisteruudukko</string>
     <string name="qasa">Qasa logo</string>
-    <string name="airplanebed">Sänky, jonka taustalla on lentokone</string>
     <string name="briefcase">Salkku</string>
+    <string name="geometricshapes">Neljä geometrista kuviota ruudukossa</string>
     <string name="briefcaseuser">Käyttäjä salkun edessä</string>
     <string name="calendarplus">Kalenteri, jossa on plusmerkki</string>
     <string name="confetti">Kartiosta ulos lentävät konfetit</string>

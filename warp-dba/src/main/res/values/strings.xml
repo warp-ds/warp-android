@@ -4,6 +4,7 @@
     <string name="activeads">Annoncekort med billede, overskrift og flueben</string>
     <string name="ads">Annoncekort med billede og overskrift</string>
     <string name="aircon">Klimaanlæg</string>
+    <string name="airplanebed">Seng med flyvemaskine i baggrunden</string>
     <string name="allwheeldrive">Firhjulstræk</string>
     <string name="animalpaw">Hundepote</string>
     <string name="archway">Buegang</string>
@@ -11,8 +12,8 @@
     <string name="arrowleft">Pil, som peger til venstre</string>
     <string name="arrowright">Pil, som peger til højre</string>
     <string name="arrowup">Pil opad</string>
-    <string name="attachment">Papirklip</string>
-    <string name="automatic">Automatgear</string>
+    <string name="paperclip">Papirklip</string>
+    <string name="gearautomatic">Automatgear</string>
     <string name="autovex">Autovex\' logo</string>
     <string name="awardmedal">Medaljeikon</string>
     <string name="backwheeldrive">Baghjulstræk</string>
@@ -26,7 +27,7 @@
     <string name="bell">Klokke</string>
     <string name="bellfilled">Klokke</string>
     <string name="bin">Skraldespand</string>
-    <string name="block">Person med et adgang forbudt-skilt</string>
+    <string name="block">"Person med et adgang forbudt-skilt "</string>
     <string name="bolt">Lyn</string>
     <string name="bookmark">Bogmærke</string>
     <string name="browser">Musemarkør, der peger på en T-shirt omgivet af en firkant</string>
@@ -102,6 +103,7 @@
     <string name="graphpie">Cirkeldiagram</string>
     <string name="grid">Fire firkanter i et gitter</string>
     <string name="grill">Kulgrill</string>
+    <string name="guitar">Guitar</string>
     <string name="headset">Hovedtelefoner</string>
     <string name="heart">Hjerte</string>
     <string name="heartrate">Hjerte med pulsindikator</string>
@@ -131,7 +133,7 @@
     <string name="logout">Højrepil pegende ud af en kasse</string>
     <string name="mail">Kuvert</string>
     <string name="mailbox">Postkasse med et hævet flag</string>
-    <string name="manual">Manuelt gear</string>
+    <string name="gearmanual">Manuel gearkasse</string>
     <string name="map">Papirlandkort</string>
     <string name="messages">Chatboble</string>
     <string name="messagesfilled">Chatboble</string>
@@ -214,7 +216,7 @@
     <string name="textunderline">Understreget tekst</string>
     <string name="theater">Teatermaske med smilende ansigt</string>
     <string name="threesixty">360°-visning</string>
-    <string name="drill">Værktøj</string>
+    <string name="drill">Eleltrisk boremaskine</string>
     <string name="townhouse">To byhuse</string>
     <string name="tractor">Traktor</string>
     <string name="trenddown">Nedadgående graf</string>
@@ -252,8 +254,8 @@
     <string name="copy">To overlappende firkanter</string>
     <string name="dragdots">Gitter af prikker med to kolonner og tre rækker</string>
     <string name="qasa">Qasa-logo</string>
-    <string name="airplanebed">Seng med et fly i baggrunden</string>
-    <string name="briefcase">Attachémappe</string>
+    <string name="briefcase">Attachétaske</string>
+    <string name="geometricshapes">Fire geometriske former i et gitter</string>
     <string name="briefcaseuser">Bruger foran en attachétaske</string>
     <string name="calendarplus">Kalender med et plus på</string>
     <string name="confetti">Konfetti, der flyver ud af en kegle</string>
