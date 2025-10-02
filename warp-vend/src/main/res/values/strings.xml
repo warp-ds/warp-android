@@ -251,6 +251,17 @@
     <string name="copy">Two overlapping squares</string>
     <string name="dragdots">Two-column, three-row grid of dots</string>
     <string name="qasa">Qasa logo</string>
+    <string name="briefcaseuser">User in front of a briefcase</string>
+    <string name="calendarplus">Calendar containing a plus</string>
+    <string name="confetti">Confetti bursting out from a cone</string>
+    <string name="draw">Pencil drawing a curved line</string>
+    <string name="luggage">Luggage on two wheels with a handle</string>
+    <string name="rotateleft">Left facing curvy arrow above a square</string>
+    <string name="rotateright">Right facing curvy arrow above a square</string>
+    <string name="shrink">Two inwards pointing arrows</string>
+    <string name="suitcasetrolley">Suitcase on a platform trolley</string>
+    <string name="tshirt">T shirt</string>
+
     <string name="airplanebed">Bed with an airplane in the background</string>
     <string name="briefcase">Briefcase</string>
 </resources>

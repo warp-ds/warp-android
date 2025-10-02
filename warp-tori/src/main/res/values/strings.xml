@@ -254,4 +254,14 @@
     <string name="qasa">Qasa logo</string>
     <string name="airplanebed">Sänky, jonka taustalla on lentokone</string>
     <string name="briefcase">Salkku</string>
+    <string name="briefcaseuser">Käyttäjä salkun edessä</string>
+    <string name="calendarplus">Kalenteri, jossa on plusmerkki</string>
+    <string name="confetti">Kartiosta ulos lentävät konfetit</string>
+    <string name="draw">Lyijykynä, joka piirtää kaarevaa viivaa</string>
+    <string name="luggage">Matkalaukku, jossa on kaksi pyörää ja kahva</string>
+    <string name="rotateleft">Vasemmalle osoittava kaareva nuoli neliön yläpuolella</string>
+    <string name="rotateright">Oikealle osoittava kaareva nuoli neliön yläpuolella</string>
+    <string name="shrink">Kaksi sisäänpäin osoittavaa nuolta</string>
+    <string name="suitcasetrolley">Lavavaunuissa oleva matkalaukku</string>
+    <string name="tshirt">T-paita</string>
 </resources>

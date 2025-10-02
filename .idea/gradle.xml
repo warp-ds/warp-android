@@ -28,11 +28,11 @@
             <option value="$PROJECT_DIR$/warp-blocket" />
             <option value="$PROJECT_DIR$/warp-dba" />
             <option value="$PROJECT_DIR$/warp-finn" />
+            <option value="$PROJECT_DIR$/warp-neutral" />
             <option value="$PROJECT_DIR$/warp-tori" />
             <option value="$PROJECT_DIR$/warp-vend" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

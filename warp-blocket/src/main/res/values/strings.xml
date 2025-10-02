@@ -147,6 +147,7 @@
     <string name="oikotie">Oikotie</string>
     <string name="organize">Pil upp och pil ned separerade av horisontell linje</string>
     <string name="parking">Cirkel med bokstaven P inuti</string>
+    <string name="paw">Katts tass</string>
     <string name="phone">Smartphone</string>
     <string name="phonecheck">Smartphone och ett emblem med bock</string>
     <string name="phonescratched">Smartphone med repad skärm</string>
@@ -254,4 +255,14 @@
     <string name="qasa">Qasa-logotyp</string>
     <string name="airplanebed">Säng med ett flygplan i bakgrunden</string>
     <string name="briefcase">Portfölj</string>
+    <string name="briefcaseuser">Användare framför en portfölj</string>
+    <string name="calendarplus">Kalender med ett plus</string>
+    <string name="confetti">Konfetti som sprutar ut ur en strut</string>
+    <string name="draw">Penna som ritar en böjd linje</string>
+    <string name="luggage">Bagage på två hjul med handtag</string>
+    <string name="rotateleft">Pil böjd åt vänster ovanför en kvadrat</string>
+    <string name="rotateright">Pil böjd åt höger ovanför en kvadrat</string>
+    <string name="shrink">Två inåtpekande pilar</string>
+    <string name="suitcasetrolley">Resväska på en plattformsvagn</string>
+    <string name="tshirt">T-shirt</string>
 </resources>

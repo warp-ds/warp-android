@@ -11,8 +11,8 @@
     <string name="arrowleft">Pil, som peger til venstre</string>
     <string name="arrowright">Pil, som peger til højre</string>
     <string name="arrowup">Pil opad</string>
-    <string name="paperclip">Papirclips</string>
-    <string name="gearautomatic">Automatgear</string>
+    <string name="attachment">Papirklip</string>
+    <string name="automatic">Automatgear</string>
     <string name="autovex">Autovex\' logo</string>
     <string name="awardmedal">Medaljeikon</string>
     <string name="backwheeldrive">Baghjulstræk</string>
@@ -113,7 +113,7 @@
     <string name="housemodern">Moderne hus-ikon med højt glasparti og smalt, fladt tag</string>
     <string name="houseperson">Hus med en person</string>
     <string name="iceskater">Skøjteløber</string>
-    <string name="image">Pladsholderbillede med omridset af bjerge og solen</string>
+    <string name="image">Billedepladsholder med omridset af bjerge og solen</string>
     <string name="info">Cirkel med brev indeni</string>
     <string name="instagram">Instagram-ikon</string>
     <string name="key">Nøgle</string>
@@ -128,10 +128,10 @@
     <string name="linkexternal">Firkant med diagonal pil ud af højre hjørne foroven</string>
     <string name="listsort">Punktopstilling</string>
     <string name="lockshield">Skjold med hængelås</string>
-    <string name="logout">Højrepil ud af en kasse</string>
+    <string name="logout">Højrepil pegende ud af en kasse</string>
     <string name="mail">Kuvert</string>
-    <string name="mailbox">Postkasse med stående flag</string>
-    <string name="gearmanual">Manuelt gear</string>
+    <string name="mailbox">Postkasse med et hævet flag</string>
+    <string name="manual">Manuelt gear</string>
     <string name="map">Papirlandkort</string>
     <string name="messages">Chatboble</string>
     <string name="messagesfilled">Chatboble</string>
@@ -170,7 +170,7 @@
     <string name="question">Spørgsmålstegn</string>
     <string name="refresh">Rund pil</string>
     <string name="remppatori">RemppaTori</string>
-    <string name="roomservice">Receptionsklokke</string>
+    <string name="roomservice">Ringeklokke</string>
     <string name="sauna">Sauna</string>
     <string name="scrollup">Pil opad</string>
     <string name="search">Forstørrelsesglas</string>
@@ -254,5 +254,14 @@
     <string name="qasa">Qasa-logo</string>
     <string name="airplanebed">Seng med et fly i baggrunden</string>
     <string name="briefcase">Attachémappe</string>
-
+    <string name="briefcaseuser">Bruger foran en attachétaske</string>
+    <string name="calendarplus">Kalender med et plus på</string>
+    <string name="confetti">Konfetti, der flyver ud af en kegle</string>
+    <string name="draw">Blyant, der tegner en buet streg</string>
+    <string name="luggage">Kuffert med to hjul og hank</string>
+    <string name="rotateleft">Buet venstrepil oven over en firkant</string>
+    <string name="rotateright">Buet højrepil oven over en firkant</string>
+    <string name="shrink">To indadgående pile</string>
+    <string name="suitcasetrolley">Kuffert på en rullevogn</string>
+    <string name="tshirt">T-shirt</string>
 </resources>

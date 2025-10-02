@@ -108,6 +108,7 @@ class WarpIconTest(
                     icons.boat,
                     icons.bolt,
                     icons.bookmark,
+                    icons.briefcaseUser,
                     icons.briefcase,
                     icons.browser,
                     icons.browserVerified,
@@ -129,6 +130,7 @@ class WarpIconTest(
                     icons.cabinHut,
                     icons.calculator,
                     icons.calendar,
+                    icons.calendarPlus,
                     icons.camera,
                     icons.cancel,
                     icons.car,
@@ -157,6 +159,7 @@ class WarpIconTest(
                     icons.close,
                     icons.cog,
                     icons.colorPalette,
+                    icons.confetti,
                     icons.copy,
                     icons.creditCard,
                     icons.cursor,
@@ -180,6 +183,7 @@ class WarpIconTest(
                     icons.doubleBed,
                     icons.download,
                     icons.dragDots,
+                    icons.draw,
                     icons.drawer,
                     icons.drill,
                     icons.drink,
@@ -319,7 +323,8 @@ class WarpIconTest(
                     icons.lockShield,
                     icons.logout,
                     icons.lotusFlower,
-                    )
+                    icons.luggage
+                )
             )
         }
     }
@@ -424,6 +429,8 @@ class WarpIconTest(
                     icons.road,
                     icons.rocket,
                     icons.roomService,
+                    icons.rotateLeft,
+                    icons.rotateRight,
                     icons.rowingBoat,
                     icons.ruler
                 )
@@ -448,6 +455,7 @@ class WarpIconTest(
                     icons.shoes,
                     icons.shoppingCart,
                     icons.shower,
+                    icons.shrink,
                     icons.singleCylinder,
                     icons.skyscraper,
                     icons.smileyGood,
@@ -469,6 +477,7 @@ class WarpIconTest(
                     icons.stroller,
                     icons.success,
                     icons.suitcase,
+                    icons.suitcaseTrolley,
                     icons.support,
                     icons.swimming,
                 )
@@ -496,6 +505,7 @@ class WarpIconTest(
                     icons.trendDown,
                     icons.trendFlat,
                     icons.trendUp,
+                    icons.tshirt,
                     icons.tv,
                 )
             )
