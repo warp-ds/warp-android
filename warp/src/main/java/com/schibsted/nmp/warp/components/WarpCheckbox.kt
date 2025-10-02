@@ -260,7 +260,7 @@ internal fun checkboxStyleDefault() = WarpCheckboxStyleColors(
     text = colors.text.default,
     extraText = colors.text.subtle,
     background = colors.background.default,
-    border = colors.border.default,
+    border = colors.border.strong,
     selectedBackground = colors.background.primary,
     selectedBorder = colors.border.primary
 )

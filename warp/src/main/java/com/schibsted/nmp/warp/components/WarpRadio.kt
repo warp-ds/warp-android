@@ -249,7 +249,7 @@ internal class WarpRadioButtonColors internal constructor(
 
 @Composable
 internal fun defaultRadioColors() = WarpRadioButtonColors(
-    unselectedColor = colors.border.default,
+    unselectedColor = colors.border.strong,
     selectedColor = colors.border.selected,
     pressedColor = colors.border.primary,
     disabledColor = colors.border.disabled,

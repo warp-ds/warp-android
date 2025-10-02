@@ -232,7 +232,7 @@ internal fun <T> T.ifTrueOtherwise(predicate: Boolean, block: () -> T): T = if (
 @Composable
 fun warpTextFieldColors(readOnly: Boolean = false) = OutlinedTextFieldDefaults.colors(
     unfocusedTextColor = colors.text.default,
-    unfocusedBorderColor = colors.border.default.ifTrueOtherwise(!readOnly) { Color.Transparent },
+    unfocusedBorderColor = colors.border.strong.ifTrueOtherwise(!readOnly) { Color.Transparent },
     unfocusedLabelColor = colors.text.default,
     unfocusedLeadingIconColor = colors.icon.default,
     unfocusedTrailingIconColor = colors.icon.default,
