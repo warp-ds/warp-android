@@ -22,7 +22,7 @@ class BrandTheme(val flavor: String) : LegacyWarpTheme {
     @Composable
     override fun invoke(content:@Composable  () -> Unit) {
         when (flavor) {
-            FINN -> FinnWarpTheme(content, forceDarkMode = false)
+            FINN -> FinnWarpTheme(content)
             TORI -> ToriWarpTheme(content)
             DBA -> DbaWarpTheme (content)
             BLOCKET -> BlocketWarpTheme(content)
