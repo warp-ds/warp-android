@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizDarkColors
 
-// Generated on Tue, 23 Sep 2025 08:01:15 GMT by https://github.com/warp-ds/tokens
+// Generated on Wed, 01 Oct 2025 09:00:59 GMT by https://github.com/warp-ds/tokens
 
 internal object NeutralDarkColors : WarpColors {
     override val surface: WarpSurfaceColors = NeutralDarkSurfaceColors
@@ -98,6 +98,8 @@ internal object NeutralDarkBorderColors : WarpBorderColors {
     override val default = Color(0xFF5c5c66)
     override val hover = Color(0xFF84848f)
     override val active = Color(0xFFafafb8)
+    override val strong = Color(0xFF84848f)
+    override val strongHover = Color(0xFFafafb8)
     override val disabled = Color(0xFF47474f)
     override val selected = Color(0xFF509df1)
     override val selectedHover = Color(0xFF78b3f4)

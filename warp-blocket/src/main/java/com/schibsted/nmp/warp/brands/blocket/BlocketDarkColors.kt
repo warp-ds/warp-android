@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizDarkColors
 
-// Generated on Thu, 09 Jan 2025 13:37:44 GMT by https://github.com/warp-ds/tokens
+// Generated on Wed, 01 Oct 2025 09:00:59 GMT by https://github.com/warp-ds/tokens
 
 internal object BlocketDarkColors : WarpColors {
     override val surface: WarpSurfaceColors = BlocketDarkSurfaceColors
@@ -29,7 +29,6 @@ internal object BlocketDarkColors : WarpColors {
     override val text: WarpTextColors = BlocketDarkTextColors
     override val components: WarpComponentColors = BlocketDarkComponentColors
     override val dataviz: WarpDatavizColors = DatavizDarkColors
-
 }
 
 internal object BlocketDarkSurfaceColors : WarpSurfaceColors {
@@ -99,6 +98,8 @@ internal object BlocketDarkBorderColors : WarpBorderColors {
     override val default = Color(0xFF5c5c66)
     override val hover = Color(0xFF84848f)
     override val active = Color(0xFFafafb8)
+    override val strong = Color(0xFF84848f)
+    override val strongHover = Color(0xFFafafb8)
     override val disabled = Color(0xFF47474f)
     override val selected = Color(0xFF509df1)
     override val selectedHover = Color(0xFF78b3f4)
