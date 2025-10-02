@@ -131,7 +131,6 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.cog, size)
     CreateIcon(icons.colorPalette, size)
     CreateIcon(icons.confetti, size)
-    CreateIcon(icons.cottagePlot, size)
     CreateIcon(icons.creditCard, size)
     CreateIcon(icons.cursor, size)
     CreateIcon(icons.delivery, size)
