@@ -4,6 +4,7 @@
     <string name="activeads">Annonsekort med bilde, tittel og avhukingsikon</string>
     <string name="ads">Annonsekort med bilde og tittel</string>
     <string name="aircon">Klimaanlegg</string>
+    <string name="airplanebed">Seng med et fly i bakgrunnen</string>
     <string name="allwheeldrive">Firehjulstrekk</string>
     <string name="animalpaw">Hundepote</string>
     <string name="archway">Buegang</string>
@@ -22,11 +23,11 @@
     <string name="batteryempty">Tomt batteri</string>
     <string name="batteryfull">Fullt batteri</string>
     <string name="batteryhalffull">Halvfullt batteri</string>
-    <string name="beach">Palmetre på en øy</string>
+    <string name="beach">"Palmetre på en øy "</string>
     <string name="bell">Bjelle</string>
     <string name="bellfilled">Bjelle</string>
     <string name="bin">Søppelkasse</string>
-    <string name="block">Person med \"ingen adgang\" skilt</string>
+    <string name="block">"Person med \"ingen adgang\" skilt "</string>
     <string name="bolt">Lynnedslag</string>
     <string name="bookmark">Bokmerke</string>
     <string name="browser">Musepeker som peker på en T-skjorte omgitt av en firkant</string>
@@ -102,6 +103,7 @@
     <string name="graphpie">Kakediagram</string>
     <string name="grid">Fire firkanter i et rutenett</string>
     <string name="grill">Kullgrill</string>
+    <string name="guitar">Gitar</string>
     <string name="headset">Hodetelefoner</string>
     <string name="heart">Hjerte</string>
     <string name="heartrate">Hjerte med pulsindikator</string>
@@ -141,7 +143,7 @@
     <string name="money">Pengeseddel</string>
     <string name="motorcycle">MC</string>
     <string name="mountain">To fjell og en sol</string>
-    <string name="nettbil">Nettbil</string>
+    <string name="nettbil">Nettbil mørkt ikon</string>
     <string name="nosmoking">Sigarett med kryss over</string>
     <string name="officedesk">Kontorpult</string>
     <string name="oikotie">Oikotie</string>
@@ -214,7 +216,7 @@
     <string name="textunderline">Understrek tekst</string>
     <string name="theater">Teatermaske med smilefjes</string>
     <string name="threesixty">360°-visning</string>
-    <string name="drill">Verktøy</string>
+    <string name="drill">Elektrisk drill</string>
     <string name="townhouse">To hus</string>
     <string name="tractor">Traktor</string>
     <string name="trenddown">Synkende trendlinje</string>
@@ -252,8 +254,8 @@
     <string name="copy">To overlappende firkanter</string>
     <string name="dragdots">Rutenett med to kolonner og tre rader av prikker</string>
     <string name="qasa">Qasa-logo</string>
-    <string name="airplanebed">Seng med et fly i bakgrunnen</string>
-    <string name="briefcase">Stresskoffert</string>
+    <string name="briefcase">Koffert</string>
+    <string name="geometricshapes">Fire geometriske former i et rutenett</string>
     <string name="briefcaseuser">Bruker foran en koffert</string>
     <string name="calendarplus">Kalender med et pluss</string>
     <string name="confetti">Konfetti som flyr ut av en kjegle</string>

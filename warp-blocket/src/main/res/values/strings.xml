@@ -4,6 +4,7 @@
     <string name="activeads">Annonskort med en bild, en rubrik och en bock</string>
     <string name="ads">Annonskort med en bild och en rubrik</string>
     <string name="aircon">Luftkonditionering</string>
+    <string name="airplanebed">Säng med flygplan i bakgrunden</string>
     <string name="allwheeldrive">Fyrhjulsdrift</string>
     <string name="animalpaw">Hundtass</string>
     <string name="archway">Valvgång</string>
@@ -102,6 +103,7 @@
     <string name="graphpie">Cirkeldiagram</string>
     <string name="grid">Fyra rutor i ett rutnät</string>
     <string name="grill">Kolgrill</string>
+    <string name="guitar">Gitarr</string>
     <string name="headset">Hörlurar</string>
     <string name="heart">Hjärta</string>
     <string name="heartrate">Hjärta med pulsindikator</string>
@@ -147,7 +149,6 @@
     <string name="oikotie">Oikotie</string>
     <string name="organize">Pil upp och pil ned separerade av horisontell linje</string>
     <string name="parking">Cirkel med bokstaven P inuti</string>
-    <string name="paw">Katts tass</string>
     <string name="phone">Smartphone</string>
     <string name="phonecheck">Smartphone och ett emblem med bock</string>
     <string name="phonescratched">Smartphone med repad skärm</string>
@@ -215,7 +216,7 @@
     <string name="textunderline">Understruken text</string>
     <string name="theater">Teatermask med glatt ansikte</string>
     <string name="threesixty">360°-vy</string>
-    <string name="drill">Verktyg</string>
+    <string name="drill">Elektrisk borr</string>
     <string name="townhouse">Två stadshus</string>
     <string name="tractor">Traktor</string>
     <string name="trenddown">Nedåtgående trendlinje</string>
@@ -253,8 +254,8 @@
     <string name="copy">Två överlappande kvadrater</string>
     <string name="dragdots">Två kolumner och tre rader med prickar</string>
     <string name="qasa">Qasa-logotyp</string>
-    <string name="airplanebed">Säng med ett flygplan i bakgrunden</string>
     <string name="briefcase">Portfölj</string>
+    <string name="geometricshapes">Fyra geometriska former i rutnät</string>
     <string name="briefcaseuser">Användare framför en portfölj</string>
     <string name="calendarplus">Kalender med ett plus</string>
     <string name="confetti">Konfetti som sprutar ut ur en strut</string>
