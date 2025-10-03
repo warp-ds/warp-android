@@ -141,7 +141,7 @@ internal fun WarpRadioButtonView(
     val finalStrokeWidth = dimensions.borderWidth1
     val finalStrokeSelectedWidth = dimensions.space15
     val strokeWidth = animateDpAsState(
-        targetValue = if (selected) finalStrokeSelectedWidth / 2 else finalStrokeWidth / 2,
+        targetValue = if (selected) finalStrokeSelectedWidth / 2 else finalStrokeWidth,
         animationSpec = tween(durationMillis = RadioAnimationDuration), label = ""
     )
     val radioColor = colors.radioColor(enabled, selected, isError, interacted)
