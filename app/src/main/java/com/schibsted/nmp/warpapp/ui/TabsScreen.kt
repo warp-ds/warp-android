@@ -75,7 +75,7 @@ private fun TabsContent() {
             WarpTab(
                 selected = selectedTab2 == 0,
                 onClick = { selectedTab2 = 0 },
-                icon = icons.spa,
+                icon = icons.lotusFlower,
                 text = "Option 1"
             )
             WarpTab(

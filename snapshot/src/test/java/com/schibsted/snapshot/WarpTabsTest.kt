@@ -102,7 +102,7 @@ class WarpTabsTest(
                         WarpTab(
                             selected = false,
                             text = "Tab1",
-                            icon = icons.spa,
+                            icon = icons.lotusFlower,
                         )
                         WarpTab(
                             selected = false,
