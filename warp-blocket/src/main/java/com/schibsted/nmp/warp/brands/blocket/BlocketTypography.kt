@@ -7,10 +7,6 @@ import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.unit.sp
 import com.schibsted.nmp.warp.theme.WarpTypography
 
-private val BlocketSansBold = FontFamily(
-    Font(R.font.blocketsans_bold)
-)
-
 private val BlocketSansRegular = FontFamily(
     Font(R.font.blocketsans_regular)
 )
@@ -58,7 +54,7 @@ internal object BlocketTypography : WarpTypography {
         hyphens = Hyphens.Auto
     )
     override val title6: TextStyle = TextStyle(
-        fontFamily = BlocketSansBold,
+        fontFamily = BlocketSansMedium,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         hyphens = Hyphens.Auto
