@@ -295,7 +295,7 @@ fun WarpButton(
                     .onFocusChanged {
                         borderColor = if (it.isFocused) focusedBorder else defaultBorder
                     }
-                    .focusable(),
+                    .let { if (!enabled) it.focusable() else it },
                 onClick = clickAction,
                 enabled = enabled,
                 shape = shapes.roundedMedium,
