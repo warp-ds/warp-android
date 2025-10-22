@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
@@ -36,12 +37,28 @@ import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
+/**
+ * A Dropdown list component in the warp design system.
+ * @param modifier Modifier for the dropdown list. Default value is Modifier
+ * @param value The choice entered by user
+ * @param onValueChange lambda to be invoked when choice is changed
+ * @param label The label to be displayed above the dropdown component
+ * @param optionalLabel The optional label to be displayed next to the label
+ * @param enabled set to false to disable the dropdown list. Default value is true
+ * @param placeholderText The hint text to be displayed on the dropdown list
+ * @param helpText The help text to be displayed below the dropdown list
+ * @param items The list of items to be displayed in the dropdown list
+ * @param readOnly set to true to disable the dropdown list but show the value. Default value is false
+ * @param expanded set to true to expand the dropdown list. Default value is false
+ * @param isError set to true to show the error state
+ */
 @Composable
 fun WarpSelect(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
     label: String? = null,
+    optionalLabel: String? = null,
     enabled: Boolean = true,
     placeholderText: String? = null,
     helpText: String? = null,
@@ -55,12 +72,14 @@ fun WarpSelect(
         expanded = !expanded
     }
     val selectModifier = if (enabled && !readOnly) onClick else Modifier
+
     Box(modifier = modifier) {
         WarpSelectView(
             value = value,
             onValueChange = onValueChange,
             modifier = selectModifier,
             label = label,
+            optionalLabel = optionalLabel,
             placeholderText = placeholderText,
             helpText = helpText,
             enabled = enabled,
@@ -93,6 +112,7 @@ private fun WarpSelectView(
     onValueChange: (String) -> Unit,
     modifier: Modifier,
     label: String?,
+    optionalLabel: String?,
     placeholderText: String?,
     helpText: String?,
     enabled: Boolean,
@@ -124,6 +144,14 @@ private fun WarpSelectView(
                     style = WarpTextStyle.Title5,
                     color = colors.text.default
                 )
+                optionalLabel?.let {
+                    WarpText(
+                        text = it,
+                        style = WarpTextStyle.Detail,
+                        color = colors.text.default,
+                        modifier = Modifier.padding(horizontal = dimensions.space1)
+                    )
+                }
             }
         }
 
@@ -151,13 +179,16 @@ private fun WarpSelectView(
             handleColor = cursorHandleColor,
             backgroundColor = cursorHandleColor,
         )
+
         CompositionLocalProvider(
             LocalTextSelectionColors provides customTextSelectionColors
         ) {
             BasicTextField(
                 value = value,
                 onValueChange = onValueChange,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .height(dimensions.components.textFieldHeight)
+                    .fillMaxWidth(),
                 enabled = false,
                 readOnly = readOnly,
                 textStyle = mergedTextStyle,
@@ -172,18 +203,28 @@ private fun WarpSelectView(
                         innerTextField = innerTextField,
                         placeholder = placeholder,
                         label = null,
-                        trailingIcon = { WarpIcon(icon = icons.chevronDown, color = iconColor) },
+                        trailingIcon = {
+                            if (!readOnly) {
+                                WarpIcon(
+                                    icon = icons.chevronDown,
+                                    color = iconColor,
+                                    size = dimensions.icon.small
+                                )
+                            } else {
+                                null
+                            }
+                        },
                         supportingText = null,
                         singleLine = true,
-                        enabled = false,
+                        enabled = true,
                         isError = isError,
                         interactionSource = interactionSource,
                         colors = textFieldColors,
                         contentPadding = PaddingValues(
-                            start = dimensions.space2.ifTrueOtherwise(!readOnly) { 0.dp },
-                            top = dimensions.space2,
-                            end = dimensions.space2,
-                            bottom = dimensions.space2
+                            start = dimensions.space1.ifTrueOtherwise(!readOnly) { 0.dp },
+                            top = dimensions.space15,
+                            end = dimensions.space1,
+                            bottom = dimensions.space15
                         ),
                         container = {
                             OutlinedTextFieldDefaults.ContainerBox(
@@ -201,10 +242,17 @@ private fun WarpSelectView(
         helpText?.let {
             Row(
                 horizontalArrangement = Arrangement.Start,
-                modifier = Modifier.padding(top = dimensions.space05, bottom = dimensions.space025),
+                modifier = Modifier.padding(
+                    top = dimensions.space05,
+                    bottom = dimensions.space025
+                ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                WarpText(text = helpText, style = WarpTextStyle.Detail, color = helpTextColor)
+                WarpText(
+                    text = helpText,
+                    style = WarpTextStyle.Detail,
+                    color = helpTextColor
+                )
             }
         }
     }

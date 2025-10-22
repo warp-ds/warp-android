@@ -81,6 +81,7 @@ object WarpComponentDimensions {
     val tooltip = TooltipDimensions
     val slider = SliderDimensions
     val indicatorDotSize = 10.dp
+    val textFieldHeight = 48.dp
 }
 
 object SliderDimensions {

@@ -38,6 +38,7 @@ fun SelectScreenContent() {
             value = choice,
             onValueChange = { choice = it },
             label = "Label",
+            optionalLabel = "Optional label",
             placeholderText = "Select an option",
             items = listOf("One", "Two", "Three", "Four", "Five", "Six"),
             helpText = "Help text"
@@ -46,7 +47,7 @@ fun SelectScreenContent() {
             modifier = Modifier.padding(bottom = dimensions.space3),
             value = choice,
             onValueChange = { choice = it },
-            label = "Error",
+            label = "Error state",
             placeholderText = "Select an option",
             items = listOf("One", "Two", "Three", "Four", "Five", "Six"),
             isError = true,
@@ -56,21 +57,21 @@ fun SelectScreenContent() {
             modifier = Modifier.padding(bottom = dimensions.space3),
             value = choice,
             onValueChange = { choice = it },
-            label = "ReadOnly",
+            label = "Read-only state",
             placeholderText = "Select an option",
             items = listOf("One", "Two", "Three", "Four", "Five", "Six"),
             readOnly = true,
-            helpText = "Read only"
+            helpText = "Help text"
         )
         WarpSelect(
             modifier = Modifier.padding(bottom = dimensions.space3),
             value = choice,
             onValueChange = { choice = it },
-            label = "Disabled",
+            label = "Disabled state",
             placeholderText = "Select an option",
             items = listOf("One", "Two", "Three", "Four", "Five", "Six"),
             enabled = false,
-            helpText = "Disabled"
+            helpText = "Help text"
         )
     }
 }
