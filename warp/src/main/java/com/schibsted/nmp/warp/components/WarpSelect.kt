@@ -67,6 +67,7 @@ fun WarpSelect(
     expanded: Boolean = false,
     isError: Boolean = false
 ) {
+    items?.size?.let { require(it > 0) { "Select items list cannot be empty" } }
     var expanded by remember { mutableStateOf(expanded) }
     val onClick = Modifier.clickable {
         expanded = !expanded
