@@ -222,9 +222,7 @@ private fun WarpSelectView(
                         colors = textFieldColors,
                         contentPadding = PaddingValues(
                             start = dimensions.space1.ifTrueOtherwise(!readOnly) { 0.dp },
-                            top = dimensions.space15,
-                            end = dimensions.space1,
-                            bottom = dimensions.space15
+                            end = dimensions.space1
                         ),
                         container = {
                             OutlinedTextFieldDefaults.ContainerBox(
