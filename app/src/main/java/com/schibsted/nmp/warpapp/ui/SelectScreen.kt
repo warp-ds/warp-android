@@ -37,8 +37,8 @@ fun SelectScreenContent() {
             modifier = Modifier.padding(bottom = dimensions.space3),
             value = choice,
             onValueChange = { choice = it },
-            label = "Label",
-            optionalLabel = "Optional label",
+            label = "Default",
+            optionalLabel = "Optional",
             placeholderText = "Select an option",
             items = listOf("One", "Two", "Three", "Four", "Five", "Six"),
             helpText = "Help text"

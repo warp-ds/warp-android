@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.DropdownMenu
@@ -21,6 +24,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,7 +34,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalTextToolbar
+import androidx.compose.ui.platform.TextToolbar
+import androidx.compose.ui.platform.TextToolbarStatus
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -69,9 +78,14 @@ fun WarpSelect(
 ) {
     items?.size?.let { require(it > 0) { "Select items list cannot be empty" } }
     var expanded by remember { mutableStateOf(expanded) }
-    val onClick = Modifier.clickable {
-        expanded = !expanded
-    }
+    val interactionSource = remember { MutableInteractionSource() }
+
+    val onClick = Modifier.clickable(
+        onClick = { expanded = !expanded },
+        interactionSource = interactionSource,
+        indication = null
+    )
+
     val selectModifier = if (enabled && !readOnly) onClick else Modifier
 
     Box(modifier = modifier) {
@@ -85,24 +99,51 @@ fun WarpSelect(
             helpText = helpText,
             enabled = enabled,
             readOnly = readOnly,
-            isError = isError
-        )
-        DropdownMenu(
-            expanded = expanded,
-            scrollState = rememberScrollState(),
-            onDismissRequest = { expanded = false },
-            containerColor = colors.background.default
-        ) {
-            items?.forEach {
-                DropdownMenuItem(
-                    text = { WarpText(it) },
-                    onClick = {
-                        expanded = false
-                        onValueChange(it)
+            isError = isError,
+            interactionSource = remember { MutableInteractionSource() }
+                .also { interactionSource ->
+                    LaunchedEffect(interactionSource) {
+                        interactionSource.interactions.collect {
+                            if (it is PressInteraction.Release && (enabled && !readOnly)) {
+                                expanded = true
+                            }
+                        }
                     }
-                )
+                }
+        )
+        if (expanded) {
+            Box(modifier = Modifier.padding(top = 72.dp)) {
+                DropdownMenu(
+                    expanded = expanded,
+                    scrollState = rememberScrollState(),
+                    onDismissRequest = { expanded = false },
+                    containerColor = colors.background.default
+                ) {
+                    items?.forEach {
+                        DropdownMenuItem(
+                            text = { WarpText(it) },
+                            onClick = {
+                                expanded = false
+                                onValueChange(it)
+                            }
+                        )
+                    }
+                }
             }
         }
+    }
+}
+
+internal object EmptyTextToolbar : TextToolbar {
+    override val status: TextToolbarStatus = TextToolbarStatus.Hidden
+    override fun hide() {}
+    override fun showMenu(
+        rect: androidx.compose.ui.geometry.Rect,
+        onCopyRequested: (() -> Unit)?,
+        onPasteRequested: (() -> Unit)?,
+        onCutRequested: (() -> Unit)?,
+        onSelectAllRequested: (() -> Unit)?
+    ) {
     }
 }
 
@@ -118,11 +159,10 @@ private fun WarpSelectView(
     helpText: String?,
     enabled: Boolean,
     readOnly: Boolean,
-    isError: Boolean
+    isError: Boolean,
+    interactionSource: MutableInteractionSource
 ) {
     val textFieldColors = warpSelectColors(readOnly, enabled)
-    val interactionSource = remember { MutableInteractionSource() }
-
     val placeholder: @Composable () -> Unit = {
         placeholderText?.let {
             WarpText(
@@ -157,7 +197,6 @@ private fun WarpSelectView(
         }
 
         val focused by interactionSource.collectIsFocusedAsState()
-        //Value text color should change to default if isError is true and the textfield is focused
         val textColorValue = when {
             !enabled -> colors.text.disabled
             focused -> colors.text.default
@@ -166,23 +205,22 @@ private fun WarpSelectView(
         val iconColorValue = if (!enabled) colors.icon.disabled else colors.icon.default
         val iconColor = rememberUpdatedState(iconColorValue).value
         val textColor = rememberUpdatedState(textColorValue).value
-        //Help text color should remain the same if isError is true and the textfield is focused
         val helpTextColor =
             rememberUpdatedState(if (isError) colors.text.negative else if (!enabled) colors.text.disabled else colors.text.default).value
         val mergedTextStyle =
             getTextStyle(style = WarpTextStyle.Body).merge(TextStyle(color = textColor))
-        val cursorColor =
-            rememberUpdatedState(if (isError) colors.icon.negative else colors.icon.default).value
-        val cursorHandleColor =
-            rememberUpdatedState(if (isError) colors.icon.negative else colors.border.focus).value
+        val cursorColor = Color.Transparent
+        val cursorHandleColor = Color.Transparent
 
         val customTextSelectionColors = TextSelectionColors(
             handleColor = cursorHandleColor,
             backgroundColor = cursorHandleColor,
         )
+        val keyboardController = LocalSoftwareKeyboardController.current
 
         CompositionLocalProvider(
-            LocalTextSelectionColors provides customTextSelectionColors
+            LocalTextSelectionColors provides customTextSelectionColors,
+            LocalTextToolbar provides EmptyTextToolbar
         ) {
             BasicTextField(
                 value = value,
@@ -190,13 +228,16 @@ private fun WarpSelectView(
                 modifier = Modifier
                     .height(dimensions.components.textFieldHeight)
                     .fillMaxWidth(),
-                enabled = false,
+                enabled = enabled,
                 readOnly = readOnly,
                 textStyle = mergedTextStyle,
                 cursorBrush = SolidColor(cursorColor),
                 visualTransformation = VisualTransformation.None,
                 singleLine = true,
                 interactionSource = interactionSource,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = { keyboardController?.hide() }),
                 decorationBox = @Composable { innerTextField ->
                     OutlinedTextFieldDefaults.DecorationBox(
                         value = value,
@@ -226,12 +267,14 @@ private fun WarpSelectView(
                             end = dimensions.space1
                         ),
                         container = {
-                            OutlinedTextFieldDefaults.ContainerBox(
-                                enabled,
-                                isError,
-                                interactionSource,
-                                textFieldColors,
-                                OutlinedTextFieldDefaults.shape
+                            OutlinedTextFieldDefaults.Container(
+                                enabled = enabled,
+                                isError = isError,
+                                interactionSource = interactionSource,
+                                colors = textFieldColors,
+                                shape = OutlinedTextFieldDefaults.shape,
+                                focusedBorderThickness = dimensions.space025,
+                                unfocusedBorderThickness = if (isError && focused) dimensions.space025 else 1.dp
                             )
                         }
                     )
