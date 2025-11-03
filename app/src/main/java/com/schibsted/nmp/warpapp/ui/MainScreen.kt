@@ -192,6 +192,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("select") {
+                SelectScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -262,6 +267,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "popover" to "WarpPopover",
                         "radio" to "WarpRadio",
                         "rangeSlider" to "WarpRangeSlider",
+                        "select" to "WarpSelect",
                         "slider" to "WarpSlider",
                         "spinner" to "WarpSpinner",
                         "stepIndicator" to "WarpStepIndicator",
