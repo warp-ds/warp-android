@@ -156,6 +156,13 @@ object WarpIconResources {
             identifier = "animal-paw"
         )
 
+    val archiveBox: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_archivebox),
+            stringResource(R.string.archivebox)
+        )
+
     val archway: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -399,6 +406,13 @@ object WarpIconResources {
             stringResource(R.string.calendar)
         )
 
+    val calendarBlank: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_calendarblank),
+            stringResource(R.string.calendarblank)
+        )
+
     val calendarPlus: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -585,11 +599,26 @@ object WarpIconResources {
             stringResource(R.string.clock)
         )
 
+    val clockCountDown: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_clockcountdown),
+            stringResource(R.string.clockcountdown)
+        )
+
+
     val close: WarpIconResource
         @Composable
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_close),
             stringResource(R.string.close)
+        )
+
+    val code: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_code),
+            stringResource(R.string.code)
         )
 
     val cog: WarpIconResource
@@ -611,6 +640,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_confetti),
             stringResource(R.string.confetti)
+        )
+
+    val cookie: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_cookie),
+            stringResource(R.string.cookie)
         )
 
     val copy: WarpIconResource
@@ -639,6 +675,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_delivery),
             stringResource(R.string.delivery)
+        )
+
+    val deliveryKey: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_deliverykey),
+            stringResource(R.string.deliverykey)
         )
 
     val diner: WarpIconResource
@@ -824,6 +867,13 @@ object WarpIconResources {
             stringResource(R.string.fileadd)
         )
 
+    val fileArrowDown: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_filearrowdown),
+            stringResource(R.string.filearrowdown)
+        )
+
     val filter: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -894,6 +944,14 @@ object WarpIconResources {
             stringResource(R.string.geometricshapes),
             identifier = "geometric-shapes"
         )
+
+    val globe: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_globe),
+            stringResource(R.string.globe)
+        )
+
 
     val graphLine: WarpIconResource
         @Composable
@@ -1206,6 +1264,14 @@ object WarpIconResources {
             ImageVector.vectorResource(id = R.drawable.warp_money),
             stringResource(R.string.money)
         )
+
+    val moon: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_moon),
+            stringResource(R.string.moon)
+        )
+
 
     val motorcycle: WarpTaxonomyIconResource
         @Composable
@@ -1574,6 +1640,20 @@ object WarpIconResources {
             stringResource(R.string.shrink)
         )
 
+    val sidebarChevronLeft: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_sidebarchevronleft),
+            stringResource(R.string.sidebarchevronleft)
+        )
+
+    val sidebarChevronRight: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_sidebarchevronright),
+            stringResource(R.string.sidebarchevronright)
+        )
+
     val singleCylinder: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1729,6 +1809,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_suitcasetrolley),
             stringResource(R.string.suitcasetrolley)
+        )
+
+    val sun: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_sun),
+            stringResource(R.string.sun)
         )
 
     val support: WarpIconResource
