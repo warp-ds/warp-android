@@ -265,5 +265,16 @@
     <string name="shrink">Two inwards pointing arrows</string>
     <string name="suitcasetrolley">Suitcase on a platform trolley</string>
     <string name="tshirt">T shirt</string>
-
+    <string name="archivebox">File with an arrow pointing down</string>
+    <string name="calendarblank">Blank calendar</string>
+    <string name="clockcountdown">Clock counting down</string>
+    <string name="code">Chevron left and right with a slash in between</string>
+    <string name="cookie">Chocolate chip cookie with two bite marks</string>
+    <string name="deliverykey">Hand giving a key</string>
+    <string name="filearrowdown">File with an arrow pointing down</string>
+    <string name="globe">Globe</string>
+    <string name="moon">Moon</string>
+    <string name="sidebarchevronleft">Sidebar with a chevron pointing left</string>
+    <string name="sidebarchevronright">Sidebar with a chevron pointing right</string>
+    <string name="sun">Sun</string>
 </resources>
