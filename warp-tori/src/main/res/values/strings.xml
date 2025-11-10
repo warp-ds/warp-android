@@ -266,4 +266,16 @@
     <string name="shrink">Kaksi sisäänpäin osoittavaa nuolta</string>
     <string name="suitcasetrolley">Lavavaunuissa oleva matkalaukku</string>
     <string name="tshirt">T-paita</string>
+    <string name="archivebox">Tiedosto ja alaspäin osoittava nuoli</string>
+    <string name="calendarblank">Tyhjä kalenteri</string>
+    <string name="clockcountdown">Aikaa alaspäin laskeva kello</string>
+    <string name="code">Vasemmalle ja oikealle osoittavat väkäset, joiden välissä on vinoviiva</string>
+    <string name="cookie">Suklaahippukeksi, josta on haukattu kahdesti</string>
+    <string name="deliverykey">Käsi, joka ojentaa avainta</string>
+    <string name="filearrowdown">Tiedosto ja alaspäin osoittava nuoli</string>
+    <string name="globe">Maapallo</string>
+    <string name="moon">Kuu</string>
+    <string name="sidebarchevronleft">Sivupalkki ja vasemmalle osoittava väkänen</string>
+    <string name="sidebarchevronright">Sivupalkki ja oikealle osoittava väkänen</string>
+    <string name="sun">Aurinko</string>
 </resources>
