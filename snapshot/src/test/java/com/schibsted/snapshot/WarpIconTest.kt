@@ -62,7 +62,7 @@ class WarpIconTest(
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
                         || it.returnType.classifier == WarpBrandIconResource::class
             }
-        Assert.assertEquals(265, count)
+        Assert.assertEquals(277, count)
     }
 
     @Test
@@ -76,6 +76,7 @@ class WarpIconTest(
                     icons.airplaneBed,
                     icons.allWheelDrive,
                     icons.animalPaw,
+                    icons.archiveBox,
                     icons.archway,
                     icons.arrowDown,
                     icons.arrowLeft,
@@ -130,6 +131,7 @@ class WarpIconTest(
                     icons.cabinHut,
                     icons.calculator,
                     icons.calendar,
+                    icons.calendarBlank,
                     icons.calendarPlus,
                     icons.camera,
                     icons.cancel,
@@ -156,10 +158,13 @@ class WarpIconTest(
                     icons.circleUser,
                     icons.circleUserFilled,
                     icons.clock,
+                    icons.clockCountDown,
                     icons.close,
+                    icons.code,
                     icons.cog,
                     icons.colorPalette,
                     icons.confetti,
+                    icons.cookie,
                     icons.copy,
                     icons.creditCard,
                     icons.cursor,
@@ -174,6 +179,7 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.delivery,
+                    icons.deliveryKey,
                     icons.diner,
                     icons.discount,
                     icons.dislike,
@@ -220,6 +226,7 @@ class WarpIconTest(
                     icons.facebook,
                     icons.farm,
                     icons.fileAdd,
+                    icons.fileArrowDown,
                     icons.filter,
                     icons.fireplace,
                     icons.fishing,
@@ -239,6 +246,7 @@ class WarpIconTest(
                     icons.gasHybrid,
                     icons.gearManual,
                     icons.geometricShapes,
+                    icons.globe,
                     icons.gearAutomatic,
                     icons.graphLine,
                     icons.graphPie,
@@ -344,6 +352,7 @@ class WarpIconTest(
                     icons.mittAnbud,
                     icons.mixer,
                     icons.money,
+                    icons.moon,
                     icons.motorcycle,
                     icons.mountain,
                 )
@@ -456,6 +465,8 @@ class WarpIconTest(
                     icons.shoppingCart,
                     icons.shower,
                     icons.shrink,
+                    icons.sidebarChevronLeft,
+                    icons.sidebarChevronRight,
                     icons.singleCylinder,
                     icons.skyscraper,
                     icons.smileyGood,
@@ -478,6 +489,7 @@ class WarpIconTest(
                     icons.success,
                     icons.suitcase,
                     icons.suitcaseTrolley,
+                    icons.sun,
                     icons.support,
                     icons.swimming,
                 )

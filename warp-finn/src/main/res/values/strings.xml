@@ -266,4 +266,16 @@
     <string name="shrink">To piler som peker innover</string>
     <string name="suitcasetrolley">Koffert på en tralle</string>
     <string name="tshirt">T-skjorte</string>
+    <string name="archivebox">Fil med en pil som peker ned</string>
+    <string name="calendarblank">Tom kalender</string>
+    <string name="clockcountdown">Klokke som teller ned</string>
+    <string name="code">Pil mot venstre og høyre med en skråstrek mellom</string>
+    <string name="cookie">Cookie med to bitemerker</string>
+    <string name="deliverykey">Hånd som gir en nøkkel</string>
+    <string name="filearrowdown">Fil med en pil som peker ned</string>
+    <string name="globe">Globus</string>
+    <string name="moon">Måne</string>
+    <string name="sidebarchevronleft">Sidefelt med en pil som peker mot venstre</string>
+    <string name="sidebarchevronright">Sidefelt med en pil som peker mot høyre</string>
+    <string name="sun">Sol</string>
 </resources>
