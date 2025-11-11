@@ -14,7 +14,7 @@
     <string name="arrowup">Pil opad</string>
     <string name="paperclip">Papirklip</string>
     <string name="gearautomatic">Automatgear</string>
-    <string name="autovex">Autovex\' logo</string>
+    <string name="autovex">Autovex-logo</string>
     <string name="awardmedal">Medaljeikon</string>
     <string name="backwheeldrive">Baghjulstræk</string>
     <string name="bag">Håndtaske</string>
@@ -266,4 +266,16 @@
     <string name="shrink">To indadgående pile</string>
     <string name="suitcasetrolley">Kuffert på en rullevogn</string>
     <string name="tshirt">T-shirt</string>
+    <string name="archivebox">Fil med en pil, der peger ned</string>
+    <string name="calendarblank">Tom kalender</string>
+    <string name="clockcountdown">Ur, der tæller ned</string>
+    <string name="code">Dobbelt anførselstegn med en skråstreg imellem</string>
+    <string name="cookie">Chokoladecookie med to bidemærker</string>
+    <string name="deliverykey">Hånd, der giver en nøgle</string>
+    <string name="filearrowdown">Fil med en pil, der peger ned</string>
+    <string name="globe">Globus</string>
+    <string name="moon">Måne</string>
+    <string name="sidebarchevronleft">Sidebjælke med et venstre dobbelt anførselstegn</string>
+    <string name="sidebarchevronright">Sidebjælke med et højre dobbelt anførselstegn</string>
+    <string name="sun">Sol</string>
 </resources>
