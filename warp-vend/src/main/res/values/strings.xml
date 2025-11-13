@@ -137,7 +137,6 @@
     <string name="messages">Chat bubble</string>
     <string name="messagesfilled">Chat bubble</string>
     <string name="minus">Minus sign</string>
-    <string name="mittanbud">MittAnbud</string>
     <string name="mixer">Food mixer</string>
     <string name="money">Banknote</string>
     <string name="motorcycle">Motorcycle</string>
@@ -170,7 +169,6 @@
     <string name="propeller">Propeller</string>
     <string name="question">Question mark</string>
     <string name="refresh">Circular arrow</string>
-    <string name="remppatori">RemppaTori</string>
     <string name="roomservice">Call bell</string>
     <string name="sauna">Sauna</string>
     <string name="scrollup">Arrow pointing up</string>
@@ -277,4 +275,10 @@
     <string name="sidebarchevronleft">Sidebar with a chevron pointing left</string>
     <string name="sidebarchevronright">Sidebar with a chevron pointing right</string>
     <string name="sun">Sun</string>
+    <string name="bilbasen">Bilbasen logo</string>
+    <string name="blocket">Blocket logo</string>
+    <string name="dba">DBA logo</string>
+    <string name="finn">Finn logo</string>
+    <string name="tori">Tori logo</string>
+    <string name="vend">Vend logo</string>
 </resources>

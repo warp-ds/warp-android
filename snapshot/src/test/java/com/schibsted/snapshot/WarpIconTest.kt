@@ -82,7 +82,6 @@ class WarpIconTest(
                     icons.arrowLeft,
                     icons.arrowRight,
                     icons.arrowUp,
-                    icons.autovex,
                     icons.awardMedal
                 )
             )
@@ -349,7 +348,6 @@ class WarpIconTest(
                     icons.messages,
                     icons.messagesFilled,
                     icons.minus,
-                    icons.mittAnbud,
                     icons.mixer,
                     icons.money,
                     icons.moon,
@@ -365,7 +363,6 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.nettbil,
                     icons.noSmoking,
                 )
             )
@@ -378,7 +375,6 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.officeDesk,
-                    icons.oikotie,
                     icons.organize,
                 )
             )
@@ -421,7 +417,6 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.qasa,
                     icons.question,
                 )
             )
@@ -434,7 +429,6 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.refresh,
-                    icons.remppatori,
                     icons.road,
                     icons.rocket,
                     icons.roomService,

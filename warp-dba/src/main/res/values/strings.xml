@@ -138,7 +138,6 @@
     <string name="messages">Chatboble</string>
     <string name="messagesfilled">Chatboble</string>
     <string name="minus">Minustegn</string>
-    <string name="mittanbud">Mittanbud</string>
     <string name="mixer">Håndmixer</string>
     <string name="money">Pengeseddel</string>
     <string name="motorcycle">Motorcykel</string>
@@ -171,7 +170,6 @@
     <string name="propeller">Propel</string>
     <string name="question">Spørgsmålstegn</string>
     <string name="refresh">Rund pil</string>
-    <string name="remppatori">RemppaTori</string>
     <string name="roomservice">Ringeklokke</string>
     <string name="sauna">Sauna</string>
     <string name="scrollup">Pil opad</string>
@@ -278,4 +276,10 @@
     <string name="sidebarchevronleft">Sidebjælke med et venstre dobbelt anførselstegn</string>
     <string name="sidebarchevronright">Sidebjælke med et højre dobbelt anførselstegn</string>
     <string name="sun">Sol</string>
+    <string name="bilbasen">Bilbasen logo</string>
+    <string name="blocket">Blocket logo</string>
+    <string name="dba">DBA logo</string>
+    <string name="finn">Finn logo</string>
+    <string name="tori">Tori logo</string>
+    <string name="vend">Vend logo</string>
 </resources>
