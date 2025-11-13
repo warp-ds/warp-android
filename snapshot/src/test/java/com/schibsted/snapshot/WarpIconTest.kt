@@ -19,7 +19,6 @@ import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.WarpIcon
-import com.schibsted.nmp.warp.theme.WarpBrandIconResource
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpIconResources
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -60,9 +59,8 @@ class WarpIconTest(
             WarpIconResources::class.memberProperties.count {
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
-                        || it.returnType.classifier == WarpBrandIconResource::class
             }
-        Assert.assertEquals(277, count)
+        Assert.assertEquals(271, count)
     }
 
     @Test
@@ -595,13 +593,6 @@ class WarpIconTest(
     }
 
     @Test
-    fun warp_brand_icons() {
-        paparazzi.snapshot {
-            WarpIconsAllSizes(icons.taxonomyIconList.filter { it is WarpBrandIconResource })
-        }
-    }
-
-    @Test
     fun warp_icon_by_identifier() {
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
@@ -616,7 +607,7 @@ class WarpIconTest(
                 ) {
                     WarpIcon(identifier = "lotusflower", color = colors.icon.secondary)
                     WarpIcon(identifier = "sofa", color = colors.icon.secondary)
-                    WarpIcon(identifier = "oikotie", color = colors.icon.secondary)
+                    WarpIcon(identifier = "leaf", color = colors.icon.secondary)
                 }
             }
         }
