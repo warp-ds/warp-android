@@ -277,4 +277,8 @@
     <string name="sidebarchevronleft">Sidebar with a chevron pointing left</string>
     <string name="sidebarchevronright">Sidebar with a chevron pointing right</string>
     <string name="sun">Sun</string>
+    <string name="gamingcontroller">Gaming Controller</string>
+    <string name="listnumbers">Numbered list</string>
+    <string name="shovel">Shovel</string>
+    <string name="texthone">Heading 1 text</string>
 </resources>

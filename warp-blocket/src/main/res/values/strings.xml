@@ -278,4 +278,8 @@
     <string name="sidebarchevronleft">Sidfält med vänsterpil</string>
     <string name="sidebarchevronright">Sidfält med högerpil</string>
     <string name="sun">Sol</string>
+    <string name="gamingcontroller">Spelkontroll</string>
+    <string name="listnumbers">Numrerad lista</string>
+    <string name="shovel">Spade</string>
+    <string name="texthone">Rubrik 1 text</string>
 </resources>
