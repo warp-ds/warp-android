@@ -278,4 +278,8 @@
     <string name="sidebarchevronleft">Sivupalkki ja vasemmalle osoittava väkänen</string>
     <string name="sidebarchevronright">Sivupalkki ja oikealle osoittava väkänen</string>
     <string name="sun">Aurinko</string>
+    <string name="gamingcontroller">Peliohjain</string>
+    <string name="listnumbers">Numeroitu luettelo</string>
+    <string name="shovel">Lapio</string>
+    <string name="texthone">Otsikon 1 teksti</string>
 </resources>
