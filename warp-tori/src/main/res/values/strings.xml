@@ -282,4 +282,8 @@
     <string name="finn">Finn logo</string>
     <string name="tori">Tori logo</string>
     <string name="vend">Vend logo</string>
+    <string name="gamingcontroller">Peliohjain</string>
+    <string name="listnumbers">Numeroitu luettelo</string>
+    <string name="shovel">Lapio</string>
+    <string name="texthone">Otsikon 1 teksti</string>
 </resources>

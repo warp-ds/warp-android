@@ -282,4 +282,8 @@
     <string name="finn">Finn logo</string>
     <string name="tori">Tori logo</string>
     <string name="vend">Vend logo</string>
+    <string name="gamingcontroller">Spelkontroll</string>
+    <string name="listnumbers">Numrerad lista</string>
+    <string name="shovel">Spade</string>
+    <string name="texthone">Rubrik 1 text</string>
 </resources>
