@@ -81,7 +81,6 @@ object WarpIconResources {
         get() = listOf(
             airplaneBed,
             animalPaw,
-            autovex,
             briefcase,
             boat,
             building,
@@ -95,15 +94,10 @@ object WarpIconResources {
             guitar,
             houseModern,
             iceSkater,
-            mittAnbud,
             motorcycle,
-            nettbil,
-            oikotie,
             phone,
             phoneCheck,
             planeTakeOff,
-            qasa,
-            remppatori,
             shirt,
             sofa,
             storeFront,
@@ -196,14 +190,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_arrowup),
             stringResource(R.string.arrowup)
-        )
-
-    val autovex: WarpBrandIconResource
-        @Composable
-        get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_autovex),
-            stringResource(R.string.autovex),
-            identifier = "autovex"
         )
 
     val awardMedal: WarpIconResource
@@ -1258,14 +1244,6 @@ object WarpIconResources {
             stringResource(R.string.minus)
         )
 
-    val mittAnbud: WarpBrandIconResource
-        @Composable
-        get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_mitt_anbud),
-            stringResource(R.string.mittanbud),
-            identifier = "mitt-anbud"
-        )
-
     val mixer: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1303,14 +1281,6 @@ object WarpIconResources {
             stringResource(R.string.mountain)
         )
 
-    val nettbil: WarpBrandIconResource
-        @Composable
-        get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_nett_bil),
-            stringResource(R.string.nettbil),
-            identifier = "nettbil"
-        )
-
     val noSmoking: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1323,14 +1293,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_officedesk),
             stringResource(R.string.officedesk)
-        )
-
-    val oikotie: WarpBrandIconResource
-        @Composable
-        get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_oikotie),
-            stringResource(R.string.oikotie),
-            identifier = "oikotie"
         )
 
     val organize: WarpIconResource
@@ -1491,14 +1453,6 @@ object WarpIconResources {
             stringResource(R.string.propeller)
         )
 
-    val qasa: WarpBrandIconResource
-        @Composable
-        get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_qasa),
-            stringResource(R.string.qasa),
-            identifier = "qasa"
-        )
-
     val question: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1511,14 +1465,6 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_refresh),
             stringResource(R.string.refresh)
-        )
-
-    val remppatori: WarpBrandIconResource
-        @Composable
-        get() = WarpBrandIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_remppa_tori),
-            stringResource(R.string.remppatori),
-            identifier = "remppatori"
         )
 
     val road: WarpIconResource
@@ -2114,5 +2060,203 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_youtube),
             stringResource(R.string.youtube)
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Autovex, small = true) instead")
+    val autovex: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_autovex),
+            stringResource(R.string.autovex),
+            identifier = "autovex"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Autovex) instead")
+    val autovexLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_autovex_large),
+            stringResource(R.string.autovex),
+            identifier = "autovex-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Bilbasen, small = true) instead")
+    val bilbasen: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_bilbasen),
+            stringResource(R.string.bilbasen),
+            identifier = "bilbasen"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Bilbasen) instead")
+    val bilbasenLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_bilbasen_large),
+            stringResource(R.string.bilbasen),
+            identifier = "bilbasen-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Blocket, small = true) instead")
+    val blocket: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_blocket),
+            stringResource(R.string.blocket),
+            identifier = "blocket"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Blocket) instead")
+    val blocketLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_blocket_large),
+            stringResource(R.string.blocket),
+            identifier = "blocket-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.DBA, small = true) instead")
+    val dba: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_dba),
+            stringResource(R.string.dba),
+            identifier = "dba"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.DBA) instead")
+    val dbaLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_dba_large),
+            stringResource(R.string.dba),
+            identifier = "dba-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Finn, small = true) instead")
+    val finn: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_finn),
+            stringResource(R.string.finn),
+            identifier = "finn"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.FinnTagline) instead")
+    val finnTagline: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_finn_tagline),
+            stringResource(R.string.finn),
+            identifier = "finn-tagline"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Finn) instead")
+    val finnLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_finn_large),
+            stringResource(R.string.finn),
+            identifier = "finn-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Nettbil, small = true) instead")
+    val nettbil: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_nettbil),
+            stringResource(R.string.nettbil),
+            identifier = "nettbil"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Nettbil) instead")
+    val nettbilLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_nettbil_large),
+            stringResource(R.string.nettbil),
+            identifier = "nettbil-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Oikotie, small = true) instead")
+    val oikotie: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_oikotie),
+            stringResource(R.string.oikotie),
+            identifier = "oikotie"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Oikotie) instead")
+    val oikotieLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_oikotie_large),
+            stringResource(R.string.oikotie),
+            identifier = "oikotie-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Qasa, small = true) instead")
+    val qasa: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_qasa),
+            stringResource(R.string.qasa),
+            identifier = "qasa"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Qasa) instead")
+    val qasaLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_qasa_large),
+            stringResource(R.string.qasa),
+            identifier = "qasa-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Tori, small = true) instead")
+    val tori: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_tori),
+            stringResource(R.string.tori),
+            identifier = "tori"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Tori) instead")
+    val toriLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_tori_large),
+            stringResource(R.string.tori),
+            identifier = "tori-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Vend, small = true) instead")
+    val vend: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_vend),
+            stringResource(R.string.vend),
+            identifier = "vend"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.Vend) instead")
+    val vendLarge: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_vend_large),
+            stringResource(R.string.vend),
+            identifier = "vend-large"
+        )
+
+    @Deprecated("Use WarpLogo(Brand.VendPro) instead")
+    val vendPro: WarpBrandIconResource
+        @Composable
+        get() = WarpBrandIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_vendpro),
+            stringResource(R.string.vend),
+            identifier = "vend-pro"
         )
 }

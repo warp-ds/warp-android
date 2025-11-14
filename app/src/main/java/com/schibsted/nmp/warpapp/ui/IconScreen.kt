@@ -20,12 +20,12 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 @Composable
 fun IconScreen(onUp: () -> Unit) {
     DetailsScaffold(title = "Icons", onUp = onUp) {
-        CheckboxScreenContent()
+        IconScreenContent()
     }
 }
 
 @Composable
-private fun CheckboxScreenContent() {
+private fun IconScreenContent() {
     Row(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -73,7 +73,6 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.arrowUp, size)
     CreateIcon(icons.paperclip, size)
     CreateIcon(icons.gearAutomatic, size)
-    CreateIcon(icons.autovex, size)
     CreateIcon(icons.awardMedal, size)
     CreateIcon(icons.backWheelDrive, size)
     CreateIcon(icons.bag, size)
@@ -219,16 +218,13 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.messages, size)
     CreateIcon(icons.messagesFilled, size)
     CreateIcon(icons.minus, size)
-    CreateIcon(icons.mittAnbud, size)
     CreateIcon(icons.mixer, size)
     CreateIcon(icons.money, size)
     CreateIcon(icons.moon, size)
     CreateIcon(icons.motorcycle, size)
     CreateIcon(icons.mountain, size)
-    CreateIcon(icons.nettbil, size)
     CreateIcon(icons.noSmoking, size)
     CreateIcon(icons.officeDesk, size)
-    CreateIcon(icons.oikotie, size)
     CreateIcon(icons.organize, size)
     CreateIcon(icons.parking, size)
     CreateIcon(icons.phone, size)
@@ -253,10 +249,8 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.productStarred, size)
     CreateIcon(icons.productTop, size)
     CreateIcon(icons.propeller, size)
-    CreateIcon(icons.qasa, size)
     CreateIcon(icons.question, size)
     CreateIcon(icons.refresh, size)
-    CreateIcon(icons.remppatori, size)
     CreateIcon(icons.roomService, size)
     CreateIcon(icons.rotateLeft, size)
     CreateIcon(icons.rotateRight, size)

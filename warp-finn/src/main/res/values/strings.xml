@@ -138,7 +138,6 @@
     <string name="messages">Chattebobler</string>
     <string name="messagesfilled">Chattebobler</string>
     <string name="minus">Minus-tegn</string>
-    <string name="mittanbud">Mittanbud</string>
     <string name="mixer">Matmikser</string>
     <string name="money">Pengeseddel</string>
     <string name="motorcycle">MC</string>
@@ -171,7 +170,6 @@
     <string name="propeller">Propell</string>
     <string name="question">Spørsmålstegn</string>
     <string name="refresh">Sirkulær pil</string>
-    <string name="remppatori">RemppaTori</string>
     <string name="roomservice">Ringeklokke</string>
     <string name="sauna">Badstue</string>
     <string name="scrollup">Pil som peker opp</string>
@@ -278,6 +276,12 @@
     <string name="sidebarchevronleft">Sidefelt med en pil som peker mot venstre</string>
     <string name="sidebarchevronright">Sidefelt med en pil som peker mot høyre</string>
     <string name="sun">Sol</string>
+    <string name="bilbasen">Bilbasen logo</string>
+    <string name="blocket">Blocket logo</string>
+    <string name="dba">DBA logo</string>
+    <string name="finn">Finn logo</string>
+    <string name="tori">Tori logo</string>
+    <string name="vend">Vend logo</string>
     <string name="gamingcontroller">Spillkontroll</string>
     <string name="listnumbers">Nummerert liste</string>
     <string name="shovel">Spade</string>
