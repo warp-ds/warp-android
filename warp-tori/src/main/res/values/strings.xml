@@ -138,7 +138,6 @@
     <string name="messages">Puhekupla</string>
     <string name="messagesfilled">Puhekupla</string>
     <string name="minus">Miinusmerkki</string>
-    <string name="mittanbud">MittAnbud</string>
     <string name="mixer">Keittiön yleiskone</string>
     <string name="money">Seteli</string>
     <string name="motorcycle">Moottoripyörä</string>
@@ -171,7 +170,6 @@
     <string name="propeller">Potkuri</string>
     <string name="question">Kysymysmerkki</string>
     <string name="refresh">Oikealle kiertävä nuoli</string>
-    <string name="remppatori">Remppatori</string>
     <string name="roomservice">Soittokello</string>
     <string name="sauna">Sauna</string>
     <string name="scrollup">Ylöspäin osoittava nuoli</string>
@@ -278,4 +276,10 @@
     <string name="sidebarchevronleft">Sivupalkki ja vasemmalle osoittava väkänen</string>
     <string name="sidebarchevronright">Sivupalkki ja oikealle osoittava väkänen</string>
     <string name="sun">Aurinko</string>
+    <string name="bilbasen">Bilbasen logo</string>
+    <string name="blocket">Blocket logo</string>
+    <string name="dba">DBA logo</string>
+    <string name="finn">Finn logo</string>
+    <string name="tori">Tori logo</string>
+    <string name="vend">Vend logo</string>
 </resources>
