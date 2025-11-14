@@ -60,7 +60,7 @@ class WarpIconTest(
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
             }
-        Assert.assertEquals(285, count)
+        Assert.assertEquals(275, count)
     }
 
     @Test
