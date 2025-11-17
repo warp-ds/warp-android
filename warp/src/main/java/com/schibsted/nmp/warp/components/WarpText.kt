@@ -33,7 +33,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
  * @param overflow The overflow of the text. Default value is TextOverflow.Ellipsis
  * @param softWrap set to true to wrap the text. Default value is true
  * @param textDecoration The decoration of the text. Default value is null
- * @param onTextLayout Callback that is triggered when the text layout is calculated. Default value is null
+ * @param onTextLayout Callback that is triggered when the text layout is calculated.
  */
 @Composable
 fun WarpText(
@@ -47,7 +47,7 @@ fun WarpText(
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
     textDecoration: TextDecoration? = null,
-    onTextLayout: ((result: TextLayoutResult) -> Unit)? = null
+    onTextLayout: (result: TextLayoutResult) -> Unit = {}
 ) {
     val textStyle = getTextStyle(style)
 
