@@ -138,7 +138,6 @@
     <string name="messages">Chattbubbla</string>
     <string name="messagesfilled">Chattbubbla</string>
     <string name="minus">Minustecken</string>
-    <string name="mittanbud">MittAnbud</string>
     <string name="mixer">Mixer</string>
     <string name="money">Sedel</string>
     <string name="motorcycle">Motorcykel</string>
@@ -171,7 +170,6 @@
     <string name="propeller">Propeller</string>
     <string name="question">Frågetecken</string>
     <string name="refresh">Cirkelformad pil</string>
-    <string name="remppatori">RemppaTori</string>
     <string name="roomservice">Ringklocka</string>
     <string name="sauna">Bastu</string>
     <string name="scrollup">Pil som pekar upp</string>
@@ -266,4 +264,26 @@
     <string name="shrink">Två inåtpekande pilar</string>
     <string name="suitcasetrolley">Resväska på en plattformsvagn</string>
     <string name="tshirt">T-shirt</string>
+    <string name="archivebox">Fil med pil som pekar ner</string>
+    <string name="calendarblank">Blank kalender</string>
+    <string name="clockcountdown">Klocka som räknar ner</string>
+    <string name="code">Vänster- och högertagg med snedstreck mellan</string>
+    <string name="cookie">Chocolate chip-kaka med två bitmärken</string>
+    <string name="deliverykey">Hand som lämnar över en nyckel</string>
+    <string name="filearrowdown">Fil med pil som pekar ner</string>
+    <string name="globe">Glob</string>
+    <string name="moon">Måne</string>
+    <string name="sidebarchevronleft">Sidfält med vänsterpil</string>
+    <string name="sidebarchevronright">Sidfält med högerpil</string>
+    <string name="sun">Sol</string>
+    <string name="bilbasen">Bilbasen-logotyp</string>
+    <string name="blocket">Blocket-logotyp</string>
+    <string name="dba">DBA-logotyp</string>
+    <string name="finn">Finn-logotyp</string>
+    <string name="tori">Tori-logotyp</string>
+    <string name="vend">Vend-logotyp</string>
+    <string name="gamingcontroller">Spelkontroll</string>
+    <string name="listnumbers">Numrerad lista</string>
+    <string name="shovel">Spade</string>
+    <string name="texthone">Rubrik 1 text</string>
 </resources>

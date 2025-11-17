@@ -19,7 +19,6 @@ import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.WarpIcon
-import com.schibsted.nmp.warp.theme.WarpBrandIconResource
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpIconResources
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -60,9 +59,8 @@ class WarpIconTest(
             WarpIconResources::class.memberProperties.count {
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
-                        || it.returnType.classifier == WarpBrandIconResource::class
             }
-        Assert.assertEquals(265, count)
+        Assert.assertEquals(275, count)
     }
 
     @Test
@@ -76,12 +74,12 @@ class WarpIconTest(
                     icons.airplaneBed,
                     icons.allWheelDrive,
                     icons.animalPaw,
+                    icons.archiveBox,
                     icons.archway,
                     icons.arrowDown,
                     icons.arrowLeft,
                     icons.arrowRight,
                     icons.arrowUp,
-                    icons.autovex,
                     icons.awardMedal
                 )
             )
@@ -130,6 +128,7 @@ class WarpIconTest(
                     icons.cabinHut,
                     icons.calculator,
                     icons.calendar,
+                    icons.calendarBlank,
                     icons.calendarPlus,
                     icons.camera,
                     icons.cancel,
@@ -156,10 +155,13 @@ class WarpIconTest(
                     icons.circleUser,
                     icons.circleUserFilled,
                     icons.clock,
+                    icons.clockCountDown,
                     icons.close,
+                    icons.code,
                     icons.cog,
                     icons.colorPalette,
                     icons.confetti,
+                    icons.cookie,
                     icons.copy,
                     icons.creditCard,
                     icons.cursor,
@@ -174,6 +176,7 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.delivery,
+                    icons.deliveryKey,
                     icons.diner,
                     icons.discount,
                     icons.dislike,
@@ -220,6 +223,7 @@ class WarpIconTest(
                     icons.facebook,
                     icons.farm,
                     icons.fileAdd,
+                    icons.fileArrowDown,
                     icons.filter,
                     icons.fireplace,
                     icons.fishing,
@@ -234,11 +238,13 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.gamingController,
                     icons.gasDiesel,
                     icons.gasFuel,
                     icons.gasHybrid,
                     icons.gearManual,
                     icons.geometricShapes,
+                    icons.globe,
                     icons.gearAutomatic,
                     icons.graphLine,
                     icons.graphPie,
@@ -319,6 +325,7 @@ class WarpIconTest(
                     icons.like,
                     icons.link,
                     icons.linkExternal,
+                    icons.listNumbers,
                     icons.listSort,
                     icons.lockShield,
                     icons.logout,
@@ -341,9 +348,9 @@ class WarpIconTest(
                     icons.messages,
                     icons.messagesFilled,
                     icons.minus,
-                    icons.mittAnbud,
                     icons.mixer,
                     icons.money,
+                    icons.moon,
                     icons.motorcycle,
                     icons.mountain,
                 )
@@ -356,7 +363,6 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.nettbil,
                     icons.noSmoking,
                 )
             )
@@ -369,7 +375,6 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.officeDesk,
-                    icons.oikotie,
                     icons.organize,
                 )
             )
@@ -412,7 +417,6 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.qasa,
                     icons.question,
                 )
             )
@@ -425,7 +429,6 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.refresh,
-                    icons.remppatori,
                     icons.road,
                     icons.rocket,
                     icons.roomService,
@@ -454,8 +457,11 @@ class WarpIconTest(
                     icons.shirt,
                     icons.shoes,
                     icons.shoppingCart,
+                    icons.shovel,
                     icons.shower,
                     icons.shrink,
+                    icons.sidebarChevronLeft,
+                    icons.sidebarChevronRight,
                     icons.singleCylinder,
                     icons.skyscraper,
                     icons.smileyGood,
@@ -478,6 +484,7 @@ class WarpIconTest(
                     icons.success,
                     icons.suitcase,
                     icons.suitcaseTrolley,
+                    icons.sun,
                     icons.support,
                     icons.swimming,
                 )
@@ -493,6 +500,7 @@ class WarpIconTest(
                     icons.tag,
                     icons.taskList,
                     icons.textBold,
+                    icons.textHOne,
                     icons.textItalic,
                     icons.textStrikethrough,
                     icons.textUnderline,
@@ -589,13 +597,6 @@ class WarpIconTest(
     }
 
     @Test
-    fun warp_brand_icons() {
-        paparazzi.snapshot {
-            WarpIconsAllSizes(icons.taxonomyIconList.filter { it is WarpBrandIconResource })
-        }
-    }
-
-    @Test
     fun warp_icon_by_identifier() {
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
@@ -610,7 +611,7 @@ class WarpIconTest(
                 ) {
                     WarpIcon(identifier = "lotusflower", color = colors.icon.secondary)
                     WarpIcon(identifier = "sofa", color = colors.icon.secondary)
-                    WarpIcon(identifier = "oikotie", color = colors.icon.secondary)
+                    WarpIcon(identifier = "leaf", color = colors.icon.secondary)
                 }
             }
         }

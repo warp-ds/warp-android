@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -32,6 +33,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.typography
  * @param overflow The overflow of the text. Default value is TextOverflow.Ellipsis
  * @param softWrap set to true to wrap the text. Default value is true
  * @param textDecoration The decoration of the text. Default value is null
+ * @param onTextLayout Callback that is triggered when the text layout is calculated.
  */
 @Composable
 fun WarpText(
@@ -45,6 +47,7 @@ fun WarpText(
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
     textDecoration: TextDecoration? = null,
+    onTextLayout: (result: TextLayoutResult) -> Unit = {}
 ) {
     val textStyle = getTextStyle(style)
 
@@ -60,7 +63,8 @@ fun WarpText(
         textAlign = textAlign,
         overflow = overflow,
         softWrap = softWrap,
-        textDecoration = textDecoration
+        textDecoration = textDecoration,
+        onTextLayout = onTextLayout
     )
 }
 
@@ -75,6 +79,7 @@ fun WarpText(
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
     textDecoration: TextDecoration? = null,
+    onTextLayout: (result: TextLayoutResult) -> Unit = {}
 ) {
     val textStyle = getTextStyle(style)
 
@@ -89,7 +94,8 @@ fun WarpText(
         textAlign = textAlign,
         overflow = overflow,
         softWrap = softWrap,
-        textDecoration = textDecoration
+        textDecoration = textDecoration,
+        onTextLayout = onTextLayout
     )
 }
 
@@ -143,5 +149,4 @@ fun WarpTextPreview() {
             color = colors.text.default
         )
     }
-
 }
