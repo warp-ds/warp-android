@@ -60,7 +60,7 @@ class WarpIconTest(
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
             }
-        Assert.assertEquals(271, count)
+        Assert.assertEquals(275, count)
     }
 
     @Test
@@ -238,6 +238,7 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
+                    icons.gamingController,
                     icons.gasDiesel,
                     icons.gasFuel,
                     icons.gasHybrid,
@@ -324,6 +325,7 @@ class WarpIconTest(
                     icons.like,
                     icons.link,
                     icons.linkExternal,
+                    icons.listNumbers,
                     icons.listSort,
                     icons.lockShield,
                     icons.logout,
@@ -455,6 +457,7 @@ class WarpIconTest(
                     icons.shirt,
                     icons.shoes,
                     icons.shoppingCart,
+                    icons.shovel,
                     icons.shower,
                     icons.shrink,
                     icons.sidebarChevronLeft,
@@ -497,6 +500,7 @@ class WarpIconTest(
                     icons.tag,
                     icons.taskList,
                     icons.textBold,
+                    icons.textHOne,
                     icons.textItalic,
                     icons.textStrikethrough,
                     icons.textUnderline,

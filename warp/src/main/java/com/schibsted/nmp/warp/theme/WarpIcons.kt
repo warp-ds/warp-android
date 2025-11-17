@@ -888,6 +888,13 @@ object WarpIconResources {
             stringResource(R.string.frontwheeldrive)
         )
 
+    val gamingController: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_gamingcontroller),
+            stringResource(R.string.gamingcontroller)
+        )
+
     val gasDiesel: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1144,6 +1151,14 @@ object WarpIconResources {
             ImageVector.vectorResource(id = R.drawable.warp_linkexternal),
             stringResource(R.string.linkexternal)
         )
+
+    val listNumbers: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_listnumbers),
+            stringResource(R.string.listnumbers)
+        )
+
 
     val listSort: WarpIconResource
         @Composable
@@ -1572,6 +1587,14 @@ object WarpIconResources {
             stringResource(R.string.shoppingcart)
         )
 
+    val shovel: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_shovel),
+            stringResource(R.string.shovel)
+        )
+
+
     val shower: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1797,6 +1820,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_textbold),
             stringResource(R.string.textbold)
+        )
+
+    val textHOne: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_texthone),
+            stringResource(R.string.texthone)
         )
 
     val textItalic: WarpIconResource
