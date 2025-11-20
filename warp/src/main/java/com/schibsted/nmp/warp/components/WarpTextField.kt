@@ -116,12 +116,12 @@ fun WarpTextField(
     }
 
     Column(modifier) {
-        Row(
-            horizontalArrangement = Arrangement.Start,
-            modifier = Modifier.padding(top = dimensions.space025, bottom = dimensions.space05),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            label?.let {
+        label?.let {
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier.padding(top = dimensions.space025, bottom = dimensions.space05),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 WarpText(text = label, style = WarpTextStyle.Title5, color = colors.text.default)
                 optionalLabel?.let {
                     WarpText(
@@ -284,6 +284,17 @@ fun WarpTextFieldPreview() {
         value = "",
         label = "Hello",
         optionalLabel = "Hey hey",
+        helpText = "Help text",
+        placeholderText = "Hint",
+        onValueChange = {}
+    )
+}
+
+@Preview
+@Composable
+fun WarpTextFieldNoLabelsPreview() {
+    WarpTextField(
+        value = "",
         helpText = "Help text",
         placeholderText = "Hint",
         onValueChange = {}
