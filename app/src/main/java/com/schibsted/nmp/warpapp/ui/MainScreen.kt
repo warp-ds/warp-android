@@ -202,6 +202,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("state") {
+                StateScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -276,6 +281,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "select" to "WarpSelect",
                         "slider" to "WarpSlider",
                         "spinner" to "WarpSpinner",
+                        "state" to "WarpState",
                         "stepIndicator" to "WarpStepIndicator",
                         "switch" to "WarpSwitch",
                         "tabs" to "WarpTab and WarpTabGroup",
