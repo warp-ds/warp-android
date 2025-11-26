@@ -1,8 +1,10 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,15 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.R
-import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 
 @Composable
@@ -26,8 +29,9 @@ fun WarpState(
     modifier: Modifier = Modifier,
     type: WarpStateType? = null,
     painter: Painter? = null,
+    icon: WarpIconResource? = null,
     tintColor: Color? = null,
-    imageSize: ImageSize = ImageSize.ICON,
+    imageSize: Dp? = null,
     imageContentDescription: String? = null,
     title: String? = null,
     description: String? = null,
@@ -50,9 +54,10 @@ fun WarpState(
 
     WarpStateView(
         modifier = modifier,
-        icon = stateStyle.icon,
+        icon = icon ?: stateStyle.icon,
+        painter,
         imageContentDescription,
-        imageSize,
+        imageSize = imageSize,
         tintColor,
         title = title ?: stateStyle.title,
         description = description ?: stateStyle.description,
@@ -124,8 +129,9 @@ fun getLoadingStyle() = WarpStateStyle(
 private fun WarpStateView(
     modifier: Modifier,
     icon: WarpIconResource?,
+    painter: Painter?,
     imageContentDescription: String?,
-    imageSize: ImageSize,
+    imageSize: Dp?,
     tintColor: Color?,
     title: String?,
     description: String?,
@@ -137,17 +143,21 @@ private fun WarpStateView(
     showLoading: Boolean
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.padding(dimensions.space3),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    ) {
-        icon?.let {
+    ) { painter?.let {
+            Image(
+                painter = it,
+                contentDescription = imageContentDescription,
+                modifier = Modifier.size(imageSize ?: dimensions.illustration))
+    } ?: icon?.let {
             WarpIcon(
                 icon = it,
-                size = 64.dp,
-                color = colors.icon.primary
+                size = imageSize ?: dimensions.icon.xlarge,
+                color = tintColor ?: colors.icon.primary
             )
-            Spacer(modifier = Modifier.size(WarpDimensions.space3))
+            Spacer(modifier = Modifier.size(dimensions.space3))
         }
         title?.let {
             WarpText(
@@ -155,10 +165,12 @@ private fun WarpStateView(
                 textAlign = TextAlign.Center,
                 style = WarpTextStyle.Title3
             )
+            Spacer(modifier = Modifier.size(dimensions.space05))
+
         }
         if (showLoading) {
-            WarpSpinner(size = WarpSpinnerSize.Large)
-            Spacer(modifier = Modifier.size(WarpDimensions.space3))
+            WarpSpinner(size = WarpSpinnerSize.Default)
+            Spacer(modifier = Modifier.size(dimensions.space3))
         }
         description?.let {
             WarpText(
@@ -168,7 +180,7 @@ private fun WarpStateView(
             )
         }
         if (primaryButtonText != null || quietButtonText != null) {
-            Spacer(modifier = Modifier.size(WarpDimensions.space2))
+            Spacer(modifier = Modifier.size(dimensions.space3))
             MatchedMaxWidthComposables(
                 @Composable {
                     primaryButtonText?.let {
@@ -187,12 +199,15 @@ private fun WarpStateView(
                         )
                     }
                 },
-                spacing = WarpDimensions.space1
+                spacing = dimensions.space1
             )
         }
         if (showLogo) {
-            Spacer(modifier = Modifier.size(WarpDimensions.space3))
-            WarpLogo(brand = Brand.Vend)
+            Spacer(modifier = Modifier.size(dimensions.space3))
+            Image(
+                painter = painterResource(R.drawable.warp_partofvend),
+                contentDescription = stringResource(R.string.vend),
+            )
         }
     }
 }
@@ -206,11 +221,6 @@ enum class WarpStateType {
     Verify
 }
 
-
-enum class ImageSize(val size: Dp) {
-    ICON(64.dp),
-    ILLUSTRATION(200.dp),
-}
 
 @Composable
 private fun MatchedMaxWidthComposables(
