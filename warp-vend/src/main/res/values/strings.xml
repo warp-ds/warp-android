@@ -285,4 +285,22 @@
     <string name="listnumbers">Numbered list</string>
     <string name="shovel">Shovel</string>
     <string name="texthone">Heading 1 text</string>
+    <string name="no_search_results_title">Well, this place is empty</string>
+    <string name="no_search_results_description">We can’t find the product you’re looking for – it may already have been sold. Would you like to be notified when there are new results for this search?</string>
+    <string name="no_search_results_primary_button_text">Save search</string>
+    <string name="no_search_results_quiet_button_text">Clear filters</string>
+    <string name="failed_to_load_title">Sorry, something went wrong</string>
+    <string name="failed_to_load_description">We couldn’t load this content right now. Try again in a little while, or get more information from customer support.</string>
+    <string name="failed_to_load_primary_button_text">Try again</string>
+    <string name="offline_title">Offline?</string>
+    <string name="offline_description">We\'re not able to communicate with the server. Check your wireless or mobile connection.</string>
+    <string name="offline_primary_button_text">Try again</string>
+    <string name="login_title">The marketplace of possibilities</string>
+    <string name="login_description">Log in to send messages, save favourites and searches. You\'ll also receive handy notifications for what\'s important to you.</string>
+    <string name="login_primary_button_text">Log in</string>
+    <string name="login_quiet_button_text">Create an account</string>
+    <string name="verify_title">Please verify yourself</string>
+    <string name="verify_description">Before you make contact, you need to verify yourself. We do this so that the other person can be confident in who they are talking to.</string>
+    <string name="verify_primary_button_text">Verify using BankID</string>
+    <string name="loading_description">Please wait...</string>
 </resources>
