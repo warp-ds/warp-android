@@ -3,7 +3,7 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.R
@@ -146,41 +147,44 @@ private fun WarpStateView(
         modifier = modifier.padding(dimensions.space3),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    ) { painter?.let {
+    ) {
+        painter?.let {
             Image(
                 painter = it,
                 contentDescription = imageContentDescription,
-                modifier = Modifier.size(imageSize ?: dimensions.illustration))
-    } ?: icon?.let {
+                modifier = Modifier.size(imageSize ?: dimensions.illustration)
+                    .padding(bottom = dimensions.space3)
+            )
+        } ?: icon?.let {
             WarpIcon(
+                modifier = Modifier.padding(bottom = dimensions.space3),
                 icon = it,
                 size = imageSize ?: dimensions.icon.xlarge,
                 color = tintColor ?: colors.icon.primary
             )
-            Spacer(modifier = Modifier.size(dimensions.space3))
         }
         title?.let {
             WarpText(
+                modifier = Modifier.padding(bottom = dimensions.space05),
                 text = it,
                 textAlign = TextAlign.Center,
                 style = WarpTextStyle.Title3
             )
-            Spacer(modifier = Modifier.size(dimensions.space05))
-
         }
         if (showLoading) {
-            WarpSpinner(size = WarpSpinnerSize.Default)
-            Spacer(modifier = Modifier.size(dimensions.space3))
+            WarpSpinner(
+                modifier = Modifier.padding(bottom = dimensions.space3),
+                size = WarpSpinnerSize.Default)
         }
         description?.let {
             WarpText(
+                modifier = Modifier.padding(bottom = dimensions.space3),
                 text = it,
                 textAlign = TextAlign.Center,
                 style = WarpTextStyle.Body
             )
         }
         if (primaryButtonText != null || quietButtonText != null) {
-            Spacer(modifier = Modifier.size(dimensions.space3))
             MatchedMaxWidthComposables(
                 @Composable {
                     primaryButtonText?.let {
@@ -203,8 +207,8 @@ private fun WarpStateView(
             )
         }
         if (showLogo) {
-            Spacer(modifier = Modifier.size(dimensions.space3))
             Image(
+                modifier = Modifier.padding(top = dimensions.space3),
                 painter = painterResource(R.drawable.warp_partofvend),
                 contentDescription = stringResource(R.string.vend),
             )
@@ -262,18 +266,17 @@ private fun MatchedMaxWidthComposables(
     }
 }
 
-/*@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun StateViewPreview() {
     WarpState(
         modifier = Modifier.fillMaxSize(),
-        painter = painterResource(R.drawable.warp_sparkles),
-        imageContentDescription = stringResource(R.string.sparkles),
+        icon = icons.sparkles,
         title = "No data",
         description = "No data available",
         primaryButtonText = "Retry",
         onPrimaryButtonClicked = {},
-        secondaryButtonText = "Get something random",
-        onSecondaryButtonClicked = {},
+        quietButtonText = "Get something random",
+        onQuietButtonClicked = {},
     )
-}*/
+}

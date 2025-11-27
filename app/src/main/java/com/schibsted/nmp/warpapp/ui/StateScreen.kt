@@ -3,7 +3,6 @@ package com.schibsted.nmp.warpapp.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -13,7 +12,6 @@ import com.schibsted.nmp.warp.components.WarpDivider
 import com.schibsted.nmp.warp.components.WarpState
 import com.schibsted.nmp.warp.components.WarpStateType
 import com.schibsted.nmp.warp.theme.WarpResources.icons
-import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warpapp.R
 
@@ -31,7 +29,6 @@ fun StateContent() {
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
-            .padding(dimensions.space2)
     ) {
         WarpState(type = WarpStateType.NoSearchResults)
         WarpDivider()
@@ -52,7 +49,6 @@ fun StateContent() {
             modifier = Modifier.fillMaxWidth(),
             title = "Custom state",
             description = "Custom things happening here. Custom text and custom content. Unpredictable",
-            tintColor = colors.icon.secondary,
             icon = icons.shovel,
             primaryButtonText = "Okay",
             quietButtonText = "Meow?"
@@ -62,7 +58,6 @@ fun StateContent() {
             modifier = Modifier.fillMaxWidth(),
             title = "Custom state",
             description = "Custom things happening here. Custom text and custom content. Unpredictable",
-            tintColor = colors.icon.secondary,
             painter = painterResource(R.drawable.warp_placeholder),
             primaryButtonText = "Okay",
             quietButtonText = "Meow?"
