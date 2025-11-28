@@ -286,4 +286,22 @@
     <string name="listnumbers">Numeroitu luettelo</string>
     <string name="shovel">Lapio</string>
     <string name="texthone">Otsikon 1 teksti</string>
+    <string name="no_search_results_title">Ei hakutuloksia</string>
+    <string name="no_search_results_description">Etsimääsi tuotetta ei löydy – se saattaa jo myyty. Haluatko tiedon, kun tähän hakuun tulee uusia osumia?</string>
+    <string name="no_search_results_primary_button_text">Tallenna hakuvahti</string>
+    <string name="no_search_results_quiet_button_text">Tyhjennä suodattimet</string>
+    <string name="failed_to_load_title">Valitettavasti jotain meni pieleen</string>
+    <string name="failed_to_load_description">Sisältöä ei voitu juuri nyt ladata. Yritä uudelleen hetken kuluttua tai kysy lisätietoja asiakaspalvelusta.</string>
+    <string name="failed_to_load_primary_button_text">Yritä uudelleen</string>
+    <string name="offline_title">Yhteysongelmia?</string>
+    <string name="offline_description">Palvelimeen ei saada yhteyttä. Tarkista, että olet yhteydessä langattomaan verkkoon tai mobiilidataan.</string>
+    <string name="offline_primary_button_text">Yritä uudelleen</string>
+    <string name="login_title">Kaikille hyvät kaupat</string>
+    <string name="login_description">Kirjautuneena voit lähettää viestejä, tallentaa hakuvahteja ja lisätä suosikkeja. Saat myös notifikaatioita sinulle tärkeistä asioista.</string>
+    <string name="login_primary_button_text">Kirjaudu sisään</string>
+    <string name="login_quiet_button_text">Luo tili</string>
+    <string name="verify_title">Tunnistaudu</string>
+    <string name="verify_description">Sinun täytyy tunnistautua ennen yhteydenottoa. Tällä varmistetaan, että vastapuoli tietää, kenen kanssa hän on tekemässä kaupat.</string>
+    <string name="verify_primary_button_text">Tunnistaudu pankkitunnuksilla</string>
+    <string name="loading_description">Odota hetki...</string>
 </resources>
