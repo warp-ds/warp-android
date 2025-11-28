@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -153,15 +154,16 @@ private fun WarpStateView(
                 painter = it,
                 contentDescription = imageContentDescription,
                 modifier = Modifier.size(imageSize ?: dimensions.illustration)
-                    .padding(bottom = dimensions.space3)
             )
+            Spacer(modifier = Modifier.size(dimensions.space3))
+
         } ?: icon?.let {
             WarpIcon(
-                modifier = Modifier.padding(bottom = dimensions.space3),
                 icon = it,
                 size = imageSize ?: dimensions.icon.xlarge,
                 color = tintColor ?: colors.icon.primary
             )
+            Spacer(modifier = Modifier.size(dimensions.space3))
         }
         title?.let {
             WarpText(
@@ -172,9 +174,8 @@ private fun WarpStateView(
             )
         }
         if (showLoading) {
-            WarpSpinner(
-                modifier = Modifier.padding(bottom = dimensions.space3),
-                size = WarpSpinnerSize.Default)
+            WarpSpinner()
+            Spacer(modifier = Modifier.size(dimensions.space3))
         }
         description?.let {
             WarpText(
@@ -207,8 +208,8 @@ private fun WarpStateView(
             )
         }
         if (showLogo) {
+            Spacer(Modifier.size(dimensions.space3))
             Image(
-                modifier = Modifier.padding(top = dimensions.space3),
                 painter = painterResource(R.drawable.warp_partofvend),
                 contentDescription = stringResource(R.string.vend),
             )
