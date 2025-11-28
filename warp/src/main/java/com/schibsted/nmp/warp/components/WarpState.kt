@@ -12,13 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -186,26 +184,20 @@ private fun WarpStateView(
             )
         }
         if (primaryButtonText != null || quietButtonText != null) {
-            MatchedMaxWidthComposables(
-                @Composable {
-                    primaryButtonText?.let {
-                        WarpButton(
-                            text = it,
-                            onClick = onPrimaryButtonClicked
-                        )
-                    }
-                },
-                @Composable {
-                    quietButtonText?.let {
-                        WarpButton(
-                            text = it,
-                            onClick = onQuietButtonClicked,
-                            style = WarpButtonStyle.Quiet
-                        )
-                    }
-                },
-                spacing = dimensions.space1
-            )
+            primaryButtonText?.let {
+                WarpButton(
+                    text = it,
+                    onClick = onPrimaryButtonClicked
+                )
+            }
+            Spacer(Modifier.size(dimensions.space1))
+            quietButtonText?.let {
+                WarpButton(
+                    text = it,
+                    onClick = onQuietButtonClicked,
+                    style = WarpButtonStyle.Quiet
+                )
+            }
         }
         if (showLogo) {
             Spacer(Modifier.size(dimensions.space3))
@@ -224,47 +216,6 @@ enum class WarpStateType {
     Login,
     Offline,
     Verify
-}
-
-
-@Composable
-private fun MatchedMaxWidthComposables(
-    vararg composables: @Composable () -> Unit,
-    spacing: Dp = 0.dp,
-) {
-    SubcomposeLayout { constraints ->
-        val measurables = composables.mapIndexed { index, composable ->
-            subcompose(index) { composable() }.firstOrNull()
-        }.filterNotNull()
-        if (measurables.isEmpty()) {
-            return@SubcomposeLayout layout(0, 0) {}
-        }
-
-        val maxIntrinsicWidth = measurables.maxOfOrNull {
-            it.maxIntrinsicWidth(constraints.maxWidth)
-        } ?: 0
-        val childConstraints = constraints.copy(
-            minWidth = maxIntrinsicWidth,
-            maxWidth = maxIntrinsicWidth
-        )
-        val placeables = measurables.map { it.measure(childConstraints) }
-        val spacingPx = spacing.toPx().toInt()
-        val totalHeight =
-            placeables.sumOf { it.height } + spacingPx * (placeables.size - 1).coerceAtLeast(0)
-
-        if (placeables.isEmpty()) {
-            layout(0, 0) {}
-        } else {
-            layout(width = maxIntrinsicWidth, height = totalHeight) {
-                var y = 0
-                placeables.forEachIndexed { index, placeable ->
-                    placeable.placeRelative(0, y)
-                    y += placeable.height
-                    if (index < placeables.lastIndex) y += spacingPx
-                }
-            }
-        }
-    }
 }
 
 @Preview(showBackground = true)
