@@ -286,4 +286,22 @@
     <string name="listnumbers">Nummerert liste</string>
     <string name="shovel">Spade</string>
     <string name="texthone">Overskrift 1</string>
+    <string name="no_search_results_title">Vel, her var det tomt</string>
+    <string name="no_search_results_description">Vi finner ikke produktet du leter etter – det kan allerede ha blitt solgt. Vil du bli varslet når det kommer nye resultater for dette søket?</string>
+    <string name="no_search_results_primary_button_text">Lagre søk</string>
+    <string name="no_search_results_quiet_button_text">Fjern filtre</string>
+    <string name="failed_to_load_title">Beklager, noe gikk galt</string>
+    <string name="failed_to_load_description">Vi kunne ikke laste inn dette innholdet akkurat nå. Prøv igjen om en liten stund, eller få mer informasjon fra kundestøtte.</string>
+    <string name="failed_to_load_primary_button_text">Prøv igjen</string>
+    <string name="offline_title">Frakoblet?</string>
+    <string name="offline_description">Vi klarer ikke å kommunisere med serveren. Sjekk trådløs- eller mobildataforbindelsen din.</string>
+    <string name="offline_primary_button_text">Prøv igjen</string>
+    <string name="login_title">Markedet av muligheter</string>
+    <string name="login_description">Logg inn for å sende meldinger, lagre favoritter og søk. Du får også nyttige varsler om det som er viktig for deg.</string>
+    <string name="login_primary_button_text">Logg inn</string>
+    <string name="login_quiet_button_text">Opprett konto</string>
+    <string name="verify_title">Vennligst verifiser deg</string>
+    <string name="verify_description">Før du tar kontakt, må du verifisere deg. Vi gjør dette slik at den andre personen kan være trygg på hvem de snakker med.</string>
+    <string name="verify_primary_button_text">Verifiser med BankID</string>
+    <string name="loading_description">Vennligst vent...</string>
 </resources>

@@ -69,12 +69,13 @@ class WarpDatePickerTest(
                     val selectableDatesRange = object  :
                         SelectableDates {
                         override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-                            return utcTimeMillis >= System.currentTimeMillis()
+                            return utcTimeMillis >= 1757836800000L
                         }
                     }
                     WarpDatePicker(
                         type = WarpDatePickerType.INLINE,
                         onDateSelected = {},
+                        preselectedDateMillis = 1757836800000L,
                         selectableDates = selectableDatesRange
                     )
                 }
