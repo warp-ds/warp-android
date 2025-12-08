@@ -49,20 +49,20 @@ fun WarpState(
         WarpStateType.Login -> getLoginStyle()
         WarpStateType.Verify -> getVerifyStyle()
         WarpStateType.Loading -> getLoadingStyle()
-        else -> getNoSearchResultsStyle()
+        else -> null
     }
 
     WarpStateView(
         modifier = modifier,
-        icon = icon ?: stateStyle.icon,
+        icon = icon ?: stateStyle?.icon,
         painter,
         imageContentDescription,
         imageSize = imageSize,
         tintColor,
-        title = title ?: stateStyle.title,
-        description = description ?: stateStyle.description,
-        primaryButtonText = primaryButtonText ?: stateStyle.primaryButtonText,
-        quietButtonText = quietButtonText ?: stateStyle.quietButtonText,
+        title = title ?: stateStyle?.title,
+        description = description ?: stateStyle?.description,
+        primaryButtonText = primaryButtonText ?: stateStyle?.primaryButtonText,
+        quietButtonText = quietButtonText ?: stateStyle?.quietButtonText,
         onPrimaryButtonClicked = onPrimaryButtonClicked,
         onQuietButtonClicked = onQuietButtonClicked,
         showLogo = type == WarpStateType.Login || showLogo,
