@@ -70,7 +70,7 @@ fun WarpState(
     )
 }
 
-data class WarpStateStyle(
+internal class WarpStateStyle(
     val icon: WarpIconResource? = null,
     val title: String? = null,
     val description: String? = null,
@@ -79,7 +79,7 @@ data class WarpStateStyle(
 )
 
 @Composable
-fun getNoSearchResultsStyle() = WarpStateStyle(
+internal fun getNoSearchResultsStyle() = WarpStateStyle(
     icon = icons.search,
     title = stringResource(R.string.no_search_results_title),
     description = stringResource(R.string.no_search_results_description),
@@ -88,7 +88,7 @@ fun getNoSearchResultsStyle() = WarpStateStyle(
 )
 
 @Composable
-fun getLoadFailedStyle() = WarpStateStyle(
+internal fun getLoadFailedStyle() = WarpStateStyle(
     icon = icons.smileyNeutral,
     title = stringResource(R.string.failed_to_load_title),
     description = stringResource(R.string.failed_to_load_description),
@@ -96,7 +96,7 @@ fun getLoadFailedStyle() = WarpStateStyle(
 )
 
 @Composable
-fun getOfflineStyle() = WarpStateStyle(
+internal fun getOfflineStyle() = WarpStateStyle(
     icon = icons.wifi,
     title = stringResource(R.string.offline_title),
     description = stringResource(R.string.offline_description),
@@ -104,7 +104,7 @@ fun getOfflineStyle() = WarpStateStyle(
 )
 
 @Composable
-fun getLoginStyle() = WarpStateStyle(
+internal fun getLoginStyle() = WarpStateStyle(
     icon = icons.user,
     title = stringResource(R.string.login_title),
     description = stringResource(R.string.login_description),
@@ -113,7 +113,7 @@ fun getLoginStyle() = WarpStateStyle(
 )
 
 @Composable
-fun getVerifyStyle() = WarpStateStyle(
+internal fun getVerifyStyle() = WarpStateStyle(
     icon = icons.verification,
     title = stringResource(R.string.verify_title),
     description = stringResource(R.string.verify_description),
@@ -121,7 +121,7 @@ fun getVerifyStyle() = WarpStateStyle(
 )
 
 @Composable
-fun getLoadingStyle() = WarpStateStyle(
+internal fun getLoadingStyle() = WarpStateStyle(
     description = stringResource(R.string.loading_description)
 )
 
