@@ -286,4 +286,22 @@
     <string name="listnumbers">Numrerad lista</string>
     <string name="shovel">Spade</string>
     <string name="texthone">Rubrik 1 text</string>
+    <string name="no_search_results_title">Oj, här var det tomt</string>
+    <string name="no_search_results_description">Vi hittar inte varan du letar efter – den kanske redan har blivit såld. Vill du få en notis när det finns nya träffar på den här sökningen?</string>
+    <string name="no_search_results_primary_button_text">Skapa bevakning</string>
+    <string name="no_search_results_quiet_button_text">Rensa filter</string>
+    <string name="failed_to_load_title">Äsch, något gick fel</string>
+    <string name="failed_to_load_description">Det gick inte att ladda detta innehåll just nu. Försök igen om en liten stund eller kontakta kundservice för mer information.</string>
+    <string name="failed_to_load_primary_button_text">Försök igen</string>
+    <string name="offline_title">Inte ansluten?</string>
+    <string name="offline_description">Vi kunde inte kommunicera med servern. Kontrollera din anslutning.</string>
+    <string name="offline_primary_button_text">Försök igen</string>
+    <string name="login_title">Hela Sveriges Marknadsplats</string>
+    <string name="login_description">Logga in för att skicka meddelanden, spara favoriter och skapa bevakningar. Du får också hjälpsamma notiser om relevant information.</string>
+    <string name="login_primary_button_text">Logga in</string>
+    <string name="login_quiet_button_text">Skapa konto</string>
+    <string name="verify_title">Verifiera din identitet</string>
+    <string name="verify_description">Innan du kontaktar någon behöver du verifiera din identitet. Detta låter den andra personen känna sig säker på vem de pratar med.</string>
+    <string name="verify_primary_button_text">Verifiera med BankID</string>
+    <string name="loading_description">Vänta ...</string>
 </resources>
