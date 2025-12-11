@@ -7,9 +7,9 @@ files:
   [
     {
       "source": "/warp/src/main/res/values/strings.xml",
-      "translation": "/warp-%two_letters_code%/src/main/res/values/strings.xml",
+      "translation": "/warp/src/main/res/values-%two_letters_code%/strings.xml",
       "languages_mapping":
-        { "two_letters_code": { "nb": "finn", "fi": "tori", "da": "dba", "sv": "blocket" } },
+        { "two_letters_code": { "nb": "nb", "fi": "fi", "da": "da", "sv": "sv" } },
       "type": "android",
     },
   ]

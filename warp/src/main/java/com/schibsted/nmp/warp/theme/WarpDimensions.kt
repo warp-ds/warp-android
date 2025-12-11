@@ -42,6 +42,7 @@ object WarpDimensions {
     val components = WarpComponentDimensions
 
     val icon = WarpIconDimensions
+    val illustration = 200.dp
 
 
     /**
@@ -67,6 +68,7 @@ object WarpIconDimensions {
     val small = 16.dp
     val default = 24.dp
     val large = 32.dp
+    val xlarge = 64.dp
 }
 
 object WarpComponentDimensions {
