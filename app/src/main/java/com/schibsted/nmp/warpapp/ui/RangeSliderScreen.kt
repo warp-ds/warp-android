@@ -2,21 +2,28 @@ package com.schibsted.nmp.warpapp.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import com.schibsted.nmp.warp.components.WarpRangeSlider
 import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.components.WarpTextField
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import kotlin.math.abs
 
 @Composable
 @ExperimentalMaterial3Api
@@ -193,6 +200,9 @@ fun RangeSliderScreenContent() {
             showRange = true
         )
 
+
+        RangeSliderWithInputs()
+
         WarpText(
             "Disabled range slider",
             style = WarpTextStyle.Title3,
@@ -204,5 +214,103 @@ fun RangeSliderScreenContent() {
             initialStartItem = 4,
             initialEndItem = 18,
         )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun RangeSliderWithInputs(
+    modifier: Modifier = Modifier
+) {
+
+    val steps = remember { (0..70).map { it * 10_000 } }
+
+    // Snapped indices for slider display
+    var snappedStartIndex by remember { mutableIntStateOf(0) }
+    var snappedEndIndex by remember { mutableIntStateOf(steps.lastIndex) }
+
+    // Text field display
+    var fromText by remember { mutableStateOf(steps.first().toString()) }
+    var toText by remember { mutableStateOf(steps.last().toString()) }
+
+    // Helper: Find nearest step index for any value
+    fun findNearestIndex(value: Int): Int {
+        return steps.indices.minByOrNull { abs(steps[it] - value) } ?: 0
+    }
+
+    Column(
+        modifier = modifier.padding(vertical = dimensions.space4),
+        verticalArrangement = Arrangement.spacedBy(dimensions.space5),
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            WarpText(
+                "Range slider with inputs",
+                style = WarpTextStyle.Title3,
+                modifier = Modifier.padding(bottom = dimensions.space1)
+            )
+            WarpText("Slider: ${steps[snappedStartIndex]} - ${steps[snappedEndIndex]}")
+            WarpRangeSlider(
+                items = steps,
+                startIndex = snappedStartIndex,
+                endIndex = snappedEndIndex,
+                onLeftValueChanged = { newValue ->
+                    val index = steps.indexOf(newValue)
+                    if (index >= 0) {
+                        snappedStartIndex = index
+                        fromText = steps[index].toString()
+                    }
+                },
+                onRightValueChanged = { newValue ->
+                    val index = steps.indexOf(newValue)
+                    if (index >= 0) {
+                        snappedEndIndex = index
+                        toText = steps[index].toString()
+                    }
+                },
+                showRange = true
+            )
+        }
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(dimensions.space2)
+        ) {
+            WarpTextField(
+                modifier = Modifier.weight(1f),
+                value = fromText,
+                onValueChange = { newText ->
+                    fromText = newText
+
+                    val parsed = newText.replace(" ", "").toIntOrNull()
+                    if (parsed != null && parsed >= 0) {
+                        snappedStartIndex =
+                            findNearestIndex(parsed)
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                ),
+                singleLine = true
+            )
+            WarpTextField(
+                modifier = Modifier.weight(1f),
+                value = toText,
+                onValueChange = { newText ->
+                    toText = newText
+
+                    val parsed = newText.replace(" ", "").toIntOrNull()
+                    if (parsed != null && parsed >= 0) {
+                        snappedEndIndex = findNearestIndex(parsed)
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                ),
+                singleLine = true
+            )
+        }
     }
 }
