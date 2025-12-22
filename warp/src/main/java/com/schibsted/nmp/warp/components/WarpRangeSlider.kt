@@ -1225,33 +1225,31 @@ internal class WarpRangeSliderState(
     /**
      * Updates the start position to a specific index.
      * Used when parent wants to control the slider position (e.g., from text input with snap-to-nearest).
+     * The index is clamped to valid range: [0, activeEndStepIndex].
      * @param index The index in the items list to set as the start position
      */
     internal fun updateStartIndex(index: Int) {
-        if (index in 0..leftSliderEndStepLimit &&
-            index <= activeEndStepIndex &&
-            leftItemCoordinates.isNotEmpty()
-        ) {
-            activeStartStepIndex = index
-            currentLeftItem = sliderValues[index]
-            activeRangeStartState = leftItemCoordinates[index].xPosition + padding
-        }
+        if (leftItemCoordinates.isEmpty()) return
+        // Clamp to valid range: can't go below 0 or above current end position
+        val clampedIndex = index.coerceIn(0, activeEndStepIndex.coerceAtMost(leftSliderEndStepLimit))
+        activeStartStepIndex = clampedIndex
+        currentLeftItem = sliderValues[clampedIndex]
+        activeRangeStartState = leftItemCoordinates[clampedIndex].xPosition + padding
     }
 
     /**
      * Updates the end position to a specific index.
      * Used when parent wants to control the slider position (e.g., from text input with snap-to-nearest).
+     * The index is clamped to valid range: [activeStartStepIndex, lastIndex].
      * @param index The index in the items list to set as the end position
      */
     internal fun updateEndIndex(index: Int) {
-        if (index in rightSliderStartStepLimit..sliderValues.lastIndex &&
-            index >= activeStartStepIndex &&
-            rightItemCoordinates.isNotEmpty()
-        ) {
-            activeEndStepIndex = index
-            currentRightItem = sliderValues[index]
-            activeRangeEndState = rightItemCoordinates[index].xPosition - padding
-        }
+        if (rightItemCoordinates.isEmpty()) return
+        // Clamp to valid range: can't go below current start position or above last index
+        val clampedIndex = index.coerceIn(activeStartStepIndex.coerceAtLeast(rightSliderStartStepLimit), sliderValues.lastIndex)
+        activeEndStepIndex = clampedIndex
+        currentRightItem = sliderValues[clampedIndex]
+        activeRangeEndState = rightItemCoordinates[clampedIndex].xPosition - padding
     }
 
     internal var startThumbWidth by mutableFloatStateOf(0f)
