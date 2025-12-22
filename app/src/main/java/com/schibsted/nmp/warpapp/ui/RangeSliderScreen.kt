@@ -284,8 +284,10 @@ private fun RangeSliderWithInputs(
 
                     val parsed = newText.replace(" ", "").toIntOrNull()
                     if (parsed != null && parsed >= 0) {
-                        snappedStartIndex =
-                            findNearestIndex(parsed)
+                        val newIndex = findNearestIndex(parsed)
+                        if (newIndex <= snappedEndIndex) {
+                            snappedStartIndex = newIndex
+                        }
                     }
                 },
                 keyboardOptions = KeyboardOptions(
@@ -302,7 +304,10 @@ private fun RangeSliderWithInputs(
 
                     val parsed = newText.replace(" ", "").toIntOrNull()
                     if (parsed != null && parsed >= 0) {
-                        snappedEndIndex = findNearestIndex(parsed)
+                        val newIndex = findNearestIndex(parsed)
+                        if (newIndex >= snappedStartIndex) {
+                            snappedEndIndex = newIndex
+                        }
                     }
                 },
                 keyboardOptions = KeyboardOptions(
