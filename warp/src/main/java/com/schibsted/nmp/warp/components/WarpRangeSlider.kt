@@ -115,6 +115,10 @@ import kotlin.math.sign
  * @param enabled Whether the component is enabled and can be interacted with.
  * @param initialStartItem The initial item selected by the start thumb.
  * @param initialEndItem The initial item selected by the end thumb.
+ * @param startIndex Optional controlled start index. When provided and changed, the slider position updates to this index.
+ *                   Used for two-way binding with external inputs (e.g., text fields). Parent should compute snap-to-nearest logic.
+ * @param endIndex Optional controlled end index. When provided and changed, the slider position updates to this index.
+ *                 Used for two-way binding with external inputs (e.g., text fields). Parent should compute snap-to-nearest logic.
  * @param onValueChangeFinished Callback invoked when the user finishes dragging either thumb.
  * @param onLeftValueChanged Callback invoked when the value of the left thumb changes.
  * @param onRightValueChanged Callback invoked when the value of the right thumb changes.
@@ -135,6 +139,8 @@ fun WarpRangeSlider(
     enabled: Boolean = true,
     initialStartItem: Any? = null,
     initialEndItem: Any? = null,
+    startIndex: Int? = null,
+    endIndex: Int? = null,
     onValueChangeFinished: (() -> Unit) = {},
     onLeftValueChanged: ((Any) -> Unit) = {},
     onRightValueChanged: ((Any) -> Unit) = {},
@@ -146,17 +152,32 @@ fun WarpRangeSlider(
     startInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     endInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val rangeSliderState = WarpRangeSliderState(
-        initialStartItem = initialStartItem,
-        initialEndItem = initialEndItem,
-        items = items,
-        resetAtStartText = resetAtStartText,
-        resetAtEndText = resetAtEndText,
-        onLeftValueChanged = onLeftValueChanged,
-        onRightValueChanged = onRightValueChanged,
-        onValueChangeFinished = onValueChangeFinished
-    )
+    // Create state once, only recreate if items or reset texts change
+    val rangeSliderState = remember(items, resetAtStartText, resetAtEndText) {
+        WarpRangeSliderState(
+            initialStartItem = initialStartItem,
+            initialEndItem = initialEndItem,
+            items = items,
+            resetAtStartText = resetAtStartText,
+            resetAtEndText = resetAtEndText,
+            initialOnLeftValueChanged = onLeftValueChanged,
+            initialOnRightValueChanged = onRightValueChanged,
+            initialOnValueChangeFinished = onValueChangeFinished
+        )
+    }
 
+    // Update callbacks (following Material3 pattern - direct assignment during composition)
+    rangeSliderState.onLeftValueChanged = onLeftValueChanged
+    rangeSliderState.onRightValueChanged = onRightValueChanged
+    rangeSliderState.onValueChangeFinished = onValueChangeFinished
+    rangeSliderState.blockDrag = blockDrag
+
+    if (startIndex != null) {
+        rangeSliderState.updateStartIndex(startIndex)
+    }
+    if (endIndex != null) {
+        rangeSliderState.updateEndIndex(endIndex)
+    }
 
     val startThumb: @Composable (WarpRangeSliderState) -> Unit = {
         WarpSliderDefaults.Thumb(
@@ -176,10 +197,6 @@ fun WarpRangeSlider(
             enabled = enabled,
             state = state
         )
-    }
-
-    LaunchedEffect(blockDrag) {
-        rangeSliderState.blockDrag = blockDrag
     }
 
     WarpRangeSliderImpl(
@@ -1053,20 +1070,25 @@ private enum class WarpRangeSliderComponents {
 
 @Stable
 @ExperimentalMaterial3Api
-internal data class WarpRangeSliderState(
+internal class WarpRangeSliderState(
     private val initialStartItem: Any?,
     private val initialEndItem: Any?,
     private val items: List<Any>,
     private val resetAtStartText: String? = null,
     private val resetAtEndText: String? = null,
-    val onValueChangeFinished: (() -> Unit) = {},
-    val onLeftValueChanged: ((Any) -> Unit) = {},
-    val onRightValueChanged: ((Any) -> Unit) = {},
+    initialOnValueChangeFinished: (() -> Unit) = {},
+    initialOnLeftValueChanged: ((Any) -> Unit) = {},
+    initialOnRightValueChanged: ((Any) -> Unit) = {},
 ) {
 
     init {
         require(items.isNotEmpty()) { "Items must have at least one value" }
     }
+
+    // Mutable callbacks - can be updated during composition (following Material3 pattern)
+    var onValueChangeFinished: (() -> Unit) = initialOnValueChangeFinished
+    var onLeftValueChanged: ((Any) -> Unit) = initialOnLeftValueChanged
+    var onRightValueChanged: ((Any) -> Unit) = initialOnRightValueChanged
 
     var blockDrag by mutableStateOf(false)
 
@@ -1198,6 +1220,36 @@ internal data class WarpRangeSliderState(
                 onRightValueChanged(currentRightItem)
             }
         }
+    }
+
+    /**
+     * Updates the start position to a specific index.
+     * Used when parent wants to control the slider position (e.g., from text input with snap-to-nearest).
+     * The index is clamped to valid range: [0, activeEndStepIndex].
+     * @param index The index in the items list to set as the start position
+     */
+    internal fun updateStartIndex(index: Int) {
+        if (leftItemCoordinates.isEmpty()) return
+        // Clamp to valid range: can't go below 0 or above current end position
+        val clampedIndex = index.coerceIn(0, activeEndStepIndex.coerceAtMost(leftSliderEndStepLimit))
+        activeStartStepIndex = clampedIndex
+        currentLeftItem = sliderValues[clampedIndex]
+        activeRangeStartState = leftItemCoordinates[clampedIndex].xPosition + padding
+    }
+
+    /**
+     * Updates the end position to a specific index.
+     * Used when parent wants to control the slider position (e.g., from text input with snap-to-nearest).
+     * The index is clamped to valid range: [activeStartStepIndex, lastIndex].
+     * @param index The index in the items list to set as the end position
+     */
+    internal fun updateEndIndex(index: Int) {
+        if (rightItemCoordinates.isEmpty()) return
+        // Clamp to valid range: can't go below current start position or above last index
+        val clampedIndex = index.coerceIn(activeStartStepIndex.coerceAtLeast(rightSliderStartStepLimit), sliderValues.lastIndex)
+        activeEndStepIndex = clampedIndex
+        currentRightItem = sliderValues[clampedIndex]
+        activeRangeEndState = rightItemCoordinates[clampedIndex].xPosition - padding
     }
 
     internal var startThumbWidth by mutableFloatStateOf(0f)
