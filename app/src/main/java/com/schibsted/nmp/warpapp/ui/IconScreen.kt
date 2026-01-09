@@ -332,6 +332,9 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.wifi, size)
     CreateIcon(icons.tree, size)
     CreateIcon(icons.youtube, size)
+    CreateIcon(icons.microphone, size)
+    CreateIcon(icons.microphoneSlash, size)
+    CreateIcon(icons.translate, size)
 }
 
 @Composable

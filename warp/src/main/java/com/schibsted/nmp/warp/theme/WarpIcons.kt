@@ -2062,6 +2062,27 @@ object WarpIconResources {
             stringResource(R.string.youtube)
         )
 
+    val microphoneSlash: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_microphoneslash),
+            stringResource(R.string.microphoneslash)
+        )
+
+    val microphone: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_microphone),
+            stringResource(R.string.microphone)
+        )
+
+    val translate: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_translate),
+            stringResource(R.string.translate)
+        )
+
     @Deprecated("Use WarpLogo(Brand.Autovex, small = true) instead")
     val autovex: WarpBrandIconResource
         @Composable
