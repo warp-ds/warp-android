@@ -304,4 +304,7 @@
     <string name="verify_description">Sinun täytyy tunnistautua ennen yhteydenottoa. Tällä varmistetaan, että vastapuoli tietää, kenen kanssa hän on tekemässä kaupat.</string>
     <string name="verify_primary_button_text">Tunnistaudu pankkitunnuksilla</string>
     <string name="loading_description">Odota hetki...</string>
+    <string name="microphoneslash">Mykistetty miktofoni</string>
+    <string name="microphone">Mikrofoni</string>
+    <string name="translate">Kielten välistä käännöstä kuvaava symboli</string>
 </resources>
