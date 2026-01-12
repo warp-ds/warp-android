@@ -304,4 +304,7 @@
     <string name="verify_description">Innan du kontaktar någon behöver du verifiera din identitet. Detta låter den andra personen känna sig säker på vem de pratar med.</string>
     <string name="verify_primary_button_text">Verifiera med BankID</string>
     <string name="loading_description">Vänta ...</string>
+    <string name="microphoneslash">Avstängd mikrofon</string>
+    <string name="microphone">Mikrofon</string>
+    <string name="translate">Symbol som representerar översättning mellan språk</string>
 </resources>
