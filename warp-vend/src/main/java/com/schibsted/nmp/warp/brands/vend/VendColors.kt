@@ -1,25 +1,9 @@
 package com.schibsted.nmp.warp.brands.vend
 import androidx.compose.ui.graphics.Color
-import com.schibsted.nmp.warp.theme.WarpBackgroundColors
-import com.schibsted.nmp.warp.theme.WarpBadgeColors
-import com.schibsted.nmp.warp.theme.WarpBorderColors
-import com.schibsted.nmp.warp.theme.WarpButtonColors
-import com.schibsted.nmp.warp.theme.WarpCalloutColors
-import com.schibsted.nmp.warp.theme.WarpCardColors
-import com.schibsted.nmp.warp.theme.WarpColors
-import com.schibsted.nmp.warp.theme.WarpComponentColors
-import com.schibsted.nmp.warp.theme.WarpDatavizColors
-import com.schibsted.nmp.warp.theme.WarpIconColors
-import com.schibsted.nmp.warp.theme.WarpNavBarColors
-import com.schibsted.nmp.warp.theme.WarpPageIndicatorColors
-import com.schibsted.nmp.warp.theme.WarpPillColors
-import com.schibsted.nmp.warp.theme.WarpSurfaceColors
-import com.schibsted.nmp.warp.theme.WarpSwitchColors
-import com.schibsted.nmp.warp.theme.WarpTextColors
-import com.schibsted.nmp.warp.theme.WarpTooltipColors
+import com.schibsted.nmp.warp.theme.*
 import com.schibsted.nmp.warp.theme.dataviz.DatavizColors
 
-// Generated on Wed, 01 Oct 2025 09:00:59 GMT by https://github.com/warp-ds/tokens
+// Generated on Tue, 06 Jan 2026 08:48:49 GMT by https://github.com/warp-ds/tokens
 
 internal object VendColors : WarpColors {
     override val surface: WarpSurfaceColors = VendSurfaceColors
@@ -90,7 +74,7 @@ internal object VendBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFe5f5ff)
     override val infoSubtleHover = Color(0xFFcceaff)
     override val infoSubtleActive = Color(0xFFadddff)
-    override val transparent0 = Color(0x00ffffff)
+    override val transparent0 = Color(0xFFffffff00)
     override val notification = Color(0xFFe22d2c)
 }
 
@@ -295,7 +279,7 @@ private object VendPageIndicatorColors : WarpPageIndicatorColors {
     internal val Blue900 = Color(0xFF071f37)
     internal val White = Color(0xFFffffff)
     internal val Black = Color(0xFF000000)
-    internal val Transparent = Color(0x00ffffff)
+    internal val Transparent = Color(0xFFffffff00)
     internal val Pink50 = Color(0xFFfeecf5)
     internal val Pink100 = Color(0xFFfcc9e1)
     internal val Pink200 = Color(0xFFf9a6cf)
