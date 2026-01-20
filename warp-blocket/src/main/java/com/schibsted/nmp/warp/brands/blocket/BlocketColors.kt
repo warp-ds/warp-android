@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizColors
 
-// Generated on Wed, 01 Oct 2025 09:00:59 GMT by https://github.com/warp-ds/tokens
+// Generated on Tue, 06 Jan 2026 08:48:49 GMT by https://github.com/warp-ds/tokens
 
 internal object BlocketColors : WarpColors {
     override val surface: WarpSurfaceColors = BlocketSurfaceColors
@@ -90,7 +90,7 @@ internal object BlocketBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFf0f7ff)
     override val infoSubtleHover = Color(0xFFc8dffa)
     override val infoSubtleActive = Color(0xFFa0c9f7)
-    override val transparent0 = Color(0x00ffffff)
+    override val transparent0 = Color(0xFFffffff00)
     override val notification = Color(0xFFe90017)
 }
 
@@ -315,4 +315,4 @@ private object BlocketPageIndicatorColors : WarpPageIndicatorColors {
     internal val Gray850 = Color(0xFF26262b)
     internal val Gray900 = Color(0xFF1b1b1f)
     internal val Gray950 = Color(0xFF121212)
-    internal val Transparent = Color(0x00ffffff)
+    internal val Transparent = Color(0xFFffffff00)

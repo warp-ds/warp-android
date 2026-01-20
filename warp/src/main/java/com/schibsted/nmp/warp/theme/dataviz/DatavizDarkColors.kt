@@ -8,7 +8,7 @@ import com.schibsted.nmp.warp.theme.WarpDatavizIconColors
 import com.schibsted.nmp.warp.theme.WarpDatavizLineColors
 import com.schibsted.nmp.warp.theme.WarpDatavizTextColors
 
-// Generated on Thu, 20 Feb 2025 14:52:44 GMT by https://github.com/warp-ds/tokens
+// Generated on Tue, 06 Jan 2026 08:48:49 GMT by https://github.com/warp-ds/tokens
 
 object DatavizDarkColors : WarpDatavizColors {
     override val chart: WarpDatavizChartColors = DatavizDarkChartColors
@@ -147,7 +147,7 @@ internal object DatavizDarkBorderColors : WarpDatavizBorderColors {
     override val neutral = Color(0xFFc3c6c9)
     override val neutralHighlight = Color(0xFFe9eaea)
 }
-
+   
 internal object DatavizDarkIconColors : WarpDatavizIconColors {
     override val primary = Color(0xFF93caff)
     override val primaryHighlight = Color(0xFFd6edff)
@@ -209,3 +209,6 @@ internal object DatavizDarkTextColors : WarpDatavizTextColors {
     override val neutral = Color(0xFFc3c6c9)
     override val neutralHighlight = Color(0xFFe9eaea)
 }
+
+
+

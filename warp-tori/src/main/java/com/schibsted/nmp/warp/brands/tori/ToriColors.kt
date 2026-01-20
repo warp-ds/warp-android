@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizColors
 
-// Generated on Wed, 01 Oct 2025 09:00:59 GMT by https://github.com/warp-ds/tokens
+// Generated on Tue, 06 Jan 2026 08:48:49 GMT by https://github.com/warp-ds/tokens
 
 internal object ToriColors : WarpColors {
     override val surface: WarpSurfaceColors = ToriSurfaceColors
@@ -90,7 +90,7 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFecf7fe)
     override val infoSubtleHover = Color(0xFFc7e7fb)
     override val infoSubtleActive = Color(0xFFa2d5f5)
-    override val transparent0 = Color(0x00ffffff)
+    override val transparent0 = Color(0xFFffffff00)
     override val notification = Color(0xFFd43d4f)
 }
 
@@ -312,7 +312,7 @@ private object ToriPageIndicatorColors : WarpPageIndicatorColors {
     internal val Red700 = Color(0xFF7d1024)
     internal val Red800 = Color(0xFF520b18)
     internal val Red900 = Color(0xFF27070d)
-    internal val Transparent = Color(0x00ffffff)
+    internal val Transparent = Color(0xFFffffff00)
     internal val Gray50 = Color(0xFFf6f6f6)
     internal val Gray100 = Color(0xFFf0f0f2)
     internal val Gray200 = Color(0xFFdedee3)
