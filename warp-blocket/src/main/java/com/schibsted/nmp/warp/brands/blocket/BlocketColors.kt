@@ -1,6 +1,22 @@
 package com.schibsted.nmp.warp.brands.blocket
 import androidx.compose.ui.graphics.Color
-import com.schibsted.nmp.warp.theme.*
+import com.schibsted.nmp.warp.theme.WarpBackgroundColors
+import com.schibsted.nmp.warp.theme.WarpBadgeColors
+import com.schibsted.nmp.warp.theme.WarpBorderColors
+import com.schibsted.nmp.warp.theme.WarpButtonColors
+import com.schibsted.nmp.warp.theme.WarpCalloutColors
+import com.schibsted.nmp.warp.theme.WarpCardColors
+import com.schibsted.nmp.warp.theme.WarpColors
+import com.schibsted.nmp.warp.theme.WarpComponentColors
+import com.schibsted.nmp.warp.theme.WarpDatavizColors
+import com.schibsted.nmp.warp.theme.WarpIconColors
+import com.schibsted.nmp.warp.theme.WarpNavBarColors
+import com.schibsted.nmp.warp.theme.WarpPageIndicatorColors
+import com.schibsted.nmp.warp.theme.WarpPillColors
+import com.schibsted.nmp.warp.theme.WarpSurfaceColors
+import com.schibsted.nmp.warp.theme.WarpSwitchColors
+import com.schibsted.nmp.warp.theme.WarpTextColors
+import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizColors
 
 // Generated on Tue, 06 Jan 2026 08:48:49 GMT by https://github.com/warp-ds/tokens

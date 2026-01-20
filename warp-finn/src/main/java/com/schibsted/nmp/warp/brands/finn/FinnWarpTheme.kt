@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
 import com.schibsted.nmp.warp.theme.WarpTheme
-import com.schibsted.nmp.warp.theme.WarpTheme.colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
