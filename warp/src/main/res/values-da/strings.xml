@@ -304,4 +304,7 @@
     <string name="verify_description">Før du kontakter nogen, skal du validere din konto. Det er nødvendigt, så personen i den anden ende ved, hvem de taler med.</string>
     <string name="verify_primary_button_text">Valider med MitID</string>
     <string name="loading_description">Vent et øjeblik...</string>
+    <string name="microphoneslash">Mikrofon slået fra</string>
+    <string name="microphone">Mikrofon</string>
+    <string name="translate">Symbol, der repræsenterer oversættelse mellem sprog</string>
 </resources>

@@ -19,7 +19,7 @@ import com.schibsted.nmp.warp.theme.WarpTextColors
 import com.schibsted.nmp.warp.theme.WarpTooltipColors
 import com.schibsted.nmp.warp.theme.dataviz.DatavizColors
 
-// Generated on Wed, 01 Oct 2025 09:00:59 GMT by https://github.com/warp-ds/tokens
+// Generated on Tue, 06 Jan 2026 08:48:49 GMT by https://github.com/warp-ds/tokens
 
 internal object NeutralColors : WarpColors {
     override val surface: WarpSurfaceColors = NeutralSurfaceColors
@@ -90,7 +90,7 @@ internal object NeutralBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFf0f7ff)
     override val infoSubtleHover = Color(0xFFc8dffa)
     override val infoSubtleActive = Color(0xFFa0c9f7)
-    override val transparent0 = Color(0x00ffffff)
+    override val transparent0 = Color(0xFFffffff00)
     override val notification = Color(0xFFe00000)
 }
 
@@ -309,4 +309,4 @@ private object NeutralPageIndicatorColors : WarpPageIndicatorColors {
     internal val Red900 = Color(0xFF240000)
     internal val White = Color(0xFFffffff)
     internal val Black = Color(0xFF000000)
-    internal val Transparent = Color(0x00ffffff)
+    internal val Transparent = Color(0xFFffffff00)
