@@ -23,6 +23,7 @@ internal class NeutralComponentShapes(
 ) : WarpComponentShapes {
     override val badge = NeutralBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
+    override val button = RoundedCornerShape(dimensions.borderRadius3)
 }
 
 internal class NeutralBadgeShapes(

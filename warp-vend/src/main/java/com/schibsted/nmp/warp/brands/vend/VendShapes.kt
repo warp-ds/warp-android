@@ -23,6 +23,7 @@ internal class VendComponentShapes(
 ) : WarpComponentShapes {
     override val badge = VendBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
+    override val button = CircleShape
 }
 
 internal class VendBadgeShapes(

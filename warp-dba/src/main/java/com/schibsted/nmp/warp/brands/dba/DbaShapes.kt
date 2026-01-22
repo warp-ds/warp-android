@@ -23,6 +23,7 @@ internal class DbaComponentShapes(
 ) : WarpComponentShapes {
     override val badge = DbaBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
+    override val button = RoundedCornerShape(dimensions.borderRadius3)
 }
 
 internal class DbaBadgeShapes(

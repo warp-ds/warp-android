@@ -23,6 +23,7 @@ internal class FinnComponentShapes(
 ) : WarpComponentShapes {
     override val badge = FinnBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
+    override val button = RoundedCornerShape(dimensions.borderRadius3)
 }
 
 internal class FinnBadgeShapes(
