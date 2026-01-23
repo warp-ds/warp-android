@@ -15,15 +15,16 @@ internal data class FinnShapes(
     override val roundedMedium: Shape = RoundedCornerShape(dimensions.borderRadius3),
     override val ellipse: Shape = CircleShape
 ) : WarpShapes {
-    override val components: WarpComponentShapes = FinnComponentShapes(dimensions)
+    override val components: WarpComponentShapes = FinnComponentShapes(dimensions, this)
 }
 
 internal class FinnComponentShapes(
-    dimensions: WarpDimensions
+    dimensions: WarpDimensions,
+    shapes: WarpShapes
 ) : WarpComponentShapes {
     override val badge = FinnBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
-    override val button = RoundedCornerShape(dimensions.borderRadius3)
+    override val button = shapes.roundedMedium
 }
 
 internal class FinnBadgeShapes(

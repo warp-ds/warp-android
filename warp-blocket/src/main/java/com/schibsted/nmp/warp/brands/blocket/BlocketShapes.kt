@@ -15,15 +15,16 @@ internal data class BlocketShapes(
     override val roundedMedium: Shape = RoundedCornerShape(dimensions.borderRadius3),
     override val ellipse: Shape = CircleShape
 ) : WarpShapes {
-    override val components: WarpComponentShapes = BlocketComponentShapes(dimensions)
+    override val components: WarpComponentShapes = BlocketComponentShapes(dimensions, this)
 }
 
 internal class BlocketComponentShapes(
-    dimensions: WarpDimensions
+    dimensions: WarpDimensions,
+    shapes: WarpShapes
 ) : WarpComponentShapes {
     override val badge = BlocketBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
-    override val button = RoundedCornerShape(dimensions.borderRadius3)
+    override val button = shapes.roundedMedium
 }
 
 internal class BlocketBadgeShapes(

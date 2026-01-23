@@ -15,15 +15,16 @@ internal data class ToriShapes(
     override val roundedMedium: Shape = RoundedCornerShape(dimensions.borderRadius3),
     override val ellipse: Shape = CircleShape
 ) : WarpShapes {
-    override val components: WarpComponentShapes = ToriComponentShapes(dimensions)
+    override val components: WarpComponentShapes = ToriComponentShapes(dimensions, this)
 }
 
 internal class ToriComponentShapes(
-    dimensions: WarpDimensions
+    dimensions: WarpDimensions,
+    shapes: WarpShapes
 ) : WarpComponentShapes {
     override val badge = ToriBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
-    override val button = RoundedCornerShape(dimensions.borderRadius3)
+    override val button = shapes.roundedMedium
 }
 
 internal class ToriBadgeShapes(
