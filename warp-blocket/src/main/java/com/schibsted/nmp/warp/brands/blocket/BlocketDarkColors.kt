@@ -90,7 +90,7 @@ internal object BlocketDarkBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFF001d3d)
     override val infoSubtleHover = Color(0xFF003977)
     override val infoSubtleActive = Color(0xFF0055b1)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color.Transparent
     override val notification = Color(0xFFed283b)
 }
 

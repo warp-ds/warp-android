@@ -90,7 +90,7 @@ internal object ToriBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFecf7fe)
     override val infoSubtleHover = Color(0xFFc7e7fb)
     override val infoSubtleActive = Color(0xFFa2d5f5)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color.Transparent
     override val notification = Color(0xFFd43d4f)
 }
 

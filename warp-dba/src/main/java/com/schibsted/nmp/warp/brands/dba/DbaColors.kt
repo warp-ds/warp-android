@@ -90,7 +90,7 @@ internal object DbaBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFf3f6fc)
     override val infoSubtleHover = Color(0xFFd2e1f5)
     override val infoSubtleActive = Color(0xFFb2c9ec)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color.Transparent
     override val notification = Color(0xFFcf070e)
 }
 

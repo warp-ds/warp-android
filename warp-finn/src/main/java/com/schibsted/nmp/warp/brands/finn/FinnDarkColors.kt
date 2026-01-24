@@ -90,7 +90,7 @@ internal object FinnDarkBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFF15242f)
     override val infoSubtleHover = Color(0xFF1d435a)
     override val infoSubtleActive = Color(0xFF1e648a)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color.Transparent
     override val notification = Color(0xFFfa270f)
 }
 
