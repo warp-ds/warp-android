@@ -90,7 +90,7 @@ internal object NeutralBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFf0f7ff)
     override val infoSubtleHover = Color(0xFFc8dffa)
     override val infoSubtleActive = Color(0xFFa0c9f7)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color.Transparent
     override val notification = Color(0xFFe00000)
 }
 
