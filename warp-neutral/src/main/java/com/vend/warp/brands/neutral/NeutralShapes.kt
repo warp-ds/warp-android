@@ -15,14 +15,16 @@ internal data class NeutralShapes(
     override val roundedMedium: Shape = RoundedCornerShape(dimensions.borderRadius3),
     override val ellipse: Shape = CircleShape
 ) : WarpShapes {
-    override val components: WarpComponentShapes = NeutralComponentShapes(dimensions)
+    override val components: WarpComponentShapes = NeutralComponentShapes(dimensions, this)
 }
 
 internal class NeutralComponentShapes(
-    dimensions: WarpDimensions
+    dimensions: WarpDimensions,
+    shapes: WarpShapes
 ) : WarpComponentShapes {
     override val badge = NeutralBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
+    override val button = shapes.roundedMedium
 }
 
 internal class NeutralBadgeShapes(

@@ -15,14 +15,16 @@ internal data class VendShapes(
     override val roundedMedium: Shape = RoundedCornerShape(dimensions.borderRadius3),
     override val ellipse: Shape = CircleShape
 ) : WarpShapes {
-    override val components: WarpComponentShapes = VendComponentShapes(dimensions)
+    override val components: WarpComponentShapes = VendComponentShapes(dimensions, this)
 }
 
 internal class VendComponentShapes(
-    dimensions: WarpDimensions
+    dimensions: WarpDimensions,
+    shapes: WarpShapes
 ) : WarpComponentShapes {
     override val badge = VendBadgeShapes(dimensions)
     override val callout = RoundedCornerShape(dimensions.components.callout.cornerRadius)
+    override val button = shapes.ellipse
 }
 
 internal class VendBadgeShapes(
