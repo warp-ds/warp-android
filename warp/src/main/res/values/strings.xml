@@ -306,5 +306,7 @@
     <string name="microphoneslash">Muted microphone</string>
     <string name="microphone">Microphone</string>
     <string name="translate">Symbol representing translation between languages</string>
+    <string name="scale">Scale</string>
+    <string name="phonehandset">Phone handset</string>
 
 </resources>
