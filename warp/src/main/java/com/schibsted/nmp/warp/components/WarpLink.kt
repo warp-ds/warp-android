@@ -2,12 +2,14 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -36,33 +38,43 @@ fun WarpLink(
     underline: Boolean = false
 ) {
     val textColor = colors.text.link
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
-        modifier = modifier.then(Modifier
-            .defaultMinSize(
-                minWidth = dimensions.minimumTouchSize,
-                minHeight = dimensions.minimumTouchSize
+    Box {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = modifier.then(Modifier
+                .semantics(mergeDescendants = true, properties = { role = Role.Button })
             )
-            .semantics(mergeDescendants = true, properties = { role = Role.Button })
-            .clickable { onClick.invoke() })
-    ) {
-        WarpText(
-            modifier = Modifier.weight(if (icon != null) 0.9f else 1f, fill = false),
-            text = text,
-            color = textColor,
-            style = style,
-            textDecoration = if (underline) TextDecoration.Underline else null
-        )
-        icon?.let {
-            WarpIcon(
-                icon = icon,
-                modifier = Modifier
-                    .padding(start = dimensions.space1)
-                    .weight(0.1f),
-                size = adaptDpToFontScale(dimensions.icon.small),
-                color = textColor
+        ) {
+            WarpText(
+                modifier = Modifier.weight(if (icon != null) 0.9f else 1f, fill = false),
+                text = text,
+                color = textColor,
+                style = style,
+                textDecoration = if (underline) TextDecoration.Underline else null
             )
+            icon?.let {
+                WarpIcon(
+                    icon = icon,
+                    modifier = Modifier
+                        .padding(start = dimensions.space1)
+                        .weight(0.1f),
+                    size = adaptDpToFontScale(dimensions.icon.small),
+                    color = textColor
+                )
+            }
         }
+        // Invisible full-size clickable overlay
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .semantics(mergeDescendants = true, properties = { role = Role.Button })
+                .defaultMinSize(
+                    minWidth = dimensions.minimumTouchSize,
+                    minHeight = dimensions.minimumTouchSize
+                )
+                .graphicsLayer(clip = false) // Allow touches outside visual bounds
+                .clickable { onClick() }
+        )
     }
 }
