@@ -2083,6 +2083,20 @@ object WarpIconResources {
             stringResource(R.string.translate)
         )
 
+    val scale: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_scale),
+            stringResource(R.string.scale)
+        )
+
+    val phoneHandset: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_phonehandset),
+            stringResource(R.string.phonehandset)
+        )
+
     @Deprecated("Use WarpLogo(Brand.Autovex, small = true) instead")
     val autovex: WarpBrandIconResource
         @Composable
