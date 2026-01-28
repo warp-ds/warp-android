@@ -307,4 +307,6 @@
     <string name="microphoneslash">Mykistetty miktofoni</string>
     <string name="microphone">Mikrofoni</string>
     <string name="translate">Kielten välistä käännöstä kuvaava symboli</string>
+    <string name="scale">Vaaka</string>
+    <string name="phonehandset">Puhelimen luuri</string>
 </resources>
