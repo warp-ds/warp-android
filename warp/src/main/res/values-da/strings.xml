@@ -307,4 +307,6 @@
     <string name="microphoneslash">Mikrofon slået fra</string>
     <string name="microphone">Mikrofon</string>
     <string name="translate">Symbol, der repræsenterer oversættelse mellem sprog</string>
+    <string name="scale">Vægt</string>
+    <string name="phonehandset">Telefonrør</string>
 </resources>
