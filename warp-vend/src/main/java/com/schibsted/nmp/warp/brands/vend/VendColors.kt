@@ -90,7 +90,7 @@ internal object VendBackgroundColors : WarpBackgroundColors {
     override val infoSubtle = Color(0xFFe5f5ff)
     override val infoSubtleHover = Color(0xFFcceaff)
     override val infoSubtleActive = Color(0xFFadddff)
-    override val transparent0 = Color(0xFFffffff00)
+    override val transparent0 = Color.Transparent
     override val notification = Color(0xFFe22d2c)
 }
 

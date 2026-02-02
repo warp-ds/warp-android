@@ -259,6 +259,7 @@ internal object PlaceholderShapes : WarpShapes {
 private object PlaceholderComponentShapes : WarpComponentShapes {
     override val badge: WarpBadgeShapes = PlaceholderBadgeShapes
     override val callout = RoundedCornerShape(8.dp)
+    override val button = CircleShape
 }
 
 private object PlaceholderBadgeShapes : WarpBadgeShapes {

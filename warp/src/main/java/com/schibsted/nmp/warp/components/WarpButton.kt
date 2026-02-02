@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -257,6 +258,8 @@ fun WarpButton(
                 it.default
             )
         }
+
+        val buttonShape = shapes.components.button
         val focusedBorder = BorderStroke(dimensions.space025, colors.border.focus)
         var borderColor by remember { mutableStateOf(defaultBorder) }
 
@@ -296,7 +299,7 @@ fun WarpButton(
                     .let { if (!enabled) it.focusable() else it },
                 onClick = clickAction,
                 enabled = enabled,
-                shape = shapes.roundedMedium,
+                shape = buttonShape,
                 colors = colors,
                 border = borderColor,
                 content = content,
@@ -441,8 +444,8 @@ fun Modifier.loadingAnimation(): Modifier = composed {
 
     val loadingColors = buttonStyleLoading()
     this
-        .clip(shapes.roundedMedium)
-        .background(loadingColors.background.default, shapes.roundedMedium)
+        .clip(shapes.components.button)
+        .background(loadingColors.background.default, shapes.components.button)
         .drawWithContent {
             clipRect {
                 val a = 8.5f
