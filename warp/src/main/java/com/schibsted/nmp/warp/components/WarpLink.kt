@@ -42,9 +42,11 @@ fun WarpLink(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
-            modifier = modifier.then(Modifier
+            modifier = Modifier
+                .padding(vertical = dimensions.space1)
+                .defaultMinSize(minWidth = dimensions.minimumTouchSize)
+                .then(modifier)
                 .semantics(mergeDescendants = true, properties = { role = Role.Button })
-            )
         ) {
             WarpText(
                 modifier = Modifier.weight(if (icon != null) 0.9f else 1f, fill = false),
