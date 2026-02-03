@@ -304,4 +304,9 @@
     <string name="verify_description">Før du tar kontakt, må du verifisere kontoen din. Vi gjør dette slik at personen i andre enden kan være trygg på personen vedkommende snakker med.</string>
     <string name="verify_primary_button_text">Verifiser med BankID</string>
     <string name="loading_description">Vent litt...</string>
+    <string name="microphoneslash">Dempet mikrofon</string>
+    <string name="microphone">Mikrofon</string>
+    <string name="translate">Symbol som representerer oversettelse mellom språk</string>
+    <string name="scale">Vekt</string>
+    <string name="phonehandset">Telefonrør</string>
 </resources>
