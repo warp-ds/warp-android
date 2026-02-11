@@ -308,5 +308,7 @@
     <string name="translate">Symbol representing translation between languages</string>
     <string name="scale">Scale</string>
     <string name="phonehandset">Phone handset</string>
+    <string name="jacket">Jacket</string>
+    <string name="tray">Tray</string>
 
 </resources>
