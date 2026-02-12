@@ -60,7 +60,7 @@ class WarpIconTest(
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
             }
-        Assert.assertEquals(280, count)
+        Assert.assertEquals(282, count)
     }
 
     @Test
@@ -295,7 +295,8 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.jetSki
+                    icons.jetSki,
+                    icons.jacket
                 )
             )
         }
@@ -519,7 +520,8 @@ class WarpIconTest(
                     icons.trendUp,
                     icons.tshirt,
                     icons.tv,
-                    icons.translate
+                    icons.translate,
+                    icons.tray
                 )
             )
         }
