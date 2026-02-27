@@ -2,12 +2,11 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -22,6 +21,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -35,6 +38,7 @@ import kotlin.concurrent.schedule
  * @param state State of the toast. Used to show or hide the toast and to set/change the text.
  * @param type Type of the toast. Success, Warning or Error.
  * @param duration Duration of the toast. Short, medium or infinite.
+ * @param dismiss Show dismiss button. Visible by default.
  * @param onDismiss Callback to be invoked when the toast is dismissed.
  */
 @Composable
@@ -43,6 +47,7 @@ fun WarpToast(
     state: WarpToastState,
     type: WarpToastType = WarpToastType.Success,
     duration: Long = WarpToastDuration.SHORT,
+    dismiss: Boolean = true,
     onDismiss: () -> Unit = { },
 ) {
     val colors = when (type) {
@@ -85,7 +90,7 @@ fun WarpToast(
             timer.purge()
         }
     }
-    if(state.isNotEmpty() && showToast) {
+    if (state.isNotEmpty() && showToast) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -93,6 +98,7 @@ fun WarpToast(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val minSize = adaptDpToFontScale(56.dp)
             Row(
                 modifier = Modifier
                     .background(
@@ -104,52 +110,52 @@ fun WarpToast(
                         color = colors.border,
                         shape = shapes.roundedMedium
                     )
-                    .padding(dimensions.space05)
+                    .defaultMinSize(minWidth = minSize, minHeight = minSize)
                     .then(modifier),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-
+                verticalAlignment = Alignment.Top,
             ) {
                 Row(
-                    modifier = Modifier
-                        .weight(4f)
-                        .padding(start = dimensions.space1),
+                    modifier = Modifier.defaultMinSize(minWidth = minSize, minHeight = minSize),
                     verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     WarpIcon(
                         icon = icon,
                         color = colors.icon,
                         size = adaptDpToFontScale(dimensions.icon.default)
                     )
-                    Spacer(modifier = Modifier.width(dimensions.space1))
-                    state.message.value?.let {
+                }
+                state.message.value?.let {
+                    Row(
+                        modifier
+                            .weight(1f)
+                            .defaultMinSize(minHeight = minSize),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
                         WarpText(
+                            modifier = Modifier.padding(vertical = dimensions.space2),
                             text = it,
                             style = WarpTextStyle.Caption,
-                            maxLines = 2
                         )
                     }
                 }
-                IconButton(
-                    onClick = {
-                        onDismiss.invoke()
-                        showToast = false
-                        timer.cancel()
-                        timer.purge()
-                    },
-                ) {
-                    WarpIcon(
-                        modifier = Modifier.clickable(
-                            indication = null,
-                            interactionSource = remember { MutableInteractionSource() }) {
+                if (dismiss) {
+                    IconButton(
+                        modifier = Modifier.defaultMinSize(minWidth = minSize, minHeight = minSize),
+                        onClick = {
                             onDismiss.invoke()
                             showToast = false
                             timer.cancel()
                             timer.purge()
                         },
-                        icon = icons.close,
-                        size = adaptDpToFontScale(dimensions.icon.small)
-                    )
+                    ) {
+                        WarpIcon(
+                            icon = icons.close,
+                            size = adaptDpToFontScale(dimensions.icon.small)
+                        )
+                    }
+                } else {
+                    Spacer(modifier = Modifier.width(dimensions.space2))
                 }
             }
         }
