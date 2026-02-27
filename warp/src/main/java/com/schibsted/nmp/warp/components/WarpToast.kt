@@ -94,7 +94,10 @@ fun WarpToast(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = dimensions.space2),
+                .semantics {
+                    liveRegion =
+                        LiveRegionMode.Polite
+                },
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
