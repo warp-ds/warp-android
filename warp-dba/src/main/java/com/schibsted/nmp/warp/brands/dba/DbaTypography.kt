@@ -10,11 +10,11 @@ import com.schibsted.nmp.warp.theme.WarpTypography
 //Author Daniel Talakoubi
 
 private val DbaRegular = FontFamily(
-    Font(R.font.proxima_nova_regular)
+    Font(R.font.vendsanstext_regular)
 )
 
 private val DbaBold = FontFamily(
-    Font(R.font.proxima_nova_bold)
+    Font(R.font.vendsanstext_bold)
 )
 
 internal object DbaTypography : WarpTypography {

@@ -335,6 +335,10 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.microphone, size)
     CreateIcon(icons.microphoneSlash, size)
     CreateIcon(icons.translate, size)
+    CreateIcon(icons.scale, size)
+    CreateIcon(icons.phoneHandset, size)
+    CreateIcon(icons.jacket, size)
+    CreateIcon(icons.tray, size)
 }
 
 @Composable

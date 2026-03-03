@@ -30,6 +30,8 @@ fun ToastScreenContent() {
     val toastSuccess = remember { WarpToastState() }
     val toastWarning = remember { WarpToastState() }
     val toastError = remember { WarpToastState() }
+    val toastMultiLine = remember { WarpToastState() }
+    val toastSuccessNoDismiss = remember { WarpToastState() }
 
     Column(
         modifier = Modifier
@@ -53,6 +55,16 @@ fun ToastScreenContent() {
             onClick = {
                 toastError.showToast("Toast error")
             })
+        WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
+            text = "Show multi-line toast",
+            onClick = {
+                toastMultiLine.showToast("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat")
+            })
+        WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
+            text = "Show Success toast no dismiss",
+            onClick = {
+                toastSuccessNoDismiss.showToast("Toast success")
+            })
         WarpToast(
             state = toastSuccess
         )
@@ -65,6 +77,15 @@ fun ToastScreenContent() {
             state = toastError,
             type = WarpToastType.Error,
             duration = WarpToastDuration.INFINITE
+        )
+        WarpToast(
+            state = toastMultiLine,
+            duration = WarpToastDuration.INFINITE,
+        )
+        WarpToast(
+            state = toastSuccessNoDismiss,
+            duration = WarpToastDuration.SHORT,
+            dismiss = false
         )
     }
 }

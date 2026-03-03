@@ -74,7 +74,24 @@ class WarpToastTest(
         )
     }
 
-    private fun warpToast(type: WarpToastType, message: String) {
+    @Test
+    fun warp_toast_multi_line_message() {
+        warpToast(
+            WarpToastType.Success,
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+        )
+    }
+
+    @Test
+    fun warp_toast_no_dismiss_button() {
+        warpToast(
+            WarpToastType.Success,
+            "Success toast without dismiss button",
+            dismissable = false
+        )
+    }
+
+    private fun warpToast(type: WarpToastType, message: String, dismissable: Boolean = true) {
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
@@ -95,6 +112,7 @@ class WarpToastTest(
                         type = type,
                         state = state,
                         duration = WarpToastDuration.INFINITE,
+                        dismiss = dismissable
                     )
                 }
             }
