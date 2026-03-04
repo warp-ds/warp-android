@@ -2,7 +2,6 @@ package com.schibsted.nmp.warp.components.shapes
 
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
@@ -38,8 +37,6 @@ fun calloutShape(
     val cornerRadius = with(density) {
         dimensions.components.callout.cornerRadius.toPx()
     }
-    var alignment = Alignment.CenterHorizontally
-
     val paddingOffset: Float = with(density) {
         padding?.toPx()
     } ?: 0f
@@ -49,25 +46,27 @@ fun calloutShape(
         CalloutSize.Default -> 3f
     }
 
-    if (anchorPosition != null && anchorWidth != null) {
-        val screenHeightPx = with(density) { configuration.screenHeightDp.dp.toPx() }
-        val anchorWidthPx = with(density) { anchorWidth.toPx() }
-        val anchorCenterX = anchorPosition.x + (anchorWidthPx / 2)
+    val screenWidthPx = with(density) { configuration.screenWidthDp.dp.toPx() }
+    val anchorWidthPx = anchorWidth?.let { with(density) { it.toPx() } }
+    val anchorCenterX = if (anchorPosition != null && anchorWidthPx != null) {
+        anchorPosition.x + (anchorWidthPx / 2)
+    } else null
 
-        val leftThreshold = screenHeightPx / 3
-        val rightThreshold = screenHeightPx * 2 / 3
-        val centerThreshold = screenHeightPx / 2
-
-        alignment = when {
-            anchorCenterX < leftThreshold && anchorCenterX < centerThreshold -> Alignment.Start
-            anchorCenterX < rightThreshold && anchorCenterX > centerThreshold -> Alignment.End
-            else -> Alignment.CenterHorizontally
-        }
+    fun arrowOffset(popupWidth: Float): Float {
+        if (anchorCenterX == null) return 0f
+        val idealPopupLeft = anchorCenterX - popupWidth / 2
+        val minPopupLeft = paddingOffset
+        val maxPopupLeft = screenWidthPx - popupWidth - paddingOffset
+        val actualPopupLeft = idealPopupLeft.coerceIn(minPopupLeft, maxPopupLeft)
+        val actualPopupCenterX = actualPopupLeft + popupWidth / 2
+        val offset = anchorCenterX - actualPopupCenterX
+        val maxOffset = popupWidth / 2 - tipWidth / 2 - cornerRadius
+        return offset.coerceIn(-maxOffset, maxOffset)
     }
 
     return when (arrowEdge) {
         Edge.Trailing -> {
-            GenericShape { size: Size, layoutDirection: LayoutDirection ->
+            GenericShape { size: Size, _: LayoutDirection ->
                 addPath(Path().apply {
                     moveTo(cornerRadius, 0f)
                     lineTo(size.width - tipHeight - cornerRadius, 0f)
@@ -160,16 +159,8 @@ fun calloutShape(
         }
 
         Edge.Top -> {
-            GenericShape { size: Size, layoutDirection: LayoutDirection ->
-                val shapeWidth = size.width
-                var diff = 0f
-                if (anchorWidth != null && shapeWidth > anchorWidth.value) {
-                    diff = when (alignment) {
-                        Alignment.Start -> -(shapeWidth - anchorWidth.value) / 2 + paddingOffset
-                        Alignment.End -> (shapeWidth - anchorWidth.value) / 2 - paddingOffset
-                        else -> 0f
-                    }
-                }
+            GenericShape { size: Size, _: LayoutDirection ->
+                val diff = arrowOffset(size.width)
                 addPath(Path().apply {
                     moveTo(cornerRadius, tipHeight)
                     lineTo((size.width / 2 - tipWidth / 2) + diff, tipHeight)
@@ -250,16 +241,8 @@ fun calloutShape(
         }
 
         Edge.Bottom -> {
-            GenericShape { size: Size, layoutDirection: LayoutDirection ->
-                val shapeWidth = size.width
-                var diff = 0f
-                if (anchorWidth != null && shapeWidth > anchorWidth.value) {
-                    diff = when (alignment) {
-                        Alignment.Start -> -(shapeWidth - anchorWidth.value) / 2 + paddingOffset
-                        Alignment.End -> (shapeWidth - anchorWidth.value) / 2 - paddingOffset
-                        else -> 0f
-                    }
-                }
+            GenericShape { size: Size, _: LayoutDirection ->
+                val diff = arrowOffset(size.width)
                 addPath(Path().apply {
                     moveTo(cornerRadius, 0f)
                     lineTo(size.width - cornerRadius, 0f)
@@ -329,7 +312,7 @@ fun calloutShape(
         }
 
         Edge.Leading -> {
-            GenericShape { size: Size, layoutDirection: LayoutDirection ->
+            GenericShape { size: Size, _: LayoutDirection ->
                 addPath(Path().apply {
                     moveTo(tipHeight + cornerRadius, 0f)
                     lineTo(size.width - cornerRadius, 0f)
