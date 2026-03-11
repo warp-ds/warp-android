@@ -31,6 +31,7 @@ fun ModalScreenContent() {
     var openModalOneButton by rememberSaveable { mutableStateOf(false) }
     var openModalMuchText by rememberSaveable { mutableStateOf(false) }
     var openModalCloseIcon by rememberSaveable { mutableStateOf(false) }
+    var openModalLongButtons by rememberSaveable { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -43,6 +44,15 @@ fun ModalScreenContent() {
                 .width(dimensions.space4),
             text = "Open modal",
             onClick = { openModal = true },
+            style = WarpButtonStyle.Primary
+        )
+        WarpButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = dimensions.space3)
+                .width(dimensions.space4),
+            text = "Long button text",
+            onClick = { openModalLongButtons = true },
             style = WarpButtonStyle.Primary
         )
         WarpButton(
@@ -107,6 +117,17 @@ fun ModalScreenContent() {
             primaryButtonText = "Okay",
             onPrimaryButtonClick = { openModalMuchText = false },
             onDismiss = { openModalMuchText = false }
+        )
+    }
+    if (openModalLongButtons) {
+        WarpModal(
+            title = "Long button text test",
+            body = "Testing that buttons with long text wrap correctly instead of being cropped.",
+            secondaryButtonText = "Enter registration number.",
+            primaryButtonText = "Continue without",
+            onSecondaryButtonClick = { openModalLongButtons = false },
+            onPrimaryButtonClick = { openModalLongButtons = false },
+            onDismiss = { openModalLongButtons = false }
         )
     }
     if (openModalCloseIcon) {
