@@ -3,8 +3,6 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -39,7 +37,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param onSecondaryButtonClick The callback to be invoked when the secondary button is clicked.
  * @param showCloseIcon Whether to show a close icon in the top right corner of the dialog.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WarpModal(
     modifier: Modifier = Modifier,
@@ -110,25 +107,30 @@ fun WarpModal(
                         text = body,
                         style = WarpTextStyle.Body
                     )
-                    FlowRow(
+                    val hasBothButtons = primaryButtonText != null && secondaryButtonText != null
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = dimensions.space3),
                         horizontalArrangement = Arrangement.spacedBy(dimensions.space2, Alignment.End),
-                        verticalArrangement = Arrangement.spacedBy(dimensions.space1),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         secondaryButtonText?.let {
                             WarpButton(
+                                modifier = if (hasBothButtons) Modifier.weight(1f) else Modifier,
                                 text = secondaryButtonText,
                                 onClick = onSecondaryButtonClick ?: {},
-                                style = WarpButtonStyle.Secondary
+                                style = WarpButtonStyle.Secondary,
+                                maxLines = Int.MAX_VALUE
                             )
                         }
                         primaryButtonText?.let {
                             WarpButton(
+                                modifier = if (hasBothButtons) Modifier.weight(1f) else Modifier,
                                 text = primaryButtonText,
                                 onClick = onPrimaryButtonClick ?: {},
-                                style = WarpButtonStyle.Primary
+                                style = WarpButtonStyle.Primary,
+                                maxLines = Int.MAX_VALUE
                             )
                         }
                     }
