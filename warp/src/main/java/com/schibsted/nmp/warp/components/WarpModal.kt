@@ -3,11 +3,11 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -39,6 +39,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param onSecondaryButtonClick The callback to be invoked when the secondary button is clicked.
  * @param showCloseIcon Whether to show a close icon in the top right corner of the dialog.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WarpModal(
     modifier: Modifier = Modifier,
@@ -109,14 +110,12 @@ fun WarpModal(
                         text = body,
                         style = WarpTextStyle.Body
                     )
-                    Row(
+                    FlowRow(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(
-                                top = dimensions.space3
-                            ),
-                        horizontalArrangement = Arrangement.End,
-                        verticalAlignment = Alignment.CenterVertically
+                            .padding(top = dimensions.space3),
+                        horizontalArrangement = Arrangement.spacedBy(dimensions.space2, Alignment.End),
+                        verticalArrangement = Arrangement.spacedBy(dimensions.space1),
                     ) {
                         secondaryButtonText?.let {
                             WarpButton(
@@ -126,7 +125,6 @@ fun WarpModal(
                             )
                         }
                         primaryButtonText?.let {
-                            Spacer(modifier = Modifier.width(dimensions.space2))
                             WarpButton(
                                 text = primaryButtonText,
                                 onClick = onPrimaryButtonClick ?: {},
