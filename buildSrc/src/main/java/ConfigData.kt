@@ -1,5 +1,5 @@
 object ConfigData {
-    const val compileSdkVersion = 34
+    const val compileSdkVersion = 35
     const val minSdkVersion = 24
     const val warpVersion = "0.0.56"
     const val sampleAppVersionCode = 56
