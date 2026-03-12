@@ -229,7 +229,7 @@ private fun WarpSelectView(
                     .height(dimensions.components.textFieldHeight)
                     .fillMaxWidth(),
                 enabled = enabled,
-                readOnly = readOnly,
+                readOnly = true,
                 textStyle = mergedTextStyle,
                 cursorBrush = SolidColor(cursorColor),
                 visualTransformation = VisualTransformation.None,
