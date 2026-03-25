@@ -2111,6 +2111,62 @@ object WarpIconResources {
             stringResource(R.string.tray)
         )
 
+    val circlePlay: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_circleplay),
+            stringResource(R.string.circleplay)
+        )
+
+    val pause: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_pause),
+            stringResource(R.string.pause)
+        )
+
+    val circlePause: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_circlepause),
+            stringResource(R.string.circlepause)
+        )
+
+    val stop: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_stop),
+            stringResource(R.string.stop)
+        )
+
+    val circleStop: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_circlestop),
+            stringResource(R.string.circlestop)
+        )
+
+    val coatHanger: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_coathanger),
+            stringResource(R.string.coathanger)
+        )
+
+    val printer: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_printer),
+            stringResource(R.string.printer)
+        )
+
+    val shareAndroid: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_shareandroid),
+            stringResource(R.string.shareandroid)
+        )
+
     @Deprecated("Use WarpLogo(Brand.Autovex, small = true) instead")
     val autovex: WarpBrandIconResource
         @Composable

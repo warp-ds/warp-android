@@ -311,4 +311,11 @@
     <string name="phonehandset">Telefonrør</string>
     <string name="jacket">Jakke</string>
     <string name="tray">Bakke</string>
+    <string name="pause">Pause</string>
+    <string name="circlepause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="circlestop">Stop</string>
+    <string name="coathanger">Bøjle</string>
+    <string name="printer">Printer</string>
+    <string name="shareandroid">Tre forbundne prikker</string>
 </resources>
