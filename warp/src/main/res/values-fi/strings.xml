@@ -311,11 +311,12 @@
     <string name="phonehandset">Puhelimen luuri</string>
     <string name="jacket">Takki</string>
     <string name="tray">Tarjotin</string>
+    <string name="circleplay">Toista</string>
     <string name="pause">Keskeytä</string>
     <string name="circlepause">Keskeytä</string>
-    <string name="stop">Lopeta</string>
-    <string name="circlestop">Lopeta</string>
+    <string name="stop">Pysäytä</string>
+    <string name="circlestop">Pysäytä</string>
     <string name="coathanger">Henkari</string>
     <string name="printer">Tulostin</string>
-    <string name="shareandroid">Kolme yhdistettyä pistettä</string>
+    <string name="shareandroid">Kolme pistettä</string>
 </resources>
