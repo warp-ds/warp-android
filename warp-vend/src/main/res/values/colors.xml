@@ -95,9 +95,9 @@
    <color name="warp_surface_elevated_300">#ffffffff</color>
    <color name="warp_surface_elevated_300_hover">#ffefeff2</color>
    <color name="warp_surface_elevated_300_active">#ffe5e5ea</color>
-   <color name="warp_border_default">#ffc2c2c9</color>
-   <color name="warp_border_hover">#ffa0a0a8</color>
-   <color name="warp_border_active">#ff84848f</color>
+   <color name="warp_border_default">#ffe5e5ea</color>
+   <color name="warp_border_hover">#ffc2c2c9</color>
+   <color name="warp_border_active">#ffa0a0a8</color>
    <color name="warp_border_strong">#ff84848f</color>
    <color name="warp_border_strong_hover">#ff5c5c66</color>
    <color name="warp_border_disabled">#ffc2c2c9</color>

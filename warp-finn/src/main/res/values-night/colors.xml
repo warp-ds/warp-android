@@ -84,7 +84,7 @@
    <color name="warp_background_info_subtle_hover">#ff1d435a</color>
    <color name="warp_background_info_subtle_active">#ff1e648a</color>
    <color name="warp_background_transparent_0">#00ffffff</color>
-   <color name="warp_background_notification">#fffa270f</color>
+   <color name="warp_background_notification">#ffff5844</color>
    <color name="warp_surface_sunken">#ff121212</color>
    <color name="warp_surface_elevated_100">#ff26262b</color>
    <color name="warp_surface_elevated_100_hover">#ff2b2b30</color>
@@ -95,9 +95,9 @@
    <color name="warp_surface_elevated_300">#ff333338</color>
    <color name="warp_surface_elevated_300_hover">#ff47474f</color>
    <color name="warp_surface_elevated_300_active">#ff5c5c66</color>
-   <color name="warp_border_default">#ff5c5c66</color>
-   <color name="warp_border_hover">#ff84848f</color>
-   <color name="warp_border_active">#ffafafb8</color>
+   <color name="warp_border_default">#ff47474f</color>
+   <color name="warp_border_hover">#ff5c5c66</color>
+   <color name="warp_border_active">#ff84848f</color>
    <color name="warp_border_strong">#ff84848f</color>
    <color name="warp_border_strong_hover">#ffafafb8</color>
    <color name="warp_border_disabled">#ff47474f</color>

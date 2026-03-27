@@ -310,5 +310,13 @@
     <string name="phonehandset">Phone handset</string>
     <string name="jacket">Jacket</string>
     <string name="tray">Tray</string>
+    <string name="circleplay">Play</string>
+    <string name="pause">Pause</string>
+    <string name="circlepause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="circlestop">Stop</string>
+    <string name="coathanger">Coat hanger</string>
+    <string name="printer">Printer</string>
+    <string name="shareandroid">Three connected dots</string>
 
 </resources>

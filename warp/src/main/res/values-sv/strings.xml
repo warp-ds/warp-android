@@ -311,4 +311,11 @@
     <string name="phonehandset">Telefonlur</string>
     <string name="jacket">Jacka</string>
     <string name="tray">Bricka</string>
+    <string name="pause">Pausa</string>
+    <string name="circlepause">Pausa</string>
+    <string name="stop">Stoppa</string>
+    <string name="circlestop">Stoppa</string>
+    <string name="coathanger">Galg</string>
+    <string name="printer">Skrivare</string>
+    <string name="shareandroid">Tre sammanlänkade prickar</string>
 </resources>
