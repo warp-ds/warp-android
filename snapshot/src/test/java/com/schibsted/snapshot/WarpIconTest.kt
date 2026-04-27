@@ -60,7 +60,7 @@ class WarpIconTest(
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
             }
-        Assert.assertEquals(290, count)
+        Assert.assertEquals(298, count)
     }
 
     @Test
@@ -80,6 +80,7 @@ class WarpIconTest(
                     icons.arrowLeft,
                     icons.arrowRight,
                     icons.arrowUp,
+                    icons.atv,
                     icons.awardMedal
                 )
             )
@@ -113,6 +114,7 @@ class WarpIconTest(
                     icons.building,
                     icons.buildingPlot,
                     icons.bulb,
+                    icons.bulldozer,
                     icons.burger,
                     icons.bus,
                 )
@@ -132,6 +134,7 @@ class WarpIconTest(
                     icons.calendarPlus,
                     icons.camera,
                     icons.cancel,
+                    icons.caravan,
                     icons.car,
                     icons.carLeft,
                     icons.carPart,
@@ -262,6 +265,7 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.headset,
+                    icons.harvester,
                     icons.heart,
                     icons.heartRate,
                     icons.hiking,
@@ -350,6 +354,7 @@ class WarpIconTest(
                     icons.messagesFilled,
                     icons.minus,
                     icons.mixer,
+                    icons.moped,
                     icons.money,
                     icons.moon,
                     icons.motorcycle,
@@ -438,6 +443,7 @@ class WarpIconTest(
                     icons.roomService,
                     icons.rotateLeft,
                     icons.rotateRight,
+                    icons.rv,
                     icons.rowingBoat,
                     icons.ruler
                 )
@@ -473,6 +479,7 @@ class WarpIconTest(
                     icons.smileyNeutral,
                     icons.smileySad,
                     icons.sofa,
+                    icons.snowmobile,
                     icons.sorting,
                     icons.sparkles,
                     icons.speedometer,
@@ -515,6 +522,7 @@ class WarpIconTest(
                     icons.townhouse,
                     icons.tractor,
                     icons.tree,
+                    icons.truck,
                     icons.trendDown,
                     icons.trendFlat,
                     icons.trendUp,
