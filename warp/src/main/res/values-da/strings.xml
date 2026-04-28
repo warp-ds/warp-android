@@ -15,7 +15,7 @@
     <string name="paperclip">Papirklip</string>
     <string name="gearautomatic">Automatgear</string>
     <string name="autovex">Autovex-logo</string>
-    <string name="atv">Sidevisning af et terrængående køretøj</string>
+    <string name="atv">Et terrængående køretøj set fra siden</string>
     <string name="awardmedal">Medaljeikon</string>
     <string name="backwheeldrive">Baghjulstræk</string>
     <string name="bag">Håndtaske</string>
@@ -36,7 +36,7 @@
     <string name="building">Lejlighedskompleks</string>
     <string name="buildingplot">Lille, helfarvet firkant inden i en større firkant med stiplet kant</string>
     <string name="bulb">Elpære</string>
-    <string name="bulldozer">Sidevisning af en bulldozer</string>
+    <string name="bulldozer">Bulldozer set fra siden</string>
     <string name="burger">Menu</string>
     <string name="bus">Bus</string>
     <string name="cabinhut">Hus med et træ</string>
@@ -44,7 +44,7 @@
     <string name="calendar">Kalender</string>
     <string name="camera">Åbn kamera</string>
     <string name="cancel">Annuller</string>
-    <string name="caravan">Sidevisning af en påhængs campingvogn</string>
+    <string name="caravan">Campingvogn på slæb set fra siden</string>
     <string name="car">Bil</string>
     <string name="carpart">Bildel</string>
     <string name="carrent">Bil og ur</string>
@@ -108,7 +108,7 @@
     <string name="grill">Kulgrill</string>
     <string name="guitar">Guitar</string>
     <string name="headset">Hovedtelefoner</string>
-    <string name="harvester">Sidevisning af en høstmaskine</string>
+    <string name="harvester">Mejetærsker set fra siden</string>
     <string name="heart">Hjerte</string>
     <string name="heartrate">Hjerte med pulsindikator</string>
     <string name="hiking">Silhuetten af en person med rygsæk og vandrestave</string>
@@ -143,7 +143,7 @@
     <string name="messagesfilled">Chatboble</string>
     <string name="minus">Minustegn</string>
     <string name="mixer">Håndmixer</string>
-    <string name="moped">Sidevisning af en moped</string>
+    <string name="moped">Knallert set fra siden</string>
     <string name="money">Pengeseddel</string>
     <string name="motorcycle">Motorcykel</string>
     <string name="mountain">To bjerge og en sol</string>
@@ -194,7 +194,7 @@
     <string name="smileyneutral">Lidt trist smiley</string>
     <string name="smileysad">Trist smiley</string>
     <string name="sofa">Sofa</string>
-    <string name="snowmobile">Sidevisning af en snescooter</string>
+    <string name="snowmobile">Snescooter set fra siden</string>
     <string name="sorting">Tre vandrette linjer og en pil nedad</string>
     <string name="lotusflower">Åkande</string>
     <string name="sparkles">Stjernedrys</string>
@@ -226,7 +226,7 @@
     <string name="trenddown">Nedadgående graf</string>
     <string name="trendflat">Flad graf</string>
     <string name="trendup">Opadgående graf</string>
-    <string name="truck">Sidevisning af en kassevogn</string>
+    <string name="truck">Kassevogn set fra siden</string>
     <string name="tv">Fladskærms-TV</string>
     <string name="x">X-ikon</string>
     <string name="up">Firkant med pil, der peger opad</string>
@@ -268,7 +268,7 @@
     <string name="luggage">Kuffert med to hjul og hank</string>
     <string name="rotateleft">Buet venstrepil oven over en firkant</string>
     <string name="rotateright">Buet højrepil oven over en firkant</string>
-    <string name="rv">Sidevisning af et motorhjem</string>
+    <string name="rv">Autocamper set fra siden</string>
     <string name="shrink">To indadgående pile</string>
     <string name="suitcasetrolley">Kuffert på en rullevogn</string>
     <string name="tshirt">T-shirt</string>
