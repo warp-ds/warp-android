@@ -14,6 +14,7 @@
     <string name="paperclip">Paperclip</string>
     <string name="gearautomatic">Automatic gearbox</string>
     <string name="autovex">Autovex logo</string>
+    <string name="atv">Side view of an all-terrain vehicle</string>
     <string name="awardmedal">Award medal</string>
     <string name="backwheeldrive">Rear-wheel drive</string>
     <string name="bag">Handbag</string>
@@ -34,6 +35,7 @@
     <string name="building">Apartment building</string>
     <string name="buildingplot">Small, solid square surrounded by a bigger square with dashed line</string>
     <string name="bulb">Light bulb</string>
+    <string name="bulldozer">Side view of a bulldozer</string>
     <string name="burger">Menu</string>
     <string name="bus">Bus</string>
     <string name="cabinhut">House with a tree</string>
@@ -41,6 +43,7 @@
     <string name="calendar">Calendar</string>
     <string name="camera">Open camera</string>
     <string name="cancel">Cancel</string>
+    <string name="caravan">Side view of a towed caravan</string>
     <string name="car">Car</string>
     <string name="carpart">Car part</string>
     <string name="carrent">Car and clock</string>
@@ -104,6 +107,7 @@
     <string name="grill">Charcoal grill</string>
     <string name="guitar">Guitar</string>
     <string name="headset">Headphones</string>
+    <string name="harvester">Side view of a harvester</string>
     <string name="heart">Heart</string>
     <string name="heartrate">Heart with heart rate indicator</string>
     <string name="hiking">Silhouette of a person with a backpack and trekking poles</string>
@@ -138,6 +142,7 @@
     <string name="messagesfilled">Chat bubble</string>
     <string name="minus">Minus sign</string>
     <string name="mixer">Food mixer</string>
+    <string name="moped">Side view of a moped</string>
     <string name="money">Banknote</string>
     <string name="motorcycle">Motorcycle</string>
     <string name="mountain">Two mountains and a sun</string>
@@ -188,6 +193,7 @@
     <string name="smileyneutral">Slightly sad smiley</string>
     <string name="smileysad">Sad smiley</string>
     <string name="sofa">Sofa</string>
+    <string name="snowmobile">Side view of a snowmobile</string>
     <string name="sorting">Three horizontal lines and an arrow pointing down</string>
     <string name="lotusflower">Water lily</string>
     <string name="sparkles">Sparkles</string>
@@ -219,6 +225,7 @@
     <string name="trenddown">Decreasing trend line</string>
     <string name="trendflat">Flat trend line</string>
     <string name="trendup">Increasing trend line</string>
+    <string name="truck">Side view of a box truck</string>
     <string name="tv">Flat screen TV</string>
     <string name="x">X icon</string>
     <string name="up">Square with arrow pointing up</string>
@@ -260,6 +267,7 @@
     <string name="luggage">Luggage on two wheels with a handle</string>
     <string name="rotateleft">Left facing curvy arrow above a square</string>
     <string name="rotateright">Right facing curvy arrow above a square</string>
+    <string name="rv">Side view of a motorhome</string>
     <string name="shrink">Two inwards pointing arrows</string>
     <string name="suitcasetrolley">Suitcase on a platform trolley</string>
     <string name="tshirt">T shirt</string>

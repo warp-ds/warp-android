@@ -21,7 +21,7 @@ fun FinnWarpTheme(
     val finnResources = WarpResources
     val finnRippleConfig = RippleConfiguration(
         color = finnColors.background.active,
-        rippleAlpha = RippleAlpha(0f, 0f, 0f, 0.5f)
+        rippleAlpha = RippleAlpha(0f, 0.5f, 0f, 0.5f)
     )
 
     WarpTheme(

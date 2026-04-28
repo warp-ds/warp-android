@@ -15,6 +15,7 @@
     <string name="paperclip">Gem</string>
     <string name="gearautomatic">Automatisk växellåda</string>
     <string name="autovex">Autovex logo</string>
+    <string name="atv">En ATV från sidan</string>
     <string name="awardmedal">Prismedalj</string>
     <string name="backwheeldrive">Bakhjulsdrift</string>
     <string name="bag">Handväska</string>
@@ -35,6 +36,7 @@
     <string name="building">Lägenhetsbyggnad</string>
     <string name="buildingplot">Liten, heldragen kvadrat omgiven av större kvadrat med streckad linje</string>
     <string name="bulb">Glödlampa</string>
+    <string name="bulldozer">En bulldozer från sidan</string>
     <string name="burger">Meny</string>
     <string name="bus">Buss</string>
     <string name="cabinhut">Hus med ett träd</string>
@@ -42,6 +44,7 @@
     <string name="calendar">Kalender</string>
     <string name="camera">Öppna kamera</string>
     <string name="cancel">Avbryt</string>
+    <string name="caravan">En husvagn från sidan</string>
     <string name="car">Bil</string>
     <string name="carpart">Bildel</string>
     <string name="carrent">Bil och klocka</string>
@@ -105,6 +108,7 @@
     <string name="grill">Kolgrill</string>
     <string name="guitar">Gitarr</string>
     <string name="headset">Hörlurar</string>
+    <string name="harvester">En trösta från sidan</string>
     <string name="heart">Hjärta</string>
     <string name="heartrate">Hjärta med pulsindikator</string>
     <string name="hiking">Silhuett av person med ryggsäck och vandringsstavar</string>
@@ -139,6 +143,7 @@
     <string name="messagesfilled">Chattbubbla</string>
     <string name="minus">Minustecken</string>
     <string name="mixer">Mixer</string>
+    <string name="moped">En moped från sidan</string>
     <string name="money">Sedel</string>
     <string name="motorcycle">Motorcykel</string>
     <string name="mountain">Två berg och en sol</string>
@@ -189,6 +194,7 @@
     <string name="smileyneutral">Ganska ledsen smiley</string>
     <string name="smileysad">Ledsen smiley</string>
     <string name="sofa">Soffa</string>
+    <string name="snowmobile">En snöskoter från sidan</string>
     <string name="sorting">Tre horisontella linjer och en pil som pekar nedåt</string>
     <string name="lotusflower">Vattenlilja</string>
     <string name="sparkles">Gnistor</string>
@@ -220,6 +226,7 @@
     <string name="trenddown">Nedåtgående trendlinje</string>
     <string name="trendflat">Rak trendlinje</string>
     <string name="trendup">Uppåtgående trendlinje</string>
+    <string name="truck">En skåpbil från sidan</string>
     <string name="tv">Platt-TV</string>
     <string name="x">X-ikon</string>
     <string name="up">Kvadrat med pil som pekar uppåt</string>
@@ -261,6 +268,7 @@
     <string name="luggage">Bagage på två hjul med handtag</string>
     <string name="rotateleft">Pil böjd åt vänster ovanför en kvadrat</string>
     <string name="rotateright">Pil böjd åt höger ovanför en kvadrat</string>
+    <string name="rv">En husbil från sidan</string>
     <string name="shrink">Två inåtpekande pilar</string>
     <string name="suitcasetrolley">Resväska på en plattformsvagn</string>
     <string name="tshirt">T-shirt</string>
@@ -311,11 +319,12 @@
     <string name="phonehandset">Telefonlur</string>
     <string name="jacket">Jacka</string>
     <string name="tray">Bricka</string>
-    <string name="pause">Pausa</string>
-    <string name="circlepause">Pausa</string>
-    <string name="stop">Stoppa</string>
-    <string name="circlestop">Stoppa</string>
-    <string name="coathanger">Galg</string>
+    <string name="circleplay">Spela</string>
+    <string name="pause">Paus</string>
+    <string name="circlepause">Paus</string>
+    <string name="stop">Stopp</string>
+    <string name="circlestop">Stopp</string>
+    <string name="coathanger">Galge</string>
     <string name="printer">Skrivare</string>
-    <string name="shareandroid">Tre sammanlänkade prickar</string>
+    <string name="shareandroid">Tre anslutna prickar</string>
 </resources>
