@@ -192,6 +192,13 @@ object WarpIconResources {
             stringResource(R.string.arrowup)
         )
 
+    val atv: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_atv),
+            stringResource(R.string.atv)
+        )
+
     val awardMedal: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -356,6 +363,13 @@ object WarpIconResources {
             stringResource(R.string.bulb)
         )
 
+    val bulldozer: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_bulldozer),
+            stringResource(R.string.bulldozer)
+        )
+
     val burger: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -418,6 +432,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_cancel),
             stringResource(R.string.cancel)
+        )
+
+    val caravan: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_caravan),
+            stringResource(R.string.caravan)
         )
 
     val car: WarpIconResource
@@ -989,6 +1010,13 @@ object WarpIconResources {
             stringResource(R.string.headset)
         )
 
+    val harvester: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_harvester),
+            stringResource(R.string.harvester)
+        )
+
     val heart: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1251,6 +1279,13 @@ object WarpIconResources {
             stringResource(R.string.mixer)
         )
 
+    val moped: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_moped),
+            stringResource(R.string.moped)
+        )
+
     val money: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1502,6 +1537,13 @@ object WarpIconResources {
             stringResource(R.string.rotateright)
         )
 
+    val rv: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_rv),
+            stringResource(R.string.rv)
+        )
+
     val rowingBoat: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1671,6 +1713,13 @@ object WarpIconResources {
             ImageVector.vectorResource(id = R.drawable.warp_sofa),
             stringResource(R.string.sofa),
             identifier = "sofa"
+        )
+
+    val snowmobile: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_snowmobile),
+            stringResource(R.string.snowmobile)
         )
 
     val sorting: WarpIconResource
@@ -1919,6 +1968,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_tshirt),
             stringResource(R.string.tshirt)
+        )
+
+    val truck: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_truck),
+            stringResource(R.string.truck)
         )
 
     val tv: WarpIconResource

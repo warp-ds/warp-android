@@ -15,6 +15,7 @@
     <string name="paperclip">Paperiliitin</string>
     <string name="gearautomatic">Automaattivaihteisto</string>
     <string name="autovex">Autovex logo</string>
+    <string name="atv">Maastoajoneuvon sivukuva</string>
     <string name="awardmedal">Palkintomitali</string>
     <string name="backwheeldrive">Takavetoinen ajoneuvo</string>
     <string name="bag">Käsilaukku</string>
@@ -35,6 +36,7 @@
     <string name="building">Kerrostalo</string>
     <string name="buildingplot">Katkoviivoilla piirretty neliö, jonka sisällä on pienempi neliö</string>
     <string name="bulb">Hehkulamppu</string>
+    <string name="bulldozer">Bulldozeerin sivukuva</string>
     <string name="burger">Valikko</string>
     <string name="bus">Linja-auto</string>
     <string name="cabinhut">Talo ja puu</string>
@@ -42,6 +44,7 @@
     <string name="calendar">Kalenteri</string>
     <string name="camera">Avaa kamera</string>
     <string name="cancel">Peruuta</string>
+    <string name="caravan">Peräkärryn sivukuva</string>
     <string name="car">Auto</string>
     <string name="carpart">Auton osa</string>
     <string name="carrent">Auto ja kello</string>
@@ -105,6 +108,7 @@
     <string name="grill">Hiiligrilli</string>
     <string name="guitar">Kitara</string>
     <string name="headset">Kuulokkeet</string>
+    <string name="harvester">Leikkuupuimurin sivukuva</string>
     <string name="heart">Sydän</string>
     <string name="heartrate">Sydän ja sydänfilmi</string>
     <string name="hiking">Siluetti henkilöstä, jolla on reppu ja vaellussauvat</string>
@@ -139,6 +143,7 @@
     <string name="messagesfilled">Puhekupla</string>
     <string name="minus">Miinusmerkki</string>
     <string name="mixer">Keittiön yleiskone</string>
+    <string name="moped">Mopon sivukuva</string>
     <string name="money">Seteli</string>
     <string name="motorcycle">Moottoripyörä</string>
     <string name="mountain">Kaksi vuorta ja aurinko</string>
@@ -189,6 +194,7 @@
     <string name="smileyneutral">Lievästi surullinen hymiö</string>
     <string name="smileysad">Surullinen hymiö</string>
     <string name="sofa">Sohva</string>
+    <string name="snowmobile">Moottorikelkan sivukuva</string>
     <string name="sorting">Kolme vaakaviivaa ja alaspäin osoittava nuoli</string>
     <string name="lotusflower">Lumpeenkukka</string>
     <string name="sparkles">Kimallus</string>
@@ -220,6 +226,7 @@
     <string name="trenddown">Laskeva trendiviiva</string>
     <string name="trendflat">Tasainen trendiviiva</string>
     <string name="trendup">Nouseva trendiviiva</string>
+    <string name="truck">Kuorma-auton sivukuva</string>
     <string name="tv">Taulutelevisio</string>
     <string name="x">X-kuvake</string>
     <string name="up">Neliö, jonka sisällä on ylöspäin osoittava nuoli</string>
@@ -261,6 +268,7 @@
     <string name="luggage">Matkalaukku, jossa on kaksi pyörää ja kahva</string>
     <string name="rotateleft">Vasemmalle osoittava kaareva nuoli neliön yläpuolella</string>
     <string name="rotateright">Oikealle osoittava kaareva nuoli neliön yläpuolella</string>
+    <string name="rv">Matkailuauton sivukuva</string>
     <string name="shrink">Kaksi sisäänpäin osoittavaa nuolta</string>
     <string name="suitcasetrolley">Lavavaunuissa oleva matkalaukku</string>
     <string name="tshirt">T-paita</string>
