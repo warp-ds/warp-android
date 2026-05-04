@@ -39,10 +39,7 @@ buildscript {
         }
     }
     dependencies {
-        if (enableArtifactory) {
-            classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4")
-            classpath("org.jfrog.buildinfo:build-info-extractor-gradle:5.1.6")
-        }
+        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:5.1.6")
     }
 }
 
