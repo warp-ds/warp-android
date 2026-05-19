@@ -119,7 +119,7 @@ internal fun getVerifyStyle() = WarpStateStyle(
     icon = icons.verification,
     title = stringResource(R.string.verify_title),
     description = stringResource(R.string.verify_description),
-    primaryButtonText = LocalBrand.current?.let { stringResource(getBrandedVerifyButtonStringRes(it)) },
+    primaryButtonText = stringResource(getBrandedVerifyButtonStringRes(LocalBrand.current))
 )
 
 @StringRes
@@ -129,13 +129,9 @@ internal fun getBrandedVerifyButtonStringRes(brand: Brand?): Int {
         Brand.DBA -> R.string.dba_branded_verify_id_button
         Brand.Blocket -> R.string.blocket_branded_verify_id_button
         Brand.Tori -> R.string.tori_branded_verify_id_button
-        Brand.Vend, Brand.VendPro -> throw IllegalStateException(
-            "Vend/VendPro brands do not support the Verify state type. " +
-            "This is a multi-brand component and should not be used for Vend-specific flows."
-        )
         else -> throw IllegalStateException(
             "Brand ${brand?.identifier} does not support the Verify state type. " +
-            "Only Finn, DBA, Blocket, and Tori have identity verification."
+                    "Only Finn, DBA, Blocket, and Tori have identity verification."
         )
     }
 }
