@@ -327,8 +327,4 @@
     <string name="coathanger">Tøjbøjle</string>
     <string name="printer">Printer</string>
     <string name="shareandroid">Tre forbundne prikker</string>
-    <string name="finn_branded_verify_id_button">Valider med BankID</string>
-    <string name="dba_branded_verify_id_button">Valider med MitID</string>
-    <string name="blocket_branded_verify_id_button">Valider med BankID</string>
-    <string name="tori_branded_verify_id_button">Valider med eID</string>
 </resources>
