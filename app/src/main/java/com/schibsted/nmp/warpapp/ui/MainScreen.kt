@@ -177,6 +177,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("snackbar") {
+                SnackbarScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("datePicker") {
                 DatePickerScreen {
                     navController.navigateUp()
@@ -280,6 +285,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "rangeSlider" to "WarpRangeSlider",
                         "select" to "WarpSelect",
                         "slider" to "WarpSlider",
+                        "snackbar" to "WarpSnackbar",
                         "spinner" to "WarpSpinner",
                         "state" to "WarpState",
                         "stepIndicator" to "WarpStepIndicator",
