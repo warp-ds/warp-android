@@ -7,6 +7,7 @@ import com.schibsted.nmp.warp.brands.vend.VendColors
 import com.schibsted.nmp.warp.brands.vend.VendDarkColors
 import com.schibsted.nmp.warp.brands.vend.VendShapes
 import com.schibsted.nmp.warp.brands.vend.VendTypography
+import com.schibsted.nmp.warp.components.Brand
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -28,6 +29,7 @@ fun VendWarpTheme(
         typography = VendTypography,
         shapes = VendShapes(vendDimensions),
         resources = vendResources,
+        brand = Brand.Vend,
         content = content,
         rippleConfig = vendRippleConfig,
         dimensions = vendDimensions

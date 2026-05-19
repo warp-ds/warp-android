@@ -7,6 +7,7 @@ import androidx.compose.material3.RippleConfiguration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
+import com.schibsted.nmp.warp.components.Brand
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -17,6 +18,7 @@ fun WarpTheme(
     resources: WarpResources,
     dimensions: WarpDimensions,
     rippleConfig: RippleConfiguration,
+    brand: Brand? = null,
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
@@ -25,6 +27,7 @@ fun WarpTheme(
         LocalShapes provides shapes,
         LocalResources provides resources,
         LocalDimensions provides dimensions,
+        LocalBrand provides brand,
         LocalRippleConfiguration provides rippleConfig,
         LocalTextStyle provides typography.body,
         content = content
@@ -56,4 +59,9 @@ object WarpTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalDimensions.current
+
+    val brand: Brand?
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalBrand.current
 }

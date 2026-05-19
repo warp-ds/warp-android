@@ -310,7 +310,6 @@
     <string name="login_quiet_button_text">Luo tili</string>
     <string name="verify_title">Tunnistaudu</string>
     <string name="verify_description">Sinun täytyy tunnistautua ennen yhteydenottoa. Tällä varmistetaan, että vastapuoli tietää, kenen kanssa hän on tekemässä kaupat.</string>
-    <string name="verify_primary_button_text">Tunnistaudu pankkitunnuksilla</string>
     <string name="loading_description">Odota hetki...</string>
     <string name="microphoneslash">Mykistetty miktofoni</string>
     <string name="microphone">Mikrofoni</string>
@@ -327,4 +326,8 @@
     <string name="coathanger">Henkari</string>
     <string name="printer">Tulostin</string>
     <string name="shareandroid">Kolme pistettä</string>
+    <string name="finn_branded_verify_id_button">Tunnistaudu BankID:llä</string>
+    <string name="dba_branded_verify_id_button">Tunnistaudu MitID:llä</string>
+    <string name="blocket_branded_verify_id_button">Tunnistaudu BankID:llä</string>
+    <string name="tori_branded_verify_id_button">Tunnistaudu vahvasti</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.R
+import com.schibsted.nmp.warp.theme.LocalBrand
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -117,8 +119,26 @@ internal fun getVerifyStyle() = WarpStateStyle(
     icon = icons.verification,
     title = stringResource(R.string.verify_title),
     description = stringResource(R.string.verify_description),
-    primaryButtonText = stringResource(R.string.verify_primary_button_text),
+    primaryButtonText = LocalBrand.current?.let { stringResource(getBrandedVerifyButtonStringRes(it)) },
 )
+
+@StringRes
+internal fun getBrandedVerifyButtonStringRes(brand: Brand?): Int {
+    return when (brand) {
+        Brand.Finn -> R.string.finn_branded_verify_id_button
+        Brand.DBA -> R.string.dba_branded_verify_id_button
+        Brand.Blocket -> R.string.blocket_branded_verify_id_button
+        Brand.Tori -> R.string.tori_branded_verify_id_button
+        Brand.Vend, Brand.VendPro -> throw IllegalStateException(
+            "Vend/VendPro brands do not support the Verify state type. " +
+            "This is a multi-brand component and should not be used for Vend-specific flows."
+        )
+        else -> throw IllegalStateException(
+            "Brand ${brand?.identifier} does not support the Verify state type. " +
+            "Only Finn, DBA, Blocket, and Tori have identity verification."
+        )
+    }
+}
 
 @Composable
 internal fun getLoadingStyle() = WarpStateStyle(

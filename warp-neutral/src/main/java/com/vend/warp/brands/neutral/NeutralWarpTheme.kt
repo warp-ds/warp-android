@@ -28,6 +28,7 @@ fun NeutralWarpTheme(
         typography = NeutralTypography,
         shapes = NeutralShapes(neutralDimensions),
         resources = neutralResources,
+        brand = null,
         content = content,
         rippleConfig = neutralRippleConfig,
         dimensions = neutralDimensions

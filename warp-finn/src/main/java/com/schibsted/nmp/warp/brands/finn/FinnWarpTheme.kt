@@ -5,6 +5,7 @@ import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.RippleConfiguration
 import androidx.compose.runtime.Composable
+import com.schibsted.nmp.warp.components.Brand
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -29,6 +30,7 @@ fun FinnWarpTheme(
         typography = FinnTypography,
         shapes = FinnShapes(finnDimensions),
         resources = finnResources,
+        brand = Brand.Finn,
         content = content,
         rippleConfig = finnRippleConfig,
         dimensions = finnDimensions

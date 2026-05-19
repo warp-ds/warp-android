@@ -5,6 +5,7 @@ import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.RippleConfiguration
 import androidx.compose.runtime.Composable
+import com.schibsted.nmp.warp.components.Brand
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -26,6 +27,7 @@ fun ToriWarpTheme(
         typography = ToriTypography,
         shapes = ToriShapes(toriDimensions),
         resources = toriResources,
+        brand = Brand.Tori,
         content = content,
         rippleConfig = toriRippleConfig,
         dimensions = toriDimensions

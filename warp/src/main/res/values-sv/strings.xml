@@ -310,7 +310,6 @@
     <string name="login_quiet_button_text">Skapa konto</string>
     <string name="verify_title">Verifiera din identitet</string>
     <string name="verify_description">Innan du kontaktar någon behöver du verifiera din identitet. Detta låter den andra personen känna sig säker på vem de pratar med.</string>
-    <string name="verify_primary_button_text">Verifiera med BankID</string>
     <string name="loading_description">Vänta ...</string>
     <string name="microphoneslash">Avstängd mikrofon</string>
     <string name="microphone">Mikrofon</string>
@@ -327,4 +326,8 @@
     <string name="coathanger">Galge</string>
     <string name="printer">Skrivare</string>
     <string name="shareandroid">Tre anslutna prickar</string>
+    <string name="finn_branded_verify_id_button">Verifiera med BankID</string>
+    <string name="dba_branded_verify_id_button">Bekräfta med MitID</string>
+    <string name="blocket_branded_verify_id_button">Verifiera med BankID</string>
+    <string name="tori_branded_verify_id_button">Verifiera med eID</string>
 </resources>
