@@ -8,10 +8,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.schibsted.nmp.warp.components.Brand
 import com.schibsted.nmp.warp.components.WarpDivider
 import com.schibsted.nmp.warp.components.WarpState
 import com.schibsted.nmp.warp.components.WarpStateType
+import com.schibsted.nmp.warp.components.supportsStateTypeVerify
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -40,8 +40,7 @@ fun StateContent() {
         WarpDivider()
         WarpState(type = WarpStateType.Login)
         WarpDivider()
-        // TODO FK: match the 'when' statement in WarpState
-        if (WarpTheme.brand in listOf(Brand.Finn, Brand.DBA, Brand.Blocket, Brand.Tori)) {
+        if (supportsStateTypeVerify(WarpTheme.brand)) {
             WarpState(type = WarpStateType.Verify)
             WarpDivider()
         }

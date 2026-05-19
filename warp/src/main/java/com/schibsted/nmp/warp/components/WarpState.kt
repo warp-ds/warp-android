@@ -122,6 +122,10 @@ internal fun getVerifyStyle() = WarpStateStyle(
     primaryButtonText = stringResource(getBrandedVerifyButtonStringRes(LocalBrand.current))
 )
 
+fun supportsStateTypeVerify(brand: Brand?): Boolean {
+    return brand in listOf(Brand.Finn, Brand.DBA, Brand.Blocket, Brand.Tori)
+}
+
 @StringRes
 internal fun getBrandedVerifyButtonStringRes(brand: Brand?): Int {
     return when (brand) {
