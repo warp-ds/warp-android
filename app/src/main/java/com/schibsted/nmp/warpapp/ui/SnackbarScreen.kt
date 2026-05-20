@@ -74,7 +74,9 @@ fun SnackbarScreenContent() {
                         message = "Successfully saved",
                         type = WarpSnackbarType.SUCCESS,
                         actionLabel = "OK",
-                        withDismissAction = false
+                        withDismissAction = false,
+                        duration = SnackbarDuration.Indefinite
+
                     )
                 })
             WarpButton(
@@ -114,14 +116,15 @@ fun SnackbarScreenContent() {
                 })
             WarpButton(
                 modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Info w/long action",
+                text = "Info w/long action & duration",
                 onClick = {
                     showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
                         message = "New features available",
                         type = WarpSnackbarType.INFO,
-                        actionLabel = "View details"
+                        actionLabel = "View details",
+                        duration = SnackbarDuration.Long
                     )
                 })
         }
