@@ -56,20 +56,57 @@ fun WarpTopAppBar(
     searchConfig: SearchConfiguration? = null,
     tabConfig: TabConfiguration? = null,
 ) {
-    val appBarColors = topBarColors ?: TopAppBarDefaults.topAppBarColors(
-        containerColor = colors.background.default,
-        titleContentColor = colors.text.default,
-        navigationIconContentColor = colors.icon.default,
-        actionIconContentColor = colors.icon.default,
-        scrolledContainerColor = colors.background.default
+    var fullHeightPx by remember(tabConfig, searchConfig) { mutableIntStateOf(0) }
+    val hasMeasured = fullHeightPx > 0
+    val fullHeightDp = with(LocalDensity.current) { fullHeightPx.toDp() }
+
+    // Calculate collapse fraction and alpha
+    val collapsedFraction = 1 - (scrollBehavior?.state?.collapsedFraction ?: 0f)
+    val alpha = if (collapsedFraction < ALPHA_THRESHOLD) 0f else collapsedFraction
+
+    // Animate height for search section collapse
+    val animatedHeight by animateDpAsState(
+        targetValue = if (hasMeasured) {
+            fullHeightDp * collapsedFraction
+        } else {
+            Dp.Unspecified
+        },
+        label = "collapsingHeight"
     )
-    TopAppBar(
-        title = { WarpText(text = titleText, style = WarpTextStyle.Title3) },
-        modifier = modifier,
-        navigationIcon = navigationIcon,
-        actions = actions,
-        windowInsets = windowInsets,
-        colors = appBarColors,
-        scrollBehavior = scrollBehavior
-    )
+
+    // Auto-create scroll behavior if search is present and none provided
+    val effectiveScrollBehavior = remember(searchConfig, scrollBehavior) {
+        if (searchConfig != null && scrollBehavior == null) {
+            TopAppBarDefaults.enterAlwaysScrollBehavior()
+        } else {
+            scrollBehavior
+        }
+    }
+
+    Column(modifier = modifier) {
+        // Define colors for the app bar
+        val appBarColors = topBarColors ?: TopAppBarDefaults.topAppBarColors(
+            containerColor = colors.background.default,
+            titleContentColor = colors.text.default,
+            navigationIconContentColor = colors.icon.default,
+            actionIconContentColor = colors.icon.default,
+            scrolledContainerColor = colors.background.default
+        )
+
+        // Main top app bar (always left-aligned, never centered)
+        TopAppBar(
+            title = {
+                WarpText(
+                    text = titleText,
+                    style = WarpTextStyle.Title3,
+                )
+            },
+            modifier = Modifier,
+            navigationIcon = navigationIcon,
+            actions = actions,
+            windowInsets = windowInsets,
+            colors = appBarColors,
+            scrollBehavior = effectiveScrollBehavior
+        )
+    }
 }
