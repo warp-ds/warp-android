@@ -120,8 +120,8 @@ fun WarpTopAppBar(
             scrollBehavior = effectiveScrollBehavior
         )
 
-        // Collapsible section for search and tabs
-        if (searchConfig != null || tabConfig != null) {
+        // Collapsible section for search only
+        if (searchConfig != null) {
             Column(
                 modifier = Modifier
                     .onGloballyPositioned {
@@ -137,7 +137,7 @@ fun WarpTopAppBar(
                         }
                     )
             ) {
-                searchConfig?.let { config ->
+                searchConfig.let { config ->
                     SearchBar(
                         modifier = Modifier
                             .padding(
@@ -206,82 +206,85 @@ fun WarpTopAppBar(
                         )
                     )
                 }
+            }
+        }
 
-                tabConfig?.let { config ->
-                    val selectedIndex = config.selectedIndex.coerceIn(0, config.tabs.lastIndex)
+        // Tabs section (always visible, doesn't collapse)
+        tabConfig?.let { config ->
+            if (config.tabs.isEmpty()) return@let
 
-                    val tabsContent: @Composable () -> Unit = {
-                        config.tabs.forEachIndexed { index, tab ->
-                            Tab(
-                                selectedContentColor = colors.background.active,
-                                selected = selectedIndex == index,
-                                onClick = {
-                                    config.onTabSelected(index)
-                                },
-                                text = {
-                                    Box {
-                                        WarpText(
-                                            text = tab.label,
-                                            style = WarpTextStyle.Title4,
-                                        )
-                                        // Badge indicator
-                                        if (tab.hasBadge) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .align(Alignment.TopEnd)
-                                                    .offset(x = 8.dp, y = (-4).dp)
-                                                    .size(8.dp)
-                                                    .background(
-                                                        color = colors.background.notification,
-                                                        shape = CircleShape
-                                                    )
+            val selectedIndex = config.selectedIndex.coerceIn(0, config.tabs.lastIndex)
+
+            val tabsContent: @Composable () -> Unit = {
+                config.tabs.forEachIndexed { index, tab ->
+                    Tab(
+                        selectedContentColor = colors.background.active,
+                        selected = selectedIndex == index,
+                        onClick = {
+                            config.onTabSelected(index)
+                        },
+                        text = {
+                            Box {
+                                WarpText(
+                                    text = tab.label,
+                                    style = WarpTextStyle.Title4,
+                                )
+                                // Badge indicator
+                                if (tab.hasBadge) {
+                                    Box(
+                                        modifier = Modifier
+                                            .align(Alignment.TopEnd)
+                                            .offset(x = 8.dp, y = (-4).dp)
+                                            .size(8.dp)
+                                            .background(
+                                                color = colors.background.notification,
+                                                shape = CircleShape
                                             )
-                                        }
-                                    }
+                                    )
                                 }
-                            )
+                            }
                         }
-                    }
-
-                    if (config.scrollable) {
-                        PrimaryScrollableTabRow(
-                            selectedTabIndex = selectedIndex,
-                            edgePadding = dimensions.space2,
-                            containerColor = colors.background.default,
-                            contentColor = colors.text.default,
-                            indicator = {
-                                TabRowDefaults.PrimaryIndicator(
-                                    modifier = Modifier.tabIndicatorOffset(
-                                        selectedIndex,
-                                        matchContentSize = true
-                                    ),
-                                    color = colors.icon.active,
-                                    width = Dp.Unspecified,
-                                )
-                            },
-                            divider = {},
-                            tabs = tabsContent
-                        )
-                    } else {
-                        PrimaryTabRow(
-                            selectedTabIndex = selectedIndex,
-                            containerColor = colors.background.default,
-                            contentColor = colors.text.default,
-                            indicator = {
-                                TabRowDefaults.PrimaryIndicator(
-                                    modifier = Modifier.tabIndicatorOffset(
-                                        selectedIndex,
-                                        matchContentSize = true
-                                    ),
-                                    color = colors.icon.active,
-                                    width = Dp.Unspecified,
-                                )
-                            },
-                            divider = {},
-                            tabs = tabsContent
-                        )
-                    }
+                    )
                 }
+            }
+
+            if (config.scrollable) {
+                PrimaryScrollableTabRow(
+                    selectedTabIndex = selectedIndex,
+                    edgePadding = dimensions.space2,
+                    containerColor = colors.background.default,
+                    contentColor = colors.text.default,
+                    indicator = {
+                        TabRowDefaults.PrimaryIndicator(
+                            modifier = Modifier.tabIndicatorOffset(
+                                selectedIndex,
+                                matchContentSize = true
+                            ),
+                            color = colors.icon.active,
+                            width = Dp.Unspecified,
+                        )
+                    },
+                    divider = {},
+                    tabs = tabsContent
+                )
+            } else {
+                PrimaryTabRow(
+                    selectedTabIndex = selectedIndex,
+                    containerColor = colors.background.default,
+                    contentColor = colors.text.default,
+                    indicator = {
+                        TabRowDefaults.PrimaryIndicator(
+                            modifier = Modifier.tabIndicatorOffset(
+                                selectedIndex,
+                                matchContentSize = true
+                            ),
+                            color = colors.icon.active,
+                            width = Dp.Unspecified,
+                        )
+                    },
+                    divider = {},
+                    tabs = tabsContent
+                )
             }
         }
     }
