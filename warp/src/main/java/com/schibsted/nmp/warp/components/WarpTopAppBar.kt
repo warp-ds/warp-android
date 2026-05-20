@@ -46,6 +46,48 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpResources
 
 /**
+ * Represents a tab in the top app bar.
+ * @param label The text label displayed in the tab
+ * @param id Unique identifier for the tab
+ * @param hasBadge Whether to show a badge indicator on the tab
+ */
+data class TabData(
+    val label: String,
+    val id: String,
+    val hasBadge: Boolean = false
+)
+
+/**
+ * Configuration for the integrated search bar.
+ * @param state TextFieldState managing the search input text
+ * @param onSearch Callback when search is submitted (enter key pressed)
+ * @param hint Placeholder text shown when search is empty
+ * @param enabled Whether the search field is enabled
+ */
+data class SearchConfiguration(
+    val state: TextFieldState,
+    val onSearch: (String) -> Unit,
+    val hint: String = "",
+    val enabled: Boolean = true,
+)
+
+/**
+ * Configuration for the integrated tab bar.
+ * @param tabs List of tabs to display
+ * @param selectedIndex Index of the currently selected tab
+ * @param onTabSelected Callback when a tab is selected
+ * @param scrollable Whether to use scrollable tabs (for many tabs)
+ */
+data class TabConfiguration(
+    val tabs: List<TabData>,
+    val selectedIndex: Int,
+    val onTabSelected: (Int) -> Unit,
+    val scrollable: Boolean = false,
+)
+
+private const val ALPHA_THRESHOLD = 0.3f
+
+/**
  * @param titleText The title text.
  * @param modifier The modifier to be applied to the top app bar.
  * @param navigationIcon The navigation icon to be displayed.

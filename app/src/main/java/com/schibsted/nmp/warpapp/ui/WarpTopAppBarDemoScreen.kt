@@ -39,9 +39,7 @@ fun WarpTopAppBarDemoScreen() {
         TabData("Profile", "profile")
     )
 
-    val scrollBehavior = remember {
-        androidx.compose.material3.TopAppBarDefaults.enterAlwaysScrollBehavior()
-    }
+    val scrollBehavior = androidx.compose.material3.TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     WarpScaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
