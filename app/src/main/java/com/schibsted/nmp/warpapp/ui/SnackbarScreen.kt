@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpSnackbar
+import com.schibsted.nmp.warp.components.WarpSnackbarType
+import com.schibsted.nmp.warp.components.WarpSnackbarVisuals
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -52,85 +54,74 @@ fun SnackbarScreenContent() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-            WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Show snackbar",
+            WarpButton(
+                modifier = Modifier.padding(bottom = dimensions.space2),
+                text = "Neutral w/dismiss icon",
                 onClick = {
                     showSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "Snackbar message"
+                        message = "This is a neutral message",
                     )
                 })
-            WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Show snackbar with action",
-                onClick = {
-                    showSnackbar(
-                        snackbarHostState = snackbarHostState,
-                        scope = scope,
-                        message = "Snackbar message",
-                        actionLabel = "Action"
-                    )
-                })
-            WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Show snackbar with longer action",
-                onClick = {
-                    showSnackbar(
-                        snackbarHostState = snackbarHostState,
-                        scope = scope,
-                        message = "Snackbar message",
-                        actionLabel = "Longer Action",
-
-                    )
-                })
-            WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Show success snackbar",
+            WarpButton(
+                modifier = Modifier.padding(bottom = dimensions.space2),
+                text = "Success w/action to dismiss",
                 onClick = {
                     showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "Success!",
-                        type = com.schibsted.nmp.warp.components.WarpSnackbarType.SUCCESS
+                        message = "Successfully saved",
+                        type = WarpSnackbarType.SUCCESS,
+                        actionLabel = "OK",
+                        withDismissAction = false
                     )
                 })
-            WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Show error snackbar",
+            WarpButton(
+                modifier = Modifier.padding(bottom = dimensions.space2),
+                text = "Error multiline no action",
                 onClick = {
                     showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "Something went wrong",
-                        type = com.schibsted.nmp.warp.components.WarpSnackbarType.ERROR
+                        message = "Something went wrong. Hang in there while we work things out.",
+                        type = WarpSnackbarType.ERROR
                     )
                 })
-            WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Show warning snackbar",
+            WarpButton(
+                modifier = Modifier.padding(bottom = dimensions.space2),
+                text = "Warning w/long action & text",
                 onClick = {
                     showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "Warning message",
-                        type = com.schibsted.nmp.warp.components.WarpSnackbarType.WARNING
+                        message = "This action cannot be undone and will permanently delete all your data",
+                        type = WarpSnackbarType.WARNING,
+                        actionLabel = "Let's do it!"
                     )
                 })
-            WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Show info snackbar",
+            WarpButton(
+                modifier = Modifier.padding(bottom = dimensions.space2),
+                text = "Info w/short action",
                 onClick = {
                     showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "Information",
-                        type = com.schibsted.nmp.warp.components.WarpSnackbarType.INFO
+                        message = "New features available",
+                        type = WarpSnackbarType.INFO,
+                        actionLabel = "View"
                     )
                 })
-            WarpButton(modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Show success with longer action",
+            WarpButton(
+                modifier = Modifier.padding(bottom = dimensions.space2),
+                text = "Info w/long action",
                 onClick = {
                     showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "Successfully saved your changes",
-                        type = com.schibsted.nmp.warp.components.WarpSnackbarType.SUCCESS,
-                        actionLabel = "View Details"
+                        message = "New features available",
+                        type = WarpSnackbarType.INFO,
+                        actionLabel = "View details"
                     )
                 })
         }
@@ -159,14 +150,14 @@ fun showWarpSnackbar(
     snackbarHostState: SnackbarHostState,
     scope: CoroutineScope,
     message: String,
-    type: com.schibsted.nmp.warp.components.WarpSnackbarType,
+    type: WarpSnackbarType,
     actionLabel: String? = null,
     withDismissAction: Boolean = true,
     duration: SnackbarDuration = SnackbarDuration.Short,
 ) {
     scope.launch {
         snackbarHostState.showSnackbar(
-            com.schibsted.nmp.warp.components.WarpSnackbarVisuals(
+            WarpSnackbarVisuals(
                 message = message,
                 type = type,
                 actionLabel = actionLabel,
