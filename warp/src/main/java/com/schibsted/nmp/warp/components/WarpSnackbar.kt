@@ -54,7 +54,7 @@ fun WarpSnackbar(
         it.length > ACTION_NEW_LINE_THRESHOLD
     } ?: false
 
-    val customContentComposable = if (icon != null) {
+    val customContentComposable: (@Composable () -> Unit)? = if (icon != null) {
         @Composable {
             Row(
                 verticalAlignment = Alignment.CenterVertically
