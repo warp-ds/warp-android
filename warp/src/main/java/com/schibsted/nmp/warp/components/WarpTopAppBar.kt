@@ -6,7 +6,9 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,7 +33,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import com.schibsted.nmp.warp.theme.WarpResources
 
 /**
  * @param titleText The title text.
@@ -108,5 +113,94 @@ fun WarpTopAppBar(
             colors = appBarColors,
             scrollBehavior = effectiveScrollBehavior
         )
+
+        // Collapsible section for search and tabs
+        if (searchConfig != null || tabConfig != null) {
+            Column(
+                modifier = Modifier
+                    .onGloballyPositioned {
+                        if (!hasMeasured) fullHeightPx = it.size.height
+                    }
+                    .then(
+                        if (hasMeasured.not()) {
+                            Modifier
+                        } else {
+                            Modifier
+                                .graphicsLayer { this.alpha = alpha }
+                                .heightIn(min = 0.dp, max = animatedHeight)
+                        }
+                    )
+            ) {
+                searchConfig?.let { config ->
+                    SearchBar(
+                        modifier = Modifier
+                            .padding(
+                                horizontal = dimensions.space2,
+                                vertical = dimensions.space1
+                            )
+                            .fillMaxWidth(),
+                        inputField = {
+                            SearchBarDefaults.InputField(
+                                enabled = config.enabled,
+                                query = config.state.text.toString(),
+                                onQueryChange = {
+                                    config.state.edit { replace(0, length, it) }
+                                },
+                                onSearch = { config.onSearch(config.state.text.toString()) },
+                                expanded = false,
+                                onExpandedChange = { },
+                                placeholder = {
+                                    WarpText(
+                                        text = config.hint,
+                                        color = colors.text.placeholder,
+                                        style = WarpTextStyle.Body,
+                                    )
+                                },
+                                leadingIcon = {
+                                    WarpIcon(
+                                        icon = WarpResources.icons.search,
+                                        size = dimensions.icon.small
+                                    )
+                                },
+                                trailingIcon = {
+                                    if (config.state.text.isNotEmpty()) {
+                                        IconButton(onClick = config.state::clearText) {
+                                            WarpIcon(
+                                                icon = WarpResources.icons.close,
+                                                size = dimensions.icon.small
+                                            )
+                                        }
+                                    }
+                                },
+                                colors = TextFieldDefaults.colors(
+                                    focusedTextColor = colors.text.default,
+                                    focusedContainerColor = colors.background.subtle,
+                                    unfocusedTextColor = colors.text.default,
+                                    unfocusedContainerColor = colors.background.subtle,
+                                    disabledTextColor = colors.text.disabled,
+                                    focusedPlaceholderColor = colors.text.placeholder,
+                                    unfocusedPlaceholderColor = colors.text.placeholder,
+                                    focusedLabelColor = colors.text.subtle,
+                                    unfocusedLabelColor = colors.text.subtle,
+                                    cursorColor = colors.icon.default,
+                                )
+                            )
+                        },
+                        expanded = false,
+                        onExpandedChange = { },
+                        colors = SearchBarDefaults.colors(
+                            containerColor = colors.background.subtle
+                        ),
+                        content = {},
+                        windowInsets = WindowInsets(
+                            left = 0.dp,
+                            top = 0.dp,
+                            right = 0.dp,
+                            bottom = 0.dp,
+                        )
+                    )
+                }
+            }
+        }
     }
 }
