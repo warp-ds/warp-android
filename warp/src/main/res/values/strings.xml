@@ -325,5 +325,9 @@
     <string name="coathanger">Coat hanger</string>
     <string name="printer">Printer</string>
     <string name="shareandroid">Three connected dots</string>
+    <string name="finn_branded_verify_id_button">Verify with BankID</string>
+    <string name="dba_branded_verify_id_button">Verify with MitID</string>
+    <string name="blocket_branded_verify_id_button">Verify with BankID</string>
+    <string name="tori_branded_verify_id_button">Verify with eID</string>
 
 </resources>
