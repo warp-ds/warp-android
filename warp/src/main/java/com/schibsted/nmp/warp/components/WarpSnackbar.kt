@@ -54,23 +54,46 @@ fun WarpSnackbar(
         it.length > ACTION_NEW_LINE_THRESHOLD
     } ?: false
 
-    // Always use custom content to apply correct Warp typography and ensure proper dismiss icon alignment
-    Snackbar(
-        modifier = modifier,
-        action = snackbarData.visuals.actionLabel?.let { label ->
-            @Composable {
-                TextButton(
-                    onClick = { snackbarData.performAction() }
-                ) {
-                    Text(
-                        text = label,
-                        style = typography.bodyStrong,
-                        color = actionColor
-                    )
-                }
+    val customContentComposable = if (icon != null) {
+        @Composable {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = contentColor
+                )
+                Spacer(modifier = Modifier.width(WarpTheme.dimensions.space2))
+                Text(
+                    text = snackbarData.visuals.message,
+                    style = typography.body,
+                    color = contentColor
+                )
             }
-        },
-        dismissAction = if (snackbarData.visuals.withDismissAction) {
+        }
+    } else null
+
+    if (customContentComposable != null) {
+        // When using the custom content overload, Material3's Snackbar doesn't auto-generate
+        // action/dismiss buttons from SnackbarData. We must manually create them to preserve
+        // functionality while injecting our custom icon into the message content.
+        Snackbar(
+            modifier = modifier,
+            action = snackbarData.visuals.actionLabel?.let { label ->
+                @Composable {
+                    TextButton(
+                        onClick = { snackbarData.performAction() }
+                    ) {
+                        Text(
+                            text = label,
+                            style = typography.bodyStrong,
+                            color = actionColor
+                        )
+                    }
+                }
+            },
+            dismissAction = if (snackbarData.visuals.withDismissAction) {
             @Composable {
                 IconButton(
                     onClick = { snackbarData.dismiss() }
@@ -83,29 +106,24 @@ fun WarpSnackbar(
                 }
             }
         } else null,
-        actionOnNewLine = actionOnNewLine,
-        shape = shape,
-        containerColor = containerColor,
-        contentColor = contentColor,
-        dismissActionContentColor = contentColor,
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (icon != null) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = contentColor
-                )
-                Spacer(modifier = Modifier.width(WarpTheme.dimensions.space2))
-            }
-            Text(
-                text = snackbarData.visuals.message,
-                style = typography.body,
-                color = contentColor
-            )
-        }
+            actionOnNewLine = actionOnNewLine,
+            shape = shape,
+            containerColor = containerColor,
+            contentColor = contentColor,
+            dismissActionContentColor = contentColor,
+            content = customContentComposable
+        )
+    } else {
+        Snackbar(
+            snackbarData = snackbarData,
+            modifier = modifier,
+            actionOnNewLine = actionOnNewLine,
+            shape = shape,
+            containerColor = containerColor,
+            contentColor = contentColor,
+            actionColor = actionColor,
+            dismissActionContentColor = contentColor,
+        )
     }
 }
 
