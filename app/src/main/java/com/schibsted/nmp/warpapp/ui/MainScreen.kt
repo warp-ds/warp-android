@@ -219,6 +219,9 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("topAppBarDemo") {
+                WarpTopAppBarDemoScreen()
+            }
         }
     }
 }
@@ -304,6 +307,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "textField" to "WarpTextField",
                         "toast" to "WarpToast",
                         "tooltip" to "WarpTooltip",
+                        "topAppBarDemo" to "WarpTopAppBar Demo",
                         "typography" to "Typography",
                     )
                 )
