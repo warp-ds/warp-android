@@ -54,41 +54,8 @@ fun WarpSnackbar(
         it.length > ACTION_NEW_LINE_THRESHOLD
     } ?: false
 
-    if (icon != null) {
-        Snackbar(
-            modifier = modifier,
-            action = snackbarData.visuals.actionLabel?.let { label ->
-                {
-                    TextButton(
-                        onClick = { snackbarData.performAction() }
-                    ) {
-                        Text(
-                            text = label,
-                            style = typography.bodyStrong,
-                            color = actionColor
-                        )
-                    }
-                }
-            },
-            dismissAction = if (snackbarData.visuals.withDismissAction) {
-                {
-                    IconButton(
-                        onClick = { snackbarData.dismiss() }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "Dismiss",
-                            tint = contentColor
-                        )
-                    }
-                }
-            } else null,
-            actionOnNewLine = actionOnNewLine,
-            shape = shape,
-            containerColor = containerColor,
-            contentColor = contentColor,
-            dismissActionContentColor = contentColor,
-        ) {
+    val customContentComposable = if (icon != null) {
+        @Composable {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -105,6 +72,47 @@ fun WarpSnackbar(
                 )
             }
         }
+    } else null
+    
+    if (customContentComposable != null) {
+        // When using the custom content overload, Material3's Snackbar doesn't auto-generate
+        // action/dismiss buttons from SnackbarData. We must manually create them to preserve
+        // functionality while injecting our custom icon into the message content.
+        Snackbar(
+            modifier = modifier,
+            action = snackbarData.visuals.actionLabel?.let { label ->
+                @Composable {
+                    TextButton(
+                        onClick = { snackbarData.performAction() }
+                    ) {
+                        Text(
+                            text = label,
+                            style = typography.bodyStrong,
+                            color = actionColor
+                        )
+                    }
+                }
+            },
+            dismissAction = if (snackbarData.visuals.withDismissAction) {
+            @Composable {
+                IconButton(
+                    onClick = { snackbarData.dismiss() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "Dismiss", // TODO FK: add accessibility string
+                        tint = contentColor
+                    )
+                }
+            }
+        } else null,
+            actionOnNewLine = actionOnNewLine,
+            shape = shape,
+            containerColor = containerColor,
+            contentColor = contentColor,
+            dismissActionContentColor = contentColor,
+            content = customContentComposable
+        )
     } else {
         Snackbar(
             snackbarData = snackbarData,
