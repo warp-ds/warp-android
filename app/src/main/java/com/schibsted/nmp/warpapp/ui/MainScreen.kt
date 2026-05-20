@@ -22,6 +22,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -29,6 +30,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -226,12 +228,13 @@ fun MainScreen() {
 fun ComponentListScreen(onNavigate: (String) -> Unit) {
     val viewModel: MainViewModel = viewModel(LocalContext.current as ComponentActivity)
     var menuVisible by remember { mutableStateOf(false) }
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     WarpScaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             WarpTopAppBar(
                 titleText = "Warp components",
-                centered = true,
                 actions = {
                     IconButton(onClick = { menuVisible = !menuVisible }) {
                         WarpIcon(
@@ -261,7 +264,8 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                             viewModel.setFlavor("neutral")
                         })
                     }
-                }
+                },
+                scrollBehavior = scrollBehavior
 
             )
         }
