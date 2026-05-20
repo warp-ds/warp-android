@@ -3,12 +3,17 @@
 package com.schibsted.nmp.warp.components
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -199,6 +205,82 @@ fun WarpTopAppBar(
                             bottom = 0.dp,
                         )
                     )
+                }
+
+                tabConfig?.let { config ->
+                    val selectedIndex = config.selectedIndex.coerceIn(0, config.tabs.lastIndex)
+
+                    val tabsContent: @Composable () -> Unit = {
+                        config.tabs.forEachIndexed { index, tab ->
+                            Tab(
+                                selectedContentColor = colors.background.active,
+                                selected = selectedIndex == index,
+                                onClick = {
+                                    config.onTabSelected(index)
+                                },
+                                text = {
+                                    Box {
+                                        WarpText(
+                                            text = tab.label,
+                                            style = WarpTextStyle.Title4,
+                                        )
+                                        // Badge indicator
+                                        if (tab.hasBadge) {
+                                            Box(
+                                                modifier = Modifier
+                                                    .align(Alignment.TopEnd)
+                                                    .offset(x = 8.dp, y = (-4).dp)
+                                                    .size(8.dp)
+                                                    .background(
+                                                        color = colors.background.notification,
+                                                        shape = CircleShape
+                                                    )
+                                            )
+                                        }
+                                    }
+                                }
+                            )
+                        }
+                    }
+
+                    if (config.scrollable) {
+                        PrimaryScrollableTabRow(
+                            selectedTabIndex = selectedIndex,
+                            edgePadding = dimensions.space2,
+                            containerColor = colors.background.default,
+                            contentColor = colors.text.default,
+                            indicator = {
+                                TabRowDefaults.PrimaryIndicator(
+                                    modifier = Modifier.tabIndicatorOffset(
+                                        selectedIndex,
+                                        matchContentSize = true
+                                    ),
+                                    color = colors.icon.active,
+                                    width = Dp.Unspecified,
+                                )
+                            },
+                            divider = {},
+                            tabs = tabsContent
+                        )
+                    } else {
+                        PrimaryTabRow(
+                            selectedTabIndex = selectedIndex,
+                            containerColor = colors.background.default,
+                            contentColor = colors.text.default,
+                            indicator = {
+                                TabRowDefaults.PrimaryIndicator(
+                                    modifier = Modifier.tabIndicatorOffset(
+                                        selectedIndex,
+                                        matchContentSize = true
+                                    ),
+                                    color = colors.icon.active,
+                                    width = Dp.Unspecified,
+                                )
+                            },
+                            divider = {},
+                            tabs = tabsContent
+                        )
+                    }
                 }
             }
         }
