@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDefaults
@@ -54,6 +55,9 @@ fun WarpSnackbar(
         it.length > ACTION_NEW_LINE_THRESHOLD
     } ?: false
 
+    val messageTypography = typography.body
+    val actionTypography = typography.bodyStrong
+
     val customContentComposable: (@Composable () -> Unit)? = if (icon != null) {
         @Composable {
             Row(
@@ -67,7 +71,7 @@ fun WarpSnackbar(
                 Spacer(modifier = Modifier.width(WarpTheme.dimensions.space2))
                 Text(
                     text = snackbarData.visuals.message,
-                    style = typography.body,
+                    style = messageTypography,
                     color = contentColor
                 )
             }
@@ -87,7 +91,7 @@ fun WarpSnackbar(
                     ) {
                         Text(
                             text = label,
-                            style = typography.bodyStrong,
+                            style = actionTypography,
                             color = actionColor
                         )
                     }
@@ -114,16 +118,24 @@ fun WarpSnackbar(
             content = customContentComposable
         )
     } else {
-        Snackbar(
-            snackbarData = snackbarData,
-            modifier = modifier,
-            actionOnNewLine = actionOnNewLine,
-            shape = shape,
-            containerColor = containerColor,
-            contentColor = contentColor,
-            actionColor = actionColor,
-            dismissActionContentColor = contentColor,
-        )
+        // Apply WarpTypography to the Snackbar
+        MaterialTheme(
+            typography = MaterialTheme.typography.copy(
+                bodyMedium = messageTypography,
+                labelLarge = actionTypography
+            )
+        ) {
+            Snackbar(
+                snackbarData = snackbarData,
+                modifier = modifier,
+                actionOnNewLine = actionOnNewLine,
+                shape = shape,
+                containerColor = containerColor,
+                contentColor = contentColor,
+                actionColor = actionColor,
+                dismissActionContentColor = contentColor,
+            )
+        }
     }
 }
 
