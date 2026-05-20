@@ -17,6 +17,7 @@ fun WarpTheme(
     resources: WarpResources,
     dimensions: WarpDimensions,
     rippleConfig: RippleConfiguration,
+    strings: WarpStrings,
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
@@ -25,6 +26,7 @@ fun WarpTheme(
         LocalShapes provides shapes,
         LocalResources provides resources,
         LocalDimensions provides dimensions,
+        LocalStrings provides strings,
         LocalRippleConfiguration provides rippleConfig,
         LocalTextStyle provides typography.body,
         content = content

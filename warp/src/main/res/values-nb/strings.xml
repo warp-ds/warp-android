@@ -310,7 +310,6 @@
     <string name="login_quiet_button_text">Opprett en konto</string>
     <string name="verify_title">Verifiser identiteten din</string>
     <string name="verify_description">Før du tar kontakt, må du verifisere kontoen din. Vi gjør dette slik at personen i andre enden kan være trygg på personen vedkommende snakker med.</string>
-    <string name="verify_primary_button_text">Verifiser med BankID</string>
     <string name="loading_description">Vent litt...</string>
     <string name="microphoneslash">Dempet mikrofon</string>
     <string name="microphone">Mikrofon</string>

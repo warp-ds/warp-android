@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- TODO: Determine the correct verification method for vend brand -->
-    <string name="branded_verify_id_button">Tunnistaudu</string>
-</resources>
