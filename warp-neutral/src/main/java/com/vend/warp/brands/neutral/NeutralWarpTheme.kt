@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.brands.neutral.NeutralDarkColors
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
+import com.schibsted.nmp.warp.theme.WarpStrings
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.vend.warp.brands.neutral.NeutralColors
 import com.vend.warp.brands.neutral.NeutralShapes
@@ -28,8 +29,12 @@ fun NeutralWarpTheme(
         typography = NeutralTypography,
         shapes = NeutralShapes(neutralDimensions),
         resources = neutralResources,
-        content = content,
         rippleConfig = neutralRippleConfig,
-        dimensions = neutralDimensions
+        dimensions = neutralDimensions,
+        strings = object : WarpStrings {
+            @Composable
+            override fun getVerifyIdentityButtonText(): String? = null
+        },
+        content = content
     )
 }

@@ -26,6 +26,7 @@ fun DbaWarpTheme(
         typography = DbaTypography,
         shapes = DbaShapes(dbaDimensions),
         resources = dbaResources,
+        strings = DbaBrandStrings,
         content = content,
         rippleConfig = dbaRippleConfig,
         dimensions = dbaDimensions

@@ -29,6 +29,7 @@ fun FinnWarpTheme(
         typography = FinnTypography,
         shapes = FinnShapes(finnDimensions),
         resources = finnResources,
+        strings = FinnBrandStrings,
         content = content,
         rippleConfig = finnRippleConfig,
         dimensions = finnDimensions

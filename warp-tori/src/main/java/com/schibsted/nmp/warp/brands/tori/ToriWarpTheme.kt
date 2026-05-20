@@ -26,6 +26,7 @@ fun ToriWarpTheme(
         typography = ToriTypography,
         shapes = ToriShapes(toriDimensions),
         resources = toriResources,
+        strings = ToriBrandStrings,
         content = content,
         rippleConfig = toriRippleConfig,
         dimensions = toriDimensions

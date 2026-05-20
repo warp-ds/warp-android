@@ -26,6 +26,7 @@ fun BlocketWarpTheme(
         typography = BlocketTypography,
         shapes = BlocketShapes(blocketDimensions),
         resources = blocketResources,
+        strings = BlocketBrandStrings,
         content = content,
         rippleConfig = blocketRippleConfig,
         dimensions = blocketDimensions

@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.R
+import com.schibsted.nmp.warp.theme.LocalStrings
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -117,7 +118,7 @@ internal fun getVerifyStyle() = WarpStateStyle(
     icon = icons.verification,
     title = stringResource(R.string.verify_title),
     description = stringResource(R.string.verify_description),
-    primaryButtonText = stringResource(R.string.verify_primary_button_text),
+    primaryButtonText = LocalStrings.current.getVerifyIdentityButtonText(),
 )
 
 @Composable
