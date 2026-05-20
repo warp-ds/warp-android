@@ -326,8 +326,4 @@
     <string name="coathanger">Henkari</string>
     <string name="printer">Tulostin</string>
     <string name="shareandroid">Kolme pistettä</string>
-    <string name="finn_branded_verify_id_button">Tunnistaudu BankID:llä</string>
-    <string name="dba_branded_verify_id_button">Tunnistaudu MitID:llä</string>
-    <string name="blocket_branded_verify_id_button">Tunnistaudu BankID:llä</string>
-    <string name="tori_branded_verify_id_button">Tunnistaudu vahvasti</string>
 </resources>

@@ -326,8 +326,4 @@
     <string name="coathanger">Galge</string>
     <string name="printer">Skrivare</string>
     <string name="shareandroid">Tre anslutna prickar</string>
-    <string name="finn_branded_verify_id_button">Verifiera med BankID</string>
-    <string name="dba_branded_verify_id_button">Bekräfta med MitID</string>
-    <string name="blocket_branded_verify_id_button">Verifiera med BankID</string>
-    <string name="tori_branded_verify_id_button">Verifiera med eID</string>
 </resources>
