@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDefaults
@@ -16,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpIconResources
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
@@ -51,85 +52,55 @@ fun WarpSnackbar(
         it.length > ACTION_NEW_LINE_THRESHOLD // TODO FK: agree on the threshold
     } ?: false
 
-    val messageTypography = typography.body
-    val actionTypography = typography.bodyStrong
-
-    val customContentComposable: (@Composable () -> Unit)? = if (icon != null) {
-        @Composable {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = contentColor
-                )
-                Spacer(modifier = Modifier.width(WarpTheme.dimensions.space2))
-                Text(
-                    text = snackbarData.visuals.message,
-                    style = messageTypography,
-                    color = contentColor
-                )
-            }
-        }
-    } else null
-
-    if (customContentComposable != null) {
-        // When using the custom content overload, Material3's Snackbar doesn't auto-generate
-        // action/dismiss buttons from SnackbarData. We must manually create them to preserve
-        // functionality while injecting our custom icon into the message content.
-        Snackbar(
-            modifier = modifier,
-            action = snackbarData.visuals.actionLabel?.let { label ->
-                @Composable {
-                    TextButton(
-                        onClick = { snackbarData.performAction() }
-                    ) {
-                        Text(
-                            text = label,
-                            style = actionTypography,
-                            color = actionColor
-                        )
-                    }
+    Snackbar(
+        modifier = modifier,
+        action = snackbarData.visuals.actionLabel?.let { label ->
+            @Composable {
+                TextButton(
+                    onClick = { snackbarData.performAction() }
+                ) {
+                    Text(
+                        text = label,
+                        style = typography.bodyStrong,
+                        color = actionColor
+                    )
                 }
-            },
-            dismissAction = if (snackbarData.visuals.withDismissAction) {
+            }
+        },
+        dismissAction = if (snackbarData.visuals.withDismissAction) {
             @Composable {
                 IconButton(
                     onClick = { snackbarData.dismiss() }
                 ) {
                     Icon(
                         imageVector = WarpIconResources.close.vector,
-                        contentDescription = "Dismiss", // TODO FK: add accessibility string
+                        contentDescription = stringResource(R.string.close),
                         tint = contentColor
                     )
                 }
             }
         } else null,
-            actionOnNewLine = actionOnNewLine,
-            shape = shape,
-            containerColor = containerColor,
-            contentColor = contentColor,
-            dismissActionContentColor = contentColor,
-            content = customContentComposable
-        )
-    } else {
-        // Apply WarpTypography to the Snackbar
-        MaterialTheme(
-            typography = MaterialTheme.typography.copy(
-                bodyMedium = messageTypography,
-                labelLarge = actionTypography
-            )
+        actionOnNewLine = actionOnNewLine,
+        shape = shape,
+        containerColor = containerColor,
+        contentColor = contentColor,
+        dismissActionContentColor = contentColor,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Snackbar(
-                snackbarData = snackbarData,
-                modifier = modifier,
-                actionOnNewLine = actionOnNewLine,
-                shape = shape,
-                containerColor = containerColor,
-                contentColor = contentColor,
-                actionColor = actionColor,
-                dismissActionContentColor = contentColor,
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = contentColor
+                )
+                Spacer(modifier = Modifier.width(WarpTheme.dimensions.space2))
+            }
+            Text(
+                text = snackbarData.visuals.message,
+                style = typography.body,
+                color = contentColor
             )
         }
     }

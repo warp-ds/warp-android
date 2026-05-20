@@ -56,7 +56,7 @@ fun SnackbarScreenContent() {
         ) {
             WarpButton(
                 modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Neutral w/dismiss icon",
+                text = "Neutral w/dismiss button",
                 onClick = {
                     showSnackbar(
                         snackbarHostState = snackbarHostState,
