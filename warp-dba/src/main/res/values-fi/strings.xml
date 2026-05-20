@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dba_verify_identity_button">Tunnistaudu MitID:llä</string>
+</resources>

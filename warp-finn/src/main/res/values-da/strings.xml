@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="finn_verify_identity_button">Valider med BankID</string>
+</resources>
