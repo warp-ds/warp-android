@@ -2,18 +2,17 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
-import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.schibsted.nmp.warp.R
@@ -34,26 +33,24 @@ private const val ACTION_NEW_LINE_THRESHOLD = 10
  *
  * @param snackbarData Data about the snackbar, including text and action label.
  * @param modifier Modifier for the snackbar.
- * @param actionColor The text color for the action button.
  */
 @Composable
 fun WarpSnackbar(
     modifier: Modifier = Modifier,
-    snackbarData: SnackbarData,
-    actionColor: Color = WarpTheme.colors.text.default,
+    snackbarData: SnackbarData
 ) {
     val warpVisuals = snackbarData.visuals as? WarpSnackbarVisuals
 
     val icon = warpVisuals?.type?.toIcon()
-    val shape = SnackbarDefaults.shape
-    val contentColor = WarpTheme.colors.text.default
-    val containerColor = WarpTheme.colors.background.default
+    val shape = WarpTheme.shapes.roundedMedium
+    val contentColor = WarpTheme.colors.text.invertedStatic
+    val containerColor = WarpTheme.colors.components.tooltip.backgroundStatic
     val actionOnNewLine = snackbarData.visuals.actionLabel?.let {
-        it.length > ACTION_NEW_LINE_THRESHOLD // TODO FK: agree on the threshold
+        it.length > ACTION_NEW_LINE_THRESHOLD
     } ?: false
 
     Snackbar(
-        modifier = modifier,
+        modifier = modifier.padding(WarpTheme.dimensions.space05),
         action = snackbarData.visuals.actionLabel?.let { label ->
             @Composable {
                 TextButton(
@@ -62,7 +59,7 @@ fun WarpSnackbar(
                     Text(
                         text = label,
                         style = typography.bodyStrong,
-                        color = actionColor
+                        color = contentColor
                     )
                 }
             }
@@ -95,7 +92,7 @@ fun WarpSnackbar(
                     contentDescription = null,
                     tint = contentColor
                 )
-                Spacer(modifier = Modifier.width(WarpTheme.dimensions.space2))
+                Spacer(modifier = Modifier.width(WarpTheme.dimensions.space15))
             }
             Text(
                 text = snackbarData.visuals.message,
