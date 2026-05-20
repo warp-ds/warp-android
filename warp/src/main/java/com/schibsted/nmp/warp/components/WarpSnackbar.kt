@@ -3,11 +3,6 @@ package com.schibsted.nmp.warp.components
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.schibsted.nmp.warp.theme.WarpIconResources
 import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
 
@@ -52,7 +48,7 @@ fun WarpSnackbar(
     val contentColor = WarpTheme.colors.text.default
     val containerColor = WarpTheme.colors.background.default
     val actionOnNewLine = snackbarData.visuals.actionLabel?.let {
-        it.length > ACTION_NEW_LINE_THRESHOLD
+        it.length > ACTION_NEW_LINE_THRESHOLD // TODO FK: agree on the threshold
     } ?: false
 
     val messageTypography = typography.body
@@ -103,7 +99,7 @@ fun WarpSnackbar(
                     onClick = { snackbarData.dismiss() }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Close,
+                        imageVector = WarpIconResources.close.vector,
                         contentDescription = "Dismiss", // TODO FK: add accessibility string
                         tint = contentColor
                     )
@@ -139,10 +135,11 @@ fun WarpSnackbar(
     }
 }
 
+@Composable
 private fun WarpSnackbarType.toIcon(): ImageVector? = when (this) {
-    WarpSnackbarType.SUCCESS -> Icons.Default.CheckCircle
-    WarpSnackbarType.ERROR -> Icons.Default.Warning
-    WarpSnackbarType.WARNING -> Icons.Default.Warning
-    WarpSnackbarType.INFO -> Icons.Default.Info
+    WarpSnackbarType.SUCCESS -> WarpIconResources.success.vector
+    WarpSnackbarType.ERROR -> WarpIconResources.error.vector
+    WarpSnackbarType.WARNING -> WarpIconResources.warning.vector
+    WarpSnackbarType.INFO -> WarpIconResources.info.vector
     WarpSnackbarType.NEUTRAL -> null
 }
