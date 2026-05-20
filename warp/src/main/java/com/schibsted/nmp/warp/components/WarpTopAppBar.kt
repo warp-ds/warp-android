@@ -29,6 +29,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -86,12 +87,10 @@ fun WarpTopAppBar(
     )
 
     // Auto-create scroll behavior if search is present and none provided
-    val effectiveScrollBehavior = remember(searchConfig, scrollBehavior) {
-        if (searchConfig != null && scrollBehavior == null) {
-            TopAppBarDefaults.enterAlwaysScrollBehavior()
-        } else {
-            scrollBehavior
-        }
+    val effectiveScrollBehavior = if (searchConfig != null && scrollBehavior == null) {
+        TopAppBarDefaults.enterAlwaysScrollBehavior()
+    } else {
+        scrollBehavior
     }
 
     Column(modifier = modifier) {
