@@ -13,6 +13,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
@@ -41,7 +42,7 @@ fun WarpSnackbar(
 ) {
     val warpVisuals = snackbarData.visuals as? WarpSnackbarVisuals
 
-    val icon = warpVisuals?.type?.toWarpIcon()
+    val icon = warpVisuals?.type?.toIconResource()
     val shape = WarpTheme.shapes.roundedMedium
     val contentColor = WarpTheme.colors.text.invertedStatic
     val containerColor = WarpTheme.colors.components.tooltip.backgroundStatic
@@ -89,7 +90,7 @@ fun WarpSnackbar(
             if (icon != null) {
                 WarpIcon(
                     icon = icon,
-                    color = WarpTheme.colors.icon.warning, // TODO FK: get color from type
+                    color = warpVisuals.type.toIconColor(),
                     size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
                 )
                 Spacer(modifier = Modifier.width(WarpTheme.dimensions.space15))
@@ -104,10 +105,19 @@ fun WarpSnackbar(
 }
 
 @Composable
-private fun WarpSnackbarType.toWarpIcon(): WarpIconResource? = when (this) {
+private fun WarpSnackbarType.toIconResource(): WarpIconResource? = when (this) {
     WarpSnackbarType.SUCCESS -> WarpIconResources.success
     WarpSnackbarType.ERROR -> WarpIconResources.error
     WarpSnackbarType.WARNING -> WarpIconResources.warning
     WarpSnackbarType.INFO -> WarpIconResources.info
     WarpSnackbarType.NEUTRAL -> null
+}
+
+@Composable
+private fun WarpSnackbarType.toIconColor(): Color = when (this) {
+    WarpSnackbarType.SUCCESS -> WarpTheme.colors.icon.positive
+    WarpSnackbarType.ERROR -> WarpTheme.colors.icon.negative
+    WarpSnackbarType.WARNING -> WarpTheme.colors.icon.warning
+    WarpSnackbarType.INFO -> WarpTheme.colors.icon.info
+    WarpSnackbarType.NEUTRAL -> WarpTheme.colors.icon.invertedStatic
 }
