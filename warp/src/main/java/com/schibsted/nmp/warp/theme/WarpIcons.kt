@@ -2055,6 +2055,13 @@ object WarpIconResources {
             stringResource(R.string.warning)
         )
 
+    val warningFilled: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_warning_filled),
+            stringResource(R.string.warning)
+        )
+
     val warranty: WarpIconResource
         @Composable
         get() = WarpIconResource(

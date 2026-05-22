@@ -90,7 +90,14 @@ fun WarpSnackbar(
             if (icon != null) {
                 WarpIcon(
                     icon = icon,
-                    color = warpVisuals.type.toIconColor(),
+                    color = with (warpVisuals.type) {
+                        if (this == WarpSnackbarType.WARNING) {
+                            // TODO FK: WIP workaround for multi path icons
+                            Color.Unspecified
+                        } else {
+                            this.toIconColor()
+                        }
+                    },
                     size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
                 )
                 Spacer(modifier = Modifier.width(WarpTheme.dimensions.space15))
@@ -108,7 +115,7 @@ fun WarpSnackbar(
 private fun WarpSnackbarType.toIconResource(): WarpIconResource? = when (this) {
     WarpSnackbarType.SUCCESS -> WarpIconResources.success
     WarpSnackbarType.ERROR -> WarpIconResources.error
-    WarpSnackbarType.WARNING -> WarpIconResources.warning
+    WarpSnackbarType.WARNING -> WarpIconResources.warningFilled
     WarpSnackbarType.INFO -> WarpIconResources.info
     WarpSnackbarType.NEUTRAL -> null
 }
