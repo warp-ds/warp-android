@@ -10,7 +10,11 @@ data class WarpSnackbarVisuals(
     override val message: String,
     override val actionLabel: String? = null,
     override val withDismissAction: Boolean = true,
-    override val duration: SnackbarDuration = SnackbarDuration.Short,
+    override val duration: SnackbarDuration = if (actionLabel.isNullOrEmpty()) {
+        SnackbarDuration.Short
+    } else {
+        SnackbarDuration.Long
+    },
     val type: WarpSnackbarType = WarpSnackbarType.NEUTRAL,
 ) : SnackbarVisuals
 

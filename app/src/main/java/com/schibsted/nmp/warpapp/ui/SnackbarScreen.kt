@@ -58,10 +58,11 @@ fun SnackbarScreenContent() {
                 modifier = Modifier.padding(bottom = dimensions.space2),
                 text = "Neutral w/dismiss button",
                 onClick = {
-                    showSnackbar(
+                    showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "This is a neutral message",
+                        message = "This should have short duration",
+                        type = WarpSnackbarType.NEUTRAL
                     )
                 })
             WarpButton(
@@ -74,9 +75,7 @@ fun SnackbarScreenContent() {
                         message = "Successfully saved",
                         type = WarpSnackbarType.SUCCESS,
                         actionLabel = "OK",
-                        withDismissAction = false,
-                        duration = SnackbarDuration.Indefinite
-
+                        withDismissAction = false
                     )
                 })
             WarpButton(
@@ -109,43 +108,25 @@ fun SnackbarScreenContent() {
                     showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "New features available",
+                        message = "This should have long duration",
                         type = WarpSnackbarType.INFO,
                         actionLabel = "View"
                     )
                 })
             WarpButton(
                 modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Info w/long action & duration",
+                text = "Info indefinite w/long action",
                 onClick = {
                     showWarpSnackbar(
                         snackbarHostState = snackbarHostState,
                         scope = scope,
-                        message = "New features available",
+                        message = "This should be indefinite",
                         type = WarpSnackbarType.INFO,
                         actionLabel = "View details",
-                        duration = SnackbarDuration.Long
+                        duration = SnackbarDuration.Indefinite
                     )
                 })
         }
-    }
-}
-
-fun showSnackbar(
-    snackbarHostState: SnackbarHostState,
-    scope: CoroutineScope,
-    message: String,
-    actionLabel: String? = null,
-    withDismissAction: Boolean = true,
-    duration: SnackbarDuration = SnackbarDuration.Short,
-) {
-    scope.launch {
-        snackbarHostState.showSnackbar(
-            message = message,
-            withDismissAction = withDismissAction,
-            actionLabel = actionLabel,
-            duration = duration
-        )
     }
 }
 
@@ -156,17 +137,28 @@ fun showWarpSnackbar(
     type: WarpSnackbarType,
     actionLabel: String? = null,
     withDismissAction: Boolean = true,
-    duration: SnackbarDuration = SnackbarDuration.Short,
+    duration: SnackbarDuration? = null,
 ) {
     scope.launch {
-        snackbarHostState.showSnackbar(
-            WarpSnackbarVisuals(
-                message = message,
-                type = type,
-                actionLabel = actionLabel,
-                withDismissAction = withDismissAction,
-                duration = duration
+        if (duration != null) {
+            snackbarHostState.showSnackbar(
+                WarpSnackbarVisuals(
+                    message = message,
+                    type = type,
+                    actionLabel = actionLabel,
+                    withDismissAction = withDismissAction,
+                    duration = duration
+                )
             )
-        )
+        } else {
+            snackbarHostState.showSnackbar(
+                WarpSnackbarVisuals(
+                    message = message,
+                    type = type,
+                    actionLabel = actionLabel,
+                    withDismissAction = withDismissAction
+                )
+            )
+        }
     }
 }
