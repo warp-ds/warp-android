@@ -44,7 +44,8 @@ fun WarpSnackbar(
 
     val icon = warpVisuals?.type?.toIconResource()
     val shape = WarpTheme.shapes.roundedMedium
-    val contentColor = WarpTheme.colors.text.invertedStatic
+    val textContentColor = WarpTheme.colors.text.invertedStatic
+    val iconContentColor = WarpTheme.colors.icon.invertedStatic
     val containerColor = WarpTheme.colors.components.tooltip.backgroundStatic
     val actionOnNewLine = snackbarData.visuals.actionLabel?.let {
         it.length > ACTION_NEW_LINE_THRESHOLD
@@ -60,7 +61,7 @@ fun WarpSnackbar(
                     Text(
                         text = label,
                         style = WarpTheme.typography.bodyStrong,
-                        color = contentColor
+                        color = textContentColor
                     )
                 }
             }
@@ -73,7 +74,7 @@ fun WarpSnackbar(
                     Icon(
                         imageVector = WarpIconResources.close.vector,
                         contentDescription = stringResource(R.string.close),
-                        tint = contentColor
+                        tint = iconContentColor
                     )
                 }
             }
@@ -81,8 +82,8 @@ fun WarpSnackbar(
         actionOnNewLine = actionOnNewLine,
         shape = shape,
         containerColor = containerColor,
-        contentColor = contentColor,
-        dismissActionContentColor = contentColor,
+        contentColor = textContentColor,
+        dismissActionContentColor = iconContentColor,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -91,12 +92,7 @@ fun WarpSnackbar(
                 WarpIcon(
                     icon = icon,
                     color = with (warpVisuals.type) {
-                        if (this == WarpSnackbarType.WARNING) {
-                            // TODO FK: WIP workaround for multi path icons
-                            Color.Unspecified
-                        } else {
-                            this.toIconColor()
-                        }
+                        this.toIconColor()
                     },
                     size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
                 )
@@ -105,7 +101,7 @@ fun WarpSnackbar(
             Text(
                 text = snackbarData.visuals.message,
                 style = WarpTheme.typography.body,
-                color = contentColor
+                color = textContentColor
             )
         }
     }
@@ -113,10 +109,10 @@ fun WarpSnackbar(
 
 @Composable
 private fun WarpSnackbarType.toIconResource(): WarpIconResource? = when (this) {
-    WarpSnackbarType.SUCCESS -> WarpIconResources.success
-    WarpSnackbarType.ERROR -> WarpIconResources.error
+    WarpSnackbarType.SUCCESS -> WarpIconResources.successFilled
+    WarpSnackbarType.ERROR -> WarpIconResources.errorFilled
     WarpSnackbarType.WARNING -> WarpIconResources.warningFilled
-    WarpSnackbarType.INFO -> WarpIconResources.info
+    WarpSnackbarType.INFO -> WarpIconResources.infoFilled
     WarpSnackbarType.NEUTRAL -> null
 }
 

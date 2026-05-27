@@ -825,6 +825,13 @@ object WarpIconResources {
             stringResource(R.string.error)
         )
 
+    val errorFilled: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_error_filled_transparent),
+            stringResource(R.string.error)
+        )
+
     val exchange: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1100,6 +1107,13 @@ object WarpIconResources {
         @Composable
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_info),
+            stringResource(R.string.info)
+        )
+
+    val infoFilled: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_info_filled_transparent),
             stringResource(R.string.info)
         )
 
@@ -1815,6 +1829,14 @@ object WarpIconResources {
             stringResource(R.string.success)
         )
 
+    val successFilled: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_success_filled_transparent),
+            stringResource(R.string.success)
+        )
+
+
     val suitcase: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -2058,7 +2080,7 @@ object WarpIconResources {
     val warningFilled: WarpIconResource
         @Composable
         get() = WarpIconResource(
-            ImageVector.vectorResource(id = R.drawable.warp_warning_filled),
+            ImageVector.vectorResource(id = R.drawable.warp_warning_filled_transparent),
             stringResource(R.string.warning)
         )
 
