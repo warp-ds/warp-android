@@ -19,10 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.role
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
@@ -91,28 +88,24 @@ fun WarpSnackbar(
         containerColor = containerColor,
         contentColor = textContentColor,
         dismissActionContentColor = iconContentColor,
-    ) {
+    ) {1
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (iconSpec != null) {
                 Box(
-                    modifier = Modifier
-                        .size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
-                        .semantics(mergeDescendants = true) {
-                            role = Role.Image
-                            contentDescription = iconSpec.iconBackgroundResource.description
-                        },
+                    modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default)),
                     contentAlignment = Alignment.Center
                 ) {
                     WarpIcon(
+                        modifier = Modifier.clearAndSetSemantics { },
                         icon = iconSpec.iconBackgroundResource,
                         color = iconSpec.iconBackgroundColor,
                         size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
                     )
                     Icon(
                         imageVector = ImageVector.vectorResource(id = iconSpec.iconForegroundResource),
-                        contentDescription = null, // Handled by parent Box
+                        contentDescription = iconSpec.iconBackgroundResource.description,
                         tint = iconSpec.iconForegroundColor,
                         modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
                     )
