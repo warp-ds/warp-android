@@ -1,8 +1,10 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -14,14 +16,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpIconResources
 import com.schibsted.nmp.warp.theme.WarpTheme
 
-// TODO: Threshold value is WIP
 private const val ACTION_NEW_LINE_THRESHOLD = 10
 
 /**
@@ -42,7 +48,7 @@ fun WarpSnackbar(
 ) {
     val warpVisuals = snackbarData.visuals as? WarpSnackbarVisuals
 
-    val icon = warpVisuals?.type?.toIconResource()
+    val iconSpec = warpVisuals?.type?.toSnackbarIconSpec()
     val shape = WarpTheme.shapes.roundedMedium
     val textContentColor = WarpTheme.colors.text.invertedStatic
     val iconContentColor = WarpTheme.colors.icon.invertedStatic
@@ -88,14 +94,30 @@ fun WarpSnackbar(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (icon != null) {
-                WarpIcon(
-                    icon = icon,
-                    color = with (warpVisuals.type) {
-                        this.toIconColor()
-                    },
-                    size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
-                )
+            if (iconSpec != null) {
+                Box(
+                    modifier = Modifier
+                        .size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
+                        .semantics {
+                            contentDescription = iconSpec.iconBackgroundResource.description
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    WarpIcon(
+                        modifier = Modifier.clearAndSetSemantics { },
+                        icon = iconSpec.iconBackgroundResource,
+                        color = iconSpec.iconBackgroundColor,
+                        size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
+                    )
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = iconSpec.iconForegroundResource),
+                        contentDescription = null,
+                        tint = iconSpec.iconForegroundColor,
+                        modifier = Modifier
+                            .size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
+                            .clearAndSetSemantics { }
+                    )
+                }
                 Spacer(modifier = Modifier.width(WarpTheme.dimensions.space15))
             }
             Text(
@@ -108,19 +130,51 @@ fun WarpSnackbar(
 }
 
 @Composable
-private fun WarpSnackbarType.toIconResource(): WarpIconResource? = when (this) {
-    WarpSnackbarType.SUCCESS -> WarpIconResources.successFilled
-    WarpSnackbarType.ERROR -> WarpIconResources.errorFilled
-    WarpSnackbarType.WARNING -> WarpIconResources.warningFilled
-    WarpSnackbarType.INFO -> WarpIconResources.infoFilled
-    WarpSnackbarType.NEUTRAL -> null
+private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
+    val iconForegroundColor = WarpTheme.colors.icon.invertedStatic
+    return when (this) {
+        WarpSnackbarType.SUCCESS -> {
+            WarpSnackbarIconSpec(
+                iconBackgroundResource = WarpIconResources.successFilled,
+                iconBackgroundColor = WarpTheme.colors.icon.positive,
+                iconForegroundResource = R.drawable.warp_success_checkmark_foreground,
+                iconForegroundColor = iconForegroundColor
+            )
+        }
+        WarpSnackbarType.ERROR -> {
+            WarpSnackbarIconSpec(
+                iconBackgroundResource = WarpIconResources.errorFilled,
+                iconBackgroundColor = WarpTheme.colors.icon.negative,
+                iconForegroundResource = R.drawable.warp_error_exclamation_foreground,
+                iconForegroundColor = iconForegroundColor
+            )
+        }
+        WarpSnackbarType.WARNING -> {
+            WarpSnackbarIconSpec(
+                iconBackgroundResource = WarpIconResources.warningFilled,
+                iconBackgroundColor = WarpTheme.colors.icon.warning,
+                iconForegroundResource = R.drawable.warp_warning_exclamation_foreground,
+                iconForegroundColor = iconForegroundColor
+            )
+        }
+        WarpSnackbarType.INFO -> {
+            WarpSnackbarIconSpec(
+                iconBackgroundResource = WarpIconResources.infoFilled,
+                iconBackgroundColor = WarpTheme.colors.icon.info,
+                iconForegroundResource = R.drawable.warp_info_letter_foreground,
+                iconForegroundColor = iconForegroundColor
+            )
+        }
+        WarpSnackbarType.NEUTRAL -> {
+            null
+        }
+    }
 }
 
-@Composable
-private fun WarpSnackbarType.toIconColor(): Color = when (this) {
-    WarpSnackbarType.SUCCESS -> WarpTheme.colors.icon.positive
-    WarpSnackbarType.ERROR -> WarpTheme.colors.icon.negative
-    WarpSnackbarType.WARNING -> WarpTheme.colors.icon.warning
-    WarpSnackbarType.INFO -> WarpTheme.colors.icon.info
-    WarpSnackbarType.NEUTRAL -> WarpTheme.colors.icon.invertedStatic
-}
+// Workaround for tinting multiple SVG paths in a "single" icon
+private data class WarpSnackbarIconSpec(
+    val iconBackgroundResource: WarpIconResource,
+    val iconBackgroundColor: Color,
+    val iconForegroundResource: Int,
+    val iconForegroundColor: Color
+)
