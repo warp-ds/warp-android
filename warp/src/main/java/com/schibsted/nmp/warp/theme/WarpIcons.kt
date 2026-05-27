@@ -1024,6 +1024,13 @@ object WarpIconResources {
             stringResource(R.string.heart)
         )
 
+    val heartFilled: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_heartfilled),
+            stringResource(R.string.heartfilled)
+        )
+
     val heartRate: WarpIconResource
         @Composable
         get() = WarpIconResource(

@@ -181,6 +181,7 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.guitar, size)
     CreateIcon(icons.headset, size)
     CreateIcon(icons.heart, size)
+    CreateIcon(icons.heartFilled, size)
     CreateIcon(icons.heartRate, size)
     CreateIcon(icons.hiking, size)
     CreateIcon(icons.history, size)
