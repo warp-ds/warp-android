@@ -19,8 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
@@ -98,24 +99,22 @@ fun WarpSnackbar(
                 Box(
                     modifier = Modifier
                         .size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
-                        .semantics {
+                        .semantics(mergeDescendants = true) {
+                            role = Role.Image
                             contentDescription = iconSpec.iconBackgroundResource.description
                         },
                     contentAlignment = Alignment.Center
                 ) {
                     WarpIcon(
-                        modifier = Modifier.clearAndSetSemantics { },
                         icon = iconSpec.iconBackgroundResource,
                         color = iconSpec.iconBackgroundColor,
                         size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
                     )
                     Icon(
                         imageVector = ImageVector.vectorResource(id = iconSpec.iconForegroundResource),
-                        contentDescription = null,
+                        contentDescription = null, // Handled by parent Box
                         tint = iconSpec.iconForegroundColor,
-                        modifier = Modifier
-                            .size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
-                            .clearAndSetSemantics { }
+                        modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
                     )
                 }
                 Spacer(modifier = Modifier.width(WarpTheme.dimensions.space15))
