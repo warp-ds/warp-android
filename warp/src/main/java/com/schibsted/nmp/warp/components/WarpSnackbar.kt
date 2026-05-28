@@ -33,8 +33,7 @@ private const val ACTION_NEW_LINE_THRESHOLD = 10
  * Snackbars provide brief messages about app processes at the bottom of the screen.
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/snackbar/)
  *
- * The action button is automatically placed on a new line when the action text
- * exceeds a certain character length threshold.
+ * The action button is automatically placed on a new line when the action text exceeds 10 chars.
  *
  * @param snackbarData Data about the snackbar, including text and action label.
  * @param modifier Modifier for the snackbar.
@@ -93,6 +92,8 @@ fun WarpSnackbar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (iconSpec != null) {
+                // Given the constraint of not being able to programmatically tint vector paths
+                // individually, we're layering Icon composables in a Box instead.
                 Box(
                     modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default)),
                     contentAlignment = Alignment.Center
