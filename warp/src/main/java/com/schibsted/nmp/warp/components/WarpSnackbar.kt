@@ -88,7 +88,7 @@ fun WarpSnackbar(
         containerColor = containerColor,
         contentColor = textContentColor,
         dismissActionContentColor = iconContentColor,
-    ) {1
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
