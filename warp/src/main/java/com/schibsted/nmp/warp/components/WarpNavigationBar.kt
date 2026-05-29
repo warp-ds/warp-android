@@ -17,7 +17,8 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
  * Represents a single item in a [WarpNavigationBar] bar.
  *
  * @param label Text label displayed below the icon.
- * @param icon Composable icon slot receiving the active [Color] — use [WarpIcon] with the provided color.
+ * @param icon Composable icon slot receiving the active [Color] and [isSelected] state.
+ *   Use [WarpIcon] with the provided color, and switch between filled/outline variants based on [isSelected].
  *   For avatar images that don't tint, ignore the color parameter.
  * @param badgeCount Number to display in the badge. 0 means no badge. Must be >= 0.
  * @param showDot True to show a dot badge (no number). Ignored if [badgeCount] > 0.
@@ -25,7 +26,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
  */
 data class WarpNavItem(
     val label: String,
-    val icon: @Composable (color: Color) -> Unit,
+    val icon: @Composable (color: Color, isSelected: Boolean) -> Unit,
     val badgeCount: Int = 0,
     val showDot: Boolean = false,
     val contentDescription: String
@@ -86,13 +87,13 @@ fun WarpNavigationBar(
                             }
                         }
                     ) {
-                        item.icon(iconColor)
+                        item.icon(iconColor, isSelected)
                     }
                 },
                 label = {
                     WarpText(
                         text = item.label,
-                        style = WarpTextStyle.Detail,
+                        style = if (isSelected) WarpTextStyle.DetailStrong else WarpTextStyle.Detail,
                         color = iconColor
                     )
                 },
@@ -109,11 +110,11 @@ fun WarpNavigationBar(
 fun WarpNavigationBarPreview() {
     WarpNavigationBar(
         items = listOf(
-            WarpNavItem("Home", { }, contentDescription = "Home"),
-            WarpNavItem("Ad", { }, contentDescription = "Create ad"),
-            WarpNavItem("Alerts", { }, showDot = true, contentDescription = "Notifications"),
-            WarpNavItem("Messages", { }, badgeCount = 3, contentDescription = "Messages"),
-            WarpNavItem("My Page", { }, contentDescription = "My page"),
+            WarpNavItem("Home", { _, _ -> }, contentDescription = "Home"),
+            WarpNavItem("Ad", { _, _ -> }, contentDescription = "Create ad"),
+            WarpNavItem("Alerts", { _, _ -> }, showDot = true, contentDescription = "Notifications"),
+            WarpNavItem("Messages", { _, _ -> }, badgeCount = 3, contentDescription = "Messages"),
+            WarpNavItem("My Page", { _, _ -> }, contentDescription = "My page"),
         ),
         selectedIndex = 0,
         onItemSelected = {}
