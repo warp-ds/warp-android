@@ -27,15 +27,16 @@ object WarpSnackbarScenarios {
         )
 
     val positive = WarpSnackbarScenario(
-        name = "Success w/action to dismiss",
+        name = "Positive w/action to dismiss",
         message = "Successfully saved",
         type = WarpSnackbarType.Positive,
         actionLabel = "OK",
-        withDismissAction = false
+        withDismissAction = false,
+        duration = SnackbarDuration.Long
     )
 
     val negativeMultiline = WarpSnackbarScenario(
-        name = "Error multiline no action",
+        name = "Negative multiline no action",
         message = "Something went wrong. Hang in there while we work things out.",
         type = WarpSnackbarType.Negative
     )
@@ -44,7 +45,8 @@ object WarpSnackbarScenarios {
         name = "Warning w/long action & text",
         message = "This action cannot be undone and will permanently delete all your data",
         type = WarpSnackbarType.Warning,
-        actionLabel = "Let's do it!"
+        actionLabel = "Let's do it!",
+        duration = SnackbarDuration.Long
     )
 
     val infoShortAction = WarpSnackbarScenario(
