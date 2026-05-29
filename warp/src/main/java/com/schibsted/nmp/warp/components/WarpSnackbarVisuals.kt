@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarVisuals
+import com.schibsted.nmp.warp.theme.WarpIconResource
 
 /**
  * Custom SnackbarVisuals for Warp that includes a type for displaying icons.
@@ -15,13 +16,14 @@ data class WarpSnackbarVisuals(
     } else {
         SnackbarDuration.Long
     },
-    val type: WarpSnackbarType = WarpSnackbarType.NEUTRAL,
+    val type: WarpSnackbarType = WarpSnackbarType.Neutral(),
 ) : SnackbarVisuals
 
-enum class WarpSnackbarType {
-    NEUTRAL,
-    POSITIVE,
-    NEGATIVE,
-    WARNING,
-    INFO
+sealed class WarpSnackbarType {
+    data object Positive : WarpSnackbarType()
+    data object Negative : WarpSnackbarType()
+    data object Warning : WarpSnackbarType()
+    data object Info : WarpSnackbarType()
+    data class Neutral(val customIcon: WarpIconResource? = null) : WarpSnackbarType()
 }
+

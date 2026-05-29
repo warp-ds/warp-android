@@ -60,8 +60,10 @@ fun SnackbarScreenContent() {
     var customBodyText by remember { mutableStateOf("") }
     var customActionText by remember { mutableStateOf("") }
     var customDismissable by remember { mutableStateOf(true) }
-    var customType by remember { mutableStateOf(WarpSnackbarType.NEUTRAL.name) }
+    var customType by remember { mutableStateOf("Neutral") }
     var customDuration by remember { mutableStateOf(SnackbarDuration.Short.name) }
+
+    val snackbarTypes = listOf("Neutral", "Positive", "Negative", "Warning", "Info")
 
     WarpScaffold(
         snackbarHost = {
@@ -156,7 +158,7 @@ fun SnackbarScreenContent() {
                         value = customType,
                         onValueChange = { customType = it },
                         label = "Type",
-                        items = WarpSnackbarType.entries.map { it.name },
+                        items = snackbarTypes,
                         modifier = Modifier.fillMaxWidth()
                     )
 
@@ -198,13 +200,20 @@ fun SnackbarScreenContent() {
                         WarpButton(
                             text = "Confirm",
                             onClick = {
+                                val type = when (customType) {
+                                    "Positive" -> WarpSnackbarType.Positive
+                                    "Negative" -> WarpSnackbarType.Negative
+                                    "Warning" -> WarpSnackbarType.Warning
+                                    "Info" -> WarpSnackbarType.Info
+                                    else -> WarpSnackbarType.Neutral()
+                                }
                                 scope.launch {
                                     snackbarHostState.showSnackbar(
                                         WarpSnackbarVisuals(
                                             message = customBodyText,
                                             actionLabel = customActionText.takeIf { it.isNotEmpty() },
                                             withDismissAction = customDismissable,
-                                            type = WarpSnackbarType.valueOf(customType),
+                                            type = type,
                                             duration = SnackbarDuration.valueOf(customDuration)
                                         )
                                     )

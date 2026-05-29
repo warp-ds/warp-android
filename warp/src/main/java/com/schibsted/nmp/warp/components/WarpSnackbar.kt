@@ -104,12 +104,14 @@ fun WarpSnackbar(
                         color = iconSpec.iconBackgroundColor,
                         size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
                     )
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = iconSpec.iconForegroundResource),
-                        contentDescription = iconSpec.iconBackgroundResource.description,
-                        tint = iconSpec.iconForegroundColor,
-                        modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
-                    )
+                    iconSpec.iconForegroundResource?.let { foregroundRes ->
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = foregroundRes),
+                            contentDescription = iconSpec.iconBackgroundResource.description,
+                            tint = iconSpec.iconForegroundColor ?: iconContentColor,
+                            modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.width(WarpTheme.dimensions.space15))
             }
@@ -126,7 +128,7 @@ fun WarpSnackbar(
 private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
     val iconForegroundColor = WarpTheme.colors.icon.invertedStatic
     return when (this) {
-        WarpSnackbarType.POSITIVE -> {
+        is WarpSnackbarType.Positive -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.successFilled,
                 iconBackgroundColor = WarpTheme.colors.icon.positive,
@@ -134,7 +136,7 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
-        WarpSnackbarType.NEGATIVE -> {
+        is WarpSnackbarType.Negative -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.errorFilled,
                 iconBackgroundColor = WarpTheme.colors.icon.negative,
@@ -142,7 +144,7 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
-        WarpSnackbarType.WARNING -> {
+        is WarpSnackbarType.Warning -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.warningFilled,
                 iconBackgroundColor = WarpTheme.colors.icon.warning,
@@ -150,7 +152,7 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
-        WarpSnackbarType.INFO -> {
+        is WarpSnackbarType.Info -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.infoFilled,
                 iconBackgroundColor = WarpTheme.colors.icon.info,
@@ -158,8 +160,13 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
-        WarpSnackbarType.NEUTRAL -> {
-            null
+        is WarpSnackbarType.Neutral -> {
+            customIcon?.let {
+                WarpSnackbarIconSpec(
+                    iconBackgroundResource = it,
+                    iconBackgroundColor = WarpTheme.colors.icon.invertedStatic
+                )
+            }
         }
     }
 }
@@ -168,6 +175,6 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
 private data class WarpSnackbarIconSpec(
     val iconBackgroundResource: WarpIconResource,
     val iconBackgroundColor: Color,
-    val iconForegroundResource: Int,
-    val iconForegroundColor: Color
+    val iconForegroundResource: Int? = null,
+    val iconForegroundColor: Color? = null
 )

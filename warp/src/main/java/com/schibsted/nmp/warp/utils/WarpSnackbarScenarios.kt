@@ -1,6 +1,7 @@
 package com.schibsted.nmp.warp.utils
 
 import androidx.compose.material3.SnackbarDuration
+import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.components.WarpSnackbarType
 
 /**
@@ -17,16 +18,18 @@ data class WarpSnackbarScenario(
 )
 
 object WarpSnackbarScenarios {
-    val neutral = WarpSnackbarScenario(
-        name = "Neutral w/dismiss button",
-        message = "This should have short duration",
-        type = WarpSnackbarType.NEUTRAL
-    )
+    val neutral: WarpSnackbarScenario
+        @Composable
+        get() = WarpSnackbarScenario(
+            name = "Neutral w/dismiss button",
+            message = "This should have short duration",
+            type = WarpSnackbarType.Neutral()
+        )
 
     val positive = WarpSnackbarScenario(
         name = "Success w/action to dismiss",
         message = "Successfully saved",
-        type = WarpSnackbarType.POSITIVE,
+        type = WarpSnackbarType.Positive,
         actionLabel = "OK",
         withDismissAction = false
     )
@@ -34,20 +37,20 @@ object WarpSnackbarScenarios {
     val negativeMultiline = WarpSnackbarScenario(
         name = "Error multiline no action",
         message = "Something went wrong. Hang in there while we work things out.",
-        type = WarpSnackbarType.NEGATIVE
+        type = WarpSnackbarType.Negative
     )
 
     val warningLongAction = WarpSnackbarScenario(
         name = "Warning w/long action & text",
         message = "This action cannot be undone and will permanently delete all your data",
-        type = WarpSnackbarType.WARNING,
+        type = WarpSnackbarType.Warning,
         actionLabel = "Let's do it!"
     )
 
     val infoShortAction = WarpSnackbarScenario(
         name = "Info w/short action",
         message = "This should have long duration",
-        type = WarpSnackbarType.INFO,
+        type = WarpSnackbarType.Info,
         actionLabel = "View",
         duration = SnackbarDuration.Long
     )
@@ -55,17 +58,19 @@ object WarpSnackbarScenarios {
     val infoIndefinite = WarpSnackbarScenario(
         name = "Info indefinite w/long action",
         message = "This should be indefinite",
-        type = WarpSnackbarType.INFO,
+        type = WarpSnackbarType.Info,
         actionLabel = "View details",
         duration = SnackbarDuration.Indefinite
     )
 
-    val all = listOf(
-        neutral,
-        positive,
-        negativeMultiline,
-        warningLongAction,
-        infoShortAction,
-        infoIndefinite
-    )
+    val all: List<WarpSnackbarScenario>
+        @Composable
+        get() = listOf(
+            neutral,
+            positive,
+            negativeMultiline,
+            warningLongAction,
+            infoShortAction,
+            infoIndefinite
+        )
 }
