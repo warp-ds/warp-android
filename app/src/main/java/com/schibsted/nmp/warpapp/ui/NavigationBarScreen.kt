@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.components.WarpBottomNavItem
-import com.schibsted.nmp.warp.components.WarpBottomNavigation
+import com.schibsted.nmp.warp.components.WarpNavItem
+import com.schibsted.nmp.warp.components.WarpNavigationBar
 import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -24,42 +24,42 @@ import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 
 @Composable
-fun BottomNavigationScreen(onUp: () -> Unit) {
-    DetailsScaffold(title = "WarpBottomNavigation", onUp = onUp) {
-        BottomNavigationContent()
+fun NavigationBarScreen(onUp: () -> Unit) {
+    DetailsScaffold(title = "WarpNavigationBar", onUp = onUp) {
+        NavigationBarContent()
     }
 }
 
 @Composable
-private fun BottomNavigationContent() {
+private fun NavigationBarContent() {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
     val tabLabels = listOf("Home", "Create ad", "Notifications", "Messages", "My Page")
 
     val items = listOf(
-        WarpBottomNavItem(
+        WarpNavItem(
             label = "Home",
             icon = { WarpIcon(icon = icons.house) },
             contentDescription = "Home"
         ),
-        WarpBottomNavItem(
+        WarpNavItem(
             label = "Create ad",
             icon = { WarpIcon(icon = icons.plus) },
             contentDescription = "Create ad"
         ),
-        WarpBottomNavItem(
+        WarpNavItem(
             label = "Notifications",
             icon = { WarpIcon(icon = icons.bell) },
             showDot = true,
             contentDescription = "Notifications"
         ),
-        WarpBottomNavItem(
+        WarpNavItem(
             label = "Messages",
             icon = { WarpIcon(icon = icons.messages) },
             badgeCount = 4,
             contentDescription = "Messages"
         ),
-        WarpBottomNavItem(
+        WarpNavItem(
             label = "My Page",
             icon = { WarpIcon(icon = icons.user) },
             contentDescription = "My Page"
@@ -77,7 +77,7 @@ private fun BottomNavigationContent() {
             WarpText(text = "Selected: ${tabLabels[selectedIndex]}")
         }
 
-        WarpBottomNavigation(
+        WarpNavigationBar(
             modifier = Modifier.align(Alignment.BottomCenter),
             items = items,
             selectedIndex = selectedIndex,
@@ -88,10 +88,10 @@ private fun BottomNavigationContent() {
 
 @Preview
 @Composable
-internal fun BottomNavigationContentPreview(
+internal fun NavigationBarContentPreview(
     @PreviewParameter(FlavorPreviewProvider::class) flavor: String
 ) {
     BrandTheme(flavor = flavor).invoke {
-        BottomNavigationContent()
+        NavigationBarContent()
     }
 }
