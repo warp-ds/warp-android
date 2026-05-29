@@ -220,7 +220,9 @@ fun MainScreen() {
                 }
             }
             composable("topAppBarDemo") {
-                WarpTopAppBarDemoScreen()
+                WarpTopAppBarDemoScreen {
+                    navController.navigateUp()
+                }
             }
         }
     }
@@ -238,6 +240,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
         topBar = {
             WarpTopAppBar(
                 titleText = "Warp components",
+                titleCollapsible = true,
                 actions = {
                     IconButton(onClick = { menuVisible = !menuVisible }) {
                         WarpIcon(
@@ -277,6 +280,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
             LazyColumn(contentPadding = PaddingValues(dimensions.space1)) {
                 items(
                     listOf(
+                        "topAppBarDemo" to "WarpTopAppBar Demo",
                         "alert" to "WarpAlert",
                         "badges" to "WarpBadge",
                         "navigationBar" to "WarpNavigationBar",
@@ -307,7 +311,6 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "textField" to "WarpTextField",
                         "toast" to "WarpToast",
                         "tooltip" to "WarpTooltip",
-                        "topAppBarDemo" to "WarpTopAppBar Demo",
                         "typography" to "Typography",
                     )
                 )

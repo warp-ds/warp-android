@@ -84,6 +84,21 @@ class WarpTopAppBarTest(
         topAppBarWithSearchAndTabs()
     }
 
+    @Test
+    fun warp_top_app_bar_with_collapsible_title() {
+        topAppBarWithCollapsibleTitle()
+    }
+
+    @Test
+    fun warp_top_app_bar_with_all_sections_collapsible() {
+        topAppBarWithAllSectionsCollapsible()
+    }
+
+    @Test
+    fun warp_top_app_bar_with_tabs_collapsible() {
+        topAppBarWithTabsCollapsible()
+    }
+
 
     @OptIn(ExperimentalMaterial3Api::class)
     private fun topAppBar(showIcons: Boolean = false) {
@@ -259,6 +274,118 @@ class WarpTopAppBarTest(
                 ) {
 
                 }
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun topAppBarWithCollapsibleTitle() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                WarpScaffold(
+                    topBar = {
+                        WarpTopAppBar(
+                            titleText = "Warp Android",
+                            subtitleText = "Collapsible Title",
+                            titleCollapsible = true,
+                            navigationIcon = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.arrowLeft)
+                                }
+                            },
+                            actions = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.dotsVertical)
+                                }
+                            }
+                        )
+                    },
+                    containerColor = colors.surface.sunken,
+                    modifier = Modifier.height(300.dp)
+                ) {}
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun topAppBarWithAllSectionsCollapsible() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                val searchState = remember { TextFieldState("Search query") }
+                WarpScaffold(
+                    topBar = {
+                        WarpTopAppBar(
+                            titleText = "Warp Android",
+                            subtitleText = "All Collapsible",
+                            titleCollapsible = true,
+                            searchConfig = SearchConfiguration(
+                                state = searchState,
+                                onSearch = {},
+                                hint = "Search",
+                                collapsible = true
+                            ),
+                            tabConfig = TabConfiguration(
+                                tabs = listOf(
+                                    TabData(label = "Tab 1", id = "tab1"),
+                                    TabData(label = "Tab 2", id = "tab2"),
+                                    TabData(label = "Tab 3", id = "tab3")
+                                ),
+                                selectedIndex = 0,
+                                onTabSelected = {},
+                                collapsible = true
+                            ),
+                            navigationIcon = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.arrowLeft)
+                                }
+                            },
+                            actions = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.dotsVertical)
+                                }
+                            }
+                        )
+                    },
+                    containerColor = colors.surface.sunken,
+                    modifier = Modifier.height(450.dp)
+                ) {}
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun topAppBarWithTabsCollapsible() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                WarpScaffold(
+                    topBar = {
+                        WarpTopAppBar(
+                            titleText = "Warp Android",
+                            tabConfig = TabConfiguration(
+                                tabs = listOf(
+                                    TabData(label = "Tab 1", id = "tab1", hasBadge = true),
+                                    TabData(label = "Tab 2", id = "tab2"),
+                                    TabData(label = "Tab 3", id = "tab3")
+                                ),
+                                selectedIndex = 0,
+                                onTabSelected = {},
+                                collapsible = true
+                            ),
+                            navigationIcon = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.arrowLeft)
+                                }
+                            },
+                            actions = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.dotsVertical)
+                                }
+                            }
+                        )
+                    },
+                    containerColor = colors.surface.sunken,
+                    modifier = Modifier.height(300.dp)
+                ) {}
             }
         }
     }
