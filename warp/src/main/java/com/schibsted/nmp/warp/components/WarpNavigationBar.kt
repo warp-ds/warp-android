@@ -17,14 +17,15 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
  * Represents a single item in a [WarpNavigationBar] bar.
  *
  * @param label Text label displayed below the icon.
- * @param icon Composable icon slot — use [WarpIcon] or any composable (e.g. avatar image).
+ * @param icon Composable icon slot receiving the active [Color] — use [WarpIcon] with the provided color.
+ *   For avatar images that don't tint, ignore the color parameter.
  * @param badgeCount Number to display in the badge. 0 means no badge. Must be >= 0.
  * @param showDot True to show a dot badge (no number). Ignored if [badgeCount] > 0.
  * @param contentDescription Accessibility description for the item, read by TalkBack.
  */
 data class WarpNavItem(
     val label: String,
-    val icon: @Composable () -> Unit,
+    val icon: @Composable (color: Color) -> Unit,
     val badgeCount: Int = 0,
     val showDot: Boolean = false,
     val contentDescription: String
@@ -59,9 +60,12 @@ fun WarpNavigationBar(
         containerColor = colors.background.default
     ) {
         items.forEachIndexed { index, item ->
+            val isSelected = index == selectedIndex
+            val iconColor = if (isSelected) colors.components.navBar.iconSelected else colors.icon.default
+
             NavigationBarItem(
                 modifier = Modifier.semantics { contentDescription = item.contentDescription },
-                selected = index == selectedIndex,
+                selected = isSelected,
                 onClick = { onItemSelected(index) },
                 icon = {
                     BadgedBox(
@@ -82,20 +86,17 @@ fun WarpNavigationBar(
                             }
                         }
                     ) {
-                        item.icon()
+                        item.icon(iconColor)
                     }
                 },
                 label = {
                     WarpText(
                         text = item.label,
-                        style = WarpTextStyle.Detail
+                        style = WarpTextStyle.Detail,
+                        color = iconColor
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = colors.components.navBar.iconSelected,
-                    unselectedIconColor = colors.icon.default,
-                    selectedTextColor = colors.components.navBar.iconSelected,
-                    unselectedTextColor = colors.icon.default,
                     indicatorColor = Color.Transparent
                 )
             )
