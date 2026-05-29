@@ -39,29 +39,29 @@ private fun NavigationBarContent() {
     val items = listOf(
         WarpNavItem(
             label = "Home",
-            icon = { color -> WarpIcon(icon = icons.house, color = color) },
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.houseFilled else icons.house, color = color) },
             contentDescription = "Home"
         ),
         WarpNavItem(
             label = "Create ad",
-            icon = { color -> WarpIcon(icon = icons.plus, color = color) },
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.circlePlusFilled else icons.circlePlus, color = color) },
             contentDescription = "Create ad"
         ),
         WarpNavItem(
             label = "Notifications",
-            icon = { color -> WarpIcon(icon = icons.bell, color = color) },
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.bellFilled else icons.bell, color = color) },
             showDot = true,
             contentDescription = "Notifications"
         ),
         WarpNavItem(
             label = "Messages",
-            icon = { color -> WarpIcon(icon = icons.messages, color = color) },
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.messagesFilled else icons.messages, color = color) },
             badgeCount = 4,
             contentDescription = "Messages"
         ),
         WarpNavItem(
             label = "My Page",
-            icon = { color -> WarpIcon(icon = icons.user, color = color) },
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.circleUserFilled else icons.circleUser, color = color) },
             contentDescription = "My Page"
         ),
     )
