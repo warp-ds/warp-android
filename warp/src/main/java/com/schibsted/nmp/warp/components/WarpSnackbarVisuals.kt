@@ -17,7 +17,19 @@ data class WarpSnackbarVisuals(
         SnackbarDuration.Long
     },
     val type: WarpSnackbarType = WarpSnackbarType.Neutral(),
-) : SnackbarVisuals
+) : SnackbarVisuals {
+    init {
+        require(message.isNotBlank()) {
+            "Snackbar message cannot be empty."
+        }
+        require(actionLabel.isNullOrEmpty() || duration != SnackbarDuration.Short) {
+            "Snackbars with an action cannot have Short duration. Use Long or Indefinite instead."
+        }
+        require(duration != SnackbarDuration.Indefinite || withDismissAction || !actionLabel.isNullOrEmpty()) {
+            "Indefinite snackbars must have either a dismiss action or an action button."
+        }
+    }
+}
 
 sealed class WarpSnackbarType {
     data object Positive : WarpSnackbarType()

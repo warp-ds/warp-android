@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warpapp.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.schibsted.nmp.warp.components.WarpButton
@@ -56,6 +58,7 @@ fun SnackbarScreen(onUp: () -> Unit) {
 fun SnackbarScreenContent() {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
     var showCustomDialog by remember { mutableStateOf(false) }
     var customBodyText by remember { mutableStateOf("") }
     var customActionText by remember { mutableStateOf("") }
@@ -207,18 +210,25 @@ fun SnackbarScreenContent() {
                                     "Info" -> WarpSnackbarType.Info
                                     else -> WarpSnackbarType.Neutral()
                                 }
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        WarpSnackbarVisuals(
-                                            message = customBodyText,
-                                            actionLabel = customActionText.takeIf { it.isNotEmpty() },
-                                            withDismissAction = customDismissable,
-                                            type = type,
-                                            duration = SnackbarDuration.valueOf(customDuration)
-                                        )
+                                try {
+                                    val visuals = WarpSnackbarVisuals(
+                                        message = customBodyText,
+                                        actionLabel = customActionText.takeIf { it.isNotEmpty() },
+                                        withDismissAction = customDismissable,
+                                        type = type,
+                                        duration = SnackbarDuration.valueOf(customDuration)
                                     )
+                                    scope.launch {
+                                        snackbarHostState.showSnackbar(visuals)
+                                    }
+                                    showCustomDialog = false
+                                } catch (e: IllegalArgumentException) {
+                                    Toast.makeText(
+                                        context,
+                                        e.message ?: "Invalid snackbar configuration",
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
-                                showCustomDialog = false
                             },
                             style = WarpButtonStyle.Primary
                         )
