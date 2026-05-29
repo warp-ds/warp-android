@@ -63,7 +63,7 @@ fun WarpSnackbar(
                 ) {
                     Text(
                         text = label,
-                        style = WarpTheme.typography.bodyStrong,
+                        style = WarpTheme.typography.title5,
                         color = textContentColor
                     )
                 }
@@ -117,7 +117,7 @@ fun WarpSnackbar(
             }
             Text(
                 text = snackbarData.visuals.message,
-                style = WarpTheme.typography.body,
+                style = WarpTheme.typography.caption,
                 color = textContentColor
             )
         }
