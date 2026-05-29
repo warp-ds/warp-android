@@ -2,19 +2,40 @@ package com.schibsted.nmp.warpapp.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.schibsted.nmp.warp.components.WarpButton
+import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpScaffold
+import com.schibsted.nmp.warp.components.WarpSelect
 import com.schibsted.nmp.warp.components.WarpSnackbar
+import com.schibsted.nmp.warp.components.WarpSnackbarType
 import com.schibsted.nmp.warp.components.WarpSnackbarVisuals
+import com.schibsted.nmp.warp.components.WarpSwitch
+import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.components.WarpTextField
+import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.WarpSnackbarScenario
 import com.schibsted.nmp.warp.utils.WarpSnackbarScenarios
@@ -35,6 +56,12 @@ fun SnackbarScreen(onUp: () -> Unit) {
 fun SnackbarScreenContent() {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    var showCustomDialog by remember { mutableStateOf(false) }
+    var customBodyText by remember { mutableStateOf("") }
+    var customActionText by remember { mutableStateOf("") }
+    var customDismissable by remember { mutableStateOf(true) }
+    var customType by remember { mutableStateOf(WarpSnackbarType.NEUTRAL.name) }
+    var customDuration by remember { mutableStateOf(SnackbarDuration.Short.name) }
 
     WarpScaffold(
         snackbarHost = {
@@ -66,6 +93,128 @@ fun SnackbarScreenContent() {
                         )
                     }
                 )
+            }
+
+            WarpButton(
+                modifier = Modifier.padding(bottom = dimensions.space2),
+                text = "Custom",
+                onClick = {
+                    showCustomDialog = true
+                }
+            )
+        }
+    }
+
+    if (showCustomDialog) {
+        Dialog(
+            onDismissRequest = { showCustomDialog = false },
+            properties = DialogProperties(
+                usePlatformDefaultWidth = false,
+                dismissOnClickOutside = true,
+                dismissOnBackPress = true
+            )
+        ) {
+            Card(
+                modifier = Modifier
+                    .padding(horizontal = dimensions.space2)
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(dimensions.borderRadius3),
+                colors = CardDefaults.cardColors(
+                    containerColor = colors.surface.elevated100,
+                )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(dimensions.space2)
+                        .fillMaxWidth()
+                ) {
+                    WarpText(
+                        text = "Custom Snackbar",
+                        style = WarpTextStyle.Title3,
+                        modifier = Modifier.padding(bottom = dimensions.space2)
+                    )
+
+                    WarpTextField(
+                        value = customBodyText,
+                        onValueChange = { customBodyText = it },
+                        label = "Body text",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(dimensions.space2))
+
+                    WarpTextField(
+                        value = customActionText,
+                        onValueChange = { customActionText = it },
+                        label = "Action text",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(dimensions.space2))
+
+                    WarpSelect(
+                        value = customType,
+                        onValueChange = { customType = it },
+                        label = "Type",
+                        items = WarpSnackbarType.entries.map { it.name },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(dimensions.space2))
+
+                    WarpSelect(
+                        value = customDuration,
+                        onValueChange = { customDuration = it },
+                        label = "Duration",
+                        items = SnackbarDuration.entries.map { it.name },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(dimensions.space2))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        WarpText(text = "Dismissable")
+                        WarpSwitch(
+                            checked = customDismissable,
+                            onCheckedChange = { customDismissable = it }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(dimensions.space3))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(dimensions.space2, Alignment.End)
+                    ) {
+                        WarpButton(
+                            text = "Cancel",
+                            onClick = { showCustomDialog = false },
+                            style = WarpButtonStyle.Secondary
+                        )
+                        WarpButton(
+                            text = "Confirm",
+                            onClick = {
+                                scope.launch {
+                                    snackbarHostState.showSnackbar(
+                                        WarpSnackbarVisuals(
+                                            message = customBodyText,
+                                            actionLabel = customActionText.takeIf { it.isNotEmpty() },
+                                            withDismissAction = customDismissable,
+                                            type = WarpSnackbarType.valueOf(customType),
+                                            duration = SnackbarDuration.valueOf(customDuration)
+                                        )
+                                    )
+                                }
+                                showCustomDialog = false
+                            },
+                            style = WarpButtonStyle.Primary
+                        )
+                    }
+                }
             }
         }
     }
