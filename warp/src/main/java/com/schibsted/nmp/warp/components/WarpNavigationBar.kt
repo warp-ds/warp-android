@@ -94,11 +94,11 @@ fun WarpNavigationBar(
                     WarpText(
                         text = item.label,
                         style = if (isSelected) WarpTextStyle.DetailStrong else WarpTextStyle.Detail,
-                        color = iconColor
+                        color = colors.icon.default
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Color.Transparent
+                    indicatorColor = colors.background.subtle
                 )
             )
         }
