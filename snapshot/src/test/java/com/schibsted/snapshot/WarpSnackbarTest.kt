@@ -58,12 +58,12 @@ class WarpSnackbarTest(
 
     @Test
     fun warp_snackbar_success() {
-        warpSnackbar(WarpSnackbarScenarios.success)
+        warpSnackbar(WarpSnackbarScenarios.positive)
     }
 
     @Test
     fun warp_snackbar_error_multiline() {
-        warpSnackbar(WarpSnackbarScenarios.errorMultiline)
+        warpSnackbar(WarpSnackbarScenarios.negativeMultiline)
     }
 
     @Test

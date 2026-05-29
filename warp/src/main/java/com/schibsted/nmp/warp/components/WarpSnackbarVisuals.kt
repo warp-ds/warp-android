@@ -20,8 +20,8 @@ data class WarpSnackbarVisuals(
 
 enum class WarpSnackbarType {
     NEUTRAL,
-    SUCCESS,
-    ERROR,
+    POSITIVE,
+    NEGATIVE,
     WARNING,
     INFO
 }

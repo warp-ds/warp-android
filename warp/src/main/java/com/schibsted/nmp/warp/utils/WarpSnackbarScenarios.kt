@@ -23,18 +23,18 @@ object WarpSnackbarScenarios {
         type = WarpSnackbarType.NEUTRAL
     )
 
-    val success = WarpSnackbarScenario(
+    val positive = WarpSnackbarScenario(
         name = "Success w/action to dismiss",
         message = "Successfully saved",
-        type = WarpSnackbarType.SUCCESS,
+        type = WarpSnackbarType.POSITIVE,
         actionLabel = "OK",
         withDismissAction = false
     )
 
-    val errorMultiline = WarpSnackbarScenario(
+    val negativeMultiline = WarpSnackbarScenario(
         name = "Error multiline no action",
         message = "Something went wrong. Hang in there while we work things out.",
-        type = WarpSnackbarType.ERROR
+        type = WarpSnackbarType.NEGATIVE
     )
 
     val warningLongAction = WarpSnackbarScenario(
@@ -62,8 +62,8 @@ object WarpSnackbarScenarios {
 
     val all = listOf(
         neutral,
-        success,
-        errorMultiline,
+        positive,
+        negativeMultiline,
         warningLongAction,
         infoShortAction,
         infoIndefinite

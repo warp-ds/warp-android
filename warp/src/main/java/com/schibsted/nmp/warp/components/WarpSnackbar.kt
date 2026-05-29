@@ -126,7 +126,7 @@ fun WarpSnackbar(
 private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
     val iconForegroundColor = WarpTheme.colors.icon.invertedStatic
     return when (this) {
-        WarpSnackbarType.SUCCESS -> {
+        WarpSnackbarType.POSITIVE -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.successFilled,
                 iconBackgroundColor = WarpTheme.colors.icon.positive,
@@ -134,7 +134,7 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
-        WarpSnackbarType.ERROR -> {
+        WarpSnackbarType.NEGATIVE -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.errorFilled,
                 iconBackgroundColor = WarpTheme.colors.icon.negative,
