@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 
 /**
- * Represents a single item in a [WarpBottomNavigation] bar.
+ * Represents a single item in a [WarpNavigationBar] bar.
  *
  * @param label Text label displayed below the icon.
  * @param icon Composable icon slot — use [WarpIcon] or any composable (e.g. avatar image).
@@ -22,7 +22,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
  * @param showDot True to show a dot badge (no number). Ignored if [badgeCount] > 0.
  * @param contentDescription Accessibility description for the item, read by TalkBack.
  */
-data class WarpBottomNavItem(
+data class WarpNavItem(
     val label: String,
     val icon: @Composable () -> Unit,
     val badgeCount: Int = 0,
@@ -45,13 +45,13 @@ data class WarpBottomNavItem(
  * @param modifier Modifier applied to the [NavigationBar].
  */
 @Composable
-fun WarpBottomNavigation(
-    items: List<WarpBottomNavItem>,
+fun WarpNavigationBar(
+    items: List<WarpNavItem>,
     selectedIndex: Int,
     onItemSelected: (index: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    require(items.isNotEmpty()) { "WarpBottomNavigation items must not be empty" }
+    require(items.isNotEmpty()) { "WarpNavigationBar items must not be empty" }
     require(selectedIndex in items.indices) { "selectedIndex $selectedIndex is out of bounds for ${items.size} items" }
 
     NavigationBar(
@@ -105,14 +105,14 @@ fun WarpBottomNavigation(
 
 @Preview
 @Composable
-fun WarpBottomNavigationPreview() {
-    WarpBottomNavigation(
+fun WarpNavigationBarPreview() {
+    WarpNavigationBar(
         items = listOf(
-            WarpBottomNavItem("Home", { }, contentDescription = "Home"),
-            WarpBottomNavItem("Ad", { }, contentDescription = "Create ad"),
-            WarpBottomNavItem("Alerts", { }, showDot = true, contentDescription = "Notifications"),
-            WarpBottomNavItem("Messages", { }, badgeCount = 3, contentDescription = "Messages"),
-            WarpBottomNavItem("My Page", { }, contentDescription = "My page"),
+            WarpNavItem("Home", { }, contentDescription = "Home"),
+            WarpNavItem("Ad", { }, contentDescription = "Create ad"),
+            WarpNavItem("Alerts", { }, showDot = true, contentDescription = "Notifications"),
+            WarpNavItem("Messages", { }, badgeCount = 3, contentDescription = "Messages"),
+            WarpNavItem("My Page", { }, contentDescription = "My page"),
         ),
         selectedIndex = 0,
         onItemSelected = {}
