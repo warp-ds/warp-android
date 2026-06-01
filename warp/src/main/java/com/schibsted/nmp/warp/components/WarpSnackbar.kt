@@ -78,7 +78,8 @@ fun WarpSnackbar(
                     Icon(
                         imageVector = WarpIconResources.close.vector,
                         contentDescription = stringResource(R.string.close),
-                        tint = iconContentColor
+                        tint = iconContentColor,
+                        modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
                     )
                 }
             }
@@ -145,6 +146,7 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
+
         is WarpSnackbarType.Negative -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.errorFilled,
@@ -153,6 +155,7 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
+
         is WarpSnackbarType.Warning -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.warningFilled,
@@ -161,6 +164,7 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
+
         is WarpSnackbarType.Info -> {
             WarpSnackbarIconSpec(
                 iconBackgroundResource = WarpIconResources.infoFilled,
@@ -169,6 +173,7 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
                 iconForegroundColor = iconForegroundColor
             )
         }
+
         is WarpSnackbarType.Neutral -> {
             customIcon?.let {
                 WarpSnackbarIconSpec(

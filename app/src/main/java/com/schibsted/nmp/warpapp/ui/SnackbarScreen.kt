@@ -67,6 +67,7 @@ fun SnackbarScreenContent() {
     var customDuration by remember { mutableStateOf(SnackbarDuration.Short.name) }
 
     val snackbarTypes = listOf("Neutral", "Positive", "Negative", "Warning", "Info")
+    val neutralWithIconScenario = WarpSnackbarScenarios.neutralWithIcon()
 
     WarpScaffold(
         snackbarHost = {
@@ -99,6 +100,18 @@ fun SnackbarScreenContent() {
                     }
                 )
             }
+
+            WarpButton(
+                modifier = Modifier.padding(bottom = dimensions.space2),
+                text = "Neutral w/custom icon",
+                onClick = {
+                    showWarpSnackbar(
+                        snackbarHostState = snackbarHostState,
+                        scope = scope,
+                        scenario = neutralWithIconScenario
+                    )
+                }
+            )
 
             WarpButton(
                 modifier = Modifier.padding(bottom = dimensions.space2),
