@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp.utils
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import com.schibsted.nmp.warp.components.WarpSnackbarType
+import com.schibsted.nmp.warp.theme.WarpIconResources
 
 /**
  * Shared test scenarios for WarpSnackbar
@@ -18,13 +19,18 @@ data class WarpSnackbarScenario(
 )
 
 object WarpSnackbarScenarios {
-    val neutral: WarpSnackbarScenario
-        @Composable
-        get() = WarpSnackbarScenario(
-            name = "Neutral w/dismiss button",
-            message = "This should have short duration",
-            type = WarpSnackbarType.Neutral()
-        )
+    val neutral = WarpSnackbarScenario(
+        name = "Neutral w/dismiss button",
+        message = "This should have short duration",
+        type = WarpSnackbarType.Neutral()
+    )
+
+    @Composable
+    fun neutralWithIcon() = WarpSnackbarScenario(
+        name = "Neutral w/custom icon",
+        message = "This should have short duration",
+        type = WarpSnackbarType.Neutral(WarpIconResources.camera)
+    )
 
     val positive = WarpSnackbarScenario(
         name = "Positive w/action to dismiss",
@@ -65,14 +71,12 @@ object WarpSnackbarScenarios {
         duration = SnackbarDuration.Indefinite
     )
 
-    val all: List<WarpSnackbarScenario>
-        @Composable
-        get() = listOf(
-            neutral,
-            positive,
-            negativeMultiline,
-            warningLongAction,
-            infoShortAction,
-            infoIndefinite
-        )
+    val all = listOf(
+        neutral,
+        positive,
+        negativeMultiline,
+        warningLongAction,
+        infoShortAction,
+        infoIndefinite
+    )
 }
