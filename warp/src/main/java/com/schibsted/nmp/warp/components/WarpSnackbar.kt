@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
@@ -89,6 +90,14 @@ fun WarpSnackbar(
         dismissActionContentColor = iconContentColor,
     ) {
         Row(
+            modifier = Modifier
+                .padding(
+                    vertical = if (actionOnNewLine) {
+                        0.dp
+                    } else {
+                        WarpTheme.dimensions.space15
+                    }
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (iconSpec != null) {

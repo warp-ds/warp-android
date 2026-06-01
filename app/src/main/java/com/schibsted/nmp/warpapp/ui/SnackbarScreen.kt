@@ -60,7 +60,7 @@ fun SnackbarScreenContent() {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var showCustomDialog by remember { mutableStateOf(false) }
-    var customBodyText by remember { mutableStateOf("") }
+    var customBodyText by remember { mutableStateOf("This is the body text") }
     var customActionText by remember { mutableStateOf("") }
     var customDismissable by remember { mutableStateOf(true) }
     var customType by remember { mutableStateOf("Neutral") }
