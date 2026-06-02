@@ -43,15 +43,15 @@ private fun NavigationBarContent() {
             contentDescription = "Home"
         ),
         WarpNavItem(
-            label = "Create ad",
-            icon = { color, selected -> WarpIcon(icon = if (selected) icons.circlePlusFilled else icons.circlePlus, color = color) },
-            contentDescription = "Create ad"
-        ),
-        WarpNavItem(
-            label = "Notifications",
+            label = "Activity",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.bellFilled else icons.bell, color = color) },
             showDot = true,
-            contentDescription = "Notifications"
+            contentDescription = "Activity"
+        ),
+        WarpNavItem(
+            label = "Sell",
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.circlePlusFilled else icons.circlePlus, color = color) },
+            contentDescription = "Sell"
         ),
         WarpNavItem(
             label = "Messages",
@@ -60,9 +60,9 @@ private fun NavigationBarContent() {
             contentDescription = "Messages"
         ),
         WarpNavItem(
-            label = "My Page",
+            label = "Profile",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.circleUserFilled else icons.circleUser, color = color) },
-            contentDescription = "My Page"
+            contentDescription = "Profile"
         ),
     )
 
@@ -93,5 +93,31 @@ internal fun NavigationBarContentPreview(
 ) {
     BrandTheme(flavor = flavor).invoke {
         NavigationBarContent()
+    }
+}
+
+@Preview(name = "WarpNavItem — selected / unselected", showBackground = true)
+@Composable
+internal fun WarpNavItemPreview(
+    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
+) {
+    BrandTheme(flavor = flavor).invoke {
+        WarpNavigationBar(
+            items = listOf(
+                WarpNavItem(
+                    label = "Home",
+                    icon = { color, sel -> WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color) },
+                    contentDescription = "Home"
+                ),
+                WarpNavItem(
+                    label = "Activity",
+                    icon = { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) },
+                    showDot = true,
+                    contentDescription = "Activity"
+                ),
+            ),
+            selectedIndex = 0,
+            onItemSelected = {}
+        )
     }
 }
