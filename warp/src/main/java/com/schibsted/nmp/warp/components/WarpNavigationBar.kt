@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
@@ -29,6 +30,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
+import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 /**
  * Represents a single item in a [WarpNavigationBar] bar.
@@ -164,12 +166,52 @@ fun WarpNavigationBarPreview() {
     WarpNavigationBar(
         items = listOf(
             WarpNavItem("Home", { _, _ -> }, contentDescription = "Home"),
-            WarpNavItem("Ad", { _, _ -> }, contentDescription = "Create ad"),
-            WarpNavItem("Alerts", { _, _ -> }, showDot = true, contentDescription = "Notifications"),
+            WarpNavItem("Activity", { _, _ -> }, contentDescription = "Activity"),
+            WarpNavItem("Sell", { _, _ -> }, showDot = true, contentDescription = "Sell"),
             WarpNavItem("Messages", { _, _ -> }, badgeCount = 3, contentDescription = "Messages"),
-            WarpNavItem("My Page", { _, _ -> }, contentDescription = "My page"),
+            WarpNavItem("Profile", { _, _ -> }, contentDescription = "Profile"),
         ),
         selectedIndex = 0,
         onItemSelected = {}
     )
+}
+
+@Preview(name = "WarpNavBarItem — selected + unselected", showBackground = true)
+@Composable
+private fun WarpNavBarItemPreview() {
+    Row {
+        WarpNavBarItem(
+            item = WarpNavItem(
+                label = "Home",
+                icon = { color, _ ->
+                    Box(
+                        modifier = Modifier
+                            .size(dimensions.icon.default)
+                            .background(color, RoundedCornerShape(4.dp))
+                    )
+                },
+                contentDescription = "Home"
+            ),
+            isSelected = true,
+            iconColor = colors.components.navBar.iconSelected,
+            onClick = {}
+        )
+        WarpNavBarItem(
+            item = WarpNavItem(
+                label = "Activity",
+                icon = { color, _ ->
+                    Box(
+                        modifier = Modifier
+                            .size(dimensions.icon.default)
+                            .background(color, RoundedCornerShape(4.dp))
+                    )
+                },
+                showDot = true,
+                contentDescription = "Activity"
+            ),
+            isSelected = false,
+            iconColor = colors.icon.default,
+            onClick = {}
+        )
+    }
 }
