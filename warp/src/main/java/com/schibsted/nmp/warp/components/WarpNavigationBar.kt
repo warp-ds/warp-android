@@ -1,16 +1,33 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 
 /**
@@ -44,7 +61,7 @@ data class WarpNavItem(
  * @param items Non-empty list of navigation items.
  * @param selectedIndex Index of the currently selected item. Must be in [items] bounds.
  * @param onItemSelected Called with the index of the tapped item.
- * @param modifier Modifier applied to the [NavigationBar].
+ * @param modifier Modifier applied to the bar surface.
  */
 @Composable
 fun WarpNavigationBar(
@@ -56,52 +73,88 @@ fun WarpNavigationBar(
     require(items.isNotEmpty()) { "WarpNavigationBar items must not be empty" }
     require(selectedIndex in items.indices) { "selectedIndex $selectedIndex is out of bounds for ${items.size} items" }
 
-    NavigationBar(
+    Surface(
         modifier = modifier,
-        containerColor = colors.background.default
+        color = colors.background.default,
+        tonalElevation = NavigationBarDefaults.Elevation
     ) {
-        items.forEachIndexed { index, item ->
-            val isSelected = index == selectedIndex
-            val iconColor = if (isSelected) colors.components.navBar.iconSelected else colors.icon.default
-
-            NavigationBarItem(
-                modifier = Modifier.semantics { contentDescription = item.contentDescription },
-                selected = isSelected,
-                onClick = { onItemSelected(index) },
-                icon = {
-                    BadgedBox(
-                        badge = {
-                            when {
-                                item.badgeCount > 0 -> Badge(
-                                    containerColor = colors.background.negative
-                                ) {
-                                    WarpText(
-                                        text = item.badgeCount.toString(),
-                                        color = colors.text.invertedStatic,
-                                        style = WarpTextStyle.Detail
-                                    )
-                                }
-                                item.showDot -> Badge(
-                                    containerColor = colors.background.negative
-                                )
-                            }
-                        }
-                    ) {
-                        item.icon(iconColor, isSelected)
-                    }
-                },
-                label = {
-                    WarpText(
-                        text = item.label,
-                        style = if (isSelected) WarpTextStyle.DetailStrong else WarpTextStyle.Detail,
-                        color = colors.icon.default
-                    )
-                },
-                colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = colors.background.subtle
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .windowInsetsPadding(NavigationBarDefaults.windowInsets)
+                .selectableGroup()
+        ) {
+            items.forEachIndexed { index, item ->
+                val isSelected = index == selectedIndex
+                val iconColor = if (isSelected) colors.components.navBar.iconSelected else colors.icon.default
+                WarpNavBarItem(
+                    item = item,
+                    isSelected = isSelected,
+                    iconColor = iconColor,
+                    onClick = { onItemSelected(index) }
                 )
-            )
+            }
         }
+    }
+}
+
+@Composable
+private fun RowScope.WarpNavBarItem(
+    item: WarpNavItem,
+    isSelected: Boolean,
+    iconColor: Color,
+    onClick: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .weight(1f)
+            .selectable(
+                selected = isSelected,
+                onClick = onClick,
+                role = Role.Tab,
+                indication = LocalIndication.current,
+                interactionSource = remember { MutableInteractionSource() }
+            )
+            .semantics { contentDescription = item.contentDescription }
+            .padding(top = 6.dp, bottom = 6.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        // Indicator pill — 13.2dp horizontal padding per Figma spec
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 13.2.dp)
+                .background(
+                    color = if (isSelected) colors.background.subtle else Color.Transparent,
+                    shape = RoundedCornerShape(50)
+                )
+                .padding(vertical = 4.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            BadgedBox(
+                badge = {
+                    when {
+                        item.badgeCount > 0 -> Badge(containerColor = colors.background.negative) {
+                            WarpText(
+                                text = item.badgeCount.toString(),
+                                color = colors.text.invertedStatic,
+                                style = WarpTextStyle.Detail
+                            )
+                        }
+                        item.showDot -> Badge(containerColor = colors.background.negative)
+                    }
+                }
+            ) {
+                item.icon(iconColor, isSelected)
+            }
+        }
+
+        WarpText(
+            text = item.label,
+            style = if (isSelected) WarpTextStyle.DetailStrong else WarpTextStyle.Detail,
+            color = colors.icon.default
+        )
     }
 }
 
