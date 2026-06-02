@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -91,14 +92,15 @@ fun WarpSnackbar(
         dismissActionContentColor = iconContentColor,
     ) {
         Row(
-            modifier = Modifier
-                .padding(
-                    vertical = if (actionOnNewLine) {
-                        0.dp
-                    } else {
-                        WarpTheme.dimensions.space15
-                    }
-                ),
+            modifier = Modifier.padding(
+                // Padding is needed, to somewhat adjust offsets caused by component internals.
+                // Noticeable when displaying multiple lines of text.
+                vertical = if (actionOnNewLine) {
+                    0.dp
+                } else {
+                    WarpTheme.dimensions.space15 / LocalDensity.current.fontScale
+                }
+            ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (iconSpec != null) {

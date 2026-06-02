@@ -156,6 +156,7 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.energy, size)
     CreateIcon(icons.engine, size)
     CreateIcon(icons.engineBelt, size)
+    CreateIcon(icons.error, size)
     CreateIcon(icons.errorFilled, size)
     CreateIcon(icons.exchange, size)
     CreateIcon(icons.expand, size)
