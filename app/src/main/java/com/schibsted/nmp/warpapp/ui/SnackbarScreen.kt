@@ -37,6 +37,7 @@ import com.schibsted.nmp.warp.components.WarpSwitch
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextField
 import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.components.validate
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.WarpSnackbarScenario
@@ -74,9 +75,7 @@ fun SnackbarScreenContent() {
             SnackbarHost(
                 hostState = snackbarHostState
             ) { data ->
-                WarpSnackbar(
-                    snackbarData = data,
-                )
+                WarpSnackbar(snackbarData = data)
             }
         },
     ) {
@@ -231,6 +230,7 @@ fun SnackbarScreenContent() {
                                         type = type,
                                         duration = SnackbarDuration.valueOf(customDuration)
                                     )
+                                    visuals.validate()
                                     scope.launch {
                                         snackbarHostState.showSnackbar(visuals)
                                     }

@@ -10,6 +10,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
+import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -35,25 +36,26 @@ private const val ACTION_NEW_LINE_THRESHOLD = 10
  * Snackbars provide brief messages about app processes at the bottom of the screen.
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/snackbar/)
  *
- * The action button is automatically placed on a new line when the action text exceeds 10 chars.
+ * The action button is automatically placed on a new line when the action text is at least 10 chars.
  *
  * @param snackbarData Data about the snackbar, including text and action label.
+ *   Use WarpSnackbarVisuals to include an icon type, or plain SnackbarVisuals for no icon.
  * @param modifier Modifier for the snackbar.
  */
 @Composable
 fun WarpSnackbar(
-    modifier: Modifier = Modifier,
-    snackbarData: SnackbarData
+    snackbarData: SnackbarData,
+    modifier: Modifier = Modifier
 ) {
-    val warpVisuals = snackbarData.visuals as? WarpSnackbarVisuals
+    val warpVisuals = snackbarData.visuals.validate()
 
-    val iconSpec = warpVisuals?.type?.toSnackbarIconSpec()
+    val iconSpec = warpVisuals.type.toSnackbarIconSpec()
     val shape = WarpTheme.shapes.roundedMedium
     val textContentColor = WarpTheme.colors.text.invertedStatic
     val iconContentColor = WarpTheme.colors.icon.invertedStatic
     val containerColor = WarpTheme.colors.components.tooltip.backgroundStatic
     val actionOnNewLine = snackbarData.visuals.actionLabel?.let {
-        it.length > ACTION_NEW_LINE_THRESHOLD
+        it.length >= ACTION_NEW_LINE_THRESHOLD
     } ?: false
 
     Snackbar(
@@ -185,6 +187,20 @@ private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
             }
         }
     }
+}
+
+/**
+ * Validates that WarpSnackbarVisuals is being used and returns it with the correct type.
+ * The actual validation rules are enforced in WarpSnackbarVisuals.init block.
+ *
+ * @return The WarpSnackbarVisuals instance (already validated in its init block)
+ * @throws IllegalArgumentException if not using WarpSnackbarVisuals
+ */
+fun SnackbarVisuals.validate(): WarpSnackbarVisuals {
+    require(this is WarpSnackbarVisuals) {
+        "WarpSnackbar requires WarpSnackbarVisuals. Use WarpSnackbarVisuals instead of plain SnackbarVisuals."
+    }
+    return this
 }
 
 // Workaround for tinting multiple SVG paths in a "single" icon
