@@ -29,6 +29,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.theme.WarpIconResource
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
@@ -118,20 +120,17 @@ private fun RowScope.WarpNavBarItem(
                 interactionSource = remember { MutableInteractionSource() }
             )
             .semantics { contentDescription = item.contentDescription }
-            .padding(top = 6.dp, bottom = 6.dp),
+            .padding(top = dimensions.space075, bottom = dimensions.space075),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(dimensions.space05),
     ) {
-        // Indicator pill — 13.2dp horizontal padding per Figma spec
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 13.2.dp)
+                .size(width = dimensions.space7, height = dimensions.space4)
                 .background(
                     color = if (isSelected) colors.background.subtle else Color.Transparent,
                     shape = RoundedCornerShape(50)
-                )
-                .padding(vertical = 4.dp),
+                ),
             contentAlignment = Alignment.Center
         ) {
             BadgedBox(
@@ -148,7 +147,12 @@ private fun RowScope.WarpNavBarItem(
                     }
                 }
             ) {
-                item.icon(iconColor, isSelected)
+                Box(
+                    modifier = Modifier.size(dimensions.space3),
+                    contentAlignment = Alignment.Center
+                ) {
+                    item.icon(iconColor, isSelected)
+                }
             }
         }
 
@@ -160,57 +164,56 @@ private fun RowScope.WarpNavBarItem(
     }
 }
 
-@Preview
+@Preview(name = "WarpNavigationBar", showBackground = true)
 @Composable
 fun WarpNavigationBarPreview() {
     WarpNavigationBar(
         items = listOf(
-            WarpNavItem("Home", { _, _ -> }, contentDescription = "Home"),
-            WarpNavItem("Activity", { _, _ -> }, contentDescription = "Activity"),
-            WarpNavItem("Sell", { _, _ -> }, showDot = true, contentDescription = "Sell"),
-            WarpNavItem("Messages", { _, _ -> }, badgeCount = 3, contentDescription = "Messages"),
-            WarpNavItem("Profile", { _, _ -> }, contentDescription = "Profile"),
+            WarpNavItem("Home", { color, _ -> WarpIcon(icon =  icons.house, color = color) }, contentDescription = "Home"),
+            WarpNavItem("Activity", { color, _ -> WarpIcon(icon =  icons.bell, color = color) }, contentDescription = "Activity"),
+            WarpNavItem("Sell", { color, _ -> WarpIcon(icon =  icons.circlePlus, color = color) }, showDot = true, contentDescription = "Sell"),
+            WarpNavItem("Messages", { color, _ -> WarpIcon(icon =  icons.messages, color = color) }, badgeCount = 3, contentDescription = "Messages"),
+            WarpNavItem("Profile", { color, _ -> WarpIcon(icon =  icons.circleUser, color = color) }, contentDescription = "Profile"),
         ),
         selectedIndex = 0,
         onItemSelected = {}
     )
 }
 
-@Preview(name = "WarpNavBarItem — selected + unselected", showBackground = true)
+@Preview(name = "WarpNavBarItem — unselected", showBackground = true)
 @Composable
 private fun WarpNavBarItemPreview() {
-    Row {
-        WarpNavBarItem(
-            item = WarpNavItem(
-                label = "Home",
-                icon = { color, _ ->
-                    Box(
-                        modifier = Modifier
-                            .size(dimensions.icon.default)
-                            .background(color, RoundedCornerShape(4.dp))
-                    )
-                },
-                contentDescription = "Home"
-            ),
-            isSelected = true,
-            iconColor = colors.components.navBar.iconSelected,
-            onClick = {}
-        )
+    Row(
+        modifier = Modifier.size(82.dp, 64.dp)
+    ) {
         WarpNavBarItem(
             item = WarpNavItem(
                 label = "Activity",
-                icon = { color, _ ->
-                    Box(
-                        modifier = Modifier
-                            .size(dimensions.icon.default)
-                            .background(color, RoundedCornerShape(4.dp))
-                    )
-                },
+                icon = { color, _ -> WarpIcon(icon =  icons.bell, color = color) },
                 showDot = true,
                 contentDescription = "Activity"
             ),
             isSelected = false,
             iconColor = colors.icon.default,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(name = "WarpNavBarItem — selected", showBackground = true)
+@Composable
+private fun WarpNavBarItemSelectedPreview() {
+    Row(
+        modifier = Modifier.size(82.dp, 64.dp)
+    ) {
+        WarpNavBarItem(
+            item = WarpNavItem(
+                label = "Home",
+                icon = { color, _ -> WarpIcon(icon =  icons.houseFilled, color = color) },
+                contentDescription = "Home"
+            ),
+            isSelected = true,
+            iconColor = colors.components.navBar.iconSelected,
             onClick = {}
         )
     }
