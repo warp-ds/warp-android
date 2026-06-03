@@ -2,11 +2,13 @@
 
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -104,7 +106,7 @@ private fun calculateSectionCollapseFraction(
         overallProgress >= boundary.endFraction -> 0f   // Fully collapsed
         else -> {  // Currently collapsing
             val sectionProgress = (overallProgress - boundary.startFraction) /
-                                  (boundary.endFraction - boundary.startFraction)
+                    (boundary.endFraction - boundary.startFraction)
             1f - sectionProgress  // Invert: 1.0 = visible, 0.0 = collapsed
         }
     }
@@ -139,7 +141,11 @@ fun WarpTopAppBar(
     tabConfig: TabConfiguration? = null,
 ) {
     // Height tracking for collapsible sections (in pixels)
-    var titleHeightPx by remember(titleText, subtitleText, titleCollapsible) { mutableIntStateOf(0) }
+    var titleHeightPx by remember(
+        titleText,
+        subtitleText,
+        titleCollapsible
+    ) { mutableIntStateOf(0) }
     var searchHeightPx by remember(searchConfig) { mutableIntStateOf(0) }
     var tabsHeightPx by remember(tabConfig) { mutableIntStateOf(0) }
 
@@ -157,12 +163,21 @@ fun WarpTopAppBar(
 
     // Determine if we need to manually handle title collapse
     // (when title + search/tabs are all collapsible, we can't use Material3's built-in collapse)
-    val hasOtherCollapsibleSections = (searchConfig?.collapsible == true) || (tabConfig?.collapsible == true)
+    val hasOtherCollapsibleSections =
+        (searchConfig?.collapsible == true) || (tabConfig?.collapsible == true)
     val manualTitleCollapse = titleCollapsible && hasOtherCollapsibleSections
     val useMaterial3TitleCollapse = titleCollapsible && !hasOtherCollapsibleSections
 
     // Calculate section boundaries for sequential collapse
-    val sectionBoundaries = remember(titleHeightPx, searchHeightPx, tabsHeightPx, titleCollapsible, searchConfig, tabConfig, manualTitleCollapse) {
+    val sectionBoundaries = remember(
+        titleHeightPx,
+        searchHeightPx,
+        tabsHeightPx,
+        titleCollapsible,
+        searchConfig,
+        tabConfig,
+        manualTitleCollapse
+    ) {
         val boundaries = mutableMapOf<String, SectionBoundary>()
         val collapsibleSections = buildList {
             if (manualTitleCollapse && titleHeightPx > 0) add("title" to titleHeightPx)
@@ -175,7 +190,8 @@ fun WarpTopAppBar(
             var currentOffset = 0f
             collapsibleSections.forEach { (name, height) ->
                 val sectionFraction = height.toFloat() / totalHeight
-                boundaries[name] = SectionBoundary(currentOffset, currentOffset + sectionFraction, height)
+                boundaries[name] =
+                    SectionBoundary(currentOffset, currentOffset + sectionFraction, height)
                 currentOffset += sectionFraction
             }
         }
@@ -247,16 +263,19 @@ fun WarpTopAppBar(
                     if (manualTitleCollapse && titleMeasured) {
                         Modifier.layout { measurable, constraints ->
                             // Measure content with unlimited height
-                            val placeable = measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
+                            val placeable =
+                                measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
 
                             // Container height shrinks as section collapses
-                            val containerHeightPx = (placeable.height * titleCollapseFraction).toInt().coerceAtLeast(0)
+                            val containerHeightPx =
+                                (placeable.height * titleCollapseFraction).toInt().coerceAtLeast(0)
 
                             layout(placeable.width, containerHeightPx) {
                                 // Content slides up and fades out
                                 placeable.placeWithLayer(0, 0) {
                                     alpha = titleAlpha
-                                    translationY = -(placeable.height * (1f - titleCollapseFraction))
+                                    translationY =
+                                        -(placeable.height * (1f - titleCollapseFraction))
                                     clip = true
                                 }
                             }
@@ -267,54 +286,60 @@ fun WarpTopAppBar(
                 )
         ) {
             TopAppBar(
-            title = {
-                Column(
-                    modifier = Modifier.onGloballyPositioned {
-                        if (titleCollapsible && !titleMeasured && it.size.height > 0) {
-                            titleHeightPx = it.size.height
+                title = {
+                    Column(
+                        modifier = Modifier.onGloballyPositioned {
+                            if (titleCollapsible && !titleMeasured && it.size.height > 0) {
+                                titleHeightPx = it.size.height
+                            }
+                        },
+                        verticalArrangement = Arrangement.spacedBy(dimensions.space05)
+                    ) {
+                        WarpText(
+                            text = titleText,
+                            style = WarpTextStyle.Title3,
+                        )
+                        if (subtitleText.isNotEmpty()) {
+                            WarpText(
+                                text = subtitleText,
+                                style = WarpTextStyle.Title6,
+                                color = colors.text.subtle
+                            )
                         }
                     }
-                ) {
-                    WarpText(
-                        text = titleText,
-                        style = WarpTextStyle.Title3,
-                    )
-                    if (subtitleText.isNotEmpty()) {
-                        WarpText(
-                            text = subtitleText,
-                            style = WarpTextStyle.Body,
-                        )
-                    }
-                }
-            },
-            modifier = Modifier,
-            navigationIcon = navigationIcon,
-            actions = actions,
-            windowInsets = windowInsets,
-            colors = appBarColors,
-            scrollBehavior = if (useMaterial3TitleCollapse) effectiveScrollBehavior else null
-        )
+                },
+                modifier = Modifier,
+                navigationIcon = navigationIcon,
+                actions = actions,
+                windowInsets = windowInsets,
+                colors = appBarColors,
+                scrollBehavior = if (useMaterial3TitleCollapse) effectiveScrollBehavior else null
+            )
         }
 
         // Collapsible section for search only
-        if (searchConfig != null) {
+        searchConfig?.let { config ->
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .then(
-                        if (searchConfig.collapsible && searchMeasured) {
+                        if (config.collapsible && searchMeasured) {
                             Modifier.layout { measurable, constraints ->
                                 // Measure content with unlimited height to get natural size
-                                val placeable = measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
+                                val placeable =
+                                    measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
 
                                 // Container height shrinks as section collapses
-                                val containerHeightPx = (placeable.height * searchCollapseFraction).toInt().coerceAtLeast(0)
+                                val containerHeightPx =
+                                    (placeable.height * searchCollapseFraction).toInt()
+                                        .coerceAtLeast(0)
 
                                 layout(placeable.width, containerHeightPx) {
                                     // Content slides up and fades out
                                     placeable.placeWithLayer(0, 0) {
                                         alpha = searchAlpha
-                                        translationY = -(placeable.height * (1f - searchCollapseFraction))
+                                        translationY =
+                                            -(placeable.height * (1f - searchCollapseFraction))
                                         clip = true
                                     }
                                 }
@@ -324,7 +349,7 @@ fun WarpTopAppBar(
                         }
                     )
                     .then(
-                        if (searchConfig.collapsible && searchCollapseFraction < 0.9f) {
+                        if (config.collapsible && searchCollapseFraction < 0.9f) {
                             Modifier.zIndex(-1f)
                         } else {
                             Modifier
@@ -336,75 +361,67 @@ fun WarpTopAppBar(
                         }
                     }
             ) {
-                    searchConfig.let { config ->
-                        SearchBar(
-                            modifier = Modifier
-                                .padding(
-                                    horizontal = dimensions.space2,
-                                    vertical = dimensions.space1
-                                )
-                                .fillMaxWidth(),
-                        inputField = {
-                            SearchBarDefaults.InputField(
-                                enabled = config.enabled && (!config.collapsible || searchCollapseFraction > 0.5f),
-                                query = config.state.text.toString(),
-                                onQueryChange = {
-                                    config.state.edit { replace(0, length, it) }
-                                },
-                                onSearch = { config.onSearch(config.state.text.toString()) },
-                                expanded = false,
-                                onExpandedChange = { },
-                                placeholder = {
-                                    WarpText(
-                                        text = config.hint,
-                                        color = colors.text.placeholder,
-                                        style = WarpTextStyle.Body,
-                                    )
-                                },
-                                leadingIcon = {
-                                    WarpIcon(
-                                        icon = WarpResources.icons.search,
-                                        size = dimensions.icon.small
-                                    )
-                                },
-                                trailingIcon = {
-                                    if (config.state.text.isNotEmpty()) {
-                                        IconButton(onClick = config.state::clearText) {
-                                            WarpIcon(
-                                                icon = WarpResources.icons.close,
-                                                size = dimensions.icon.small
-                                            )
-                                        }
-                                    }
-                                },
-                                colors = TextFieldDefaults.colors(
-                                    focusedTextColor = colors.text.default,
-                                    focusedContainerColor = colors.background.subtle,
-                                    unfocusedTextColor = colors.text.default,
-                                    unfocusedContainerColor = colors.background.subtle,
-                                    disabledTextColor = colors.text.disabled,
-                                    focusedPlaceholderColor = colors.text.placeholder,
-                                    unfocusedPlaceholderColor = colors.text.placeholder,
-                                    focusedLabelColor = colors.text.subtle,
-                                    unfocusedLabelColor = colors.text.subtle,
-                                    cursorColor = colors.icon.default,
-                                )
-                            )
-                        },
-                        expanded = false,
-                        onExpandedChange = { },
-                        colors = SearchBarDefaults.colors(
-                            containerColor = colors.background.subtle
-                        ),
-                        content = {},
-                        windowInsets = WindowInsets(
-                            left = 0.dp,
-                            top = 0.dp,
-                            right = 0.dp,
-                            bottom = 0.dp,
+                SearchBar(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = dimensions.space2,
+                            vertical = dimensions.space1
                         )
-                    )
-                }
+                        .fillMaxWidth(),
+                    inputField = {
+                        SearchBarDefaults.InputField(
+                            enabled = config.enabled && (!config.collapsible || searchCollapseFraction > 0.5f),
+                            query = config.state.text.toString(),
+                            onQueryChange = {
+                                config.state.edit { replace(0, length, it) }
+                            },
+                            onSearch = { config.onSearch(config.state.text.toString()) },
+                            expanded = false,
+                            onExpandedChange = { },
+                            placeholder = {
+                                WarpText(
+                                    text = config.hint,
+                                    color = colors.text.placeholder,
+                                    style = WarpTextStyle.Body,
+                                )
+                            },
+                            leadingIcon = {
+                                WarpIcon(
+                                    icon = WarpResources.icons.search,
+                                    size = dimensions.icon.small
+                                )
+                            },
+                            trailingIcon = {
+                                if (config.state.text.isNotEmpty()) {
+                                    IconButton(onClick = config.state::clearText) {
+                                        WarpIcon(
+                                            icon = WarpResources.icons.close,
+                                            size = dimensions.icon.small
+                                        )
+                                    }
+                                }
+                            },
+                            colors = TextFieldDefaults.colors(
+                                focusedTextColor = colors.text.default,
+                                focusedContainerColor = colors.background.subtle,
+                                unfocusedTextColor = colors.text.default,
+                                unfocusedContainerColor = colors.background.subtle,
+                                disabledTextColor = colors.text.disabled,
+                                focusedPlaceholderColor = colors.text.placeholder,
+                                unfocusedPlaceholderColor = colors.text.placeholder,
+                                focusedLabelColor = colors.text.subtle,
+                                unfocusedLabelColor = colors.text.subtle,
+                                cursorColor = colors.icon.default,
+                            )
+                        )
+                    },
+                    expanded = false,
+                    onExpandedChange = { },
+                    colors = SearchBarDefaults.colors(
+                        containerColor = colors.background.subtle
+                    ),
+                    content = {}
+                )
             }
         }
 
@@ -421,16 +438,20 @@ fun WarpTopAppBar(
                         if (config.collapsible && tabsMeasured) {
                             Modifier.layout { measurable, constraints ->
                                 // Measure content with unlimited height to get natural size
-                                val placeable = measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
+                                val placeable =
+                                    measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
 
                                 // Container height shrinks as section collapses
-                                val containerHeightPx = (placeable.height * tabsCollapseFraction).toInt().coerceAtLeast(0)
+                                val containerHeightPx =
+                                    (placeable.height * tabsCollapseFraction).toInt()
+                                        .coerceAtLeast(0)
 
                                 layout(placeable.width, containerHeightPx) {
                                     // Content slides up and fades out
                                     placeable.placeWithLayer(0, 0) {
                                         alpha = tabsAlpha
-                                        translationY = -(placeable.height * (1f - tabsCollapseFraction))
+                                        translationY =
+                                            -(placeable.height * (1f - tabsCollapseFraction))
                                         clip = true
                                     }
                                 }
