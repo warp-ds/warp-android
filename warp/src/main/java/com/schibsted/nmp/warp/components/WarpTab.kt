@@ -1,28 +1,39 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LeadingIconTab
-import androidx.compose.material3.ScrollableTabRow
-import androidx.compose.material3.TabRow
+import androidx.compose.material3.PrimaryScrollableTabRow
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.ui.unit.Dp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 
 /**
  * @param selectedTabIndex The index of the currently selected tab.
@@ -30,6 +41,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param scrollable Whether the tab row should be scrollable.
  * @param tabs The tabs to be displayed in the tab row.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpTabRow(
     selectedTabIndex: Int,
@@ -38,29 +50,35 @@ fun WarpTabRow(
     tabs: @Composable () -> Unit
 ) {
     if (scrollable) {
-        ScrollableTabRow(
+        PrimaryScrollableTabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = modifier,
             containerColor = colors.background.default,
             contentColor = colors.text.subtle,
             edgePadding = dimensions.space1,
-            indicator = { tabPositions ->
-                TabRowDefaults.SecondaryIndicator(
-                    Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+            indicator = {
+                TabRowDefaults.PrimaryIndicator(
+                    modifier = Modifier.tabIndicatorOffset(selectedTabIndex,
+                        matchContentSize = true
+                    ),
+                    width = Dp.Unspecified,
                     color = colors.icon.selected
                 )
             },
             tabs = tabs,
         )
     } else {
-        TabRow(
+        PrimaryTabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = modifier,
             containerColor = colors.background.default,
             contentColor = colors.text.subtle,
-            indicator = { tabPositions ->
-                TabRowDefaults.SecondaryIndicator(
-                    Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+            indicator = {
+                TabRowDefaults.PrimaryIndicator(
+                    modifier = Modifier.tabIndicatorOffset(selectedTabIndex,
+                        matchContentSize = true
+                    ),
+                    width = Dp.Unspecified,
                     color = colors.icon.selected
                 )
             },
@@ -75,6 +93,7 @@ fun WarpTabRow(
  * @param modifier The modifier to be applied to the tab.
  * @param text The text to be displayed in the tab.
  * @param icon The icon to be displayed in the tab.
+ * @param badge Optional badge composable to display in the tab (e.g., notification indicator).
  * @param interactionSource The interaction source to be used for the tab.
  */
 @Composable
@@ -84,6 +103,7 @@ fun WarpTab(
     onClick: () -> Unit = {},
     text: String,
     icon: WarpIconResource? = null,
+    hasBadge: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val iconSize = adaptDpToFontScale(dimensions.icon.default)
@@ -93,12 +113,21 @@ fun WarpTab(
         onClick = onClick,
         modifier = modifier,
         text = {
-            WarpText(
-                text = text,
-                style = WarpTextStyle.Title4,
-                softWrap = false,
-                color = Color.Unspecified
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(dimensions.space1),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                WarpText(
+                    text = text,
+                    style = WarpTextStyle.Title4,
+                    softWrap = false,
+                    color = Color.Unspecified,
+                )
+                if (hasBadge)
+                    Badge(
+                        containerColor = colors.background.notification,
+                    )
+            }
         },
         selectedContentColor = colors.text.link,
         unselectedContentColor = colors.text.subtle,
@@ -126,7 +155,8 @@ fun WarpTabsPreview() {
             selected = selectedIndex == 0,
             onClick = { selectedIndex = 0 },
             text = "First",
-            icon = icons.lotusFlower
+            icon = icons.lotusFlower,
+            hasBadge = true
         )
         WarpTab(
             selected = selectedIndex == 1,

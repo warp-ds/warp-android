@@ -2,28 +2,17 @@
 
 package com.schibsted.nmp.warp.components
 
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.PrimaryScrollableTabRow
-import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
@@ -35,13 +24,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.schibsted.nmp.warp.theme.WarpResources
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -160,10 +147,6 @@ fun WarpTopAppBar(
     val searchMeasured = searchHeightPx > 0
     val tabsMeasured = tabsHeightPx > 0
 
-    // Convert to Dp for animations
-    val searchHeightDp = with(LocalDensity.current) { searchHeightPx.toDp() }
-    val tabsHeightDp = with(LocalDensity.current) { tabsHeightPx.toDp() }
-
     // Auto-create scrollBehavior when searchConfig is present and none provided
     // The consumer needs to use effectiveScrollBehavior.nestedScrollConnection on their Scaffold
     val effectiveScrollBehavior = if (searchConfig != null && scrollBehavior == null) {
@@ -236,19 +219,6 @@ fun WarpTopAppBar(
     val tabsCollapseFraction = sectionBoundaries["tabs"]?.let {
         calculateSectionCollapseFraction(overallCollapsedFraction, it)
     } ?: 1f
-
-    // Animate container heights (Box height shrinks while content slides up)
-    val searchAnimatedHeight by animateDpAsState(
-        targetValue = (searchHeightDp * searchCollapseFraction).coerceAtLeast(0.dp),
-        animationSpec = tween(durationMillis = 200),
-        label = "searchContainerHeight"
-    )
-
-    val tabsAnimatedHeight by animateDpAsState(
-        targetValue = (tabsHeightDp * tabsCollapseFraction).coerceAtLeast(0.dp),
-        animationSpec = tween(durationMillis = 200),
-        label = "tabsContainerHeight"
-    )
 
     // Alpha fade calculations for collapsible sections
     val titleAlpha = if (titleCollapseFraction < ALPHA_THRESHOLD) 0f else titleCollapseFraction
@@ -353,6 +323,13 @@ fun WarpTopAppBar(
                             Modifier
                         }
                     )
+                    .then(
+                        if (searchConfig.collapsible && searchCollapseFraction < 0.9f) {
+                            Modifier.zIndex(-1f)
+                        } else {
+                            Modifier
+                        }
+                    )
                     .onGloballyPositioned {
                         if (searchConfig.collapsible && !searchMeasured && it.size.height > 0) {
                             searchHeightPx = it.size.height
@@ -369,7 +346,7 @@ fun WarpTopAppBar(
                                 .fillMaxWidth(),
                         inputField = {
                             SearchBarDefaults.InputField(
-                                enabled = config.enabled,
+                                enabled = config.enabled && (!config.collapsible || searchCollapseFraction > 0.5f),
                                 query = config.state.text.toString(),
                                 onQueryChange = {
                                     config.state.edit { replace(0, length, it) }
@@ -462,83 +439,32 @@ fun WarpTopAppBar(
                             Modifier
                         }
                     )
+                    .then(
+                        if (config.collapsible && tabsCollapseFraction < 0.9f) {
+                            Modifier.zIndex(-1f)
+                        } else {
+                            Modifier
+                        }
+                    )
                     .onGloballyPositioned {
                         if (config.collapsible && !tabsMeasured && it.size.height > 0) {
                             tabsHeightPx = it.size.height
                         }
                     }
             ) {
-                    val tabsContent: @Composable () -> Unit = {
-                config.tabs.forEachIndexed { index, tab ->
-                    Tab(
-                        selectedContentColor = colors.background.active,
-                        selected = selectedIndex == index,
-                        onClick = {
-                            config.onTabSelected(index)
-                        },
-                        text = {
-                            Box {
-                                WarpText(
-                                    text = tab.label,
-                                    style = WarpTextStyle.Title4,
-                                )
-                                // Badge indicator
-                                if (tab.hasBadge) {
-                                    Box(
-                                        modifier = Modifier
-                                            .align(Alignment.TopEnd)
-                                            .offset(x = 8.dp, y = (-4).dp)
-                                            .size(8.dp)
-                                            .background(
-                                                color = colors.background.notification,
-                                                shape = CircleShape
-                                            )
-                                    )
-                                }
-                            }
-                        }
-                    )
+                WarpTabRow(
+                    selectedTabIndex = selectedIndex,
+                    scrollable = config.scrollable
+                ) {
+                    config.tabs.forEachIndexed { index, tab ->
+                        WarpTab(
+                            selected = selectedIndex == index,
+                            onClick = { config.onTabSelected(index) },
+                            text = tab.label,
+                            hasBadge = tab.hasBadge
+                        )
+                    }
                 }
-            }
-
-            if (config.scrollable) {
-                PrimaryScrollableTabRow(
-                    selectedTabIndex = selectedIndex,
-                    edgePadding = dimensions.space2,
-                    containerColor = colors.background.default,
-                    contentColor = colors.text.default,
-                    indicator = {
-                        TabRowDefaults.PrimaryIndicator(
-                            modifier = Modifier.tabIndicatorOffset(
-                                selectedIndex,
-                                matchContentSize = true
-                            ),
-                            color = colors.icon.active,
-                            width = Dp.Unspecified,
-                        )
-                    },
-                    divider = {},
-                    tabs = tabsContent
-                )
-            } else {
-                PrimaryTabRow(
-                    selectedTabIndex = selectedIndex,
-                    containerColor = colors.background.default,
-                    contentColor = colors.text.default,
-                    indicator = {
-                        TabRowDefaults.PrimaryIndicator(
-                            modifier = Modifier.tabIndicatorOffset(
-                                selectedIndex,
-                                matchContentSize = true
-                            ),
-                            color = colors.icon.active,
-                            width = Dp.Unspecified,
-                        )
-                    },
-                    divider = {},
-                    tabs = tabsContent
-                )
-            }
             }
         }
     }
