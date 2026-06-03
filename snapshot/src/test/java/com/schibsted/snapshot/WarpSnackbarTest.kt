@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.SnackbarData
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +18,6 @@ import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.WarpSnackbar
-import com.schibsted.nmp.warp.components.WarpSnackbarVisuals
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.WarpSnackbarScenario
@@ -53,32 +53,32 @@ class WarpSnackbarTest(
 
     @Test
     fun warp_snackbar_neutral() {
-        warpSnackbar(WarpSnackbarScenarios.neutral)
+        warpSnackbar(WarpSnackbarScenarios.shortDurationDismissable)
     }
 
     @Test
     fun warp_snackbar_success() {
-        warpSnackbar(WarpSnackbarScenarios.positive)
+        warpSnackbar(WarpSnackbarScenarios.shortActionDismissable)
     }
 
     @Test
     fun warp_snackbar_error_multiline() {
-        warpSnackbar(WarpSnackbarScenarios.negativeMultiline)
+        warpSnackbar(WarpSnackbarScenarios.defaultDurationMultilineNoAction)
     }
 
     @Test
     fun warp_snackbar_warning_long_action() {
-        warpSnackbar(WarpSnackbarScenarios.warningLongAction)
+        warpSnackbar(WarpSnackbarScenarios.longDurationLongAction)
     }
 
     @Test
     fun warp_snackbar_info_short_action() {
-        warpSnackbar(WarpSnackbarScenarios.infoShortAction)
+        warpSnackbar(WarpSnackbarScenarios.longDurationShortAction)
     }
 
     @Test
     fun warp_snackbar_info_indefinite() {
-        warpSnackbar(WarpSnackbarScenarios.infoIndefinite)
+        warpSnackbar(WarpSnackbarScenarios.indefiniteDurationLongAction)
     }
 
     private fun warpSnackbar(scenario: WarpSnackbarScenario) {
@@ -91,9 +91,8 @@ class WarpSnackbarTest(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Bottom
                 ) {
-                    val visuals = WarpSnackbarVisuals(
+                    val visuals = FakeSnackbarVisuals(
                         message = scenario.message,
-                        type = scenario.type,
                         actionLabel = scenario.actionLabel,
                         withDismissAction = scenario.withDismissAction,
                         duration = scenario.duration
@@ -106,6 +105,14 @@ class WarpSnackbarTest(
             }
         }
     }
+
+    // Fake SnackbarVisuals implementation for Paparazzi tests
+    private data class FakeSnackbarVisuals(
+        override val message: String,
+        override val actionLabel: String? = null,
+        override val withDismissAction: Boolean = false,
+        override val duration: SnackbarDuration = SnackbarDuration.Short
+    ) : SnackbarVisuals
 
     // Fake SnackbarData for Paparazzi tests
     private class FakeSnackbarData(

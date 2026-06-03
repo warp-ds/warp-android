@@ -1,31 +1,12 @@
 package com.schibsted.nmp.warp.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.R
-import com.schibsted.nmp.warp.theme.WarpDimensions.adaptDpToFontScale
-import com.schibsted.nmp.warp.theme.WarpIconResource
-import com.schibsted.nmp.warp.theme.WarpIconResources
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 private const val ACTION_NEW_LINE_THRESHOLD = 10
@@ -35,7 +16,7 @@ private const val ACTION_NEW_LINE_THRESHOLD = 10
  * Snackbars provide brief messages about app processes at the bottom of the screen.
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/snackbar/)
  *
- * The action button is automatically placed on a new line when the action text exceeds 10 chars.
+ * The action button is automatically placed on a new line when the action text is at least chars.
  *
  * @param snackbarData Data about the snackbar, including text and action label.
  * @param modifier Modifier for the snackbar.
@@ -45,152 +26,42 @@ fun WarpSnackbar(
     modifier: Modifier = Modifier,
     snackbarData: SnackbarData
 ) {
-    val warpVisuals = snackbarData.visuals as? WarpSnackbarVisuals
+    snackbarData.visuals.validate()
 
-    val iconSpec = warpVisuals?.type?.toSnackbarIconSpec()
-    val shape = WarpTheme.shapes.roundedMedium
     val textContentColor = WarpTheme.colors.text.invertedStatic
     val iconContentColor = WarpTheme.colors.icon.invertedStatic
     val containerColor = WarpTheme.colors.components.tooltip.backgroundStatic
     val actionOnNewLine = snackbarData.visuals.actionLabel?.let {
-        it.length > ACTION_NEW_LINE_THRESHOLD
+        it.length >= ACTION_NEW_LINE_THRESHOLD
     } ?: false
 
-    Snackbar(
-        modifier = modifier.padding(WarpTheme.dimensions.space05),
-        action = snackbarData.visuals.actionLabel?.let { label ->
-            @Composable {
-                TextButton(
-                    onClick = { snackbarData.performAction() }
-                ) {
-                    Text(
-                        text = label,
-                        style = WarpTheme.typography.title5,
-                        color = textContentColor
-                    )
-                }
-            }
-        },
-        dismissAction = if (snackbarData.visuals.withDismissAction) {
-            @Composable {
-                IconButton(
-                    onClick = { snackbarData.dismiss() }
-                ) {
-                    Icon(
-                        imageVector = WarpIconResources.close.vector,
-                        contentDescription = stringResource(R.string.close),
-                        tint = iconContentColor,
-                        modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
-                    )
-                }
-            }
-        } else null,
-        actionOnNewLine = actionOnNewLine,
-        shape = shape,
-        containerColor = containerColor,
-        contentColor = textContentColor,
-        dismissActionContentColor = iconContentColor,
+    MaterialTheme(
+        typography = MaterialTheme.typography.copy(
+            bodyMedium = WarpTheme.typography.caption,
+            labelLarge = WarpTheme.typography.title5
+        )
     ) {
-        Row(
-            modifier = Modifier.padding(
-                // Padding is needed, to somewhat adjust offsets caused by component internals.
-                // Noticeable when displaying multiple lines of text.
-                vertical = if (actionOnNewLine) {
-                    0.dp
-                } else {
-                    WarpTheme.dimensions.space15 / LocalDensity.current.fontScale
-                }
-            ),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (iconSpec != null) {
-                // Given the constraint of not being able to programmatically tint vector paths
-                // individually, we're layering Icon composables in a Box instead.
-                Box(
-                    modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    WarpIcon(
-                        modifier = Modifier.clearAndSetSemantics { },
-                        icon = iconSpec.iconBackgroundResource,
-                        color = iconSpec.iconBackgroundColor,
-                        size = adaptDpToFontScale(WarpTheme.dimensions.icon.default)
-                    )
-                    iconSpec.iconForegroundResource?.let { foregroundRes ->
-                        Icon(
-                            imageVector = ImageVector.vectorResource(id = foregroundRes),
-                            contentDescription = iconSpec.iconBackgroundResource.description,
-                            tint = iconSpec.iconForegroundColor ?: iconContentColor,
-                            modifier = Modifier.size(adaptDpToFontScale(WarpTheme.dimensions.icon.default))
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.width(WarpTheme.dimensions.space15))
-            }
-            Text(
-                text = snackbarData.visuals.message,
-                style = WarpTheme.typography.caption,
-                color = textContentColor
-            )
-        }
+        Snackbar(
+            modifier = modifier,
+            actionOnNewLine = actionOnNewLine,
+            containerColor = containerColor,
+            contentColor = textContentColor,
+            actionContentColor = textContentColor,
+            actionColor = textContentColor,
+            dismissActionContentColor = iconContentColor,
+            snackbarData = snackbarData
+        )
     }
 }
 
-@Composable
-private fun WarpSnackbarType.toSnackbarIconSpec(): WarpSnackbarIconSpec? {
-    val iconForegroundColor = WarpTheme.colors.icon.invertedStatic
-    return when (this) {
-        is WarpSnackbarType.Positive -> {
-            WarpSnackbarIconSpec(
-                iconBackgroundResource = WarpIconResources.successFilled,
-                iconBackgroundColor = WarpTheme.colors.icon.positive,
-                iconForegroundResource = R.drawable.warp_success_checkmark_foreground,
-                iconForegroundColor = iconForegroundColor
-            )
-        }
-
-        is WarpSnackbarType.Negative -> {
-            WarpSnackbarIconSpec(
-                iconBackgroundResource = WarpIconResources.errorFilled,
-                iconBackgroundColor = WarpTheme.colors.icon.negative,
-                iconForegroundResource = R.drawable.warp_error_exclamation_foreground,
-                iconForegroundColor = iconForegroundColor
-            )
-        }
-
-        is WarpSnackbarType.Warning -> {
-            WarpSnackbarIconSpec(
-                iconBackgroundResource = WarpIconResources.warningFilled,
-                iconBackgroundColor = WarpTheme.colors.icon.warning,
-                iconForegroundResource = R.drawable.warp_warning_exclamation_foreground,
-                iconForegroundColor = iconForegroundColor
-            )
-        }
-
-        is WarpSnackbarType.Info -> {
-            WarpSnackbarIconSpec(
-                iconBackgroundResource = WarpIconResources.infoFilled,
-                iconBackgroundColor = WarpTheme.colors.icon.info,
-                iconForegroundResource = R.drawable.warp_info_letter_foreground,
-                iconForegroundColor = iconForegroundColor
-            )
-        }
-
-        is WarpSnackbarType.Neutral -> {
-            customIcon?.let {
-                WarpSnackbarIconSpec(
-                    iconBackgroundResource = it,
-                    iconBackgroundColor = WarpTheme.colors.icon.invertedStatic
-                )
-            }
-        }
+fun SnackbarVisuals.validate() {
+    require(message.isNotBlank()) {
+        "Snackbar message cannot be empty."
+    }
+    require(actionLabel.isNullOrEmpty() || duration != SnackbarDuration.Short) {
+        "Snackbars with an action cannot have Short duration. Use Long or Indefinite instead."
+    }
+    require(duration == SnackbarDuration.Short || withDismissAction || !actionLabel.isNullOrEmpty()) {
+        "Long and Indefinite snackbars must have either a dismiss action or an action button."
     }
 }
-
-// Workaround for tinting multiple SVG paths in a "single" icon
-private data class WarpSnackbarIconSpec(
-    val iconBackgroundResource: WarpIconResource,
-    val iconBackgroundColor: Color,
-    val iconForegroundResource: Int? = null,
-    val iconForegroundColor: Color? = null
-)

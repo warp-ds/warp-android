@@ -15,6 +15,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,12 +32,11 @@ import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpSelect
 import com.schibsted.nmp.warp.components.WarpSnackbar
-import com.schibsted.nmp.warp.components.WarpSnackbarType
-import com.schibsted.nmp.warp.components.WarpSnackbarVisuals
 import com.schibsted.nmp.warp.components.WarpSwitch
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextField
 import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.components.validate
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.WarpSnackbarScenario
@@ -63,11 +63,7 @@ fun SnackbarScreenContent() {
     var customBodyText by remember { mutableStateOf("This is the body text") }
     var customActionText by remember { mutableStateOf("") }
     var customDismissable by remember { mutableStateOf(true) }
-    var customType by remember { mutableStateOf("Neutral") }
     var customDuration by remember { mutableStateOf(SnackbarDuration.Short.name) }
-
-    val snackbarTypes = listOf("Neutral", "Positive", "Negative", "Warning", "Info")
-    val neutralWithIconScenario = WarpSnackbarScenarios.neutralWithIcon()
 
     WarpScaffold(
         snackbarHost = {
@@ -100,19 +96,6 @@ fun SnackbarScreenContent() {
                     }
                 )
             }
-
-            WarpButton(
-                modifier = Modifier.padding(bottom = dimensions.space2),
-                text = "Neutral w/custom icon",
-                onClick = {
-                    showWarpSnackbar(
-                        snackbarHostState = snackbarHostState,
-                        scope = scope,
-                        scenario = neutralWithIconScenario
-                    )
-                }
-            )
-
             WarpButton(
                 modifier = Modifier.padding(bottom = dimensions.space2),
                 text = "Custom",
@@ -171,16 +154,6 @@ fun SnackbarScreenContent() {
                     Spacer(modifier = Modifier.height(dimensions.space2))
 
                     WarpSelect(
-                        value = customType,
-                        onValueChange = { customType = it },
-                        label = "Type",
-                        items = snackbarTypes,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Spacer(modifier = Modifier.height(dimensions.space2))
-
-                    WarpSelect(
                         value = customDuration,
                         onValueChange = { customDuration = it },
                         label = "Duration",
@@ -216,21 +189,14 @@ fun SnackbarScreenContent() {
                         WarpButton(
                             text = "Confirm",
                             onClick = {
-                                val type = when (customType) {
-                                    "Positive" -> WarpSnackbarType.Positive
-                                    "Negative" -> WarpSnackbarType.Negative
-                                    "Warning" -> WarpSnackbarType.Warning
-                                    "Info" -> WarpSnackbarType.Info
-                                    else -> WarpSnackbarType.Neutral()
-                                }
                                 try {
-                                    val visuals = WarpSnackbarVisuals(
-                                        message = customBodyText,
-                                        actionLabel = customActionText.takeIf { it.isNotEmpty() },
-                                        withDismissAction = customDismissable,
-                                        type = type,
-                                        duration = SnackbarDuration.valueOf(customDuration)
-                                    )
+                                    val visuals = object : SnackbarVisuals {
+                                        override val message = customBodyText
+                                        override val actionLabel = customActionText.takeIf { it.isNotEmpty() }
+                                        override val withDismissAction = customDismissable
+                                        override val duration = SnackbarDuration.valueOf(customDuration)
+                                    }
+                                    visuals.validate()
                                     scope.launch {
                                         snackbarHostState.showSnackbar(visuals)
                                     }
@@ -259,13 +225,11 @@ fun showWarpSnackbar(
 ) {
     scope.launch {
         snackbarHostState.showSnackbar(
-            WarpSnackbarVisuals(
-                message = scenario.message,
-                type = scenario.type,
-                actionLabel = scenario.actionLabel,
-                withDismissAction = scenario.withDismissAction,
-                duration = scenario.duration
-            )
+            message = scenario.message,
+            actionLabel = scenario.actionLabel,
+            withDismissAction = scenario.withDismissAction,
+            duration = scenario.duration
         )
     }
 }
+
