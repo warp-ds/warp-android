@@ -60,7 +60,7 @@ class WarpIconTest(
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
             }
-        Assert.assertEquals(299, count)
+        Assert.assertEquals(302, count)
     }
 
     @Test
@@ -209,6 +209,7 @@ class WarpIconTest(
                     icons.engine,
                     icons.engineBelt,
                     icons.error,
+                    icons.errorFilled,
                     icons.exchange,
                     icons.expand,
                     icons.eyeOff,
@@ -288,6 +289,7 @@ class WarpIconTest(
                     icons.iceSkater,
                     icons.image,
                     icons.info,
+                    icons.infoFilled,
                     icons.instagram,
                 )
             )
@@ -493,6 +495,7 @@ class WarpIconTest(
                     icons.stove,
                     icons.stroller,
                     icons.success,
+                    icons.successFilled,
                     icons.suitcase,
                     icons.suitcaseTrolley,
                     icons.sun,
@@ -570,6 +573,7 @@ class WarpIconTest(
                 listOf(
                     icons.wallet,
                     icons.warning,
+                    icons.warningFilled,
                     icons.warranty,
                     icons.washingMachine,
                     icons.waterPitcher,
