@@ -60,7 +60,7 @@ class WarpIconTest(
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
             }
-        Assert.assertEquals(300, count)
+        Assert.assertEquals(306, count)
     }
 
     @Test
@@ -142,6 +142,7 @@ class WarpIconTest(
                     icons.carRent,
                     icons.carRight,
                     icons.chair,
+                    icons.chainsaw,
                     icons.charger,
                     icons.charter,
                     icons.chatSupport,
@@ -226,8 +227,11 @@ class WarpIconTest(
                 listOf(
                     icons.facebook,
                     icons.farm,
+                    icons.file,
                     icons.fileAdd,
                     icons.fileArrowDown,
+                    icons.filePdf,
+                    icons.fileText,
                     icons.filter,
                     icons.fireplace,
                     icons.fishing,
@@ -335,6 +339,7 @@ class WarpIconTest(
                     icons.listSort,
                     icons.lockShield,
                     icons.logout,
+                    icons.lowSpeedVehicle,
                     icons.lotusFlower,
                     icons.luggage
                 )
@@ -522,6 +527,7 @@ class WarpIconTest(
                     icons.ticket,
                     icons.townhouse,
                     icons.tractor,
+                    icons.trailer,
                     icons.tree,
                     icons.truck,
                     icons.trendDown,

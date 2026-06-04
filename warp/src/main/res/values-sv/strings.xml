@@ -50,6 +50,7 @@
     <string name="carpart">Bildel</string>
     <string name="carrent">Bil och klocka</string>
     <string name="chair">Stol</string>
+    <string name="chainsaw">En motorsåg från sidan</string>
     <string name="charger">Laddkabel</string>
     <string name="charter">Resväska med betonad jordglob i nedre högra hörnet</string>
     <string name="chatsupport">Två pratbubblor</string>
@@ -94,7 +95,10 @@
     <string name="eyeon">Öga</string>
     <string name="facebook">Facebook-ikon</string>
     <string name="farm">Lada med sadeltak och dörr med X-mönster</string>
+    <string name="file">Dokumentsida med ett vikt hörn uppe till höger</string>
     <string name="fileadd">"Plustecken på en fil "</string>
+    <string name="filepdf">Dokumentsida med bokstäverna PDF</string>
+    <string name="filetext">Dokumentsida med horisontella textrader</string>
     <string name="filter">Två horisontella reglage med justerbara knappar</string>
     <string name="fireplace">Eldstad</string>
     <string name="fishing">Fiskekrok</string>
@@ -137,6 +141,7 @@
     <string name="listsort">Punktlista</string>
     <string name="lockshield">Sköld med hänglås</string>
     <string name="logout">Pil åt höger som sticker ut från en låda</string>
+    <string name="lowspeedvehicle">En bil med varningstriangel bak sedd från sidan</string>
     <string name="mail">Kuvert</string>
     <string name="mailbox">Brevlåda med uppfälld flagga</string>
     <string name="gearmanual">Manuell växellåda</string>
@@ -225,6 +230,7 @@
     <string name="drill">Elektrisk borr</string>
     <string name="townhouse">Två stadshus</string>
     <string name="tractor">Traktor</string>
+    <string name="trailer">En släpvagn från sidan</string>
     <string name="trenddown">Nedåtgående trendlinje</string>
     <string name="trendflat">Rak trendlinje</string>
     <string name="trendup">Uppåtgående trendlinje</string>
