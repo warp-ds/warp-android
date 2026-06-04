@@ -1,6 +1,5 @@
 package com.schibsted.nmp.warp.components
 
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -116,7 +115,7 @@ private fun RowScope.WarpNavBarItem(
                 selected = isSelected,
                 onClick = onClick,
                 role = Role.Tab,
-                indication = LocalIndication.current,
+                indication = null,
                 interactionSource = remember { MutableInteractionSource() }
             )
             .semantics { contentDescription = item.contentDescription }
