@@ -30,23 +30,24 @@ class WarpDatePickerTest(
     @TestParameter(valuesProvider = FontScaleProvider::class) private val fontScale: Float,
 
     ) {
+
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_5.copy(
             nightMode = nightMode,
             fontScale = fontScale
         ),
-            theme = "android:Theme.Material.Light.NoActionBar",
-            renderingMode = SessionParams.RenderingMode.V_SCROLL,
-            snapshotHandler = if (Config.isVerifying) {
-                SnapshotVerifier(
-                    maxPercentDifference = Config.maxPercentDifference,
-                    rootDirectory = flavor.dir
-                )
-            } else {
-                HtmlReportWriter(snapshotRootDirectory = flavor.dir)
-            }
-        )
+        theme = "android:Theme.Material.Light.NoActionBar",
+        renderingMode = SessionParams.RenderingMode.V_SCROLL,
+        snapshotHandler = if (Config.isVerifying) {
+            SnapshotVerifier(
+                maxPercentDifference = Config.maxPercentDifference,
+                rootDirectory = flavor.dir
+            )
+        } else {
+            HtmlReportWriter(snapshotRootDirectory = flavor.dir)
+        }
+    )
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Test
