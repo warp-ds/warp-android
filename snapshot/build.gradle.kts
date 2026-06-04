@@ -66,4 +66,5 @@ dependencies {
     implementation(project(":warp-tori"))
     implementation(project(":warp-dba"))
     implementation(project(":warp-blocket"))
+    implementation(project(":snapshot-test-utils"))
 }
