@@ -27,11 +27,11 @@ fun WarpTheme(flavor: Flavor, content: @Composable () -> Unit) {
     }
 }
 
-enum class Flavor(val dir: File) {
-    Finn(Config.dirFinn),
-    Tori(Config.dirTori),
-    Dba(Config.dirDba),
-    Blocket(Config.dirBlocket)
+enum class Flavor(val dir: File, val locale: String) {
+    Finn(Config.dirFinn, "nb-NO"),
+    Tori(Config.dirTori, "fi-FI"),
+    Dba(Config.dirDba, "da-DK"),
+    Blocket(Config.dirBlocket, "sv-SE")
 }
 
 internal object FontScaleProvider : TestParameter.TestParameterValuesProvider {
