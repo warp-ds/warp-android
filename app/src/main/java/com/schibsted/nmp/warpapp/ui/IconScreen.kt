@@ -64,6 +64,7 @@ fun CreateIcons(size: Dp) {
     CreateIcon(icons.airCon, size)
     CreateIcon(icons.airplaneBed, size)
     CreateIcon(icons.allWheelDrive, size)
+    CreateIcon(icons.anchor, size)
     CreateIcon(icons.animalPaw, size)
     CreateIcon(icons.archiveBox, size)
     CreateIcon(icons.archway, size)

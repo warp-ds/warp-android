@@ -142,6 +142,14 @@ object WarpIconResources {
             stringResource(R.string.allwheeldrive)
         )
 
+    val anchor: WarpIconResource
+        @Composable
+        get() = WarpTaxonomyIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_anchor),
+            stringResource(R.string.anchor),
+            identifier = "anchor"
+        )
+
     val animalPaw: WarpTaxonomyIconResource
         @Composable
         get() = WarpTaxonomyIconResource(
