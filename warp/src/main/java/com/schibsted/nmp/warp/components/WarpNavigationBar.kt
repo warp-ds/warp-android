@@ -217,11 +217,12 @@ private fun WarpHorizontalNavBarItem(
                 interactionSource = remember { MutableInteractionSource() }
             )
             .semantics { contentDescription = item.contentDescription }
+            .padding(vertical = dimensions.space15)
             .background(
                 color = if (isSelected) colors.background.subtle else Color.Transparent,
                 shape = RoundedCornerShape(50)
             )
-            .padding(horizontal = dimensions.space2, vertical = dimensions.space15),
+            .padding(horizontal = dimensions.space2),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(dimensions.space1)
     ) {
