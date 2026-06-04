@@ -34,8 +34,7 @@ class WarpDatePickerTest(
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_5.copy(
             nightMode = nightMode,
-            fontScale = fontScale,
-            locale = flavor.locale
+            fontScale = fontScale
         ),
             theme = "android:Theme.Material.Light.NoActionBar",
             renderingMode = SessionParams.RenderingMode.V_SCROLL,
