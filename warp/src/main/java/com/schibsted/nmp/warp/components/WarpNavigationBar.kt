@@ -308,3 +308,51 @@ private fun WarpNavBarItemSelectedPreview() {
         )
     }
 }
+
+@Preview(name = "WarpNavigationBar — horizontal", widthDp = 640, showBackground = true)
+@Composable
+private fun WarpNavigationBarHorizontalPreview() {
+    WarpNavigationBar(
+        items = listOf(
+            WarpNavItem("Home", { color, _ -> WarpIcon(icon = icons.house, color = color) }, contentDescription = "Home"),
+            WarpNavItem("Activity", { color, _ -> WarpIcon(icon = icons.bell, color = color) }, contentDescription = "Activity"),
+            WarpNavItem("Sell", { color, _ -> WarpIcon(icon = icons.circlePlus, color = color) }, showDot = true, contentDescription = "Sell"),
+            WarpNavItem("Messages", { color, _ -> WarpIcon(icon = icons.messages, color = color) }, badgeCount = 3, contentDescription = "Messages"),
+            WarpNavItem("Profile", { color, _ -> WarpIcon(icon = icons.circleUser, color = color) }, contentDescription = "Profile"),
+        ),
+        selectedIndex = 0,
+        onItemSelected = {},
+        layout = WarpNavBarLayout.Horizontal
+    )
+}
+
+@Preview(name = "WarpHorizontalNavBarItem — unselected", showBackground = true)
+@Composable
+private fun WarpHorizontalNavBarItemPreview() {
+    WarpHorizontalNavBarItem(
+        item = WarpNavItem(
+            label = "Activity",
+            icon = { color, _ -> WarpIcon(icon = icons.bell, color = color) },
+            showDot = true,
+            contentDescription = "Activity"
+        ),
+        isSelected = false,
+        iconColor = colors.icon.default,
+        onClick = {}
+    )
+}
+
+@Preview(name = "WarpHorizontalNavBarItem — selected", showBackground = true)
+@Composable
+private fun WarpHorizontalNavBarItemSelectedPreview() {
+    WarpHorizontalNavBarItem(
+        item = WarpNavItem(
+            label = "Home",
+            icon = { color, _ -> WarpIcon(icon = icons.houseFilled, color = color) },
+            contentDescription = "Home"
+        ),
+        isSelected = true,
+        iconColor = colors.components.navBar.iconSelected,
+        onClick = {}
+    )
+}
