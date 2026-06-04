@@ -21,16 +21,15 @@ import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -260,11 +259,11 @@ private fun WarpHorizontalNavBarItem(
 fun WarpNavigationBarPreview() {
     WarpNavigationBar(
         items = listOf(
-            WarpNavItem("Home", { color, _ -> WarpIcon(icon =  icons.house, color = color) }, contentDescription = "Home"),
-            WarpNavItem("Activity", { color, _ -> WarpIcon(icon =  icons.bell, color = color) }, contentDescription = "Activity"),
-            WarpNavItem("Sell", { color, _ -> WarpIcon(icon =  icons.circlePlus, color = color) }, showDot = true, contentDescription = "Sell"),
-            WarpNavItem("Messages", { color, _ -> WarpIcon(icon =  icons.messages, color = color) }, badgeCount = 3, contentDescription = "Messages"),
-            WarpNavItem("Profile", { color, _ -> WarpIcon(icon =  icons.circleUser, color = color) }, contentDescription = "Profile"),
+            WarpNavItem("Home", { color, _ -> WarpIcon(icon = icons.house, color = color) }, contentDescription = "Home"),
+            WarpNavItem("Activity", { color, _ -> WarpIcon(icon = icons.bell, color = color) }, contentDescription = "Activity"),
+            WarpNavItem("Sell", { color, _ -> WarpIcon(icon = icons.circlePlus, color = color) }, showDot = true, contentDescription = "Sell"),
+            WarpNavItem("Messages", { color, _ -> WarpIcon(icon = icons.messages, color = color) }, badgeCount = 3, contentDescription = "Messages"),
+            WarpNavItem("Profile", { color, _ -> WarpIcon(icon = icons.circleUser, color = color) }, contentDescription = "Profile"),
         ),
         selectedIndex = 0,
         onItemSelected = {}
@@ -280,7 +279,7 @@ private fun WarpNavBarItemPreview() {
         WarpNavBarItem(
             item = WarpNavItem(
                 label = "Activity",
-                icon = { color, _ -> WarpIcon(icon =  icons.bell, color = color) },
+                icon = { color, _ -> WarpIcon(icon = icons.bell, color = color) },
                 showDot = true,
                 contentDescription = "Activity"
             ),
@@ -300,7 +299,7 @@ private fun WarpNavBarItemSelectedPreview() {
         WarpNavBarItem(
             item = WarpNavItem(
                 label = "Home",
-                icon = { color, _ -> WarpIcon(icon =  icons.houseFilled, color = color) },
+                icon = { color, _ -> WarpIcon(icon = icons.houseFilled, color = color) },
                 contentDescription = "Home"
             ),
             isSelected = true,
