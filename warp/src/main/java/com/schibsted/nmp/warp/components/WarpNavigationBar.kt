@@ -222,9 +222,9 @@ private fun WarpHorizontalNavBarItem(
                 color = if (isSelected) colors.background.subtle else Color.Transparent,
                 shape = RoundedCornerShape(50)
             )
-            .padding(horizontal = dimensions.space2),
+            .padding(horizontal = dimensions.space2, vertical = dimensions.space1),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(dimensions.space1)
+        horizontalArrangement = Arrangement.spacedBy(dimensions.space05)
     ) {
         BadgedBox(
             badge = {
