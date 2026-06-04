@@ -1,12 +1,15 @@
 package com.schibsted.snapshot
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalConfiguration
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.schibsted.nmp.warp.brands.blocket.BlocketWarpTheme
 import com.schibsted.nmp.warp.brands.dba.DbaWarpTheme
 import com.schibsted.nmp.warp.brands.finn.FinnWarpTheme
 import com.schibsted.nmp.warp.brands.tori.ToriWarpTheme
 import java.io.File
+import java.util.Locale
 
 object Config {
     val dirFinn = File("src/test/snapshots/finn")
@@ -19,19 +22,24 @@ object Config {
 
 @Composable
 fun WarpTheme(flavor: Flavor, content: @Composable () -> Unit) {
-    when (flavor) {
-        Flavor.Finn -> FinnWarpTheme(content)
-        Flavor.Tori -> ToriWarpTheme(content)
-        Flavor.Dba -> DbaWarpTheme(content)
-        Flavor.Blocket -> BlocketWarpTheme(content)
+    val configuration = android.content.res.Configuration(LocalConfiguration.current).apply {
+        setLocale(flavor.locale)
+    }
+    CompositionLocalProvider(LocalConfiguration provides configuration) {
+        when (flavor) {
+            Flavor.Finn -> FinnWarpTheme(content)
+            Flavor.Tori -> ToriWarpTheme(content)
+            Flavor.Dba -> DbaWarpTheme(content)
+            Flavor.Blocket -> BlocketWarpTheme(content)
+        }
     }
 }
 
-enum class Flavor(val dir: File) {
-    Finn(Config.dirFinn),
-    Tori(Config.dirTori),
-    Dba(Config.dirDba),
-    Blocket(Config.dirBlocket)
+enum class Flavor(val dir: File, val locale: Locale) {
+    Finn(Config.dirFinn, Locale.US),
+    Tori(Config.dirTori, Locale("fi", "FI")),
+    Dba(Config.dirDba, Locale("da", "DK")),
+    Blocket(Config.dirBlocket, Locale("sv", "SE"))
 }
 
 object FontScaleProvider : TestParameter.TestParameterValuesProvider {
