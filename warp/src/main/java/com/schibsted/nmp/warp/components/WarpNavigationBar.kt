@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +21,7 @@ import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +34,12 @@ import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+
+/**
+ * Controls the layout direction of [WarpNavigationBar].
+ * [Auto] switches automatically based on device orientation.
+ */
+enum class WarpNavBarLayout { Auto, Vertical, Horizontal }
 
 /**
  * Represents a single item in a [WarpNavigationBar] bar.
@@ -71,10 +79,17 @@ fun WarpNavigationBar(
     items: List<WarpNavItem>,
     selectedIndex: Int,
     onItemSelected: (index: Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    layout: WarpNavBarLayout = WarpNavBarLayout.Auto
 ) {
     require(items.isNotEmpty()) { "WarpNavigationBar items must not be empty" }
     require(selectedIndex in items.indices) { "selectedIndex $selectedIndex is out of bounds for ${items.size} items" }
+
+    val showHorizontal = when (layout) {
+        WarpNavBarLayout.Auto       -> LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+        WarpNavBarLayout.Horizontal -> true
+        WarpNavBarLayout.Vertical   -> false
+    }
 
     Surface(
         modifier = modifier,
