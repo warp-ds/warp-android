@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.components.WarpNavBarLayout
 import com.schibsted.nmp.warp.components.WarpNavItem
 import com.schibsted.nmp.warp.components.WarpNavigationBar
 import com.schibsted.nmp.warp.components.WarpIcon
@@ -118,6 +119,27 @@ internal fun WarpNavItemPreview(
             ),
             selectedIndex = 0,
             onItemSelected = {}
+        )
+    }
+}
+
+@Preview(name = "WarpNavigationBar — horizontal", widthDp = 640, showBackground = true)
+@Composable
+internal fun WarpNavBarHorizontalPreview(
+    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
+) {
+    BrandTheme(flavor = flavor).invoke {
+        WarpNavigationBar(
+            items = listOf(
+                WarpNavItem("Home", { color, sel -> WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color) }, contentDescription = "Home"),
+                WarpNavItem("Activity", { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) }, showDot = true, contentDescription = "Activity"),
+                WarpNavItem("Sell", { color, sel -> WarpIcon(icon = if (sel) icons.circlePlusFilled else icons.circlePlus, color = color) }, contentDescription = "Sell"),
+                WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badgeCount = 4, contentDescription = "Messages"),
+                WarpNavItem("Profile", { color, sel -> WarpIcon(icon = if (sel) icons.circleUserFilled else icons.circleUser, color = color) }, contentDescription = "Profile"),
+            ),
+            selectedIndex = 0,
+            onItemSelected = {},
+            layout = WarpNavBarLayout.Horizontal
         )
     }
 }
