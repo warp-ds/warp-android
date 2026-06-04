@@ -36,7 +36,7 @@ fun WarpTheme(flavor: Flavor, content: @Composable () -> Unit) {
 }
 
 enum class Flavor(val dir: File, val locale: Locale) {
-    Finn(Config.dirFinn, Locale.US),
+    Finn(Config.dirFinn, Locale("nb", "NO")),
     Tori(Config.dirTori, Locale("fi", "FI")),
     Dba(Config.dirDba, Locale("da", "DK")),
     Blocket(Config.dirBlocket, Locale("sv", "SE"))
