@@ -15,10 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpNavBarLayout
 import com.schibsted.nmp.warp.components.WarpNavItem
 import com.schibsted.nmp.warp.components.WarpNavigationBar
-import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
