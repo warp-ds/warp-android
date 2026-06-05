@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,7 +30,8 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.schibsted.nmp.warp.theme.WarpResources
+import androidx.compose.ui.tooling.preview.Preview
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
@@ -364,8 +364,7 @@ fun WarpTopAppBar(
                 SearchBar(
                     modifier = Modifier
                         .padding(
-                            horizontal = dimensions.space2,
-                            vertical = dimensions.space1
+                            horizontal = dimensions.space15,
                         )
                         .fillMaxWidth(),
                     inputField = {
@@ -387,7 +386,7 @@ fun WarpTopAppBar(
                             },
                             leadingIcon = {
                                 WarpIcon(
-                                    icon = WarpResources.icons.search,
+                                    icon = icons.search,
                                     size = dimensions.icon.small
                                 )
                             },
@@ -395,7 +394,7 @@ fun WarpTopAppBar(
                                 if (config.state.text.isNotEmpty()) {
                                     IconButton(onClick = config.state::clearText) {
                                         WarpIcon(
-                                            icon = WarpResources.icons.close,
+                                            icon = icons.close,
                                             size = dimensions.icon.small
                                         )
                                     }
@@ -420,7 +419,13 @@ fun WarpTopAppBar(
                     colors = SearchBarDefaults.colors(
                         containerColor = colors.background.subtle
                     ),
-                    content = {}
+                    content = {},
+                    windowInsets = WindowInsets(
+                        left = 0.dp,
+                        top = 0.dp,
+                        right = 0.dp,
+                        bottom = 0.dp,
+                    )
                 )
             }
         }
@@ -488,5 +493,47 @@ fun WarpTopAppBar(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WarpTopAppBarPreview() {
+    val searchState = remember { TextFieldState("") }
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    
+    val tabs = listOf(
+        TabData("Messages", "messages", hasBadge = true),
+        TabData("Favorites", "favorites"),
+        TabData("Profile", "profile")
+    )
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        WarpTopAppBar(
+            titleText = "Title",
+            subtitleText = "Subtitle",
+            navigationIcon = {
+                IconButton(onClick = {}) {
+                    WarpIcon(icon = icons.arrowLeft)
+                }
+            },
+            actions = {
+                IconButton(onClick = {}) {
+                    WarpIcon(icon = icons.dotsVertical)
+                }
+            },
+            searchConfig = SearchConfiguration(
+                state = searchState,
+                onSearch = {},
+                hint = "Search...",
+                collapsible = false
+            ),
+            tabConfig = TabConfiguration(
+                tabs = tabs,
+                selectedIndex = selectedTabIndex,
+                onTabSelected = { selectedTabIndex = it },
+                collapsible = false
+            )
+        )
     }
 }
