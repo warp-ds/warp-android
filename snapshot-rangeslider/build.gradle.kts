@@ -34,5 +34,4 @@ android {
 dependencies {
     implementation(project(":snapshot-test-utils"))
     implementation(Dependencies.composeMaterial3)
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.0")
 }
