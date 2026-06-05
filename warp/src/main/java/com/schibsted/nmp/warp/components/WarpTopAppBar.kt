@@ -119,7 +119,8 @@ private fun calculateSectionCollapseFraction(
  * @param actions The actions to be displayed at the end of the top app bar.
  * @param windowInsets The window insets to be applied to the top app bar.
  * @param topBarColors The colors to be used for the top app bar. Default Warp colors will be used if nothing provided.
- * @param scrollBehavior The scroll behavior to be used for the top app bar.
+ * @param scrollBehavior The scroll behavior to be used for the top app bar. If null and any section
+ *                       is collapsible (or could be), a default behavior will be created automatically.
  * @param subtitleText The subtitle text.
  * @param titleCollapsible Whether the title section should collapse on scroll.
  * @param searchConfig Configuration for integrated search functionality.
@@ -153,12 +154,18 @@ fun WarpTopAppBar(
     val searchMeasured = searchHeightPx > 0
     val tabsMeasured = tabsHeightPx > 0
 
-    // Auto-create scrollBehavior when searchConfig is present and none provided
+    // Auto-create scrollBehavior when any section is or could be collapsible
     // The consumer needs to use effectiveScrollBehavior.nestedScrollConnection on their Scaffold
-    val effectiveScrollBehavior = if (searchConfig != null && scrollBehavior == null) {
-        TopAppBarDefaults.enterAlwaysScrollBehavior()
-    } else {
-        scrollBehavior
+    val effectiveScrollBehavior = scrollBehavior ?: run {
+        val needsScrollBehavior = titleCollapsible ||
+                                  searchConfig != null ||
+                                  tabConfig != null
+
+        if (needsScrollBehavior) {
+            TopAppBarDefaults.enterAlwaysScrollBehavior()
+        } else {
+            null
+        }
     }
 
     // Determine if we need to manually handle title collapse
