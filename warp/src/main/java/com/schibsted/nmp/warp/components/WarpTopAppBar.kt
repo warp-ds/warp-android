@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,8 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.zIndex
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -248,6 +250,15 @@ fun WarpTopAppBar(
     val searchAlpha = if (searchCollapseFraction < ALPHA_THRESHOLD) 0f else searchCollapseFraction
     val tabsAlpha = if (tabsCollapseFraction < ALPHA_THRESHOLD) 0f else tabsCollapseFraction
 
+    // Calculate interpolated status bar padding for smooth transition when title collapses
+    val density = LocalDensity.current
+    val statusBarInsetsPx = WindowInsets.statusBars.getTop(density)
+    val interpolatedStatusBarPadding = with(density) {
+        // Smoothly interpolate from 0dp (title visible) to full status bar height (title collapsed)
+        val fraction = if (manualTitleCollapse) (1f - titleCollapseFraction) else 0f
+        (statusBarInsetsPx * fraction).toDp()
+    }
+
     Column(modifier = modifier) {
         // Define colors for the app bar
         val appBarColors = topBarColors ?: TopAppBarDefaults.topAppBarColors(
@@ -329,6 +340,8 @@ fun WarpTopAppBar(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    // Apply interpolated status bar padding for smooth transition as title collapses
+                    .padding(top = interpolatedStatusBarPadding)
                     .then(
                         if (config.collapsible && searchMeasured) {
                             Modifier.layout { measurable, constraints ->
@@ -371,7 +384,8 @@ fun WarpTopAppBar(
                 SearchBar(
                     modifier = Modifier
                         .padding(
-                            horizontal = dimensions.space15,
+                            start = dimensions.space2, end = dimensions.space2,
+                            bottom = dimensions.space1
                         )
                         .fillMaxWidth(),
                     inputField = {
@@ -446,6 +460,8 @@ fun WarpTopAppBar(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    // Apply interpolated status bar padding when no search section exists
+                    .padding(top = if (searchConfig == null) interpolatedStatusBarPadding else 0.dp)
                     .then(
                         if (config.collapsible && tabsMeasured) {
                             Modifier.layout { measurable, constraints ->
