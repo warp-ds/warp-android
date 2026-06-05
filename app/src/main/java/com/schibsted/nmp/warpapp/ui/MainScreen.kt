@@ -112,6 +112,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("navigationBar") {
+                NavigationBarScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("pill") {
                 PillScreen {
                     navController.navigateUp()
@@ -267,6 +272,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                     listOf(
                         "alert" to "WarpAlert",
                         "badges" to "WarpBadge",
+                        "navigationBar" to "WarpNavigationBar",
                         "box" to "WarpBox",
                         "buttons" to "WarpButton",
                         "callout" to "WarpCallout",
