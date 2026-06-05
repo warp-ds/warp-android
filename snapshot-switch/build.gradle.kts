@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.schibsted.snapshot.switch"
+    namespace = "com.schibsted.snapshot.warpswitch"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
