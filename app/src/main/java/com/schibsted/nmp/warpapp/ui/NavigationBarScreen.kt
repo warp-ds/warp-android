@@ -35,7 +35,7 @@ fun NavigationBarScreen(onUp: () -> Unit) {
 private fun NavigationBarContent() {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
-    val tabLabels = listOf("Home", "Create ad", "Notifications", "Messages", "My Page")
+    val tabLabels = listOf("Home", "Activity", "Sell", "Messages", "Profile")
 
     val items = listOf(
         WarpNavItem(

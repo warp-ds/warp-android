@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
@@ -170,6 +171,7 @@ private fun RowScope.WarpNavBarItem(
             contentAlignment = Alignment.Center
         ) {
             BadgedBox(
+                modifier = Modifier.clearAndSetSemantics { },
                 badge = {
                     when {
                         item.badgeCount > 0 -> Badge(containerColor = colors.background.negative) {
@@ -194,6 +196,7 @@ private fun RowScope.WarpNavBarItem(
 
         WarpText(
             text = item.label,
+            modifier = Modifier.clearAndSetSemantics { },
             style = if (isSelected) WarpTextStyle.DetailStrong else WarpTextStyle.Detail,
             color = colors.icon.default
         )
@@ -201,14 +204,15 @@ private fun RowScope.WarpNavBarItem(
 }
 
 @Composable
-private fun WarpHorizontalNavBarItem(
+private fun RowScope.WarpHorizontalNavBarItem(
     item: WarpNavItem,
     isSelected: Boolean,
     iconColor: Color,
     onClick: () -> Unit,
 ) {
-    Row(
+    Box(
         modifier = Modifier
+            .weight(1f)
             .selectable(
                 selected = isSelected,
                 onClick = onClick,
@@ -217,41 +221,50 @@ private fun WarpHorizontalNavBarItem(
                 interactionSource = remember { MutableInteractionSource() }
             )
             .semantics { contentDescription = item.contentDescription }
-            .padding(vertical = dimensions.space15)
-            .background(
-                color = if (isSelected) colors.background.subtle else Color.Transparent,
-                shape = RoundedCornerShape(50)
-            )
-            .padding(horizontal = dimensions.space2, vertical = dimensions.space1),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(dimensions.space05)
+            .padding(vertical = dimensions.space15),
+        contentAlignment = Alignment.Center
     ) {
-        BadgedBox(
-            badge = {
-                when {
-                    item.badgeCount > 0 -> Badge(containerColor = colors.background.negative) {
-                        WarpText(
-                            text = item.badgeCount.toString(),
-                            color = colors.text.invertedStatic,
-                            style = WarpTextStyle.Detail
-                        )
+        Row(
+            modifier = Modifier
+                .background(
+                    color = if (isSelected) colors.background.subtle else Color.Transparent,
+                    shape = RoundedCornerShape(50)
+                )
+                .padding(horizontal = dimensions.space2, vertical = dimensions.space1),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(dimensions.space05)
+        ) {
+            BadgedBox(
+                modifier = Modifier.clearAndSetSemantics { },
+                badge = {
+                    when {
+                        item.badgeCount > 0 -> Badge(containerColor = colors.background.negative) {
+                            WarpText(
+                                text = item.badgeCount.toString(),
+                                color = colors.text.invertedStatic,
+                                style = WarpTextStyle.Detail
+                            )
+                        }
+                        item.showDot -> Badge(containerColor = colors.background.negative)
                     }
-                    item.showDot -> Badge(containerColor = colors.background.negative)
+                }
+            ) {
+                Box(
+                    modifier = Modifier.size(dimensions.space3),
+                    contentAlignment = Alignment.Center
+                ) {
+                    item.icon(iconColor, isSelected)
                 }
             }
-        ) {
-            Box(
-                modifier = Modifier.size(dimensions.space3),
-                contentAlignment = Alignment.Center
-            ) {
-                item.icon(iconColor, isSelected)
-            }
+            WarpText(
+                text = item.label,
+                modifier = Modifier.clearAndSetSemantics { },
+                style = if (isSelected) WarpTextStyle.DetailStrong else WarpTextStyle.Detail,
+                color = colors.icon.default,
+                maxLines = 1,
+                softWrap = false
+            )
         }
-        WarpText(
-            text = item.label,
-            style = if (isSelected) WarpTextStyle.DetailStrong else WarpTextStyle.Detail,
-            color = colors.icon.default
-        )
     }
 }
 
@@ -330,30 +343,34 @@ private fun WarpNavigationBarHorizontalPreview() {
 @Preview(name = "WarpHorizontalNavBarItem — unselected", showBackground = true)
 @Composable
 private fun WarpHorizontalNavBarItemPreview() {
-    WarpHorizontalNavBarItem(
-        item = WarpNavItem(
-            label = "Activity",
-            icon = { color, _ -> WarpIcon(icon = icons.bell, color = color) },
-            showDot = true,
-            contentDescription = "Activity"
-        ),
-        isSelected = false,
-        iconColor = colors.icon.default,
-        onClick = {}
-    )
+    Row(modifier = Modifier.size(160.dp, 64.dp)) {
+        WarpHorizontalNavBarItem(
+            item = WarpNavItem(
+                label = "Activity",
+                icon = { color, _ -> WarpIcon(icon = icons.bell, color = color) },
+                showDot = true,
+                contentDescription = "Activity"
+            ),
+            isSelected = false,
+            iconColor = colors.icon.default,
+            onClick = {}
+        )
+    }
 }
 
 @Preview(name = "WarpHorizontalNavBarItem — selected", showBackground = true)
 @Composable
 private fun WarpHorizontalNavBarItemSelectedPreview() {
-    WarpHorizontalNavBarItem(
-        item = WarpNavItem(
-            label = "Home",
-            icon = { color, _ -> WarpIcon(icon = icons.houseFilled, color = color) },
-            contentDescription = "Home"
-        ),
-        isSelected = true,
-        iconColor = colors.components.navBar.iconSelected,
-        onClick = {}
-    )
+    Row(modifier = Modifier.size(160.dp, 64.dp)) {
+        WarpHorizontalNavBarItem(
+            item = WarpNavItem(
+                label = "Home",
+                icon = { color, _ -> WarpIcon(icon = icons.houseFilled, color = color) },
+                contentDescription = "Home"
+            ),
+            isSelected = true,
+            iconColor = colors.components.navBar.iconSelected,
+            onClick = {}
+        )
+    }
 }
