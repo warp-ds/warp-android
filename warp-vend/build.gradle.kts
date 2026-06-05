@@ -81,6 +81,7 @@ dependencies {
     implementation(composeFoundation)
     implementation(composeMaterial3)
 
+    testImplementation(Dependencies.junit)
 
     implementation(project(":warp"))
 
