@@ -97,44 +97,100 @@ fun WarpNavigationBar(
         tonalElevation = NavigationBarDefaults.Elevation
     ) {
         if (showHorizontal) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .windowInsetsPadding(NavigationBarDefaults.windowInsets)
-                    .padding(horizontal = dimensions.space5)
-                    .selectableGroup(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                items.forEachIndexed { index, item ->
-                    val isSelected = index == selectedIndex
-                    val iconColor = if (isSelected) colors.components.navBar.iconSelected else colors.icon.default
-                    WarpHorizontalNavBarItem(
-                        item = item,
-                        isSelected = isSelected,
-                        iconColor = iconColor,
-                        onClick = { onItemSelected(index) }
-                    )
-                }
-            }
+            WarpNavigationBarHorizontal(items = items, selectedIndex = selectedIndex, onItemSelected = onItemSelected)
         } else {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .windowInsetsPadding(NavigationBarDefaults.windowInsets)
-                    .selectableGroup()
-            ) {
-                items.forEachIndexed { index, item ->
-                    val isSelected = index == selectedIndex
-                    val iconColor = if (isSelected) colors.components.navBar.iconSelected else colors.icon.default
-                    WarpNavBarItem(
-                        item = item,
-                        isSelected = isSelected,
-                        iconColor = iconColor,
-                        onClick = { onItemSelected(index) }
+            WarpNavigationBarVertical(items = items, selectedIndex = selectedIndex, onItemSelected = onItemSelected)
+        }
+    }
+}
+
+@Composable
+private fun navIconColor(isSelected: Boolean): Color =
+    if (isSelected) colors.components.navBar.iconSelected else colors.icon.default
+
+@Composable
+private fun Modifier.navItemSelectable(isSelected: Boolean, onClick: () -> Unit): Modifier =
+    selectable(
+        selected = isSelected,
+        onClick = onClick,
+        role = Role.Tab,
+        indication = null,
+        interactionSource = remember { MutableInteractionSource() }
+    )
+
+@Composable
+private fun WarpNavBadgedIcon(item: WarpNavItem, iconColor: Color, isSelected: Boolean) {
+    BadgedBox(
+        modifier = Modifier.clearAndSetSemantics { },
+        badge = {
+            when {
+                item.badgeCount > 0 -> Badge(containerColor = colors.background.negative) {
+                    WarpText(
+                        text = item.badgeCount.toString(),
+                        color = colors.text.invertedStatic,
+                        style = WarpTextStyle.Detail
                     )
                 }
+                item.showDot -> Badge(containerColor = colors.background.notification)
             }
+        }
+    ) {
+        Box(
+            modifier = Modifier.size(dimensions.space3),
+            contentAlignment = Alignment.Center
+        ) {
+            item.icon(iconColor, isSelected)
+        }
+    }
+}
+
+@Composable
+private fun WarpNavigationBarHorizontal(
+    items: List<WarpNavItem>,
+    selectedIndex: Int,
+    onItemSelected: (index: Int) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .windowInsetsPadding(NavigationBarDefaults.windowInsets)
+            .padding(horizontal = dimensions.space5)
+            .selectableGroup(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        items.forEachIndexed { index, item ->
+            val isSelected = index == selectedIndex
+            WarpHorizontalNavBarItem(
+                item = item,
+                isSelected = isSelected,
+                iconColor = navIconColor(isSelected),
+                onClick = { onItemSelected(index) }
+            )
+        }
+    }
+}
+
+@Composable
+private fun WarpNavigationBarVertical(
+    items: List<WarpNavItem>,
+    selectedIndex: Int,
+    onItemSelected: (index: Int) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .windowInsetsPadding(NavigationBarDefaults.windowInsets)
+            .selectableGroup()
+    ) {
+        items.forEachIndexed { index, item ->
+            val isSelected = index == selectedIndex
+            WarpNavBarItem(
+                item = item,
+                isSelected = isSelected,
+                iconColor = navIconColor(isSelected),
+                onClick = { onItemSelected(index) }
+            )
         }
     }
 }
@@ -149,13 +205,7 @@ private fun RowScope.WarpNavBarItem(
     Column(
         modifier = Modifier
             .weight(1f)
-            .selectable(
-                selected = isSelected,
-                onClick = onClick,
-                role = Role.Tab,
-                indication = null,
-                interactionSource = remember { MutableInteractionSource() }
-            )
+            .navItemSelectable(isSelected, onClick)
             .semantics { contentDescription = item.contentDescription }
             .padding(top = dimensions.space075, bottom = dimensions.space075),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -170,28 +220,7 @@ private fun RowScope.WarpNavBarItem(
                 ),
             contentAlignment = Alignment.Center
         ) {
-            BadgedBox(
-                modifier = Modifier.clearAndSetSemantics { },
-                badge = {
-                    when {
-                        item.badgeCount > 0 -> Badge(containerColor = colors.background.negative) {
-                            WarpText(
-                                text = item.badgeCount.toString(),
-                                color = colors.text.invertedStatic,
-                                style = WarpTextStyle.Detail
-                            )
-                        }
-                        item.showDot -> Badge(containerColor = colors.background.negative)
-                    }
-                }
-            ) {
-                Box(
-                    modifier = Modifier.size(dimensions.space3),
-                    contentAlignment = Alignment.Center
-                ) {
-                    item.icon(iconColor, isSelected)
-                }
-            }
+            WarpNavBadgedIcon(item = item, iconColor = iconColor, isSelected = isSelected)
         }
 
         WarpText(
@@ -213,13 +242,7 @@ private fun RowScope.WarpHorizontalNavBarItem(
     Box(
         modifier = Modifier
             .weight(1f)
-            .selectable(
-                selected = isSelected,
-                onClick = onClick,
-                role = Role.Tab,
-                indication = null,
-                interactionSource = remember { MutableInteractionSource() }
-            )
+            .navItemSelectable(isSelected, onClick)
             .semantics { contentDescription = item.contentDescription }
             .padding(vertical = dimensions.space15),
         contentAlignment = Alignment.Center
@@ -234,28 +257,7 @@ private fun RowScope.WarpHorizontalNavBarItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(dimensions.space05)
         ) {
-            BadgedBox(
-                modifier = Modifier.clearAndSetSemantics { },
-                badge = {
-                    when {
-                        item.badgeCount > 0 -> Badge(containerColor = colors.background.negative) {
-                            WarpText(
-                                text = item.badgeCount.toString(),
-                                color = colors.text.invertedStatic,
-                                style = WarpTextStyle.Detail
-                            )
-                        }
-                        item.showDot -> Badge(containerColor = colors.background.negative)
-                    }
-                }
-            ) {
-                Box(
-                    modifier = Modifier.size(dimensions.space3),
-                    contentAlignment = Alignment.Center
-                ) {
-                    item.icon(iconColor, isSelected)
-                }
-            }
+            WarpNavBadgedIcon(item = item, iconColor = iconColor, isSelected = isSelected)
             WarpText(
                 text = item.label,
                 modifier = Modifier.clearAndSetSemantics { },
