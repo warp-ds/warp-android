@@ -68,6 +68,7 @@ dependencies {
     implementation(Dependencies.koin)
     //Material
     implementation(Dependencies.composeMaterial3)
+    implementation(Dependencies.materialIconsCore)
     implementation(Dependencies.constraintLayout)
 
     implementation(Dependencies.navigationCompose)
