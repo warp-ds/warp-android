@@ -1,28 +1,31 @@
 package com.schibsted.nmp.warp.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.NavigationItemColors
+import androidx.compose.material3.NavigationItemIconPosition
 import androidx.compose.material3.ShortNavigationBar
 import androidx.compose.material3.ShortNavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 
 /**
  * Controls the layout direction of [WarpNavigationBar].
- * Currently reserved for future use — all modes render identically.
+ * [Auto] switches automatically based on device orientation.
  */
 enum class WarpNavBarLayout { Auto, Vertical, Horizontal }
 
 /**
  * Represents a single item in a [WarpNavigationBar].
  *
- * @param label Text label displayed below the icon.
+ * @param label Text label displayed below (or beside) the icon.
  * @param icon Composable icon slot receiving the active [Color] and [isSelected] state.
  *   Use [WarpIcon] with the provided color, and switch between filled/outline variants based on [isSelected].
  *   For avatar images that don't tint, ignore the color parameter.
@@ -51,7 +54,8 @@ data class WarpNavItem(
  * @param selectedIndex Index of the currently selected item. Must be in [items] bounds.
  * @param onItemSelected Called with the index of the tapped item.
  * @param modifier Modifier applied to the bar container.
- * @param layout Reserved for future use.
+ * @param layout Controls whether items are laid out vertically (default) or horizontally.
+ *   [Auto] switches automatically based on device orientation.
  */
 @Composable
 fun WarpNavigationBar(
@@ -64,6 +68,13 @@ fun WarpNavigationBar(
     require(items.isNotEmpty()) { "WarpNavigationBar items must not be empty" }
     require(selectedIndex in items.indices) { "selectedIndex $selectedIndex is out of bounds for ${items.size} items" }
 
+    val showHorizontal = when (layout) {
+        WarpNavBarLayout.Auto       -> LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+        WarpNavBarLayout.Horizontal -> true
+        WarpNavBarLayout.Vertical   -> false
+    }
+    val iconPosition = if (showHorizontal) NavigationItemIconPosition.Start else NavigationItemIconPosition.Top
+
     val warpColors = colors
     val itemColors = NavigationItemColors(
         selectedIconColor = warpColors.components.navBar.iconSelected,
@@ -75,6 +86,9 @@ fun WarpNavigationBar(
         disabledTextColor = warpColors.icon.default,
     )
 
+    // Box absorbs the caller's modifier so it is never passed directly to ShortNavigationBar.
+    // Passing size/alignment modifiers (e.g. fillMaxWidth, align) directly to ShortNavigationBar
+    // breaks its EqualWeightContentMeasurePolicy and causes only 1 item to render.
     Box(modifier = modifier) {
         ShortNavigationBar(containerColor = warpColors.background.default) {
             items.forEachIndexed { index, item ->
@@ -82,6 +96,7 @@ fun WarpNavigationBar(
                     item = item,
                     isSelected = index == selectedIndex,
                     onClick = { onItemSelected(index) },
+                    iconPosition = iconPosition,
                     itemColors = itemColors,
                 )
             }
@@ -89,17 +104,13 @@ fun WarpNavigationBar(
     }
 }
 
-/**
- * A single item for use inside [WarpNavigationBar].
- *
- * @param itemColors Construct via the parent [WarpNavigationBar] or supply your own [NavigationItemColors].
- */
 @Composable
 fun WarpNavigationBarItem(
     item: WarpNavItem,
     isSelected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    iconPosition: NavigationItemIconPosition = NavigationItemIconPosition.Top,
     itemColors: NavigationItemColors,
 ) {
     val warpColors = colors
@@ -137,6 +148,7 @@ fun WarpNavigationBarItem(
                 softWrap = false,
             )
         },
+        iconPosition = iconPosition,
         colors = itemColors,
     )
 }
