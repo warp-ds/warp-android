@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 object WarpDimensions {
     val space025: Dp = 2.dp
     val space05: Dp = 4.dp
+    val space075: Dp = 6.dp
     val space1: Dp = 8.dp
     val space15: Dp = 12.dp
     val space2: Dp = 16.dp
