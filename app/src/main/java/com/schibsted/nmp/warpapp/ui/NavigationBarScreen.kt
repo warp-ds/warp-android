@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpNavBarLayout
 import com.schibsted.nmp.warp.components.WarpNavItem
@@ -41,48 +40,48 @@ private fun NavigationBarContent() {
         WarpNavItem(
             label = "Home",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.houseFilled else icons.house, color = color) },
-            contentDescription = "Home"
+            contentDescription = "Home",
         ),
         WarpNavItem(
             label = "Activity",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.bellFilled else icons.bell, color = color) },
             showDot = true,
-            contentDescription = "Activity"
+            contentDescription = "Activity",
         ),
         WarpNavItem(
             label = "Sell",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.circlePlusFilled else icons.circlePlus, color = color) },
-            contentDescription = "Sell"
+            contentDescription = "Sell",
         ),
         WarpNavItem(
             label = "Messages",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.messagesFilled else icons.messages, color = color) },
             badgeCount = 4,
-            contentDescription = "Messages"
+            contentDescription = "Messages",
         ),
         WarpNavItem(
             label = "Profile",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.circleUserFilled else icons.circleUser, color = color) },
-            contentDescription = "Profile"
+            contentDescription = "Profile",
         ),
     )
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 80.dp),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             WarpText(text = "Selected: ${tabLabels[selectedIndex]}")
         }
 
         WarpNavigationBar(
-            modifier = Modifier.align(Alignment.BottomCenter),
             items = items,
             selectedIndex = selectedIndex,
-            onItemSelected = { selectedIndex = it }
+            onItemSelected = { selectedIndex = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
         )
     }
 }
@@ -90,43 +89,17 @@ private fun NavigationBarContent() {
 @Preview
 @Composable
 internal fun NavigationBarContentPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
+    @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
     BrandTheme(flavor = flavor).invoke {
         NavigationBarContent()
     }
 }
 
-@Preview(name = "WarpNavItem — selected / unselected", showBackground = true)
-@Composable
-internal fun WarpNavItemPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
-) {
-    BrandTheme(flavor = flavor).invoke {
-        WarpNavigationBar(
-            items = listOf(
-                WarpNavItem(
-                    label = "Home",
-                    icon = { color, sel -> WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color) },
-                    contentDescription = "Home"
-                ),
-                WarpNavItem(
-                    label = "Activity",
-                    icon = { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) },
-                    showDot = true,
-                    contentDescription = "Activity"
-                ),
-            ),
-            selectedIndex = 0,
-            onItemSelected = {}
-        )
-    }
-}
-
 @Preview(name = "WarpNavigationBar — horizontal", widthDp = 640, showBackground = true)
 @Composable
 internal fun WarpNavBarHorizontalPreview(
-    @PreviewParameter(FlavorPreviewProvider::class) flavor: String
+    @PreviewParameter(FlavorPreviewProvider::class) flavor: String,
 ) {
     BrandTheme(flavor = flavor).invoke {
         WarpNavigationBar(
@@ -139,7 +112,7 @@ internal fun WarpNavBarHorizontalPreview(
             ),
             selectedIndex = 0,
             onItemSelected = {},
-            layout = WarpNavBarLayout.Horizontal
+            layout = WarpNavBarLayout.Horizontal,
         )
     }
 }
