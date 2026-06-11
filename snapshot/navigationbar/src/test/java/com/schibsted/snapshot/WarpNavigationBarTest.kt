@@ -77,38 +77,33 @@ class WarpNavigationBarTest(
             label = "Home",
             icon = { color: Color, sel: Boolean ->
                 WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color)
-            },
-            contentDescription = "Home"
+            }
         ),
         WarpNavItem(
             label = "Activity",
             icon = { color: Color, sel: Boolean ->
                 WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color)
             },
-            showDot = true,
-            contentDescription = "Activity"
+            showDot = true
         ),
         WarpNavItem(
             label = "Sell",
             icon = { color: Color, sel: Boolean ->
                 WarpIcon(icon = if (sel) icons.circlePlusFilled else icons.circlePlus, color = color)
-            },
-            contentDescription = "Sell"
+            }
         ),
         WarpNavItem(
             label = "Messages",
             icon = { color: Color, sel: Boolean ->
                 WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color)
             },
-            badgeCount = 4,
-            contentDescription = "Messages"
+            badgeCount = 4
         ),
         WarpNavItem(
             label = "Profile",
             icon = { color: Color, sel: Boolean ->
                 WarpIcon(icon = if (sel) icons.circleUserFilled else icons.circleUser, color = color)
-            },
-            contentDescription = "Profile"
+            }
         ),
     )
 }

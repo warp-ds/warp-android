@@ -68,30 +68,25 @@ class WarpNavigationBarTest {
     private fun navItems() = listOf(
         WarpNavItem(
             label = "Home",
-            icon = { color, selected -> WarpIcon(icon = if (selected) icons.houseFilled else icons.house, color = color) },
-            contentDescription = "Home"
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.houseFilled else icons.house, color = color) }
         ),
         WarpNavItem(
             label = "Activity",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.bellFilled else icons.bell, color = color) },
-            showDot = true,
-            contentDescription = "Activity"
+            showDot = true
         ),
         WarpNavItem(
             label = "Sell",
-            icon = { color, selected -> WarpIcon(icon = if (selected) icons.circlePlusFilled else icons.circlePlus, color = color) },
-            contentDescription = "Sell"
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.circlePlusFilled else icons.circlePlus, color = color) }
         ),
         WarpNavItem(
             label = "Messages",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.messagesFilled else icons.messages, color = color) },
-            badgeCount = 4,
-            contentDescription = "Messages"
+            badgeCount = 4
         ),
         WarpNavItem(
             label = "Profile",
-            icon = { color, selected -> WarpIcon(icon = if (selected) icons.circleUserFilled else icons.circleUser, color = color) },
-            contentDescription = "Profile"
+            icon = { color, selected -> WarpIcon(icon = if (selected) icons.circleUserFilled else icons.circleUser, color = color) }
         ),
     )
 }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -40,29 +39,24 @@ private fun NavigationBarContent() {
         WarpNavItem(
             label = "Home",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.houseFilled else icons.house, color = color) },
-            contentDescription = "Home",
         ),
         WarpNavItem(
             label = "Activity",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.bellFilled else icons.bell, color = color) },
             showDot = true,
-            contentDescription = "Activity",
         ),
         WarpNavItem(
             label = "Sell",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.circlePlusFilled else icons.circlePlus, color = color) },
-            contentDescription = "Sell",
         ),
         WarpNavItem(
             label = "Messages",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.messagesFilled else icons.messages, color = color) },
             badgeCount = 4,
-            contentDescription = "Messages",
         ),
         WarpNavItem(
             label = "Profile",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.circleUserFilled else icons.circleUser, color = color) },
-            contentDescription = "Profile",
         ),
     )
 
@@ -80,7 +74,6 @@ private fun NavigationBarContent() {
             selectedIndex = selectedIndex,
             onItemSelected = { selectedIndex = it },
             modifier = Modifier
-                .fillMaxWidth()
                 .align(Alignment.BottomCenter),
         )
     }
@@ -104,11 +97,11 @@ internal fun WarpNavBarHorizontalPreview(
     BrandTheme(flavor = flavor).invoke {
         WarpNavigationBar(
             items = listOf(
-                WarpNavItem("Home", { color, sel -> WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color) }, contentDescription = "Home"),
-                WarpNavItem("Activity", { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) }, showDot = true, contentDescription = "Activity"),
-                WarpNavItem("Sell", { color, sel -> WarpIcon(icon = if (sel) icons.circlePlusFilled else icons.circlePlus, color = color) }, contentDescription = "Sell"),
-                WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badgeCount = 4, contentDescription = "Messages"),
-                WarpNavItem("Profile", { color, sel -> WarpIcon(icon = if (sel) icons.circleUserFilled else icons.circleUser, color = color) }, contentDescription = "Profile"),
+                WarpNavItem("Home", { color, sel -> WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color) }),
+                WarpNavItem("Activity", { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) }, showDot = true),
+                WarpNavItem("Sell", { color, sel -> WarpIcon(icon = if (sel) icons.circlePlusFilled else icons.circlePlus, color = color) }),
+                WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badgeCount = 4),
+                WarpNavItem("Profile", { color, sel -> WarpIcon(icon = if (sel) icons.circleUserFilled else icons.circleUser, color = color) }),
             ),
             selectedIndex = 0,
             onItemSelected = {},
