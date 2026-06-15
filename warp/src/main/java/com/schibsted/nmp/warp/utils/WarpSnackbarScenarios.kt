@@ -63,7 +63,6 @@ object WarpSnackbarScenarios {
         type = WarpSnackbarType.Info,
         actionLabel = "View",
         duration = SnackbarDuration.Long,
-        placement = WarpSnackbarActionPlacement.NewLine
 
     )
 

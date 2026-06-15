@@ -31,6 +31,7 @@ import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpSelect
 import com.schibsted.nmp.warp.components.WarpSnackbar
+import com.schibsted.nmp.warp.components.WarpSnackbarActionPlacement
 import com.schibsted.nmp.warp.components.WarpSnackbarType
 import com.schibsted.nmp.warp.components.WarpSnackbarVisuals
 import com.schibsted.nmp.warp.components.WarpSwitch
@@ -66,8 +67,10 @@ fun SnackbarScreenContent() {
     var customDismissable by remember { mutableStateOf(true) }
     var customType by remember { mutableStateOf("Neutral") }
     var customDuration by remember { mutableStateOf(SnackbarDuration.Short.name) }
+    var customPlacement by remember { mutableStateOf("Auto") }
 
     val snackbarTypes = listOf("Neutral", "Positive", "Negative", "Warning", "Info")
+    val placementOptions = listOf("Auto", "Inline", "NewLine")
     val neutralWithIconScenario = WarpSnackbarScenarios.neutralWithIcon()
 
     WarpScaffold(
@@ -189,6 +192,16 @@ fun SnackbarScreenContent() {
 
                     Spacer(modifier = Modifier.height(dimensions.space2))
 
+                    WarpSelect(
+                        value = customPlacement,
+                        onValueChange = { customPlacement = it },
+                        label = "Action Placement",
+                        items = placementOptions,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(dimensions.space2))
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -222,13 +235,19 @@ fun SnackbarScreenContent() {
                                     "Info" -> WarpSnackbarType.Info
                                     else -> WarpSnackbarType.Neutral()
                                 }
+                                val placement = when (customPlacement) {
+                                    "Inline" -> WarpSnackbarActionPlacement.Inline
+                                    "NewLine" -> WarpSnackbarActionPlacement.NewLine
+                                    else -> WarpSnackbarActionPlacement.Auto
+                                }
                                 try {
                                     val visuals = WarpSnackbarVisuals(
                                         message = customBodyText,
                                         actionLabel = customActionText.takeIf { it.isNotEmpty() },
                                         withDismissAction = customDismissable,
                                         type = type,
-                                        duration = SnackbarDuration.valueOf(customDuration)
+                                        duration = SnackbarDuration.valueOf(customDuration),
+                                        actionPlacement = placement
                                     )
                                     visuals.validate()
                                     scope.launch {
