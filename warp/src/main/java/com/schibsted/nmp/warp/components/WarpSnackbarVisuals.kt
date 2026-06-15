@@ -19,6 +19,7 @@ data class WarpSnackbarVisuals(
         SnackbarDuration.Long
     },
     val type: WarpSnackbarType = WarpSnackbarType.Neutral(),
+    val actionPlacement: WarpSnackbarActionPlacement = WarpSnackbarActionPlacement.Auto,
 ) : SnackbarVisuals {
     init {
         require(message.isNotBlank()) {
