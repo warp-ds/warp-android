@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.utils
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
+import com.schibsted.nmp.warp.components.WarpSnackbarActionPlacement
 import com.schibsted.nmp.warp.components.WarpSnackbarType
 import com.schibsted.nmp.warp.theme.WarpIconResources
 
@@ -15,7 +16,8 @@ data class WarpSnackbarScenario(
     val type: WarpSnackbarType,
     val actionLabel: String? = null,
     val withDismissAction: Boolean = true,
-    val duration: SnackbarDuration = SnackbarDuration.Short
+    val duration: SnackbarDuration = SnackbarDuration.Short,
+    val placement: WarpSnackbarActionPlacement = WarpSnackbarActionPlacement.Auto
 )
 
 object WarpSnackbarScenarios {
@@ -60,7 +62,9 @@ object WarpSnackbarScenarios {
         message = "This should have long duration",
         type = WarpSnackbarType.Info,
         actionLabel = "View",
-        duration = SnackbarDuration.Long
+        duration = SnackbarDuration.Long,
+        placement = WarpSnackbarActionPlacement.NewLine
+
     )
 
     val infoIndefinite = WarpSnackbarScenario(

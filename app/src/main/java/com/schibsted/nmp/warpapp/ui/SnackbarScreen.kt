@@ -264,7 +264,8 @@ fun showWarpSnackbar(
                 type = scenario.type,
                 actionLabel = scenario.actionLabel,
                 withDismissAction = scenario.withDismissAction,
-                duration = scenario.duration
+                duration = scenario.duration,
+                actionPlacement = scenario.placement
             )
         )
     }
