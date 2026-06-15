@@ -110,6 +110,7 @@
     <string name="headset">Hovedtelefoner</string>
     <string name="harvester">Mejetærsker set fra siden</string>
     <string name="heart">Hjerte</string>
+    <string name="heartfilled">Hjerte</string>
     <string name="heartrate">Hjerte med pulsindikator</string>
     <string name="hiking">Silhuetten af en person med rygsæk og vandrestave</string>
     <string name="history">Ur med rund pil, der gå mod venstre</string>
@@ -310,7 +311,6 @@
     <string name="login_quiet_button_text">Opret en konto</string>
     <string name="verify_title">Valider din identitet</string>
     <string name="verify_description">Før du kontakter nogen, skal du validere din konto. Det er nødvendigt, så personen i den anden ende ved, hvem de taler med.</string>
-    <string name="verify_primary_button_text">Valider med MitID</string>
     <string name="loading_description">Vent et øjeblik...</string>
     <string name="microphoneslash">Mikrofon slået fra</string>
     <string name="microphone">Mikrofon</string>

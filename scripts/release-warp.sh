@@ -56,7 +56,8 @@ for module in "${MODULES[@]}"; do
     PUBLISH_TASK=":$module:artifactoryPublish"
     echo "▶️ Running task: $PUBLISH_TASK"
 
-    if "$GRADLEW" "$PUBLISH_TASK"; then
+    # Enable Artifactory configuration for publishing
+    if "$GRADLEW" "$PUBLISH_TASK" -PPUBLISH_TO_ARTIFACTORY=true; then
         echo "✅ SUCCESS: $PUBLISH_TASK completed successfully."
     else
         echo "❌ FAILED: $PUBLISH_TASK failed."

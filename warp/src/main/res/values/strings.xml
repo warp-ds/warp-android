@@ -109,6 +109,7 @@
     <string name="headset">Headphones</string>
     <string name="harvester">Side view of a harvester</string>
     <string name="heart">Heart</string>
+    <string name="heartfilled">Heart</string>
     <string name="heartrate">Heart with heart rate indicator</string>
     <string name="hiking">Silhouette of a person with a backpack and trekking poles</string>
     <string name="history">Clock with an arrow circling left</string>
@@ -309,7 +310,6 @@
     <string name="login_quiet_button_text">Create an account</string>
     <string name="verify_title">Please verify yourself</string>
     <string name="verify_description">Before you make contact, you need to verify yourself. We do this so that the other person can be confident in who they are talking to.</string>
-    <string name="verify_primary_button_text">Verify using BankID</string>
     <string name="loading_description">Please wait...</string>
     <string name="microphoneslash">Muted microphone</string>
     <string name="microphone">Microphone</string>

@@ -9,6 +9,7 @@ import com.schibsted.nmp.warp.brands.vend.VendShapes
 import com.schibsted.nmp.warp.brands.vend.VendTypography
 import com.schibsted.nmp.warp.theme.WarpDimensions
 import com.schibsted.nmp.warp.theme.WarpResources
+import com.schibsted.nmp.warp.theme.WarpStrings
 import com.schibsted.nmp.warp.theme.WarpTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,8 +29,12 @@ fun VendWarpTheme(
         typography = VendTypography,
         shapes = VendShapes(vendDimensions),
         resources = vendResources,
-        content = content,
         rippleConfig = vendRippleConfig,
-        dimensions = vendDimensions
+        dimensions = vendDimensions,
+        strings = object : WarpStrings {
+            @Composable
+            override fun getVerifyIdentityButtonText(): String? = null
+        },
+        content = content
     )
 }

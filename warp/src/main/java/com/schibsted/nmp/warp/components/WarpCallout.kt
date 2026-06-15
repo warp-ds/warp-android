@@ -82,6 +82,7 @@ fun WarpCallout(
         edge = edge
     )
 
+    val density = LocalDensity.current
     var anchorWidth: Dp? = null
     var anchorPosition: Offset? = null
 
@@ -90,7 +91,7 @@ fun WarpCallout(
             Box(
                 modifier = Modifier
                     .onGloballyPositioned { coordinates ->
-                        anchorWidth = coordinates.size.width.dp
+                        anchorWidth = with(density) { coordinates.size.width.toDp() }
                         anchorPosition = coordinates.positionInWindow()
                     }
             ) {

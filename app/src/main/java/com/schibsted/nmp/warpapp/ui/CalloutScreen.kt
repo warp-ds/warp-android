@@ -111,7 +111,6 @@ fun CalloutScreenContent() {
                 type = CalloutType.Popover,
                 size = CalloutSize.Small,
                 closable = true,
-                paddingOffset = dimensions.space2,
                 onDismiss = { centerStartState.isVisible = false },
             ) {
                 WarpButton (
@@ -143,7 +142,6 @@ fun CalloutScreenContent() {
                 edge = Edge.Top,
                 size = CalloutSize.Small,
                 closable = true,
-                paddingOffset = dimensions.space2,
                 onDismiss = { centerEndState.isVisible = false },
             ) {
                 WarpButton(

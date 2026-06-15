@@ -4,7 +4,9 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("maven-publish")
 }
-apply(plugin = "com.jfrog.artifactory")
+if (project.hasProperty("PUBLISH_TO_ARTIFACTORY")) {
+    apply(plugin = "com.jfrog.artifactory")
+}
 
 android {
     namespace = ConfigData.namespaceDba
