@@ -166,7 +166,7 @@ fun WarpNavigationBarPreview() {
     )
 }
 
-@Preview(name = "WarpNavigationBar — horizontal", widthDp = 640, showBackground = true)
+@Preview(name = "WarpNavigationBar — horizontal", showBackground = true, device = "spec:parent=pixel_5,orientation=landscape")
 @Composable
 fun WarpNavigationBarHorizontalPreview() {
     WarpNavigationBar(
