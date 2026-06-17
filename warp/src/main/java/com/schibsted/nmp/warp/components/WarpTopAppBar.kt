@@ -316,11 +316,13 @@ fun WarpTopAppBar(
                         WarpText(
                             text = titleText,
                             style = WarpTextStyle.Title3,
+                            maxLines = 2
                         )
                         if (subtitleText.isNotEmpty()) {
                             WarpText(
                                 text = subtitleText,
                                 style = WarpTextStyle.Title6,
+                                maxLines = 2,
                                 color = colors.text.subtle
                             )
                         }
