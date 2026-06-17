@@ -112,6 +112,7 @@ fun WarpTab(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 WarpText(
+                    modifier = Modifier.weight(1f, fill = false),
                     text = text,
                     style = WarpTextStyle.Title4,
                     softWrap = false,
