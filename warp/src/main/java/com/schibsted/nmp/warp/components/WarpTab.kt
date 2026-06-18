@@ -2,9 +2,12 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LeadingIconTab
@@ -107,21 +110,25 @@ fun WarpTab(
         onClick = onClick,
         modifier = modifier,
         text = {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(dimensions.space1),
-                verticalAlignment = Alignment.CenterVertically
+            BadgedBox(
+                badge = {
+                    if (hasBadge)
+                        Badge(
+                            containerColor = colors.background.notification,
+                        )
+                }
             ) {
                 WarpText(
-                    modifier = Modifier.weight(1f, fill = false),
+                    modifier = if (hasBadge) {
+                        Modifier.padding(end = dimensions.space1)
+                    } else {
+                        Modifier
+                    },
                     text = text,
                     style = WarpTextStyle.Title4,
                     softWrap = false,
                     color = Color.Unspecified,
                 )
-                if (hasBadge)
-                    Badge(
-                        containerColor = colors.background.notification,
-                    )
             }
         },
         selectedContentColor = colors.text.link,
@@ -149,7 +156,34 @@ fun WarpTabsPreview() {
         WarpTab(
             selected = selectedIndex == 0,
             onClick = { selectedIndex = 0 },
-            text = "First",
+            text = "First (long)",
+            icon = icons.lotusFlower,
+            hasBadge = true
+        )
+        WarpTab(
+            selected = selectedIndex == 1,
+            onClick = { selectedIndex = 1 },
+            text = "Second",
+            icon = icons.animalPaw
+        )
+        WarpTab(
+            selected = selectedIndex == 2,
+            onClick = { selectedIndex = 2 },
+            text = "Third",
+            icon = icons.awardMedal
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WarpTabsScrollablePreview() {
+    var selectedIndex by remember { mutableStateOf(0) }
+    WarpTabRow(selectedIndex, scrollable = true) {
+        WarpTab(
+            selected = selectedIndex == 0,
+            onClick = { selectedIndex = 0 },
+            text = "First (long)",
             icon = icons.lotusFlower,
             hasBadge = true
         )
