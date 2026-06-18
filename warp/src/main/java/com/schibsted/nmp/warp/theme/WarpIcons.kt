@@ -39,6 +39,7 @@ class WarpBrandIconResource(
     description = description
 )
 
+@Suppress("unused")
 object WarpIconResources {
     @SuppressLint("DiscouragedApi")
     @Composable
@@ -140,6 +141,14 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_allwheeldrive),
             stringResource(R.string.allwheeldrive)
+        )
+
+    val anchor: WarpIconResource
+        @Composable
+        get() = WarpTaxonomyIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_anchor),
+            stringResource(R.string.anchor),
+            identifier = "anchor"
         )
 
     val animalPaw: WarpTaxonomyIconResource
@@ -485,6 +494,13 @@ object WarpIconResources {
             ImageVector.vectorResource(id = R.drawable.warp_chair),
             stringResource(R.string.chair),
             identifier = "chair"
+        )
+
+    val chainsaw: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_chainsaw),
+            stringResource(R.string.chainsaw)
         )
 
     val charger: WarpIconResource
@@ -874,6 +890,13 @@ object WarpIconResources {
             stringResource(R.string.farm)
         )
 
+    val file: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_file),
+            stringResource(R.string.file)
+        )
+
     val fileAdd: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -886,6 +909,20 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_filearrowdown),
             stringResource(R.string.filearrowdown)
+        )
+
+    val filePdf: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_file_pdf),
+            stringResource(R.string.filepdf)
+        )
+
+    val fileText: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_file_text),
+            stringResource(R.string.filetext)
         )
 
     val filter: WarpIconResource
@@ -1228,6 +1265,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_logout),
             stringResource(R.string.logout)
+        )
+
+    val lowSpeedVehicle: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_low_speed_vehicle),
+            stringResource(R.string.lowspeedvehicle)
         )
 
     val luggage: WarpIconResource
@@ -1962,6 +2006,13 @@ object WarpIconResources {
             ImageVector.vectorResource(id = R.drawable.warp_tractor),
             stringResource(R.string.tractor),
             identifier = "tractor"
+        )
+
+    val trailer: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_trailer),
+            stringResource(R.string.trailer)
         )
 
     val tree: WarpIconResource

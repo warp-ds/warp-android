@@ -6,6 +6,7 @@
     <string name="aircon">Klimaanlæg</string>
     <string name="airplanebed">Seng med flyvemaskine i baggrunden</string>
     <string name="allwheeldrive">Firhjulstræk</string>
+    <string name="anchor">Et anker set forfra</string>
     <string name="animalpaw">Hundepote</string>
     <string name="archway">Buegang</string>
     <string name="arrowdown">Pil, som peger nedad</string>
@@ -49,6 +50,7 @@
     <string name="carpart">Bildel</string>
     <string name="carrent">Bil og ur</string>
     <string name="chair">Stol</string>
+    <string name="chainsaw">En motorsav set på skrå</string>
     <string name="charger">Oplader</string>
     <string name="charter">Kuffert med fremhævet globus i nederste højre hjørne</string>
     <string name="chatsupport">To talebobler</string>
@@ -93,7 +95,10 @@
     <string name="eyeon">Øje</string>
     <string name="facebook">Facebook-ikon</string>
     <string name="farm">Lade med gavltag og dør med X-mønster</string>
+    <string name="file">Dokumentside med et foldet hjørne øverst til højre</string>
     <string name="fileadd">"Plustegn på en fil "</string>
+    <string name="filepdf">Dokumentside med bogstaverne PDF</string>
+    <string name="filetext">Dokumentside med horisontale tekstlinjer</string>
     <string name="filter">To vandrette slidere med knopper til justering</string>
     <string name="fireplace">Pejs</string>
     <string name="fishing">Fiskekrog</string>
@@ -136,6 +141,7 @@
     <string name="listsort">Punktopstilling</string>
     <string name="lockshield">Skjold med hængelås</string>
     <string name="logout">Højrepil pegende ud af en kasse</string>
+    <string name="lowspeedvehicle">En bil med advarselstrekant bagpå set fra siden</string>
     <string name="mail">Kuvert</string>
     <string name="mailbox">Postkasse med et hævet flag</string>
     <string name="gearmanual">Manuel gearkasse</string>
@@ -224,6 +230,7 @@
     <string name="drill">Eleltrisk boremaskine</string>
     <string name="townhouse">To byhuse</string>
     <string name="tractor">Traktor</string>
+    <string name="trailer">En anhænger set fra siden</string>
     <string name="trenddown">Nedadgående graf</string>
     <string name="trendflat">Flad graf</string>
     <string name="trendup">Opadgående graf</string>

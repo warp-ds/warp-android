@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +46,7 @@ private fun TypographyContent() {
             WarpText("Name")
             WarpText("Size")
         }
-        Divider(modifier = Modifier
+        HorizontalDivider(modifier = Modifier
             .fillMaxWidth()
             .background(WarpTheme.colors.border.default)
         )
@@ -79,7 +79,7 @@ private fun TextItem(text: String, style: TextStyle, warpTextStyle: WarpTextStyl
         WarpText(text = text, style = warpTextStyle)
         WarpText("${style.fontSize.value} ${style.fontSize.type}")
     }
-    Divider(Modifier.fillMaxWidth())
+    HorizontalDivider(Modifier.fillMaxWidth())
 }
 
 @Preview

@@ -5,6 +5,7 @@
     <string name="aircon">Air conditioner</string>
     <string name="airplanebed">Bed with an airplane in the background</string>
     <string name="allwheeldrive">All-wheel drive</string>
+    <string name="anchor">Front view of a nautical anchor</string>
     <string name="animalpaw">Dog paw</string>
     <string name="archway">Archway</string>
     <string name="arrowdown">Arrow pointing down</string>
@@ -48,6 +49,7 @@
     <string name="carpart">Car part</string>
     <string name="carrent">Car and clock</string>
     <string name="chair">Chair</string>
+    <string name="chainsaw">Angled view of a chainsaw</string>
     <string name="charger">Charging cable</string>
     <string name="charter">Suitcase with a highlighted globe in the bottom right corner</string>
     <string name="chatsupport">Two speech bubbles</string>
@@ -92,7 +94,10 @@
     <string name="eyeon">Eye</string>
     <string name="facebook">Facebook icon</string>
     <string name="farm">Barn building with a gable roof and X-pattern door</string>
+    <string name="file">Document page with a folded top-right corner</string>
     <string name="fileadd">"Plus sign on a file "</string>
+    <string name="filepdf">Document page with the letters PDF</string>
+    <string name="filetext">Document page with horizontal text lines</string>
     <string name="filter">Two horizontal sliders with adjustable knobs</string>
     <string name="fireplace">Fireplace</string>
     <string name="fishing">Fishing hook</string>
@@ -135,6 +140,7 @@
     <string name="listsort">Bulleted list</string>
     <string name="lockshield">Shield with padlock</string>
     <string name="logout">Rightward arrow leaving a box</string>
+    <string name="lowspeedvehicle">Side view of a car with a rear warning triangle</string>
     <string name="mail">Envelope</string>
     <string name="mailbox">Mailbox with a raised flag</string>
     <string name="gearmanual">Manual transmission gearbox</string>
@@ -223,6 +229,7 @@
     <string name="drill">Electric drill</string>
     <string name="townhouse">Two townhouses</string>
     <string name="tractor">Tractor</string>
+    <string name="trailer">Side view of a utility cargo trailer</string>
     <string name="trenddown">Decreasing trend line</string>
     <string name="trendflat">Flat trend line</string>
     <string name="trendup">Increasing trend line</string>
