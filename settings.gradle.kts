@@ -18,35 +18,44 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Warp app"
 include(":app")
-include(":snapshot-test-utils")
-include(":snapshot-alert")
-include(":snapshot-badge")
-include(":snapshot-box")
-include(":snapshot-button")
-include(":snapshot-callout")
-include(":snapshot-checkbox")
-include(":snapshot-datepicker")
-include(":snapshot-divider")
-include(":snapshot-expandable")
-include(":snapshot-icons")
-include(":snapshot-link")
-include(":snapshot-logo")
-include(":snapshot-pageindicator")
-include(":snapshot-pill")
-include(":snapshot-popover")
-include(":snapshot-radio")
-include(":snapshot-rangeslider")
-include(":snapshot-select")
-include(":snapshot-slider")
-include(":snapshot-snackbar")
-include(":snapshot-spinner")
-include(":snapshot-state")
-include(":snapshot-switch")
-include(":snapshot-tabs")
-include(":snapshot-textfield")
-include(":snapshot-toast")
-include(":snapshot-tooltip")
-include(":snapshot-topappbar")
+
+//snapshot-dirs
+listOf(
+    "test-utils",
+    "alert",
+    "badge",
+    "box",
+    "button",
+    "callout",
+    "checkbox",
+    "datepicker",
+    "divider",
+    "expandable",
+    "icons",
+    "link",
+    "logo",
+    "navigationbar",
+    "pageindicator",
+    "pill",
+    "popover",
+    "radio",
+    "rangeslider",
+    "select",
+    "slider",
+    "snackbar",
+    "spinner",
+    "state",
+    "switch",
+    "tabs",
+    "textfield",
+    "toast",
+    "tooltip",
+    "topappbar"
+).forEach { name ->
+    include(":snapshot:snapshot-$name")
+    project(":snapshot:snapshot-$name").projectDir = file("snapshot/$name")
+}
+
 include(":warp")
 include(":warp-blocket")
 include(":warp-dba")

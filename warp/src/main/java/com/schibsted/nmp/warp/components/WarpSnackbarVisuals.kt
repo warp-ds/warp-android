@@ -27,8 +27,8 @@ data class WarpSnackbarVisuals(
         require(actionLabel.isNullOrEmpty() || duration != SnackbarDuration.Short) {
             "Snackbars with an action cannot have Short duration. Use Long or Indefinite instead."
         }
-        require(duration == SnackbarDuration.Short || withDismissAction || !actionLabel.isNullOrEmpty()) {
-            "Long and Indefinite snackbars must have either a dismiss action or an action button."
+        require(duration != SnackbarDuration.Indefinite || withDismissAction || !actionLabel.isNullOrEmpty()) {
+            "Indefinite snackbars must have either a dismiss action or an action button."
         }
     }
 }
