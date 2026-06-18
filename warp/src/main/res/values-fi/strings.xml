@@ -6,7 +6,7 @@
     <string name="aircon">Ilmastointi</string>
     <string name="airplanebed">Sänky, jonka taustalla on lentokone</string>
     <string name="allwheeldrive">Nelivetoajoneuvo</string>
-    <string name="anchor">Ankkuri edestä</string>
+    <string name="anchor">Ankkuri edestä katsottuna</string>
     <string name="animalpaw">Koiran tassu</string>
     <string name="archway">Kaari</string>
     <string name="arrowdown">Alaspäin osoittava nuoli</string>
@@ -50,7 +50,7 @@
     <string name="carpart">Auton osa</string>
     <string name="carrent">Auto ja kello</string>
     <string name="chair">Tuoli</string>
-    <string name="chainsaw">Moottorisaha viistosta</string>
+    <string name="chainsaw">Moottorisaha viistosti kuvattuna</string>
     <string name="charger">Laturi</string>
     <string name="charter">Matkalaukku, jonka oikeassa alakulmassa on maapallo</string>
     <string name="chatsupport">Kaksi puhekuplaa</string>
@@ -95,10 +95,10 @@
     <string name="eyeon">Silmä</string>
     <string name="facebook">Facebook-kuvake</string>
     <string name="farm">Lato, jossa on harjakatto ja ristikko-ovi</string>
-    <string name="file">Asiakirjasivu, jonka oikea yläkulma on taitettu</string>
+    <string name="file">Asiakirjan sivu, jonka oikea yläkulma on taitettu</string>
     <string name="fileadd">"Tiedosto, jossa on plusmerkki "</string>
-    <string name="filepdf">Asiakirjasivu, jossa lukee PDF</string>
-    <string name="filetext">Asiakirjasivu, jossa on vaakasuoria tekstirivejä</string>
+    <string name="filepdf">Asiakirjan sivu, jossa lukee PDF</string>
+    <string name="filetext">Asiakirjan sivu, jossa on vaakasuoraa tekstiä</string>
     <string name="filter">Kaksi vaakasuoraa liukusäädintä, joissa on säätönupit</string>
     <string name="fireplace">Takka</string>
     <string name="fishing">Ongenkoukku</string>
@@ -141,7 +141,7 @@
     <string name="listsort">Lista</string>
     <string name="lockshield">Kilpi ja riippulukko</string>
     <string name="logout">Laatikosta oikealle lähtevä nuoli</string>
-    <string name="lowspeedvehicle">Auton sivuprofiili, jossa on varoituskolmio takana</string>
+    <string name="lowspeedvehicle">Auton sivuprofiili ja varoituskolmio</string>
     <string name="mail">Kirjekuori</string>
     <string name="mailbox">Postilaatikko, jossa on lippu nostettuna</string>
     <string name="gearmanual">Manuaalivaihteisto</string>
@@ -230,7 +230,7 @@
     <string name="drill">Sähköpora</string>
     <string name="townhouse">Kaksi kaupunkitaloa</string>
     <string name="tractor">Traktori</string>
-    <string name="trailer">Peräkärryn sivuprofiili</string>
+    <string name="trailer">Perävaunun sivuprofiili</string>
     <string name="trenddown">Laskeva trendiviiva</string>
     <string name="trendflat">Tasainen trendiviiva</string>
     <string name="trendup">Nouseva trendiviiva</string>

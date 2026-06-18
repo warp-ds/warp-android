@@ -6,7 +6,7 @@
     <string name="aircon">Klimaanlegg</string>
     <string name="airplanebed">Seng med et fly i bakgrunnen</string>
     <string name="allwheeldrive">Firehjulstrekk</string>
-    <string name="anchor">Et anker sett forfra</string>
+    <string name="anchor">Anker sett forfra</string>
     <string name="animalpaw">Hundepote</string>
     <string name="archway">Buegang</string>
     <string name="arrowdown">Pil som peker ned</string>
@@ -50,7 +50,7 @@
     <string name="carpart">Bildel</string>
     <string name="carrent">Bil og klokke</string>
     <string name="chair">Stol</string>
-    <string name="chainsaw">En motorsag sett på skrå</string>
+    <string name="chainsaw">Motorsag sett fra skrå vinkel</string>
     <string name="charger">Lader</string>
     <string name="charter">Koffert med en markert globus nederst i høyre hjørne</string>
     <string name="chatsupport">To snakkebobler</string>
@@ -95,7 +95,7 @@
     <string name="eyeon">Øye</string>
     <string name="facebook">Facebook-ikon</string>
     <string name="farm">Låve med saltak og dør med X-mønster</string>
-    <string name="file">Dokumentside med brettet hjørne øverst til høyre</string>
+    <string name="file">Dokumentside med en brett på hjørnet øverst til høyre</string>
     <string name="fileadd">"Pluss-tegn på en fil "</string>
     <string name="filepdf">Dokumentside med bokstavene PDF</string>
     <string name="filetext">Dokumentside med horisontale tekstlinjer</string>
@@ -141,7 +141,7 @@
     <string name="listsort">Punktliste</string>
     <string name="lockshield">Skjold med hengelås</string>
     <string name="logout">Pil mot høyre som går ut av en boks</string>
-    <string name="lowspeedvehicle">En bil med varseltrekant bak sett fra siden</string>
+    <string name="lowspeedvehicle">Bil med varseltrekant bak, sett fra siden</string>
     <string name="mail">Konvolutt</string>
     <string name="mailbox">Postkasse med hevet flagg</string>
     <string name="gearmanual">Manuell girkasse</string>
@@ -230,7 +230,7 @@
     <string name="drill">Elektrisk drill</string>
     <string name="townhouse">To hus</string>
     <string name="tractor">Traktor</string>
-    <string name="trailer">En tilhenger sett fra siden</string>
+    <string name="trailer">Skaphenger sett fra siden</string>
     <string name="trenddown">Synkende trendlinje</string>
     <string name="trendflat">Flat trendlinje</string>
     <string name="trendup">Stigende trendlinje</string>
