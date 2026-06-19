@@ -34,4 +34,5 @@ android {
 dependencies {
     implementation(project(":snapshot:snapshot-test-utils"))
     implementation(Dependencies.composeMaterial3)
+    implementation(Dependencies.materialIconsCore)
 }

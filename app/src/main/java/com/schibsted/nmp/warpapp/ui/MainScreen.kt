@@ -217,6 +217,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("topAppBarDemo") {
+                WarpTopAppBarDemoScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -231,7 +236,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
         topBar = {
             WarpTopAppBar(
                 titleText = "Warp components",
-                centered = true,
+                titleCollapsible = true,
                 actions = {
                     IconButton(onClick = { menuVisible = !menuVisible }) {
                         WarpIcon(
@@ -300,6 +305,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "textField" to "WarpTextField",
                         "toast" to "WarpToast",
                         "tooltip" to "WarpTooltip",
+                        "topAppBarDemo" to "WarpTopAppBar",
                         "typography" to "Typography",
                     )
                 )

@@ -49,7 +49,8 @@ private fun TabsContent() {
             WarpTab(
                 selected = selectedTab == 0,
                 onClick = { selectedTab = 0 },
-                text = "Loooong Option 1"
+                text = "Loooong Option 1",
+                hasBadge = true
             )
             WarpTab(
                 selected = selectedTab == 1,
@@ -101,7 +102,8 @@ private fun TabsContent() {
             WarpTab(
                 selected = selectedTab3 == 0,
                 onClick = { selectedTab3 = 0 },
-                text = "Option 1"
+                text = "Option 1",
+                hasBadge = true
             )
             WarpTab(
                 selected = selectedTab3 == 1,
