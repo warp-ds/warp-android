@@ -37,16 +37,13 @@ private const val ACTION_NEW_LINE_THRESHOLD = 10
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/snackbar/)
  *
  * @param snackbarData Data about the snackbar, including text and action label.
- *   Use WarpSnackbarVisuals to include an icon type, or plain SnackbarVisuals for no icon.
+ *   Use WarpSnackbarVisuals to configure the message, type, actions, and placement.
  * @param modifier Modifier for the snackbar.
- * @param actionPlacement Determines how the action button should be placed.
- *   Defaults to Auto, which places the action on a new line when the action text is >= 10 characters.
  */
 @Composable
 fun WarpSnackbar(
     snackbarData: SnackbarData,
-    modifier: Modifier = Modifier,
-    actionPlacement: WarpSnackbarActionPlacement = WarpSnackbarActionPlacement.Auto
+    modifier: Modifier = Modifier
 ) {
     val warpVisuals = snackbarData.visuals.validate()
 
@@ -55,7 +52,7 @@ fun WarpSnackbar(
     val textContentColor = WarpTheme.colors.text.invertedStatic
     val iconContentColor = WarpTheme.colors.icon.invertedStatic
     val containerColor = WarpTheme.colors.components.tooltip.backgroundStatic
-    val computedActionOnNewLine = when (actionPlacement) {
+    val computedActionOnNewLine = when (warpVisuals.actionPlacement) {
         WarpSnackbarActionPlacement.Auto -> snackbarData.visuals.actionLabel?.let {
             it.length >= ACTION_NEW_LINE_THRESHOLD
         } ?: false
