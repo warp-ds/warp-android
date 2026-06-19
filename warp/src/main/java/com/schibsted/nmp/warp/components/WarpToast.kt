@@ -42,6 +42,10 @@ import kotlin.concurrent.schedule
  * @param onDismiss Callback to be invoked when the toast is dismissed.
  */
 @Composable
+@Deprecated(
+    message = "Use WarpSnackbar instead.",
+    level = DeprecationLevel.WARNING
+)
 fun WarpToast(
     modifier: Modifier = Modifier,
     state: WarpToastState,
