@@ -1,6 +1,7 @@
 package com.schibsted.nmp.warp.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.NavigationItemColors
@@ -84,19 +85,20 @@ fun WarpNavigationBar(
         disabledTextColor = warpColors.icon.default,
     )
 
-    ShortNavigationBar(
-        modifier = modifier,
-        containerColor = warpColors.background.default,
-        arrangement = if (showHorizontal) ShortNavigationBarArrangement.Centered else ShortNavigationBarArrangement.EqualWeight
-    ) {
-        items.forEachIndexed { index, item ->
-            WarpNavigationBarItem(
-                item = item,
-                isSelected = index == selectedIndex,
-                onClick = { onItemSelected(index) },
-                iconPosition = iconPosition,
-                itemColors = itemColors,
-            )
+    Box(modifier = modifier) {
+        ShortNavigationBar(
+            containerColor = warpColors.background.default,
+            arrangement = if (showHorizontal) ShortNavigationBarArrangement.Centered else ShortNavigationBarArrangement.EqualWeight,
+        ) {
+            items.forEachIndexed { index, item ->
+                WarpNavigationBarItem(
+                    item = item,
+                    isSelected = index == selectedIndex,
+                    onClick = { onItemSelected(index) },
+                    iconPosition = iconPosition,
+                    itemColors = itemColors,
+                )
+            }
         }
     }
 }
