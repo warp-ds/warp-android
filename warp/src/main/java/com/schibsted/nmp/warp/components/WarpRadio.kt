@@ -60,7 +60,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param onClick An optional click handler that will be invoked when the radio button is clicked.
  * @param interactionSource The [MutableInteractionSource] representing the stream of Interactions for this radio button.
  */
-
 @Composable
 fun WarpRadio(
     modifier: Modifier = Modifier,
