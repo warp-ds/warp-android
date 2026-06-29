@@ -10,6 +10,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -34,6 +35,10 @@ import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.RadioButtonTokens.RadioAnimationDuration
@@ -55,6 +60,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param onClick An optional click handler that will be invoked when the radio button is clicked.
  * @param interactionSource The [MutableInteractionSource] representing the stream of Interactions for this radio button.
  */
+
 @Composable
 fun WarpRadio(
     modifier: Modifier = Modifier,
@@ -67,11 +73,36 @@ fun WarpRadio(
     onClick: (() -> Unit)? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    val textColor = rememberUpdatedState(
+    WarpRadio(
+        modifier = modifier,
+        label = AnnotatedString(text = label),
+        selected = selected,
+        isError = isError,
+        enabled = enabled,
+        extraText = extraText,
+        slot = slot,
+        onClick = onClick,
+        interactionSource = interactionSource
+    )
+}
+
+@Composable
+fun WarpRadio(
+    modifier: Modifier = Modifier,
+    label: AnnotatedString,
+    selected: Boolean = false,
+    isError: Boolean = false,
+    enabled: Boolean = true,
+    extraText: String? = null,
+    slot: @Composable (() -> Unit)? = null,
+    onClick: (() -> Unit)? = null,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+) {
+    val annotatedString = rememberUpdatedState(
         when {
-            isError -> colors.text.default
-            !enabled -> colors.text.disabled
-            else -> colors.text.default
+            isError -> label
+            !enabled -> label.withUnifiedColor(colors.text.disabled)
+            else -> label
         }
     )
     val extraTextColor = rememberUpdatedState(
@@ -108,11 +139,7 @@ fun WarpRadio(
             colors = defaultRadioColors(),
         )
         Spacer(modifier = Modifier.width(dimensions.space1))
-        WarpText(
-            text = label,
-            style = WarpTextStyle.Body,
-            color = textColor.value,
-        )
+        WarpText(text = annotatedString.value)
         extraText?.let {
             Spacer(modifier = Modifier.width(dimensions.space05))
             WarpText(
@@ -263,8 +290,40 @@ internal object RadioButtonTokens {
     const val RadioAnimationDuration = 100
 }
 
-@Preview
+private fun AnnotatedString.withUnifiedColor(color: Color): AnnotatedString {
+    return buildAnnotatedString {
+        // Add the text with the base color
+        append(this@withUnifiedColor.text)
+
+        // Re-apply each existing span, merging with the new color
+        spanStyles.forEach { range ->
+            addStyle(
+                style = range.item.merge(SpanStyle(color = color)),
+                start = range.start,
+                end = range.end
+            )
+        }
+
+        // Also apply color to any unstyled portions
+        addStyle(SpanStyle(color = color), 0, length)
+    }
+}
+
+@Preview(showBackground = true)
 @Composable
 fun WarpRadioButtonPreview() {
-    WarpRadio(label = "RadioButton", selected = true)
+    val annotatedString = buildAnnotatedString {
+        append("Radio ")
+        withStyle(
+            SpanStyle(
+                color = Color.Blue
+            )
+        ) {
+            append("button")
+        }
+    }
+    Column {
+        WarpRadio(label = annotatedString, selected = true)
+        WarpRadio(label = "RadioButton", selected = true)
+    }
 }
