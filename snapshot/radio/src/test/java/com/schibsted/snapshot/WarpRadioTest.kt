@@ -8,9 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.HtmlReportWriter
 import app.cash.paparazzi.Paparazzi
@@ -21,6 +25,7 @@ import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.WarpRadio
 import com.schibsted.nmp.warp.components.WarpRadioGroup
+import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import org.junit.Rule
@@ -64,6 +69,9 @@ class WarpRadioTest(
                             vertical = dimensions.space2
                         )
                 ) {
+                    WarpRadio(label = makeAnnotatedString(radioState = "on"), selected = true, enabled = true)
+                    WarpRadio(label = makeAnnotatedString(radioState = "off"), selected = false, enabled = true)
+                    WarpRadio(label = makeAnnotatedString("disabled on"), selected = true, enabled = false)
                     WarpRadio(label = "Single Radio on", selected = true, enabled = true)
                     WarpRadio(label = "Single Radio off", selected = false, enabled = true)
                     WarpRadio(label = "Single Radio disabled on", selected = true, enabled = false)
@@ -154,5 +162,19 @@ class WarpRadioTest(
                 }
             }
         }
+    }
+
+    @Composable
+    fun makeAnnotatedString(radioState: String) = buildAnnotatedString {
+        append("Annotated ")
+        withStyle(
+            SpanStyle(
+                color = WarpTheme.colors.text.positive,
+                fontFamily = WarpTheme.typography.bodyStrong.fontFamily
+            )
+        ) {
+            append("radio ")
+        }
+        append(radioState)
     }
 }

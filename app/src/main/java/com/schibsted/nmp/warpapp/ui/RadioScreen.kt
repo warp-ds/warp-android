@@ -15,10 +15,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.schibsted.nmp.warp.components.WarpRadio
 import com.schibsted.nmp.warp.components.WarpRadioGroup
+import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
@@ -39,6 +44,19 @@ private fun RadioScreenContent() {
             .verticalScroll(rememberScrollState())
             .padding(dimensions.space2),
     ) {
+        val annotatedString = buildAnnotatedString {
+            append("Annotated ")
+            withStyle(
+                SpanStyle(
+                    color = Color.Blue,
+                    fontFamily = WarpTheme.typography.bodyStrong.fontFamily
+                )
+            ) {
+                append("radio button")
+            }
+        }
+        WarpRadio(label = annotatedString, selected = true, enabled = true)
+        WarpRadio(label = annotatedString, selected = true, enabled = false)
         WarpRadio(label = "Single Radio on", selected = true, enabled = true)
         WarpRadio(label = "Single Radio off", selected = false, enabled = true)
         WarpRadio(
