@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.SearchConfiguration
 import com.schibsted.nmp.warp.components.TabConfiguration
 import com.schibsted.nmp.warp.components.TabData
+import com.schibsted.nmp.warp.components.WarpAppBarStyle
 import com.schibsted.nmp.warp.components.WarpCheckbox
 import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpScaffold
@@ -38,6 +39,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
     val searchState = remember { TextFieldState("") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
+    var useFlexibleStyle by remember { mutableStateOf(false) }
     var titleCollapsible by remember { mutableStateOf(false) }
     var searchCollapsible by remember { mutableStateOf(true) }
     var tabsCollapsible by remember { mutableStateOf(false) }
@@ -49,7 +51,6 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
         TabData("Profile", "profile")
     )
 
-    // Create scroll behavior for collapse tracking
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     WarpScaffold(
@@ -59,6 +60,7 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
             WarpTopAppBar(
                 titleText = "Top App Bar Demo ($currentFlavor)",
                 subtitleText = "Subtitle",
+                style = if (useFlexibleStyle) WarpAppBarStyle.MediumFlexible else WarpAppBarStyle.Default,
                 titleCollapsible = titleCollapsible,
                 navigationIcon = {
                     IconButton(onClick = onUp) {
@@ -110,6 +112,22 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
                         color = colors.text.subtle,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
+
+                    // Medium Flexible style toggle
+                    Row(
+                        modifier = Modifier.padding(vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        WarpCheckbox(
+                            checked = useFlexibleStyle,
+                            onCheckedChange = { useFlexibleStyle = it }
+                        )
+                        WarpText(
+                            text = "Medium Flexible style (large title + subtitle, M3 Expressive)",
+                            style = WarpTextStyle.Body,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
 
                     // Title collapsible toggle
                     Row(
