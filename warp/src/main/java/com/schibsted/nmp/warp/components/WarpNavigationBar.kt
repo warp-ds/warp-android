@@ -32,12 +32,15 @@ enum class WarpNavBarLayout { Auto, Vertical, Horizontal }
  *   For avatar images that don't tint, ignore the color parameter.
  * @param badgeCount Number to display in the badge. 0 means no badge. Must be >= 0.
  * @param showDot True to show a dot badge (no number). Ignored if [badgeCount] > 0.
+ * @param modifier Modifier applied to this item's [ShortNavigationBarItem]. Use to add semantics,
+ *   test tags, or other per-item decoration. Defaults to [Modifier].
  */
 data class WarpNavItem(
     val label: String,
     val icon: @Composable (color: Color, isSelected: Boolean) -> Unit,
     val badgeCount: Int = 0,
     val showDot: Boolean = false,
+    val modifier: Modifier = Modifier,
 ) {
     init {
         require(badgeCount >= 0) { "badgeCount must be >= 0, was $badgeCount" }
@@ -92,6 +95,7 @@ fun WarpNavigationBar(
         ) {
             items.forEachIndexed { index, item ->
                 WarpNavigationBarItem(
+                    modifier = item.modifier,
                     item = item,
                     isSelected = index == selectedIndex,
                     onClick = { onItemSelected(index) },
