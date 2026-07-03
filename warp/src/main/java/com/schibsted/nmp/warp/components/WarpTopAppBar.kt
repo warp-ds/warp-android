@@ -211,6 +211,7 @@ fun WarpTopAppBar(
         titleHeightPx,
         searchHeightPx,
         tabsHeightPx,
+        flexExpandedHeightPx,
         titleCollapsible,
         searchConfig,
         tabConfig,
@@ -219,12 +220,13 @@ fun WarpTopAppBar(
     ) {
         val boundaries = mutableMapOf<String, SectionBoundary>()
         val collapsibleSections = buildList {
+            // Default mode: optional title collapse
             if (manualTitleCollapse && titleHeightPx > 0) add("title" to titleHeightPx)
-            // In MediumFlexible mode, search/tab collapse is handled by M3 internally
-            if (style is WarpAppBarStyle.Default) {
-                if (searchConfig?.collapsible == true && searchHeightPx > 0) add("search" to searchHeightPx)
-                if (tabConfig?.collapsible == true && tabsHeightPx > 0) add("tabs" to tabsHeightPx)
-            }
+            // MediumFlexible mode: expandable large-title section is always the first to collapse
+            if (style is WarpAppBarStyle.MediumFlexible && flexExpandedHeightPx > 0) add("flex" to flexExpandedHeightPx)
+            // Both modes: search and tabs collapse after the title/flex section
+            if (searchConfig?.collapsible == true && searchHeightPx > 0) add("search" to searchHeightPx)
+            if (tabConfig?.collapsible == true && tabsHeightPx > 0) add("tabs" to tabsHeightPx)
         }
 
         val totalHeight = collapsibleSections.sumOf { it.second }
@@ -244,27 +246,14 @@ fun WarpTopAppBar(
     // Calculate total collapsible height
     val totalCollapsibleHeightPx = sectionBoundaries.values.sumOf { it.heightPx }
 
-    // Set heightOffsetLimit for manual collapse sections.
-    // MediumFlexible drives collapse via its own expanded section height.
-    // Default mode uses the sum of all collapsible section heights.
+    // Set heightOffsetLimit to the total height of all collapsible sections.
+    // Both styles now go through sectionBoundaries, so totalCollapsibleHeightPx covers everything.
+    // Skip only when Material3 itself handles title collapse (useMaterial3TitleCollapse).
     SideEffect {
-        if (effectiveScrollBehavior != null) {
-            when {
-                style is WarpAppBarStyle.MediumFlexible && flexExpandedHeightPx > 0 -> {
-                    val limit = -flexExpandedHeightPx.toFloat()
-                    if (effectiveScrollBehavior.state.heightOffsetLimit != limit) {
-                        effectiveScrollBehavior.state.heightOffsetLimit = limit
-                    }
-                }
-
-                style is WarpAppBarStyle.Default
-                        && totalCollapsibleHeightPx > 0
-                        && !useMaterial3TitleCollapse -> {
-                    val limit = -totalCollapsibleHeightPx.toFloat()
-                    if (effectiveScrollBehavior.state.heightOffsetLimit != limit) {
-                        effectiveScrollBehavior.state.heightOffsetLimit = limit
-                    }
-                }
+        if (effectiveScrollBehavior != null && totalCollapsibleHeightPx > 0 && !useMaterial3TitleCollapse) {
+            val limit = -totalCollapsibleHeightPx.toFloat()
+            if (effectiveScrollBehavior.state.heightOffsetLimit != limit) {
+                effectiveScrollBehavior.state.heightOffsetLimit = limit
             }
         }
     }
@@ -292,13 +281,12 @@ fun WarpTopAppBar(
         calculateSectionCollapseFraction(overallCollapsedFraction, it)
     } ?: 1f
 
-    // Collapse fraction for MediumFlexible mode (independent of Default mode sections)
-    val flexCollapseFraction =
-        if (style is WarpAppBarStyle.MediumFlexible && flexExpandedHeightPx > 0) {
-            (-scrollOffset / flexExpandedHeightPx).coerceIn(0f, 1f)
-        } else {
-            0f
-        }
+    // Collapse fraction for MediumFlexible mode — derived from its section boundary so search/tabs
+    // collapse sequentially after the flex section (same mechanism as Default title collapse).
+    // Inverted relative to calculateSectionCollapseFraction (0 = expanded, 1 = collapsed).
+    val flexCollapseFraction = sectionBoundaries["flex"]?.let {
+        1f - calculateSectionCollapseFraction(overallCollapsedFraction, it)
+    } ?: 0f
 
     // Alpha fade calculations for collapsible sections
     val titleAlpha = if (titleCollapseFraction < ALPHA_THRESHOLD) 0f else titleCollapseFraction
@@ -411,7 +399,7 @@ fun WarpTopAppBar(
         } else {
             // --- Default: existing behavior (unchanged) ---
             // Only let Material3 handle title collapse when search/tabs are NOT collapsible.
-            // Otherwise we handle all collapse manually to avoid heightOffsetLimit conflicts.
+            // Otherwise, we handle all collapse manually to avoid heightOffsetLimit conflicts.
 
             // Wrap TopAppBar in collapsible container when using manual title collapse
             Column(
@@ -481,15 +469,13 @@ fun WarpTopAppBar(
 
         // Collapsible section for search only
         searchConfig?.let { config ->
-            val searchEffectivelyCollapsible =
-                config.collapsible && style is WarpAppBarStyle.Default
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     // Apply interpolated status bar padding for smooth transition as title collapses
                     .padding(top = interpolatedStatusBarPadding)
                     .then(
-                        if (searchEffectivelyCollapsible && searchMeasured) {
+                        if (config.collapsible && searchMeasured) {
                             Modifier.layout { measurable, constraints ->
                                 // Measure content with unlimited height to get natural size
                                 val placeable =
@@ -515,14 +501,14 @@ fun WarpTopAppBar(
                         }
                     )
                     .then(
-                        if (searchEffectivelyCollapsible && searchCollapseFraction < 0.9f) {
+                        if (config.collapsible && searchCollapseFraction < 0.9f) {
                             Modifier.zIndex(-1f)
                         } else {
                             Modifier
                         }
                     )
                     .onGloballyPositioned {
-                        if (searchEffectivelyCollapsible && !searchMeasured && it.size.height > 0) {
+                        if (config.collapsible && !searchMeasured && it.size.height > 0) {
                             searchHeightPx = it.size.height
                         }
                     }
@@ -536,7 +522,7 @@ fun WarpTopAppBar(
                         .fillMaxWidth(),
                     inputField = {
                         SearchBarDefaults.InputField(
-                            enabled = config.enabled && (!searchEffectivelyCollapsible || searchCollapseFraction > 0.5f),
+                            enabled = config.enabled && (!config.collapsible || searchCollapseFraction > 0.5f),
                             query = config.state.text.toString(),
                             onQueryChange = {
                                 config.state.edit { replace(0, length, it) }
@@ -602,7 +588,7 @@ fun WarpTopAppBar(
             if (config.tabs.isEmpty()) return@let
 
             val selectedIndex = config.selectedIndex.coerceIn(0, config.tabs.lastIndex)
-            val tabsEffectivelyCollapsible = config.collapsible && style is WarpAppBarStyle.Default
+            val tabsEffectivelyCollapsible = config.collapsible
 
             Column(
                 modifier = Modifier
