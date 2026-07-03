@@ -324,7 +324,7 @@ fun WarpTopAppBar(
                         WarpText(
                             text = titleText,
                             style = WarpTextStyle.Title3,
-                            maxLines = 1,
+                            maxLines = 2,
                             modifier = Modifier.graphicsLayer { alpha = flexCollapseFraction },
                         )
                         if (subtitleText.isNotEmpty()) {
