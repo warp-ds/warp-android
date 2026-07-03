@@ -43,6 +43,7 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
     var titleCollapsible by remember { mutableStateOf(false) }
     var searchCollapsible by remember { mutableStateOf(true) }
     var tabsCollapsible by remember { mutableStateOf(false) }
+    var longTitles by remember { mutableStateOf(false) }
     val currentFlavor = rememberCurrentFlavor()
 
     val tabs = listOf(
@@ -51,15 +52,15 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
         TabData("Profile", "profile")
     )
 
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val scrollBehavior = if (useFlexibleStyle) TopAppBarDefaults.exitUntilCollapsedScrollBehavior() else TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     WarpScaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = colors.background.default,
         topBar = {
             WarpTopAppBar(
-                titleText = "Top App Bar Demo ($currentFlavor)",
-                subtitleText = "Subtitle",
+                titleText = "Top App Bar Demo ($currentFlavor)" + if (longTitles) " with a lot of text" else "",
+                subtitleText = "Subtitle" + if (longTitles) " that's so long, it will wrap or get cut off - maybe both?" else "",
                 style = if (useFlexibleStyle) WarpAppBarStyle.MediumFlexible else WarpAppBarStyle.Default,
                 titleCollapsible = titleCollapsible,
                 navigationIcon = {
@@ -114,68 +115,39 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
                     )
 
                     // Medium Flexible style toggle
-                    Row(
-                        modifier = Modifier.padding(vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        WarpCheckbox(
-                            checked = useFlexibleStyle,
-                            onCheckedChange = { useFlexibleStyle = it }
-                        )
-                        WarpText(
-                            text = "Medium Flexible style (large title + subtitle, M3 Expressive)",
-                            style = WarpTextStyle.Body,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
+                    WarpCheckbox(
+                        checked = useFlexibleStyle,
+                        onCheckedChange = { useFlexibleStyle = it },
+                        label = "Medium Flexible style (large title + subtitle, M3 Expressive)"
+                    )
+
+                   // Title wrap behaviour
+                    WarpCheckbox(
+                        checked = longTitles,
+                        onCheckedChange = { longTitles = it },
+                        label = "Extra long title text"
+                    )
 
                     // Title collapsible toggle
-                    Row(
-                        modifier = Modifier.padding(vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        WarpCheckbox(
-                            checked = titleCollapsible,
-                            onCheckedChange = { titleCollapsible = it }
-                        )
-                        WarpText(
-                            text = "Title collapsible (collapses first)",
-                            style = WarpTextStyle.Body,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
+                    WarpCheckbox(
+                        checked = titleCollapsible,
+                        onCheckedChange = { titleCollapsible = it },
+                        label = "Title collapsible (collapses first)",
+                    )
 
                     // Search collapsible toggle
-                    Row(
-                        modifier = Modifier.padding(vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        WarpCheckbox(
-                            checked = searchCollapsible,
-                            onCheckedChange = { searchCollapsible = it }
-                        )
-                        WarpText(
-                            text = "Search collapsible (collapses second)",
-                            style = WarpTextStyle.Body,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
+                    WarpCheckbox(
+                        checked = searchCollapsible,
+                        onCheckedChange = { searchCollapsible = it },
+                        label = "Search collapsible (collapses second)"
+                    )
 
                     // Tabs collapsible toggle
-                    Row(
-                        modifier = Modifier.padding(vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        WarpCheckbox(
-                            checked = tabsCollapsible,
-                            onCheckedChange = { tabsCollapsible = it }
-                        )
-                        WarpText(
-                            text = "Tabs collapsible (collapses last)",
-                            style = WarpTextStyle.Body,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
+                    WarpCheckbox(
+                        checked = tabsCollapsible,
+                        onCheckedChange = { tabsCollapsible = it },
+                        label = "Tabs collapsible (collapses last)"
+                    )
                 }
             }
 
