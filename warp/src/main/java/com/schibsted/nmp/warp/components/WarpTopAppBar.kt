@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,8 +30,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -183,10 +183,13 @@ fun WarpTopAppBar(
     val tabsMeasured = tabsHeightPx > 0
 
     // Auto-create scrollBehavior when any section is or could be collapsible.
-    // MediumFlexible uses exitUntilCollapsed (snaps to expanded/collapsed, M3 Expressive spec).
     // The consumer needs to use effectiveScrollBehavior.nestedScrollConnection on their Scaffold.
     val effectiveScrollBehavior = scrollBehavior ?: when (style) {
-        WarpAppBarStyle.MediumFlexible -> TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+        WarpAppBarStyle.MediumFlexible -> rememberWarpTopAppBarScrollBehavior(
+            style = style,
+            searchCollapsible = searchConfig?.collapsible == true,
+            tabsCollapsible = tabConfig?.collapsible == true,
+        )
         else -> {
             val needsScrollBehavior = titleCollapsible ||
                     searchConfig != null ||
@@ -371,6 +374,10 @@ fun WarpTopAppBar(
                     .onGloballyPositioned {
                         if (!flexMeasured && it.size.height > 0) {
                             flexExpandedHeightPx = it.size.height
+                            // Inform a WarpTopAppBarScrollBehavior of the threshold so its
+                            // hybrid connection knows where the flex section ends.
+                            (effectiveScrollBehavior as? WarpTopAppBarScrollBehavior)
+                                ?.flexHeightPxState?.intValue = it.size.height
                         }
                     }
                     .padding(

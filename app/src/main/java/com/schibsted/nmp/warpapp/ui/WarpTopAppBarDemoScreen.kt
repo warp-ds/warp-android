@@ -2,13 +2,10 @@ package com.schibsted.nmp.warpapp.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.ui.Alignment
 import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBarDefaults
@@ -31,6 +28,7 @@ import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.components.WarpTopAppBar
+import com.schibsted.nmp.warp.components.rememberWarpTopAppBarScrollBehavior
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 
@@ -39,7 +37,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
     val searchState = remember { TextFieldState("") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
-    var useFlexibleStyle by remember { mutableStateOf(false) }
+    var useFlexibleStyle by remember { mutableStateOf(true) }
     var titleCollapsible by remember { mutableStateOf(false) }
     var searchCollapsible by remember { mutableStateOf(true) }
     var tabsCollapsible by remember { mutableStateOf(false) }
@@ -52,7 +50,15 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
         TabData("Profile", "profile")
     )
 
-    val scrollBehavior = if (useFlexibleStyle) TopAppBarDefaults.exitUntilCollapsedScrollBehavior() else TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val scrollBehavior = if (useFlexibleStyle) {
+        rememberWarpTopAppBarScrollBehavior(
+            style = WarpAppBarStyle.MediumFlexible,
+            searchCollapsible = searchCollapsible,
+            tabsCollapsible = tabsCollapsible,
+        )
+    } else {
+        TopAppBarDefaults.enterAlwaysScrollBehavior()
+    }
 
     WarpScaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
