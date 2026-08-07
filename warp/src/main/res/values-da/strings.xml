@@ -162,8 +162,10 @@
     <string name="parking">Cikel med \"P\" indeni</string>
     <string name="phone">Smartphone</string>
     <string name="phonecheck">Smartphone og et badge med et flueben</string>
+    <string name="phoneincoming">Mobilholder med en pil øverst til højre, der peger ned mod den</string>
     <string name="phonescratched">Smartphone med ridset skærm</string>
     <string name="phoneused">Smartphone med ridset skærm</string>
+    <string name="phonex">Mobilholder med et X øverst til højre</string>
     <string name="picturestack">Bunke billeder</string>
     <string name="pinmarker">Kortnål</string>
     <string name="pinround">Kortnål med skygge under</string>

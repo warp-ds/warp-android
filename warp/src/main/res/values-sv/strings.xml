@@ -162,8 +162,10 @@
     <string name="parking">Cirkel med bokstaven P inuti</string>
     <string name="phone">Smartphone</string>
     <string name="phonecheck">Smartphone och ett emblem med bock</string>
+    <string name="phoneincoming">Telefonlur med en pil ovanför den som pekar ned mot luren</string>
     <string name="phonescratched">Smartphone med repad skärm</string>
     <string name="phoneused">Smartphone med repad skärm</string>
+    <string name="phonex">Telefonlur med ett X ovanför den till höger</string>
     <string name="picturestack">Bunt med bilder</string>
     <string name="pinmarker">Kartnål</string>
     <string name="pinround">Kartnål med skugga under</string>
