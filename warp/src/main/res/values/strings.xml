@@ -161,8 +161,10 @@
     <string name="parking">Circle with letter P inside</string>
     <string name="phone">Smartphone</string>
     <string name="phonecheck">Smartphone and a badge with a check mark</string>
+    <string name="phoneincoming">Phone handset with an arrow above it to the right pointing down at it</string>
     <string name="phonescratched">Smartphone with scratched screen</string>
     <string name="phoneused">Smartphone with scratched screen</string>
+    <string name="phonex">Phone handset with an X above it to the right</string>
     <string name="picturestack">Stack of pictures</string>
     <string name="pinmarker">Map pin</string>
     <string name="pinround">Map pin with a shadow underneath</string>

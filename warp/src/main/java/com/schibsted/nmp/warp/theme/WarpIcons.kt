@@ -1432,6 +1432,13 @@ object WarpIconResources {
             identifier = "phone-check"
         )
 
+    val phoneIncoming: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_phoneincoming),
+            stringResource(R.string.phoneincoming)
+        )
+
     val phoneScratched: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1444,6 +1451,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_phoneused),
             stringResource(R.string.phoneused)
+        )
+
+    val phoneX: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_phonex),
+            stringResource(R.string.phonex)
         )
 
     val pictureStack: WarpIconResource
