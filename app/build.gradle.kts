@@ -72,7 +72,6 @@ dependencies {
     implementation(Dependencies.constraintLayout)
 
     implementation(Dependencies.navigationCompose)
-    implementation(Dependencies.koin)
 
     implementation(project(path = ":warp"))
     implementation(project(path = ":warp-tori"))
@@ -86,6 +85,7 @@ dependencies {
     implementation(Dependencies.core)
     implementation(Dependencies.appCompat)
     testImplementation(Dependencies.junit)
+    testImplementation(Dependencies.kotlinReflect)
     androidTestImplementation(Dependencies.extJunit)
     androidTestImplementation(Dependencies.espressoCore)
 }
