@@ -28,9 +28,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -92,9 +94,10 @@ sealed class WarpAppBarStyle {
      * navigation icon + actions on the always-visible compact top row; large title and
      * (optional) subtitle in an expandable section below that collapses on scroll.
      *
-     * Note: [SearchConfiguration.collapsible] and [TabConfiguration.collapsible] are ignored
-     * in this mode — search and tabs appear below the bar but do not collapse.
-     * The [WarpTopAppBar] `titleCollapsible` parameter is also ignored in this mode.
+     * Search and tabs, if provided, appear below the flex title section. Set
+     * [SearchConfiguration.collapsible] or [TabConfiguration.collapsible] to true to have them
+     * collapse after the flex title section (enter-always semantics — they re-expand on any
+     * upward scroll). The [WarpTopAppBar] `titleCollapsible` parameter is ignored in this mode.
      */
     object MediumFlexible : WarpAppBarStyle()
 }
@@ -190,6 +193,7 @@ fun WarpTopAppBar(
             searchCollapsible = searchConfig?.collapsible == true,
             tabsCollapsible = tabConfig?.collapsible == true,
         )
+
         else -> {
             val needsScrollBehavior = titleCollapsible ||
                     searchConfig != null ||
@@ -328,7 +332,9 @@ fun WarpTopAppBar(
                             text = titleText,
                             style = WarpTextStyle.Title3,
                             maxLines = 2,
-                            modifier = Modifier.graphicsLayer { alpha = flexCollapseFraction },
+                            modifier = Modifier
+                                .graphicsLayer { alpha = flexCollapseFraction }
+                                .semantics { if (flexCollapseFraction < 0.5f) hideFromAccessibility() },
                         )
                         if (subtitleText.isNotEmpty()) {
                             WarpText(
@@ -336,7 +342,13 @@ fun WarpTopAppBar(
                                 style = WarpTextStyle.Title6,
                                 color = colors.text.subtle,
                                 maxLines = 2,
-                                modifier = Modifier.graphicsLayer { alpha = flexCollapseFraction },
+                                modifier = Modifier
+                                    .graphicsLayer { alpha = flexCollapseFraction }
+                                    .semantics {
+                                        if (flexCollapseFraction < 0.5f) {
+                                            hideFromAccessibility()
+                                        }
+                                    },
                             )
                         }
                     }
@@ -391,7 +403,13 @@ fun WarpTopAppBar(
                     text = titleText,
                     style = WarpTextStyle.Title2,
                     maxLines = 2,
-                    modifier = Modifier.graphicsLayer { alpha = flexExpandedAlpha },
+                    modifier = Modifier
+                        .graphicsLayer { alpha = flexExpandedAlpha }
+                        .semantics {
+                            if (flexCollapseFraction >= 0.5f) {
+                                hideFromAccessibility()
+                            }
+                        },
                 )
                 if (subtitleText.isNotEmpty()) {
                     WarpText(
@@ -399,7 +417,13 @@ fun WarpTopAppBar(
                         style = WarpTextStyle.Title4,
                         color = colors.text.subtle,
                         maxLines = 2,
-                        modifier = Modifier.graphicsLayer { alpha = flexExpandedAlpha },
+                        modifier = Modifier
+                            .graphicsLayer { alpha = flexExpandedAlpha }
+                            .semantics {
+                                if (flexCollapseFraction >= 0.5f) {
+                                    hideFromAccessibility()
+                                }
+                            },
                     )
                 }
             }
