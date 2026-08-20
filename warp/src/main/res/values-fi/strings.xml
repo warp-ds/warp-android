@@ -162,10 +162,10 @@
     <string name="parking">Ympyrä, jonka sisällä on P-kirjain</string>
     <string name="phone">Älypuhelin</string>
     <string name="phonecheck">Älypuhelin ja valintamerkki</string>
-    <string name="phoneincoming">Puhelin, jonka yläoikealla on puhelimeen osoittava nuoli</string>
+    <string name="phoneincoming">Puhelimen luuri ja siihen yläoikealta osoittava nuoli</string>
     <string name="phonescratched">Älypuhelin, jonka näyttö on naarmuuntunut</string>
     <string name="phoneused">Älypuhelin, jonka näyttö on naarmuuntunut</string>
-    <string name="phonex">Puhelin, jonka yläoikealla on X</string>
+    <string name="phonex">Puhelimen luuri, jonka yläoikealla on X</string>
     <string name="picturestack">Kuvapino</string>
     <string name="pinmarker">Kartan osoitin</string>
     <string name="pinround">Kartan osoitin, jonka alla on varjo</string>
