@@ -2,16 +2,13 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -64,6 +61,7 @@ fun WarpDialog(
                     text = it,
                     onClick = onPrimaryButtonClick ?: {},
                     style = WarpButtonStyle.Quiet,
+                    small = true,
                 )
             }
         },
@@ -73,6 +71,7 @@ fun WarpDialog(
                     text = it,
                     onClick = onSecondaryButtonClick ?: {},
                     style = WarpButtonStyle.Quiet,
+                    small = true,
                 )
             }
         },
@@ -105,9 +104,8 @@ fun WarpDialog(
                 textAlign = TextAlign.Start,
             )
         },
-        shape = RoundedCornerShape(DialogCornerRadius),
         containerColor = colors.surface.elevated100,
-        iconContentColor = AlertDialogDefaults.iconContentColor,
+        iconContentColor = colors.icon.subtle,
         titleContentColor = colors.text.default,
         textContentColor = colors.text.default,
         properties = DialogProperties(
@@ -116,8 +114,6 @@ fun WarpDialog(
         ),
     )
 }
-
-private val DialogCornerRadius = 28.dp // TODO FK: we shouldn't use a private token like this
 
 /**
  * Content for the M3 icon slot above the title in a [WarpDialog]. Restricted to the two

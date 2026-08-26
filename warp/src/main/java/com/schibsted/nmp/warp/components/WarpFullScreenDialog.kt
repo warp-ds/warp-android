@@ -112,6 +112,7 @@ private fun FullScreenDialogTopBar(
                 text = it,
                 onClick = onActionClick ?: {},
                 style = WarpButtonStyle.Quiet,
+                small = true,
             )
         }
     }
