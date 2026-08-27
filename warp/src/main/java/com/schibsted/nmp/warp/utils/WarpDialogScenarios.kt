@@ -1,7 +1,5 @@
 package com.schibsted.nmp.warp.utils
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import com.schibsted.nmp.warp.components.WarpDialogIcon
@@ -49,8 +47,9 @@ object WarpDialogScenarios {
     )
 
     /**
-     * Plain-data scenarios. Hero-bearing variants are composable functions
-     * ([withIcon], [withImage]) because Warp icon accessors have `@Composable get()`.
+     * Plain-data scenarios. Variants that carry an icon or image ([withIcon], [withImage])
+     * are composable functions instead, because Warp icon accessors require a composable
+     * context (their getters are annotated `@Composable`).
      */
     val all = listOf(basic, singleButton, longText)
 
@@ -65,15 +64,22 @@ object WarpDialogScenarios {
     )
 
     @Composable
-    fun withImage(): WarpDialogScenario = WarpDialogScenario(
-        name = "With image",
-        title = "Welcome back",
-        body = "A description should be a short, complete sentence.",
-        icon = WarpDialogIcon.Image(
-            painter = rememberVectorPainter(image = Icons.Filled.AccountCircle),
-            contentDescription = null,
-        ),
-        primaryButtonText = "Confirm",
-        secondaryButtonText = "Cancel",
-    )
+    fun withImage(): WarpDialogScenario {
+        // Warp is migrating brand logos to the WarpLogo composable, but WarpDialogIcon.Image
+        // needs a Painter and there is no non-deprecated Painter accessor for brand logos yet.
+        // Suppressing narrowly here — this file is a demo/test fixture, not a runtime API surface.
+        @Suppress("DEPRECATION")
+        val logo = WarpIconResources.finnLarge
+        return WarpDialogScenario(
+            name = "With image",
+            title = "Welcome to FINN",
+            body = "A description should be a short, complete sentence.",
+            icon = WarpDialogIcon.Image(
+                painter = rememberVectorPainter(image = logo.vector),
+                contentDescription = logo.description,
+            ),
+            primaryButtonText = "Confirm",
+            secondaryButtonText = "Cancel",
+        )
+    }
 }
