@@ -60,8 +60,7 @@ fun WarpDialog(
                 WarpButton(
                     text = it,
                     onClick = onPrimaryButtonClick ?: {},
-                    style = WarpButtonStyle.Quiet,
-                    small = true,
+                    style = WarpButtonStyle.Quiet
                 )
             }
         },
@@ -70,8 +69,7 @@ fun WarpDialog(
                 WarpButton(
                     text = it,
                     onClick = onSecondaryButtonClick ?: {},
-                    style = WarpButtonStyle.Quiet,
-                    small = true,
+                    style = WarpButtonStyle.Quiet
                 )
             }
         },
