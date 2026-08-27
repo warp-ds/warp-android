@@ -29,6 +29,7 @@ listOf(
     "callout",
     "checkbox",
     "datepicker",
+    "dialog",
     "divider",
     "expandable",
     "icons",
