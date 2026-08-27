@@ -192,6 +192,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("dialog") {
+                DialogScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("pageIndicator") {
                 PageIndicatorScreen {
                     navController.navigateUp()
@@ -283,6 +288,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "callout" to "WarpCallout",
                         "checkbox" to "WarpCheckbox",
                         "datePicker" to "WarpDatePicker",
+                        "dialog" to "WarpDialog",
                         "divider" to "WarpDivider",
                         "expandable" to "WarpExpandable",
                         "icons" to "WarpIcons",
