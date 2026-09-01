@@ -3,7 +3,13 @@
 package com.schibsted.nmp.warp.components
 
 import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.AnimationState
 import androidx.compose.animation.core.DecayAnimationSpec
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDecay
+import androidx.compose.animation.core.animateTo
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -16,6 +22,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.unit.Velocity
+import kotlin.math.abs
 
 /**
  * A scroll behavior for [WarpTopAppBar] in [WarpAppBarStyle.MediumFlexible] mode that applies
@@ -50,10 +58,10 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 @Stable
 class WarpTopAppBarScrollBehavior internal constructor(
     override val state: TopAppBarState,
+    override val snapAnimationSpec: AnimationSpec<Float>?,
+    override val flingAnimationSpec: DecayAnimationSpec<Float>?,
 ) : TopAppBarScrollBehavior {
     override val isPinned = false
-    override val snapAnimationSpec: AnimationSpec<Float>? = null
-    override val flingAnimationSpec: DecayAnimationSpec<Float>? = null
 
     // Written by WarpTopAppBar once the flex expanded section height is measured.
     // Before measurement (value = 0) the threshold is treated as unreachable so all
@@ -105,6 +113,54 @@ class WarpTopAppBarScrollBehavior internal constructor(
             }
             return Offset.Zero
         }
+
+        override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity {
+            return settle(available.y)
+        }
+    }
+
+    /**
+     * Continue any residual fling into [state.heightOffset], then snap to the nearest anchor
+     * (0, -flexHeightPx, or [state.heightOffsetLimit]) so the bar never rests in a partial state.
+     */
+    private suspend fun settle(velocity: Float): Velocity {
+        var remainingVelocity = velocity
+        if (flingAnimationSpec != null && abs(velocity) > 1f) {
+            var lastValue = 0f
+            AnimationState(initialValue = 0f, initialVelocity = velocity)
+                .animateDecay(flingAnimationSpec) {
+                    val delta = value - lastValue
+                    val before = state.heightOffset
+                    state.heightOffset =
+                        (state.heightOffset + delta).coerceIn(state.heightOffsetLimit, 0f)
+                    val consumed = abs(before - state.heightOffset)
+                    lastValue = value
+                    remainingVelocity = this.velocity
+                    if (abs(delta - consumed) > 0.5f) cancelAnimation()
+                }
+        }
+        if (snapAnimationSpec != null &&
+            state.heightOffset < 0f &&
+            state.heightOffset > state.heightOffsetLimit
+        ) {
+            val target = nearestAnchor(state.heightOffset)
+            if (target != state.heightOffset) {
+                AnimationState(initialValue = state.heightOffset).animateTo(
+                    targetValue = target,
+                    animationSpec = snapAnimationSpec,
+                ) { state.heightOffset = value }
+            }
+        }
+        return Velocity(0f, remainingVelocity)
+    }
+
+    private fun nearestAnchor(offset: Float): Float {
+        val anchors = buildList {
+            add(0f)
+            if (flexHeightPxState.intValue > 0) add(-flexHeightPxState.intValue.toFloat())
+            add(state.heightOffsetLimit)
+        }.filter { it >= state.heightOffsetLimit && it <= 0f }
+        return anchors.minBy { abs(it - offset) }
     }
 }
 
@@ -127,8 +183,14 @@ fun rememberWarpTopAppBarScrollBehavior(
     val useHybrid = style is WarpAppBarStyle.MediumFlexible && (searchCollapsible || tabsCollapsible)
     return if (useHybrid) {
         val topAppBarState = rememberTopAppBarState()
-        remember(style, searchCollapsible, tabsCollapsible) {
-            WarpTopAppBarScrollBehavior(state = topAppBarState)
+        val snapSpec = spring<Float>(stiffness = Spring.StiffnessMediumLow)
+        val flingSpec = rememberSplineBasedDecay<Float>()
+        remember(style, searchCollapsible, tabsCollapsible, snapSpec, flingSpec) {
+            WarpTopAppBarScrollBehavior(
+                state = topAppBarState,
+                snapAnimationSpec = snapSpec,
+                flingAnimationSpec = flingSpec,
+            )
         }
     } else {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
