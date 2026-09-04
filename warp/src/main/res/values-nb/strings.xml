@@ -28,6 +28,7 @@
     <string name="beach">"Palmetre på en øy "</string>
     <string name="bell">Bjelle</string>
     <string name="bellfilled">Bjelle</string>
+    <string name="bicycle">Sykkel sett fra siden</string>
     <string name="bin">Søppelkasse</string>
     <string name="block">"Person med \"ingen adgang\" skilt "</string>
     <string name="bolt">Lynnedslag</string>
@@ -107,6 +108,7 @@
     <string name="gasdiesel">Drivstoffpumpe med en strek inni</string>
     <string name="gasfuel">Drivstoffpumpe med en dråpe inni</string>
     <string name="gashybrid">Oljedråpe omgitt av en elektrisk kabel</string>
+    <string name="graduationcap">Studenterhue med dusk</string>
     <string name="graphline">Linjediagram</string>
     <string name="graphpie">Kakediagram</string>
     <string name="grid">Fire firkanter i et rutenett</string>
@@ -140,6 +142,7 @@
     <string name="linkexternal">Firkant med en diagonal pil som går ut øverst til høyre</string>
     <string name="listsort">Punktliste</string>
     <string name="lockshield">Skjold med hengelås</string>
+    <string name="locksimple">Hengelås sett forfra</string>
     <string name="logout">Pil mot høyre som går ut av en boks</string>
     <string name="lowspeedvehicle">Bil med varseltrekant bak, sett fra siden</string>
     <string name="mail">Konvolutt</string>
@@ -160,6 +163,7 @@
     <string name="oikotie">Oikotie</string>
     <string name="organize">Opp- og ned-pil adskilt av en vannrett linje</string>
     <string name="parking">Sirkel med bokstaven P inni</string>
+    <string name="personsimplewalk">Strektegning av en gående person</string>
     <string name="phone">Smarttelefon</string>
     <string name="phonecheck">Smarttelefon og et merke med et sjekkmerke</string>
     <string name="phoneincoming">Et telefonrør med en pil til høyre over det som peker ned mot det</string>
@@ -238,6 +242,7 @@
     <string name="trendup">Stigende trendlinje</string>
     <string name="truck">En skapbil sett fra siden</string>
     <string name="tv">Flatskjerm TV</string>
+    <string name="umbrella">En åpen paraply med buet håndtak</string>
     <string name="x">X-ikon</string>
     <string name="up">Firkant med pil som peker opp</string>
     <string name="upload">Pil som peker opp fra et vannrett brett</string>

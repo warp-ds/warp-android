@@ -28,6 +28,7 @@
     <string name="beach">"Palmetræ på en ø "</string>
     <string name="bell">Klokke</string>
     <string name="bellfilled">Klokke</string>
+    <string name="bicycle">Cykel set fra siden</string>
     <string name="bin">Skraldespand</string>
     <string name="block">"Person med et adgang forbudt-skilt "</string>
     <string name="bolt">Lyn</string>
@@ -107,6 +108,7 @@
     <string name="gasdiesel">Benzinpumpe med bindestreg indeni</string>
     <string name="gasfuel">Benzinpumpe med en dråbe indeni</string>
     <string name="gashybrid">Oliedråbe omgivet af en elektrisk ledning</string>
+    <string name="graduationcap">Studenterhue med kvast</string>
     <string name="graphline">Linjediagram</string>
     <string name="graphpie">Cirkeldiagram</string>
     <string name="grid">Fire firkanter i et gitter</string>
@@ -140,6 +142,7 @@
     <string name="linkexternal">Firkant med diagonal pil ud af højre hjørne foroven</string>
     <string name="listsort">Punktopstilling</string>
     <string name="lockshield">Skjold med hængelås</string>
+    <string name="locksimple">Hængelås set forfra</string>
     <string name="logout">Højrepil pegende ud af en kasse</string>
     <string name="lowspeedvehicle">Bil set fra siden med advarselstrekant bagerst</string>
     <string name="mail">Kuvert</string>
@@ -160,6 +163,7 @@
     <string name="oikotie">Oikotie</string>
     <string name="organize">Pile op og ned adskilt af en vandret linje</string>
     <string name="parking">Cikel med \"P\" indeni</string>
+    <string name="personsimplewalk">Strektegning af en gående person</string>
     <string name="phone">Smartphone</string>
     <string name="phonecheck">Smartphone og et badge med et flueben</string>
     <string name="phoneincoming">Mobilholder med en pil øverst til højre, der peger ned mod den</string>
@@ -238,6 +242,7 @@
     <string name="trendup">Opadgående graf</string>
     <string name="truck">Kassevogn set fra siden</string>
     <string name="tv">Fladskærms-TV</string>
+    <string name="umbrella">En åben paraply med buet håndtag</string>
     <string name="x">X-ikon</string>
     <string name="up">Firkant med pil, der peger opad</string>
     <string name="upload">Pil opad fra en vandret bakke</string>
