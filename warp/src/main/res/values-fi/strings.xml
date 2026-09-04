@@ -28,6 +28,7 @@
     <string name="beach">"Saari ja palmu "</string>
     <string name="bell">Soittokello</string>
     <string name="bellfilled">Soittokello</string>
+    <string name="bicycle">Polkupyörän sivuprofiili</string>
     <string name="bin">Roskakori</string>
     <string name="block">"Henkilö, joka pitelee pääsy kielletty -kylttiä "</string>
     <string name="bolt">Salama</string>
@@ -107,6 +108,7 @@
     <string name="gasdiesel">Polttoainepumppu, jonka sisällä on viiva</string>
     <string name="gasfuel">Polttoainepumppu, jonka sisällä on pisara</string>
     <string name="gashybrid">Sähköjohdon ympäröimä öljypisara</string>
+    <string name="graduationcap">Akateeminen tohtorinhattu tupsulla</string>
     <string name="graphline">Viivadiagrammi</string>
     <string name="graphpie">Ympyrädiagrammi</string>
     <string name="grid">Neliruutuinen ruudukko</string>
@@ -140,6 +142,7 @@
     <string name="linkexternal">Neliö, jossa on oikeasta yläkulmasta viistosti lähtevä nuoli</string>
     <string name="listsort">Lista</string>
     <string name="lockshield">Kilpi ja riippulukko</string>
+    <string name="locksimple">Riippulukko edestä katsottuna</string>
     <string name="logout">Laatikosta oikealle lähtevä nuoli</string>
     <string name="lowspeedvehicle">Auton sivuprofiili ja varoituskolmio</string>
     <string name="mail">Kirjekuori</string>
@@ -160,6 +163,7 @@
     <string name="oikotie">Oikotie</string>
     <string name="organize">Ylös- ja alaspäin osoittavat nuolet, joita erottaa vaakaviiva</string>
     <string name="parking">Ympyrä, jonka sisällä on P-kirjain</string>
+    <string name="personsimplewalk">Kävelevä tikku-ukko</string>
     <string name="phone">Älypuhelin</string>
     <string name="phonecheck">Älypuhelin ja valintamerkki</string>
     <string name="phoneincoming">Puhelin, jonka yläoikealla on puhelimeen osoittava nuoli</string>
@@ -238,6 +242,7 @@
     <string name="trendup">Nouseva trendiviiva</string>
     <string name="truck">Kuorma-auton sivuprofiili</string>
     <string name="tv">Taulutelevisio</string>
+    <string name="umbrella">Avattu sateenvarjo, jossa on kaareva kahva</string>
     <string name="x">X-kuvake</string>
     <string name="up">Neliö, jonka sisällä on ylöspäin osoittava nuoli</string>
     <string name="upload">Ylöspäin osoittava nuoli ja tarjotin</string>

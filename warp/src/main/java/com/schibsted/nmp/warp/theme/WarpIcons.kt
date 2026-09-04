@@ -285,6 +285,13 @@ object WarpIconResources {
             stringResource(R.string.bellfilled)
         )
 
+    val bicycle: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_bicycle),
+            stringResource(R.string.bicycle)
+        )
+
     val bin: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1010,6 +1017,12 @@ object WarpIconResources {
             stringResource(R.string.globe)
         )
 
+    val graduationCap: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_graduationcap),
+            stringResource(R.string.graduationcap)
+        )
 
     val graphLine: WarpIconResource
         @Composable
@@ -1260,6 +1273,13 @@ object WarpIconResources {
             stringResource(R.string.lockshield)
         )
 
+    val lockSimple: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_locksimple),
+            stringResource(R.string.locksimple)
+        )
+
     val logout: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1414,6 +1434,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_parking),
             stringResource(R.string.parking)
+        )
+
+    val personSimpleWalk: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_personsimplewalk),
+            stringResource(R.string.personsimplewalk)
         )
 
     val phone: WarpTaxonomyIconResource
@@ -2076,6 +2103,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_tv),
             stringResource(R.string.tv)
+        )
+
+    val umbrella: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_umbrella),
+            stringResource(R.string.umbrella)
         )
 
     val up: WarpIconResource
