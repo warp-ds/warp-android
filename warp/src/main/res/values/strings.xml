@@ -27,6 +27,7 @@
     <string name="beach">"Palm tree on an island "</string>
     <string name="bell">Bell</string>
     <string name="bellfilled">Bell</string>
+    <string name="bicycle">Side view of a bicycle</string>
     <string name="bin">Trash can</string>
     <string name="block">"Person with a no entry sign "</string>
     <string name="bolt">Lightning bolt</string>
@@ -106,6 +107,7 @@
     <string name="gasdiesel">Fuel dispenser with a dash inside</string>
     <string name="gasfuel">Fuel dispenser with a drop inside</string>
     <string name="gashybrid">Oil droplet surrounded by an electric cable</string>
+    <string name="graduationcap">Graduation hat with tassel</string>
     <string name="graphline">Line graph</string>
     <string name="graphpie">Pie chart</string>
     <string name="grid">Four squares in a grid</string>
@@ -139,6 +141,7 @@
     <string name="linkexternal">Square with a diagonal arrow leaving the top right</string>
     <string name="listsort">Bulleted list</string>
     <string name="lockshield">Shield with padlock</string>
+    <string name="locksimple">Front view of a padlock</string>
     <string name="logout">Rightward arrow leaving a box</string>
     <string name="lowspeedvehicle">Side view of a car with a rear warning triangle</string>
     <string name="mail">Envelope</string>
@@ -159,6 +162,7 @@
     <string name="oikotie">Oikotie</string>
     <string name="organize">Up and down arrows separated by a horizontal line</string>
     <string name="parking">Circle with letter P inside</string>
+    <string name="personsimplewalk">Stick figure of a person walking</string>
     <string name="phone">Smartphone</string>
     <string name="phonecheck">Smartphone and a badge with a check mark</string>
     <string name="phoneincoming">Phone handset with an arrow above it to the right pointing down at it</string>
@@ -237,6 +241,7 @@
     <string name="trendup">Increasing trend line</string>
     <string name="truck">Side view of a box truck</string>
     <string name="tv">Flat screen TV</string>
+    <string name="umbrella">An open umbrella with a curved handle</string>
     <string name="x">X icon</string>
     <string name="up">Square with arrow pointing up</string>
     <string name="upload">Arrow pointing up from a horizontal tray</string>

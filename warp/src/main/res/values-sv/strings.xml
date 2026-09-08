@@ -28,6 +28,7 @@
     <string name="beach">"Palm på en ö "</string>
     <string name="bell">Klocka</string>
     <string name="bellfilled">Klocka</string>
+    <string name="bicycle">Cykel från sidan</string>
     <string name="bin">Papperskorg</string>
     <string name="block">"Person med ”ingen ingång”-skylt "</string>
     <string name="bolt">Blixt</string>
@@ -107,6 +108,7 @@
     <string name="gasdiesel">Bränslepump med streckmarkering</string>
     <string name="gasfuel">Bränslepump med droppe</string>
     <string name="gashybrid">Oljedroppe omgiven av elkabel</string>
+    <string name="graduationcap">Studentmössa med tofs</string>
     <string name="graphline">Linjediagram</string>
     <string name="graphpie">Cirkeldiagram</string>
     <string name="grid">Fyra rutor i ett rutnät</string>
@@ -140,6 +142,7 @@
     <string name="linkexternal">Kvadrat med diagonal pil som sticker ut från det övre högra hörnet</string>
     <string name="listsort">Punktlista</string>
     <string name="lockshield">Sköld med hänglås</string>
+    <string name="locksimple">Hänglås sett framifrån</string>
     <string name="logout">Pil åt höger som sticker ut från en låda</string>
     <string name="lowspeedvehicle">Sidovy av bil med bakre varningstriangel</string>
     <string name="mail">Kuvert</string>
@@ -160,6 +163,7 @@
     <string name="oikotie">Oikotie</string>
     <string name="organize">Pil upp och pil ned separerade av horisontell linje</string>
     <string name="parking">Cirkel med bokstaven P inuti</string>
+    <string name="personsimplewalk">Streckgubbe som går</string>
     <string name="phone">Smartphone</string>
     <string name="phonecheck">Smartphone och ett emblem med bock</string>
     <string name="phoneincoming">Telefonlur med en pil ovanför den som pekar ned mot luren</string>
@@ -238,6 +242,7 @@
     <string name="trendup">Uppåtgående trendlinje</string>
     <string name="truck">En skåpbil från sidan</string>
     <string name="tv">Platt-TV</string>
+    <string name="umbrella">Ett öppet paraply med böjt handtag</string>
     <string name="x">X-ikon</string>
     <string name="up">Kvadrat med pil som pekar uppåt</string>
     <string name="upload">Pil som pekar uppåt från horisontell bricka</string>
