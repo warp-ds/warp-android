@@ -31,6 +31,7 @@
             <option value="$PROJECT_DIR$/snapshot/callout" />
             <option value="$PROJECT_DIR$/snapshot/checkbox" />
             <option value="$PROJECT_DIR$/snapshot/datepicker" />
+            <option value="$PROJECT_DIR$/snapshot/dialog" />
             <option value="$PROJECT_DIR$/snapshot/divider" />
             <option value="$PROJECT_DIR$/snapshot/expandable" />
             <option value="$PROJECT_DIR$/snapshot/icons" />
