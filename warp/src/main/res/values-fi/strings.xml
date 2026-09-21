@@ -108,7 +108,7 @@
     <string name="gasdiesel">Polttoainepumppu, jonka sisällä on viiva</string>
     <string name="gasfuel">Polttoainepumppu, jonka sisällä on pisara</string>
     <string name="gashybrid">Sähköjohdon ympäröimä öljypisara</string>
-    <string name="graduationcap">Akateeminen tohtorinhattu tupsulla</string>
+    <string name="graduationcap">Valmistujaislakki ja tupsu</string>
     <string name="graphline">Viivadiagrammi</string>
     <string name="graphpie">Ympyrädiagrammi</string>
     <string name="grid">Neliruutuinen ruudukko</string>
