@@ -1,7 +1,8 @@
 name: Distribute Warp Demo App
 
 on:
-  # Manual trigger from GitHub Actions UI
+  # Manual trigger from GitHub Actions UI or `gh workflow run`.
+  # Also dispatched automatically by the `release-warp` skill after a successful Artifactory publish.
   workflow_dispatch:
     inputs:
       release_note:
@@ -9,11 +10,6 @@ on:
         required: false
         default: 'Warp demo app build'
         type: string
-
-  # Optional: Automated weekly build every Wednesday at 6 PM UTC
-  # Remove this section if you don't want automated builds
-  schedule:
-    - cron: "0 18 * * 3"
 
 jobs:
   distribute:

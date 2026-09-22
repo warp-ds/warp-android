@@ -94,7 +94,31 @@ If approved, run `./scripts/release-warp.sh` from the repo root. The script prin
 
 **If the publish fails with `403 Forbidden` from `artifacts.schibsted.io`**, the most likely cause is that the user is not connected to Appgate (Schibsted's zero-trust access gateway) — Artifactory is only reachable through it. Surface this as the first thing to check before assuming a credentials problem. Ask the user to confirm Appgate is up, then offer to retry.
 
-## Step 8 — final report
+## Step 8 — distribute demo app (ask first)
+
+Only offer this step if Step 7 completed successfully (or the user chose to skip it and wants to distribute anyway). Use `AskUserQuestion` to confirm dispatching the `distribute-demo-app.yml` workflow. It builds the debug APK and uploads it to Firebase App Distribution for the `warp-android-testers` group.
+
+Options:
+1. **Dispatch it now** (recommended)
+2. **Skip** — the workflow can still be triggered later via the GitHub Actions UI or `gh workflow run distribute-demo-app.yml`
+
+If approved, run:
+
+```bash
+gh workflow run distribute-demo-app.yml \
+  --ref develop \
+  -f release_note="Warp v<new-version>"
+```
+
+Then surface the run URL so the user can watch it:
+
+```bash
+gh run list --workflow=distribute-demo-app.yml --limit 1 --json url --jq '.[0].url'
+```
+
+Do not block on the workflow completing — dispatch and move on. Note in the final report whether it was dispatched, skipped, or (rarely) failed to dispatch.
+
+## Step 9 — final report
 
 Report:
 
@@ -103,6 +127,7 @@ Report:
 - Tag: `v<new-version>`
 - GitHub Release URL
 - Publish result: which modules succeeded / failed, or "skipped" if the user chose that
+- Demo app distribution: dispatched (with run URL), skipped, or dispatch failed
 
 ## Safety rules (do not skip)
 
