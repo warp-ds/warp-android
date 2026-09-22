@@ -345,7 +345,7 @@
     <string name="login_quiet_button_text">Create an account</string>
     <string name="verify_title">Please verify yourself</string>
     <string name="verify_description">Before you make contact, you need to verify yourself. We do this so that the other person can be confident in who they are talking to.</string>
-    <string name="loading_description">Please wait...</string>
+    <string name="loading_description">Please wait…</string>
     <string name="microphoneslash">Muted microphone</string>
     <string name="microphone">Microphone</string>
     <string name="translate">Symbol representing translation between languages</string>
