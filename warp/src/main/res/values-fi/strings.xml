@@ -47,6 +47,7 @@
     <string name="camera">Avaa kamera</string>
     <string name="cancel">Peruuta</string>
     <string name="caravan">Asuntovaunun sivuprofiili</string>
+    <string name="cardsthree">Kolme päällekkäin olevaa korttia</string>
     <string name="car">Auto</string>
     <string name="carpart">Auton osa</string>
     <string name="carrent">Auto ja kello</string>
@@ -54,6 +55,8 @@
     <string name="chainsaw">Moottorisaha viistosti kuvattuna</string>
     <string name="charger">Laturi</string>
     <string name="charter">Matkalaukku, jonka oikeassa alakulmassa on maapallo</string>
+    <string name="chartbar">Pylväsdiagrammi nousevilla pylväillä</string>
+    <string name="chartpieslice">Ympyrädiagrammi, jossa on korostettu lohko</string>
     <string name="chatsupport">Kaksi puhekuplaa</string>
     <string name="check">Valintamerkki</string>
     <string name="checklist">Tarkistuslista</string>
@@ -73,8 +76,11 @@
     <string name="cog">Hammaspyörä</string>
     <string name="colorpalette">Maalinäyte</string>
     <string name="creditcard">Luottokortti</string>
+    <string name="crosshair">Tähtäysristikko</string>
+    <string name="crownsimple">Yksinkertainen kruunu</string>
     <string name="cursor">Hiiren osoitin</string>
     <string name="delivery">Käsi, joka pitelee pakettia</string>
+    <string name="devices">Tietokoneen näyttö ja matkapuhelin</string>
     <string name="diner">Haarukka ja veitsi</string>
     <string name="discount">Prosenttimerkki</string>
     <string name="dislike">Peukalo alaspäin</string>
@@ -101,8 +107,11 @@
     <string name="filepdf">Asiakirjan sivu, jossa lukee PDF</string>
     <string name="filetext">Asiakirjan sivu, jossa on vaakasuoraa tekstiä</string>
     <string name="filter">Kaksi vaakasuoraa liukusäädintä, joissa on säätönupit</string>
+    <string name="fire">Liekki</string>
     <string name="fireplace">Takka</string>
     <string name="fishing">Ongenkoukku</string>
+    <string name="flowarrow">Ylös ja oikealle osoittava nuoli</string>
+    <string name="folderuser">Kansio, jossa on henkilön siluetti</string>
     <string name="dumbbell">Käsipaino</string>
     <string name="frontwheeldrive">Etuvetoinen ajoneuvo</string>
     <string name="gasdiesel">Polttoainepumppu, jonka sisällä on viiva</string>
@@ -114,6 +123,7 @@
     <string name="grid">Neliruutuinen ruudukko</string>
     <string name="grill">Hiiligrilli</string>
     <string name="guitar">Kitara</string>
+    <string name="handwaving">Vilkuttava käsi</string>
     <string name="headset">Kuulokkeet</string>
     <string name="harvester">Leikkuupuimurin sivuprofiili</string>
     <string name="heart">Sydän</string>
@@ -127,6 +137,7 @@
     <string name="housemodern">Modernin talon kuvake, jossa on korkea ikkunallinen puoli ja matala tasakattoinen puoli</string>
     <string name="houseperson">Talo ja ihminen</string>
     <string name="iceskater">Luistelija</string>
+    <string name="identificationcard">Henkilökortti, jossa on kuva</string>
     <string name="image">Paikkamerkkikuva, jossa on vuorten ja auringon ääriviivat</string>
     <string name="info">Ympyrä, jonka sisällä on I-kirjain</string>
     <string name="instagram">Instagram-kuvake</string>
@@ -149,6 +160,7 @@
     <string name="mailbox">Postilaatikko, jossa on lippu nostettuna</string>
     <string name="gearmanual">Manuaalivaihteisto</string>
     <string name="map">Paperikartta</string>
+    <string name="mappinsimplearea">Karttanuppineula, jonka ympärillä on pyöreä alue</string>
     <string name="messages">Puhekupla</string>
     <string name="messagesfilled">Puhekupla</string>
     <string name="minus">Miinusmerkki</string>
@@ -186,11 +198,14 @@
     <string name="productstarred">Kolme vaakaviivaa ja tähti</string>
     <string name="producttop">Neliö, jonka alapuolella on kolme vaakaviivaa</string>
     <string name="propeller">Potkuri</string>
+    <string name="puzzlepiece">Palapelin pala</string>
     <string name="question">Kysymysmerkki</string>
     <string name="refresh">Oikealle kiertävä nuoli</string>
     <string name="roomservice">Soittokello</string>
     <string name="sauna">Sauna</string>
+    <string name="scan">Skannerin kohdistuskehys</string>
     <string name="scrollup">Ylöspäin osoittava nuoli</string>
+    <string name="sealcheck">Sinetti, jossa on valintamerkki</string>
     <string name="search">Suurennuslasi</string>
     <string name="seat">Istuin</string>
     <string name="send">Paperilennokki</string>
@@ -199,8 +214,11 @@
     <string name="shipping">Liikkeessä oleva kuorma-auto</string>
     <string name="shirt">Paita</string>
     <string name="shoes">Kenkä</string>
+    <string name="shootingstar">Tähdenlento pyrstöllä</string>
     <string name="shoppingcart">Ostoskärry</string>
     <string name="shower">Suihkupää, josta tulee vettä</string>
+    <string name="shuffle">Kaksi ristikkäistä nuolta</string>
+    <string name="signpost">Suuntaviitta</string>
     <string name="skyscraper">Kaksi pilvenpiirtäjää, joiden yläpuolella on pilvi</string>
     <string name="smileygood">Lievästi iloinen hymiö</string>
     <string name="smileyhappy">Iloinen hymiö</string>
@@ -226,6 +244,7 @@
     <string name="support">Kuulokemikrofoni</string>
     <string name="swimming">Uiva henkilö</string>
     <string name="tag">Hintalappu</string>
+    <string name="target">Maalitaulu</string>
     <string name="tasklist">Kirja ja kirjanmerkki</string>
     <string name="textbold">Lihavoitu teksti</string>
     <string name="textitalic">Kursivoitu teksti</string>
@@ -248,6 +267,7 @@
     <string name="upload">Ylöspäin osoittava nuoli ja tarjotin</string>
     <string name="user">Käyttäjän kuvake, jossa on pää ja hartiat</string>
     <string name="usergroup">Neljä käyttäjän kuvaketta</string>
+    <string name="usersquare">Käyttäjän kuvake neliössä</string>
     <string name="users">Kaksi käyttäjän kuvaketta</string>
     <string name="vacuum">Imuri</string>
     <string name="vase">Maljakko</string>
@@ -256,6 +276,7 @@
     <string name="warning">Varoituskolmio, jonka sisällä on huutomerkki</string>
     <string name="warranty">Merkki ja valintamerkki</string>
     <string name="waterpitcher">Vesikannu</string>
+    <string name="waveform">Ääniaalto</string>
     <string name="wheelchair">Pyörätuoli</string>
     <string name="wifi">Wi-Fi-symboli, jossa on kaarevia viivoja ympyrän päällä</string>
     <string name="tree">Kuusi</string>

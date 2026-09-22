@@ -47,6 +47,7 @@
     <string name="camera">Åpne kamera</string>
     <string name="cancel">Avbryt</string>
     <string name="caravan">En campingvogn sett fra siden</string>
+    <string name="cardsthree">Tre stablede kort</string>
     <string name="car">Bil</string>
     <string name="carpart">Bildel</string>
     <string name="carrent">Bil og klokke</string>
@@ -54,6 +55,8 @@
     <string name="chainsaw">Motorsag sett fra skrå vinkel</string>
     <string name="charger">Lader</string>
     <string name="charter">Koffert med en markert globus nederst i høyre hjørne</string>
+    <string name="chartbar">Stolpediagram med stigende stolper</string>
+    <string name="chartpieslice">Kakediagram med en fremhevet skive</string>
     <string name="chatsupport">To snakkebobler</string>
     <string name="check">Sjekkmerke</string>
     <string name="checklist">Sjekkliste</string>
@@ -73,8 +76,11 @@
     <string name="cog">Tannhjul</string>
     <string name="colorpalette">Fargeprøve</string>
     <string name="creditcard">Kredittkort</string>
+    <string name="crosshair">Sikte</string>
+    <string name="crownsimple">Enkel krone</string>
     <string name="cursor">Musepeker</string>
     <string name="delivery">Hånd som holder en pakke</string>
+    <string name="devices">En dataskjerm og en mobiltelefon</string>
     <string name="diner">Kniv og gaffel</string>
     <string name="discount">Prosenttegn</string>
     <string name="dislike">Tommel som peker ned</string>
@@ -101,8 +107,11 @@
     <string name="filepdf">Dokumentside med bokstavene PDF</string>
     <string name="filetext">Dokumentside med horisontale tekstlinjer</string>
     <string name="filter">To vannrette skyvebrytere med justerbare knotter</string>
+    <string name="fire">Flamme</string>
     <string name="fireplace">Peis</string>
     <string name="fishing">Fiskekrok</string>
+    <string name="flowarrow">Pil som peker opp og til høyre</string>
+    <string name="folderuser">Mappe med en personsilhuett</string>
     <string name="dumbbell">Treningsmanual</string>
     <string name="frontwheeldrive">Forhjulstrekk</string>
     <string name="gasdiesel">Drivstoffpumpe med en strek inni</string>
@@ -114,6 +123,7 @@
     <string name="grid">Fire firkanter i et rutenett</string>
     <string name="grill">Kullgrill</string>
     <string name="guitar">Gitar</string>
+    <string name="handwaving">En vinkende hånd</string>
     <string name="headset">Hodetelefoner</string>
     <string name="harvester">En tresker sett fra siden</string>
     <string name="heart">Hjerte</string>
@@ -127,6 +137,7 @@
     <string name="housemodern">Moderne husikon med en høy del med vinduer og en lav del med flatt tak</string>
     <string name="houseperson">Hus med en person</string>
     <string name="iceskater">Skøyteløper</string>
+    <string name="identificationcard">ID-kort med bilde</string>
     <string name="image">Eksempelbilde med omriss av fjell og sol</string>
     <string name="info">Sirkel med bokstaven i inni</string>
     <string name="instagram">Instagram-ikon</string>
@@ -149,6 +160,7 @@
     <string name="mailbox">Postkasse med hevet flagg</string>
     <string name="gearmanual">Manuell girkasse</string>
     <string name="map">Papirkart</string>
+    <string name="mappinsimplearea">Kartnål med sirkulært område</string>
     <string name="messages">Chattebobler</string>
     <string name="messagesfilled">Chattebobler</string>
     <string name="minus">Minus-tegn</string>
@@ -186,11 +198,14 @@
     <string name="productstarred">Tre vannrette linjer og en stjerne</string>
     <string name="producttop">Firkant med tre vannrette linjer under</string>
     <string name="propeller">Propell</string>
+    <string name="puzzlepiece">Puslespillbrikke</string>
     <string name="question">Spørsmålstegn</string>
     <string name="refresh">Sirkulær pil</string>
     <string name="roomservice">Ringeklokke</string>
     <string name="sauna">Badstue</string>
+    <string name="scan">Skannramme</string>
     <string name="scrollup">Pil som peker opp</string>
+    <string name="sealcheck">Segl med hake</string>
     <string name="search">Forstørrelsesglass</string>
     <string name="seat">Sete</string>
     <string name="send">Papirfly</string>
@@ -199,8 +214,11 @@
     <string name="shipping">Lastebil i bevegelse</string>
     <string name="shirt">Skjorte</string>
     <string name="shoes">Sko</string>
+    <string name="shootingstar">Stjerneskudd med hale</string>
     <string name="shoppingcart">Handlekurv</string>
     <string name="shower">Dusjhode med rennende vann</string>
+    <string name="shuffle">To kryssende piler</string>
+    <string name="signpost">Veiviser</string>
     <string name="skyscraper">To skyskrapere med en sky over</string>
     <string name="smileygood">Litt glad smiley</string>
     <string name="smileyhappy">Glad smiley</string>
@@ -226,6 +244,7 @@
     <string name="support">Hodetelefoner med mikrofon</string>
     <string name="swimming">Person som svømmer</string>
     <string name="tag">Prislapp</string>
+    <string name="target">Blink</string>
     <string name="tasklist">Bok med bokmerke</string>
     <string name="textbold">Fet skrift</string>
     <string name="textitalic">Kursiv tekst</string>
@@ -248,6 +267,7 @@
     <string name="upload">Pil som peker opp fra et vannrett brett</string>
     <string name="user">Brukeravatar med hode og skuldre</string>
     <string name="usergroup">Fire brukeravatarer</string>
+    <string name="usersquare">Brukeravatar i en firkant</string>
     <string name="users">To brukeravatarer</string>
     <string name="vacuum">Støvsuger</string>
     <string name="vase">Vase</string>
@@ -256,6 +276,7 @@
     <string name="warning">Varseltrekant med utropstegn</string>
     <string name="warranty">Merke med et sjekkmerke inni</string>
     <string name="waterpitcher">Vannmugge</string>
+    <string name="waveform">Lydbølgeform</string>
     <string name="wheelchair">Rullestol</string>
     <string name="wifi">Wi-Fi-symbol med buede buer over en sirkel</string>
     <string name="tree">Grantre</string>
