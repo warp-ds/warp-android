@@ -17,7 +17,7 @@ Run these checks before touching anything:
 4. Read `buildSrc/src/main/java/ConfigData.kt` and extract:
    - `warpVersion` string (e.g. `"0.0.65"`)
    - `sampleAppVersionCode` int (e.g. `65`)
-   These must be in sync (numeric tail of `warpVersion` == `sampleAppVersionCode`). If they aren't, stop and tell the user.
+     These must be in sync (numeric tail of `warpVersion` == `sampleAppVersionCode`). If they aren't, stop and tell the user.
 5. Check `gh` is installed: `command -v gh`. If missing, ask the user for approval to `brew install gh`. If they decline, stop — the GitHub Release step needs it.
 6. Check `gh auth status`. If not authenticated, tell the user to run `gh auth login` and stop.
 
@@ -91,6 +91,8 @@ Options:
 2. **Skip** — print the exact command (`./scripts/release-warp.sh`) so the user can run it themselves later
 
 If approved, run `./scripts/release-warp.sh` from the repo root. The script prints per-module success/failure and exits non-zero on any failure. If it fails partway, do NOT re-run the whole thing unprompted — surface which module failed and ask the user how to proceed (the tag and release already exist at this point).
+
+**If the publish fails with `403 Forbidden` from `artifacts.schibsted.io`**, the most likely cause is that the user is not connected to Appgate (Schibsted's zero-trust access gateway) — Artifactory is only reachable through it. Surface this as the first thing to check before assuming a credentials problem. Ask the user to confirm Appgate is up, then offer to retry.
 
 ## Step 8 — final report
 
