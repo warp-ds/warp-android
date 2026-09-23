@@ -61,7 +61,8 @@ fun WarpSnackbar(
     }
 
     Snackbar(
-        modifier = modifier.padding(WarpTheme.dimensions.space05),
+        // Match the outer inset of Material 3's Snackbar(snackbarData) overload.
+        modifier = modifier.padding(WarpTheme.dimensions.space15),
         action = snackbarData.visuals.actionLabel?.let { label ->
             @Composable {
                 TextButton(
