@@ -6,7 +6,7 @@
         "Bash(./gradlew :snapshot:snapshot-icons:testDebugUnitTest *)",
         "Bash(python3 .claude/skills/add-warp-icons/wire_up.py *)",
         "mcp__atlassian__getJiraIssue",
-        "mcp__atlassian__getAccessibleAtlassianResources",
+        "mcp__atlassian__getAccessibleAtlassianResources"
       ]
     }
   }

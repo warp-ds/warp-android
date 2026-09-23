@@ -192,7 +192,9 @@ def _convert_path_data(d: str) -> str:
 def _parse_svg(text: str):
     has_clip = "<g " in text or "<g>" in text
     paths = []
-    for m in re.finditer(r"<path\b([^>]*)/>", text):
+    # Match both self-closing <path .../> and paired <path ...>...</path>.
+    total_tags = len(re.findall(r"<path\b", text))
+    for m in re.finditer(r"<path\b([^>]*?)(?:/>|>)", text):
         attrs = m.group(1)
         d_m = re.search(r'\bd\s*=\s*"([^"]*)"', attrs)
         s_m = re.search(r'\bstroke\s*=\s*"([^"]*)"', attrs)
@@ -200,6 +202,8 @@ def _parse_svg(text: str):
             continue
         stroke = s_m.group(1) if s_m else "#1B1B1F"
         paths.append((d_m.group(1), stroke))
+    if len(paths) != total_tags:
+        print(f"WARN: parsed {len(paths)} of {total_tags} <path> tags — some were skipped", file=sys.stderr)
     return paths, has_clip
 
 
@@ -366,13 +370,7 @@ def insert_icon_screen_kt(icons: list[Icon]) -> int:
 def update_snapshot_test(icons: list[Icon]) -> tuple[int, int]:
     text = SNAPSHOT_TEST_KT.read_text()
 
-    # Bump the count assertion by the number of icons we're inserting
-    # (only count icons that will actually be new — check WarpIcons.kt state)
     warp_text = WARP_ICONS_KT.read_text()
-    existing_props = {m.group(1) for m in PROP_RE.finditer(warp_text)}
-    to_add = [ic for ic in icons if ic.name in existing_props]
-    # Note: at this point, insert_warp_icons_kt has already run, so existing_props includes new ones.
-    # For the count check we need to compare against the current asserted number.
     m = re.search(r"Assert\.assertEquals\((\d+),\s*count\)", text)
     if not m:
         raise RuntimeError("Could not find warp_icon_count assertion in WarpIconTest.kt")
@@ -521,14 +519,20 @@ One-time setup:
 """
 
 
-def _download_attachment(url: str) -> Path:
-    """Download a Jira attachment via ~/.netrc → path to a .zip in a tempdir."""
+def _netrc_auth() -> tuple[str, str | None, str]:
+    """Return (login, account, password) for api.atlassian.com or exit with setup help."""
     try:
         auth = netrc.netrc().authenticators("api.atlassian.com")
     except (FileNotFoundError, netrc.NetrcParseError):
         sys.exit(_NETRC_HELP)
     if not auth:
         sys.exit(_NETRC_HELP)
+    return auth
+
+
+def _download_attachment(url: str) -> Path:
+    """Download a Jira attachment via ~/.netrc → path to a .zip in a tempdir."""
+    auth = _netrc_auth()
     user, _, password = auth
     token = b64encode(f"{user}:{password}".encode()).decode()
     req = Request(url, headers={"Authorization": f"Basic {token}"})
@@ -613,7 +617,14 @@ def load_manifest(path: Path | None) -> tuple[Path, list[Icon]]:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", type=Path, help="Path to YAML manifest (else read stdin)")
+    ap.add_argument("--check-netrc", action="store_true",
+                    help="Verify ~/.netrc has api.atlassian.com credentials, then exit")
     args = ap.parse_args()
+
+    if args.check_netrc:
+        _netrc_auth()
+        print("netrc: ok (api.atlassian.com credentials found)")
+        return
 
     _, icons = load_manifest(args.manifest)
 

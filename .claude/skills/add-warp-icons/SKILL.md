@@ -12,24 +12,29 @@ description: Adds new Warp icons to this Android codebase. Converts SVGs to Vect
 **source**
 - Jira ticket key (e.g. `FEP-153`) — fetches descriptions + SVG zip attachment.
 - Local path — directory of `.svg` files, or a `.zip` file.
-- Omit to be asked.
+- Omit to be asked upfront.
 
-**flags**
-- `--no-commit` — wire the changes but don't commit; leave them staged for review.
-- `--confirm` — ask via `AskUserQuestion` before committing (default: commit without asking).
-- `--push` — push after committing (branch must track a remote).
+**flags** (post-run behavior — pick at most one)
+- *default* — commit at the end.
+- `--push` — commit and push (branch must track a remote).
+- `--stage` — wire and verify, but don't commit (use to review first).
 
-When starting the run, announce the source and non-default behavior in one line so the user can course-correct, e.g.: *"Fetching FEP-153. Will commit at the end — pass `--no-commit` to review first."*
+When starting the run, announce the source and non-default behavior in one line so the user can course-correct, e.g.: *"Fetching FEP-153. Will commit and push at the end."*
 
 ## Pipeline
 
-### 1. Gather
+Once wiring starts, the run doesn't stop for questions. Every clarification and credential check happens in pre-flight; the only late stop is a gradle failure.
 
-**Jira source**: load `mcp__atlassian__getJiraIssue` via `ToolSearch` (query: `atlassian`) and fetch the ticket (`summary`, `description`, `attachment`). Parse per-icon `altText` blocks from the description into the manifest. Pass the `.zip` attachment's `content` URL as `attachment_url` — `wire_up.py` downloads it via `~/.netrc` and will print setup instructions if credentials are missing.
+### 1. Pre-flight
 
-**Path source**: pass as `svg_dir`.
+Resolve everything that could stall the run *before* touching files:
 
-If English descriptions are missing (path source, or ticket has none), ask. Draft nb/sv/da/fi in the style of existing entries in `warp/src/main/res/values-{nb,sv,da,fi}/strings.xml` — flag drafts in the final report.
+- **Source**: if omitted, ask via `AskUserQuestion`.
+- **Jira source**: load `mcp__atlassian__getJiraIssue` via `ToolSearch` (query: `atlassian`), fetch the ticket (`summary`, `description`, `attachment`), and parse per-icon `altText` blocks from the description. Then run `python3 .claude/skills/add-warp-icons/wire_up.py --check-netrc` to verify Atlassian credentials before committing to a download; if it exits non-zero, surface its output and stop.
+- **Path source**: list the `.svg` files in the directory / zip.
+- **English descriptions**: if any icon lacks an English `altText`, **error out here** with the list of missing icons. Do not ask, do not proceed.
+
+Nordic translations (nb/sv/da/fi) are drafted from existing entries in `warp/src/main/res/values-{nb,sv,da,fi}/strings.xml` and passed straight into the manifest. They are reviewed post-merge — do not flag them in the report.
 
 ### 2. Wire
 
@@ -54,14 +59,13 @@ For a path source, replace `attachment_url` with `"svg_dir": "/absolute/path"`. 
   :snapshot:snapshot-icons:testDebugUnitTest --tests "com.schibsted.snapshot.WarpIconTest.warp_icon_count*"
 ```
 
-All three must pass. If the count test fails, investigate before committing.
+All three must pass. If the count test fails, investigate before committing — this is the only sanctioned mid-flow stop.
 
-### 4. Report + commit
+### 4. Report + finish
 
-Report: icons added, auto-drafted translations (needs review), drawables over the lint threshold, gradle results.
+Report: icons added, drawables over the lint threshold, gradle results.
 
-Unless `--no-commit`:
-- If `--confirm`, ask via `AskUserQuestion` before committing.
+Unless `--stage`:
 - `git status`, stage specific paths only (drawables + `WarpIcons.kt` + `IconScreen.kt` + `WarpIconTest.kt` + the 5 `strings.xml`); never `git add -A`.
 - Commit `<TICKET>: Added N new Warp icons` with the `Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>` trailer.
 - If hooks fail, fix and re-commit — never `--amend`, never `--no-verify`.
