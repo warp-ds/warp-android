@@ -1,0 +1,13 @@
+  {
+    "permissions": {
+      "allow": [
+        "Bash(./gradlew :warp:compileDebugKotlin)",
+        "Bash(./gradlew :app:compileDebugKotlin)",
+        "Bash(./gradlew :snapshot:snapshot-icons:testDebugUnitTest *)",
+        "Bash(python3 .claude/skills/add-warp-icons/wire_up.py *)",
+        "Bash(curl * https://api.atlassian.com/ex/jira/*/rest/api/3/attachment/content/*)",
+        "mcp__atlassian__getJiraIssue",
+        "mcp__atlassian__getAccessibleAtlassianResources",
+      ]
+    }
+  }
