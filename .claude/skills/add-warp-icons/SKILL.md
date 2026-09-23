@@ -5,7 +5,7 @@ description: Adds new Warp icons to this Android codebase in a single pass. Hand
 
 # add-warp-icons
 
-Runs the full pipeline for adding new Warp icons. Follow these steps in order; do NOT skip verification. Ask the user about the commit at the end (Step 6) — never commit unprompted.
+Runs the full pipeline for adding new Warp icons. Follow these steps in order; do NOT skip verification. Ask the user about the commit up front (Step 1) so the rest of the run is uninterrupted — never commit unprompted.
 
 ## Step 1 — collect inputs
 
@@ -19,17 +19,49 @@ You need, per icon:
 
 **Descriptions/keywords — use the Jira MCP when there's a ticket.** If the user references a ticket (e.g. `FEP-153`), use `ToolSearch` with `atlassian` to load `mcp__atlassian__getJiraIssue` and fetch the ticket body. Tickets from design typically embed per-icon `altText` + `keywords` blocks — parse them out so the user doesn't have to retype. If the MCP isn't connected or the ticket body lacks descriptions, ask the user for English descriptions.
 
-**SVG files — ask the user for a local path.** The Atlassian MCP does *not* expose attachment binary downloads (the `/attachment/content/<id>` endpoint requires auth the MCP doesn't provide), so don't try — ask the user where the SVGs are on disk. Ways they might arrive:
+**SVG files — download from Jira via `.netrc`, else ask for a local path.** The Atlassian MCP does *not* expose attachment binary downloads, but a direct authenticated `curl` does. Preferred path:
 
-- **Extracted directory** (most common — macOS auto-unzips downloads). Use it as-is; don't re-unzip.
-- **`.zip` still zipped.** Before unzipping, check whether a sibling directory of the same name already exists next to it — if so, use that. Otherwise `unzip` into a `mktemp -d`.
-- **Inline paste.** If the user pastes SVG source directly, write each to a temp file.
+1. If the ticket has attachments (from the `getJiraIssue` call above), check for a `~/.netrc` entry for `api.atlassian.com`:
+   ```bash
+   grep -q "^machine api.atlassian.com" ~/.netrc 2>/dev/null && echo OK
+   ```
+   The entry should look like:
+   ```
+   machine api.atlassian.com
+     login <atlassian-email>
+     password <atlassian-api-token>
+   ```
+   with `chmod 600 ~/.netrc`.
+2. If present, download the attachment straight to a temp file with `curl --netrc -sSL -o` against `https://api.atlassian.com/ex/jira/<cloudId>/rest/api/3/attachment/content/<attachmentId>`. Verify with `file` that it's a real zip/svg and that the byte count matches the metadata `size` from the ticket. **Do not unzip in shell** — pass the `.zip` path straight to `wire_up.py` as `svg_dir` and it will extract into a tempdir itself. This avoids the sandbox friction of `cd`ing into `/var/folders/...` (which is blocked) and the manual `__MACOSX/` / `.DS_Store` exclusion dance.
 
-Use `AskUserQuestion` to get the path; don't guess. Once you have the directory, list its `.svg` files and confirm the set with the user before wiring anything up.
+If `.netrc` isn't configured, **do not prompt for a token inline** — that would put it in the transcript. Instead, tell the user the exact `.netrc` block to add and offer the local-path fallback below. Point them at [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens) for a classic API token (no scopes to pick — Basic auth uses the whole token). The file usually doesn't exist yet — have the user create it themselves with `touch ~/.netrc && chmod 600 ~/.netrc && open -e ~/.netrc`, paste the block, save; then continue.
+
+**Fallback — user-supplied local path.** If there's no ticket, no attachments, or the user prefers, ask them where the SVGs are. `wire_up.py` accepts any of:
+
+- **A directory of `.svg` files** — used as-is.
+- **A wrapper directory** containing a single subdirectory of SVGs (macOS auto-unzip pattern) — the script descends into it automatically.
+- **A `.zip` file, still zipped** — the script extracts into a tempdir and applies the wrapper-descent rule above.
+- **Inline pasted SVG source** — write each to a temp file yourself and pass the tempdir.
+
+Once you have the source path, list its `.svg` files and confirm the set with the user before wiring anything up. When listing in Bash, use absolute paths (`find /path -name '*.svg'`) — do not `cd` into `/var/folders/...` tempdirs, the sandbox blocks it.
 
 For any source, if English descriptions aren't provided, ask for them. For Nordic translations (nb/sv/da/fi), it's fine to draft them in the style of existing entries (concise, describes the visual — see `warp/src/main/res/values-{nb,sv,da,fi}/strings.xml` for tone). Flag drafted translations in the final report so the user knows to review.
 
 If any input is missing (SVGs, names, or English descriptions), ask before proceeding. Translations can be drafted.
+
+**Then, before touching any files, ask about the commit disposition.** Doing this now — while you're already asking the user questions — means the run itself won't stop for input again. First check whether the current branch tracks a remote so you know whether to offer the "commit + push" option:
+
+```bash
+git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>&1
+```
+
+Then ask via `AskUserQuestion`. Recommend **Commit now** (mark it `(Recommended)` in the label and list it first), but keep the "leave for user" option available so the user can end the skill at the end and take over. Do not add caveats about auto-drafted translations in the question body.
+
+1. **Commit now (Recommended)** — at Step 6, stage the new/changed files and commit with a message prefixed by the Jira ticket, e.g. `FEP-153: Added N new Warp icons`. Follow the repo's commit style (look at recent commits — they use `<TICKET>: <short imperative>` with no body for icon additions; keep it that way). Include the `Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>` trailer per the harness convention.
+2. **Commit + push** — same as above, then `git push`. Only offer this if the branch tracks a remote.
+3. **Leave for user** — at Step 6, the skill just reports and ends; user commits themselves.
+
+Remember the answer — you'll execute it in Step 6.
 
 ## Step 2 — verify no name collisions
 
@@ -52,7 +84,7 @@ The heavy lifting is done by `wire_up.py` in this skill dir. It:
 5. Adds each icon to the correct letter-group in `snapshot/icons/src/test/java/com/schibsted/snapshot/WarpIconTest.kt` AND bumps the `warp_icon_count` assertion by the number of icons added
 6. Inserts translated strings alphabetically into all 5 `warp/src/main/res/values{,-nb,-sv,-da,-fi}/strings.xml` files
 
-Invoke it with a small YAML or JSON manifest as stdin. `svg_dir` is whatever tempdir or user-supplied dir you resolved in Step 1:
+Invoke it with a small YAML or JSON manifest as stdin. `svg_dir` is whatever path you resolved in Step 1 — a directory, a wrapper directory, or a `.zip` file; the script normalises all three:
 
 ```bash
 python3 .claude/skills/add-warp-icons/wire_up.py <<'JSON'
@@ -92,7 +124,7 @@ All must pass. If the count test fails, the script's count-bump math is wrong �
 
 For each new drawable, if `android:pathData` exceeds **800 chars**, the `VectorPath` lint check will warn. Report which icons (if any) crossed the threshold and offer to split the path or run avocado. Don't do it unprompted — the icons still render fine.
 
-## Step 6 — report and offer to commit
+## Step 6 — report and execute the pre-selected commit disposition
 
 Report:
 - Which icons were added
@@ -100,19 +132,17 @@ Report:
 - Which drawables tripped the 800-char VectorPath lint
 - Confirmation that all three gradle tasks passed
 
-Then ask the user how to handle the commit using `AskUserQuestion`. Suggested options:
+Then act on the disposition the user chose in Step 1 — **do not re-ask**:
 
-1. **Commit now** — you stage the new/changed files and commit with a message prefixed by the Jira ticket, e.g. `FEP-153: Added N new Warp icons`. Follow the repo's commit style (look at recent commits — they use `<TICKET>: <short imperative>` with no body for icon additions; keep it that way). Include the `Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>` trailer per the harness convention.
-2. **Commit + push** — same as above, then `git push`. Only offer this if the current branch already tracks a remote; check with `git rev-parse --abbrev-ref --symbolic-full-name @{u}`.
-3. **Leave for user** — do nothing; user commits themselves.
+- **Commit now** or **Commit + push**:
+  - Run `git status` first to confirm the diff is only the icon additions (no stray files).
+  - Stage specific paths, not `git add -A`: the drawable dir, `WarpIcons.kt`, `IconScreen.kt`, `WarpIconTest.kt`, the 5 `strings.xml` files.
+  - Commit with the ticket-prefixed message and `Co-Authored-By` trailer (as described in Step 1).
+  - If **Commit + push** was chosen, follow with `git push` (never force).
+  - Never `--no-verify`; if pre-commit hooks fail, fix and re-commit (don't amend).
+- **Leave for user**: do nothing further. Skill ends after the report.
 
-If translations were auto-drafted, recommend option 3 by default and flag it in the question — the user probably wants to review the translations before they land in git history.
-
-If the user picks commit/push:
-- Use `git status` first to confirm the diff is only the icon additions (no stray files).
-- Stage specific paths, not `git add -A`: the drawable dir, `WarpIcons.kt`, `IconScreen.kt`, `WarpIconTest.kt`, the 5 `strings.xml` files.
-- Never `--no-verify`; if pre-commit hooks fail, fix and re-commit (don't amend).
-- Never force-push.
+If the disposition wasn't captured in Step 1 (e.g. skill was re-entered mid-flow), fall back to asking now with the same three options.
 
 ## Convention reference
 

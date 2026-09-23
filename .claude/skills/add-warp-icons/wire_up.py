@@ -3,7 +3,7 @@
 
 Manifest format (YAML on stdin, or --manifest path):
 
-    svg_dir: /absolute/path/to/svgs
+    svg_dir: /absolute/path/to/svgs        # or a .zip file, or a wrapper dir
     icons:
       - name: chartBar           # camelCase property name
         svg: ChartBar.svg        # optional; defaults to <Name>.svg
@@ -12,6 +12,13 @@ Manifest format (YAML on stdin, or --manifest path):
         sv: Stapeldiagram med stigande staplar
         da: Søjlediagram med stigende søjler
         fi: Pylväsdiagrammi nousevilla pylväillä
+
+`svg_dir` accepts three shapes and normalises them:
+  - a directory of .svg files                                → used as-is
+  - a directory whose only contents are one subdirectory     → descends into it
+    (macOS unzip pattern, e.g. wrapper/ → wrapper/Icons.../*.svg)
+  - a .zip file                                              → extracted to a tempdir
+    then the wrapper-descent rule above is re-applied
 
 Run from repo root:
     python3 .claude/skills/add-warp-icons/wire_up.py --manifest icons.yaml
@@ -23,6 +30,8 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+import tempfile
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -493,10 +502,47 @@ def _xml_escape(s: str) -> str:
 
 # --- main ----------------------------------------------------------------
 
+def _resolve_svg_dir(raw: Path) -> Path:
+    """Normalise svg_dir: unpack .zip, descend a single-subdir wrapper.
+
+    Extracted zips are placed in a tempdir owned by the OS — we don't clean up;
+    the temp files are tiny and macOS purges /var/folders periodically.
+    """
+    if not raw.exists():
+        sys.exit(f"svg_dir not found: {raw}")
+
+    if raw.is_file():
+        if raw.suffix.lower() != ".zip":
+            sys.exit(f"svg_dir must be a directory or .zip file, got: {raw}")
+        tmp = Path(tempfile.mkdtemp(prefix="warp-icons-"))
+        with zipfile.ZipFile(raw) as zf:
+            for member in zf.namelist():
+                if member.startswith("__MACOSX/") or member.endswith(".DS_Store"):
+                    continue
+                zf.extract(member, tmp)
+        raw = tmp
+
+    # Descend a single-subdir wrapper (macOS unzip pattern) if there are no
+    # SVGs at the top level.
+    for _ in range(2):  # at most one level of nesting in practice
+        svgs = list(raw.glob("*.svg"))
+        if svgs:
+            return raw
+        subdirs = [p for p in raw.iterdir() if p.is_dir() and not p.name.startswith(".")]
+        if len(subdirs) == 1:
+            raw = subdirs[0]
+            continue
+        break
+
+    if not list(raw.glob("*.svg")):
+        sys.exit(f"No .svg files found in: {raw}")
+    return raw
+
+
 def load_manifest(path: Path | None) -> tuple[Path, list[Icon]]:
     raw = path.read_text() if path else sys.stdin.read()
     data = _parse_manifest(raw)
-    svg_dir = Path(data["svg_dir"]).expanduser()
+    svg_dir = _resolve_svg_dir(Path(data["svg_dir"]).expanduser())
     icons = []
     for entry in data["icons"]:
         svg_name = entry.get("svg") or f"{entry['name'][0].upper() + entry['name'][1:]}.svg"
