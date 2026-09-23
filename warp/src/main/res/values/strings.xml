@@ -58,6 +58,7 @@
     <string name="camera">Open camera</string>
     <string name="cancel">Cancel</string>
     <string name="caravan">Side view of a towed caravan</string>
+    <string name="cardsthree">Three stacked cards</string>
     <string name="car">Car</string>
     <string name="carpart">Car part</string>
     <string name="carrent">Car and clock</string>
@@ -65,6 +66,8 @@
     <string name="chainsaw">Angled view of a chainsaw</string>
     <string name="charger">Charging cable</string>
     <string name="charter">Suitcase with a highlighted globe in the bottom right corner</string>
+    <string name="chartbar">A bar chart with ascending bars</string>
+    <string name="chartpieslice">A pie chart with a highlighted slice</string>
     <string name="chatsupport">Two speech bubbles</string>
     <string name="check">Checkmark</string>
     <string name="checklist">Checklist</string>
@@ -84,8 +87,11 @@
     <string name="cog">Cogwheel</string>
     <string name="colorpalette">Paint swatch</string>
     <string name="creditcard">Credit card</string>
+    <string name="crosshair">A crosshair target reticle</string>
+    <string name="crownsimple">Simple crown outline</string>
     <string name="cursor">Mouse cursor</string>
     <string name="delivery">Hand holding a package</string>
+    <string name="devices">A desktop monitor and mobile phone</string>
     <string name="diner">Knife and fork</string>
     <string name="discount">Percentage sign</string>
     <string name="dislike">Thumb pointing down</string>
@@ -112,8 +118,11 @@
     <string name="filepdf">Document page with the letters PDF</string>
     <string name="filetext">Document page with horizontal text lines</string>
     <string name="filter">Two horizontal sliders with adjustable knobs</string>
+    <string name="fire">A flame</string>
     <string name="fireplace">Fireplace</string>
     <string name="fishing">Fishing hook</string>
+    <string name="flowarrow">Arrow pointing up and to the right</string>
+    <string name="folderuser">A folder with a person silhouette</string>
     <string name="dumbbell">Dumbbell</string>
     <string name="frontwheeldrive">Front-wheel drive</string>
     <string name="gasdiesel">Fuel dispenser with a dash inside</string>
@@ -125,6 +134,7 @@
     <string name="grid">Four squares in a grid</string>
     <string name="grill">Charcoal grill</string>
     <string name="guitar">Guitar</string>
+    <string name="handwaving">A waving hand</string>
     <string name="headset">Headphones</string>
     <string name="harvester">Side view of a harvester</string>
     <string name="heart">Heart</string>
@@ -138,6 +148,7 @@
     <string name="housemodern">Modern house icon with a tall windowed section and a short flat-roof section</string>
     <string name="houseperson">House with a person</string>
     <string name="iceskater">Ice skater</string>
+    <string name="identificationcard">An ID card with a photo</string>
     <string name="image">Placeholder image with an outline of mountains and sun</string>
     <string name="info">Circle with letter i inside</string>
     <string name="instagram">Instagram icon</string>
@@ -168,6 +179,7 @@
     <string name="mailbox">Mailbox with a raised flag</string>
     <string name="gearmanual">Manual transmission gearbox</string>
     <string name="map">Paper map</string>
+    <string name="mappinsimplearea">Map pin with circular area</string>
     <string name="messages">Chat bubble</string>
     <string name="messagesfilled">Chat bubble</string>
     <string name="minus">Minus sign</string>
@@ -205,11 +217,14 @@
     <string name="productstarred">Three horizontal lines and a star</string>
     <string name="producttop">Square with three horizontal lines below</string>
     <string name="propeller">Propeller</string>
+    <string name="puzzlepiece">A puzzle piece</string>
     <string name="question">Question mark</string>
     <string name="refresh">Circular arrow</string>
     <string name="roomservice">Call bell</string>
     <string name="sauna">Sauna</string>
+    <string name="scan">A scan viewfinder frame</string>
     <string name="scrollup">Arrow pointing up</string>
+    <string name="sealcheck">Seal badge with checkmark</string>
     <string name="search">Magnifying glass</string>
     <string name="seat">Seat</string>
     <string name="send">Paper plane</string>
@@ -219,8 +234,11 @@
     <string name="shipping">Truck in motion</string>
     <string name="shirt">Shirt</string>
     <string name="shoes">Shoe</string>
+    <string name="shootingstar">A shooting star with a trail</string>
     <string name="shoppingcart">Shopping cart</string>
     <string name="shower">Shower head with running water</string>
+    <string name="shuffle">Two crossed arrows</string>
+    <string name="signpost">A directional signpost</string>
     <string name="skyscraper">Two skyscrapers with a cloud above</string>
     <string name="smileygood">Slightly happy smiley</string>
     <string name="smileyhappy">Happy smiley</string>
@@ -246,6 +264,7 @@
     <string name="support">Headset with a microphone</string>
     <string name="swimming">Person swimming</string>
     <string name="tag">Price tag</string>
+    <string name="target">A bullseye target</string>
     <string name="tasklist">Book with a bookmark</string>
     <string name="textbold">Bold text</string>
     <string name="textitalic">Italic text</string>
@@ -268,6 +287,7 @@
     <string name="upload">Arrow pointing up from a horizontal tray</string>
     <string name="user">User avatar with head and shoulders</string>
     <string name="usergroup">Four user avatars</string>
+    <string name="usersquare">User avatar in a square</string>
     <string name="users">Two user avatars</string>
     <string name="vacuum">Vacuum cleaner</string>
     <string name="vase">Vase</string>
@@ -276,6 +296,7 @@
     <string name="warning">Warning triangle with exclamation point</string>
     <string name="warranty">Badge with a checkmark inside</string>
     <string name="waterpitcher">Water pitcher</string>
+    <string name="waveform">An audio waveform</string>
     <string name="wheelchair">Wheelchair</string>
     <string name="wifi">Wi-Fi symbol with curved arcs above a circle</string>
     <string name="tree">Spruce tree</string>
@@ -345,7 +366,7 @@
     <string name="login_quiet_button_text">Create an account</string>
     <string name="verify_title">Please verify yourself</string>
     <string name="verify_description">Before you make contact, you need to verify yourself. We do this so that the other person can be confident in who they are talking to.</string>
-    <string name="loading_description">Please wait...</string>
+    <string name="loading_description">Please wait…</string>
     <string name="microphoneslash">Muted microphone</string>
     <string name="microphone">Microphone</string>
     <string name="translate">Symbol representing translation between languages</string>

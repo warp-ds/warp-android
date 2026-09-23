@@ -136,6 +136,7 @@ class WarpIconTest(
                     icons.camera,
                     icons.cancel,
                     icons.caravan,
+                    icons.cardsThree,
                     icons.car,
                     icons.cardsThree,
                     icons.carLeft,
@@ -144,6 +145,8 @@ class WarpIconTest(
                     icons.carRight,
                     icons.chair,
                     icons.chainsaw,
+                    icons.chartBar,
+                    icons.chartPieSlice,
                     icons.charger,
                     icons.chartBar,
                     icons.charter,
@@ -436,7 +439,7 @@ class WarpIconTest(
                     icons.productTop,
                     icons.propeller,
                     icons.phoneHandset,
-                    icons.puzzlePiece,
+                    icons.puzzlePiece
                 )
             )
         }
@@ -492,12 +495,15 @@ class WarpIconTest(
                     icons.shipping,
                     icons.shirt,
                     icons.shoes,
+                    icons.shootingStar,
                     icons.shoppingCart,
                     icons.shovel,
                     icons.shower,
                     icons.shrink,
+                    icons.shuffle,
                     icons.sidebarChevronLeft,
                     icons.sidebarChevronRight,
+                    icons.signpost,
                     icons.singleCylinder,
                     icons.skyscraper,
                     icons.smileyGood,
@@ -573,6 +579,7 @@ class WarpIconTest(
                     icons.upload,
                     icons.user,
                     icons.userGroup,
+                    icons.userSquare,
                     icons.users,
                     icons.userSquare,
                 )

@@ -450,6 +450,13 @@ object WarpIconResources {
             stringResource(R.string.cancel)
         )
 
+    val cardsThree: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_cardsthree),
+            stringResource(R.string.cardsthree)
+        )
+
     val caravan: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -515,6 +522,20 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_chainsaw),
             stringResource(R.string.chainsaw)
+        )
+
+    val chartBar: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_chartbar),
+            stringResource(R.string.chartbar)
+        )
+
+    val chartPieSlice: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_chartpieslice),
+            stringResource(R.string.chartpieslice)
         )
 
     val charger: WarpIconResource
@@ -2271,6 +2292,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_usergroup),
             stringResource(R.string.usergroup)
+        )
+
+    val userSquare: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_usersquare),
+            stringResource(R.string.usersquare)
         )
 
     val users: WarpIconResource
