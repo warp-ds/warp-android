@@ -39,12 +39,14 @@ You need, per icon:
    mktemp -d
    # → /var/folders/…/tmp.RANDOM
 
-   # 2) curl to a fixed filename inside it — literal path, so the URL stays statically analyzable
-   curl --netrc -sSL -o /var/folders/…/tmp.RANDOM/attachment.zip \
+   # 2) curl to a fixed filename inside it — literal path, so the URL stays statically analyzable.
+   #    -f exits non-zero on HTTP error; -w prints the downloaded byte count to compare against Jira's `size` metadata.
+   curl -fsSL --netrc -w "HTTP=%{http_code} SIZE=%{size_download}\n" \
+     -o /var/folders/…/tmp.RANDOM/attachment.zip \
      https://api.atlassian.com/ex/jira/<cloudId>/rest/api/3/attachment/content/<attachmentId>
    ```
 
-   The random component lives in the directory name; the file gets a clean `.zip` extension (which `wire_up.py` requires). Verify with `file` that it's a real zip/svg and that the byte count matches the metadata `size` from the ticket. **Do not unzip in shell** — pass the `.zip` path straight to `wire_up.py` as `svg_dir` and it will extract into a tempdir itself. This avoids the sandbox friction of `cd`ing into `/var/folders/...` (which is blocked) and the manual `__MACOSX/` / `.DS_Store` exclusion dance.
+   The random component lives in the directory name; the file gets a clean `.zip` extension (which `wire_up.py` requires). If `curl` exits 0 and the printed `SIZE=` matches the ticket's `attachment[].size`, the download is good — **do not follow up with `ls` or `file` on the temp path**, those trigger unnecessary permission prompts for `/var/folders/`, and `wire_up.py` will loudly fail downstream if the zip is corrupt anyway. **Do not unzip in shell** — pass the `.zip` path straight to `wire_up.py` as `svg_dir` and it will extract into a tempdir itself. This avoids the sandbox friction of `cd`ing into `/var/folders/...` (which is blocked) and the manual `__MACOSX/` / `.DS_Store` exclusion dance.
 
 If `.netrc` isn't configured, **do not prompt for a token inline** — that would put it in the transcript. Instead, tell the user the exact `.netrc` block to add and offer the local-path fallback below. Point them at [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens) for a classic API token (no scopes to pick — Basic auth uses the whole token). The file usually doesn't exist yet — have the user create it themselves with `touch ~/.netrc && chmod 600 ~/.netrc && open -e ~/.netrc`, paste the block, save; then continue.
 
