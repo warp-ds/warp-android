@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Wire up new Warp icons across drawables, WarpIcons.kt, IconScreen.kt, snapshot test, and 5 locale strings.xml files.
 
-Manifest format (YAML on stdin, or --manifest path):
+Manifest format (JSON on stdin, or --manifest path; YAML also works if PyYAML installed):
 
-    svg_dir: /absolute/path/to/svgs        # or a .zip file, or a wrapper dir
+    # exactly one of these two:
+    svg_dir: /absolute/path/to/svgs        # a dir of .svg, a .zip file, or a wrapper dir
+    attachment_url: https://api.atlassian.com/ex/jira/<cloudId>/rest/api/3/attachment/content/<id>
+
     icons:
       - name: chartBar           # camelCase property name
         svg: ChartBar.svg        # optional; defaults to <Name>.svg
@@ -20,22 +23,23 @@ Manifest format (YAML on stdin, or --manifest path):
   - a .zip file                                              → extracted to a tempdir
     then the wrapper-descent rule above is re-applied
 
-Run from repo root:
-    python3 .claude/skills/add-warp-icons/wire_up.py --manifest icons.yaml
-    # or
-    python3 .claude/skills/add-warp-icons/wire_up.py < icons.yaml
+`attachment_url` downloads the given Jira attachment via ~/.netrc credentials
+(no shell curl needed) and treats the result like a .zip svg_dir.
 """
 from __future__ import annotations
 
 import argparse
+import json
+import netrc
 import re
 import sys
 import tempfile
 import zipfile
+from base64 import b64encode
 from dataclasses import dataclass
 from pathlib import Path
-
-import json
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 try:
     import yaml  # type: ignore
@@ -502,6 +506,45 @@ def _xml_escape(s: str) -> str:
 
 # --- main ----------------------------------------------------------------
 
+_NETRC_HELP = """\
+Missing ~/.netrc credentials for api.atlassian.com.
+
+One-time setup:
+  1. Get an Atlassian API token:
+       https://id.atlassian.com/manage-profile/security/api-tokens
+  2. touch ~/.netrc && chmod 600 ~/.netrc && open -e ~/.netrc
+  3. Paste (replacing the placeholders):
+        machine api.atlassian.com
+          login <your-atlassian-email>
+          password <the-token>
+  4. Save and re-run.
+"""
+
+
+def _download_attachment(url: str) -> Path:
+    """Download a Jira attachment via ~/.netrc → path to a .zip in a tempdir."""
+    try:
+        auth = netrc.netrc().authenticators("api.atlassian.com")
+    except (FileNotFoundError, netrc.NetrcParseError):
+        sys.exit(_NETRC_HELP)
+    if not auth:
+        sys.exit(_NETRC_HELP)
+    user, _, password = auth
+    token = b64encode(f"{user}:{password}".encode()).decode()
+    req = Request(url, headers={"Authorization": f"Basic {token}"})
+    try:
+        with urlopen(req) as resp:
+            data = resp.read()
+    except HTTPError as e:
+        sys.exit(f"Attachment download failed: HTTP {e.code} {e.reason}\n  URL: {url}")
+    except URLError as e:
+        sys.exit(f"Attachment download failed: {e.reason}\n  URL: {url}")
+    dest = Path(tempfile.mkdtemp(prefix="warp-icons-")) / "attachment.zip"
+    dest.write_bytes(data)
+    print(f"  downloaded {len(data)} bytes → {dest}")
+    return dest
+
+
 def _resolve_svg_dir(raw: Path) -> Path:
     """Normalise svg_dir: unpack .zip, descend a single-subdir wrapper.
 
@@ -542,7 +585,13 @@ def _resolve_svg_dir(raw: Path) -> Path:
 def load_manifest(path: Path | None) -> tuple[Path, list[Icon]]:
     raw = path.read_text() if path else sys.stdin.read()
     data = _parse_manifest(raw)
-    svg_dir = _resolve_svg_dir(Path(data["svg_dir"]).expanduser())
+    if "attachment_url" in data and data["attachment_url"]:
+        zip_path = _download_attachment(data["attachment_url"])
+        svg_dir = _resolve_svg_dir(zip_path)
+    elif "svg_dir" in data and data["svg_dir"]:
+        svg_dir = _resolve_svg_dir(Path(data["svg_dir"]).expanduser())
+    else:
+        sys.exit("Manifest must have 'attachment_url' or 'svg_dir'.")
     icons = []
     for entry in data["icons"]:
         svg_name = entry.get("svg") or f"{entry['name'][0].upper() + entry['name'][1:]}.svg"
