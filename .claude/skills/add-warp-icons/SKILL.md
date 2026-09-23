@@ -14,12 +14,13 @@ description: Adds new Warp icons to this Android codebase. Converts SVGs to Vect
 - Local path — directory of `.svg` files, or a `.zip` file.
 - Omit to be asked upfront.
 
-**flags** (post-run behavior — pick at most one)
-- *default* — commit at the end.
+**flags** (post-run behavior — pick at most one; pre-authorizes the finish step, skipping the prompt)
 - `--push` — commit and push (branch must track a remote).
+- `--commit` — commit, no push.
 - `--stage` — wire and verify, but don't commit (use to review first).
+- *default (no flag)* — after the report, ask via `AskUserQuestion` how to finish: A) Commit + push  B) Commit  C) Stage only.
 
-When starting the run, announce the source and non-default behavior in one line so the user can course-correct, e.g.: *"Fetching FEP-153. Will commit and push at the end."*
+When starting the run, announce the source and any pre-authorized finish behavior in one line so the user can course-correct, e.g.: *"Fetching FEP-153. Will commit and push at the end."* (or *"…will ask how to finish."* for the default).
 
 ## Pipeline
 
@@ -65,11 +66,17 @@ All three must pass. If the count test fails, investigate before committing — 
 
 Report: icons added, drawables over the lint threshold, gradle results.
 
-Unless `--stage`:
+Then pick the finish action:
+- If `--push`, `--commit`, or `--stage` was passed, use that.
+- Otherwise, `AskUserQuestion`: *"How should I finish?"* — A) Commit + push  B) Commit  C) Stage only. The user has just seen the report, so this is the informed moment to decide.
+
+For **stage only**: leave the working tree as-is and stop.
+
+For **commit** (and **commit + push**):
 - `git status`, stage specific paths only (drawables + `WarpIcons.kt` + `IconScreen.kt` + `WarpIconTest.kt` + the 5 `strings.xml`); never `git add -A`.
 - Commit `<TICKET>: Added N new Warp icons` with the `Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>` trailer.
 - If hooks fail, fix and re-commit — never `--amend`, never `--no-verify`.
-- If `--push`, `git push` afterward (never force).
+- For **commit + push**, `git push` afterward (never force).
 
 ## Conventions
 
