@@ -32,7 +32,19 @@ You need, per icon:
      password <atlassian-api-token>
    ```
    with `chmod 600 ~/.netrc`.
-2. If present, download the attachment straight to a temp file with `curl --netrc -sSL -o` against `https://api.atlassian.com/ex/jira/<cloudId>/rest/api/3/attachment/content/<attachmentId>`. Verify with `file` that it's a real zip/svg and that the byte count matches the metadata `size` from the ticket. **Do not unzip in shell** — pass the `.zip` path straight to `wire_up.py` as `svg_dir` and it will extract into a tempdir itself. This avoids the sandbox friction of `cd`ing into `/var/folders/...` (which is blocked) and the manual `__MACOSX/` / `.DS_Store` exclusion dance.
+2. If present, download the attachment. **Do this as two separate Bash calls, not one with `$(mktemp)` inline** — the harness cannot statically analyze a URL sitting behind a `$(...)` substitution, so a `curl $(mktemp)/… https://…` invocation triggers an ask prompt even when the URL is on an allowlist. Instead:
+
+   ```bash
+   # 1) create a random temp DIR (not file) in one call — copy the printed path out of the output
+   mktemp -d
+   # → /var/folders/…/tmp.RANDOM
+
+   # 2) curl to a fixed filename inside it — literal path, so the URL stays statically analyzable
+   curl --netrc -sSL -o /var/folders/…/tmp.RANDOM/attachment.zip \
+     https://api.atlassian.com/ex/jira/<cloudId>/rest/api/3/attachment/content/<attachmentId>
+   ```
+
+   The random component lives in the directory name; the file gets a clean `.zip` extension (which `wire_up.py` requires). Verify with `file` that it's a real zip/svg and that the byte count matches the metadata `size` from the ticket. **Do not unzip in shell** — pass the `.zip` path straight to `wire_up.py` as `svg_dir` and it will extract into a tempdir itself. This avoids the sandbox friction of `cd`ing into `/var/folders/...` (which is blocked) and the manual `__MACOSX/` / `.DS_Store` exclusion dance.
 
 If `.netrc` isn't configured, **do not prompt for a token inline** — that would put it in the transcript. Instead, tell the user the exact `.netrc` block to add and offer the local-path fallback below. Point them at [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens) for a classic API token (no scopes to pick — Basic auth uses the whole token). The file usually doesn't exist yet — have the user create it themselves with `touch ~/.netrc && chmod 600 ~/.netrc && open -e ~/.netrc`, paste the block, save; then continue.
 
@@ -55,11 +67,11 @@ If any input is missing (SVGs, names, or English descriptions), ask before proce
 git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>&1
 ```
 
-Then ask via `AskUserQuestion`. Recommend **Commit now** (mark it `(Recommended)` in the label and list it first), but keep the "leave for user" option available so the user can end the skill at the end and take over. Do not add caveats about auto-drafted translations in the question body.
+Then ask via `AskUserQuestion`. Recommend **Commit now** (mark it `(Recommended)` in the label and list it first), but keep the "leave it" option available so the user can end the skill at the end and take over. Do not add caveats about auto-drafted translations in the question body.
 
 1. **Commit now (Recommended)** — at Step 6, stage the new/changed files and commit with a message prefixed by the Jira ticket, e.g. `FEP-153: Added N new Warp icons`. Follow the repo's commit style (look at recent commits — they use `<TICKET>: <short imperative>` with no body for icon additions; keep it that way). Include the `Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>` trailer per the harness convention.
 2. **Commit + push** — same as above, then `git push`. Only offer this if the branch tracks a remote.
-3. **Leave for user** — at Step 6, the skill just reports and ends; user commits themselves.
+3. **Leave it** — at Step 6, the skill just reports and ends; user commits themselves.
 
 Remember the answer — you'll execute it in Step 6.
 
@@ -140,7 +152,7 @@ Then act on the disposition the user chose in Step 1 — **do not re-ask**:
   - Commit with the ticket-prefixed message and `Co-Authored-By` trailer (as described in Step 1).
   - If **Commit + push** was chosen, follow with `git push` (never force).
   - Never `--no-verify`; if pre-commit hooks fail, fix and re-commit (don't amend).
-- **Leave for user**: do nothing further. Skill ends after the report.
+- **Leave it**: do nothing further. Skill ends after the report.
 
 If the disposition wasn't captured in Step 1 (e.g. skill was re-entered mid-flow), fall back to asking now with the same three options.
 
