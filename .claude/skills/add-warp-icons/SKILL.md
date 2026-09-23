@@ -7,20 +7,14 @@ description: Adds new Warp icons to this Android codebase. Converts SVGs to Vect
 
 ## Usage
 
-`/add-warp-icons <source> [flags]`
+`/add-warp-icons <source>`
 
 **source**
 - Jira ticket key (e.g. `FEP-153`) — fetches descriptions + SVG zip attachment.
 - Local path — directory of `.svg` files, or a `.zip` file.
 - Omit to be asked upfront.
 
-**flags** (post-run behavior — pick at most one; pre-authorizes the finish step, skipping the prompt)
-- `--push` — commit and push (branch must track a remote).
-- `--commit` — commit, no push.
-- `--stage` — wire and verify, but don't commit (use to review first).
-- *default (no flag)* — after the report, ask via `AskUserQuestion` how to finish: A) Commit + push  B) Commit  C) Stage only.
-
-When starting the run, announce the source and any pre-authorized finish behavior in one line so the user can course-correct, e.g.: *"Fetching FEP-153. Will commit and push at the end."* (or *"…will ask how to finish."* for the default).
+After the report, the run always asks via `AskUserQuestion` how to finish: A) Commit + push  B) Commit  C) Stage only.
 
 ## Pipeline
 
@@ -66,9 +60,7 @@ All three must pass. If the count test fails, investigate before committing — 
 
 Report: icons added, drawables over the lint threshold, gradle results.
 
-Then pick the finish action:
-- If `--push`, `--commit`, or `--stage` was passed, use that.
-- Otherwise, `AskUserQuestion`: *"How should I finish?"* — A) Commit + push  B) Commit  C) Stage only. The user has just seen the report, so this is the informed moment to decide.
+Then `AskUserQuestion`: *"How should I finish?"* — A) Commit + push  B) Commit  C) Stage only. The user has just seen the report, so this is the informed moment to decide.
 
 For **stage only**: leave the working tree as-is and stop.
 
