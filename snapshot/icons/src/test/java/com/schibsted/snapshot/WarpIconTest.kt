@@ -60,7 +60,7 @@ class WarpIconTest(
                 it.returnType.classifier == WarpIconResource::class
                         || it.returnType.classifier == WarpTaxonomyIconResource::class
             }
-        Assert.assertEquals(338, count)
+        Assert.assertEquals(317, count)
     }
 
     @Test
@@ -136,21 +136,15 @@ class WarpIconTest(
                     icons.camera,
                     icons.cancel,
                     icons.caravan,
-                    icons.cardsThree,
                     icons.car,
-                    icons.cardsThree,
                     icons.carLeft,
                     icons.carPart,
                     icons.carRent,
                     icons.carRight,
                     icons.chair,
                     icons.chainsaw,
-                    icons.chartBar,
-                    icons.chartPieSlice,
                     icons.charger,
-                    icons.chartBar,
                     icons.charter,
-                    icons.chartPieSlice,
                     icons.chatSupport,
                     icons.check,
                     icons.checkList,
@@ -175,8 +169,6 @@ class WarpIconTest(
                     icons.cookie,
                     icons.copy,
                     icons.creditCard,
-                    icons.crosshair,
-                    icons.crownSimple,
                     icons.cursor,
                 )
             )
@@ -190,7 +182,6 @@ class WarpIconTest(
                 listOf(
                     icons.delivery,
                     icons.deliveryKey,
-                    icons.devices,
                     icons.diner,
                     icons.discount,
                     icons.dislike,
@@ -243,11 +234,8 @@ class WarpIconTest(
                     icons.filePdf,
                     icons.fileText,
                     icons.filter,
-                    icons.fire,
                     icons.fireplace,
                     icons.fishing,
-                    icons.flowArrow,
-                    icons.folderUser,
                     icons.frontWheelDrive,
                 )
             )
@@ -282,7 +270,6 @@ class WarpIconTest(
         paparazzi.snapshot {
             WarpIconsAllSizes(
                 listOf(
-                    icons.handWaving,
                     icons.headset,
                     icons.harvester,
                     icons.heart,
@@ -305,7 +292,6 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.iceSkater,
-                    icons.identificationCard,
                     icons.image,
                     icons.info,
                     icons.infoFilled,
@@ -371,7 +357,6 @@ class WarpIconTest(
                     icons.mail,
                     icons.mailbox,
                     icons.map,
-                    icons.mapPinSimpleArea,
                     icons.megaphone,
                     icons.messages,
                     icons.messagesFilled,
@@ -438,8 +423,7 @@ class WarpIconTest(
                     icons.productStarred,
                     icons.productTop,
                     icons.propeller,
-                    icons.phoneHandset,
-                    icons.puzzlePiece
+                    icons.phoneHandset
                 )
             )
         }
@@ -481,29 +465,21 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.sauna,
-                    icons.scan,
                     icons.scrollUp,
-                    icons.sealCheck,
                     icons.search,
                     icons.seat,
                     icons.send,
-                    icons.shootingStar,
-                    icons.shuffle,
-                    icons.signpost,
                     icons.wrench,
                     icons.share,
                     icons.shipping,
                     icons.shirt,
                     icons.shoes,
-                    icons.shootingStar,
                     icons.shoppingCart,
                     icons.shovel,
                     icons.shower,
                     icons.shrink,
-                    icons.shuffle,
                     icons.sidebarChevronLeft,
                     icons.sidebarChevronRight,
-                    icons.signpost,
                     icons.singleCylinder,
                     icons.skyscraper,
                     icons.smileyGood,
@@ -543,7 +519,6 @@ class WarpIconTest(
             WarpIconsAllSizes(
                 listOf(
                     icons.tag,
-                    icons.target,
                     icons.taskList,
                     icons.textBold,
                     icons.textHOne,
@@ -579,9 +554,7 @@ class WarpIconTest(
                     icons.upload,
                     icons.user,
                     icons.userGroup,
-                    icons.userSquare,
                     icons.users,
-                    icons.userSquare,
                 )
             )
         }
@@ -611,7 +584,6 @@ class WarpIconTest(
                     icons.warranty,
                     icons.washingMachine,
                     icons.waterPitcher,
-                    icons.waveform,
                     icons.weight,
                     icons.wheelchair,
                     icons.wifi,
