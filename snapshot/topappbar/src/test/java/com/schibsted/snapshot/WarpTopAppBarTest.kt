@@ -18,6 +18,7 @@ import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.SearchConfiguration
 import com.schibsted.nmp.warp.components.TabConfiguration
 import com.schibsted.nmp.warp.components.TabData
+import com.schibsted.nmp.warp.components.WarpAppBarStyle
 import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpTopAppBar
@@ -97,6 +98,36 @@ class WarpTopAppBarTest(
     @Test
     fun warp_top_app_bar_with_tabs_collapsible() {
         topAppBarWithTabsCollapsible()
+    }
+
+    @Test
+    fun warp_medium_flexible_top_app_bar() {
+        mediumFlexibleTopAppBar()
+    }
+
+    @Test
+    fun warp_medium_flexible_top_app_bar_without_subtitle() {
+        mediumFlexibleTopAppBar(showSubtitle = false)
+    }
+
+    @Test
+    fun warp_medium_flexible_top_app_bar_with_icons() {
+        mediumFlexibleTopAppBar(showIcons = true)
+    }
+
+    @Test
+    fun warp_medium_flexible_top_app_bar_with_search() {
+        mediumFlexibleTopAppBarWithSearch()
+    }
+
+    @Test
+    fun warp_medium_flexible_top_app_bar_with_tabs() {
+        mediumFlexibleTopAppBarWithTabs()
+    }
+
+    @Test
+    fun warp_medium_flexible_top_app_bar_with_search_and_tabs() {
+        mediumFlexibleTopAppBarWithSearchAndTabs()
     }
 
 
@@ -385,6 +416,161 @@ class WarpTopAppBarTest(
                     },
                     containerColor = colors.surface.sunken,
                     modifier = Modifier.height(300.dp)
+                ) {}
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun mediumFlexibleTopAppBar(
+        showIcons: Boolean = false,
+        showSubtitle: Boolean = true,
+    ) {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                WarpScaffold(
+                    topBar = {
+                        WarpTopAppBar(
+                            titleText = "Warp Android",
+                            subtitleText = if (showSubtitle) "Medium Flexible subtitle" else "",
+                            style = WarpAppBarStyle.MediumFlexible,
+                            navigationIcon = {
+                                if (showIcons) {
+                                    IconButton(onClick = {}) {
+                                        WarpIcon(icon = icons.arrowLeft)
+                                    }
+                                }
+                            },
+                            actions = {
+                                if (showIcons) {
+                                    IconButton(onClick = {}) {
+                                        WarpIcon(icon = icons.dotsVertical)
+                                    }
+                                }
+                            }
+                        )
+                    },
+                    containerColor = colors.surface.sunken,
+                    modifier = Modifier.height(300.dp)
+                ) {}
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun mediumFlexibleTopAppBarWithSearch() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                val searchState = remember { TextFieldState("") }
+                WarpScaffold(
+                    topBar = {
+                        WarpTopAppBar(
+                            titleText = "Warp Android",
+                            subtitleText = "Medium Flexible subtitle",
+                            style = WarpAppBarStyle.MediumFlexible,
+                            searchConfig = SearchConfiguration(
+                                state = searchState,
+                                onSearch = {},
+                                hint = "Search"
+                            ),
+                            navigationIcon = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.arrowLeft)
+                                }
+                            },
+                            actions = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.dotsVertical)
+                                }
+                            }
+                        )
+                    },
+                    containerColor = colors.surface.sunken,
+                    modifier = Modifier.height(400.dp)
+                ) {}
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun mediumFlexibleTopAppBarWithTabs() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                WarpScaffold(
+                    topBar = {
+                        WarpTopAppBar(
+                            titleText = "Warp Android",
+                            subtitleText = "Medium Flexible subtitle",
+                            style = WarpAppBarStyle.MediumFlexible,
+                            tabConfig = TabConfiguration(
+                                tabs = listOf(
+                                    TabData(label = "Tab 1", id = "tab1"),
+                                    TabData(label = "Tab 2", id = "tab2"),
+                                    TabData(label = "Tab 3", id = "tab3")
+                                ),
+                                selectedIndex = 0,
+                                onTabSelected = {}
+                            ),
+                            navigationIcon = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.arrowLeft)
+                                }
+                            },
+                            actions = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.dotsVertical)
+                                }
+                            }
+                        )
+                    },
+                    containerColor = colors.surface.sunken,
+                    modifier = Modifier.height(400.dp)
+                ) {}
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun mediumFlexibleTopAppBarWithSearchAndTabs() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                val searchState = remember { TextFieldState("") }
+                WarpScaffold(
+                    topBar = {
+                        WarpTopAppBar(
+                            titleText = "Warp Android",
+                            subtitleText = "Medium Flexible subtitle",
+                            style = WarpAppBarStyle.MediumFlexible,
+                            searchConfig = SearchConfiguration(
+                                state = searchState,
+                                onSearch = {},
+                                hint = "Search",
+                                collapsible = true
+                            ),
+                            tabConfig = TabConfiguration(
+                                tabs = listOf(
+                                    TabData(label = "Tab 1", id = "tab1"),
+                                    TabData(label = "Tab 2", id = "tab2"),
+                                    TabData(label = "Tab 3", id = "tab3")
+                                ),
+                                selectedIndex = 0,
+                                onTabSelected = {},
+                                collapsible = true
+                            ),
+                            navigationIcon = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.arrowLeft)
+                                }
+                            },
+                            actions = {
+                                IconButton(onClick = {}) {
+                                    WarpIcon(icon = icons.dotsVertical)
+                                }
+                            }
+                        )
+                    },
+                    containerColor = colors.surface.sunken,
+                    modifier = Modifier.height(500.dp)
                 ) {}
             }
         }
