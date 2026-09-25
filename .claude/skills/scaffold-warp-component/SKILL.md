@@ -61,12 +61,15 @@ If a value doesn't exist as a token AND matches the M3 default, **drop the overr
 Start from the M3 primitive's full API, then **delete every parameter the Warp spec doesn't call for**. See `[[feedback_warp_restrictive_api]]`.
 
 Typical dropouts:
-- `modifier` — only keep if the spec implies external layout control.
 - Toggles that undermine core UX (e.g. `showDragHandle` on a bottom sheet).
 - Shape / color overrides that equal the M3 default.
 - Variant enums whose values are not on the master frame.
 
 Typical keepers: the primary callback (`onDismiss` / `onClick` / `onValueChange`), typed content params (`title: String`, `body: String`, `text: String`, `icon: WarpIconResource`), and state hooks needed for programmatic control.
+
+**`modifier` — decide by component category, not by default:**
+- **Inline widgets** (buttons, pills, badges, text fields, icons, checkboxes — anything placed inside a layout): keep `modifier`. Callers legitimately need `.weight(1f)`, `.align(...)`, `.fillMaxWidth()` to compose them inside `Row`/`Column`. The codebase already reflects this (e.g. `WarpButton(modifier = Modifier.fillMaxWidth(), …)` in sample screens).
+- **Portal / overlay components** (modals, dialogs, bottom sheets, popovers, tooltips — anything that renders in its own window/scope): drop `modifier` unless there is a concrete testing need. M3's `modifier` on these binds to an internal container, not the scrim/window, so layout composition doesn't meaningfully apply — the only realistic use is `testTag` for UI/screenshot tests. If Warp's test infrastructure needs it, keep it and note in the KDoc that it's for tagging, not shaping.
 
 **Composable slot params (`content: @Composable <Scope>.() -> Unit`) are a red flag — default to NO.** Most Warp components should accept typed params only (see `WarpModal`, `WarpAlert`, `WarpButton`). A slot is only warranted when the component's fundamental purpose is to host arbitrary caller-supplied content — bottom sheets, some dialogs, expandable containers. If you're reaching for a `@Composable` slot on anything else, stop and reconsider whether typed params would express the spec more faithfully. Ask the user before adding one.
 
