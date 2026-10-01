@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -23,6 +24,9 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
  *
  * @param onDismiss Callback invoked when the sheet is dismissed by swipe, scrim tap, or back press.
  * @param sheetState State controlling expansion and hiding of the sheet.
+ * @param dismissOnBackOrOutsideClick Whether back press and scrim tap dismiss the sheet. Set to `false`
+ * only while a non-cancellable operation is in flight (e.g. an upload or save) and derive it from that
+ * operation's own state, so the sheet is never left permanently undismissable.
  * @param content Slot for the sheet body.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +34,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 fun WarpBottomSheet(
     onDismiss: () -> Unit,
     sheetState: SheetState = rememberModalBottomSheetState(),
+    dismissOnBackOrOutsideClick: Boolean = true,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     ModalBottomSheet(
@@ -37,6 +42,10 @@ fun WarpBottomSheet(
         sheetState = sheetState,
         containerColor = colors.surface.elevated100,
         dragHandle = { BottomSheetDefaults.DragHandle(color = colors.background.subtleActive) },
+        properties = ModalBottomSheetProperties(
+            shouldDismissOnBackPress = dismissOnBackOrOutsideClick,
+            shouldDismissOnClickOutside = dismissOnBackOrOutsideClick,
+        ),
         content = content,
     )
 }
