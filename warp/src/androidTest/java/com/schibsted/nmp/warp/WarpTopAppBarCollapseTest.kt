@@ -64,6 +64,7 @@ class WarpTopAppBarCollapseTest {
                             hint = "Search...",
                             collapsible = true
                         ),
+                        searchClearContentDescription = "Clear search",
                         scrollBehavior = scrollBehavior
                     )
                 }
@@ -236,6 +237,7 @@ class WarpTopAppBarCollapseTest {
                             hint = "Search...",
                             collapsible = true
                         ),
+                        searchClearContentDescription = "Clear search",
                         tabConfig = TabConfiguration(
                             tabs = tabs,
                             selectedIndex = selectedTabIndex,
@@ -297,6 +299,7 @@ class WarpTopAppBarCollapseTest {
                             hint = "Search...",
                             collapsible = true
                         ),
+                        searchClearContentDescription = "Clear search",
                         tabConfig = TabConfiguration(
                             tabs = tabs,
                             selectedIndex = selectedTabIndex,
@@ -355,6 +358,7 @@ class WarpTopAppBarCollapseTest {
                             hint = "Search...",
                             collapsible = false
                         ),
+                        searchClearContentDescription = "Clear search",
                         tabConfig = TabConfiguration(
                             tabs = tabs,
                             selectedIndex = selectedTabIndex,

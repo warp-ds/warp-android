@@ -152,6 +152,7 @@ class WarpTopAppBarTest(
                                 onSearch = {},
                                 hint = "Search"
                             ),
+                            searchClearContentDescription = "Clear search",
                             navigationIcon = {
                                 if (showIcons) {
                                     IconButton(
@@ -243,6 +244,7 @@ class WarpTopAppBarTest(
                                 onSearch = {},
                                 hint = "Search"
                             ),
+                            searchClearContentDescription = "Clear search",
                             tabConfig = TabConfiguration(
                                 tabs = listOf(
                                     TabData(label = "Tab 1", id = "tab1"),
@@ -324,6 +326,7 @@ class WarpTopAppBarTest(
                                 hint = "Search",
                                 collapsible = true
                             ),
+                            searchClearContentDescription = "Clear search",
                             tabConfig = TabConfiguration(
                                 tabs = listOf(
                                     TabData(label = "Tab 1", id = "tab1"),

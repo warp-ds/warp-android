@@ -77,6 +77,7 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
                     hint = "Search messages, favorites...",
                     collapsible = searchCollapsible
                 ),
+                searchClearContentDescription = "Clear search",
                 tabConfig = TabConfiguration(
                     tabs = tabs,
                     selectedIndex = selectedTabIndex,
