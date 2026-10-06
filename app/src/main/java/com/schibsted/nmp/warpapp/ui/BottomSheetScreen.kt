@@ -58,7 +58,7 @@ fun BottomSheetScreenContent() {
     }
 
     if (openSheet) {
-        WarpBottomSheet(onDismiss = { openSheet = false }) {
+        WarpBottomSheet(onDismissRequest = { openSheet = false }) {
             LazyColumn(modifier = Modifier.padding(horizontal = dimensions.space3)) {
                 item {
                     WarpText(
