@@ -54,6 +54,7 @@ data class TabData(
  * Configuration for the integrated search bar.
  * @param state TextFieldState managing the search input text
  * @param onSearch Callback when search is submitted (enter key pressed)
+ * @param clearContentDescription Accessibility label for the search field's clear button
  * @param hint Placeholder text shown when search is empty
  * @param enabled Whether the search field is enabled
  * @param onClear Callback when the clear button is pressed
@@ -61,6 +62,7 @@ data class TabData(
 data class SearchConfiguration(
     val state: TextFieldState,
     val onSearch: (String) -> Unit,
+    val clearContentDescription: String,
     val hint: String = "",
     val enabled: Boolean = true,
     val collapsible: Boolean = false,
@@ -129,7 +131,6 @@ private fun calculateSectionCollapseFraction(
  * @param subtitleText The subtitle text.
  * @param titleCollapsible Whether the title section should collapse on scroll.
  * @param searchConfig Configuration for integrated search functionality.
- * @param searchClearContentDescription Accessibility label for the search field's clear button. Required (non-blank) when searchConfig is provided.
  * @param searchLeadingAction Optional leading action rendered inside the search field.
  * @param searchSecondaryAction Optional secondary action rendered inside the search field.
  * @param tabConfig Configuration for integrated tab bar.
@@ -147,15 +148,10 @@ fun WarpTopAppBar(
     subtitleText: String = "",
     titleCollapsible: Boolean = false,
     searchConfig: SearchConfiguration? = null,
-    searchClearContentDescription: String = "",
     searchLeadingAction: WarpSearchBarAction? = null,
     searchSecondaryAction: WarpSearchBarAction? = null,
     tabConfig: TabConfiguration? = null,
 ) {
-    require(searchConfig == null || searchClearContentDescription.isNotBlank()) {
-        "searchClearContentDescription must be non-blank when searchConfig is provided"
-    }
-
     // Height tracking for collapsible sections (in pixels)
     var titleHeightPx by remember(
         titleText,
@@ -411,13 +407,13 @@ fun WarpTopAppBar(
             ) {
                 WarpSearchBar(
                     textFieldState = config.state,
-                    clearContentDescription = searchClearContentDescription,
+                    clearContentDescription = config.clearContentDescription,
                     modifier = Modifier.padding(
                         start = dimensions.space2, end = dimensions.space2,
                         bottom = dimensions.space1
                     ),
                     hint = config.hint,
-                    searchIsEnabled = config.enabled,
+                    searchIsEnabled = config.enabled && (!config.collapsible || searchCollapseFraction > 0.5f),
                     onSearch = { config.onSearch(config.state.text.toString()) },
                     onClearClick = config.onClear,
                     secondaryAction = searchSecondaryAction,
@@ -523,10 +519,10 @@ fun WarpTopAppBarPreview() {
             searchConfig = SearchConfiguration(
                 state = searchState,
                 onSearch = {},
+                clearContentDescription = "Clear search",
                 hint = "Search...",
                 collapsible = false
             ),
-            searchClearContentDescription = "Clear search",
             tabConfig = TabConfiguration(
                 tabs = tabs,
                 selectedIndex = selectedTabIndex,

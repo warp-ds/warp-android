@@ -1,6 +1,7 @@
 package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.clearText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -14,7 +15,7 @@ fun WarpSearchBar(
     searchIsEnabled: Boolean = true,
     onSearch: (String) -> Unit = {},
     onSearchChanged: (String) -> Unit = {},
-    onClearClick: () -> Unit = {},
+    onClearClick: () -> Unit = { textFieldState.clearText() },
     secondaryAction: WarpSearchBarAction? = null,
     leadingAction: WarpSearchBarAction? = null,
     requestInitialFocus: Boolean = false,

@@ -33,7 +33,7 @@ fun WarpSearchBarButton(
         hint = hint,
         readOnly = true,
         onInputClick = onClick,
-        showClearButton = text.isNotEmpty() && showClearButton,
+        showClearButton = text.isNotEmpty() && showClearButton && onClearClick != null,
         onClearClick = onClearClick,
         secondaryAction = secondaryAction,
         leadingAction = leadingAction,

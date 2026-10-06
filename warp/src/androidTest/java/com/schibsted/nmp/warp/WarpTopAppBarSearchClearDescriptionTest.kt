@@ -3,6 +3,7 @@ package com.schibsted.nmp.warp
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.schibsted.nmp.warp.components.SearchConfiguration
 import com.schibsted.nmp.warp.components.WarpTopAppBar
@@ -17,17 +18,19 @@ class WarpTopAppBarSearchClearDescriptionTest {
     val composeTestRule = createComposeRule()
 
     @OptIn(ExperimentalMaterial3Api::class)
-    @Test(expected = IllegalArgumentException::class)
-    fun searchConfigWithBlankClearDescription_throws() {
+    @Test
+    fun searchConfigClearContentDescription_reachesClearButton() {
         composeTestRule.setContent {
             WarpTopAppBar(
                 titleText = "Title",
                 searchConfig = SearchConfiguration(
-                    state = TextFieldState(""),
+                    state = TextFieldState("query"),
                     onSearch = {},
+                    clearContentDescription = "Clear search",
                 ),
-                searchClearContentDescription = "",
             )
         }
+
+        composeTestRule.onNodeWithContentDescription("Clear search").assertExists()
     }
 }
