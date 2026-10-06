@@ -2,6 +2,8 @@
 
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -14,9 +16,6 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
@@ -28,6 +27,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
@@ -55,6 +56,7 @@ data class TabData(
  * @param onSearch Callback when search is submitted (enter key pressed)
  * @param hint Placeholder text shown when search is empty
  * @param enabled Whether the search field is enabled
+ * @param onClear Callback when the clear button is pressed
  */
 data class SearchConfiguration(
     val state: TextFieldState,
@@ -62,6 +64,7 @@ data class SearchConfiguration(
     val hint: String = "",
     val enabled: Boolean = true,
     val collapsible: Boolean = false,
+    val onClear: () -> Unit = { state.clearText() },
 )
 
 /**
@@ -126,6 +129,8 @@ private fun calculateSectionCollapseFraction(
  * @param subtitleText The subtitle text.
  * @param titleCollapsible Whether the title section should collapse on scroll.
  * @param searchConfig Configuration for integrated search functionality.
+ * @param searchLeadingAction Optional leading action rendered inside the search field.
+ * @param searchSecondaryAction Optional secondary action rendered inside the search field.
  * @param tabConfig Configuration for integrated tab bar.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -141,6 +146,8 @@ fun WarpTopAppBar(
     subtitleText: String = "",
     titleCollapsible: Boolean = false,
     searchConfig: SearchConfiguration? = null,
+    searchLeadingAction: WarpSearchBarAction? = null,
+    searchSecondaryAction: WarpSearchBarAction? = null,
     tabConfig: TabConfiguration? = null,
 ) {
     // Height tracking for collapsible sections (in pixels)
@@ -149,8 +156,8 @@ fun WarpTopAppBar(
         subtitleText,
         titleCollapsible
     ) { mutableIntStateOf(0) }
-    var searchHeightPx by remember(searchConfig) { mutableIntStateOf(0) }
-    var tabsHeightPx by remember(tabConfig) { mutableIntStateOf(0) }
+    var searchHeightPx by remember(searchConfig?.state, searchConfig?.collapsible) { mutableIntStateOf(0) }
+    var tabsHeightPx by remember(tabConfig?.tabs, tabConfig?.collapsible) { mutableIntStateOf(0) }
 
     val titleMeasured = titleHeightPx > 0
     val searchMeasured = searchHeightPx > 0
@@ -377,78 +384,37 @@ fun WarpTopAppBar(
                             Modifier
                         }
                     )
+                    .then(
+                        if (config.collapsible) {
+                            Modifier.pointerInput(searchCollapseFraction <= 0.5f) {
+                                if (searchCollapseFraction <= 0.5f) {
+                                    awaitEachGesture {
+                                        awaitFirstDown(pass = PointerEventPass.Initial).consume()
+                                    }
+                                }
+                            }
+                        } else {
+                            Modifier
+                        }
+                    )
                     .onGloballyPositioned {
                         if (searchConfig.collapsible && !searchMeasured && it.size.height > 0) {
                             searchHeightPx = it.size.height
                         }
                     }
             ) {
-                SearchBar(
-                    modifier = Modifier
-                        .padding(
-                            start = dimensions.space2, end = dimensions.space2,
-                            bottom = dimensions.space1
-                        )
-                        .fillMaxWidth(),
-                    inputField = {
-                        SearchBarDefaults.InputField(
-                            enabled = config.enabled && (!config.collapsible || searchCollapseFraction > 0.5f),
-                            query = config.state.text.toString(),
-                            onQueryChange = {
-                                config.state.edit { replace(0, length, it) }
-                            },
-                            onSearch = { config.onSearch(config.state.text.toString()) },
-                            expanded = false,
-                            onExpandedChange = { },
-                            placeholder = {
-                                WarpText(
-                                    text = config.hint,
-                                    color = colors.text.placeholder,
-                                    style = WarpTextStyle.Body,
-                                )
-                            },
-                            leadingIcon = {
-                                WarpIcon(
-                                    icon = icons.search,
-                                    size = dimensions.icon.small
-                                )
-                            },
-                            trailingIcon = {
-                                if (config.state.text.isNotEmpty()) {
-                                    IconButton(onClick = config.state::clearText) {
-                                        WarpIcon(
-                                            icon = icons.close,
-                                            size = dimensions.icon.small
-                                        )
-                                    }
-                                }
-                            },
-                            colors = TextFieldDefaults.colors(
-                                focusedTextColor = colors.text.default,
-                                focusedContainerColor = colors.background.subtle,
-                                unfocusedTextColor = colors.text.default,
-                                unfocusedContainerColor = colors.background.subtle,
-                                disabledTextColor = colors.text.disabled,
-                                focusedPlaceholderColor = colors.text.placeholder,
-                                unfocusedPlaceholderColor = colors.text.placeholder,
-                                focusedLabelColor = colors.text.subtle,
-                                unfocusedLabelColor = colors.text.subtle,
-                                cursorColor = colors.icon.default,
-                            )
-                        )
-                    },
-                    expanded = false,
-                    onExpandedChange = { },
-                    colors = SearchBarDefaults.colors(
-                        containerColor = colors.background.subtle
+                WarpSearchBar(
+                    textFieldState = config.state,
+                    modifier = Modifier.padding(
+                        start = dimensions.space2, end = dimensions.space2,
+                        bottom = dimensions.space1
                     ),
-                    content = {},
-                    windowInsets = WindowInsets(
-                        left = 0.dp,
-                        top = 0.dp,
-                        right = 0.dp,
-                        bottom = 0.dp,
-                    )
+                    hint = config.hint,
+                    searchIsEnabled = config.enabled && (!config.collapsible || searchCollapseFraction > 0.5f),
+                    onSearch = config.onSearch,
+                    onClearClick = config.onClear,
+                    secondaryAction = searchSecondaryAction,
+                    leadingAction = searchLeadingAction,
                 )
             }
         }

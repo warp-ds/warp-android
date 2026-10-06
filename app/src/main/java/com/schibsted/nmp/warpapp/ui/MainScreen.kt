@@ -227,6 +227,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("searchBarDemo") {
+                WarpSearchBarDemoScreen {
+                    navController.navigateUp()
+                }
+            }
         }
     }
 }
@@ -300,6 +305,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "popover" to "WarpPopover",
                         "radio" to "WarpRadio",
                         "rangeSlider" to "WarpRangeSlider",
+                        "searchBarDemo" to "WarpSearchBar",
                         "select" to "WarpSelect",
                         "slider" to "WarpSlider",
                         "snackbar" to "WarpSnackbar",
