@@ -14,7 +14,6 @@ import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -25,43 +24,20 @@ import com.schibsted.nmp.warp.theme.WarpTheme
 import kotlinx.coroutines.launch
 
 /**
- * A modal bottom sheet anchored to the bottom of the screen that dims content behind it. Use for
- * supplementary content and actions - menus, filter panels, confirmations - that shouldn't take
- * the user out of the current screen.
+ * A modal bottom sheet anchored to the bottom of the screen that dims content behind it.
  *
- * Wraps Material 3's [ModalBottomSheet] with Warp tokens: [WarpTheme.colors.surface.elevated100]
- * surface and [WarpTheme.colors.background.subtleActive] drag handle. Corner shape and drag
- * handle size/shape fall through to M3 defaults, which already match the Warp Figma spec.
+ * Wraps Material 3's [ModalBottomSheet] with Warp's surface and drag-handle color tokens; shape
+ * and handle size are left at M3 defaults, which already match the Warp Figma spec.
  *
- * No custom drag handle: M3's [ModalBottomSheet] already wraps [BottomSheetDefaults.DragHandle] in
- * a tap-to-dismiss click target plus TalkBack dismiss/expand/collapse actions, using its own
- * bundled, fully-localized strings. A hand-rolled clickable wrapper would only duplicate that,
- * worse (translated into a handful of locales instead of all of them).
- *
- * The sheet's own top inset is capped at the status bar/display cutout boundary so a scrim strip
- * is always visible above it - without this, a sheet with tall enough content (e.g. a long list)
- * would measure taller than the screen and get clamped flush to the very top, looking like a
- * full-screen overlay instead of a floating sheet.
- *
- * See https://m3.material.io/components/bottom-sheets/overview.
- *
- * @param onDismissRequest Invoked once the hide animation completes - from back-press, scrim-tap,
- * swipe, or M3's own drag-handle tap/TalkBack actions. [content] receives the same callback (as
- * `dismiss`) so in-sheet actions, e.g. a primary button, can close the sheet the same way.
- * @param modifier Applied to the sheet surface, after Warp's own top-inset cap (see above) - not
- * for shaping; keep overrides to correctness or test-tagging needs.
- * @param dismissible Gates back-press, scrim-click, drag-handle tap, and swipe/TalkBack dismissal
- * via `confirmValueChange` on the internally-built [SheetState] (not a param - every real need
- * found in the codebase was this same single busy-gate condition, nothing more elaborate). Set to
- * `false` only while a non-cancellable operation (e.g. an upload) is in flight, derived from that
- * operation's own state, so the sheet is never left permanently undismissable.
- * @param showDragHandle Only matters when [dismissible] is true - a non-dismissible sheet never
- * shows a handle regardless, since that would advertise a capability that doesn't exist. Hiding
- * the handle on an otherwise-dismissible sheet is fine: back-press and scrim-tap still work, so
- * it's a discoverability trade-off (e.g. the content has its own competing drag gesture).
- * @param title Optional plain-text heading rendered above [content]. Deliberately plain - no icon
- * pairing, back button, or subtitle; a richer bottom-sheet header is tracked as separate scope.
- * @param content Slot for the sheet body; receives a `dismiss` callback (see [onDismissRequest]).
+ * @param onDismissRequest Called once the hide animation completes. Also passed to [content] as
+ * `dismiss`, so in-sheet actions can close the sheet the same way.
+ * @param modifier Applied to the sheet surface, on top of Warp's own status-bar inset cap.
+ * @param dismissible Whether back-press, scrim-tap, swipe, and the drag handle can close the
+ * sheet. Set to `false` only while a non-cancellable operation is in flight.
+ * @param showDragHandle Ignored when [dismissible] is false - a non-dismissible sheet never shows
+ * a handle, since it wouldn't do anything.
+ * @param title Optional plain-text heading above [content].
+ * @param content Sheet body; receives a `dismiss` callback (see [onDismissRequest]).
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,9 +52,7 @@ fun WarpBottomSheet(
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
-        // Must only gate the transition to Hidden - gating every transition would also block the
-        // initial reveal (SheetState.show() targets Expanded through this same check) whenever
-        // dismissible is false, leaving the sheet permanently invisible.
+        // Gate only Hidden - gating every target would also block the initial reveal.
         confirmValueChange = { targetValue -> dismissible || targetValue != SheetValue.Hidden },
     )
     val dismiss: () -> Unit = {
@@ -89,14 +63,14 @@ fun WarpBottomSheet(
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
+        // Caps the sheet below the status bar, so a scrim strip stays visible even with tall content.
         modifier = Modifier
             .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
             .then(modifier),
         sheetState = sheetState,
         containerColor = WarpTheme.colors.surface.elevated100,
         contentColor = WarpTheme.colors.text.default,
-        // No Top here - the modifier above already caps the sheet's top edge at the status bar.
-        // Adding it here too would pad the content down a second time underneath that cap.
+        // Top excluded - already handled by the modifier above.
         contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal) },
         dragHandle = if (dismissible && showDragHandle) {
             { BottomSheetDefaults.DragHandle(color = WarpTheme.colors.background.subtleActive) }
