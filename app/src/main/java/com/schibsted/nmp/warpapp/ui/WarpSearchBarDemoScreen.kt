@@ -159,6 +159,6 @@ private fun SearchBarDemoSection(
 
 @Composable
 @Preview
-fun WarpSearchBarDemoScreenPreview() {
+private fun WarpSearchBarDemoScreenPreview() {
     WarpSearchBarDemoScreenContent(onUp = {})
 }

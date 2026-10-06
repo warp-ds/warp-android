@@ -158,8 +158,8 @@ fun WarpTopAppBar(
         subtitleText,
         titleCollapsible
     ) { mutableIntStateOf(0) }
-    var searchHeightPx by remember(searchConfig) { mutableIntStateOf(0) }
-    var tabsHeightPx by remember(tabConfig) { mutableIntStateOf(0) }
+    var searchHeightPx by remember(searchConfig?.state, searchConfig?.collapsible) { mutableIntStateOf(0) }
+    var tabsHeightPx by remember(tabConfig?.tabs, tabConfig?.collapsible) { mutableIntStateOf(0) }
 
     val titleMeasured = titleHeightPx > 0
     val searchMeasured = searchHeightPx > 0
@@ -414,7 +414,7 @@ fun WarpTopAppBar(
                     ),
                     hint = config.hint,
                     searchIsEnabled = config.enabled && (!config.collapsible || searchCollapseFraction > 0.5f),
-                    onSearch = { config.onSearch(config.state.text.toString()) },
+                    onSearch = config.onSearch,
                     onClearClick = config.onClear,
                     secondaryAction = searchSecondaryAction,
                     leadingAction = searchLeadingAction,

@@ -136,6 +136,18 @@ class WarpSearchBarTest(
             WarpSearchBarButton(
                 text = QUERY,
                 clearContentDescription = CLEAR_DESCRIPTION,
+                hint = BUTTON_HINT,
+                onClearClick = {}
+            )
+        }
+    }
+
+    @Test
+    fun warp_search_bar_button_with_text_no_clear_handler() {
+        snapshot {
+            WarpSearchBarButton(
+                text = QUERY,
+                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT
             )
         }
@@ -197,7 +209,8 @@ class WarpSearchBarTest(
                 text = QUERY,
                 clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT,
-                leadingAction = backAction()
+                leadingAction = backAction(),
+                onClearClick = {}
             )
         }
     }

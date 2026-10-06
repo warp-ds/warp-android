@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.test.click
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -79,6 +80,25 @@ class WarpSearchBarButtonClickTest {
 
         assertEquals(1, leadingActionClicks)
         assertEquals(0, inputClicks)
+    }
+
+    @Test
+    fun searchBarButton_showsClearButtonOnlyWhenHandlerProvided() {
+        val clearHandler = mutableStateOf<(() -> Unit)?>(null)
+        composeTestRule.setContent {
+            WarpSearchBarButton(
+                text = "something",
+                clearContentDescription = CLEAR_DESCRIPTION,
+                hint = HINT,
+                onClearClick = clearHandler.value
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription(CLEAR_DESCRIPTION).assertDoesNotExist()
+
+        composeTestRule.runOnIdle { clearHandler.value = {} }
+
+        composeTestRule.onNodeWithContentDescription(CLEAR_DESCRIPTION).assertExists()
     }
 }
 

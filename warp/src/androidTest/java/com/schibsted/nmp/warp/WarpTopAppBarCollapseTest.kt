@@ -22,7 +22,6 @@ import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import kotlin.math.abs
 import com.schibsted.nmp.warp.components.SearchConfiguration
 import com.schibsted.nmp.warp.components.TabConfiguration
 import com.schibsted.nmp.warp.components.TabData
@@ -37,15 +36,12 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.math.abs
 
 /**
  * Instrumented tests for WarpTopAppBar collapse functionality.
  * These tests verify that different collapse configurations work without crashing.
  */
-private const val APP_BAR_TAG = "topAppBar"
-private const val SCROLLABLE_LIST_TAG = "scrollableList"
-private const val SEARCH_HINT = "Search..."
-
 @RunWith(AndroidJUnit4::class)
 class WarpTopAppBarCollapseTest {
 
@@ -94,45 +90,7 @@ class WarpTopAppBarCollapseTest {
             }
         }
 
-        composeTestRule.waitForIdle()
-        val fieldHeight = searchFieldHeight()
-        val sectionTopExpanded = searchSectionTop()
-        val appBarHeightExpanded = appBarHeight()
-        assertTrue(
-            "search field must be measurable before scrolling, was $fieldHeight",
-            fieldHeight > 0f
-        )
-
-        composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
-            repeat(10) { swipeUp() }
-        }
-        composeTestRule.waitForIdle()
-        val sectionTopCollapsed = searchSectionTop()
-        val appBarHeightCollapsed = appBarHeight()
-
-        composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
-            repeat(10) { swipeUp() }
-        }
-        composeTestRule.waitForIdle()
-        val sectionTopSaturated = searchSectionTop()
-
-        val collapsedBy = sectionTopExpanded - sectionTopCollapsed
-        assertTrue(
-            "search section height must strictly decrease, section top went $sectionTopExpanded to $sectionTopCollapsed",
-            collapsedBy > 0f
-        )
-        assertTrue(
-            "search section must collapse by at least the whole search field height $fieldHeight, collapsed by $collapsedBy",
-            collapsedBy >= fieldHeight
-        )
-        assertTrue(
-            "search section must reach a fully collapsed height, further scrolling moved it $sectionTopCollapsed to $sectionTopSaturated",
-            abs(sectionTopSaturated - sectionTopCollapsed) <= 1f
-        )
-        assertTrue(
-            "app bar height must strictly decrease, was $appBarHeightExpanded then $appBarHeightCollapsed",
-            appBarHeightCollapsed < appBarHeightExpanded
-        )
+        assertSearchSectionCollapses()
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -147,6 +105,7 @@ class WarpTopAppBarCollapseTest {
                 topBar = {
                     WarpTopAppBar(
                         titleText = "Title Collapsible Test",
+                        modifier = Modifier.testTag(APP_BAR_TAG),
                         subtitleText = "Subtitle",
                         titleCollapsible = true,
                         navigationIcon = {
@@ -180,11 +139,20 @@ class WarpTopAppBarCollapseTest {
             }
         }
 
+        composeTestRule.waitForIdle()
+        val appBarHeightExpanded = appBarHeight()
+
         // Scroll to trigger collapse
         composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
             repeat(10) { swipeUp() }
         }
         composeTestRule.waitForIdle()
+        val appBarHeightCollapsed = appBarHeight()
+
+        assertTrue(
+            "title section height must strictly decrease, was $appBarHeightExpanded then $appBarHeightCollapsed",
+            appBarHeightCollapsed < appBarHeightExpanded
+        )
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -233,11 +201,20 @@ class WarpTopAppBarCollapseTest {
             }
         }
 
+        composeTestRule.waitForIdle()
+        val tabsSectionTopExpanded = sectionTop(TAB_LABEL)
+
         // Scroll to trigger collapse
         composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
             repeat(10) { swipeUp() }
         }
         composeTestRule.waitForIdle()
+        val tabsSectionTopCollapsed = sectionTop(TAB_LABEL)
+
+        assertTrue(
+            "tabs section height must strictly decrease, section top went $tabsSectionTopExpanded to $tabsSectionTopCollapsed",
+            tabsSectionTopCollapsed < tabsSectionTopExpanded
+        )
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -307,49 +284,11 @@ class WarpTopAppBarCollapseTest {
             }
         }
 
-        composeTestRule.waitForIdle()
-        val fieldHeight = searchFieldHeight()
-        val sectionTopExpanded = searchSectionTop()
-        val appBarHeightExpanded = appBarHeight()
-        assertTrue(
-            "search field must be measurable before scrolling, was $fieldHeight",
-            fieldHeight > 0f
-        )
-
-        composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
-            repeat(10) { swipeUp() }
-        }
-        composeTestRule.waitForIdle()
-        val sectionTopCollapsed = searchSectionTop()
-        val appBarHeightCollapsed = appBarHeight()
-
-        composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
-            repeat(10) { swipeUp() }
-        }
-        composeTestRule.waitForIdle()
-        val sectionTopSaturated = searchSectionTop()
-
-        val collapsedBy = sectionTopExpanded - sectionTopCollapsed
-        assertTrue(
-            "search section height must strictly decrease, section top went $sectionTopExpanded to $sectionTopCollapsed",
-            collapsedBy > 0f
-        )
-        assertTrue(
-            "search section must collapse by at least the whole search field height $fieldHeight, collapsed by $collapsedBy",
-            collapsedBy >= fieldHeight
-        )
-        assertTrue(
-            "search section must reach a fully collapsed height, further scrolling moved it $sectionTopCollapsed to $sectionTopSaturated",
-            abs(sectionTopSaturated - sectionTopCollapsed) <= 1f
-        )
-        assertTrue(
-            "app bar height must strictly decrease, was $appBarHeightExpanded then $appBarHeightCollapsed",
-            appBarHeightCollapsed < appBarHeightExpanded
-        )
+        val result = assertSearchSectionCollapses()
         assertTrue(
             "with every section collapsible the whole app bar must end shorter than one search field " +
-                "$fieldHeight, was $appBarHeightCollapsed",
-            appBarHeightCollapsed < fieldHeight
+                "${result.fieldHeight}, was ${result.appBarHeightCollapsed}",
+            result.appBarHeightCollapsed < result.fieldHeight
         )
     }
 
@@ -409,45 +348,7 @@ class WarpTopAppBarCollapseTest {
             }
         }
 
-        composeTestRule.waitForIdle()
-        val fieldHeight = searchFieldHeight()
-        val sectionTopExpanded = searchSectionTop()
-        val appBarHeightExpanded = appBarHeight()
-        assertTrue(
-            "search field must be measurable before scrolling, was $fieldHeight",
-            fieldHeight > 0f
-        )
-
-        composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
-            repeat(10) { swipeUp() }
-        }
-        composeTestRule.waitForIdle()
-        val sectionTopCollapsed = searchSectionTop()
-        val appBarHeightCollapsed = appBarHeight()
-
-        composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
-            repeat(10) { swipeUp() }
-        }
-        composeTestRule.waitForIdle()
-        val sectionTopSaturated = searchSectionTop()
-
-        val collapsedBy = sectionTopExpanded - sectionTopCollapsed
-        assertTrue(
-            "search section height must strictly decrease, section top went $sectionTopExpanded to $sectionTopCollapsed",
-            collapsedBy > 0f
-        )
-        assertTrue(
-            "search section must collapse by at least the whole search field height $fieldHeight, collapsed by $collapsedBy",
-            collapsedBy >= fieldHeight
-        )
-        assertTrue(
-            "search section must reach a fully collapsed height, further scrolling moved it $sectionTopCollapsed to $sectionTopSaturated",
-            abs(sectionTopSaturated - sectionTopCollapsed) <= 1f
-        )
-        assertTrue(
-            "app bar height must strictly decrease, was $appBarHeightExpanded then $appBarHeightCollapsed",
-            appBarHeightCollapsed < appBarHeightExpanded
-        )
+        assertSearchSectionCollapses()
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -522,6 +423,7 @@ class WarpTopAppBarCollapseTest {
                 topBar = {
                     WarpTopAppBar(
                         titleText = "No Collapse Test",
+                        modifier = Modifier.testTag(APP_BAR_TAG),
                         titleCollapsible = false,
                         searchConfig = SearchConfiguration(
                             state = searchState,
@@ -556,22 +458,84 @@ class WarpTopAppBarCollapseTest {
             }
         }
 
+        composeTestRule.waitForIdle()
+        val appBarHeightBeforeScroll = appBarHeight()
+
         // Scroll normally - nothing should collapse
         composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
             repeat(10) { swipeUp() }
         }
         composeTestRule.waitForIdle()
+        val appBarHeightAfterScroll = appBarHeight()
+
+        assertTrue(
+            "with nothing collapsible the app bar height must not change, was $appBarHeightBeforeScroll then $appBarHeightAfterScroll",
+            abs(appBarHeightAfterScroll - appBarHeightBeforeScroll) <= 1f
+        )
+    }
+
+    private fun assertSearchSectionCollapses(): SearchCollapseResult {
+        composeTestRule.waitForIdle()
+        val fieldHeight = searchFieldHeight()
+        val sectionTopExpanded = searchSectionTop()
+        val appBarHeightExpanded = appBarHeight()
+        assertTrue(
+            "search field must be measurable before scrolling, was $fieldHeight",
+            fieldHeight > 0f
+        )
+
+        composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
+            repeat(10) { swipeUp() }
+        }
+        composeTestRule.waitForIdle()
+        val sectionTopCollapsed = searchSectionTop()
+        val appBarHeightCollapsed = appBarHeight()
+
+        composeTestRule.onNodeWithTag(SCROLLABLE_LIST_TAG).performTouchInput {
+            repeat(10) { swipeUp() }
+        }
+        composeTestRule.waitForIdle()
+        val sectionTopSaturated = searchSectionTop()
+
+        val collapsedBy = sectionTopExpanded - sectionTopCollapsed
+        assertTrue(
+            "search section height must strictly decrease, section top went $sectionTopExpanded to $sectionTopCollapsed",
+            collapsedBy > 0f
+        )
+        assertTrue(
+            "search section must collapse by at least the whole search field height $fieldHeight, collapsed by $collapsedBy",
+            collapsedBy >= fieldHeight
+        )
+        assertTrue(
+            "search section must reach a fully collapsed height, further scrolling moved it $sectionTopCollapsed to $sectionTopSaturated",
+            abs(sectionTopSaturated - sectionTopCollapsed) <= 1f
+        )
+        assertTrue(
+            "app bar height must strictly decrease, was $appBarHeightExpanded then $appBarHeightCollapsed",
+            appBarHeightCollapsed < appBarHeightExpanded
+        )
+
+        return SearchCollapseResult(fieldHeight = fieldHeight, appBarHeightCollapsed = appBarHeightCollapsed)
     }
 
     private fun searchFieldHeight(): Float =
         composeTestRule.onNode(hasSetTextAction(), useUnmergedTree = true)
             .fetchSemanticsNode().size.height.toFloat()
 
-    private fun searchSectionTop(): Float =
-        composeTestRule.onNodeWithText(SEARCH_HINT, useUnmergedTree = true)
+    private fun searchSectionTop(): Float = sectionTop(SEARCH_HINT)
+
+    private fun sectionTop(label: String): Float =
+        composeTestRule.onNodeWithText(label, useUnmergedTree = true)
             .fetchSemanticsNode().boundsInRoot.top
 
     private fun appBarHeight(): Float =
         composeTestRule.onNodeWithTag(APP_BAR_TAG, useUnmergedTree = true)
             .fetchSemanticsNode().boundsInRoot.height
 }
+
+private data class SearchCollapseResult(val fieldHeight: Float, val appBarHeightCollapsed: Float)
+
+private const val APP_BAR_TAG = "topAppBar"
+private const val SCROLLABLE_LIST_TAG = "scrollableList"
+private const val SEARCH_HINT = "Search..."
+private const val TAB_LABEL = "Tab 1"
