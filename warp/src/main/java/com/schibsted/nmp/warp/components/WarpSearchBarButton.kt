@@ -2,7 +2,6 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 
@@ -18,13 +17,7 @@ fun WarpSearchBarButton(
     secondaryAction: WarpSearchBarAction? = null,
     leadingAction: WarpSearchBarAction? = null,
 ) {
-    val textFieldState = remember { TextFieldState(text) }
-
-    LaunchedEffect(text) {
-        if (textFieldState.text.toString() != text) {
-            textFieldState.edit { replace(0, length, text) }
-        }
-    }
+    val textFieldState = remember(text) { TextFieldState(text) }
 
     WarpSearchBarImpl(
         textFieldState = textFieldState,

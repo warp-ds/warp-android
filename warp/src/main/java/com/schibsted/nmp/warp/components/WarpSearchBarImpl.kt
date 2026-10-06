@@ -31,7 +31,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.LayoutCoordinates
@@ -65,7 +64,6 @@ internal fun WarpSearchBarImpl(
     onQueryChange: ((String) -> Unit)? = null,
     showClearButton: Boolean = false,
     onClearClick: (() -> Unit)? = null,
-    disabledTextColor: Color = colors.text.disabled,
     secondaryAction: WarpSearchBarAction? = null,
     leadingAction: WarpSearchBarAction? = null,
     requestInitialFocus: Boolean = false,
@@ -75,18 +73,20 @@ internal fun WarpSearchBarImpl(
     val isButton = readOnly && onInputClick != null
     val interactionSource = remember { MutableInteractionSource() }
     var inputFieldRootX by remember { mutableFloatStateOf(0f) }
-    var leadingIconRootRange by remember { mutableStateOf<ClosedFloatingPointRange<Float>?>(null) }
-    var trailingIconRootRange by remember { mutableStateOf<ClosedFloatingPointRange<Float>?>(null) }
+    val showTrailingIcon = showClearButton || secondaryAction != null
+    var leadingIconRootRange by remember(leadingAction != null) { mutableStateOf<ClosedFloatingPointRange<Float>?>(null) }
+    var trailingIconRootRange by remember(showTrailingIcon) { mutableStateOf<ClosedFloatingPointRange<Float>?>(null) }
     val internalFocusRequester = remember { FocusRequester() }
     val inputFocusRequester = focusRequester ?: internalFocusRequester
-    var inputIsFocused by remember { mutableStateOf(false) }
+    var inputIsFocused by remember(isButton) { mutableStateOf(false) }
     val focusesInputOnEntry = requestInitialFocus && !isButton
+    val latestOnInputClick by rememberUpdatedState(onInputClick)
     val inputFieldModifier = if (isButton) {
         Modifier
             .fillMaxWidth()
             .clip(SearchBarDefaults.inputFieldShape)
             .onGloballyPositioned { inputFieldRootX = it.positionInRoot().x }
-            .pointerInput(onInputClick) {
+            .pointerInput(Unit) {
                 awaitEachGesture {
                     val down = awaitFirstDown(pass = PointerEventPass.Initial)
                     val downRootX = inputFieldRootX + down.position.x
@@ -105,7 +105,7 @@ internal fun WarpSearchBarImpl(
                                 PressInteraction.Cancel(press)
                             }
                         )
-                        if (up != null) onInputClick?.invoke()
+                        if (up != null) latestOnInputClick?.invoke()
                     }
                 }
             }
@@ -113,7 +113,7 @@ internal fun WarpSearchBarImpl(
                 interactionSource = interactionSource,
                 indication = ripple(),
                 role = Role.Button,
-                onClick = { onInputClick?.invoke() },
+                onClick = { latestOnInputClick?.invoke() },
             )
             .focusProperties { canFocus = false }
     } else {
@@ -175,7 +175,7 @@ internal fun WarpSearchBarImpl(
         }
     }
 
-    val trailingIcon: (@Composable () -> Unit)? = if (showClearButton || secondaryAction != null) {
+    val trailingIcon: (@Composable () -> Unit)? = if (showTrailingIcon) {
         {
             Row(
                 modifier = Modifier.onGloballyPositioned { trailingIconRootRange = it.rootXRange() },
@@ -217,7 +217,7 @@ internal fun WarpSearchBarImpl(
         focusedContainerColor = colors.background.subtle,
         unfocusedTextColor = colors.text.default,
         unfocusedContainerColor = colors.background.subtle,
-        disabledTextColor = disabledTextColor,
+        disabledTextColor = colors.text.disabled,
         disabledPlaceholderColor = colors.text.placeholder,
         disabledContainerColor = colors.background.subtle,
         focusedPlaceholderColor = colors.text.placeholder,
