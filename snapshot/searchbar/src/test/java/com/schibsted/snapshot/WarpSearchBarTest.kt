@@ -53,7 +53,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBar(
                 textFieldState = TextFieldState(""),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = SEARCH_HINT
             )
         }
@@ -64,7 +63,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBar(
                 textFieldState = TextFieldState(QUERY),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = SEARCH_HINT
             )
         }
@@ -75,7 +73,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBar(
                 textFieldState = TextFieldState(""),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = SEARCH_HINT,
                 secondaryAction = filterAction()
             )
@@ -87,7 +84,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBar(
                 textFieldState = TextFieldState(""),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = SEARCH_HINT,
                 leadingAction = backAction()
             )
@@ -99,7 +95,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBar(
                 textFieldState = TextFieldState(""),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = SEARCH_HINT,
                 leadingAction = backAction(),
                 secondaryAction = filterAction()
@@ -112,7 +107,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBar(
                 textFieldState = TextFieldState(QUERY),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = SEARCH_HINT,
                 leadingAction = backAction()
             )
@@ -124,7 +118,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBarButton(
                 text = "",
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT
             )
         }
@@ -135,7 +128,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBarButton(
                 text = QUERY,
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT,
                 onClearClick = {}
             )
@@ -147,7 +139,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBarButton(
                 text = QUERY,
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT
             )
         }
@@ -158,7 +149,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBarButton(
                 text = "",
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT,
                 secondaryAction = filterAction()
             )
@@ -170,7 +160,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBarButton(
                 text = SECOND_QUERY,
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT,
                 secondaryAction = filterAction()
             )
@@ -182,7 +171,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBarButton(
                 text = "",
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT,
                 leadingAction = backAction()
             )
@@ -194,7 +182,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBarButton(
                 text = "",
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT,
                 leadingAction = backAction(),
                 secondaryAction = filterAction()
@@ -207,7 +194,6 @@ class WarpSearchBarTest(
         snapshot {
             WarpSearchBarButton(
                 text = QUERY,
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = BUTTON_HINT,
                 leadingAction = backAction(),
                 onClearClick = {}
@@ -245,7 +231,6 @@ class WarpSearchBarTest(
     )
 
     private companion object {
-        const val CLEAR_DESCRIPTION = "Clear"
         const val SEARCH_HINT = "Search here"
         const val BUTTON_HINT = "Search in Recommerce"
         const val QUERY = "iPhone 15 Pro"

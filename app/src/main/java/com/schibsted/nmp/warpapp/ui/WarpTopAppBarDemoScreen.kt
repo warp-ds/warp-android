@@ -74,7 +74,6 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
                         // Handle search submission
                         println("Search: $query")
                     },
-                    clearContentDescription = "Clear search",
                     hint = "Search messages, favorites...",
                     collapsible = searchCollapsible
                 ),

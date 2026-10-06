@@ -30,7 +30,6 @@ class WarpSearchBarFocusTest {
         composeTestRule.setContent {
             WarpSearchBar(
                 textFieldState = TextFieldState(""),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 requestInitialFocus = true,
             )
@@ -44,7 +43,6 @@ class WarpSearchBarFocusTest {
         composeTestRule.setContent {
             WarpSearchBar(
                 textFieldState = TextFieldState(""),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
             )
         }
@@ -58,7 +56,6 @@ class WarpSearchBarFocusTest {
         composeTestRule.setContent {
             WarpSearchBarButton(
                 text = "",
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 onClick = { clicks++ },
             )
@@ -94,7 +91,6 @@ class WarpSearchBarFocusTest {
         composeTestRule.setContent {
             WarpSearchBar(
                 textFieldState = TextFieldState(""),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 onFocusChanged = { focusEvents += it },
             )
@@ -135,7 +131,6 @@ class WarpSearchBarFocusTest {
         composeTestRule.setContent {
             WarpSearchBar(
                 textFieldState = TextFieldState(""),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 onFocusChanged = { focusEvents += it },
                 focusRequester = focusRequester,

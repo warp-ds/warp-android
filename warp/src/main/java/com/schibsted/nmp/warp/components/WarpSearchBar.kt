@@ -5,12 +5,14 @@ import androidx.compose.foundation.text.input.clearText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.res.stringResource
+import com.schibsted.nmp.warp.R
 
 @Composable
 fun WarpSearchBar(
     textFieldState: TextFieldState,
-    clearContentDescription: String,
     modifier: Modifier = Modifier,
+    clearContentDescription: String = stringResource(R.string.clear_field),
     hint: String = "",
     searchIsEnabled: Boolean = true,
     onSearch: (String) -> Unit = {},

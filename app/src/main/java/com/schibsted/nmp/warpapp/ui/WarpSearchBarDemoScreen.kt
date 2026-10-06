@@ -52,7 +52,7 @@ fun WarpSearchBarDemoScreenContent(onUp: () -> Unit) {
     ) {
         SearchBarDemoSection(
             title = "Interactive search bar",
-            description = "Type to update the text below. The clear button appears once there is text and actually empties the field."
+            description = "Type to update the text below. The clear button appears once there is text and actually empties the field. clearContentDescription is localised by default, but can be overridden, as shown here."
         ) {
             WarpSearchBar(
                 textFieldState = interactiveState,
@@ -76,7 +76,6 @@ fun WarpSearchBarDemoScreenContent(onUp: () -> Unit) {
         ) {
             WarpSearchBar(
                 textFieldState = leadingActionState,
-                clearContentDescription = "Clear search",
                 hint = "Search here",
                 leadingAction = WarpSearchBarAction(
                     icon = icons.arrowLeft,
@@ -95,7 +94,6 @@ fun WarpSearchBarDemoScreenContent(onUp: () -> Unit) {
         ) {
             WarpSearchBar(
                 textFieldState = secondaryActionState,
-                clearContentDescription = "Clear search",
                 hint = "Search here",
                 secondaryAction = WarpSearchBarAction(
                     icon = icons.filter,
@@ -120,7 +118,6 @@ fun WarpSearchBarDemoScreenContent(onUp: () -> Unit) {
         ) {
             WarpSearchBarButton(
                 text = buttonQuery,
-                clearContentDescription = "Clear search",
                 hint = "Search in Recommerce",
                 onClick = { buttonTapCount += 1 },
                 onClearClick = { buttonQuery = "" }

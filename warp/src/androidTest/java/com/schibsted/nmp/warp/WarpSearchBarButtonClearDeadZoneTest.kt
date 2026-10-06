@@ -9,6 +9,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performTouchInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.schibsted.nmp.warp.components.WarpSearchBarButton
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -29,15 +30,16 @@ class WarpSearchBarButtonClearDeadZoneTest {
         composeTestRule.setContent {
             WarpSearchBarButton(
                 text = text,
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 onClick = { inputClicks++ },
                 onClearClick = {},
             )
         }
 
+        val clearFieldDescription = InstrumentationRegistry.getInstrumentation().targetContext
+            .getString(R.string.clear_field)
         val formerClearIconBounds = composeTestRule
-            .onNodeWithContentDescription(CLEAR_DESCRIPTION)
+            .onNodeWithContentDescription(clearFieldDescription)
             .fetchSemanticsNode()
             .touchBoundsInRoot
         val tapPosition = formerClearIconBounds.center
@@ -53,4 +55,3 @@ class WarpSearchBarButtonClearDeadZoneTest {
 
 private const val HINT = "Search here"
 private const val EXISTING_QUERY = "hello"
-private const val CLEAR_DESCRIPTION = "Clear"

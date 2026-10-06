@@ -54,7 +54,6 @@ data class TabData(
  * Configuration for the integrated search bar.
  * @param state TextFieldState managing the search input text
  * @param onSearch Callback when search is submitted (enter key pressed)
- * @param clearContentDescription Accessibility label for the search field's clear button
  * @param hint Placeholder text shown when search is empty
  * @param enabled Whether the search field is enabled
  * @param onClear Callback when the clear button is pressed
@@ -62,7 +61,6 @@ data class TabData(
 data class SearchConfiguration(
     val state: TextFieldState,
     val onSearch: (String) -> Unit,
-    val clearContentDescription: String,
     val hint: String = "",
     val enabled: Boolean = true,
     val collapsible: Boolean = false,
@@ -407,7 +405,6 @@ fun WarpTopAppBar(
             ) {
                 WarpSearchBar(
                     textFieldState = config.state,
-                    clearContentDescription = config.clearContentDescription,
                     modifier = Modifier.padding(
                         start = dimensions.space2, end = dimensions.space2,
                         bottom = dimensions.space1
@@ -519,7 +516,6 @@ fun WarpTopAppBarPreview() {
             searchConfig = SearchConfiguration(
                 state = searchState,
                 onSearch = {},
-                clearContentDescription = "Clear search",
                 hint = "Search...",
                 collapsible = false
             ),

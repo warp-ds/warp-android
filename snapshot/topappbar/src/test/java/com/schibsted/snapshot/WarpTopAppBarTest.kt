@@ -150,7 +150,6 @@ class WarpTopAppBarTest(
                             searchConfig = SearchConfiguration(
                                 state = searchState,
                                 onSearch = {},
-                                clearContentDescription = "Clear search",
                                 hint = "Search"
                             ),
                             navigationIcon = {
@@ -242,7 +241,6 @@ class WarpTopAppBarTest(
                             searchConfig = SearchConfiguration(
                                 state = searchState,
                                 onSearch = {},
-                                clearContentDescription = "Clear search",
                                 hint = "Search"
                             ),
                             tabConfig = TabConfiguration(
@@ -323,7 +321,6 @@ class WarpTopAppBarTest(
                             searchConfig = SearchConfiguration(
                                 state = searchState,
                                 onSearch = {},
-                                clearContentDescription = "Clear search",
                                 hint = "Search",
                                 collapsible = true
                             ),

@@ -10,6 +10,7 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.schibsted.nmp.warp.components.WarpSearchBarAction
 import com.schibsted.nmp.warp.components.WarpSearchBarButton
 import com.schibsted.nmp.warp.theme.WarpIconResources
@@ -31,7 +32,6 @@ class WarpSearchBarButtonClickTest {
         composeTestRule.setContent {
             WarpSearchBarButton(
                 text = "",
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 onClick = { inputClicks++ },
                 leadingAction = WarpSearchBarAction(
@@ -88,20 +88,20 @@ class WarpSearchBarButtonClickTest {
         composeTestRule.setContent {
             WarpSearchBarButton(
                 text = "something",
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 onClearClick = clearHandler.value
             )
         }
 
-        composeTestRule.onNodeWithContentDescription(CLEAR_DESCRIPTION).assertDoesNotExist()
+        val clearFieldDescription = InstrumentationRegistry.getInstrumentation().targetContext
+            .getString(R.string.clear_field)
+        composeTestRule.onNodeWithContentDescription(clearFieldDescription).assertDoesNotExist()
 
         composeTestRule.runOnIdle { clearHandler.value = {} }
 
-        composeTestRule.onNodeWithContentDescription(CLEAR_DESCRIPTION).assertExists()
+        composeTestRule.onNodeWithContentDescription(clearFieldDescription).assertExists()
     }
 }
 
 private const val HINT = "Search here"
 private const val LEADING_ACTION_DESCRIPTION = "Back"
-private const val CLEAR_DESCRIPTION = "Clear"

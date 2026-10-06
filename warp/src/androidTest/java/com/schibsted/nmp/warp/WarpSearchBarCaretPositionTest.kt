@@ -34,7 +34,6 @@ class WarpSearchBarCaretPositionTest {
         composeTestRule.setContent {
             WarpSearchBar(
                 textFieldState = TextFieldState(EXISTING_QUERY),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 requestInitialFocus = true,
             )
@@ -51,7 +50,6 @@ class WarpSearchBarCaretPositionTest {
             if (searchBarVisible) {
                 WarpSearchBar(
                     textFieldState = textFieldState,
-                    clearContentDescription = CLEAR_DESCRIPTION,
                     hint = HINT,
                     requestInitialFocus = true,
                 )
@@ -72,7 +70,6 @@ class WarpSearchBarCaretPositionTest {
         composeTestRule.setContent {
             WarpSearchBar(
                 textFieldState = TextFieldState(EXISTING_QUERY),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 onSearchChanged = { changes += it },
             )
@@ -93,7 +90,6 @@ class WarpSearchBarCaretPositionTest {
         composeTestRule.setContent {
             WarpSearchBar(
                 textFieldState = TextFieldState(EXISTING_QUERY),
-                clearContentDescription = CLEAR_DESCRIPTION,
                 hint = HINT,
                 onSearch = { submitted += it },
             )
@@ -108,4 +104,3 @@ class WarpSearchBarCaretPositionTest {
 
 private const val HINT = "Search here"
 private const val EXISTING_QUERY = "hello"
-private const val CLEAR_DESCRIPTION = "Clear"

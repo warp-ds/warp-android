@@ -361,5 +361,6 @@
     <string name="coathanger">Coat hanger</string>
     <string name="printer">Printer</string>
     <string name="shareandroid">Three connected dots</string>
+    <string name="clear_field">Clear field</string>
 
 </resources>
