@@ -3,6 +3,8 @@ package com.schibsted.nmp.warp.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,10 +16,10 @@ import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
-import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -27,34 +29,106 @@ import kotlinx.coroutines.launch
  * A modal bottom sheet anchored to the bottom of the screen that dims content behind it.
  *
  * Wraps Material 3's [ModalBottomSheet] with Warp's surface and drag-handle color tokens; shape
- * and handle size are left at M3 defaults, which already match the Warp Figma spec.
+ * and handle size are left at M3 defaults, which already match the Warp Figma spec. Tapping the
+ * scrim always dismisses.
  *
  * @param onDismissRequest Called once the hide animation completes. Also passed to [content] as
  * `dismiss`, so in-sheet actions can close the sheet the same way.
  * @param modifier Applied to the sheet surface, on top of Warp's own status-bar inset cap.
- * @param dismissible Whether back-press, scrim-tap, swipe, and the drag handle can close the
- * sheet. Set to `false` only while a non-cancellable operation is in flight.
- * @param showDragHandle Ignored when [dismissible] is false - a non-dismissible sheet never shows
- * a handle, since it wouldn't do anything.
+ * @param draggable Whether the sheet shows a drag handle and responds to swipe. Set to `false` when
+ * content has its own drag gestures or a swipe would throw away user input.
+ * @param dismissOnBackPress Whether back-press dismisses the sheet. Set to `false` when content
+ * handles back itself, e.g. its own sub-navigation.
+ * @param skipPartiallyExpanded Whether the sheet opens fully expanded. Requires [draggable] when
+ * `false`, since a non-draggable sheet can't leave the half-expanded state.
  * @param title Optional plain-text heading above [content].
  * @param content Sheet body; receives a `dismiss` callback (see [onDismissRequest]).
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    dismissible: Boolean = true,
-    showDragHandle: Boolean = true,
+    draggable: Boolean = true,
+    dismissOnBackPress: Boolean = true,
+    // TODO: Confirm the need for partial expand, likely the search filter sheets.
+    skipPartiallyExpanded: Boolean = true,
     title: String? = null,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
-    val scope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        // Gate only Hidden - gating every target would also block the initial reveal.
-        confirmValueChange = { targetValue -> dismissible || targetValue != SheetValue.Hidden },
+    WarpBottomSheetImpl(
+        onDismissRequest = onDismissRequest,
+        modifier = modifier,
+        draggable = draggable,
+        dismissOnBackPress = dismissOnBackPress,
+        skipPartiallyExpanded = skipPartiallyExpanded,
+        header = title?.let {
+            {
+                WarpText(
+                    text = it,
+                    style = WarpTextStyle.Title3,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = WarpTheme.dimensions.space2, vertical = WarpTheme.dimensions.space1),
+                )
+            }
+        },
+        content = content,
     )
+}
+
+/**
+ * A [WarpBottomSheet] with a custom header row above [content], e.g. back navigation, title and a
+ * trailing action. The sheet provides only the row; navigation and action behavior are up to the
+ * caller.
+ *
+ * @param header Content of a full-width, vertically centered row above [content].
+ */
+@Composable
+fun WarpBottomSheet(
+    onDismissRequest: () -> Unit,
+    header: @Composable RowScope.() -> Unit,
+    modifier: Modifier = Modifier,
+    draggable: Boolean = true,
+    dismissOnBackPress: Boolean = true,
+    // TODO: Confirm the need for partial expand, likely the search filter sheets.
+    skipPartiallyExpanded: Boolean = true,
+    content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
+) {
+    WarpBottomSheetImpl(
+        onDismissRequest = onDismissRequest,
+        modifier = modifier,
+        draggable = draggable,
+        dismissOnBackPress = dismissOnBackPress,
+        skipPartiallyExpanded = skipPartiallyExpanded,
+        header = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = WarpTheme.dimensions.space1),
+                verticalAlignment = Alignment.CenterVertically,
+                content = header,
+            )
+        },
+        content = content,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun WarpBottomSheetImpl(
+    onDismissRequest: () -> Unit,
+    modifier: Modifier,
+    draggable: Boolean,
+    dismissOnBackPress: Boolean,
+    skipPartiallyExpanded: Boolean,
+    header: (@Composable () -> Unit)?,
+    content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
+) {
+    require(skipPartiallyExpanded || draggable) {
+        "A non-draggable WarpBottomSheet must skip the partially expanded state."
+    }
+    val scope = rememberCoroutineScope()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
     val dismiss: () -> Unit = {
         scope.launch { sheetState.hide() }.invokeOnCompletion {
             if (!sheetState.isVisible) onDismissRequest()
@@ -68,34 +142,26 @@ fun WarpBottomSheet(
             .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
             .then(modifier),
         sheetState = sheetState,
+        sheetGesturesEnabled = draggable,
         containerColor = WarpTheme.colors.surface.elevated100,
         contentColor = WarpTheme.colors.text.default,
         // Top excluded - already handled by the modifier above.
         contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal) },
-        dragHandle = if (dismissible && showDragHandle) {
+        dragHandle = if (draggable) {
             { BottomSheetDefaults.DragHandle(color = WarpTheme.colors.background.subtleActive) }
         } else {
             null
         },
         properties = ModalBottomSheetProperties(
-            shouldDismissOnBackPress = dismissible,
-            shouldDismissOnClickOutside = dismissible,
+            shouldDismissOnBackPress = dismissOnBackPress,
+            shouldDismissOnClickOutside = true,
         ),
     ) {
-        if (title != null) {
-            WarpText(
-                text = title,
-                style = WarpTextStyle.Title3,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = WarpTheme.dimensions.space2, vertical = WarpTheme.dimensions.space1),
-            )
-        }
+        header?.invoke()
         content(dismiss)
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview(name = "Light", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -119,29 +185,36 @@ private fun WarpBottomSheetTitleAndActionPreview() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(name = "No header, not dismissible", showBackground = true)
+@Preview(name = "Header row", showBackground = true)
 @Composable
-private fun WarpBottomSheetMinimalPreview() {
+private fun WarpBottomSheetHeaderPreview() {
     WarpBottomSheet(
         onDismissRequest = {},
-        dismissible = false,
+        header = {
+            WarpText(
+                text = "Filters",
+                style = WarpTextStyle.Title3,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = WarpTheme.dimensions.space1),
+            )
+            WarpButton(text = "Reset", onClick = {}, style = WarpButtonStyle.Quiet)
+        },
     ) {
         WarpText(
-            text = "Plain content, no header, no drag handle.",
+            text = "Content below a custom header row.",
             style = WarpTextStyle.Body,
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
         )
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(name = "Dismissible, handle hidden", showBackground = true)
+@Preview(name = "Not draggable", showBackground = true)
 @Composable
-private fun WarpBottomSheetHiddenHandlePreview() {
+private fun WarpBottomSheetNotDraggablePreview() {
     WarpBottomSheet(
         onDismissRequest = {},
-        showDragHandle = false,
+        draggable = false,
         title = "Reorder photos",
     ) {
         WarpText(
