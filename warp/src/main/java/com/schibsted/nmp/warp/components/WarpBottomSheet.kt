@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -22,6 +23,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.theme.WarpTheme
 import kotlinx.coroutines.launch
 
@@ -62,15 +64,7 @@ fun WarpBottomSheet(
         dismissOnBackPress = dismissOnBackPress,
         skipPartiallyExpanded = skipPartiallyExpanded,
         header = title?.let {
-            {
-                WarpText(
-                    text = it,
-                    style = WarpTextStyle.Title3,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = WarpTheme.dimensions.space2, vertical = WarpTheme.dimensions.space1),
-                )
-            }
+            { WarpText(text = it, style = WarpTextStyle.Title3, modifier = Modifier.weight(1f)) }
         },
         content = content,
     )
@@ -100,15 +94,7 @@ fun WarpBottomSheet(
         draggable = draggable,
         dismissOnBackPress = dismissOnBackPress,
         skipPartiallyExpanded = skipPartiallyExpanded,
-        header = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = WarpTheme.dimensions.space1),
-                verticalAlignment = Alignment.CenterVertically,
-                content = header,
-            )
-        },
+        header = header,
         content = content,
     )
 }
@@ -121,7 +107,7 @@ private fun WarpBottomSheetImpl(
     draggable: Boolean,
     dismissOnBackPress: Boolean,
     skipPartiallyExpanded: Boolean,
-    header: (@Composable () -> Unit)?,
+    header: (@Composable RowScope.() -> Unit)?,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
     require(skipPartiallyExpanded || draggable) {
@@ -157,7 +143,22 @@ private fun WarpBottomSheetImpl(
             shouldDismissOnClickOutside = true,
         ),
     ) {
-        header?.invoke()
+        if (header != null) {
+            Row(
+                // M3's 48dp handle already spaces the header from the top edge; without it, Figma's 64dp row does.
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .then(if (draggable) Modifier else Modifier.heightIn(min = WarpTheme.dimensions.space8))
+                    .padding(
+                        start = WarpTheme.dimensions.space2,
+                        end = WarpTheme.dimensions.space05,
+                        top = if (draggable) 0.dp else WarpTheme.dimensions.space1,
+                        bottom = WarpTheme.dimensions.space1,
+                    ),
+                verticalAlignment = Alignment.CenterVertically,
+                content = header,
+            )
+        }
         content(dismiss)
     }
 }
@@ -191,13 +192,7 @@ private fun WarpBottomSheetHeaderPreview() {
     WarpBottomSheet(
         onDismissRequest = {},
         header = {
-            WarpText(
-                text = "Filters",
-                style = WarpTextStyle.Title3,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = WarpTheme.dimensions.space1),
-            )
+            WarpText(text = "Filters", style = WarpTextStyle.Title3, modifier = Modifier.weight(1f))
             WarpButton(text = "Reset", onClick = {}, style = WarpButtonStyle.Quiet)
         },
     ) {
