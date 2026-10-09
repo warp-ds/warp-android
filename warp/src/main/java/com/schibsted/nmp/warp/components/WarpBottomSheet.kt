@@ -31,7 +31,8 @@ import kotlinx.coroutines.launch
  * A modal bottom sheet anchored to the bottom of the screen that dims content behind it.
  *
  * Wraps Material 3's [ModalBottomSheet] with Warp's surface and drag-handle color tokens; shape
- * and handle size are left at M3 defaults. Tapping the scrim always dismisses.
+ * and handle size are left at M3 defaults. The sheet always opens fully expanded, and tapping the
+ * scrim always dismisses.
  *
  * @param onDismissRequest Called once the hide animation completes. Also passed to [content] as
  * `dismiss`, so in-sheet actions can close the sheet the same way.
@@ -40,8 +41,6 @@ import kotlinx.coroutines.launch
  * handles back itself, e.g. its own sub-navigation.
  * @param draggable Whether the sheet shows a drag handle and responds to swipe. Set to `false` when
  * content has its own drag gestures or a swipe would throw away user input.
- * @param skipPartiallyExpanded Whether the sheet opens fully expanded. Requires [draggable] when
- * `false`, since a non-draggable sheet can't leave the half-expanded state.
  * @param title Optional plain-text heading above [content].
  * @param content Sheet body; receives a `dismiss` callback (see [onDismissRequest]).
  */
@@ -51,8 +50,6 @@ fun WarpBottomSheet(
     modifier: Modifier = Modifier,
     dismissOnBackPress: Boolean = true,
     draggable: Boolean = true,
-    // TODO: Confirm the need for partial expand, likely the search filter sheets.
-    skipPartiallyExpanded: Boolean = true,
     title: String? = null,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
@@ -61,7 +58,6 @@ fun WarpBottomSheet(
         modifier = modifier,
         dismissOnBackPress = dismissOnBackPress,
         draggable = draggable,
-        skipPartiallyExpanded = skipPartiallyExpanded,
         header = title?.let {
             { WarpText(text = it, style = WarpTextStyle.Title3, modifier = Modifier.weight(1f)) }
         },
@@ -83,8 +79,6 @@ fun WarpBottomSheet(
     modifier: Modifier = Modifier,
     dismissOnBackPress: Boolean = true,
     draggable: Boolean = true,
-    // TODO: Confirm the need for partial expand, likely the search filter sheets.
-    skipPartiallyExpanded: Boolean = true,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
     WarpBottomSheetImpl(
@@ -92,7 +86,6 @@ fun WarpBottomSheet(
         modifier = modifier,
         dismissOnBackPress = dismissOnBackPress,
         draggable = draggable,
-        skipPartiallyExpanded = skipPartiallyExpanded,
         header = header,
         content = content,
     )
@@ -105,15 +98,11 @@ private fun WarpBottomSheetImpl(
     modifier: Modifier,
     dismissOnBackPress: Boolean,
     draggable: Boolean,
-    skipPartiallyExpanded: Boolean,
     header: (@Composable RowScope.() -> Unit)?,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
-    require(skipPartiallyExpanded || draggable) {
-        "A non-draggable WarpBottomSheet must skip the partially expanded state."
-    }
     val scope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val dismiss: () -> Unit = {
         scope.launch { sheetState.hide() }.invokeOnCompletion {
             if (!sheetState.isVisible) onDismissRequest()
