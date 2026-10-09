@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,10 +27,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -79,6 +82,26 @@ data class TabConfiguration(
     val collapsible: Boolean = false,
 )
 
+/**
+ * Controls the layout and collapse style of [WarpTopAppBar].
+ */
+sealed class WarpAppBarStyle {
+    /** Standard single-row top app bar — the default behavior. */
+    object Default : WarpAppBarStyle()
+
+    /**
+     * Two-row collapsible app bar matching Material 3 Expressive "Medium Flexible":
+     * navigation icon + actions on the always-visible compact top row; large title and
+     * (optional) subtitle in an expandable section below that collapses on scroll.
+     *
+     * Search and tabs, if provided, appear below the flex title section. Set
+     * [SearchConfiguration.collapsible] or [TabConfiguration.collapsible] to true to have them
+     * collapse after the flex title section (enter-always semantics — they re-expand on any
+     * upward scroll). The [WarpTopAppBar] `titleCollapsible` parameter is ignored in this mode.
+     */
+    object MediumFlexible : WarpAppBarStyle()
+}
+
 private const val ALPHA_THRESHOLD = 0.3f
 
 /**
@@ -124,11 +147,14 @@ private fun calculateSectionCollapseFraction(
  * @param scrollBehavior The scroll behavior to be used for the top app bar. If null and any section
  *                       is collapsible (or could be), a default behavior will be created automatically.
  * @param subtitleText The subtitle text.
- * @param titleCollapsible Whether the title section should collapse on scroll.
+ * @param titleCollapsible Whether the title section should collapse on scroll. Ignored when [style]
+ *                         is [WarpAppBarStyle.MediumFlexible].
  * @param searchConfig Configuration for integrated search functionality.
  * @param tabConfig Configuration for integrated tab bar.
+ * @param style Controls the layout and collapse style. [WarpAppBarStyle.Default] preserves current
+ *              behavior; [WarpAppBarStyle.MediumFlexible] shows a large title + subtitle that
+ *              collapse into the compact row on scroll (Material 3 Expressive).
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpTopAppBar(
     titleText: String,
@@ -142,6 +168,7 @@ fun WarpTopAppBar(
     titleCollapsible: Boolean = false,
     searchConfig: SearchConfiguration? = null,
     tabConfig: TabConfiguration? = null,
+    style: WarpAppBarStyle = WarpAppBarStyle.Default,
 ) {
     // Height tracking for collapsible sections (in pixels)
     var titleHeightPx by remember(
@@ -151,45 +178,61 @@ fun WarpTopAppBar(
     ) { mutableIntStateOf(0) }
     var searchHeightPx by remember(searchConfig) { mutableIntStateOf(0) }
     var tabsHeightPx by remember(tabConfig) { mutableIntStateOf(0) }
+    // Height of the expandable section in MediumFlexible mode
+    // Updated on every layout pass so width, font scale, or text changes are picked up.
+    var flexExpandedHeightPx by remember { mutableIntStateOf(0) }
 
     val titleMeasured = titleHeightPx > 0
     val searchMeasured = searchHeightPx > 0
     val tabsMeasured = tabsHeightPx > 0
 
-    // Auto-create scrollBehavior when any section is or could be collapsible
-    // The consumer needs to use effectiveScrollBehavior.nestedScrollConnection on their Scaffold
-    val effectiveScrollBehavior = scrollBehavior ?: run {
-        val needsScrollBehavior = titleCollapsible ||
-                                  searchConfig != null ||
-                                  tabConfig != null
+    // Auto-create scrollBehavior when any section is or could be collapsible.
+    // The consumer needs to use effectiveScrollBehavior.nestedScrollConnection on their Scaffold.
+    val effectiveScrollBehavior = scrollBehavior ?: when (style) {
+        WarpAppBarStyle.MediumFlexible -> rememberWarpTopAppBarScrollBehavior(
+            style = style,
+            searchCollapsible = searchConfig?.collapsible == true,
+            tabsCollapsible = tabConfig?.collapsible == true,
+        )
 
-        if (needsScrollBehavior) {
-            TopAppBarDefaults.enterAlwaysScrollBehavior()
-        } else {
-            null
+        else -> {
+            val needsScrollBehavior = titleCollapsible ||
+                    searchConfig != null ||
+                    tabConfig != null
+            if (needsScrollBehavior) TopAppBarDefaults.enterAlwaysScrollBehavior() else null
         }
     }
 
     // Determine if we need to manually handle title collapse
     // (when title + search/tabs are all collapsible, we can't use Material3's built-in collapse)
+    // This logic only applies to the Default style — MediumFlexible handles its own collapse below.
     val hasOtherCollapsibleSections =
-        (searchConfig?.collapsible == true) || (tabConfig?.collapsible == true)
-    val manualTitleCollapse = titleCollapsible && hasOtherCollapsibleSections
-    val useMaterial3TitleCollapse = titleCollapsible && !hasOtherCollapsibleSections
+        style is WarpAppBarStyle.Default &&
+                ((searchConfig?.collapsible == true) || (tabConfig?.collapsible == true))
+    val manualTitleCollapse =
+        style is WarpAppBarStyle.Default && titleCollapsible && hasOtherCollapsibleSections
+    val useMaterial3TitleCollapse =
+        style is WarpAppBarStyle.Default && titleCollapsible && !hasOtherCollapsibleSections
 
     // Calculate section boundaries for sequential collapse
     val sectionBoundaries = remember(
         titleHeightPx,
         searchHeightPx,
         tabsHeightPx,
+        flexExpandedHeightPx,
         titleCollapsible,
         searchConfig,
         tabConfig,
-        manualTitleCollapse
+        manualTitleCollapse,
+        style,
     ) {
         val boundaries = mutableMapOf<String, SectionBoundary>()
         val collapsibleSections = buildList {
+            // Default mode: optional title collapse
             if (manualTitleCollapse && titleHeightPx > 0) add("title" to titleHeightPx)
+            // MediumFlexible mode: expandable large-title section is always the first to collapse
+            if (style is WarpAppBarStyle.MediumFlexible && flexExpandedHeightPx > 0) add("flex" to flexExpandedHeightPx)
+            // Both modes: search and tabs collapse after the title/flex section
             if (searchConfig?.collapsible == true && searchHeightPx > 0) add("search" to searchHeightPx)
             if (tabConfig?.collapsible == true && tabsHeightPx > 0) add("tabs" to tabsHeightPx)
         }
@@ -211,14 +254,23 @@ fun WarpTopAppBar(
     // Calculate total collapsible height
     val totalCollapsibleHeightPx = sectionBoundaries.values.sumOf { it.heightPx }
 
-    // Set heightOffsetLimit to track scroll for all manually-collapsible sections
-    // When Material3 handles title collapse, it sets its own limit (don't interfere)
+    // Set heightOffsetLimit to the total height of all collapsible sections.
+    // Both styles now go through sectionBoundaries, so totalCollapsibleHeightPx covers everything.
+    // Skip only when Material3 itself handles title collapse (useMaterial3TitleCollapse).
     SideEffect {
         if (effectiveScrollBehavior != null && totalCollapsibleHeightPx > 0 && !useMaterial3TitleCollapse) {
             val limit = -totalCollapsibleHeightPx.toFloat()
             if (effectiveScrollBehavior.state.heightOffsetLimit != limit) {
                 effectiveScrollBehavior.state.heightOffsetLimit = limit
             }
+        }
+    }
+
+    // Tell a WarpTopAppBarScrollBehavior where the flex section ends. Done on every composition
+    // so a new behavior instance (e.g. after toggling search/tabs collapsibility) gets it too.
+    SideEffect {
+        (effectiveScrollBehavior as? WarpTopAppBarScrollBehavior)?.flexHeightPxState?.let {
+            if (it.intValue != flexExpandedHeightPx) it.intValue = flexExpandedHeightPx
         }
     }
 
@@ -245,6 +297,13 @@ fun WarpTopAppBar(
         calculateSectionCollapseFraction(overallCollapsedFraction, it)
     } ?: 1f
 
+    // Collapse fraction for MediumFlexible mode — derived from its section boundary so search/tabs
+    // collapse sequentially after the flex section (same mechanism as Default title collapse).
+    // Inverted relative to calculateSectionCollapseFraction (0 = expanded, 1 = collapsed).
+    val flexCollapseFraction = sectionBoundaries["flex"]?.let {
+        1f - calculateSectionCollapseFraction(overallCollapsedFraction, it)
+    } ?: 0f
+
     // Alpha fade calculations for collapsible sections
     val titleAlpha = if (titleCollapseFraction < ALPHA_THRESHOLD) 0f else titleCollapseFraction
     val searchAlpha = if (searchCollapseFraction < ALPHA_THRESHOLD) 0f else searchCollapseFraction
@@ -269,72 +328,173 @@ fun WarpTopAppBar(
             scrolledContainerColor = colors.background.default
         )
 
-        // Main top app bar (always left-aligned, never centered)
-        // Only let Material3 handle title collapse when search/tabs are NOT collapsible
-        // Otherwise we handle all collapse manually to avoid heightOffsetLimit conflicts
-
-        // Wrap TopAppBar in collapsible container when using manual title collapse
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .then(
-                    if (manualTitleCollapse && titleMeasured) {
-                        Modifier.layout { measurable, constraints ->
-                            // Measure content with unlimited height
-                            val placeable =
-                                measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
-
-                            // Container height shrinks as section collapses
-                            val containerHeightPx =
-                                (placeable.height * titleCollapseFraction).toInt().coerceAtLeast(0)
-
-                            layout(placeable.width, containerHeightPx) {
-                                // Content slides up and fades out
-                                placeable.placeWithLayer(0, 0) {
-                                    alpha = titleAlpha
-                                    translationY =
-                                        -(placeable.height * (1f - titleCollapseFraction))
-                                    clip = true
-                                }
-                            }
-                        }
-                    } else {
-                        Modifier
-                    }
-                )
-        ) {
+        if (style is WarpAppBarStyle.MediumFlexible) {
+            // --- MediumFlexible: custom two-row layout with Warp brand fonts ---
+            // Compact row: always visible, nav icon + small title (fades in) + actions.
+            // Expandable section: large Warp title + subtitle (collapse + fade out on scroll).
             TopAppBar(
                 title = {
                     Column(
-                        modifier = Modifier.onGloballyPositioned {
-                            if (titleCollapsible && !titleMeasured && it.size.height > 0) {
-                                titleHeightPx = it.size.height
-                            }
-                        },
                         verticalArrangement = Arrangement.spacedBy(dimensions.space05)
                     ) {
                         WarpText(
                             text = titleText,
                             style = WarpTextStyle.Title3,
-                            maxLines = 2
+                            maxLines = 2,
+                            modifier = Modifier
+                                .graphicsLayer { alpha = flexCollapseFraction }
+                                .semantics { if (flexCollapseFraction < 0.5f) hideFromAccessibility() },
                         )
                         if (subtitleText.isNotEmpty()) {
                             WarpText(
                                 text = subtitleText,
                                 style = WarpTextStyle.Title6,
+                                color = colors.text.subtle,
                                 maxLines = 2,
-                                color = colors.text.subtle
+                                modifier = Modifier
+                                    .graphicsLayer { alpha = flexCollapseFraction }
+                                    .semantics {
+                                        if (flexCollapseFraction < 0.5f) {
+                                            hideFromAccessibility()
+                                        }
+                                    },
                             )
                         }
                     }
                 },
-                modifier = Modifier,
                 navigationIcon = navigationIcon,
                 actions = actions,
                 windowInsets = windowInsets,
                 colors = appBarColors,
-                scrollBehavior = if (useMaterial3TitleCollapse) effectiveScrollBehavior else null
+                scrollBehavior = null,
             )
+            val flexExpandedAlpha = (1f - flexCollapseFraction).let {
+                if (it < ALPHA_THRESHOLD) 0f else it
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .layout { measurable, constraints ->
+                        val placeable =
+                            measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
+                        // Natural (fully expanded) height, re-read on every measure
+                        if (placeable.height != flexExpandedHeightPx) {
+                            flexExpandedHeightPx = placeable.height
+                        }
+                        val containerHeightPx =
+                            (placeable.height * (1f - flexCollapseFraction)).toInt()
+                                .coerceAtLeast(0)
+                        layout(placeable.width, containerHeightPx) {
+                            placeable.placeWithLayer(0, 0) {
+                                translationY = -(placeable.height * flexCollapseFraction)
+                                clip = true
+                            }
+                        }
+                    }
+                    .padding(
+                        start = dimensions.space2,
+                        end = dimensions.space2,
+                        bottom = dimensions.space2,
+                    ),
+                verticalArrangement = Arrangement.spacedBy(dimensions.space1)
+            ) {
+                WarpText(
+                    text = titleText,
+                    style = WarpTextStyle.Title2,
+                    maxLines = 2,
+                    modifier = Modifier
+                        .graphicsLayer { alpha = flexExpandedAlpha }
+                        .semantics {
+                            if (flexCollapseFraction >= 0.5f) {
+                                hideFromAccessibility()
+                            }
+                        },
+                )
+                if (subtitleText.isNotEmpty()) {
+                    WarpText(
+                        text = subtitleText,
+                        style = WarpTextStyle.Title4,
+                        color = colors.text.subtle,
+                        maxLines = 2,
+                        modifier = Modifier
+                            .graphicsLayer { alpha = flexExpandedAlpha }
+                            .semantics {
+                                if (flexCollapseFraction >= 0.5f) {
+                                    hideFromAccessibility()
+                                }
+                            },
+                    )
+                }
+            }
+        } else {
+            // --- Default: existing behavior (unchanged) ---
+            // Only let Material3 handle title collapse when search/tabs are NOT collapsible.
+            // Otherwise, we handle all collapse manually to avoid heightOffsetLimit conflicts.
+
+            // Wrap TopAppBar in collapsible container when using manual title collapse
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .then(
+                        if (manualTitleCollapse && titleMeasured) {
+                            Modifier.layout { measurable, constraints ->
+                                // Measure content with unlimited height
+                                val placeable =
+                                    measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
+
+                                // Container height shrinks as section collapses
+                                val containerHeightPx =
+                                    (placeable.height * titleCollapseFraction).toInt()
+                                        .coerceAtLeast(0)
+
+                                layout(placeable.width, containerHeightPx) {
+                                    // Content slides up and fades out
+                                    placeable.placeWithLayer(0, 0) {
+                                        alpha = titleAlpha
+                                        translationY =
+                                            -(placeable.height * (1f - titleCollapseFraction))
+                                        clip = true
+                                    }
+                                }
+                            }
+                        } else {
+                            Modifier
+                        }
+                    )
+            ) {
+                TopAppBar(
+                    title = {
+                        Column(
+                            modifier = Modifier.onGloballyPositioned {
+                                if (titleCollapsible && !titleMeasured && it.size.height > 0) {
+                                    titleHeightPx = it.size.height
+                                }
+                            },
+                            verticalArrangement = Arrangement.spacedBy(dimensions.space05)
+                        ) {
+                            WarpText(
+                                text = titleText,
+                                style = WarpTextStyle.Title3,
+                                maxLines = 2
+                            )
+                            if (subtitleText.isNotEmpty()) {
+                                WarpText(
+                                    text = subtitleText,
+                                    style = WarpTextStyle.Title6,
+                                    maxLines = 2,
+                                    color = colors.text.subtle
+                                )
+                            }
+                        }
+                    },
+                    modifier = Modifier,
+                    navigationIcon = navigationIcon,
+                    actions = actions,
+                    windowInsets = windowInsets,
+                    colors = appBarColors,
+                    scrollBehavior = if (useMaterial3TitleCollapse) effectiveScrollBehavior else null
+                )
+            }
         }
 
         // Collapsible section for search only
@@ -378,7 +538,7 @@ fun WarpTopAppBar(
                         }
                     )
                     .onGloballyPositioned {
-                        if (searchConfig.collapsible && !searchMeasured && it.size.height > 0) {
+                        if (config.collapsible && !searchMeasured && it.size.height > 0) {
                             searchHeightPx = it.size.height
                         }
                     }
@@ -428,7 +588,11 @@ fun WarpTopAppBar(
                                 focusedContainerColor = colors.background.subtle,
                                 unfocusedTextColor = colors.text.default,
                                 unfocusedContainerColor = colors.background.subtle,
-                                disabledTextColor = colors.text.disabled,
+                                // The field is also disabled while mostly collapsed, only to block
+                                // input. Keep it looking enabled then; otherwise M3's light default
+                                // disabled container flashes in during the reveal animation.
+                                disabledContainerColor = colors.background.subtle,
+                                disabledTextColor = if (config.enabled) colors.text.default else colors.text.disabled,
                                 focusedPlaceholderColor = colors.text.placeholder,
                                 unfocusedPlaceholderColor = colors.text.placeholder,
                                 focusedLabelColor = colors.text.subtle,
@@ -458,7 +622,6 @@ fun WarpTopAppBar(
             if (config.tabs.isEmpty()) return@let
 
             val selectedIndex = config.selectedIndex.coerceIn(0, config.tabs.lastIndex)
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -526,7 +689,7 @@ fun WarpTopAppBar(
 fun WarpTopAppBarPreview() {
     val searchState = remember { TextFieldState("") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
-    
+
     val tabs = listOf(
         TabData("Messages", "messages", hasBadge = true),
         TabData("Favorites", "favorites"),
@@ -559,6 +722,49 @@ fun WarpTopAppBarPreview() {
                 onTabSelected = { selectedTabIndex = it },
                 collapsible = false
             )
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WarpTopAppBarMediumPreview() {
+    val searchState = remember { TextFieldState("") }
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+
+    val tabs = listOf(
+        TabData("Messages", "messages", hasBadge = true),
+        TabData("Favorites", "favorites"),
+        TabData("Profile", "profile")
+    )
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        WarpTopAppBar(
+            titleText = "Title",
+            subtitleText = "Subtitle",
+            navigationIcon = {
+                IconButton(onClick = {}) {
+                    WarpIcon(icon = icons.arrowLeft)
+                }
+            },
+            actions = {
+                IconButton(onClick = {}) {
+                    WarpIcon(icon = icons.dotsVertical)
+                }
+            },
+            searchConfig = SearchConfiguration(
+                state = searchState,
+                onSearch = {},
+                hint = "Search...",
+                collapsible = false
+            ),
+            tabConfig = TabConfiguration(
+                tabs = tabs,
+                selectedIndex = selectedTabIndex,
+                onTabSelected = { selectedTabIndex = it },
+                collapsible = false
+            ),
+            style = WarpAppBarStyle.MediumFlexible
         )
     }
 }
