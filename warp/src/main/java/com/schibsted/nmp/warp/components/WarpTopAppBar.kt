@@ -179,7 +179,8 @@ fun WarpTopAppBar(
     var searchHeightPx by remember(searchConfig) { mutableIntStateOf(0) }
     var tabsHeightPx by remember(tabConfig) { mutableIntStateOf(0) }
     // Height of the expandable section in MediumFlexible mode
-    var flexExpandedHeightPx by remember(style, titleText, subtitleText) { mutableIntStateOf(0) }
+    // Updated on every layout pass so width, font scale, or text changes are picked up.
+    var flexExpandedHeightPx by remember { mutableIntStateOf(0) }
 
     val titleMeasured = titleHeightPx > 0
     val searchMeasured = searchHeightPx > 0
@@ -204,7 +205,7 @@ fun WarpTopAppBar(
 
     // Determine if we need to manually handle title collapse
     // (when title + search/tabs are all collapsible, we can't use Material3's built-in collapse)
-    // This logic only applies to the Default style — MediumFlexible delegates to M3 entirely.
+    // This logic only applies to the Default style — MediumFlexible handles its own collapse below.
     val hasOtherCollapsibleSections =
         style is WarpAppBarStyle.Default &&
                 ((searchConfig?.collapsible == true) || (tabConfig?.collapsible == true))
@@ -262,6 +263,14 @@ fun WarpTopAppBar(
             if (effectiveScrollBehavior.state.heightOffsetLimit != limit) {
                 effectiveScrollBehavior.state.heightOffsetLimit = limit
             }
+        }
+    }
+
+    // Tell a WarpTopAppBarScrollBehavior where the flex section ends. Done on every composition
+    // so a new behavior instance (e.g. after toggling search/tabs collapsibility) gets it too.
+    SideEffect {
+        (effectiveScrollBehavior as? WarpTopAppBarScrollBehavior)?.flexHeightPxState?.let {
+            if (it.intValue != flexExpandedHeightPx) it.intValue = flexExpandedHeightPx
         }
     }
 
@@ -359,37 +368,27 @@ fun WarpTopAppBar(
                 colors = appBarColors,
                 scrollBehavior = null,
             )
-            val flexMeasured = flexExpandedHeightPx > 0
             val flexExpandedAlpha = (1f - flexCollapseFraction).let {
                 if (it < ALPHA_THRESHOLD) 0f else it
             }
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .then(
-                        if (flexMeasured) {
-                            Modifier.layout { measurable, constraints ->
-                                val placeable =
-                                    measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
-                                val containerHeightPx =
-                                    (placeable.height * (1f - flexCollapseFraction)).toInt()
-                                        .coerceAtLeast(0)
-                                layout(placeable.width, containerHeightPx) {
-                                    placeable.placeWithLayer(0, 0) {
-                                        translationY = -(placeable.height * flexCollapseFraction)
-                                        clip = true
-                                    }
-                                }
+                    .layout { measurable, constraints ->
+                        val placeable =
+                            measurable.measure(constraints.copy(maxHeight = Int.MAX_VALUE))
+                        // Natural (fully expanded) height, re-read on every measure
+                        if (placeable.height != flexExpandedHeightPx) {
+                            flexExpandedHeightPx = placeable.height
+                        }
+                        val containerHeightPx =
+                            (placeable.height * (1f - flexCollapseFraction)).toInt()
+                                .coerceAtLeast(0)
+                        layout(placeable.width, containerHeightPx) {
+                            placeable.placeWithLayer(0, 0) {
+                                translationY = -(placeable.height * flexCollapseFraction)
+                                clip = true
                             }
-                        } else Modifier
-                    )
-                    .onGloballyPositioned {
-                        if (!flexMeasured && it.size.height > 0) {
-                            flexExpandedHeightPx = it.size.height
-                            // Inform a WarpTopAppBarScrollBehavior of the threshold so its
-                            // hybrid connection knows where the flex section ends.
-                            (effectiveScrollBehavior as? WarpTopAppBarScrollBehavior)
-                                ?.flexHeightPxState?.intValue = it.size.height
                         }
                     }
                     .padding(
@@ -619,15 +618,13 @@ fun WarpTopAppBar(
             if (config.tabs.isEmpty()) return@let
 
             val selectedIndex = config.selectedIndex.coerceIn(0, config.tabs.lastIndex)
-            val tabsEffectivelyCollapsible = config.collapsible
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     // Apply interpolated status bar padding when no search section exists
                     .padding(top = if (searchConfig == null) interpolatedStatusBarPadding else 0.dp)
                     .then(
-                        if (tabsEffectivelyCollapsible && tabsMeasured) {
+                        if (config.collapsible && tabsMeasured) {
                             Modifier.layout { measurable, constraints ->
                                 // Measure content with unlimited height to get natural size
                                 val placeable =
@@ -653,14 +650,14 @@ fun WarpTopAppBar(
                         }
                     )
                     .then(
-                        if (tabsEffectivelyCollapsible && tabsCollapseFraction < 0.9f) {
+                        if (config.collapsible && tabsCollapseFraction < 0.9f) {
                             Modifier.zIndex(-1f)
                         } else {
                             Modifier
                         }
                     )
                     .onGloballyPositioned {
-                        if (tabsEffectivelyCollapsible && !tabsMeasured && it.size.height > 0) {
+                        if (config.collapsible && !tabsMeasured && it.size.height > 0) {
                             tabsHeightPx = it.size.height
                         }
                     }

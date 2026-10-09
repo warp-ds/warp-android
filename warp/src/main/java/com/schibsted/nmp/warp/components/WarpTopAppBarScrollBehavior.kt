@@ -60,6 +60,7 @@ class WarpTopAppBarScrollBehavior internal constructor(
     override val state: TopAppBarState,
     override val snapAnimationSpec: AnimationSpec<Float>?,
     override val flingAnimationSpec: DecayAnimationSpec<Float>?,
+    val canScroll: () -> Boolean = { true },
 ) : TopAppBarScrollBehavior {
     override val isPinned = false
 
@@ -70,6 +71,7 @@ class WarpTopAppBarScrollBehavior internal constructor(
 
     override val nestedScrollConnection: NestedScrollConnection = object : NestedScrollConnection {
         override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+            if (!canScroll()) return Offset.Zero
             if (available.y < 0f) {
                 // Scrolling down — collapse, consume regardless of region
                 val old = state.heightOffset
@@ -103,6 +105,7 @@ class WarpTopAppBarScrollBehavior internal constructor(
             available: Offset,
             source: NestedScrollSource,
         ): Offset {
+            if (!canScroll()) return Offset.Zero
             state.contentOffset += consumed.y
             // available.y > 0 means the content is at the top and has leftover upward scroll.
             // This is when the flex title section should expand (exit-until-collapsed semantics).
@@ -171,28 +174,42 @@ class WarpTopAppBarScrollBehavior internal constructor(
  * When [style] is [WarpAppBarStyle.MediumFlexible] and either [searchCollapsible] or
  * [tabsCollapsible] is true, this returns a [WarpTopAppBarScrollBehavior] that gives the search
  * and tab sections enter-always expand behavior while the flex title section uses
- * exit-until-collapsed. In all other cases it returns a standard
- * [TopAppBarDefaults.exitUntilCollapsedScrollBehavior].
+ * exit-until-collapsed. Otherwise it returns the behavior [WarpTopAppBar] would create on its own:
+ * [TopAppBarDefaults.exitUntilCollapsedScrollBehavior] for [WarpAppBarStyle.MediumFlexible] and
+ * [TopAppBarDefaults.enterAlwaysScrollBehavior] for [WarpAppBarStyle.Default].
+ *
+ * All variants share one [TopAppBarState], so collapse progress survives toggling
+ * [searchCollapsible] or [tabsCollapsible] at runtime.
+ *
+ * @param canScroll Whether the content can currently scroll. When it returns false the bar
+ *                  ignores scroll events, e.g. when the content is shorter than the screen.
  */
 @Composable
 fun rememberWarpTopAppBarScrollBehavior(
     style: WarpAppBarStyle = WarpAppBarStyle.Default,
     searchCollapsible: Boolean = false,
     tabsCollapsible: Boolean = false,
+    canScroll: () -> Boolean = { true },
 ): TopAppBarScrollBehavior {
+    val topAppBarState = rememberTopAppBarState()
     val useHybrid = style is WarpAppBarStyle.MediumFlexible && (searchCollapsible || tabsCollapsible)
-    return if (useHybrid) {
-        val topAppBarState = rememberTopAppBarState()
-        val snapSpec = spring<Float>(stiffness = Spring.StiffnessMediumLow)
-        val flingSpec = rememberSplineBasedDecay<Float>()
-        remember(style, searchCollapsible, tabsCollapsible, snapSpec, flingSpec) {
-            WarpTopAppBarScrollBehavior(
-                state = topAppBarState,
-                snapAnimationSpec = snapSpec,
-                flingAnimationSpec = flingSpec,
-            )
+    return when {
+        useHybrid -> {
+            val snapSpec = spring<Float>(stiffness = Spring.StiffnessMediumLow)
+            val flingSpec = rememberSplineBasedDecay<Float>()
+            remember(topAppBarState, snapSpec, flingSpec, canScroll) {
+                WarpTopAppBarScrollBehavior(
+                    state = topAppBarState,
+                    snapAnimationSpec = snapSpec,
+                    flingAnimationSpec = flingSpec,
+                    canScroll = canScroll,
+                )
+            }
         }
-    } else {
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
+        style is WarpAppBarStyle.MediumFlexible ->
+            TopAppBarDefaults.exitUntilCollapsedScrollBehavior(topAppBarState, canScroll)
+
+        else -> TopAppBarDefaults.enterAlwaysScrollBehavior(topAppBarState, canScroll)
     }
 }
