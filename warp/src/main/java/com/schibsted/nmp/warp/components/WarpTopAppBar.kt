@@ -588,7 +588,11 @@ fun WarpTopAppBar(
                                 focusedContainerColor = colors.background.subtle,
                                 unfocusedTextColor = colors.text.default,
                                 unfocusedContainerColor = colors.background.subtle,
-                                disabledTextColor = colors.text.disabled,
+                                // The field is also disabled while mostly collapsed, only to block
+                                // input. Keep it looking enabled then; otherwise M3's light default
+                                // disabled container flashes in during the reveal animation.
+                                disabledContainerColor = colors.background.subtle,
+                                disabledTextColor = if (config.enabled) colors.text.default else colors.text.disabled,
                                 focusedPlaceholderColor = colors.text.placeholder,
                                 unfocusedPlaceholderColor = colors.text.placeholder,
                                 focusedLabelColor = colors.text.subtle,
