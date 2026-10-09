@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -133,16 +134,17 @@ private fun WarpBottomSheetImpl(
     ) {
         if (header != null) {
             Row(
-                // M3's 48dp handle already spaces the header from the top edge; without it, Figma's 64dp row does.
+                // M3's 48dp handle already spaces the header from the top edge; without it, we pad it ourselves.
+                // No bottom padding - content owns its spacing below the header.
+                // Min height matches a button's touch target, so headers are the same height with or without actions.
                 modifier = Modifier
                     .fillMaxWidth()
-                    .then(if (draggable) Modifier else Modifier.heightIn(min = WarpTheme.dimensions.space8))
                     .padding(
                         start = WarpTheme.dimensions.space2,
                         end = WarpTheme.dimensions.space05,
-                        top = if (draggable) 0.dp else WarpTheme.dimensions.space1,
-                        bottom = WarpTheme.dimensions.space1,
-                    ),
+                        top = if (draggable) 0.dp else WarpTheme.dimensions.space3,
+                    )
+                    .heightIn(min = LocalMinimumInteractiveComponentSize.current),
                 verticalAlignment = Alignment.CenterVertically,
                 content = header,
             )
