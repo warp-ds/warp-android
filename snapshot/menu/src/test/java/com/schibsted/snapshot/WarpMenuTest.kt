@@ -21,9 +21,9 @@ import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpMenuContent
+import com.schibsted.nmp.warp.components.WarpMenuDivider
 import com.schibsted.nmp.warp.components.WarpMenuItem
 import com.schibsted.nmp.warp.components.WarpMenuItemState
-import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.utils.InternalWarpApi
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -61,8 +61,11 @@ class WarpMenuTest(
     fun warp_menu_full() {
         snapshot {
             WarpMenuContent {
-                WarpText("Edit", modifier = Modifier.padding(dimensions.space2))
-                WarpText("Share", modifier = Modifier.padding(dimensions.space2))
+                WarpMenuItem(text = "Edit", icon = { WarpIcon(icon = icons.edit, color = it) }, onClick = {})
+                WarpMenuItem(text = "Share", icon = { WarpIcon(icon = icons.share, color = it) }, onClick = {})
+                WarpMenuItem(text = "Copy link", icon = { WarpIcon(icon = icons.link, color = it) }, selected = true, onClick = {})
+                WarpMenuDivider()
+                WarpMenuItem(text = "Delete", icon = { WarpIcon(icon = icons.bin, color = it) }, destructive = true, onClick = {})
             }
         }
     }
