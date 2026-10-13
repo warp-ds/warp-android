@@ -182,6 +182,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("menu") {
+                MenuScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("slider") {
                 SliderScreen {
                     navController.navigateUp()
@@ -300,6 +305,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "icons" to "WarpIcons",
                         "link" to "WarpLink",
                         "logo" to "WarpLogo",
+                        "menu" to "WarpMenu",
                         "modal" to "WarpModal",
                         "pageIndicator" to "WarpPageIndicator",
                         "pill" to "WarpPill",
