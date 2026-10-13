@@ -35,6 +35,7 @@ listOf(
     "icons",
     "link",
     "logo",
+    "menu",
     "navigationbar",
     "pageindicator",
     "pill",
