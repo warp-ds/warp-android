@@ -273,7 +273,7 @@ private fun WarpMenuItemImpl(
                 role = Role.Button,
                 onClick = onClick
             )
-            .semantics { this.selected = selected }
+            .then(if (selected) Modifier.semantics { this.selected = true } else Modifier)
             .background(fill)
             .padding(
                 start = dimensions.space2,
@@ -294,7 +294,7 @@ private fun WarpMenuItemImpl(
         } else {
             icon?.invoke(iconColor)
         }
-        Column(modifier = Modifier.weight(1f, fill = false)) {
+        Column(modifier = Modifier.weight(1f)) {
             WarpText(text = text, color = textColor, style = WarpTextStyle.Body)
             supportingText?.let {
                 WarpText(text = it, color = supportingTextColor, style = WarpTextStyle.Caption)

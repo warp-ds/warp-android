@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -11,13 +12,13 @@ import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
-import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.height
 import androidx.compose.ui.unit.width
 import android.view.KeyEvent
@@ -63,7 +64,39 @@ class WarpMenuBehaviourTest {
 
         compose.onNodeWithTag("item")
             .assert(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button))
-            .assertIsNotSelected()
+    }
+
+    @Test
+    fun unselectedItemDoesNotExposeSelectedState() {
+        compose.setContent {
+            WarpMenuItem(text = "Edit", onClick = {}, modifier = Modifier.testTag("item"))
+        }
+
+        compose.onNodeWithTag("item")
+            .assert(SemanticsMatcher.keyNotDefined(SemanticsProperties.Selected))
+    }
+
+    @OptIn(InternalWarpApi::class)
+    @Test
+    fun trailingIconsAlignToEndEdge() {
+        compose.setContent {
+            WarpMenuContent {
+                WarpMenuItem(
+                    text = "Settings",
+                    onClick = {},
+                    trailingIcon = { Box(Modifier.size(24.dp).testTag("shortTrailing")) },
+                )
+                WarpMenuItem(
+                    text = "Download all your data",
+                    onClick = {},
+                    trailingIcon = { Box(Modifier.size(24.dp).testTag("longTrailing")) },
+                )
+            }
+        }
+
+        val short = compose.onNodeWithTag("shortTrailing", useUnmergedTree = true).getBoundsInRoot()
+        val long = compose.onNodeWithTag("longTrailing", useUnmergedTree = true).getBoundsInRoot()
+        assertEquals(long.right, short.right)
     }
 
     @Test

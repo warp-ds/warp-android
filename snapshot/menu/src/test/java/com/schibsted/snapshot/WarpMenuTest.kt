@@ -113,6 +113,12 @@ class WarpMenuTest(
                     trailingIcon = { WarpIcon(icon = icons.chevronRight, color = it) },
                     onClick = {}
                 )
+                WarpMenuItem(
+                    text = "Download all your data",
+                    icon = { WarpIcon(icon = icons.edit, color = it) },
+                    trailingIcon = { WarpIcon(icon = icons.chevronRight, color = it) },
+                    onClick = {}
+                )
             }
         }
     }
