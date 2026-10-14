@@ -209,7 +209,7 @@ internal object ToriDarkBadgeColors : WarpBadgeColors {
     override val warningBackground = Color(0xFFad6421)
     override val negativeBackground = Color(0xFF7d1024)
     override val sponsoredBackground = Color(0xFF0e8ddd)
-    override val priceBackground = Color(0xFF000000)
+    override val priceBackground = Color(0xB3000000)
 }
 
 internal object ToriDarkCalloutColors : WarpCalloutColors {
