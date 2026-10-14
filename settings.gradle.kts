@@ -41,6 +41,7 @@ listOf(
     "popover",
     "radio",
     "rangeslider",
+    "searchbar",
     "select",
     "slider",
     "snackbar",
