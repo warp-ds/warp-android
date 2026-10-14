@@ -209,7 +209,7 @@ internal object DbaBadgeColors : WarpBadgeColors {
     override val warningBackground = Color(0xFFfde8d5)
     override val negativeBackground = Color(0xFFf7cacc)
     override val sponsoredBackground = Color(0xFFb2c9ec)
-    override val priceBackground = Color(0xFF000000)
+    override val priceBackground = Color(0xB3000000)
 }
 
 internal object DbaCalloutColors : WarpCalloutColors {
