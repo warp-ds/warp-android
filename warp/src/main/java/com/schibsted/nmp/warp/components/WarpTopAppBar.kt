@@ -27,6 +27,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.layout.layout
@@ -102,6 +103,24 @@ sealed class WarpAppBarStyle {
     object MediumFlexible : WarpAppBarStyle()
 }
 
+object WarpTopAppBarDefaults {
+    /** [TopAppBarColors] with Warp tokens; override only the colors that differ. */
+    @Composable
+    fun colors(
+        containerColor: Color = colors.background.default,
+        scrolledContainerColor: Color = containerColor,
+        titleContentColor: Color = colors.text.default,
+        navigationIconContentColor: Color = colors.icon.default,
+        actionIconContentColor: Color = colors.icon.default,
+    ): TopAppBarColors = TopAppBarDefaults.topAppBarColors(
+        containerColor = containerColor,
+        scrolledContainerColor = scrolledContainerColor,
+        titleContentColor = titleContentColor,
+        navigationIconContentColor = navigationIconContentColor,
+        actionIconContentColor = actionIconContentColor,
+    )
+}
+
 private const val ALPHA_THRESHOLD = 0.3f
 
 /**
@@ -143,7 +162,7 @@ private fun calculateSectionCollapseFraction(
  * @param navigationIcon The navigation icon to be displayed.
  * @param actions The actions to be displayed at the end of the top app bar.
  * @param windowInsets The window insets to be applied to the top app bar.
- * @param topBarColors The colors to be used for the top app bar. Default Warp colors will be used if nothing provided.
+ * @param topBarColors The colors to be used for the top app bar. See [WarpTopAppBarDefaults.colors].
  * @param scrollBehavior The scroll behavior to be used for the top app bar. If null and any section
  *                       is collapsible (or could be), a default behavior will be created automatically.
  * @param subtitleText The subtitle text.
@@ -162,7 +181,7 @@ fun WarpTopAppBar(
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
-    topBarColors: TopAppBarColors? = null,
+    topBarColors: TopAppBarColors = WarpTopAppBarDefaults.colors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
     subtitleText: String = "",
     titleCollapsible: Boolean = false,
@@ -319,15 +338,6 @@ fun WarpTopAppBar(
     }
 
     Column(modifier = modifier) {
-        // Define colors for the app bar
-        val appBarColors = topBarColors ?: TopAppBarDefaults.topAppBarColors(
-            containerColor = colors.background.default,
-            titleContentColor = colors.text.default,
-            navigationIconContentColor = colors.icon.default,
-            actionIconContentColor = colors.icon.default,
-            scrolledContainerColor = colors.background.default
-        )
-
         if (style is WarpAppBarStyle.MediumFlexible) {
             // --- MediumFlexible: custom two-row layout with Warp brand fonts ---
             // Compact row: always visible, nav icon + small title (fades in) + actions.
@@ -365,7 +375,7 @@ fun WarpTopAppBar(
                 navigationIcon = navigationIcon,
                 actions = actions,
                 windowInsets = windowInsets,
-                colors = appBarColors,
+                colors = topBarColors,
                 scrollBehavior = null,
             )
             val flexExpandedAlpha = (1f - flexCollapseFraction).let {
@@ -491,7 +501,7 @@ fun WarpTopAppBar(
                     navigationIcon = navigationIcon,
                     actions = actions,
                     windowInsets = windowInsets,
-                    colors = appBarColors,
+                    colors = topBarColors,
                     scrollBehavior = if (useMaterial3TitleCollapse) effectiveScrollBehavior else null
                 )
             }
