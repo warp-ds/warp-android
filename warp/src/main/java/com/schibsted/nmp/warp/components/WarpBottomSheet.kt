@@ -102,7 +102,7 @@ fun WarpBottomSheet(
                 .padding(
                     start = WarpTheme.dimensions.space05,
                     end = WarpTheme.dimensions.space05,
-                    top = if (draggable) 0.dp else WarpTheme.dimensions.space1,
+                    top = if (draggable) 0.dp else WarpTheme.dimensions.space2,
                 ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
