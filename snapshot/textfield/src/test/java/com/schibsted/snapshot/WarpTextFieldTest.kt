@@ -11,6 +11,8 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.HtmlReportWriter
@@ -272,6 +274,69 @@ class WarpTextFieldTest(
                         label = "A label",
                         modifier = Modifier.fillMaxWidth(),
                         minLines = 3
+                    )
+                }
+            }
+        }
+    }
+
+    @Test
+    fun warpTextFieldWithTextFieldValue() {
+        paparazzi.snapshot {
+            WarpTheme(flavor = flavor) {
+                Column(
+                    modifier = Modifier
+                        .background(colors.surface.elevated100)
+                        .padding(horizontal = dimensions.space2, vertical = dimensions.space2),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.space2)
+                ) {
+                    WarpTextField(
+                        value = TextFieldValue("With value", selection = TextRange(10)),
+                        onValueChange = { },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    WarpTextField(
+                        value = TextFieldValue("With all"),
+                        onValueChange = { },
+                        label = "A label",
+                        optionalLabel = "Optional",
+                        placeholderText = "A placeholder",
+                        helpText = "A help text",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    WarpTextField(
+                        value = TextFieldValue(""),
+                        onValueChange = { },
+                        label = "Placeholder & label",
+                        placeholderText = "A placeholder",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    WarpTextField(
+                        value = TextFieldValue("Read only"),
+                        onValueChange = { },
+                        readOnly = true,
+                        label = "Meow only",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    WarpTextField(
+                        value = TextFieldValue("Disabled"),
+                        onValueChange = { },
+                        enabled = false,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    WarpTextField(
+                        value = TextFieldValue("Error"),
+                        onValueChange = { },
+                        isError = true,
+                        helpText = "Error",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    WarpTextField(
+                        value = TextFieldValue("Prefix and suffix"),
+                        onValueChange = { },
+                        prefixText = "prefix",
+                        suffixText = "suffix",
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
