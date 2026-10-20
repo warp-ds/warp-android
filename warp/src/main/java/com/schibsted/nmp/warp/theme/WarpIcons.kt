@@ -693,6 +693,13 @@ object WarpIconResources {
             stringResource(R.string.confetti)
         )
 
+    val conversationGrouped: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_conversationgrouped),
+            stringResource(R.string.conversationgrouped)
+        )
+
     val cookie: WarpIconResource
         @Composable
         get() = WarpIconResource(
@@ -1504,6 +1511,13 @@ object WarpIconResources {
         get() = WarpIconResource(
             ImageVector.vectorResource(id = R.drawable.warp_organize),
             stringResource(R.string.organize)
+        )
+
+    val packageBox: WarpIconResource
+        @Composable
+        get() = WarpIconResource(
+            ImageVector.vectorResource(id = R.drawable.warp_packagebox),
+            stringResource(R.string.packagebox)
         )
 
     val paperclip: WarpIconResource

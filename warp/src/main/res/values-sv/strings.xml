@@ -13,6 +13,8 @@
     <string name="arrowleft">Pil som pekar åt vänster</string>
     <string name="arrowright">Pil som pekar åt höger</string>
     <string name="arrowup">Pil som pekar upp</string>
+    <string name="conversationgrouped">Två konturerade kvadrater bredvid grupperade vågräta linjer.</string>
+    <string name="packagebox">Ett stängt kartongpaket</string>
     <string name="paperclip">Gem</string>
     <string name="gearautomatic">Automatisk växellåda</string>
     <string name="autovex">Autovex logo</string>
