@@ -7,6 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.schibsted.nmp.warp.R
 
+/**
+ * A read-only search field that acts as a button, for entry points that open a separate search screen.
+ * Use this instead of [WarpSearchBar] with `searchIsEnabled = false`, which TalkBack reads as a disabled text field.
+ */
 @Composable
 fun WarpSearchBarButton(
     text: String,
@@ -15,7 +19,6 @@ fun WarpSearchBarButton(
     hint: String = "",
     onClick: () -> Unit = {},
     onClearClick: (() -> Unit)? = null,
-    showClearButton: Boolean = true,
     secondaryAction: WarpSearchBarAction? = null,
     leadingAction: WarpSearchBarAction? = null,
 ) {
@@ -28,7 +31,7 @@ fun WarpSearchBarButton(
         hint = hint,
         readOnly = true,
         onInputClick = onClick,
-        showClearButton = text.isNotEmpty() && showClearButton && onClearClick != null,
+        showClearButton = text.isNotEmpty() && onClearClick != null,
         onClearClick = onClearClick,
         secondaryAction = secondaryAction,
         leadingAction = leadingAction,

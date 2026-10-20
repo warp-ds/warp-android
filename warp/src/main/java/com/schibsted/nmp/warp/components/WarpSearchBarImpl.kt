@@ -37,6 +37,7 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -153,6 +154,7 @@ internal fun WarpSearchBarImpl(
     val leadingIcon: @Composable () -> Unit = if (leadingAction == null) {
         {
             WarpIcon(
+                modifier = Modifier.clearAndSetSemantics {},
                 icon = WarpIconResources.search,
                 size = dimensions.icon.small,
             )
@@ -168,6 +170,7 @@ internal fun WarpSearchBarImpl(
                     },
             ) {
                 WarpIcon(
+                    modifier = Modifier.clearAndSetSemantics {},
                     icon = leadingAction.icon,
                     size = dimensions.icon.small,
                 )
@@ -188,6 +191,7 @@ internal fun WarpSearchBarImpl(
                         },
                     ) {
                         WarpIcon(
+                            modifier = Modifier.clearAndSetSemantics {},
                             icon = WarpIconResources.close,
                             size = dimensions.icon.small,
                         )
@@ -201,6 +205,7 @@ internal fun WarpSearchBarImpl(
                         },
                     ) {
                         WarpIcon(
+                            modifier = Modifier.clearAndSetSemantics {},
                             icon = action.icon,
                             size = dimensions.icon.small,
                         )
