@@ -18,9 +18,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,21 +37,22 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.schibsted.nmp.warp.components.utils.InternalWarpApi
-import com.schibsted.nmp.warp.theme.WarpResources.icons
+import com.schibsted.nmp.warp.theme.WarpBrandIconResource
+import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
-// Mirrors M3 DropdownMenuContent's column padding (Menu.kt:386-412); WarpMenuContent must match it.
+// M3 keeps its menu column padding internal (DropdownMenuVerticalPadding); WarpMenuContent must match it.
 private val MenuVerticalPadding = 8.dp
 
 private object WarpMenuContainer {
     val shape: Shape
-        @Composable get() = RoundedCornerShape(dimensions.borderRadius3)
+        @Composable get() = MenuDefaults.shape
     val color: Color
         @Composable get() = colors.surface.elevated300
-    val tonalElevation: Dp = 0.dp
+    val tonalElevation: Dp = MenuDefaults.TonalElevation
     val shadowElevation: Dp
-        @Composable get() = dimensions.shadowMedium
+        @Composable get() = dimensions.shadowSmall
 }
 
 /**
@@ -151,9 +152,9 @@ enum class WarpMenuItemState { Default, Hover, Focus, Pressed, Disabled }
  * @param onClick Invoked when the item is clicked
  * @param modifier Modifier for the item
  * @param supportingText Optional second line under [text]
- * @param icon Optional leading icon. Receives the colour for the item's current state
- * @param trailingIcon Optional trailing icon. Receives the colour for the item's current state
- * @param selected Shows a leading check (replacing [icon]) and the selected fill
+ * @param icon Optional leading icon, decorative and tinted for the item's current state
+ * @param trailingIcon Optional trailing icon, decorative and tinted for the item's current state
+ * @param selected Shows the selected fill
  * @param destructive Uses negative text/icon colours, for actions like delete
  * @param enabled Disabled items are not clickable and use disabled colours
  * @param interactionSource Optional source for hover/focus/press interactions
@@ -164,8 +165,8 @@ fun WarpMenuItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     supportingText: String? = null,
-    icon: (@Composable (color: Color) -> Unit)? = null,
-    trailingIcon: (@Composable (color: Color) -> Unit)? = null,
+    icon: WarpIconResource? = null,
+    trailingIcon: WarpIconResource? = null,
     selected: Boolean = false,
     destructive: Boolean = false,
     enabled: Boolean = true,
@@ -197,8 +198,8 @@ fun WarpMenuItem(
     forcedState: WarpMenuItemState,
     modifier: Modifier = Modifier,
     supportingText: String? = null,
-    icon: (@Composable (color: Color) -> Unit)? = null,
-    trailingIcon: (@Composable (color: Color) -> Unit)? = null,
+    icon: WarpIconResource? = null,
+    trailingIcon: WarpIconResource? = null,
     selected: Boolean = false,
     destructive: Boolean = false,
 ) {
@@ -223,8 +224,8 @@ private fun WarpMenuItemImpl(
     onClick: () -> Unit,
     modifier: Modifier,
     supportingText: String?,
-    icon: (@Composable (color: Color) -> Unit)?,
-    trailingIcon: (@Composable (color: Color) -> Unit)?,
+    icon: WarpIconResource?,
+    trailingIcon: WarpIconResource?,
     selected: Boolean,
     destructive: Boolean,
     enabled: Boolean,
@@ -275,31 +276,29 @@ private fun WarpMenuItemImpl(
             )
             .then(if (selected) Modifier.semantics { this.selected = true } else Modifier)
             .background(fill)
-            .padding(
-                start = dimensions.space2,
-                end = dimensions.space2,
-                top = dimensions.space1,
-                bottom = dimensions.space1
-            ),
+            .padding(MenuDefaults.DropdownMenuItemContentPadding)
+            .padding(vertical = dimensions.space1),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(dimensions.space15)
     ) {
-        if (selected) {
-            Icon(
-                imageVector = icons.check.vector,
-                contentDescription = null,
-                tint = iconColor,
-                modifier = Modifier.size(dimensions.icon.default)
-            )
-        } else {
-            icon?.invoke(iconColor)
-        }
+        icon?.let { MenuItemIcon(it, iconColor) }
         Column(modifier = Modifier.weight(1f)) {
             WarpText(text = text, color = textColor, style = WarpTextStyle.Body)
             supportingText?.let {
                 WarpText(text = it, color = supportingTextColor, style = WarpTextStyle.Caption)
             }
         }
-        trailingIcon?.invoke(iconColor)
+        trailingIcon?.let { MenuItemIcon(it, iconColor) }
     }
+}
+
+// Decorative: the item's label is its accessible name, so icons carry no description.
+@Composable
+private fun MenuItemIcon(icon: WarpIconResource, color: Color) {
+    Icon(
+        imageVector = icon.vector,
+        contentDescription = null,
+        tint = if (icon is WarpBrandIconResource) Color.Unspecified else color,
+        modifier = Modifier.size(dimensions.icon.default)
+    )
 }

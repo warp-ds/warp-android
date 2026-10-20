@@ -67,13 +67,13 @@ private fun OverflowMenuDemo() {
         WarpMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             WarpMenuItem(
                 text = "Edit",
-                icon = { WarpIcon(icon = icons.edit, color = it) },
+                icon = icons.edit,
                 onClick = { expanded = false }
             )
             WarpMenuItem(
                 text = "Share",
                 supportingText = "Send a link to the ad",
-                icon = { WarpIcon(icon = icons.share, color = it) },
+                icon = icons.share,
                 onClick = { expanded = false }
             )
             WarpMenuItem(
@@ -86,7 +86,7 @@ private fun OverflowMenuDemo() {
             WarpMenuItem(
                 text = "Delete",
                 destructive = true,
-                icon = { WarpIcon(icon = icons.bin, color = it) },
+                icon = icons.bin,
                 onClick = { expanded = false }
             )
         }
@@ -102,10 +102,10 @@ private fun MenuStateGallery() {
                 text = state.name,
                 onClick = {},
                 forcedState = state,
-                icon = { WarpIcon(icon = icons.edit, color = it) }
+                icon = icons.edit
             )
         }
-        WarpMenuItem(text = "Selected", onClick = {}, forcedState = WarpMenuItemState.Default, selected = true)
+        WarpMenuItem(text = "Selected", onClick = {}, forcedState = WarpMenuItemState.Default, icon = icons.edit, selected = true)
         WarpMenuItem(text = "Destructive", onClick = {}, forcedState = WarpMenuItemState.Default, destructive = true)
     }
 }

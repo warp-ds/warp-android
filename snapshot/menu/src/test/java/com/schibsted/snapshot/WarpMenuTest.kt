@@ -19,7 +19,6 @@ import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.NightMode
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
-import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpMenuContent
 import com.schibsted.nmp.warp.components.WarpMenuDivider
 import com.schibsted.nmp.warp.components.WarpMenuItem
@@ -61,11 +60,11 @@ class WarpMenuTest(
     fun warp_menu_full() {
         snapshot {
             WarpMenuContent {
-                WarpMenuItem(text = "Edit", icon = { WarpIcon(icon = icons.edit, color = it) }, onClick = {})
-                WarpMenuItem(text = "Share", icon = { WarpIcon(icon = icons.share, color = it) }, onClick = {})
-                WarpMenuItem(text = "Copy link", icon = { WarpIcon(icon = icons.link, color = it) }, selected = true, onClick = {})
+                WarpMenuItem(text = "Edit", icon = icons.edit, onClick = {})
+                WarpMenuItem(text = "Share", icon = icons.share, onClick = {})
+                WarpMenuItem(text = "Copy link", icon = icons.link, selected = true, onClick = {})
                 WarpMenuDivider()
-                WarpMenuItem(text = "Delete", icon = { WarpIcon(icon = icons.bin, color = it) }, destructive = true, onClick = {})
+                WarpMenuItem(text = "Delete", icon = icons.bin, destructive = true, onClick = {})
             }
         }
     }
@@ -79,7 +78,7 @@ class WarpMenuTest(
                         text = state.name,
                         onClick = {},
                         forcedState = state,
-                        icon = { WarpIcon(icon = icons.edit, color = it) },
+                        icon = icons.edit,
                     )
                 }
                 WarpMenuItem(text = "Selected", onClick = {}, forcedState = WarpMenuItemState.Default, selected = true)
@@ -96,7 +95,7 @@ class WarpMenuTest(
                 WarpMenuItem(
                     text = "Two lines with icon",
                     supportingText = "Supporting text",
-                    icon = { WarpIcon(icon = icons.share, color = it) },
+                    icon = icons.share,
                     onClick = {}
                 )
             }
@@ -109,14 +108,14 @@ class WarpMenuTest(
             WarpMenuContent {
                 WarpMenuItem(
                     text = "Open settings",
-                    icon = { WarpIcon(icon = icons.edit, color = it) },
-                    trailingIcon = { WarpIcon(icon = icons.chevronRight, color = it) },
+                    icon = icons.edit,
+                    trailingIcon = icons.chevronRight,
                     onClick = {}
                 )
                 WarpMenuItem(
                     text = "Download all your data",
-                    icon = { WarpIcon(icon = icons.edit, color = it) },
-                    trailingIcon = { WarpIcon(icon = icons.chevronRight, color = it) },
+                    icon = icons.edit,
+                    trailingIcon = icons.chevronRight,
                     onClick = {}
                 )
             }
@@ -127,8 +126,8 @@ class WarpMenuTest(
     fun warp_menu_destructive_disabled() {
         snapshot {
             WarpMenuContent {
-                WarpMenuItem(text = "Delete", destructive = true, icon = { WarpIcon(icon = icons.bin, color = it) }, onClick = {})
-                WarpMenuItem(text = "Delete (disabled)", destructive = true, enabled = false, icon = { WarpIcon(icon = icons.bin, color = it) }, onClick = {})
+                WarpMenuItem(text = "Delete", destructive = true, icon = icons.bin, onClick = {})
+                WarpMenuItem(text = "Delete (disabled)", destructive = true, enabled = false, icon = icons.bin, onClick = {})
                 WarpMenuItem(text = "Selected (disabled)", selected = true, enabled = false, onClick = {})
             }
         }
@@ -141,8 +140,8 @@ class WarpMenuTest(
                 WarpMenuItem(
                     text = "A very long menu label that has to wrap onto more than one line",
                     supportingText = "And a supporting text that is also rather long",
-                    icon = { WarpIcon(icon = icons.edit, color = it) },
-                    trailingIcon = { WarpIcon(icon = icons.chevronRight, color = it) },
+                    icon = icons.edit,
+                    trailingIcon = icons.chevronRight,
                     onClick = {}
                 )
             }
@@ -156,8 +155,8 @@ class WarpMenuTest(
                 WarpMenuContent {
                     WarpMenuItem(
                         text = "Edit",
-                        icon = { WarpIcon(icon = icons.edit, color = it) },
-                        trailingIcon = { WarpIcon(icon = icons.chevronRight, color = it) },
+                        icon = icons.edit,
+                        trailingIcon = icons.chevronRight,
                         onClick = {}
                     )
                     WarpMenuItem(text = "Newest", supportingText = "Shown first", selected = true, onClick = {})

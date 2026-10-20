@@ -16,6 +16,7 @@ import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.width
 import android.view.KeyEvent
 import androidx.test.platform.app.InstrumentationRegistry
 import com.schibsted.nmp.warp.components.utils.InternalWarpApi
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -76,27 +78,20 @@ class WarpMenuBehaviourTest {
             .assert(SemanticsMatcher.keyNotDefined(SemanticsProperties.Selected))
     }
 
-    @OptIn(InternalWarpApi::class)
     @Test
-    fun trailingIconsAlignToEndEdge() {
+    fun iconsAreDecorative() {
         compose.setContent {
-            WarpMenuContent {
-                WarpMenuItem(
-                    text = "Settings",
-                    onClick = {},
-                    trailingIcon = { Box(Modifier.size(24.dp).testTag("shortTrailing")) },
-                )
-                WarpMenuItem(
-                    text = "Download all your data",
-                    onClick = {},
-                    trailingIcon = { Box(Modifier.size(24.dp).testTag("longTrailing")) },
-                )
-            }
+            WarpMenuItem(
+                text = "Settings",
+                onClick = {},
+                icon = icons.edit,
+                trailingIcon = icons.chevronRight,
+                modifier = Modifier.testTag("item"),
+            )
         }
 
-        val short = compose.onNodeWithTag("shortTrailing", useUnmergedTree = true).getBoundsInRoot()
-        val long = compose.onNodeWithTag("longTrailing", useUnmergedTree = true).getBoundsInRoot()
-        assertEquals(long.right, short.right)
+        compose.onNodeWithTag("item")
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, listOf("Settings")))
     }
 
     @Test
@@ -136,20 +131,30 @@ class WarpMenuBehaviourTest {
         compose.onNodeWithTag("item").assertIsSelected().assertIsNotEnabled()
     }
 
+    @OptIn(InternalWarpApi::class)
     @Test
-    fun selectedItemReplacesLeadingIcon() {
-        var iconComposed = false
+    fun selectedItemDoesNotShiftLabel() {
         compose.setContent {
-            WarpMenuItem(
-                text = "Newest",
-                onClick = {},
-                selected = true,
-                icon = { iconComposed = true },
-            )
+            WarpMenuContent {
+                WarpMenuItem(text = "Oldest", onClick = {})
+                WarpMenuItem(text = "Newest", onClick = {}, selected = true)
+            }
         }
-        compose.waitForIdle()
 
-        assertEquals(false, iconComposed)
+        val unselected = compose.onNodeWithText("Oldest", useUnmergedTree = true).getBoundsInRoot()
+        val selected = compose.onNodeWithText("Newest", useUnmergedTree = true).getBoundsInRoot()
+        assertEquals(unselected.left, selected.left)
+    }
+
+    @Test
+    fun labelStartsAtMaterialHorizontalPadding() {
+        compose.setContent {
+            WarpMenuItem(text = "Edit", onClick = {}, modifier = Modifier.testTag("item"))
+        }
+
+        val item = compose.onNodeWithTag("item").getBoundsInRoot()
+        val label = compose.onNodeWithText("Edit", useUnmergedTree = true).getBoundsInRoot()
+        assertEquals(12.dp, label.left - item.left)
     }
 
     @Test
