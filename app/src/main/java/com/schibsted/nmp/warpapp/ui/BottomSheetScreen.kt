@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -17,14 +18,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.schibsted.nmp.warp.components.BottomSheetAction
 import com.schibsted.nmp.warp.components.BottomSheetBackButton
+import com.schibsted.nmp.warp.components.DiscouragedWarpApi
 import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpDivider
+import com.schibsted.nmp.warp.components.WarpLockableBottomSheet
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
-import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun BottomSheetScreen(onUp: () -> Unit) {
@@ -36,7 +40,7 @@ fun BottomSheetScreen(onUp: () -> Unit) {
     }
 }
 
-private enum class SampleSheet { Categories, TitleAndAction, TextAction, IconAction, Back }
+private enum class SampleSheet { Categories, TitleAndAction, Action, DestructiveAction, Back, NotDismissible }
 
 @Composable
 fun BottomSheetScreenContent() {
@@ -55,9 +59,10 @@ fun BottomSheetScreenContent() {
             WarpText(text = "Selected: $it", style = WarpTextStyle.Body)
         }
         SheetButton("Title and action") { openSheet = SampleSheet.TitleAndAction }
-        SheetButton("Text action") { openSheet = SampleSheet.TextAction }
-        SheetButton("Icon action") { openSheet = SampleSheet.IconAction }
+        SheetButton("Action") { openSheet = SampleSheet.Action }
+        SheetButton("Destructive action") { openSheet = SampleSheet.DestructiveAction }
         SheetButton("Back button") { openSheet = SampleSheet.Back }
+        SheetButton("Not dismissible while saving") { openSheet = SampleSheet.NotDismissible }
     }
 
     when (openSheet) {
@@ -87,10 +92,10 @@ fun BottomSheetScreenContent() {
             }
         }
 
-        SampleSheet.TextAction -> WarpBottomSheet(
+        SampleSheet.Action -> WarpBottomSheet(
             onDismissRequest = closeSheet,
             title = "Filters",
-            action = BottomSheetAction.Text("Reset") {},
+            action = BottomSheetAction("Reset") {},
         ) {
             WarpText(
                 text = "Content below a header with a quiet text action.",
@@ -99,19 +104,21 @@ fun BottomSheetScreenContent() {
             )
         }
 
-        SampleSheet.IconAction -> WarpBottomSheet(
+        SampleSheet.DestructiveAction -> WarpBottomSheet(
             onDismissRequest = closeSheet,
-            title = "Filters",
-            action = BottomSheetAction.Icon(icons.filter) {},
+            title = "Edit education",
+            action = BottomSheetAction("Delete", destructive = true) {},
         ) {
             WarpText(
-                text = "Content below a header with an icon action.",
+                text = "Content below a header with a quiet destructive action.",
                 style = WarpTextStyle.Body,
                 modifier = Modifier.padding(dimensions.space2),
             )
         }
 
         SampleSheet.Back -> TwoStepSheet(onDismissRequest = closeSheet)
+
+        SampleSheet.NotDismissible -> SavingSheet(onDismissRequest = closeSheet)
 
         null -> Unit
     }
@@ -132,14 +139,14 @@ private fun TwoStepSheet(onDismissRequest: () -> Unit) {
     var step by rememberSaveable { mutableIntStateOf(1) }
     WarpBottomSheet(
         onDismissRequest = onDismissRequest,
-        backButton = BottomSheetBackButton { dismiss -> if (step == 1) dismiss() else step = 1 },
+        backButton = if (step == 2) BottomSheetBackButton { step = 1 } else null,
         title = "Step $step of 2",
     ) { dismiss ->
         BackHandler(enabled = step == 2) { step = 1 }
         Column(modifier = Modifier.padding(dimensions.space2)) {
             WarpText(
                 text = if (step == 1) {
-                    "Back, or system back, dismisses the sheet."
+                    "Close, or system back, dismisses the sheet."
                 } else {
                     "Back, or system back, returns to step 1."
                 },
@@ -157,17 +164,43 @@ private fun TwoStepSheet(onDismissRequest: () -> Unit) {
     }
 }
 
+@OptIn(DiscouragedWarpApi::class)
+@Composable
+private fun SavingSheet(onDismissRequest: () -> Unit) {
+    var saving by rememberSaveable { mutableStateOf(false) }
+    WarpLockableBottomSheet(
+        onDismissRequest = onDismissRequest,
+        locked = saving,
+        title = "Save changes",
+    ) { dismiss ->
+        if (saving) {
+            LaunchedEffect(Unit) {
+                delay(2000.milliseconds)
+                dismiss()
+            }
+        }
+        Column(modifier = Modifier.padding(dimensions.space2)) {
+            WarpText(
+                text = "The sheet can't be dismissed while saving.",
+                style = WarpTextStyle.Body,
+            )
+            WarpButton(
+                text = "Save",
+                onClick = { saving = true },
+                style = WarpButtonStyle.Primary,
+                loading = saving,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = dimensions.space2),
+            )
+        }
+    }
+}
+
 @Composable
 private fun CategoriesSheet(onSelect: (String) -> Unit, onDismissRequest: () -> Unit) {
-    WarpBottomSheet(onDismissRequest = onDismissRequest) {
+    WarpBottomSheet(onDismissRequest = onDismissRequest, title = "Categories") {
         LazyColumn(modifier = Modifier.padding(horizontal = dimensions.space3)) {
-            item {
-                WarpText(
-                    modifier = Modifier.padding(bottom = dimensions.space2),
-                    text = "Categories",
-                    style = WarpTextStyle.Title3,
-                )
-            }
             items(sampleCategories) { category ->
                 WarpText(
                     modifier = Modifier

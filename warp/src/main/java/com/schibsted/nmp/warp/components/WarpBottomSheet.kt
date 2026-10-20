@@ -18,83 +18,111 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import kotlinx.coroutines.launch
 
 /**
- * The top-left back button of a [WarpBottomSheet]. The sheet decides how it looks.
+ * The leading back button of a [WarpBottomSheet], replacing its close button, e.g. on later steps
+ * of a multi-step sheet. System back isn't routed here; use a `BackHandler` in the content.
  *
- * System back isn't routed here; handle it with a `BackHandler` in the sheet's content.
- *
- * @param onClick Called on tap with the sheet's `dismiss` callback, e.g. to go to the previous
- * step, or to dismiss on the first step.
+ * @param onClick Receives the sheet's `dismiss` callback.
  */
 data class BottomSheetBackButton(val onClick: (dismiss: () -> Unit) -> Unit)
 
 /**
- * The top-right action of a [WarpBottomSheet]. The sheet decides how it looks.
+ * The trailing action of a [WarpBottomSheet], shown as a quiet text button. Not for dismissing;
+ * the sheet has its own close button.
+ *
+ * @param destructive Shows the action as a quiet negative button, e.g. for Delete.
  */
-sealed interface BottomSheetAction {
-    val onClick: () -> Unit
+data class BottomSheetAction(
+    val text: String,
+    val destructive: Boolean = false,
+    val onClick: () -> Unit,
+)
 
-    /** An icon button, labelled with the icon's own description. */
-    data class Icon(
-        val icon: WarpIconResource,
-        override val onClick: () -> Unit,
-    ) : BottomSheetAction
+/**
+ * Values used by [WarpBottomSheet].
+ */
+@Stable
+object WarpBottomSheetDefaults {
 
-    /** A quiet text button. */
-    data class Text(
-        val text: String,
-        override val onClick: () -> Unit,
-    ) : BottomSheetAction
+    /** The sheet's surface color, for anything that must match it, e.g. a sticky footer. */
+    val containerColor: Color
+        @Composable
+        get() = WarpTheme.colors.surface.elevated100
 }
 
 /**
- * A modal bottom sheet anchored to the bottom of the screen that dims content behind it.
- *
- * Wraps Material 3's [ModalBottomSheet] with Warp's surface and drag-handle color tokens; shape
- * and handle size are left at M3 defaults. The sheet always opens fully expanded and always shows
- * a drag handle, which is also its accessible dismiss control. Swiping down, tapping the scrim or
- * pressing back always dismisses. For sub-navigation, intercept back with a `BackHandler` in
- * [content].
- *
- * A header row is shown above [content] when [backButton], [title] or [action] is set.
+ * A modal bottom sheet with a header row: a close button (or [backButton]), an optional [title]
+ * and an optional [action]. Content taller than about half the screen opens half-expanded first,
+ * unless [skipPartiallyExpanded] is set.
  *
  * @param onDismissRequest Called once the hide animation completes. Also passed to [content] as
  * `dismiss`, so in-sheet actions can close the sheet the same way.
- * @param modifier Applied to the sheet surface, on top of Warp's own status-bar inset cap.
- * @param backButton Optional back button top left.
- * @param title Optional plain-text heading.
- * @param action Optional action top right.
- * @param content Sheet body; receives a `dismiss` callback (see [onDismissRequest]).
+ * @param modifier Applied to the sheet surface.
+ * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
+ * @param backButton Optional leading back button.
+ * @param title Optional plain-text heading. Use it rather than a heading in [content].
+ * @param action Optional trailing action.
+ * @param content Sheet body; receives `dismiss` (see [onDismissRequest]).
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
+    skipPartiallyExpanded: Boolean = false,
     backButton: BottomSheetBackButton? = null,
     title: String? = null,
     action: BottomSheetAction? = null,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
+    BottomSheetImpl(
+        onDismissRequest = onDismissRequest,
+        modifier = modifier,
+        skipPartiallyExpanded = skipPartiallyExpanded,
+        locked = false,
+        backButton = backButton,
+        title = title,
+        action = action,
+        content = content,
+    )
+}
+
+/** Shared by [WarpBottomSheet] and [WarpLockableBottomSheet], which documents [locked]. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun BottomSheetImpl(
+    onDismissRequest: () -> Unit,
+    modifier: Modifier,
+    skipPartiallyExpanded: Boolean,
+    locked: Boolean,
+    backButton: BottomSheetBackButton?,
+    title: String?,
+    action: BottomSheetAction?,
+    content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
+) {
     val scope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
     val dismiss: () -> Unit = {
         scope.launch { sheetState.hide() }.invokeOnCompletion {
             if (!sheetState.isVisible) onDismissRequest()
         }
     }
+
+    val dragHandleColor = WarpTheme.colors.background.subtleActive
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
@@ -103,56 +131,56 @@ fun WarpBottomSheet(
             .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))
             .then(modifier),
         sheetState = sheetState,
-        containerColor = WarpTheme.colors.surface.elevated100,
+        containerColor = WarpBottomSheetDefaults.containerColor,
         contentColor = WarpTheme.colors.text.default,
-        // Top excluded - already handled by the modifier above.
         contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal) },
-        dragHandle = { BottomSheetDefaults.DragHandle(color = WarpTheme.colors.background.subtleActive) },
+        sheetGesturesEnabled = !locked,
+        properties = ModalBottomSheetProperties(shouldDismissOnClickOutside = !locked),
+        dragHandle = if (locked) null else { { BottomSheetDefaults.DragHandle(color = dragHandleColor) } },
     ) {
-        if (backButton != null || title != null || action != null) {
-            Row(
-                // No top padding - M3's 48dp handle already spaces the header from the top edge.
-                // No bottom padding - content owns its spacing below the header.
-                // Min height matches a button's touch target, so headers are the same height with or without buttons.
-                // A back button brings its own 12dp inset, so the row's start padding shrinks to keep the icon at 16dp.
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = if (backButton != null) WarpTheme.dimensions.space05 else WarpTheme.dimensions.space2,
-                        end = WarpTheme.dimensions.space05,
+        BlockBack(enabled = locked)
+        if (locked) LockedDragHandle(color = dragHandleColor)
+        Row(
+            // The icon button's own 12dp inset plus this 4dp puts the icon at 16dp.
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = WarpTheme.dimensions.space05, end = WarpTheme.dimensions.space05)
+                .heightIn(min = LocalMinimumInteractiveComponentSize.current),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (backButton != null) {
+                IconButton(onClick = { backButton.onClick(dismiss) }, enabled = !locked) {
+                    WarpIcon(
+                        icon = icons.arrowLeft,
+                        color = if (locked) WarpTheme.colors.icon.disabled else WarpTheme.colors.icon.default,
                     )
-                    .heightIn(min = LocalMinimumInteractiveComponentSize.current),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                if (backButton != null) {
-                    IconButton(onClick = { backButton.onClick(dismiss) }) {
-                        WarpIcon(icon = icons.arrowLeft)
-                    }
                 }
-                if (title != null) {
-                    WarpText(
-                        text = title,
-                        style = WarpTextStyle.Title3,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(start = if (backButton != null) WarpTheme.dimensions.space05 else 0.dp),
+            } else {
+                IconButton(onClick = dismiss, enabled = !locked) {
+                    WarpIcon(
+                        icon = icons.close,
+                        color = if (locked) WarpTheme.colors.icon.disabled else WarpTheme.colors.icon.default,
                     )
-                } else {
-                    Spacer(Modifier.weight(1f))
                 }
-                when (action) {
-                    is BottomSheetAction.Icon -> IconButton(onClick = action.onClick) {
-                        WarpIcon(icon = action.icon)
-                    }
-
-                    is BottomSheetAction.Text -> WarpButton(
-                        text = action.text,
-                        onClick = action.onClick,
-                        style = WarpButtonStyle.Quiet,
-                    )
-
-                    null -> Unit
-                }
+            }
+            if (title != null) {
+                WarpText(
+                    text = title,
+                    style = WarpTextStyle.Title3,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = WarpTheme.dimensions.space05)
+                        .semantics { heading() },
+                )
+            } else {
+                Spacer(Modifier.weight(1f))
+            }
+            if (action != null) {
+                WarpButton(
+                    text = action.text,
+                    onClick = action.onClick,
+                    style = if (action.destructive) WarpButtonStyle.NegativeQuiet else WarpButtonStyle.Quiet,
+                )
             }
         }
         content(dismiss)
@@ -188,7 +216,7 @@ private fun WarpBottomSheetTextActionPreview() {
     WarpBottomSheet(
         onDismissRequest = {},
         title = "Filters",
-        action = BottomSheetAction.Text("Reset") {},
+        action = BottomSheetAction("Reset") {},
     ) {
         WarpText(
             text = "Content below a header with a quiet text action.",
@@ -198,17 +226,33 @@ private fun WarpBottomSheetTextActionPreview() {
     }
 }
 
-@Preview(name = "Back and icon action", showBackground = true)
+@Preview(name = "Back and action", showBackground = true)
 @Composable
-private fun WarpBottomSheetBackAndIconActionPreview() {
+private fun WarpBottomSheetBackAndActionPreview() {
     WarpBottomSheet(
         onDismissRequest = {},
         backButton = BottomSheetBackButton {},
         title = "Step 2 of 2",
-        action = BottomSheetAction.Icon(icons.filter) {},
+        action = BottomSheetAction("Reset") {},
     ) {
         WarpText(
-            text = "Content below a header with a back button and an icon action.",
+            text = "Content below a header with a back button and a quiet text action.",
+            style = WarpTextStyle.Body,
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
+        )
+    }
+}
+
+@Preview(name = "Destructive action", showBackground = true)
+@Composable
+private fun WarpBottomSheetDestructiveActionPreview() {
+    WarpBottomSheet(
+        onDismissRequest = {},
+        title = "Edit education",
+        action = BottomSheetAction("Delete", destructive = true) {},
+    ) {
+        WarpText(
+            text = "Content below a header with a close button and a quiet destructive action.",
             style = WarpTextStyle.Body,
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
         )
