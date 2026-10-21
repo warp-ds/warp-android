@@ -125,6 +125,11 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: google_apis
           arch: x86_64
+          # Newer system images don't boot within the default limits
+          cores: 4
+          ram-size: 4096M
+          disk-size: 6000M
+          emulator-boot-timeout: 900
           script: ./gradlew :app:connectedDebugAndroidTest :warp:connectedDebugAndroidTest --continue
 
       - name: Upload instrumented test reports
