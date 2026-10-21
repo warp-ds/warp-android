@@ -26,7 +26,6 @@ import com.schibsted.nmp.warp.components.TopAppBarAction
 import com.schibsted.nmp.warp.components.TopAppBarConfiguration
 import com.schibsted.nmp.warp.components.TopAppBarMenuItem
 import com.schibsted.nmp.warp.components.TopAppBarNavigation
-import com.schibsted.nmp.warp.components.WarpAppBarStyle
 import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
@@ -72,7 +71,7 @@ fun BottomSheetScreenContent() {
         SheetButton("Destructive action") { openSheet = SampleSheet.DestructiveAction }
         SheetButton("Back button") { openSheet = SampleSheet.Back }
         SheetButton("Favourite and menu") { openSheet = SampleSheet.FavouriteAndMenu }
-        SheetButton("Collapsing title, search and tabs") { openSheet = SampleSheet.SearchAndTabs }
+        SheetButton("Search and tabs") { openSheet = SampleSheet.SearchAndTabs }
         SheetButton("Not dismissible while saving") { openSheet = SampleSheet.NotDismissible }
     }
 
@@ -267,9 +266,12 @@ private fun SearchAndTabsSheet(onDismissRequest: () -> Unit) {
         skipPartiallyExpanded = true,
         topAppBar = TopAppBarConfiguration(
             title = "Categories",
-            subtitle = "Pick one",
-            style = WarpAppBarStyle.MediumFlexible,
-            search = SearchConfiguration(state = searchState, onSearch = {}, hint = "Search categories"),
+            search = SearchConfiguration(
+                state = searchState,
+                onSearch = {},
+                hint = "Search categories",
+                collapsible = true,
+            ),
             tabs = TabConfiguration(
                 tabs = listOf(TabData("All", "all"), TabData("Popular", "popular")),
                 selectedIndex = selectedTab,
