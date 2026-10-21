@@ -97,8 +97,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Oldest supported (minSdk) and newest available
-        api-level: [24, '37.0']
+        # Oldest supported (minSdk) and newest available. 36.1 is a trial fallback for 37.0.
+        api-level: [24, '36.1', '37.0']
 
     steps:
       - name: Checkout repository
