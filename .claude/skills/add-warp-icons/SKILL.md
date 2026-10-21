@@ -56,25 +56,16 @@ For a path source, replace `attachment_url` with `"svg_dir": "/absolute/path"`. 
 
 All three must pass. If the count test fails, investigate before committing — this is the only sanctioned mid-flow stop.
 
-Then re-record and verify the icon snapshots — new icons shift the letter grids, and CI runs `verifyPaparazziDebug`:
-
-```bash
-./gradlew :snapshot:snapshot-icons:recordPaparazziDebug --rerun-tasks
-./gradlew :snapshot:snapshot-icons:verifyPaparazziDebug --rerun-tasks
-```
-
-`--rerun-tasks` matters: without it Gradle can skip the test task as up-to-date and report a false pass.
-
 ### 4. Report + finish
 
-Report: icons added, drawables over the lint threshold, gradle results, snapshot images re-recorded.
+Report: icons added, drawables over the lint threshold, gradle results.
 
 Then `AskUserQuestion`: *"How should I finish?"* — A) Commit + push  B) Commit  C) Stage only. The user has just seen the report, so this is the informed moment to decide.
 
 For **stage only**: leave the working tree as-is and stop.
 
 For **commit** (and **commit + push**):
-- `git status`, stage specific paths only (drawables + `WarpIcons.kt` + `IconScreen.kt` + `WarpIconTest.kt` + the 5 `strings.xml` + `snapshot/icons/src/test/snapshots/`); never `git add -A`.
+- `git status`, stage specific paths only (drawables + `WarpIcons.kt` + `IconScreen.kt` + `WarpIconTest.kt` + the 5 `strings.xml`); never `git add -A`.
 - Commit `<TICKET>: Added N new Warp icons` with the `Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>` trailer.
 - If hooks fail, fix and re-commit — never `--amend`, never `--no-verify`.
 - For **commit + push**, `git push` afterward (never force).
