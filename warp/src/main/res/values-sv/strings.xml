@@ -362,4 +362,10 @@
     <string name="coathanger">Galge</string>
     <string name="printer">Skrivare</string>
     <string name="shareandroid">Tre anslutna prickar</string>
+
+    <!-- Purpose labels read before the icon description of top app bar buttons -->
+    <string name="top_app_bar_back">Tillbaka</string>
+    <string name="top_app_bar_close">Stäng</string>
+    <string name="top_app_bar_more_options">Fler alternativ</string>
+
 </resources>

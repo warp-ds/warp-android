@@ -15,8 +15,9 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
 import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.schibsted.nmp.warp.components.BottomSheetBackButton
 import com.schibsted.nmp.warp.components.DiscouragedWarpApi
+import com.schibsted.nmp.warp.components.TopAppBarConfiguration
+import com.schibsted.nmp.warp.components.TopAppBarNavigation
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpLockableBottomSheet
 import com.schibsted.nmp.warp.components.WarpText
@@ -53,8 +54,10 @@ class WarpLockableBottomSheetTest {
                         shown = false
                     },
                     locked = locked,
-                    backButton = BottomSheetBackButton { backClicks++ },
-                    title = "Title",
+                    topAppBar = TopAppBarConfiguration(
+                        title = "Title",
+                        navigation = TopAppBarNavigation.Back { backClicks++ },
+                    ),
                 ) { dismiss ->
                     WarpText(text = "Sheet content")
                     WarpButton(text = "Done", onClick = dismiss)
@@ -117,7 +120,7 @@ class WarpLockableBottomSheetTest {
     fun unlocked_swipeDown_dismisses() {
         setSheet(locked = false)
 
-        composeTestRule.onNodeWithText("Sheet content").performTouchInput { swipeDown() }
+        composeTestRule.onNodeWithText("Sheet content").performTouchInput { swipeDown(endY = bottom + 1_000f) }
 
         composeTestRule.waitUntil(timeoutMillis = 5_000) { dismissCount == 1 }
         composeTestRule.onNodeWithText("Sheet content").assertDoesNotExist()
@@ -127,7 +130,7 @@ class WarpLockableBottomSheetTest {
     fun locked_swipeDown_doesNotDismiss() {
         setSheet(locked = true)
 
-        composeTestRule.onNodeWithText("Sheet content").performTouchInput { swipeDown() }
+        composeTestRule.onNodeWithText("Sheet content").performTouchInput { swipeDown(endY = bottom + 1_000f) }
         composeTestRule.waitForIdle()
 
         composeTestRule.onNodeWithText("Sheet content").assertExists()
@@ -169,7 +172,7 @@ class WarpLockableBottomSheetTest {
                         shown = false
                     },
                     locked = locked,
-                    title = "Title",
+                    topAppBar = TopAppBarConfiguration(title = "Title"),
                 ) {
                     WarpText(text = "Sheet content")
                 }

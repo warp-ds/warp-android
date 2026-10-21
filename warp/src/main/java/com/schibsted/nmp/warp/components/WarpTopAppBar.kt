@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,6 +26,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.layout.layout
@@ -138,6 +138,60 @@ private fun calculateSectionCollapseFraction(
 }
 
 /**
+ * A top app bar built from a [TopAppBarConfiguration], which describes what it shows.
+ *
+ * @param configuration Title, navigation, actions, style, search and tabs.
+ * @param modifier The modifier to be applied to the top app bar.
+ * @param windowInsets The window insets to be applied to the top app bar.
+ * @param topBarColors The colors to be used for the top app bar. Default Warp colors will be used if nothing provided.
+ * @param scrollBehavior The scroll behavior to be used for the top app bar. If null and any section
+ *                       is collapsible (or could be), a default behavior will be created automatically.
+ */
+@Composable
+fun WarpTopAppBar(
+    configuration: TopAppBarConfiguration,
+    modifier: Modifier = Modifier,
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    topBarColors: TopAppBarColors? = null,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
+) {
+    TopAppBarImpl(
+        configuration = configuration,
+        modifier = modifier,
+        windowInsets = windowInsets,
+        topBarColors = topBarColors,
+        scrollBehavior = scrollBehavior,
+        enabled = true,
+    )
+}
+
+/** Shared by [WarpTopAppBar] and [WarpBottomSheet]; [enabled] disables navigation and actions. */
+@Composable
+internal fun TopAppBarImpl(
+    configuration: TopAppBarConfiguration,
+    modifier: Modifier,
+    windowInsets: WindowInsets,
+    topBarColors: TopAppBarColors?,
+    scrollBehavior: TopAppBarScrollBehavior?,
+    enabled: Boolean,
+) {
+    WarpTopAppBarLayout(
+        titleText = configuration.title,
+        modifier = modifier,
+        navigationIcon = { configuration.navigation?.let { TopAppBarNavigationButton(it, enabled) } },
+        actions = { TopAppBarActions(configuration.actions, enabled) },
+        windowInsets = windowInsets,
+        topBarColors = topBarColors,
+        scrollBehavior = scrollBehavior,
+        subtitleText = configuration.subtitle,
+        titleCollapsible = configuration.titleCollapsible,
+        searchConfig = configuration.search,
+        tabConfig = configuration.tabs,
+        style = configuration.style,
+    )
+}
+
+/**
  * @param titleText The title text.
  * @param modifier The modifier to be applied to the top app bar.
  * @param navigationIcon The navigation icon to be displayed.
@@ -155,6 +209,7 @@ private fun calculateSectionCollapseFraction(
  *              behavior; [WarpAppBarStyle.MediumFlexible] shows a large title + subtitle that
  *              collapse into the compact row on scroll (Material 3 Expressive).
  */
+@Deprecated("Use the overload taking a TopAppBarConfiguration.")
 @Composable
 fun WarpTopAppBar(
     titleText: String,
@@ -169,6 +224,73 @@ fun WarpTopAppBar(
     searchConfig: SearchConfiguration? = null,
     tabConfig: TabConfiguration? = null,
     style: WarpAppBarStyle = WarpAppBarStyle.Default,
+) {
+    WarpTopAppBarLayout(
+        titleText = titleText,
+        modifier = modifier,
+        navigationIcon = navigationIcon,
+        actions = actions,
+        windowInsets = windowInsets,
+        topBarColors = topBarColors,
+        scrollBehavior = scrollBehavior,
+        subtitleText = subtitleText,
+        titleCollapsible = titleCollapsible,
+        searchConfig = searchConfig,
+        tabConfig = tabConfig,
+        style = style,
+    )
+}
+
+/**
+ * The scroll behavior [WarpTopAppBar] creates when none is passed, or null if nothing collapses.
+ * The caller must connect it with `Modifier.nestedScroll` for anything to collapse.
+ */
+@Composable
+internal fun rememberDefaultTopAppBarScrollBehavior(
+    style: WarpAppBarStyle,
+    titleCollapsible: Boolean,
+    searchConfig: SearchConfiguration?,
+    tabConfig: TabConfiguration?,
+): TopAppBarScrollBehavior? = when (style) {
+    WarpAppBarStyle.MediumFlexible -> rememberWarpTopAppBarScrollBehavior(
+        style = style,
+        searchCollapsible = searchConfig?.collapsible == true,
+        tabsCollapsible = tabConfig?.collapsible == true,
+    )
+
+    else -> {
+        val needsScrollBehavior = titleCollapsible ||
+                searchConfig != null ||
+                tabConfig != null
+        if (needsScrollBehavior) TopAppBarDefaults.enterAlwaysScrollBehavior() else null
+    }
+}
+
+/** Warp's top app bar colors, on [containerColor]. */
+@Composable
+internal fun warpTopAppBarColors(containerColor: Color = colors.background.default): TopAppBarColors =
+    TopAppBarDefaults.topAppBarColors(
+        containerColor = containerColor,
+        titleContentColor = colors.text.default,
+        navigationIconContentColor = colors.icon.default,
+        actionIconContentColor = colors.icon.default,
+        scrolledContainerColor = containerColor,
+    )
+
+@Composable
+private fun WarpTopAppBarLayout(
+    titleText: String,
+    modifier: Modifier,
+    navigationIcon: @Composable () -> Unit,
+    actions: @Composable RowScope.() -> Unit,
+    windowInsets: WindowInsets,
+    topBarColors: TopAppBarColors?,
+    scrollBehavior: TopAppBarScrollBehavior?,
+    subtitleText: String,
+    titleCollapsible: Boolean,
+    searchConfig: SearchConfiguration?,
+    tabConfig: TabConfiguration?,
+    style: WarpAppBarStyle,
 ) {
     // Height tracking for collapsible sections (in pixels)
     var titleHeightPx by remember(
@@ -188,20 +310,8 @@ fun WarpTopAppBar(
 
     // Auto-create scrollBehavior when any section is or could be collapsible.
     // The consumer needs to use effectiveScrollBehavior.nestedScrollConnection on their Scaffold.
-    val effectiveScrollBehavior = scrollBehavior ?: when (style) {
-        WarpAppBarStyle.MediumFlexible -> rememberWarpTopAppBarScrollBehavior(
-            style = style,
-            searchCollapsible = searchConfig?.collapsible == true,
-            tabsCollapsible = tabConfig?.collapsible == true,
-        )
-
-        else -> {
-            val needsScrollBehavior = titleCollapsible ||
-                    searchConfig != null ||
-                    tabConfig != null
-            if (needsScrollBehavior) TopAppBarDefaults.enterAlwaysScrollBehavior() else null
-        }
-    }
+    val effectiveScrollBehavior = scrollBehavior
+        ?: rememberDefaultTopAppBarScrollBehavior(style, titleCollapsible, searchConfig, tabConfig)
 
     // Determine if we need to manually handle title collapse
     // (when title + search/tabs are all collapsible, we can't use Material3's built-in collapse)
@@ -311,7 +421,8 @@ fun WarpTopAppBar(
 
     // Calculate interpolated status bar padding for smooth transition when title collapses
     val density = LocalDensity.current
-    val statusBarInsetsPx = WindowInsets.statusBars.getTop(density)
+    // The bar's own top inset (the status bar by default; none inside a bottom sheet).
+    val statusBarInsetsPx = windowInsets.getTop(density)
     val interpolatedStatusBarPadding = with(density) {
         // Smoothly interpolate from 0dp (title visible) to full status bar height (title collapsed)
         val fraction = if (manualTitleCollapse) (1f - titleCollapseFraction) else 0f
@@ -320,13 +431,7 @@ fun WarpTopAppBar(
 
     Column(modifier = modifier) {
         // Define colors for the app bar
-        val appBarColors = topBarColors ?: TopAppBarDefaults.topAppBarColors(
-            containerColor = colors.background.default,
-            titleContentColor = colors.text.default,
-            navigationIconContentColor = colors.icon.default,
-            actionIconContentColor = colors.icon.default,
-            scrolledContainerColor = colors.background.default
-        )
+        val appBarColors = topBarColors ?: warpTopAppBarColors()
 
         if (style is WarpAppBarStyle.MediumFlexible) {
             // --- MediumFlexible: custom two-row layout with Warp brand fonts ---
@@ -698,29 +803,32 @@ fun WarpTopAppBarPreview() {
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         WarpTopAppBar(
-            titleText = "Title",
-            subtitleText = "Subtitle",
-            navigationIcon = {
-                IconButton(onClick = {}) {
-                    WarpIcon(icon = icons.arrowLeft)
-                }
-            },
-            actions = {
-                IconButton(onClick = {}) {
-                    WarpIcon(icon = icons.dotsVertical)
-                }
-            },
-            searchConfig = SearchConfiguration(
-                state = searchState,
-                onSearch = {},
-                hint = "Search...",
-                collapsible = false
-            ),
-            tabConfig = TabConfiguration(
-                tabs = tabs,
-                selectedIndex = selectedTabIndex,
-                onTabSelected = { selectedTabIndex = it },
-                collapsible = false
+            configuration = TopAppBarConfiguration(
+                title = "Title",
+                subtitle = "Subtitle",
+                navigation = TopAppBarNavigation.Back {},
+                actions = listOf(
+                    TopAppBarAction.Toggle(
+                        icon = icons.heart,
+                        checkedIcon = icons.heartFilled,
+                        checked = false,
+                        label = "Favourite",
+                        onCheckedChange = {},
+                    ),
+                    TopAppBarAction.Menu(listOf(TopAppBarMenuItem("Share") {})),
+                ),
+                search = SearchConfiguration(
+                    state = searchState,
+                    onSearch = {},
+                    hint = "Search...",
+                    collapsible = false
+                ),
+                tabs = TabConfiguration(
+                    tabs = tabs,
+                    selectedIndex = selectedTabIndex,
+                    onTabSelected = { selectedTabIndex = it },
+                    collapsible = false
+                ),
             )
         )
     }
@@ -740,31 +848,34 @@ fun WarpTopAppBarMediumPreview() {
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         WarpTopAppBar(
-            titleText = "Title",
-            subtitleText = "Subtitle",
-            navigationIcon = {
-                IconButton(onClick = {}) {
-                    WarpIcon(icon = icons.arrowLeft)
-                }
-            },
-            actions = {
-                IconButton(onClick = {}) {
-                    WarpIcon(icon = icons.dotsVertical)
-                }
-            },
-            searchConfig = SearchConfiguration(
-                state = searchState,
-                onSearch = {},
-                hint = "Search...",
-                collapsible = false
-            ),
-            tabConfig = TabConfiguration(
-                tabs = tabs,
-                selectedIndex = selectedTabIndex,
-                onTabSelected = { selectedTabIndex = it },
-                collapsible = false
-            ),
-            style = WarpAppBarStyle.MediumFlexible
+            configuration = TopAppBarConfiguration(
+                title = "Title",
+                subtitle = "Subtitle",
+                navigation = TopAppBarNavigation.Back {},
+                actions = listOf(
+                    TopAppBarAction.Toggle(
+                        icon = icons.heart,
+                        checkedIcon = icons.heartFilled,
+                        checked = false,
+                        label = "Favourite",
+                        onCheckedChange = {},
+                    ),
+                    TopAppBarAction.Menu(listOf(TopAppBarMenuItem("Share") {})),
+                ),
+                search = SearchConfiguration(
+                    state = searchState,
+                    onSearch = {},
+                    hint = "Search...",
+                    collapsible = false
+                ),
+                tabs = TabConfiguration(
+                    tabs = tabs,
+                    selectedIndex = selectedTabIndex,
+                    onTabSelected = { selectedTabIndex = it },
+                    collapsible = false
+                ),
+                style = WarpAppBarStyle.MediumFlexible,
+            )
         )
     }
 }

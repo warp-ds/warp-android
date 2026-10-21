@@ -25,8 +25,8 @@ import com.schibsted.nmp.warp.theme.WarpTheme
  * Prefer [WarpBottomSheet]. Modal sheets are meant to be dismissible, and an operation can usually
  * carry on after the sheet closes and report its result elsewhere, e.g. in a snackbar.
  *
- * While [locked], the handle, swipe, scrim, back and the header button do nothing. `dismiss` still
- * works, so the sheet can close itself when the operation finishes. Reset [locked] on error paths
+ * While [locked], the handle, swipe, scrim and back do nothing, and the top app bar's navigation
+ * and actions are disabled. Search and tabs stay usable. `dismiss` still works, so the sheet can close itself when the operation finishes. Reset [locked] on error paths
  * too. A `BackHandler` in [content] still runs while locked and should respect the lock itself.
  *
  * @param locked Set to true only while the operation is in progress, and pair it with visible
@@ -41,9 +41,7 @@ fun WarpLockableBottomSheet(
     locked: Boolean,
     modifier: Modifier = Modifier,
     skipPartiallyExpanded: Boolean = false,
-    backButton: BottomSheetBackButton? = null,
-    title: String? = null,
-    action: BottomSheetAction? = null,
+    topAppBar: TopAppBarConfiguration = TopAppBarConfiguration(title = ""),
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
     BottomSheetImpl(
@@ -51,9 +49,7 @@ fun WarpLockableBottomSheet(
         modifier = modifier,
         skipPartiallyExpanded = skipPartiallyExpanded,
         locked = locked,
-        backButton = backButton,
-        title = title,
-        action = action,
+        topAppBar = topAppBar,
         content = content,
     )
 }
@@ -100,8 +96,7 @@ private fun WarpLockableBottomSheetPreview() {
     WarpLockableBottomSheet(
         onDismissRequest = {},
         locked = true,
-        backButton = BottomSheetBackButton {},
-        title = "Saving",
+        topAppBar = TopAppBarConfiguration(title = "Saving", navigation = TopAppBarNavigation.Back {}),
     ) {
         Column(
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
@@ -109,7 +104,7 @@ private fun WarpLockableBottomSheetPreview() {
         ) {
             WarpSpinner()
             WarpText(
-                text = "The handle and back button are disabled until saving is done.",
+                text = "The back button is disabled and the handle inert until saving is done.",
                 style = WarpTextStyle.Body,
                 modifier = Modifier.padding(top = WarpTheme.dimensions.space2),
             )

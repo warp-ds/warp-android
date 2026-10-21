@@ -3,55 +3,28 @@ package com.schibsted.nmp.warp.components
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import kotlinx.coroutines.launch
-
-/**
- * The leading back button of a [WarpBottomSheet], replacing its close button, e.g. on later steps
- * of a multi-step sheet. System back isn't routed here; use a `BackHandler` in the content.
- *
- * @param onClick Receives the sheet's `dismiss` callback.
- */
-data class BottomSheetBackButton(val onClick: (dismiss: () -> Unit) -> Unit)
-
-/**
- * The trailing action of a [WarpBottomSheet], shown as a quiet text button. Not for dismissing;
- * the sheet has its own close button.
- *
- * @param destructive Shows the action as a quiet negative button, e.g. for Delete.
- */
-data class BottomSheetAction(
-    val text: String,
-    val destructive: Boolean = false,
-    val onClick: () -> Unit,
-)
 
 /**
  * Values used by [WarpBottomSheet].
@@ -66,17 +39,16 @@ object WarpBottomSheetDefaults {
 }
 
 /**
- * A modal bottom sheet with a header row: a close button (or [backButton]), an optional [title]
- * and an optional [action]. Content taller than about half the screen opens half-expanded first,
- * unless [skipPartiallyExpanded] is set.
+ * A modal bottom sheet with a [WarpTopAppBar] above [content]. Content taller than about half the
+ * screen opens half-expanded first, unless [skipPartiallyExpanded] is set.
  *
  * @param onDismissRequest Called once the hide animation completes. Also passed to [content] as
  * `dismiss`, so in-sheet actions can close the sheet the same way.
  * @param modifier Applied to the sheet surface.
  * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
- * @param backButton Optional leading back button.
- * @param title Optional plain-text heading. Use it rather than a heading in [content].
- * @param action Optional trailing action.
+ * @param topAppBar What the sheet's top app bar shows. Without a navigation button, the sheet shows
+ * a close button that dismisses it. Use the title for the sheet's heading rather than a heading in
+ * [content]. Collapsing styles, search and tabs collapse as [content] scrolls.
  * @param content Sheet body; receives `dismiss` (see [onDismissRequest]).
  */
 @Composable
@@ -84,9 +56,7 @@ fun WarpBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     skipPartiallyExpanded: Boolean = false,
-    backButton: BottomSheetBackButton? = null,
-    title: String? = null,
-    action: BottomSheetAction? = null,
+    topAppBar: TopAppBarConfiguration = TopAppBarConfiguration(title = ""),
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
     BottomSheetImpl(
@@ -94,9 +64,7 @@ fun WarpBottomSheet(
         modifier = modifier,
         skipPartiallyExpanded = skipPartiallyExpanded,
         locked = false,
-        backButton = backButton,
-        title = title,
-        action = action,
+        topAppBar = topAppBar,
         content = content,
     )
 }
@@ -109,9 +77,7 @@ internal fun BottomSheetImpl(
     modifier: Modifier,
     skipPartiallyExpanded: Boolean,
     locked: Boolean,
-    backButton: BottomSheetBackButton?,
-    title: String?,
-    action: BottomSheetAction?,
+    topAppBar: TopAppBarConfiguration,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
@@ -120,6 +86,9 @@ internal fun BottomSheetImpl(
         scope.launch { sheetState.hide() }.invokeOnCompletion {
             if (!sheetState.isVisible) onDismissRequest()
         }
+    }
+    val scrollBehavior = with(topAppBar) {
+        rememberDefaultTopAppBarScrollBehavior(style, titleCollapsible, search, tabs)
     }
 
     val dragHandleColor = WarpTheme.colors.background.subtleActive
@@ -140,50 +109,24 @@ internal fun BottomSheetImpl(
     ) {
         BlockBack(enabled = locked)
         if (locked) LockedDragHandle(color = dragHandleColor)
-        Row(
-            // The icon button's own 12dp inset plus this 4dp puts the icon at 16dp.
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = WarpTheme.dimensions.space05, end = WarpTheme.dimensions.space05)
-                .heightIn(min = LocalMinimumInteractiveComponentSize.current),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            if (backButton != null) {
-                IconButton(onClick = { backButton.onClick(dismiss) }, enabled = !locked) {
-                    WarpIcon(
-                        icon = icons.arrowLeft,
-                        color = if (locked) WarpTheme.colors.icon.disabled else WarpTheme.colors.icon.default,
-                    )
-                }
+        TopAppBarImpl(
+            configuration = if (topAppBar.navigation == null) {
+                topAppBar.copy(navigation = TopAppBarNavigation.Close(dismiss))
             } else {
-                IconButton(onClick = dismiss, enabled = !locked) {
-                    WarpIcon(
-                        icon = icons.close,
-                        color = if (locked) WarpTheme.colors.icon.disabled else WarpTheme.colors.icon.default,
-                    )
-                }
-            }
-            if (title != null) {
-                WarpText(
-                    text = title,
-                    style = WarpTextStyle.Title3,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = WarpTheme.dimensions.space05)
-                        .semantics { heading() },
-                )
-            } else {
-                Spacer(Modifier.weight(1f))
-            }
-            if (action != null) {
-                WarpButton(
-                    text = action.text,
-                    onClick = action.onClick,
-                    style = if (action.destructive) WarpButtonStyle.NegativeQuiet else WarpButtonStyle.Quiet,
-                )
-            }
+                topAppBar
+            },
+            modifier = Modifier,
+            // The sheet already applies insets.
+            windowInsets = WindowInsets(0),
+            topBarColors = warpTopAppBarColors(containerColor = WarpBottomSheetDefaults.containerColor),
+            scrollBehavior = scrollBehavior,
+            enabled = !locked,
+        )
+        if (scrollBehavior != null) {
+            Column(Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) { content(dismiss) }
+        } else {
+            content(dismiss)
         }
-        content(dismiss)
     }
 }
 
@@ -193,7 +136,7 @@ internal fun BottomSheetImpl(
 private fun WarpBottomSheetTitlePreview() {
     WarpBottomSheet(
         onDismissRequest = {},
-        title = "Sort by",
+        topAppBar = TopAppBarConfiguration(title = "Sort by"),
     ) { dismiss ->
         Column(modifier = Modifier.padding(WarpTheme.dimensions.space2)) {
             WarpText(text = "Newest first", style = WarpTextStyle.Body)
@@ -210,33 +153,47 @@ private fun WarpBottomSheetTitlePreview() {
     }
 }
 
-@Preview(name = "Text action", showBackground = true)
+@Preview(name = "Back and text action", showBackground = true)
 @Composable
-private fun WarpBottomSheetTextActionPreview() {
+private fun WarpBottomSheetBackAndActionPreview() {
     WarpBottomSheet(
         onDismissRequest = {},
-        title = "Filters",
-        action = BottomSheetAction("Reset") {},
+        topAppBar = TopAppBarConfiguration(
+            title = "Step 2 of 2",
+            navigation = TopAppBarNavigation.Back {},
+            actions = listOf(TopAppBarAction.Text("Reset") {}),
+        ),
     ) {
         WarpText(
-            text = "Content below a header with a quiet text action.",
+            text = "Content below a top app bar with a back button and a quiet text action.",
             style = WarpTextStyle.Body,
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
         )
     }
 }
 
-@Preview(name = "Back and action", showBackground = true)
+@Preview(name = "Toggle and menu", showBackground = true)
 @Composable
-private fun WarpBottomSheetBackAndActionPreview() {
+private fun WarpBottomSheetToggleAndMenuPreview() {
     WarpBottomSheet(
         onDismissRequest = {},
-        backButton = BottomSheetBackButton {},
-        title = "Step 2 of 2",
-        action = BottomSheetAction("Reset") {},
+        topAppBar = TopAppBarConfiguration(
+            title = "Vintage armchair",
+            subtitle = "Oslo",
+            actions = listOf(
+                TopAppBarAction.Toggle(
+                    icon = icons.heart,
+                    checkedIcon = icons.heartFilled,
+                    checked = true,
+                    label = "Favourite",
+                    onCheckedChange = {},
+                ),
+                TopAppBarAction.Menu(listOf(TopAppBarMenuItem("Share") {}, TopAppBarMenuItem("Report") {})),
+            ),
+        ),
     ) {
         WarpText(
-            text = "Content below a header with a back button and a quiet text action.",
+            text = "Content below a top app bar with a close button, a toggle and a menu.",
             style = WarpTextStyle.Body,
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
         )
@@ -248,11 +205,13 @@ private fun WarpBottomSheetBackAndActionPreview() {
 private fun WarpBottomSheetDestructiveActionPreview() {
     WarpBottomSheet(
         onDismissRequest = {},
-        title = "Edit education",
-        action = BottomSheetAction("Delete", destructive = true) {},
+        topAppBar = TopAppBarConfiguration(
+            title = "Edit education",
+            actions = listOf(TopAppBarAction.Text("Delete", destructive = true) {}),
+        ),
     ) {
         WarpText(
-            text = "Content below a header with a close button and a quiet destructive action.",
+            text = "Content below a top app bar with a close button and a quiet destructive action.",
             style = WarpTextStyle.Body,
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
         )

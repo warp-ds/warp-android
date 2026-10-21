@@ -8,17 +8,25 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.schibsted.nmp.warp.components.BottomSheetAction
-import com.schibsted.nmp.warp.components.BottomSheetBackButton
 import com.schibsted.nmp.warp.components.DiscouragedWarpApi
+import com.schibsted.nmp.warp.components.SearchConfiguration
+import com.schibsted.nmp.warp.components.TabConfiguration
+import com.schibsted.nmp.warp.components.TabData
+import com.schibsted.nmp.warp.components.TopAppBarAction
+import com.schibsted.nmp.warp.components.TopAppBarConfiguration
+import com.schibsted.nmp.warp.components.TopAppBarMenuItem
+import com.schibsted.nmp.warp.components.TopAppBarNavigation
+import com.schibsted.nmp.warp.components.WarpAppBarStyle
 import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
@@ -26,6 +34,7 @@ import com.schibsted.nmp.warp.components.WarpDivider
 import com.schibsted.nmp.warp.components.WarpLockableBottomSheet
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
@@ -40,7 +49,7 @@ fun BottomSheetScreen(onUp: () -> Unit) {
     }
 }
 
-private enum class SampleSheet { Categories, TitleAndAction, Action, DestructiveAction, Back, NotDismissible }
+private enum class SampleSheet { Categories, TitleAndAction, Action, DestructiveAction, Back, FavouriteAndMenu, SearchAndTabs, NotDismissible }
 
 @Composable
 fun BottomSheetScreenContent() {
@@ -62,6 +71,8 @@ fun BottomSheetScreenContent() {
         SheetButton("Action") { openSheet = SampleSheet.Action }
         SheetButton("Destructive action") { openSheet = SampleSheet.DestructiveAction }
         SheetButton("Back button") { openSheet = SampleSheet.Back }
+        SheetButton("Favourite and menu") { openSheet = SampleSheet.FavouriteAndMenu }
+        SheetButton("Collapsing title, search and tabs") { openSheet = SampleSheet.SearchAndTabs }
         SheetButton("Not dismissible while saving") { openSheet = SampleSheet.NotDismissible }
     }
 
@@ -76,7 +87,7 @@ fun BottomSheetScreenContent() {
 
         SampleSheet.TitleAndAction -> WarpBottomSheet(
             onDismissRequest = closeSheet,
-            title = "Sort by",
+            topAppBar = TopAppBarConfiguration(title = "Sort by"),
         ) { dismiss ->
             Column(modifier = Modifier.padding(dimensions.space2)) {
                 WarpText(text = "Newest first", style = WarpTextStyle.Body)
@@ -94,11 +105,13 @@ fun BottomSheetScreenContent() {
 
         SampleSheet.Action -> WarpBottomSheet(
             onDismissRequest = closeSheet,
-            title = "Filters",
-            action = BottomSheetAction("Reset") {},
+            topAppBar = TopAppBarConfiguration(
+                title = "Filters",
+                actions = listOf(TopAppBarAction.Text("Reset") {}),
+            ),
         ) {
             WarpText(
-                text = "Content below a header with a quiet text action.",
+                text = "Content below a top app bar with a quiet text action.",
                 style = WarpTextStyle.Body,
                 modifier = Modifier.padding(dimensions.space2),
             )
@@ -106,17 +119,23 @@ fun BottomSheetScreenContent() {
 
         SampleSheet.DestructiveAction -> WarpBottomSheet(
             onDismissRequest = closeSheet,
-            title = "Edit education",
-            action = BottomSheetAction("Delete", destructive = true) {},
+            topAppBar = TopAppBarConfiguration(
+                title = "Edit education",
+                actions = listOf(TopAppBarAction.Text("Delete", destructive = true) {}),
+            ),
         ) {
             WarpText(
-                text = "Content below a header with a quiet destructive action.",
+                text = "Content below a top app bar with a quiet destructive action.",
                 style = WarpTextStyle.Body,
                 modifier = Modifier.padding(dimensions.space2),
             )
         }
 
         SampleSheet.Back -> TwoStepSheet(onDismissRequest = closeSheet)
+
+        SampleSheet.FavouriteAndMenu -> FavouriteAndMenuSheet(onDismissRequest = closeSheet)
+
+        SampleSheet.SearchAndTabs -> SearchAndTabsSheet(onDismissRequest = closeSheet)
 
         SampleSheet.NotDismissible -> SavingSheet(onDismissRequest = closeSheet)
 
@@ -139,8 +158,10 @@ private fun TwoStepSheet(onDismissRequest: () -> Unit) {
     var step by rememberSaveable { mutableIntStateOf(1) }
     WarpBottomSheet(
         onDismissRequest = onDismissRequest,
-        backButton = if (step == 2) BottomSheetBackButton { step = 1 } else null,
-        title = "Step $step of 2",
+        topAppBar = TopAppBarConfiguration(
+            title = "Step $step of 2",
+            navigation = if (step == 2) TopAppBarNavigation.Back { step = 1 } else null,
+        ),
     ) { dismiss ->
         BackHandler(enabled = step == 2) { step = 1 }
         Column(modifier = Modifier.padding(dimensions.space2)) {
@@ -171,7 +192,7 @@ private fun SavingSheet(onDismissRequest: () -> Unit) {
     WarpLockableBottomSheet(
         onDismissRequest = onDismissRequest,
         locked = saving,
-        title = "Save changes",
+        topAppBar = TopAppBarConfiguration(title = "Save changes"),
     ) { dismiss ->
         if (saving) {
             LaunchedEffect(Unit) {
@@ -198,8 +219,85 @@ private fun SavingSheet(onDismissRequest: () -> Unit) {
 }
 
 @Composable
+private fun FavouriteAndMenuSheet(onDismissRequest: () -> Unit) {
+    var favourite by rememberSaveable { mutableStateOf(false) }
+    var newestFirst by rememberSaveable { mutableStateOf(true) }
+    WarpBottomSheet(
+        onDismissRequest = onDismissRequest,
+        topAppBar = TopAppBarConfiguration(
+            title = "Vintage armchair",
+            subtitle = "Oslo",
+            actions = listOf(
+                TopAppBarAction.Icon(icon = icons.shareAndroid, label = "Share") {},
+                TopAppBarAction.Toggle(
+                    icon = icons.heart,
+                    checkedIcon = icons.heartFilled,
+                    checked = favourite,
+                    label = "Favourite",
+                    onCheckedChange = { favourite = it },
+                ),
+                TopAppBarAction.Menu(
+                    listOf(
+                        TopAppBarMenuItem("Newest first", checked = newestFirst) { newestFirst = true },
+                        TopAppBarMenuItem("Oldest first", checked = !newestFirst) { newestFirst = false },
+                    )
+                ),
+            ),
+        ),
+    ) {
+        WarpText(
+            text = if (favourite) "Saved as a favourite." else "Not a favourite yet.",
+            style = WarpTextStyle.Body,
+            modifier = Modifier.padding(dimensions.space2),
+        )
+        WarpText(
+            text = if (newestFirst) "Sorted newest first." else "Sorted oldest first.",
+            style = WarpTextStyle.Body,
+            modifier = Modifier.padding(horizontal = dimensions.space2),
+        )
+    }
+}
+
+@Composable
+private fun SearchAndTabsSheet(onDismissRequest: () -> Unit) {
+    val searchState = remember { TextFieldState("") }
+    var selectedTab by rememberSaveable { mutableIntStateOf(0) }
+    WarpBottomSheet(
+        onDismissRequest = onDismissRequest,
+        skipPartiallyExpanded = true,
+        topAppBar = TopAppBarConfiguration(
+            title = "Categories",
+            subtitle = "Pick one",
+            style = WarpAppBarStyle.MediumFlexible,
+            search = SearchConfiguration(state = searchState, onSearch = {}, hint = "Search categories"),
+            tabs = TabConfiguration(
+                tabs = listOf(TabData("All", "all"), TabData("Popular", "popular")),
+                selectedIndex = selectedTab,
+                onTabSelected = { selectedTab = it },
+            ),
+        ),
+    ) {
+        LazyColumn(modifier = Modifier.padding(horizontal = dimensions.space3)) {
+            items(sampleCategories) { category ->
+                WarpText(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = dimensions.space2),
+                    text = category,
+                    style = WarpTextStyle.Body,
+                )
+                WarpDivider()
+            }
+        }
+    }
+}
+
+@Composable
 private fun CategoriesSheet(onSelect: (String) -> Unit, onDismissRequest: () -> Unit) {
-    WarpBottomSheet(onDismissRequest = onDismissRequest, title = "Categories") {
+    WarpBottomSheet(
+        onDismissRequest = onDismissRequest,
+        topAppBar = TopAppBarConfiguration(title = "Categories"),
+    ) {
         LazyColumn(modifier = Modifier.padding(horizontal = dimensions.space3)) {
             items(sampleCategories) { category ->
                 WarpText(

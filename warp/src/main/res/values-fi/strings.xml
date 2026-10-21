@@ -362,4 +362,10 @@
     <string name="coathanger">Henkari</string>
     <string name="printer">Tulostin</string>
     <string name="shareandroid">Kolme pistettä</string>
+
+    <!-- Purpose labels read before the icon description of top app bar buttons -->
+    <string name="top_app_bar_back">Takaisin</string>
+    <string name="top_app_bar_close">Sulje</string>
+    <string name="top_app_bar_more_options">Lisää vaihtoehtoja</string>
+
 </resources>

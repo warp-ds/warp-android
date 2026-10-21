@@ -362,4 +362,9 @@
     <string name="printer">Printer</string>
     <string name="shareandroid">Three connected dots</string>
 
+    <!-- Purpose labels read before the icon description of top app bar buttons -->
+    <string name="top_app_bar_back">Back</string>
+    <string name="top_app_bar_close">Close</string>
+    <string name="top_app_bar_more_options">More options</string>
+
 </resources>

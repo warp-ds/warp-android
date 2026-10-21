@@ -46,10 +46,12 @@ import kotlin.math.abs
  *     modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
  *     topBar = {
  *         WarpTopAppBar(
- *             ...,
- *             style = WarpAppBarStyle.MediumFlexible,
+ *             configuration = TopAppBarConfiguration(
+ *                 ...,
+ *                 style = WarpAppBarStyle.MediumFlexible,
+ *                 search = SearchConfiguration(..., collapsible = true),
+ *             ),
  *             scrollBehavior = scrollBehavior,
- *             searchConfig = SearchConfiguration(..., collapsible = true),
  *         )
  *     }
  * )
@@ -154,7 +156,8 @@ class WarpTopAppBarScrollBehavior internal constructor(
                 ) { state.heightOffset = value }
             }
         }
-        return Velocity(0f, remainingVelocity)
+        // Report what the bar used, so a parent (e.g. a bottom sheet) gets the rest.
+        return Velocity(0f, velocity - remainingVelocity)
     }
 
     private fun nearestAnchor(offset: Float): Float {

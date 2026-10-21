@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,9 +20,11 @@ import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.SearchConfiguration
 import com.schibsted.nmp.warp.components.TabConfiguration
 import com.schibsted.nmp.warp.components.TabData
+import com.schibsted.nmp.warp.components.TopAppBarAction
+import com.schibsted.nmp.warp.components.TopAppBarConfiguration
+import com.schibsted.nmp.warp.components.TopAppBarNavigation
 import com.schibsted.nmp.warp.components.WarpAppBarStyle
 import com.schibsted.nmp.warp.components.WarpCheckbox
-import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
@@ -42,6 +43,7 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
     var searchCollapsible by remember { mutableStateOf(true) }
     var tabsCollapsible by remember { mutableStateOf(false) }
     var longTitles by remember { mutableStateOf(false) }
+    var favourite by remember { mutableStateOf(false) }
     val currentFlavor = rememberCurrentFlavor()
 
     val tabs = listOf(
@@ -65,34 +67,39 @@ fun WarpTopAppBarDemoScreen(onUp: () -> Unit) {
         containerColor = colors.background.default,
         topBar = {
             WarpTopAppBar(
-                titleText = "Top App Bar Demo ($currentFlavor)" + if (longTitles) " with a lot of text" else "",
-                subtitleText = "Subtitle" + if (longTitles) " that's so long, it will wrap or get cut off - maybe both?" else "",
-                style = if (useFlexibleStyle) WarpAppBarStyle.MediumFlexible else WarpAppBarStyle.Default,
-                titleCollapsible = titleCollapsible,
-                navigationIcon = {
-                    IconButton(onClick = onUp) {
-                        WarpIcon(icon = icons.arrowLeft)
-                    }
-                },
-                actions = {
-                    FlavorSwitcher()
-                },
-                searchConfig = SearchConfiguration(
-                    state = searchState,
-                    onSearch = { query ->
-                        // Handle search submission
-                        println("Search: $query")
-                    },
-                    hint = "Search messages, favorites...",
-                    collapsible = searchCollapsible
-                ),
-                tabConfig = TabConfiguration(
-                    tabs = tabs,
-                    selectedIndex = selectedTabIndex,
-                    onTabSelected = { index ->
-                        selectedTabIndex = index
-                    },
-                    collapsible = tabsCollapsible
+                configuration = TopAppBarConfiguration(
+                    title = "Top App Bar Demo ($currentFlavor)" + if (longTitles) " with a lot of text" else "",
+                    subtitle = "Subtitle" + if (longTitles) " that's so long, it will wrap or get cut off - maybe both?" else "",
+                    style = if (useFlexibleStyle) WarpAppBarStyle.MediumFlexible else WarpAppBarStyle.Default,
+                    titleCollapsible = titleCollapsible,
+                    navigation = TopAppBarNavigation.Back(onUp),
+                    actions = listOf(
+                        TopAppBarAction.Toggle(
+                            icon = icons.heart,
+                            checkedIcon = icons.heartFilled,
+                            checked = favourite,
+                            label = "Favourite",
+                            onCheckedChange = { favourite = it },
+                        ),
+                        flavorSwitcherAction(),
+                    ),
+                    search = SearchConfiguration(
+                        state = searchState,
+                        onSearch = { query ->
+                            // Handle search submission
+                            println("Search: $query")
+                        },
+                        hint = "Search messages, favorites...",
+                        collapsible = searchCollapsible
+                    ),
+                    tabs = TabConfiguration(
+                        tabs = tabs,
+                        selectedIndex = selectedTabIndex,
+                        onTabSelected = { index ->
+                            selectedTabIndex = index
+                        },
+                        collapsible = tabsCollapsible
+                    ),
                 ),
                 scrollBehavior = scrollBehavior
             )

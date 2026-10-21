@@ -362,4 +362,10 @@
     <string name="coathanger">Tøjbøjle</string>
     <string name="printer">Printer</string>
     <string name="shareandroid">Tre forbundne prikker</string>
+
+    <!-- Purpose labels read before the icon description of top app bar buttons -->
+    <string name="top_app_bar_back">Tilbage</string>
+    <string name="top_app_bar_close">Luk</string>
+    <string name="top_app_bar_more_options">Flere muligheder</string>
+
 </resources>

@@ -362,4 +362,10 @@
     <string name="coathanger">Kleshenger</string>
     <string name="printer">Skriver</string>
     <string name="shareandroid">Tre prikker</string>
+
+    <!-- Purpose labels read before the icon description of top app bar buttons -->
+    <string name="top_app_bar_back">Tilbake</string>
+    <string name="top_app_bar_close">Lukk</string>
+    <string name="top_app_bar_more_options">Flere valg</string>
+
 </resources>
