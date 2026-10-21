@@ -27,7 +27,7 @@ class WarpSearchBarIconSemanticsTest {
             .mapNotNull { it.config.getOrNull(SemanticsProperties.ContentDescription) }
 
     @Test
-    fun searchBarButton_iconButtonsAnnounceOnlyTheirOwnLabel() {
+    fun searchBarButton_iconButtonsAnnounceTheirFunctionAndTheIconDescription() {
         composeTestRule.setContent {
             WarpSearchBarButton(
                 text = "something",
@@ -45,17 +45,23 @@ class WarpSearchBarIconSemanticsTest {
             )
         }
 
-        val clearFieldDescription = InstrumentationRegistry.getInstrumentation().targetContext
-            .getString(R.string.clear_field)
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val clearFieldDescription = context.getString(R.string.clear_field)
+        val closeIconDescription = context.getString(R.string.close)
+        val filterIconDescription = context.getString(R.string.filter)
+        val arrowLeftIconDescription = context.getString(R.string.arrowleft)
         val descriptions = mergedContentDescriptions()
 
-        assertEquals(listOf(clearFieldDescription), descriptions.single { clearFieldDescription in it })
         assertEquals(
-            listOf(SECONDARY_ACTION_DESCRIPTION),
+            listOf(clearFieldDescription, closeIconDescription),
+            descriptions.single { clearFieldDescription in it },
+        )
+        assertEquals(
+            listOf(SECONDARY_ACTION_DESCRIPTION, filterIconDescription),
             descriptions.single { SECONDARY_ACTION_DESCRIPTION in it },
         )
         assertEquals(
-            listOf(LEADING_ACTION_DESCRIPTION),
+            listOf(LEADING_ACTION_DESCRIPTION, arrowLeftIconDescription),
             descriptions.single { LEADING_ACTION_DESCRIPTION in it },
         )
     }
