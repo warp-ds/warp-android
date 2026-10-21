@@ -209,7 +209,7 @@ internal object VendDarkBadgeColors : WarpBadgeColors {
     override val warningBackground = Color(0xFFad5f28)
     override val negativeBackground = Color(0xFFa32020)
     override val sponsoredBackground = Color(0xFF1b77d2)
-    override val priceBackground = Color(0xFF000000)
+    override val priceBackground = Color(0xB3000000)
 }
 
 internal object VendDarkCalloutColors : WarpCalloutColors {

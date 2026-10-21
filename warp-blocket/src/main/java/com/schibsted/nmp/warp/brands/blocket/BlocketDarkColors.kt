@@ -209,7 +209,7 @@ internal object BlocketDarkBadgeColors : WarpBadgeColors {
     override val warningBackground = Color(0xFFb67b00)
     override val negativeBackground = Color(0xFF9b2b1e)
     override val sponsoredBackground = Color(0xFF0071eb)
-    override val priceBackground = Color(0xFF000000)
+    override val priceBackground = Color(0xB3000000)
 }
 
 internal object BlocketDarkCalloutColors : WarpCalloutColors {

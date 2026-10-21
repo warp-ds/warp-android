@@ -37,6 +37,10 @@ android {
         jvmToolchain(17)
     }
 
+    // Without this the instrumented test APK targets minSdk, and newer Android
+    // shows a system dialog over the test activity that breaks Compose tests.
+    testOptions.targetSdk = ConfigData.compileSdkVersion
+
     @Suppress("UnstableApiUsage")
     buildFeatures {
         compose = true
