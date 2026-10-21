@@ -38,12 +38,12 @@ import kotlinx.coroutines.launch
  * @param onClick Called on tap with the sheet's `dismiss` callback, e.g. to go to the previous
  * step, or to dismiss on the first step.
  */
-data class BottomSheetBackButton(val onClick: (dismiss: () -> Unit) -> Unit)
+internal data class BottomSheetBackButton(val onClick: (dismiss: () -> Unit) -> Unit)
 
 /**
  * The top-right action of a [WarpBottomSheet]. The sheet decides how it looks.
  */
-sealed interface BottomSheetAction {
+internal sealed interface BottomSheetAction {
     val onClick: () -> Unit
 
     /** An icon button, labelled with the icon's own description. */
@@ -80,7 +80,7 @@ sealed interface BottomSheetAction {
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WarpBottomSheet(
+internal fun WarpBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     backButton: BottomSheetBackButton? = null,
