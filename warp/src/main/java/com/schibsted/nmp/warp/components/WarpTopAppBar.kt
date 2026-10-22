@@ -34,6 +34,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -165,7 +166,10 @@ fun WarpTopAppBar(
     )
 }
 
-/** Shared by [WarpTopAppBar] and [WarpBottomSheet]; [enabled] disables navigation and actions. */
+/**
+ * Shared by [WarpTopAppBar] and [WarpBottomSheet]; [enabled] disables navigation and actions, and
+ * [expandedHeight] sets the height of the row holding them.
+ */
 @Composable
 internal fun TopAppBarImpl(
     configuration: TopAppBarConfiguration,
@@ -174,6 +178,7 @@ internal fun TopAppBarImpl(
     topBarColors: TopAppBarColors?,
     scrollBehavior: TopAppBarScrollBehavior?,
     enabled: Boolean,
+    expandedHeight: Dp = TopAppBarDefaults.TopAppBarExpandedHeight,
 ) {
     WarpTopAppBarLayout(
         titleText = configuration.title,
@@ -188,6 +193,7 @@ internal fun TopAppBarImpl(
         searchConfig = configuration.search,
         tabConfig = configuration.tabs,
         style = configuration.style,
+        expandedHeight = expandedHeight,
     )
 }
 
@@ -291,6 +297,7 @@ private fun WarpTopAppBarLayout(
     searchConfig: SearchConfiguration?,
     tabConfig: TabConfiguration?,
     style: WarpAppBarStyle,
+    expandedHeight: Dp = TopAppBarDefaults.TopAppBarExpandedHeight,
 ) {
     // Height tracking for collapsible sections (in pixels)
     var titleHeightPx by remember(
@@ -469,6 +476,7 @@ private fun WarpTopAppBarLayout(
                 },
                 navigationIcon = navigationIcon,
                 actions = actions,
+                expandedHeight = expandedHeight,
                 windowInsets = windowInsets,
                 colors = appBarColors,
                 scrollBehavior = null,
@@ -595,6 +603,7 @@ private fun WarpTopAppBarLayout(
                     modifier = Modifier,
                     navigationIcon = navigationIcon,
                     actions = actions,
+                    expandedHeight = expandedHeight,
                     windowInsets = windowInsets,
                     colors = appBarColors,
                     scrollBehavior = if (useMaterial3TitleCollapse) effectiveScrollBehavior else null

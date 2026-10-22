@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -23,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.takeOrElse
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -129,6 +132,10 @@ internal fun BottomSheetImpl(
             topBarColors = warpTopAppBarColors(containerColor = WarpBottomSheetDefaults.containerColor),
             scrollBehavior = scrollBehavior,
             enabled = !locked,
+            // Shorter than a screen's bar, so the header sits close to the handle. The buttons keep
+            // their full touch target.
+            expandedHeight = LocalMinimumInteractiveComponentSize.current
+                .takeOrElse { TopAppBarDefaults.TopAppBarExpandedHeight },
         )
         if (scrollBehavior != null) {
             Column(Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) { content(dismiss) }
