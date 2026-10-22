@@ -21,7 +21,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import kotlinx.coroutines.launch
@@ -46,9 +48,10 @@ object WarpBottomSheetDefaults {
  * `dismiss`, so in-sheet actions can close the sheet the same way.
  * @param modifier Applied to the sheet surface.
  * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
- * @param topAppBar What the sheet's top app bar shows. Without a navigation button, the sheet shows
- * a close button that dismisses it. Use the title for the sheet's heading rather than a heading in
- * [content]. Collapsing styles, search and tabs collapse as [content] scrolls.
+ * @param topAppBar What the sheet's top app bar shows. The sheet always adds its own close button
+ * top right, after the actions, so don't add one; a [TopAppBarNavigation.Close] is ignored. Use
+ * [TopAppBarNavigation.Back] for sub-navigation, and the title for the sheet's heading rather than
+ * a heading in [content]. Collapsing styles, search and tabs collapse as [content] scrolls.
  * @param content Sheet body; receives `dismiss` (see [onDismissRequest]).
  */
 @Composable
@@ -109,12 +112,17 @@ internal fun BottomSheetImpl(
     ) {
         BlockBack(enabled = locked)
         if (locked) LockedDragHandle(color = dragHandleColor)
+        val close = TopAppBarAction.Icon(
+            icon = icons.close,
+            label = stringResource(R.string.top_app_bar_close),
+            onClick = dismiss,
+        )
         TopAppBarImpl(
-            configuration = if (topAppBar.navigation == null) {
-                topAppBar.copy(navigation = TopAppBarNavigation.Close(dismiss))
-            } else {
-                topAppBar
-            },
+            // Every sheet closes the same way: with the sheet's own close button, top right.
+            configuration = topAppBar.copy(
+                navigation = topAppBar.navigation.takeUnless { it is TopAppBarNavigation.Close },
+                actions = topAppBar.actions + close,
+            ),
             modifier = Modifier,
             // The sheet already applies insets.
             windowInsets = WindowInsets(0),

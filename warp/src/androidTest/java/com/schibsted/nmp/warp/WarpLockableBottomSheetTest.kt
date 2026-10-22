@@ -200,10 +200,10 @@ class WarpLockableBottomSheetTest {
     }
 
     @Test
-    fun backButton_replacesCloseButton() {
+    fun backButton_keepsCloseButton() {
         setSheet(locked = false)
 
         composeTestRule.onNodeWithContentDescription(backButtonDescription).assertExists()
-        composeTestRule.onNodeWithContentDescription(closeButtonDescription).assertDoesNotExist()
+        composeTestRule.onNodeWithContentDescription(closeButtonDescription).assertExists()
     }
 }

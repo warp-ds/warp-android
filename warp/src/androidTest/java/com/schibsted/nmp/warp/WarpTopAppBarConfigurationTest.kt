@@ -10,8 +10,10 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsOff
 import androidx.compose.ui.test.assertIsOn
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -26,6 +28,7 @@ import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTopAppBar
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -58,7 +61,7 @@ class WarpTopAppBarConfigurationTest {
     }
 
     @Test
-    fun sheetWithoutNavigation_showsCloseThatReadsPurposeAndDismisses() {
+    fun sheet_showsCloseTopRightThatReadsPurposeAndDismisses() {
         var iconDescription = ""
         var dismissed = false
         composeTestRule.setContent {
@@ -83,6 +86,28 @@ class WarpTopAppBarConfigurationTest {
             .performClick()
 
         composeTestRule.waitUntil(timeoutMillis = 5_000) { dismissed }
+    }
+
+    @Test
+    fun sheet_ignoresCloseNavigationAndKeepsItsOwnCloseLast() {
+        composeTestRule.setContent {
+            WarpBottomSheet(
+                onDismissRequest = {},
+                topAppBar = TopAppBarConfiguration(
+                    title = "Title",
+                    navigation = TopAppBarNavigation.Close {},
+                    actions = listOf(TopAppBarAction.Text("Reset") {}),
+                ),
+            ) {
+                WarpText(text = "Sheet content")
+            }
+        }
+        val close = composeTestRule.onAllNodesWithContentDescription(context.getString(R.string.top_app_bar_close))
+        close.assertCountEquals(1)
+
+        val closeLeft = close[0].fetchSemanticsNode().boundsInRoot.left
+        val resetRight = composeTestRule.onNodeWithText("Reset").fetchSemanticsNode().boundsInRoot.right
+        assertTrue(closeLeft >= resetRight)
     }
 
     @Test

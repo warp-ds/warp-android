@@ -168,7 +168,7 @@ private fun TwoStepSheet(onDismissRequest: () -> Unit) {
                 text = if (step == 1) {
                     "Close, or system back, dismisses the sheet."
                 } else {
-                    "Back, or system back, returns to step 1."
+                    "Back, or system back, returns to step 1. Close dismisses the sheet."
                 },
                 style = WarpTextStyle.Body,
             )

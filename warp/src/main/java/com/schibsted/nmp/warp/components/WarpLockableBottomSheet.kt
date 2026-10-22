@@ -25,9 +25,10 @@ import com.schibsted.nmp.warp.theme.WarpTheme
  * Prefer [WarpBottomSheet]. Modal sheets are meant to be dismissible, and an operation can usually
  * carry on after the sheet closes and report its result elsewhere, e.g. in a snackbar.
  *
- * While [locked], the handle, swipe, scrim and back do nothing, and the top app bar's navigation
- * and actions are disabled. Search and tabs stay usable. `dismiss` still works, so the sheet can close itself when the operation finishes. Reset [locked] on error paths
- * too. A `BackHandler` in [content] still runs while locked and should respect the lock itself.
+ * While [locked], the handle, swipe, scrim and back do nothing, and the top app bar's buttons,
+ * including the close button, are disabled. Search and tabs stay usable. `dismiss` still works, so
+ * the sheet can close itself when the operation finishes. Reset [locked] on error paths too. A
+ * `BackHandler` in [content] still runs while locked and should respect the lock itself.
  *
  * @param locked Set to true only while the operation is in progress, and pair it with visible
  * progress.
