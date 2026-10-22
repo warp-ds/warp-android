@@ -362,6 +362,5 @@
     <string name="coathanger">Kleshenger</string>
     <string name="printer">Skriver</string>
     <string name="shareandroid">Tre prikker</string>
-    <string name="clear_field">Tøm feltet</string>
-
+    <string name="clear_field">Tøm felt</string>
 </resources>
