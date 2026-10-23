@@ -3,7 +3,6 @@ package com.schibsted.snapshot
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.ui.Alignment
@@ -19,7 +18,6 @@ import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.schibsted.nmp.warp.components.WarpSnackbar
 import com.schibsted.nmp.warp.components.WarpSnackbarVisuals
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
-import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.WarpSnackbarScenario
 import com.schibsted.nmp.warp.utils.WarpSnackbarScenarios
 import org.junit.Rule
@@ -85,9 +83,7 @@ class WarpSnackbarTest(
         paparazzi.snapshot {
             WarpTheme(flavor = flavor) {
                 Column(
-                    modifier = Modifier
-                        .background(colors.background.default)
-                        .padding(dimensions.space2),
+                    modifier = Modifier.background(colors.background.default),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Bottom
                 ) {

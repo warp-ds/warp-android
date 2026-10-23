@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.nmp.warp.test", appContext.packageName)
+        assertEquals("com.schibsted.nmp.warp.test", appContext.packageName)
     }
 }

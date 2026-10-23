@@ -209,7 +209,7 @@ internal object FinnBadgeColors : WarpBadgeColors {
     override val warningBackground = Color(0xFFfff5c8)
     override val negativeBackground = Color(0xFFffefef)
     override val sponsoredBackground = Color(0xFFb6f0ff)
-    override val priceBackground = Color(0xFF000000)
+    override val priceBackground = Color(0xB3000000)
 }
 
 internal object FinnCalloutColors : WarpCalloutColors {

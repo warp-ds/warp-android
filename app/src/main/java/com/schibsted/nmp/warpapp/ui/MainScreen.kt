@@ -177,6 +177,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("menu") {
+                MenuScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("slider") {
                 SliderScreen {
                     navController.navigateUp()
@@ -224,6 +229,11 @@ fun MainScreen() {
             }
             composable("topAppBarDemo") {
                 WarpTopAppBarDemoScreen {
+                    navController.navigateUp()
+                }
+            }
+            composable("searchBarDemo") {
+                WarpSearchBarDemoScreen {
                     navController.navigateUp()
                 }
             }
@@ -294,12 +304,14 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "icons" to "WarpIcons",
                         "link" to "WarpLink",
                         "logo" to "WarpLogo",
+                        "menu" to "WarpMenu",
                         "modal" to "WarpModal",
                         "pageIndicator" to "WarpPageIndicator",
                         "pill" to "WarpPill",
                         "popover" to "WarpPopover",
                         "radio" to "WarpRadio",
                         "rangeSlider" to "WarpRangeSlider",
+                        "searchBarDemo" to "WarpSearchBar",
                         "select" to "WarpSelect",
                         "slider" to "WarpSlider",
                         "snackbar" to "WarpSnackbar",
