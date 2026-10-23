@@ -65,8 +65,6 @@ class WarpStepIndicatorStateSemanticsTest {
                 activeStep = 1,
                 onStepClicked = {},
                 stepContentDescription = { "Step $it" },
-                stepTitle = { "Step $it" },
-                stepDescription = { "Description $it" },
                 stepContent = {}
             )
         }
