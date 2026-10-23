@@ -281,8 +281,11 @@ private fun customVerticalMeasurePolicy(
                     y = labelY + label.height
                 )
             )
-            // Adjust the offset for the next round
-            offset = offset.copy(y = labelY + label.height + description.height)
+            // Adjust the offset for the next round. The label and content can be shorter than
+            // the indicator, so make sure the next step starts below both
+            offset = offset.copy(
+                y = maxOf(labelY + label.height + description.height, offset.y + indicator.height)
+            )
         } else {
             labelPlacements.add(label to offset.copy(x = indicatorSize))
             val indicatorY = offset.y + label.height / 2 - indicator.height / 2
@@ -321,7 +324,10 @@ private fun customVerticalMeasurePolicy(
         linePlacements.add(line to IntOffset(x, y))
     }
 
-    val height = descriptionPlacements.last().second.y + descriptionPlacements.last().first.height
+    val height = maxOf(
+        descriptionPlacements.last().second.y + descriptionPlacements.last().first.height,
+        indicatorPlacements.last().second.y + indicatorSize
+    )
     layout(width, height) {
         indicatorPlacements.forEach { (placeable, offset) ->
             // The dots have a different z index to be on the top because the line is a bit larger
