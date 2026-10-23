@@ -33,9 +33,11 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -159,10 +161,12 @@ fun VerticalWarpStepIndicator(
             }
 
             for (i in 0 until steps) {
+                val stateDescriptionText = stepState(i).description()
                 Canvas(
                     modifier = Modifier
                         .layoutId(StepIndicatorIds.INDICATOR)
                         .clip(CircleShape)
+                        .semantics { stateDescription = stateDescriptionText }
                         .let {
                             if (onStepClicked != null) {
                                 val mod = it.clickable {
@@ -444,10 +448,12 @@ fun HorizontalWarpStepIndicator(
 
             // Draw the dots
             for (i in 0 until steps) {
+                val stateDescriptionText = stepState(i).description()
                 Canvas(
                     Modifier
                         .layoutId(StepIndicatorIds.INDICATOR)
                         .clip(CircleShape)
+                        .semantics { stateDescription = stateDescriptionText }
                         .let {
                             if (onStepClicked != null && i <= highestEnabledStep) {
                                 val mod = it.clickable {
@@ -597,6 +603,16 @@ enum class WarpStepState {
     Complete,
     Error
 }
+
+@Composable
+private fun WarpStepState.description() = stringResource(
+    when (this) {
+        WarpStepState.Incomplete -> R.string.step_indicator_state_incomplete
+        WarpStepState.InProgress -> R.string.step_indicator_state_in_progress
+        WarpStepState.Complete -> R.string.step_indicator_state_complete
+        WarpStepState.Error -> R.string.step_indicator_state_error
+    }
+)
 
 internal fun defaultStepState(step: Int, activeStep: Int) = when {
     step < activeStep -> WarpStepState.Complete
