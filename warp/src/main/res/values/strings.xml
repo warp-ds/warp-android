@@ -12,6 +12,8 @@
     <string name="arrowleft">Arrow pointing left</string>
     <string name="arrowright">Arrow pointing right</string>
     <string name="arrowup">Arrow pointing up</string>
+    <string name="conversationgrouped">Two outlined squares beside grouped horizontal lines.</string>
+    <string name="packagebox">A closed cardboard package</string>
     <string name="paperclip">Paperclip</string>
     <string name="gearautomatic">Automatic gearbox</string>
     <string name="autovex">Autovex logo</string>
