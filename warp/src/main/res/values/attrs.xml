@@ -143,6 +143,10 @@
             <enum name="horizontal" value="0" />
             <enum name="vertical" value="1" />
         </attr>
+        <attr name="stepIndicatorType" format="enum">
+            <enum name="dot" value="0" />
+            <enum name="numbered" value="1" />
+        </attr>
         <attr name="steps" format="integer" />
         <attr name="activeStep" format="integer" />
     </declare-styleable>
