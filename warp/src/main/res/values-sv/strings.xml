@@ -365,5 +365,9 @@
     <string name="printer">Skrivare</string>
     <string name="shareandroid">Tre anslutna prickar</string>
     <string name="clear_field">Rensa fältet</string>
+    <string name="step_indicator_state_incomplete">Inte påbörjad</string>
+    <string name="step_indicator_state_in_progress">Pågår</string>
+    <string name="step_indicator_state_complete">Slutförd</string>
+    <string name="step_indicator_state_error">Fel</string>
 
 </resources>

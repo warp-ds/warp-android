@@ -364,5 +364,9 @@
     <string name="printer">Printer</string>
     <string name="shareandroid">Three connected dots</string>
     <string name="clear_field">Clear field</string>
+    <string name="step_indicator_state_incomplete">Not started</string>
+    <string name="step_indicator_state_in_progress">In progress</string>
+    <string name="step_indicator_state_complete">Completed</string>
+    <string name="step_indicator_state_error">Error</string>
 
 </resources>
