@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
@@ -8,8 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -24,22 +23,31 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntOffset
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.StepIndicatorDimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import java.lang.Float.min
 import kotlin.math.floor
 
@@ -50,6 +58,9 @@ import kotlin.math.floor
  * @param modifier Modifier applied to the component
  * @param steps Amount of steps. Must be greater than 1
  * @param activeStep Currently active step
+ * @param type Whether the indicators show a dot or the step number. See [WarpStepIndicatorType]
+ * @param stepState Function to provide the state of each step. Defaults to steps before
+ * [activeStep] being complete, [activeStep] being in progress and the rest being incomplete
  * @param onStepClicked will be invoked if a step is clicked
  * @param stepContentDescription Function to provide content descriptions for the steps, this will
  * only be used if onStepClicked is not null
@@ -62,6 +73,8 @@ fun VerticalWarpStepIndicator(
     modifier: Modifier = Modifier,
     steps: Int,
     activeStep: Int = 0,
+    type: WarpStepIndicatorType = WarpStepIndicatorType.Default,
+    stepState: (Int) -> WarpStepState = { defaultStepState(it, activeStep) },
     onStepClicked: ((Int) -> Unit)? = null,
     stepContentDescription: (@Composable (Int) -> String)? = null,
     stepTitle: ((Int) -> String)? = null,
@@ -76,6 +89,9 @@ fun VerticalWarpStepIndicator(
         animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
     val componentDimensions = dimensions.components.stepIndicator
 
+    val checkIcon = rememberStepIcon(R.drawable.step_indicator_checkmark)
+    val errorIcon = rememberStepIcon(R.drawable.step_indicator_cross)
+    val numbers = rememberStepNumbers(steps, type)
 
     val thresholds = remember { FloatArray(steps - 1) { 1.0f } }
 
@@ -103,7 +119,7 @@ fun VerticalWarpStepIndicator(
                     } else if (i > floor(animatedStep.toDouble())) {
                         // The track index is greater than the currently animated one so it is inactive
                         drawLine(
-                            color = colors.backgroundTrack,
+                            color = colors.border,
                             start = Offset(size.width / 2, 0f),
                             end = Offset(size.width / 2, size.height),
                             strokeWidth = componentDimensions.placeholderTrackWidth.toPx()
@@ -132,7 +148,7 @@ fun VerticalWarpStepIndicator(
                         // Some part of the track should be "inactive"
                         if (fracHeight < size.height) {
                             drawLine(
-                                color = colors.backgroundTrack,
+                                color = colors.border,
                                 start = Offset(size.width / 2, fracHeight),
                                 end = Offset(size.width / 2, size.height),
                                 strokeWidth = componentDimensions.placeholderTrackWidth.toPx()
@@ -141,8 +157,6 @@ fun VerticalWarpStepIndicator(
                     }
                 }
             }
-
-            val icon = rememberVectorPainter(image = Icons.Filled.Check)
 
             for (i in 0 until steps) {
                 Canvas(
@@ -167,81 +181,19 @@ fun VerticalWarpStepIndicator(
                             }
                         }
                 ) {
-                    when {
-                        // Indicator is already passed so it should have the active color and an icon
-                        (i < floor(animatedStep.toDouble())) -> {
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - componentDimensions.placeholderIconSize.toPx() / 2,
-                                top = size.height / 2 - componentDimensions.placeholderIconSize.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(
-                                            componentDimensions.placeholderIconSize.toPx(),
-                                            componentDimensions.placeholderIconSize.toPx()
-                                        ),
-                                        colorFilter = ColorFilter.tint(colors.icon)
-                                    )
-                                }
-
-                            }
-                        }
-                        // Indicator is the one we just passed so animate in the icon by adjusting the alpha
-                        (i.toDouble() == floor(animatedStep.toDouble())) -> {
-                            val frac = animatedStep - i
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - componentDimensions.placeholderIconSize.toPx() / 2,
-                                top = size.height / 2 - componentDimensions.placeholderIconSize.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(
-                                            componentDimensions.placeholderIconSize.toPx(),
-                                            componentDimensions.placeholderIconSize.toPx()
-                                        ),
-                                        alpha = frac,
-                                        colorFilter = ColorFilter.tint(colors.icon)
-                                    )
-                                }
-
-                            }
-                        }
-                        // Indicator index is greater than the one we are animating towards
-                        (i > floor(animatedStep.toDouble() + 1)) -> {
-                            drawCircle(
-                                colors.background,
-                                style = Stroke(componentDimensions.placeholderBorderWidth.toPx()),
-                                radius = size.minDimension / 2f // - dimensions.placeholderBorderWidth.toPx()/2
-                            )
-                        }
-                        // Indicator is the one we are currently animating towards
-                        else -> {
-                            val frac = animatedStep - (i - 1)
-                            // First draw a regular indicator
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(componentDimensions.placeholderBorderWidth.toPx()),
-                                radius = size.minDimension / 2f // - dimensions.placeholderBorderWidth.toPx()/2
-                            )
-                            // Check if the animation is above the threshold for when the indicator
-                            // should start its animation
-                            if (frac > thresholds[i - 1]) {
-                                // Calculate the progress of the indicator part
-                                val indicatorFraction =
-                                    (frac - thresholds[i - 1]) / (1 - thresholds[i - 1])
-                                // Just paint over the current fraction of the height with BlendMode.SrcAtop
-                                // to tint the indicator
-                                drawRect(
-                                    color = colors.backgroundActive,
-                                    topLeft = Offset.Zero,
-                                    size = size.copy(height = size.height * indicatorFraction),
-                                    blendMode = BlendMode.SrcAtop
-                                )
-                            }
-                        }
-                    }
+                    drawStepIndicator(
+                        step = i,
+                        state = stepState(i),
+                        animate = stepState(i) == defaultStepState(i, activeStep),
+                        animatedStep = animatedStep,
+                        threshold = if (i > 0) thresholds[i - 1] else 1.0f,
+                        orientation = StepIndicatorOrientation.Vertical,
+                        colors = colors,
+                        dimensions = componentDimensions,
+                        checkIcon = checkIcon,
+                        errorIcon = errorIcon,
+                        number = numbers?.get(i)
+                    )
                 }
             }
             for (i in 0 until steps) {
@@ -253,12 +205,14 @@ fun VerticalWarpStepIndicator(
                     stepTitle?.let {
                         WarpText(
                             it(i),
+                            color = colors.labelColor(stepState(i)),
                             style = WarpTextStyle.BodyStrong
                         )
                     }
                     stepDescription?.let {
                         WarpText(
                             it(i),
+                            color = colors.labelColor(stepState(i)),
                             style = WarpTextStyle.Caption
                         )
                     }
@@ -390,6 +344,9 @@ private fun customVerticalMeasurePolicy(
  * @param highestEnabledStep Steps with an index greater than this number will not be clickable.
  * Defaults to steps - 1
  * @param activeStep The currently active step
+ * @param type Whether the indicators show a dot or the step number. See [WarpStepIndicatorType]
+ * @param stepState Function to provide the state of each step. Defaults to steps before
+ * [activeStep] being complete, [activeStep] being in progress and the rest being incomplete
  * @param onStepClicked Optional callback for when a step is clicked
  * @param stepContentDescription Optional function to provide content descriptions for each step
  * @param stepTitle Function to provide titles for each step
@@ -401,6 +358,8 @@ fun HorizontalWarpStepIndicator(
     steps: Int,
     activeStep: Int = 0,
     highestEnabledStep: Int = steps - 1,
+    type: WarpStepIndicatorType = WarpStepIndicatorType.Default,
+    stepState: (Int) -> WarpStepState = { defaultStepState(it, activeStep) },
     onStepClicked: ((Int) -> Unit)? = null,
     stepContentDescription: (@Composable (Int) -> String)? = null,
     stepTitle: ((Int) -> String)? = null,
@@ -413,6 +372,10 @@ fun HorizontalWarpStepIndicator(
     val animatedStep =
         animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
     val dimensions = dimensions.components.stepIndicator
+
+    val checkIcon = rememberStepIcon(R.drawable.step_indicator_checkmark)
+    val errorIcon = rememberStepIcon(R.drawable.step_indicator_cross)
+    val numbers = rememberStepNumbers(steps, type)
 
     var threshold by remember { mutableFloatStateOf(1.0f) }
 
@@ -445,7 +408,7 @@ fun HorizontalWarpStepIndicator(
                     } else if (i > floor(animatedStep.toDouble())) {
                         // The line is between two dots that haven't been visited so it should be the regular color
                         drawLine(
-                            color = colors.backgroundTrack,
+                            color = colors.border,
                             start = Offset(0f, size.height / 2),
                             end = Offset(size.width, size.height / 2),
                             strokeWidth = dimensions.placeholderTrackWidth.toPx()
@@ -469,7 +432,7 @@ fun HorizontalWarpStepIndicator(
                         // A portion should be in the regular color
                         if (fracWidth < size.width) {
                             drawLine(
-                                color = colors.backgroundTrack,
+                                color = colors.border,
                                 start = Offset(fracWidth, size.height / 2),
                                 end = Offset(size.width, size.height / 2),
                                 strokeWidth = dimensions.placeholderTrackWidth.toPx()
@@ -479,7 +442,6 @@ fun HorizontalWarpStepIndicator(
                 }
             }
 
-            val icon = rememberVectorPainter(image = Icons.Filled.Check)
             // Draw the dots
             for (i in 0 until steps) {
                 Canvas(
@@ -504,74 +466,19 @@ fun HorizontalWarpStepIndicator(
                             }
                         }
                 ) {
-                    when {
-                        (i < floor(animatedStep.toDouble())) -> {
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - dimensions.placeholderIconSize.toPx() / 2,
-                                top = size.height / 2 - dimensions.placeholderIconSize.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(
-                                            dimensions.placeholderIconSize.toPx(),
-                                            dimensions.placeholderIconSize.toPx()
-                                        ),
-                                        colorFilter = ColorFilter.tint(colors.icon)
-                                    )
-                                }
-
-                            }
-                        }
-
-                        (i.toDouble() == floor(animatedStep.toDouble())) -> {
-                            val frac = animatedStep - i
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - dimensions.placeholderIconSize.toPx() / 2,
-                                top = size.height / 2 - dimensions.placeholderIconSize.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(
-                                            dimensions.placeholderIconSize.toPx(),
-                                            dimensions.placeholderIconSize.toPx()
-                                        ),
-                                        alpha = frac,
-                                        colorFilter = ColorFilter.tint(colors.icon)
-                                    )
-                                }
-
-                            }
-                        }
-
-                        (i > floor(animatedStep.toDouble() + 1)) -> {
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(dimensions.placeholderBorderWidth.toPx()),
-                                radius = size.minDimension / 2f - dimensions.placeholderBorderWidth.toPx() / 2
-                            )
-                        }
-
-                        else -> {
-                            if (threshold == 0.0f) return@Canvas
-                            val frac = animatedStep - (i - 1)
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(dimensions.placeholderBorderWidth.toPx()),
-                                radius = size.minDimension / 2f - dimensions.placeholderBorderWidth.toPx() / 2
-                            )
-                            if (frac > threshold) {
-                                val tFrac = (frac - threshold) / (1 - threshold)
-                                drawRect(
-                                    colors.backgroundActive,
-                                    Offset.Zero,
-                                    size.copy(width = size.width * tFrac),
-                                    blendMode = BlendMode.SrcAtop
-                                )
-                            }
-                        }
-                    }
+                    drawStepIndicator(
+                        step = i,
+                        state = stepState(i),
+                        animate = stepState(i) == defaultStepState(i, activeStep),
+                        animatedStep = animatedStep,
+                        threshold = threshold,
+                        orientation = StepIndicatorOrientation.Horizontal,
+                        colors = colors,
+                        dimensions = dimensions,
+                        checkIcon = checkIcon,
+                        errorIcon = errorIcon,
+                        number = numbers?.get(i)
+                    )
                 }
             }
 
@@ -584,6 +491,7 @@ fun HorizontalWarpStepIndicator(
                     stepTitle?.let {
                         WarpText(
                             it(i),
+                            color = colors.labelColor(stepState(i)),
                             textAlign = TextAlign.Center,
                             style = WarpTextStyle.BodyStrong
                         )
@@ -592,6 +500,7 @@ fun HorizontalWarpStepIndicator(
                     stepDescription?.let {
                         WarpText(
                             it(i),
+                            color = colors.labelColor(stepState(i)),
                             textAlign = TextAlign.Center,
                             style = WarpTextStyle.Caption
                         )
@@ -668,6 +577,185 @@ private fun customHorizontalMeasurePolicy(
     }
 }
 
+/**
+ * What the step indicators show
+ */
+enum class WarpStepIndicatorType {
+    /** Indicators show a dot */
+    Default,
+
+    /** Incomplete and in progress indicators show the step number */
+    Numbered
+}
+
+/**
+ * The state of a single step
+ */
+enum class WarpStepState {
+    Incomplete,
+    InProgress,
+    Complete,
+    Error
+}
+
+internal fun defaultStepState(step: Int, activeStep: Int) = when {
+    step < activeStep -> WarpStepState.Complete
+    step == activeStep -> WarpStepState.InProgress
+    else -> WarpStepState.Incomplete
+}
+
+private enum class StepIndicatorOrientation { Horizontal, Vertical }
+
+// The glyphs are drawn on a canvas the size of the indicator, like in the Figma spec
+@Composable
+private fun rememberStepIcon(@DrawableRes id: Int) =
+    rememberVectorPainter(ImageVector.vectorResource(id))
+
+@Composable
+private fun rememberStepNumbers(steps: Int, type: WarpStepIndicatorType): List<TextLayoutResult>? {
+    if (type != WarpStepIndicatorType.Numbered) return null
+    val textMeasurer = rememberTextMeasurer()
+    val style = typography.detailStrong
+    return remember(steps, style, textMeasurer) {
+        List(steps) { textMeasurer.measure("${it + 1}", style) }
+    }
+}
+
+/**
+ * Draws a single indicator. Steps that are in the state given by [activeStep][defaultStepState]
+ * animate between states, steps with a custom state are drawn as is.
+ */
+private fun DrawScope.drawStepIndicator(
+    step: Int,
+    state: WarpStepState,
+    animate: Boolean,
+    animatedStep: Float,
+    threshold: Float,
+    orientation: StepIndicatorOrientation,
+    colors: WarpStepIndicatorColors,
+    dimensions: StepIndicatorDimensions,
+    checkIcon: Painter,
+    errorIcon: Painter,
+    number: TextLayoutResult?
+) {
+    val iconSize = size.minDimension
+    val ringRadius = when (orientation) {
+        StepIndicatorOrientation.Horizontal -> size.minDimension / 2f - dimensions.placeholderBorderWidth.toPx() / 2
+        StepIndicatorOrientation.Vertical -> size.minDimension / 2f
+    }
+    val ring = Stroke(dimensions.placeholderBorderWidth.toPx())
+
+    if (state == WarpStepState.Error) {
+        drawCircle(colors.border, style = ring, radius = ringRadius)
+        drawCenteredIcon(errorIcon, iconSize, colors.iconError)
+        return
+    }
+
+    if (!animate) {
+        when (state) {
+            WarpStepState.Complete -> {
+                drawCircle(colors.backgroundActive)
+                drawCenteredIcon(checkIcon, iconSize, colors.icon)
+            }
+
+            WarpStepState.InProgress -> {
+                drawCircle(colors.backgroundActive, style = ring, radius = ringRadius)
+                number?.let { drawCenteredText(it, colors.text) }
+            }
+
+            else -> {
+                drawCircle(colors.border, style = ring, radius = ringRadius)
+                number?.let { drawCenteredText(it, colors.text) }
+            }
+        }
+        return
+    }
+
+    when {
+        // Indicator is already passed so it should have the active color and an icon
+        (step < floor(animatedStep.toDouble())) -> {
+            drawCircle(colors.backgroundActive)
+            drawCenteredIcon(checkIcon, iconSize, colors.icon)
+        }
+        // Indicator is in progress, or the one we just passed so fade in the fill and icon by
+        // adjusting the alpha
+        (step.toDouble() == floor(animatedStep.toDouble())) -> {
+            val frac = animatedStep - step
+            drawCircle(colors.backgroundActive, style = ring, radius = ringRadius)
+            drawCircle(colors.backgroundActive, alpha = frac)
+            number?.let { drawCenteredText(it, colors.text, alpha = 1 - frac) }
+            drawCenteredIcon(checkIcon, iconSize, colors.icon, alpha = frac)
+        }
+        // Indicator index is greater than the one we are animating towards
+        (step > floor(animatedStep.toDouble() + 1)) -> {
+            drawCircle(colors.border, style = ring, radius = ringRadius)
+            number?.let { drawCenteredText(it, colors.text) }
+        }
+        // Indicator is the one we are currently animating towards
+        else -> {
+            if (orientation == StepIndicatorOrientation.Horizontal && threshold == 0.0f) return
+            val frac = animatedStep - (step - 1)
+            // First draw a regular indicator
+            drawCircle(colors.border, style = ring, radius = ringRadius)
+            // Check if the animation is above the threshold for when the indicator
+            // should start its animation
+            if (frac > threshold) {
+                // Calculate the progress of the indicator part
+                val indicatorFraction = (frac - threshold) / (1 - threshold)
+                // Just paint over the current fraction with BlendMode.SrcAtop to tint the indicator
+                val tinted = when (orientation) {
+                    StepIndicatorOrientation.Horizontal -> size.copy(width = size.width * indicatorFraction)
+                    StepIndicatorOrientation.Vertical -> size.copy(height = size.height * indicatorFraction)
+                }
+                drawRect(
+                    color = colors.backgroundActive,
+                    topLeft = Offset.Zero,
+                    size = tinted,
+                    blendMode = BlendMode.SrcAtop
+                )
+            }
+            // Draw the number last so it is not tinted
+            number?.let { drawCenteredText(it, colors.text) }
+        }
+    }
+}
+
+private fun DrawScope.drawCenteredIcon(
+    icon: Painter,
+    iconSize: Float,
+    color: Color,
+    alpha: Float = 1f
+) {
+    translate(
+        left = size.width / 2 - iconSize / 2,
+        top = size.height / 2 - iconSize / 2,
+    ) {
+        with(icon) {
+            draw(
+                size = Size(iconSize, iconSize),
+                alpha = alpha,
+                colorFilter = ColorFilter.tint(color)
+            )
+        }
+    }
+}
+
+private fun DrawScope.drawCenteredText(
+    text: TextLayoutResult,
+    color: Color,
+    alpha: Float = 1f
+) {
+    drawText(
+        textLayoutResult = text,
+        color = color,
+        topLeft = Offset(
+            x = size.width / 2 - text.size.width / 2,
+            y = size.height / 2 - text.size.height / 2
+        ),
+        alpha = alpha
+    )
+}
+
 private object StepIndicatorIds {
     const val TRACK = "track"
     const val LABEL = "label"
@@ -682,8 +770,14 @@ data class WarpStepIndicatorColors(
     val backgroundTrackActive: Color,
     val border: Color,
     val borderActive: Color,
-    val icon: Color
+    val icon: Color,
+    val iconError: Color,
+    val text: Color,
+    val textSubtle: Color
 )
+
+private fun WarpStepIndicatorColors.labelColor(state: WarpStepState) =
+    if (state == WarpStepState.Incomplete) textSubtle else text
 
 @Composable
 fun stepIndicatorStyle() = WarpStepIndicatorColors(
@@ -693,7 +787,10 @@ fun stepIndicatorStyle() = WarpStepIndicatorColors(
     backgroundTrackActive = colors.background.primary,
     border = colors.border.default,
     borderActive = colors.border.primary,
-    icon = colors.icon.inverted
+    icon = colors.icon.inverted,
+    iconError = colors.icon.default,
+    text = colors.text.default,
+    textSubtle = colors.text.subtle
 )
 
 @Preview
