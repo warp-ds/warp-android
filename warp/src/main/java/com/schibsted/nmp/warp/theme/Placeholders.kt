@@ -167,6 +167,58 @@ private object PlaceholderWarpIconColors : WarpIconColors {
     override val warning = Color.Unspecified
     override val info = Color.Unspecified
     override val notification = Color.Unspecified
+    override val hoverStatic = Color.Unspecified
+    override val invertedHoverStatic = Color.Unspecified
+    override val activeStatic = Color.Unspecified
+    override val invertedActiveStatic = Color.Unspecified
+    override val selectedStatic = Color.Unspecified
+    override val invertedSelectedStatic = Color.Unspecified
+    override val invertedSelected = Color.Unspecified
+    override val selectedHoverStatic = Color.Unspecified
+    override val invertedSelectedHoverStatic = Color.Unspecified
+    override val invertedSelectedHover = Color.Unspecified
+    override val selectedActiveStatic = Color.Unspecified
+    override val invertedSelectedActiveStatic = Color.Unspecified
+    override val invertedSelectedActive = Color.Unspecified
+    override val disabledStatic = Color.Unspecified
+    override val invertedDisabledStatic = Color.Unspecified
+    override val invertedDisabled = Color.Unspecified
+    override val subtleStatic = Color.Unspecified
+    override val invertedSubtleStatic = Color.Unspecified
+    override val invertedSubtle = Color.Unspecified
+    override val subtleHoverStatic = Color.Unspecified
+    override val invertedSubtleHoverStatic = Color.Unspecified
+    override val invertedSubtleHover = Color.Unspecified
+    override val subtleActiveStatic = Color.Unspecified
+    override val invertedSubtleActiveStatic = Color.Unspecified
+    override val invertedSubtleActive = Color.Unspecified
+    override val primaryStatic = Color.Unspecified
+    override val invertedPrimaryStatic = Color.Unspecified
+    override val invertedPrimary = Color.Unspecified
+    override val secondaryStatic = Color.Unspecified
+    override val invertedSecondaryStatic = Color.Unspecified
+    override val invertedSecondary = Color.Unspecified
+    override val secondaryHoverStatic = Color.Unspecified
+    override val invertedSecondaryHoverStatic = Color.Unspecified
+    override val invertedSecondaryHover = Color.Unspecified
+    override val secondaryActiveStatic = Color.Unspecified
+    override val invertedSecondaryActiveStatic = Color.Unspecified
+    override val invertedSecondaryActive = Color.Unspecified
+    override val positiveStatic = Color.Unspecified
+    override val invertedPositiveStatic = Color.Unspecified
+    override val invertedPositive = Color.Unspecified
+    override val negativeStatic = Color.Unspecified
+    override val invertedNegativeStatic = Color.Unspecified
+    override val invertedNegative = Color.Unspecified
+    override val warningStatic = Color.Unspecified
+    override val invertedWarningStatic = Color.Unspecified
+    override val invertedWarning = Color.Unspecified
+    override val infoStatic = Color.Unspecified
+    override val invertedInfoStatic = Color.Unspecified
+    override val invertedInfo = Color.Unspecified
+    override val notificationStatic = Color.Unspecified
+    override val invertedNotificationStatic = Color.Unspecified
+    override val invertedNotification = Color.Unspecified
 }
 
 private object PlaceholderWarpTextColors : WarpTextColors {
@@ -181,6 +233,23 @@ private object PlaceholderWarpTextColors : WarpTextColors {
     override val disabled = Color.Unspecified
     override val negative = Color.Unspecified
     override val positive = Color.Unspecified
+    override val subtleStatic = Color.Unspecified
+    override val invertedSubtleStatic = Color.Unspecified
+    override val placeholderStatic = Color.Unspecified
+    override val invertedPlaceholderStatic = Color.Unspecified
+    override val invertedPlaceholder = Color.Unspecified
+    override val linkStatic = Color.Unspecified
+    override val invertedLinkStatic = Color.Unspecified
+    override val invertedLink = Color.Unspecified
+    override val disabledStatic = Color.Unspecified
+    override val invertedDisabledStatic = Color.Unspecified
+    override val invertedDisabled = Color.Unspecified
+    override val negativeStatic = Color.Unspecified
+    override val invertedNegativeStatic = Color.Unspecified
+    override val invertedNegative = Color.Unspecified
+    override val positiveStatic = Color.Unspecified
+    override val invertedPositiveStatic = Color.Unspecified
+    override val invertedPositive = Color.Unspecified
 }
 
 private object PlaceholderWarpComponentColors : WarpComponentColors {

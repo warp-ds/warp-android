@@ -46,7 +46,8 @@ fun WarpBadge(
         WarpBadgeStyle.Disabled -> colors.background.disabled
         WarpBadgeStyle.Neutral -> colors.components.badge.neutralBackground
         WarpBadgeStyle.Sponsored -> colors.components.badge.sponsoredBackground
-        WarpBadgeStyle.Price -> colors.components.badge.priceBackground
+        // The Figma token is opaque black; the 70% opacity is applied on the layer in the design.
+        WarpBadgeStyle.Price -> colors.components.badge.priceBackground.copy(alpha = 0.7f)
     }
     val textColor = when (style) {
         WarpBadgeStyle.Info,
