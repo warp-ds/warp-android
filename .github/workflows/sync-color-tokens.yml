@@ -1,0 +1,97 @@
+name: Sync color tokens
+
+on:
+  schedule:
+    # warp-ds/tokens fetches the variables from Figma, so check it for new output weekly.
+    - cron: "0 6 * * 1" # At 06:00 UTC on Monday (https://crontab.guru/#0_6_*_*_1)
+  # Run a GitHub Action on demand, without having to wait for a scheduled run
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Sync color tokens
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Resolve warp-ds/tokens commit
+        id: tokens
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: echo "sha=$(gh api repos/warp-ds/tokens/commits/main --jq .sha)" >> "$GITHUB_OUTPUT"
+
+      - name: Sync color tokens
+        run: scripts/sync-color-tokens.sh ${{ steps.tokens.outputs.sha }}
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up JDK 17
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        if: steps.changes.outputs.changed == 'true'
+        uses: gradle/actions/setup-gradle@v4
+
+      # New tokens upstream need matching members in WarpColors.kt and Placeholders.kt,
+      # so a failing build here is expected and gets reported in the PR.
+      - name: Build
+        id: build
+        if: steps.changes.outputs.changed == 'true'
+        continue-on-error: true
+        run: ./gradlew assembleDebug
+
+      # Recording rewrites every snapshot in a module, so only record the modules that fail verification.
+      - name: Record changed Paparazzi snapshots
+        id: snapshots
+        if: steps.changes.outputs.changed == 'true' && steps.build.outcome == 'success'
+        continue-on-error: true
+        run: |
+          ./gradlew verifyPaparazziDebug --continue || true
+          tasks=$(find snapshot -path '*/build/paparazzi/failures/*.png' | cut -d/ -f2 | sort -u | sed 's/.*/:snapshot:snapshot-&:recordPaparazziDebug/')
+          if [ -n "$tasks" ]; then
+            ./gradlew $tasks
+          fi
+
+      - name: Create pull request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/sync-color-tokens
+          base: develop
+          commit-message: "NOJIRA: Sync color tokens from warp-ds/tokens@${{ steps.tokens.outputs.sha }}"
+          title: "NOJIRA: Sync color tokens from Figma"
+          body: |
+            Synced the generated color tokens from [warp-ds/tokens@${{ steps.tokens.outputs.sha }}](https://github.com/warp-ds/tokens/commit/${{ steps.tokens.outputs.sha }}) with `scripts/sync-color-tokens.sh`.
+
+            | Step | Result |
+            |---|---|
+            | Build | ${{ steps.build.outcome }} |
+            | Record snapshots | ${{ steps.snapshots.outcome }} |
+
+            If the build failed, upstream most likely added tokens that need matching members in `WarpColors.kt` and `Placeholders.kt`. Review the snapshot diffs to see which components changed color.
+
+            PRs opened or updated by this workflow don't trigger CI. Close and reopen the PR, or push a commit, to run it after each update.
+          delete-branch: true

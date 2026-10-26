@@ -362,6 +362,58 @@ interface WarpIconColors {
     val warning: Color
     val info: Color
     val notification: Color
+    val hoverStatic: Color
+    val invertedHoverStatic: Color
+    val activeStatic: Color
+    val invertedActiveStatic: Color
+    val selectedStatic: Color
+    val invertedSelectedStatic: Color
+    val invertedSelected: Color
+    val selectedHoverStatic: Color
+    val invertedSelectedHoverStatic: Color
+    val invertedSelectedHover: Color
+    val selectedActiveStatic: Color
+    val invertedSelectedActiveStatic: Color
+    val invertedSelectedActive: Color
+    val disabledStatic: Color
+    val invertedDisabledStatic: Color
+    val invertedDisabled: Color
+    val subtleStatic: Color
+    val invertedSubtleStatic: Color
+    val invertedSubtle: Color
+    val subtleHoverStatic: Color
+    val invertedSubtleHoverStatic: Color
+    val invertedSubtleHover: Color
+    val subtleActiveStatic: Color
+    val invertedSubtleActiveStatic: Color
+    val invertedSubtleActive: Color
+    val primaryStatic: Color
+    val invertedPrimaryStatic: Color
+    val invertedPrimary: Color
+    val secondaryStatic: Color
+    val invertedSecondaryStatic: Color
+    val invertedSecondary: Color
+    val secondaryHoverStatic: Color
+    val invertedSecondaryHoverStatic: Color
+    val invertedSecondaryHover: Color
+    val secondaryActiveStatic: Color
+    val invertedSecondaryActiveStatic: Color
+    val invertedSecondaryActive: Color
+    val positiveStatic: Color
+    val invertedPositiveStatic: Color
+    val invertedPositive: Color
+    val negativeStatic: Color
+    val invertedNegativeStatic: Color
+    val invertedNegative: Color
+    val warningStatic: Color
+    val invertedWarningStatic: Color
+    val invertedWarning: Color
+    val infoStatic: Color
+    val invertedInfoStatic: Color
+    val invertedInfo: Color
+    val notificationStatic: Color
+    val invertedNotificationStatic: Color
+    val invertedNotification: Color
 }
 
 interface WarpTextColors {
@@ -376,6 +428,23 @@ interface WarpTextColors {
     val disabled: Color
     val negative: Color
     val positive: Color
+    val subtleStatic: Color
+    val invertedSubtleStatic: Color
+    val placeholderStatic: Color
+    val invertedPlaceholderStatic: Color
+    val invertedPlaceholder: Color
+    val linkStatic: Color
+    val invertedLinkStatic: Color
+    val invertedLink: Color
+    val disabledStatic: Color
+    val invertedDisabledStatic: Color
+    val invertedDisabled: Color
+    val negativeStatic: Color
+    val invertedNegativeStatic: Color
+    val invertedNegative: Color
+    val positiveStatic: Color
+    val invertedPositiveStatic: Color
+    val invertedPositive: Color
 }
 
 interface WarpComponentColors {
