@@ -36,13 +36,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
@@ -108,15 +112,15 @@ private fun warpButtonPalette(style: WarpButtonStyle): WarpButtonPalette = when 
         disabledIcon = colors.icon.inverted,
     )
     WarpButtonStyle.Tonal -> neutralContentPalette(
-        fill = colors.background.interactiveNeutral,
-        hoverFill = colors.background.interactiveNeutralHover,
-        pressedFill = colors.background.interactiveNeutralActive,
-        disabledFill = colors.background.interactiveNeutral,
+        fill = WarpButtonInterimColors.neutral,
+        hoverFill = WarpButtonInterimColors.neutralHover,
+        pressedFill = WarpButtonInterimColors.neutralActive,
+        disabledFill = WarpButtonInterimColors.neutral,
     )
     WarpButtonStyle.Text -> neutralContentPalette(
         fill = Color.Transparent,
-        hoverFill = colors.background.interactiveNeutralHover,
-        pressedFill = colors.background.interactiveNeutralActive,
+        hoverFill = WarpButtonInterimColors.neutralHover,
+        pressedFill = WarpButtonInterimColors.neutralActive,
         disabledFill = Color.Transparent,
     )
     WarpButtonStyle.Flat, WarpButtonStyle.Elevated -> neutralContentPalette(
@@ -126,19 +130,19 @@ private fun warpButtonPalette(style: WarpButtonStyle): WarpButtonPalette = when 
         disabledFill = colors.background.disabledSubtle,
     )
     WarpButtonStyle.Static -> WarpButtonPalette(
-        fill = colors.background.interactiveStatic,
-        hoverFill = colors.background.interactiveStaticHover,
-        pressedFill = colors.background.interactiveStaticActive,
+        fill = WarpButtonInterimColors.static,
+        hoverFill = WarpButtonInterimColors.staticHover,
+        pressedFill = WarpButtonInterimColors.staticActive,
         content = colors.text.invertedStatic,
         icon = colors.icon.invertedStatic,
-        disabledFill = colors.background.interactiveStatic,
+        disabledFill = WarpButtonInterimColors.static,
         disabledContent = colors.text.disabled,
         disabledIcon = colors.icon.disabled,
     )
     WarpButtonStyle.InvertedStatic -> WarpButtonPalette(
-        fill = colors.background.interactiveInvertedStatic,
-        hoverFill = colors.background.interactiveInvertedStaticHover,
-        pressedFill = colors.background.interactiveInvertedStaticActive,
+        fill = WarpButtonInterimColors.invertedStatic,
+        hoverFill = WarpButtonInterimColors.invertedStaticHover,
+        pressedFill = WarpButtonInterimColors.invertedStaticActive,
         content = colors.text.invertedStatic,
         icon = colors.icon.invertedStatic,
         disabledFill = Color.Transparent,
@@ -157,8 +161,8 @@ private fun warpButtonPalette(style: WarpButtonStyle): WarpButtonPalette = when 
     )
     WarpButtonStyle.DestructiveText -> WarpButtonPalette(
         fill = Color.Transparent,
-        hoverFill = colors.background.interactiveNegativeHover,
-        pressedFill = colors.background.interactiveNegativeActive,
+        hoverFill = WarpButtonInterimColors.negativeHover,
+        pressedFill = WarpButtonInterimColors.negativeActive,
         content = colors.text.negative,
         icon = colors.icon.negative,
         disabledFill = Color.Transparent,
@@ -225,6 +229,7 @@ internal fun WarpButtonSurface(
     val clickAction: () -> Unit = if (loading) {
         {}
     } else onClick
+    val loadingDescription = stringResource(R.string.loading_description)
     val metrics = size.metrics
     // Lets a multi-line label grow the button; a single line stays within the minimum height.
     val verticalPadding = if (size == WarpButtonSize.ExtraSmall) 4.dp else 8.dp
@@ -234,6 +239,7 @@ internal fun WarpButtonSurface(
             .minimumInteractiveComponentSize()
             .focusRing(visible = showFocusRing, ringColor = colors.border.focus, gapColor = colors.background.default)
             .then(if (loading) Modifier.loadingAnimation(CircleShape) else Modifier)
+            .then(if (loading) Modifier.semantics { stateDescription = loadingDescription } else Modifier)
             .clickable(
                 interactionSource = source,
                 indication = null,

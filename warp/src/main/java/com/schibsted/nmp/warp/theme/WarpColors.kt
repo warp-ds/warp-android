@@ -282,19 +282,6 @@ interface WarpBackgroundColors {
 
     val notification: Color
     val transparent0: Color
-
-    // TODO(tokens): interim values for the new buttons, not yet in warp-ds/tokens
-    val interactiveNeutral: Color
-    val interactiveNeutralHover: Color
-    val interactiveNeutralActive: Color
-    val interactiveStatic: Color
-    val interactiveStaticHover: Color
-    val interactiveStaticActive: Color
-    val interactiveInvertedStatic: Color
-    val interactiveInvertedStaticHover: Color
-    val interactiveInvertedStaticActive: Color
-    val interactiveNegativeHover: Color
-    val interactiveNegativeActive: Color
 }
 
 interface WarpBorderColors {

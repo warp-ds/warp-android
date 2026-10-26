@@ -87,18 +87,6 @@ private object PlaceholderWarpBackgroundColors : WarpBackgroundColors {
 
     override val notification = Color.Unspecified
     override val transparent0 = Color.Unspecified
-
-    override val interactiveNeutral = Color.Unspecified
-    override val interactiveNeutralHover = Color.Unspecified
-    override val interactiveNeutralActive = Color.Unspecified
-    override val interactiveStatic = Color.Unspecified
-    override val interactiveStaticHover = Color.Unspecified
-    override val interactiveStaticActive = Color.Unspecified
-    override val interactiveInvertedStatic = Color.Unspecified
-    override val interactiveInvertedStaticHover = Color.Unspecified
-    override val interactiveInvertedStaticActive = Color.Unspecified
-    override val interactiveNegativeHover = Color.Unspecified
-    override val interactiveNegativeActive = Color.Unspecified
 }
 
 private object PlaceholderWarpBorderColors : WarpBorderColors {
