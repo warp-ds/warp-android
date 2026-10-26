@@ -33,6 +33,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
@@ -44,6 +45,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntOffset
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.StepIndicatorDimensions
@@ -638,8 +640,10 @@ private fun rememberStepNumbers(steps: Int, type: WarpStepIndicatorType): List<T
     if (type != WarpStepIndicatorType.Numbered) return null
     val textMeasurer = rememberTextMeasurer()
     val style = typography.detailStrong
-    return remember(steps, style, textMeasurer) {
-        List(steps) { textMeasurer.measure("${it + 1}", style) }
+    // The indicator has a fixed size, so the number ignores the font scale to stay inside it
+    val density = Density(LocalDensity.current.density, fontScale = 1f)
+    return remember(steps, style, textMeasurer, density) {
+        List(steps) { textMeasurer.measure("${it + 1}", style, density = density) }
     }
 }
 
