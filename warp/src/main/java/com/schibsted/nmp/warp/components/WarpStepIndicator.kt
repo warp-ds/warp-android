@@ -665,10 +665,8 @@ private fun DrawScope.drawStepIndicator(
     number: TextLayoutResult?
 ) {
     val iconSize = size.minDimension
-    val ringRadius = when (orientation) {
-        StepIndicatorOrientation.Horizontal -> size.minDimension / 2f - dimensions.placeholderBorderWidth.toPx() / 2
-        StepIndicatorOrientation.Vertical -> size.minDimension / 2f
-    }
+    // Keep the whole stroke inside the indicator, which is clipped to a circle
+    val ringRadius = size.minDimension / 2f - dimensions.placeholderBorderWidth.toPx() / 2
     val ring = Stroke(dimensions.placeholderBorderWidth.toPx())
 
     if (state == WarpStepState.Error) {
