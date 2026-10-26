@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.height
 import androidx.compose.ui.unit.width
 import androidx.test.platform.app.InstrumentationRegistry
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.utils.InternalWarpApi
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import org.junit.Assert.assertEquals
@@ -84,6 +85,20 @@ class WarpButtonBehaviourTest {
         compose.onNodeWithTag("b").performClick()
 
         assertEquals(0, clicks)
+    }
+
+    @Test
+    fun loadingButtonExposesLoadingStateDescription() {
+        compose.setContent {
+            WarpButton(text = "Save", onClick = {}, loading = true, modifier = Modifier.testTag("b"))
+        }
+
+        compose.onNodeWithTag("b").assert(
+            SemanticsMatcher.expectValue(
+                SemanticsProperties.StateDescription,
+                InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.loading_description)
+            )
+        )
     }
 
     @Test
