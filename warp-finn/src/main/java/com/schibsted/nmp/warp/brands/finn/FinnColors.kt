@@ -79,9 +79,9 @@ internal object FinnBackgroundColors : WarpBackgroundColors {
 }
 
 internal object FinnBorderColors : WarpBorderColors {
-    override val default = Color(0xFFdedee3)
-    override val hover = Color(0xFFcacad1)
-    override val active = Color(0xFFafafb8)
+    override val default = Color(0xFFcacad1)
+    override val hover = Color(0xFFafafb8)
+    override val active = Color(0xFF84848f)
     override val strong = Color(0xFF84848f)
     override val strongHover = Color(0xFF5c5c66)
     override val disabled = Color(0xFFcacad1)
