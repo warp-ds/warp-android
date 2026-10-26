@@ -18,6 +18,7 @@ import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.assertWidthIsAtLeast
+import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.height
 import androidx.compose.ui.unit.width
 import androidx.test.platform.app.InstrumentationRegistry
 import com.schibsted.nmp.warp.components.utils.InternalWarpApi
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
@@ -248,5 +250,55 @@ class WarpButtonBehaviourTest {
         }
 
         assertTrue(bounds("b").height > 48.dp)
+    }
+
+    @Test
+    fun iconButtonExposesContentDescription() {
+        compose.setContent {
+            WarpIconButton(icon = icons.share, contentDescription = "Share", onClick = {}, modifier = Modifier.testTag("b"))
+        }
+
+        compose.onNodeWithTag("b")
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, listOf("Share")))
+    }
+
+    @Test
+    fun iconButtonClicksAndHasButtonRole() {
+        var clicks = 0
+        compose.setContent {
+            WarpIconButton(icon = icons.share, contentDescription = "Share", onClick = { clicks++ }, modifier = Modifier.testTag("b"))
+        }
+
+        compose.onNodeWithTag("b")
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button))
+            .performClick()
+
+        assertEquals(1, clicks)
+    }
+
+    @Test
+    fun mediumIconButtonIsA48dpCircle() {
+        compose.setContent {
+            WarpIconButton(icon = icons.share, contentDescription = "Share", onClick = {}, modifier = Modifier.testTag("b"))
+        }
+
+        compose.onNodeWithTag("b").assertWidthIsEqualTo(48.dp).assertHeightIsEqualTo(48.dp)
+    }
+
+    @Test
+    fun extraSmallIconButtonKeepsA48dpTouchTarget() {
+        compose.setContent {
+            // The wrap-content Box measures the touch target; the tagged button itself reports the 32dp visual size.
+            Box(Modifier.testTag("bBox")) {
+                WarpIconButton(
+                    icon = icons.share,
+                    contentDescription = "Share",
+                    onClick = {},
+                    size = WarpButtonSize.ExtraSmall,
+                )
+            }
+        }
+
+        compose.onNodeWithTag("bBox").assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
     }
 }

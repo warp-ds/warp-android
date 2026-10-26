@@ -595,6 +595,6 @@ fun WarpButtonPreview(
             leadingIcon = R.drawable.warp_activeads,
             leadingIconContentDescr = "Clear icon",
         )
-        // Task 5: WarpIconButton(icon = icons.stroller, contentDescription = "Stroller", onClick = {})
+        WarpIconButton(icon = icons.stroller, contentDescription = "Stroller", onClick = {})
     }
 }
