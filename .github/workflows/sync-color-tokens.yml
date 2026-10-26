@@ -93,5 +93,5 @@ jobs:
 
             If the build failed, upstream most likely added tokens that need matching members in `WarpColors.kt` and `Placeholders.kt`. Review the snapshot diffs to see which components changed color.
 
-            PRs opened by this workflow don't trigger CI. Close and reopen the PR, or push a commit, to run it.
+            PRs opened or updated by this workflow don't trigger CI. Close and reopen the PR, or push a commit, to run it after each update.
           delete-branch: true
