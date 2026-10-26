@@ -1,5 +1,6 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
@@ -10,11 +11,13 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.assertWidthIsAtLeast
 import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -127,17 +130,18 @@ class WarpButtonBehaviourTest {
     fun smallerSizesKeepA48dpTouchTarget() {
         compose.setContent {
             Column {
-                WarpButton(text = "S", onClick = {}, size = WarpButtonSize.Small, modifier = Modifier.testTag("s"))
-                WarpButton(text = "XS", onClick = {}, size = WarpButtonSize.ExtraSmall, modifier = Modifier.testTag("xs"))
+                Box(Modifier.testTag("sBox")) {
+                    WarpButton(text = "S", onClick = {}, size = WarpButtonSize.Small)
+                }
+                Box(Modifier.testTag("xsBox")) {
+                    WarpButton(text = "XS", onClick = {}, size = WarpButtonSize.ExtraSmall)
+                }
             }
         }
 
-        // The 48dp target is outside the semantics bounds, so assert on the touch bounds.
-        val density = InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
-        listOf("s", "xs").forEach { tag ->
-            val touch = compose.onNodeWithTag(tag).fetchSemanticsNode().touchBoundsInRoot
-            assertTrue("$tag touch height ${touch.height}", touch.height >= 48 * density - 1)
-            assertTrue("$tag touch width ${touch.width}", touch.width >= 48 * density - 1)
+        // The wrap-content Box measures the button's layout footprint, including the 48dp target.
+        listOf("sBox", "xsBox").forEach { tag ->
+            compose.onNodeWithTag(tag).assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp)
         }
     }
 
