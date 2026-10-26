@@ -38,6 +38,10 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * Slot icons are drawn as given: pass `color = LocalContentColor.current` to [WarpIcon] so they
  * follow the button's content colour (e.g. on [WarpButtonStyle.Prominent] or when disabled).
  *
+ * The slot content ([leadingIcon], [trailingIcon]) is measured with intrinsic sizes so the button
+ * can size itself to its content. It must therefore support intrinsic measurement: do not use
+ * `SubcomposeLayout`-based layouts such as `BoxWithConstraints` or lazy layouts.
+ *
  * @param text The text to be displayed on the button
  * @param onClick lambda to be invoked when clicked
  * @param modifier Modifier for the button
@@ -168,6 +172,19 @@ fun WarpButton(
 /**
  * A Button in the warp design system with custom row content. New styles provide the content
  * colour and the size's text style to [content].
+ *
+ * The content is measured with intrinsic sizes so the button can size itself to its content. It
+ * must therefore support intrinsic measurement: do not use `SubcomposeLayout`-based layouts such
+ * as `BoxWithConstraints` or lazy layouts.
+ *
+ * @param onClick lambda to be invoked when clicked
+ * @param modifier Modifier for the button. Default value is Modifier
+ * @param enabled set to false to disable the button. Default value is true
+ * @param style Appearance of the button. Defaults to [WarpButtonStyle.Prominent]
+ * @param loading shows the loading state; clicks are ignored while loading. Default value is false
+ * @param size Size of the button. Defaults to [WarpButtonSize.Medium]
+ * @param interactionSource Optional source for hover/focus/press interactions
+ * @param content The content to display inside the button
  */
 @Composable
 fun WarpButton(
