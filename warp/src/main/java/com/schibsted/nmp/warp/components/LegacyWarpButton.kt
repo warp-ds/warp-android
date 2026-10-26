@@ -182,6 +182,7 @@ internal fun LegacyWarpButton(
             WarpButtonStyle.Utility -> buttonStyleUtility()
             WarpButtonStyle.UtilityOverlay -> buttonStyleUtilityOverlay()
             WarpButtonStyle.UtilityQuiet -> buttonStyleUtilityQuiet()
+            else -> error("${style.name} is rendered by WarpButtonSurface, not LegacyWarpButton")
         }
 
         val buttonColors = ButtonDefaults.buttonColors(

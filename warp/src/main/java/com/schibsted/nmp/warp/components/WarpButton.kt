@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,9 +20,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.tooling.preview.Preview
 import com.schibsted.nmp.warp.R
+import com.schibsted.nmp.warp.components.utils.InternalWarpApi
 import com.schibsted.nmp.warp.theme.Transparent
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
@@ -29,19 +32,222 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.shapes
 
 /**
- * A Button in the warp design system. The button supports a variety of styles and loading and disabled states.
+ * A Button in the warp design system, with styles, sizes, and loading and disabled states.
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/buttons/)
+ *
+ * Slot icons are drawn as given: pass `color = LocalContentColor.current` to [WarpIcon] so they
+ * follow the button's content colour (e.g. on [WarpButtonStyle.Prominent] or when disabled).
+ *
  * @param text The text to be displayed on the button
  * @param onClick lambda to be invoked when clicked
- * @param enabled set to false to disable the button. Default value is true
- * @param modifier Modifier for the button. Default value is Modifier
- * @param style Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
- * @param maxLines limits the lines of the text on the button. Default value is 1
- * @param loading set to true to enable the loading state. Default value is false
- * @param leadingIcon The composable for the icon to be displayed on the button in front of the text. Default value is null
- * @param trailingIcon The composable for the icon to be displayed on the button after the text. Default value is null
- * @param small set to true to get the small version. Default value is false
+ * @param modifier Modifier for the button
+ * @param enabled set to false to disable the button
+ * @param style Appearance of the button. Defaults to [WarpButtonStyle.Prominent]
+ * @param maxLines limits the lines of the text on the button
+ * @param loading shows the loading state; clicks are ignored while loading
+ * @param leadingIcon composable shown before the text
+ * @param trailingIcon composable shown after the text
+ * @param size Size of the button. Defaults to [WarpButtonSize.Medium]
+ * @param interactionSource Optional source for hover/focus/press interactions
  */
+@Composable
+fun WarpButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    maxLines: Int = 1,
+    loading: Boolean = false,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    size: WarpButtonSize = WarpButtonSize.Medium,
+    interactionSource: MutableInteractionSource? = null,
+) {
+    if (style.isLegacy) {
+        LegacyWarpLabelButton(
+            text = text,
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            style = style,
+            maxLines = maxLines,
+            loading = loading,
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
+            small = size != WarpButtonSize.Medium,
+            interactionSource = interactionSource,
+        )
+    } else {
+        WarpButtonSurface(
+            onClick = onClick,
+            modifier = modifier,
+            style = style,
+            size = size,
+            enabled = enabled,
+            loading = loading,
+            iconOnly = false,
+            interactionSource = interactionSource,
+            forcedState = null,
+        ) {
+            leadingIcon?.invoke()
+            WarpButtonLabel(text, maxLines)
+            trailingIcon?.invoke()
+        }
+    }
+}
+
+/**
+ * A Button in the warp design system with drawable-resource icons, tinted with the button's
+ * content colour. See the slot-icon overload for the other parameters.
+ *
+ * @param leadingIconContentDescr content description of the leading icon, or null if decorative
+ * @param trailingIconContentDescr content description of the trailing icon, or null if decorative
+ * @param iconModifier Modifier for both icons
+ */
+@Composable
+fun WarpButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    maxLines: Int = 1,
+    loading: Boolean = false,
+    @DrawableRes leadingIcon: Int? = null,
+    leadingIconContentDescr: String? = null,
+    @DrawableRes trailingIcon: Int? = null,
+    trailingIconContentDescr: String? = null,
+    size: WarpButtonSize = WarpButtonSize.Medium,
+    iconModifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource? = null,
+) {
+    if (style.isLegacy) {
+        LegacyWarpDrawableButton(
+            text = text,
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            style = style,
+            maxLines = maxLines,
+            loading = loading,
+            leadingIcon = leadingIcon,
+            leadingIconContentDescr = leadingIconContentDescr,
+            trailingIcon = trailingIcon,
+            trailingIconContentDescr = trailingIconContentDescr,
+            small = size != WarpButtonSize.Medium,
+            iconModifier = iconModifier,
+            interactionSource = interactionSource,
+        )
+    } else {
+        WarpButtonSurface(
+            onClick = onClick,
+            modifier = modifier,
+            style = style,
+            size = size,
+            enabled = enabled,
+            loading = loading,
+            iconOnly = false,
+            interactionSource = interactionSource,
+            forcedState = null,
+        ) {
+            WarpButtonDrawableContent(
+                text = text,
+                maxLines = maxLines,
+                leadingIcon = leadingIcon,
+                leadingIconContentDescr = leadingIconContentDescr,
+                trailingIcon = trailingIcon,
+                trailingIconContentDescr = trailingIconContentDescr,
+                iconSize = size.metrics.iconSize,
+                iconModifier = iconModifier,
+            )
+        }
+    }
+}
+
+/**
+ * A Button in the warp design system with custom row content. New styles provide the content
+ * colour and the size's text style to [content].
+ */
+@Composable
+fun WarpButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    loading: Boolean = false,
+    size: WarpButtonSize = WarpButtonSize.Medium,
+    interactionSource: MutableInteractionSource? = null,
+    content: @Composable RowScope.() -> Unit
+) {
+    if (style.isLegacy) {
+        LegacyWarpButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            style = style,
+            loading = loading,
+            small = size != WarpButtonSize.Medium,
+            interactionSource = interactionSource,
+            content = content,
+        )
+    } else {
+        WarpButtonSurface(
+            onClick = onClick,
+            modifier = modifier,
+            style = style,
+            size = size,
+            enabled = enabled,
+            loading = loading,
+            iconOnly = false,
+            interactionSource = interactionSource,
+            forcedState = null,
+            content = content,
+        )
+    }
+}
+
+/**
+ * [WarpButton] rendered in a fixed [forcedState], for snapshots/previews. Previous styles render
+ * as their new equivalent.
+ */
+@InternalWarpApi
+@Composable
+fun WarpButton(
+    text: String,
+    onClick: () -> Unit,
+    forcedState: WarpButtonState,
+    modifier: Modifier = Modifier,
+    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    size: WarpButtonSize = WarpButtonSize.Medium,
+    loading: Boolean = false,
+    @DrawableRes leadingIcon: Int? = null,
+    @DrawableRes trailingIcon: Int? = null,
+) {
+    WarpButtonSurface(
+        onClick = onClick,
+        modifier = modifier,
+        style = style.modernEquivalent(),
+        size = size,
+        enabled = forcedState != WarpButtonState.Disabled,
+        loading = loading,
+        iconOnly = false,
+        interactionSource = null,
+        forcedState = forcedState,
+    ) {
+        WarpButtonDrawableContent(
+            text = text,
+            maxLines = 1,
+            leadingIcon = leadingIcon,
+            leadingIconContentDescr = null,
+            trailingIcon = trailingIcon,
+            trailingIconContentDescr = null,
+            iconSize = size.metrics.iconSize,
+            iconModifier = Modifier,
+        )
+    }
+}
+
 @Composable
 fun WarpButton(
     text: String,
@@ -53,9 +259,9 @@ fun WarpButton(
     loading: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    small: Boolean = false
+    small: Boolean,
 ) {
-    LegacyWarpLabelButton(
+    WarpButton(
         text = text,
         onClick = onClick,
         modifier = modifier,
@@ -65,29 +271,10 @@ fun WarpButton(
         loading = loading,
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
-        small = small,
-        interactionSource = null,
+        size = if (small) WarpButtonSize.Small else WarpButtonSize.Medium,
     )
 }
 
-
-/**
- * A Button in the warp design system. The button supports a variety of styles and loading and disabled states.
- * For more info, look [here](https://warp-ds.github.io/tech-docs/components/buttons/)
- * @param text The text to be displayed on the button
- * @param onClick lambda to be invoked when clicked
- * @param enabled set to false to disable the button. Default value is true
- * @param modifier Modifier for the button. Default value is Modifier
- * @param style Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
- * @param maxLines limits the lines of the text on the button. Default value is 1
- * @param loading set to true to enable the loading state. Default value is false
- * @param leadingIcon The drawable resource id for the icon to be displayed on the button in front of the text. Default value is null
- * @param leadingIconContentDescr The content description for the icon. Please provide this for accessibility purposes if icon is to be displayed. Default value is null
- * @param trailingIcon The drawable resource id for the icon to be displayed on the button after the text. Default value is null
- * @param trailingIconContentDescr The content description for the icon. Please provide this for accessibility purposes if icon is to be displayed. Default value is null
- * @param small set to true to get the small version. Default value is false
- * @param iconModifier Modifier for the icon. Default value is Modifier
- */
 @Composable
 fun WarpButton(
     text: String,
@@ -101,10 +288,10 @@ fun WarpButton(
     leadingIconContentDescr: String? = null,
     @DrawableRes trailingIcon: Int? = null,
     trailingIconContentDescr: String? = null,
-    small: Boolean = false,
-    iconModifier: Modifier = Modifier
+    small: Boolean,
+    iconModifier: Modifier = Modifier,
 ) {
-    LegacyWarpDrawableButton(
+    WarpButton(
         text = text,
         onClick = onClick,
         modifier = modifier,
@@ -116,23 +303,11 @@ fun WarpButton(
         leadingIconContentDescr = leadingIconContentDescr,
         trailingIcon = trailingIcon,
         trailingIconContentDescr = trailingIconContentDescr,
-        small = small,
+        size = if (small) WarpButtonSize.Small else WarpButtonSize.Medium,
         iconModifier = iconModifier,
-        interactionSource = null,
     )
 }
 
-/**
- * A Button in the warp design system. The button supports a variety of styles and loading and disabled states.
- * For more info, look [here](https://warp-ds.github.io/tech-docs/components/buttons/)
- * @param onClick lambda to be invoked when clicked
- * @param enabled set to false to disable the button. default value is true
- * @param modifier Modifier for the button. Default value is Modifier
- * @param style Controls the appearance of the button. Default value is WarpButtonStyle.Primary. Other options are WarpButtonStyle.Secondary, WarpButtonStyle.Quiet, WarpButtonStyle.Negative, WarpButtonStyle.NegativeQuiet, WarpButtonStyle.Utility, WarpButtonStyle.UtilityQuiet, WarpButtonStyle.UtilityOverlay
- * @param loading set to true to enable the loading state
- * @param small set to true to get the small version. Default value is false
- * @param content The content to display inside the button
- */
 @Composable
 fun WarpButton(
     onClick: () -> Unit,
@@ -140,22 +315,34 @@ fun WarpButton(
     enabled: Boolean = true,
     style: WarpButtonStyle = WarpButtonStyle.Primary,
     loading: Boolean = false,
-    small: Boolean = false,
+    small: Boolean,
     content: @Composable RowScope.() -> Unit
 ) {
-    LegacyWarpButton(
+    WarpButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         style = style,
         loading = loading,
-        small = small,
-        interactionSource = null,
+        size = if (small) WarpButtonSize.Small else WarpButtonSize.Medium,
         content = content,
     )
 }
 
+/**
+ * Visual style of a [WarpButton] / [WarpIconButton]. The first nine values follow the Android
+ * Button design; the remaining eight are the previous styles, kept with their previous look.
+ */
 enum class WarpButtonStyle {
+    Prominent,
+    Tonal,
+    Text,
+    Flat,
+    Elevated,
+    Static,
+    InvertedStatic,
+    Destructive,
+    DestructiveText,
     Primary,
     Secondary,
     Quiet,
@@ -164,6 +351,46 @@ enum class WarpButtonStyle {
     Utility,
     UtilityQuiet,
     UtilityOverlay,
+}
+
+/**
+ * Size of a [WarpButton] / [WarpIconButton]: 32dp, 40dp or 48dp high. Smaller sizes keep a 48dp
+ * touch target.
+ */
+enum class WarpButtonSize { ExtraSmall, Small, Medium }
+
+/**
+ * Visual states of a [WarpButton] / [WarpIconButton]. Only used to force a state in snapshots/previews.
+ */
+enum class WarpButtonState { Default, Hover, Focus, Pressed, Disabled }
+
+// The previous styles, which keep rendering through LegacyWarpButton.
+@Suppress("DEPRECATION")
+internal val WarpButtonStyle.isLegacy: Boolean
+    get() = when (this) {
+        WarpButtonStyle.Primary,
+        WarpButtonStyle.Secondary,
+        WarpButtonStyle.Quiet,
+        WarpButtonStyle.Negative,
+        WarpButtonStyle.NegativeQuiet,
+        WarpButtonStyle.Utility,
+        WarpButtonStyle.UtilityQuiet,
+        WarpButtonStyle.UtilityOverlay -> true
+        else -> false
+    }
+
+// Closest new style for a previous one; keep in sync with the @Deprecated ReplaceWith targets.
+@Suppress("DEPRECATION")
+internal fun WarpButtonStyle.modernEquivalent(): WarpButtonStyle = when (this) {
+    WarpButtonStyle.Primary -> WarpButtonStyle.Prominent
+    WarpButtonStyle.Secondary -> WarpButtonStyle.Tonal
+    WarpButtonStyle.Quiet -> WarpButtonStyle.Text
+    WarpButtonStyle.Negative -> WarpButtonStyle.Destructive
+    WarpButtonStyle.NegativeQuiet -> WarpButtonStyle.DestructiveText
+    WarpButtonStyle.Utility -> WarpButtonStyle.Flat
+    WarpButtonStyle.UtilityQuiet -> WarpButtonStyle.Text
+    WarpButtonStyle.UtilityOverlay -> WarpButtonStyle.Elevated
+    else -> this
 }
 
 data class WarpButtonStyleColors(
@@ -273,7 +500,12 @@ internal fun buttonStyleLoading() = WarpButtonStyleColors(
     border = null
 )
 
-fun Modifier.loadingAnimation(): Modifier = composed {
+fun Modifier.loadingAnimation(): Modifier = composed { loadingAnimation(shapes.components.button) }
+
+/**
+ * Loading stripes clipped to [shape]; used by buttons while `loading = true`.
+ */
+fun Modifier.loadingAnimation(shape: Shape): Modifier = composed {
     val transition = rememberInfiniteTransition()
     val offset by transition.animateFloat(
         label = "LoadingAnimation",
@@ -286,8 +518,8 @@ fun Modifier.loadingAnimation(): Modifier = composed {
 
     val loadingColors = buttonStyleLoading()
     this
-        .clip(shapes.components.button)
-        .background(loadingColors.background.default, shapes.components.button)
+        .clip(shape)
+        .background(loadingColors.background.default, shape)
         .drawWithContent {
             clipRect {
                 val a = 8.5f
