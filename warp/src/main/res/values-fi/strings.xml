@@ -13,8 +13,8 @@
     <string name="arrowleft">Vasemmalle osoittava nuoli</string>
     <string name="arrowright">Oikealle osoittava nuoli</string>
     <string name="arrowup">Ylöspäin osoittava nuoli</string>
-    <string name="conversationgrouped">Kaksi ääriviivoitettua neliötä ryhmiteltyjen vaakaviivojen vieressä.</string>
-    <string name="packagebox">Suljettu pahvipaketti</string>
+    <string name="conversationgrouped">Kahden neliön ääriviivat ryhmitettyjen vaakaviivojen vieressä.</string>
+    <string name="packagebox">Suljettu pahvilaatikko</string>
     <string name="paperclip">Paperiliitin</string>
     <string name="gearautomatic">Automaattivaihteisto</string>
     <string name="autovex">Autovex logo</string>
