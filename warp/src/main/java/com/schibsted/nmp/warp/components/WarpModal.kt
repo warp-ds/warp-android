@@ -39,6 +39,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param onSecondaryButtonClick The callback to be invoked when the secondary button is clicked.
  * @param showCloseIcon Whether to show a close icon in the top right corner of the dialog.
  */
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WarpModal(

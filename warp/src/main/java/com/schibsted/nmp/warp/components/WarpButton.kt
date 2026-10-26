@@ -248,6 +248,14 @@ fun WarpButton(
     }
 }
 
+@Suppress("DEPRECATION")
+@Deprecated(
+    message = "Use the overload with size: WarpButtonSize",
+    replaceWith = ReplaceWith(
+        "WarpButton(text = text, onClick = onClick, modifier = modifier, enabled = enabled, style = style, maxLines = maxLines, loading = loading, leadingIcon = leadingIcon, trailingIcon = trailingIcon, size = if (small) WarpButtonSize.Small else WarpButtonSize.Medium)",
+        "com.schibsted.nmp.warp.components.WarpButtonSize"
+    )
+)
 @Composable
 fun WarpButton(
     text: String,
@@ -275,6 +283,14 @@ fun WarpButton(
     )
 }
 
+@Suppress("DEPRECATION")
+@Deprecated(
+    message = "Use the overload with size: WarpButtonSize",
+    replaceWith = ReplaceWith(
+        "WarpButton(text = text, onClick = onClick, modifier = modifier, enabled = enabled, style = style, maxLines = maxLines, loading = loading, leadingIcon = leadingIcon, leadingIconContentDescr = leadingIconContentDescr, trailingIcon = trailingIcon, trailingIconContentDescr = trailingIconContentDescr, size = if (small) WarpButtonSize.Small else WarpButtonSize.Medium, iconModifier = iconModifier)",
+        "com.schibsted.nmp.warp.components.WarpButtonSize"
+    )
+)
 @Composable
 fun WarpButton(
     text: String,
@@ -308,6 +324,14 @@ fun WarpButton(
     )
 }
 
+@Suppress("DEPRECATION")
+@Deprecated(
+    message = "Use the overload with size: WarpButtonSize",
+    replaceWith = ReplaceWith(
+        "WarpButton(onClick = onClick, modifier = modifier, enabled = enabled, style = style, loading = loading, size = if (small) WarpButtonSize.Small else WarpButtonSize.Medium, content = content)",
+        "com.schibsted.nmp.warp.components.WarpButtonSize"
+    )
+)
 @Composable
 fun WarpButton(
     onClick: () -> Unit,
@@ -343,13 +367,21 @@ enum class WarpButtonStyle {
     InvertedStatic,
     Destructive,
     DestructiveText,
+    @Deprecated("Use Prominent", ReplaceWith("WarpButtonStyle.Prominent"))
     Primary,
+    @Deprecated("Use Tonal", ReplaceWith("WarpButtonStyle.Tonal"))
     Secondary,
+    @Deprecated("Use Text", ReplaceWith("WarpButtonStyle.Text"))
     Quiet,
+    @Deprecated("Use Destructive", ReplaceWith("WarpButtonStyle.Destructive"))
     Negative,
+    @Deprecated("Use DestructiveText", ReplaceWith("WarpButtonStyle.DestructiveText"))
     NegativeQuiet,
+    @Deprecated("Use Flat", ReplaceWith("WarpButtonStyle.Flat"))
     Utility,
+    @Deprecated("Use Text", ReplaceWith("WarpButtonStyle.Text"))
     UtilityQuiet,
+    @Deprecated("Use Elevated", ReplaceWith("WarpButtonStyle.Elevated"))
     UtilityOverlay,
 }
 
@@ -548,63 +580,21 @@ fun WarpButtonPreview(
     Column(
         verticalArrangement = Arrangement.spacedBy(dimensions.space1)
     ) {
-        WarpButton(
-            text = "Take me to NMP",
-            onClick = {},
-            style = WarpButtonStyle.Primary
-        )
-        WarpButton(
-            text = "Buy a duck",
-            onClick = {},
-            style = WarpButtonStyle.Secondary
-        )
-        WarpButton(
-            text = "Sell a duck",
-            onClick = {},
-            style = WarpButtonStyle.Quiet
-        )
-        WarpButton(
-            text = "This duck cannot be sold!",
-            onClick = {},
-            style = WarpButtonStyle.Negative
-        )
-        WarpButton(
-            text = "This duck was already sold!",
-            onClick = {},
-            style = WarpButtonStyle.NegativeQuiet
-        )
-        WarpButton(
-            text = "Duck",
-            onClick = {},
-            style = WarpButtonStyle.Utility
-        )
-        WarpButton(
-            text = "Duck duck",
-            onClick = {},
-            style = WarpButtonStyle.UtilityQuiet
-        )
-        WarpButton(
-            text = "Duck duck duck",
-            onClick = {},
-            style = WarpButtonStyle.UtilityOverlay
-        )
-        WarpButton(
-            text = "Loading",
-            loading = true,
-            onClick = {},
-            style = WarpButtonStyle.UtilityQuiet
-        )
+        WarpButton(text = "Take me to NMP", onClick = {}, style = WarpButtonStyle.Prominent)
+        WarpButton(text = "Buy a duck", onClick = {}, style = WarpButtonStyle.Tonal)
+        WarpButton(text = "Sell a duck", onClick = {}, style = WarpButtonStyle.Text)
+        WarpButton(text = "Duck", onClick = {}, style = WarpButtonStyle.Flat)
+        WarpButton(text = "Duck duck", onClick = {}, style = WarpButtonStyle.Elevated)
+        WarpButton(text = "This duck cannot be sold!", onClick = {}, style = WarpButtonStyle.Destructive)
+        WarpButton(text = "This duck was already sold!", onClick = {}, style = WarpButtonStyle.DestructiveText)
+        WarpButton(text = "Loading", loading = true, onClick = {})
+        WarpButton(text = "Small", onClick = {}, size = WarpButtonSize.Small)
         WarpButton(
             onClick = { },
-            style = WarpButtonStyle.Primary,
             text = "With icon",
             leadingIcon = R.drawable.warp_activeads,
             leadingIconContentDescr = "Clear icon",
         )
-        WarpButton(
-            onClick = { },
-            text = "Warp icon",
-            leadingIcon = { WarpIcon(icon = icons.stroller) },
-        )
+        // Task 5: WarpIconButton(icon = icons.stroller, contentDescription = "Stroller", onClick = {})
     }
 }

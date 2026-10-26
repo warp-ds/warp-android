@@ -126,6 +126,7 @@ internal fun getLoadingStyle() = WarpStateStyle(
     description = stringResource(R.string.loading_description)
 )
 
+@Suppress("DEPRECATION")
 @Composable
 private fun WarpStateView(
     modifier: Modifier,

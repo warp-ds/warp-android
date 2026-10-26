@@ -83,6 +83,7 @@ fun WarpFullScreenDialog(
     }
 }
 
+@Suppress("DEPRECATION")
 @Composable
 private fun FullScreenDialogTopBar(
     title: String,

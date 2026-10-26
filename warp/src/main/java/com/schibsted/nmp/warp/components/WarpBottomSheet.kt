@@ -78,6 +78,7 @@ internal sealed interface BottomSheetAction {
  * @param action Optional action top right.
  * @param content Sheet body; receives a `dismiss` callback (see [onDismissRequest]).
  */
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun WarpBottomSheet(
@@ -159,6 +160,7 @@ internal fun WarpBottomSheet(
     }
 }
 
+@Suppress("DEPRECATION")
 @Preview(name = "Light", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

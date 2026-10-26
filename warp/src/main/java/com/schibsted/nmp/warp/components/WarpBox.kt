@@ -35,6 +35,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param buttonAction Action that will be triggered when the button is clicked
  *
  */
+@Suppress("DEPRECATION")
 @Composable
 fun WarpBox(
     modifier: Modifier = Modifier,

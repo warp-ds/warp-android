@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.schibsted.nmp.warp.components
 
 import androidx.annotation.DrawableRes

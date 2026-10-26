@@ -1,6 +1,7 @@
 package com.schibsted.nmp.warp.components
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 @Suppress("DEPRECATION")
@@ -33,5 +34,14 @@ class WarpButtonStyleMappingTest {
         val modern = WarpButtonStyle.values().filterNot { it.isLegacy }
         assertEquals(9, modern.size)
         modern.forEach { assertEquals(it, it.modernEquivalent()) }
+    }
+
+    @Test
+    fun deprecatedStylesPointAtTheirMappedReplacement() {
+        replacements.forEach { (legacy, modern) ->
+            val deprecated = WarpButtonStyle::class.java.getField(legacy.name).getAnnotation(Deprecated::class.java)
+            assertNotNull("${legacy.name} is not @Deprecated", deprecated)
+            assertEquals(legacy.name, "WarpButtonStyle.${modern.name}", deprecated.replaceWith.expression)
+        }
     }
 }
