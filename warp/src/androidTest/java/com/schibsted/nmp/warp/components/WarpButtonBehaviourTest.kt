@@ -1,8 +1,11 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.platform.testTag
@@ -22,6 +25,7 @@ import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performKeyInput
 import androidx.compose.ui.test.pressKey
@@ -250,6 +254,23 @@ class WarpButtonBehaviourTest {
         }
 
         assertTrue(bounds("b").height > 48.dp)
+    }
+
+    @Test
+    fun labelKeepsItsNaturalWidthInAnUnboundedWidthParent() {
+        compose.setContent {
+            Row(Modifier.horizontalScroll(rememberScrollState())) {
+                WarpButton(
+                    text = "Click me",
+                    onClick = {},
+                    style = WarpButtonStyle.Prominent,
+                    modifier = Modifier.testTag("b")
+                )
+            }
+        }
+
+        assertTrue(compose.onNodeWithText("Click me").getBoundsInRoot().width > 20.dp)
+        assertTrue(bounds("b").width > bounds("b").height)
     }
 
     @Test

@@ -8,11 +8,13 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ProvideTextStyle
@@ -252,6 +254,7 @@ internal fun WarpButtonSurface(
                         Modifier.size(metrics.height)
                     } else {
                         Modifier
+                            .width(IntrinsicSize.Max)
                             .heightIn(min = metrics.height)
                             .padding(horizontal = metrics.horizontalPadding, vertical = verticalPadding)
                     },
