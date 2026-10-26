@@ -72,5 +72,6 @@ private object TestColors : WarpColors by Placeholders {
     }
     override val border = object : WarpBorderColors by Placeholders.border {
         override val default = Color.Gray
+        override val primary = PRIMARY
     }
 }

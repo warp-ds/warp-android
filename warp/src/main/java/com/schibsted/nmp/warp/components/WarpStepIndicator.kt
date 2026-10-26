@@ -677,11 +677,12 @@ private fun DrawScope.drawStepIndicator(
         when (state) {
             WarpStepState.Complete -> {
                 drawCircle(colors.backgroundActive)
+                drawCircle(colors.borderActive, style = ring, radius = ringRadius)
                 drawCenteredIcon(checkIcon, iconSize, colors.icon)
             }
 
             WarpStepState.InProgress -> {
-                drawCircle(colors.backgroundActive, style = ring, radius = ringRadius)
+                drawCircle(colors.borderActive, style = ring, radius = ringRadius)
                 number?.let { drawCenteredText(it, colors.text) }
             }
 
@@ -697,14 +698,15 @@ private fun DrawScope.drawStepIndicator(
         // Indicator is already passed so it should have the active color and an icon
         (step < floor(animatedStep.toDouble())) -> {
             drawCircle(colors.backgroundActive)
+            drawCircle(colors.borderActive, style = ring, radius = ringRadius)
             drawCenteredIcon(checkIcon, iconSize, colors.icon)
         }
         // Indicator is in progress, or the one we just passed so fade in the fill and icon by
         // adjusting the alpha
         (step.toDouble() == floor(animatedStep.toDouble())) -> {
             val frac = animatedStep - step
-            drawCircle(colors.backgroundActive, style = ring, radius = ringRadius)
             drawCircle(colors.backgroundActive, alpha = frac)
+            drawCircle(colors.borderActive, style = ring, radius = ringRadius)
             number?.let { drawCenteredText(it, colors.text, alpha = 1 - frac) }
             drawCenteredIcon(checkIcon, iconSize, colors.icon, alpha = frac)
         }
@@ -730,7 +732,7 @@ private fun DrawScope.drawStepIndicator(
                     StepIndicatorOrientation.Vertical -> size.copy(height = size.height * indicatorFraction)
                 }
                 clipRect(right = tinted.width, bottom = tinted.height) {
-                    drawCircle(colors.backgroundActive, style = ring, radius = ringRadius)
+                    drawCircle(colors.borderActive, style = ring, radius = ringRadius)
                 }
             }
             // Draw the number on top of the ring
