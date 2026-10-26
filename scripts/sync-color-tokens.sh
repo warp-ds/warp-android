@@ -18,25 +18,9 @@ echo "⬇️  Downloading warp-ds/tokens@$REF"
 curl -sfL "https://codeload.github.com/warp-ds/tokens/tar.gz/$REF" | tar -xz -C "$WORK_DIR" --strip-components=1
 SOURCE="$WORK_DIR/output/android"
 
-# Upstream writes 8-digit RRGGBBAA hex values as Color(0xFFRRGGBBAA), which
-# Compose reads as an opaque color. Rewrite them to Color(0xAARRGGBB).
-# TODO: Remove once https://github.com/warp-ds/tokens/pull/41 is merged.
-fix_alpha() {
-  sed -E -i.bak 's/Color\(0xFF([0-9a-fA-F]{6})([0-9a-fA-F]{2})\)/Color(0x\2\1)/' "$1"
-  rm "$1.bak"
-}
-
 copy_kotlin() {
   local from="$1" to="$2" package="$3"
   sed -E "1s/^package .*/package $package/" "$from" > "$to"
-  fix_alpha "$to"
-}
-
-# Upstream dark brand files reference DatavizDarkColors but only import DatavizColors.
-# TODO: Remove once https://github.com/warp-ds/tokens/pull/41 is merged.
-fix_dataviz_import() {
-  sed -i.bak 's/^import com\.schibsted\.nmp\.warp\.theme\.dataviz\.DatavizColors$/import com.schibsted.nmp.warp.theme.dataviz.DatavizDarkColors/' "$1"
-  rm "$1.bak"
 }
 
 # brand:package
@@ -59,7 +43,6 @@ for entry in "${BRANDS[@]}"; do
   echo "🎨 $name"
   copy_kotlin "$SOURCE/$brand/light/${name}Colors.kt" "$kotlin_dir/${name}Colors.kt" "$package"
   copy_kotlin "$SOURCE/$brand/dark/${name}DarkColors.kt" "$kotlin_dir/${name}DarkColors.kt" "$package"
-  fix_dataviz_import "$kotlin_dir/${name}DarkColors.kt"
   cp "$SOURCE/$brand/light/colors.xml" "$module/res/values/colors.xml"
   cp "$SOURCE/$brand/dark/colors.xml" "$module/res/values-night/colors.xml"
 done
