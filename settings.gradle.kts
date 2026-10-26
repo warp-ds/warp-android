@@ -48,6 +48,7 @@ listOf(
     "snackbar",
     "spinner",
     "state",
+    "stepindicator",
     "switch",
     "tabs",
     "textfield",
