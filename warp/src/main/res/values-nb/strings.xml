@@ -13,7 +13,7 @@
     <string name="arrowleft">Pil som peker mot venstre</string>
     <string name="arrowright">Pil som peker mot høyre</string>
     <string name="arrowup">Pil som peker opp</string>
-    <string name="conversationgrouped">To konturerte firkanter ved siden av grupperte vannrette linjer.</string>
+    <string name="conversationgrouped">To firkanter med omriss ved siden av grupperte horisontale linjer.</string>
     <string name="packagebox">En lukket pappeske</string>
     <string name="paperclip">Binders</string>
     <string name="gearautomatic">Automatgir</string>
