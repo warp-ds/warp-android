@@ -13,8 +13,8 @@
     <string name="arrowleft">Pil som pekar åt vänster</string>
     <string name="arrowright">Pil som pekar åt höger</string>
     <string name="arrowup">Pil som pekar upp</string>
-    <string name="conversationgrouped">Två konturerade kvadrater bredvid grupperade vågräta linjer.</string>
-    <string name="packagebox">Ett stängt kartongpaket</string>
+    <string name="conversationgrouped">Siluetter av två kvadrater bredvid horisontella linjer.</string>
+    <string name="packagebox">En stängd kartong</string>
     <string name="paperclip">Gem</string>
     <string name="gearautomatic">Automatisk växellåda</string>
     <string name="autovex">Autovex logo</string>
@@ -364,6 +364,5 @@
     <string name="coathanger">Galge</string>
     <string name="printer">Skrivare</string>
     <string name="shareandroid">Tre anslutna prickar</string>
-    <string name="clear_field">Rensa fältet</string>
-
+    <string name="clear_field">Rensa fält</string>
 </resources>
