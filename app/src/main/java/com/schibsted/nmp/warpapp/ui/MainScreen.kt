@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +37,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.schibsted.nmp.warp.components.WarpBadge
+import com.schibsted.nmp.warp.components.WarpBadgeAlignment
+import com.schibsted.nmp.warp.components.WarpBadgeStyle
 import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpScaffold
 import com.schibsted.nmp.warp.components.WarpText
@@ -342,9 +346,22 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(dimensions.space2),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            WarpText(it.second)
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(dimensions.space1),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                WarpText(it.second)
+                                if (it.first in deprecatedComponents) {
+                                    WarpBadge(
+                                        text = "Deprecated",
+                                        style = WarpBadgeStyle.Warning,
+                                        alignmentStyle = WarpBadgeAlignment.None
+                                    )
+                                }
+                            }
                             WarpIcon(icon = icons.chevronRight, size = dimensions.icon.small)
                         }
                     }
@@ -353,6 +370,8 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
         }
     }
 }
+
+private val deprecatedComponents = setOf("modal", "toast")
 
 @Preview
 @Composable
