@@ -12,6 +12,7 @@ import androidx.compose.ui.test.assertIsOff
 import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.isHeading
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -47,6 +48,15 @@ class WarpTopAppBarConfigurationTest {
 
     private fun contentDescriptionIs(vararg descriptions: String) =
         SemanticsMatcher.expectValue(SemanticsProperties.ContentDescription, descriptions.toList())
+
+    @Test
+    fun title_isAHeading() {
+        composeTestRule.setContent {
+            WarpTopAppBar(TopAppBarConfiguration(title = "Title"))
+        }
+
+        composeTestRule.onNodeWithText("Title").assert(isHeading())
+    }
 
     @Test
     fun back_readsPurposeBeforeIconDescription() {

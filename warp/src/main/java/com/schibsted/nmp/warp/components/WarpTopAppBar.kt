@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -455,7 +456,10 @@ private fun WarpTopAppBarLayout(
                             maxLines = 2,
                             modifier = Modifier
                                 .graphicsLayer { alpha = flexCollapseFraction }
-                                .semantics { if (flexCollapseFraction < 0.5f) hideFromAccessibility() },
+                                .semantics {
+                                    heading()
+                                    if (flexCollapseFraction < 0.5f) hideFromAccessibility()
+                                },
                         )
                         if (subtitleText.isNotEmpty()) {
                             WarpText(
@@ -518,6 +522,7 @@ private fun WarpTopAppBarLayout(
                     modifier = Modifier
                         .graphicsLayer { alpha = flexExpandedAlpha }
                         .semantics {
+                            heading()
                             if (flexCollapseFraction >= 0.5f) {
                                 hideFromAccessibility()
                             }
@@ -588,7 +593,8 @@ private fun WarpTopAppBarLayout(
                             WarpText(
                                 text = titleText,
                                 style = WarpTextStyle.Title3,
-                                maxLines = 2
+                                maxLines = 2,
+                                modifier = Modifier.semantics { heading() },
                             )
                             if (subtitleText.isNotEmpty()) {
                                 WarpText(

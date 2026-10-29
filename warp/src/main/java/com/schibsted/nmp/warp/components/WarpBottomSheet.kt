@@ -33,6 +33,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.takeOrElse
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -62,8 +63,10 @@ object WarpBottomSheetDefaults {
  * @param topAppBar What the sheet's top app bar shows. The sheet always adds its own close button
  * top right, after the actions, so don't add one; a [TopAppBarNavigation.Close] is ignored. Use
  * [TopAppBarNavigation.Back] for sub-navigation: while it's shown, system back runs its action too,
- * so don't add a `BackHandler` for it. Use the title for the sheet's heading rather than a heading
- * in [content]. Collapsing styles, search and tabs collapse as [content] scrolls.
+ * so don't add a `BackHandler` for it. The back gesture then shows no closing preview, since it
+ * doesn't close the sheet. Use the title for the sheet's heading rather than a heading in
+ * [content]. Search and tabs collapse as [content] scrolls; the title doesn't collapse in a sheet,
+ * so the close button stays visible.
  * @param lock Locks the sheet while an operation the user must not leave is in progress; see
  * [BottomSheetLock]. Prefer not locking.
  * @param content Sheet body; receives `dismiss` (see [onDismissRequest]).
@@ -79,6 +82,8 @@ fun WarpBottomSheet(
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
     val locked = lock?.locked == true
+    // A collapsing title would take the close button with it, so only search and tabs collapse.
+    val bar = topAppBar.copy(titleCollapsible = false)
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
     val dismiss: () -> Unit = {
@@ -86,7 +91,7 @@ fun WarpBottomSheet(
             if (!sheetState.isVisible) onDismissRequest()
         }
     }
-    val scrollBehavior = with(topAppBar) {
+    val scrollBehavior = with(bar) {
         rememberDefaultTopAppBarScrollBehavior(style, titleCollapsible, search, tabs)
     }
 
@@ -108,7 +113,7 @@ fun WarpBottomSheet(
     ) {
         // A locked sheet swallows back. Otherwise, while Back is shown, system back does what it
         // does, so the two can't disagree. Without Back, M3 dismisses the sheet.
-        val back = topAppBar.navigation as? TopAppBarNavigation.Back
+        val back = bar.navigation as? TopAppBarNavigation.Back
         SheetBackHandler(enabled = locked || back != null) { if (!locked) back?.onClick?.invoke() }
         if (locked) LockedDragHandle(color = dragHandleColor)
         val close = TopAppBarAction.Icon(
@@ -118,9 +123,9 @@ fun WarpBottomSheet(
         )
         TopAppBarImpl(
             // Every sheet closes the same way: with the sheet's own close button, top right.
-            configuration = topAppBar.copy(
-                navigation = topAppBar.navigation.takeUnless { it is TopAppBarNavigation.Close },
-                actions = topAppBar.actions + close,
+            configuration = bar.copy(
+                navigation = bar.navigation.takeUnless { it is TopAppBarNavigation.Close },
+                actions = bar.actions + close,
             ),
             modifier = Modifier,
             // The sheet already applies insets.
@@ -131,15 +136,20 @@ fun WarpBottomSheet(
             // Shorter than a screen's bar, so the header sits close to the handle. The buttons keep
             // their full touch target.
             expandedHeight = LocalMinimumInteractiveComponentSize.current
-                .takeOrElse { TopAppBarDefaults.TopAppBarExpandedHeight },
+                .takeOrElse { TopAppBarDefaults.TopAppBarExpandedHeight }
+                .coerceAtLeast(MinimumTouchTarget),
         )
-        if (scrollBehavior != null) {
-            Column(Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) { content(dismiss) }
-        } else {
+        // Always the same Column, so toggling search, tabs or collapsing keeps the content's state.
+        Column(
+            if (scrollBehavior != null) Modifier.nestedScroll(scrollBehavior.nestedScrollConnection) else Modifier
+        ) {
             content(dismiss)
         }
     }
 }
+
+/** M3's minimum touch target; the sheet's header never gets shorter than this. */
+private val MinimumTouchTarget = 48.dp
 
 /**
  * Runs [onBack] on back presses while [enabled], instead of M3 dismissing the sheet. M3 reads

@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -23,7 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -94,10 +93,7 @@ fun BottomSheetScreenContent() {
 
     when (openSheet) {
         SampleSheet.Categories -> CategoriesSheet(
-            onSelect = {
-                selectedCategory = it
-                closeSheet()
-            },
+            onSelect = { selectedCategory = it },
             onDismissRequest = closeSheet,
         )
 
@@ -291,7 +287,7 @@ private fun FavouriteAndMenuSheet(onDismissRequest: () -> Unit) {
 
 @Composable
 private fun SearchAndTabsSheet(onDismissRequest: () -> Unit) {
-    val searchState = remember { TextFieldState("") }
+    val searchState = rememberTextFieldState()
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
     WarpBottomSheet(
         onDismissRequest = onDismissRequest,
@@ -388,13 +384,16 @@ private fun CategoriesSheet(onSelect: (String) -> Unit, onDismissRequest: () -> 
     WarpBottomSheet(
         onDismissRequest = onDismissRequest,
         topAppBar = TopAppBarConfiguration(title = "Categories"),
-    ) {
+    ) { dismiss ->
         LazyColumn(modifier = Modifier.padding(horizontal = dimensions.space3)) {
             items(sampleCategories) { category ->
                 WarpText(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { onSelect(category) }
+                        .clickable {
+                            onSelect(category)
+                            dismiss()
+                        }
                         .padding(vertical = dimensions.space2),
                     text = category,
                     style = WarpTextStyle.Body,
