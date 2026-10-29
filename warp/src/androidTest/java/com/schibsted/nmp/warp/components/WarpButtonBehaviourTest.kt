@@ -184,23 +184,25 @@ class WarpButtonBehaviourTest {
     fun legacyStyleKeepsLegacyLayout() {
         compose.setContent {
             Column {
-                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Primary, modifier = Modifier.testTag("new"))
-                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Primary, small = false, modifier = Modifier.testTag("old"))
+                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Utility, modifier = Modifier.testTag("new"))
+                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Utility, small = false, modifier = Modifier.testTag("old"))
+                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Overlay, modifier = Modifier.testTag("modern"))
             }
         }
 
         assertEquals(bounds("old").width, bounds("new").width)
         assertEquals(bounds("old").height, bounds("new").height)
-        assertNotEquals(48.dp, bounds("new").height)
+        // The legacy renderer pads 16dp horizontally, the new one 24dp.
+        assertNotEquals(bounds("modern").width, bounds("new").width)
     }
 
     @Test
     fun legacyStyleWithSmallerSizesUsesLegacySmallLayout() {
         compose.setContent {
             Column {
-                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Primary, size = WarpButtonSize.ExtraSmall, modifier = Modifier.testTag("xs"))
-                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Primary, size = WarpButtonSize.Small, modifier = Modifier.testTag("s"))
-                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Primary, small = true, modifier = Modifier.testTag("old"))
+                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Utility, size = WarpButtonSize.ExtraSmall, modifier = Modifier.testTag("xs"))
+                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Utility, size = WarpButtonSize.Small, modifier = Modifier.testTag("s"))
+                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Utility, small = true, modifier = Modifier.testTag("old"))
             }
         }
 
@@ -258,17 +260,19 @@ class WarpButtonBehaviourTest {
     }
 
     @Test
-    fun twoLineLabelGrowsTheButton() {
+    fun multiLineLabelGrowsTheButton() {
         compose.setContent {
             WarpButton(
-                text = "A label that is long enough to need a second line",
+                text = "A label that is long enough to need a second and then also a third line",
                 onClick = {},
-                maxLines = 2,
+                maxLines = 3,
                 modifier = Modifier.width(160.dp).testTag("b")
             )
         }
 
-        assertTrue(bounds("b").height > 48.dp)
+        // Three lines plus padding exceed 48dp even where a text line is only ~16dp high (API 24).
+        val height = bounds("b").height
+        assertTrue("height was $height", height > 48.dp)
     }
 
     @Test
