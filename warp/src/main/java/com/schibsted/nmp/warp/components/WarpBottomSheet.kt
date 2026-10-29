@@ -1,6 +1,8 @@
 package com.schibsted.nmp.warp.components
 
 import android.content.res.Configuration
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.findViewTreeOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.WindowInsets
@@ -18,11 +20,17 @@ import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.takeOrElse
@@ -53,39 +61,24 @@ object WarpBottomSheetDefaults {
  * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
  * @param topAppBar What the sheet's top app bar shows. The sheet always adds its own close button
  * top right, after the actions, so don't add one; a [TopAppBarNavigation.Close] is ignored. Use
- * [TopAppBarNavigation.Back] for sub-navigation, and the title for the sheet's heading rather than
- * a heading in [content]. Collapsing styles, search and tabs collapse as [content] scrolls.
+ * [TopAppBarNavigation.Back] for sub-navigation: while it's shown, system back runs its action too,
+ * so don't add a `BackHandler` for it. Use the title for the sheet's heading rather than a heading
+ * in [content]. Collapsing styles, search and tabs collapse as [content] scrolls.
+ * @param lock Locks the sheet while an operation the user must not leave is in progress; see
+ * [BottomSheetLock]. Prefer not locking.
  * @param content Sheet body; receives `dismiss` (see [onDismissRequest]).
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     skipPartiallyExpanded: Boolean = false,
     topAppBar: TopAppBarConfiguration = TopAppBarConfiguration(title = ""),
+    lock: BottomSheetLock? = null,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
-    BottomSheetImpl(
-        onDismissRequest = onDismissRequest,
-        modifier = modifier,
-        skipPartiallyExpanded = skipPartiallyExpanded,
-        locked = false,
-        topAppBar = topAppBar,
-        content = content,
-    )
-}
-
-/** Shared by [WarpBottomSheet] and [WarpLockableBottomSheet], which documents [locked]. */
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-internal fun BottomSheetImpl(
-    onDismissRequest: () -> Unit,
-    modifier: Modifier,
-    skipPartiallyExpanded: Boolean,
-    locked: Boolean,
-    topAppBar: TopAppBarConfiguration,
-    content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
-) {
+    val locked = lock?.locked == true
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
     val dismiss: () -> Unit = {
@@ -113,7 +106,10 @@ internal fun BottomSheetImpl(
         properties = ModalBottomSheetProperties(shouldDismissOnClickOutside = !locked),
         dragHandle = if (locked) null else { { BottomSheetDefaults.DragHandle(color = dragHandleColor) } },
     ) {
-        BlockBack(enabled = locked)
+        // A locked sheet swallows back. Otherwise, while Back is shown, system back does what it
+        // does, so the two can't disagree. Without Back, M3 dismisses the sheet.
+        val back = topAppBar.navigation as? TopAppBarNavigation.Back
+        SheetBackHandler(enabled = locked || back != null) { if (!locked) back?.onClick?.invoke() }
         if (locked) LockedDragHandle(color = dragHandleColor)
         val close = TopAppBarAction.Icon(
             icon = icons.close,
@@ -142,6 +138,27 @@ internal fun BottomSheetImpl(
         } else {
             content(dismiss)
         }
+    }
+}
+
+/**
+ * Runs [onBack] on back presses while [enabled], instead of M3 dismissing the sheet. M3 reads
+ * `shouldDismissOnBackPress` only when the sheet opens, so this is also how a sheet locked later
+ * blocks back. Registered on the sheet's own window, after M3's callback, so it takes priority.
+ */
+@Composable
+private fun SheetBackHandler(enabled: Boolean, onBack: () -> Unit) {
+    val currentOnBack by rememberUpdatedState(onBack)
+    val callback = remember {
+        object : OnBackPressedCallback(enabled) {
+            override fun handleOnBackPressed() = currentOnBack()
+        }
+    }
+    SideEffect { callback.isEnabled = enabled }
+    val view = LocalView.current
+    DisposableEffect(view) {
+        view.findViewTreeOnBackPressedDispatcherOwner()?.onBackPressedDispatcher?.addCallback(callback)
+        onDispose { callback.remove() }
     }
 }
 

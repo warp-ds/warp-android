@@ -1,23 +1,35 @@
 package com.schibsted.nmp.warpapp.ui
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.schibsted.nmp.warp.components.BottomSheetLock
 import com.schibsted.nmp.warp.components.DiscouragedWarpApi
 import com.schibsted.nmp.warp.components.SearchConfiguration
 import com.schibsted.nmp.warp.components.TabConfiguration
@@ -27,16 +39,19 @@ import com.schibsted.nmp.warp.components.TopAppBarConfiguration
 import com.schibsted.nmp.warp.components.TopAppBarMenuItem
 import com.schibsted.nmp.warp.components.TopAppBarNavigation
 import com.schibsted.nmp.warp.components.WarpBottomSheet
+import com.schibsted.nmp.warp.components.WarpBottomSheetDefaults
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpDivider
-import com.schibsted.nmp.warp.components.WarpLockableBottomSheet
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.components.WarpTopAppBar
 import com.schibsted.nmp.warp.theme.WarpResources.icons
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.launch
 
 @Composable
 fun BottomSheetScreen(onUp: () -> Unit) {
@@ -48,7 +63,7 @@ fun BottomSheetScreen(onUp: () -> Unit) {
     }
 }
 
-private enum class SampleSheet { Categories, TitleAndAction, Action, DestructiveAction, Back, FavouriteAndMenu, SearchAndTabs, NotDismissible }
+private enum class SampleSheet { Categories, TitleAndAction, Action, DestructiveAction, Back, FavouriteAndMenu, SearchAndTabs, NotDismissible, TitleIconAndClose, TallTopAppBar }
 
 @Composable
 fun BottomSheetScreenContent() {
@@ -73,6 +88,8 @@ fun BottomSheetScreenContent() {
         SheetButton("Favourite and menu") { openSheet = SampleSheet.FavouriteAndMenu }
         SheetButton("Search and tabs") { openSheet = SampleSheet.SearchAndTabs }
         SheetButton("Not dismissible while saving") { openSheet = SampleSheet.NotDismissible }
+        SheetButton("Title, icon button and close") { openSheet = SampleSheet.TitleIconAndClose }
+        SheetButton("64dp top app bar (comparison)") { openSheet = SampleSheet.TallTopAppBar }
     }
 
     when (openSheet) {
@@ -138,6 +155,22 @@ fun BottomSheetScreenContent() {
 
         SampleSheet.NotDismissible -> SavingSheet(onDismissRequest = closeSheet)
 
+        SampleSheet.TitleIconAndClose -> WarpBottomSheet(
+            onDismissRequest = closeSheet,
+            topAppBar = TopAppBarConfiguration(
+                title = "Filters",
+                actions = listOf(TopAppBarAction.Icon(icon = icons.filter, label = "Filter") {}),
+            ),
+        ) {
+            WarpText(
+                text = "Content below a top app bar with a title, an icon button and the sheet's close button.",
+                style = WarpTextStyle.Body,
+                modifier = Modifier.padding(dimensions.space2),
+            )
+        }
+
+        SampleSheet.TallTopAppBar -> TallTopAppBarSheet(onDismissRequest = closeSheet)
+
         null -> Unit
     }
 }
@@ -162,7 +195,6 @@ private fun TwoStepSheet(onDismissRequest: () -> Unit) {
             navigation = if (step == 2) TopAppBarNavigation.Back { step = 1 } else null,
         ),
     ) { dismiss ->
-        BackHandler(enabled = step == 2) { step = 1 }
         Column(modifier = Modifier.padding(dimensions.space2)) {
             WarpText(
                 text = if (step == 1) {
@@ -188,10 +220,10 @@ private fun TwoStepSheet(onDismissRequest: () -> Unit) {
 @Composable
 private fun SavingSheet(onDismissRequest: () -> Unit) {
     var saving by rememberSaveable { mutableStateOf(false) }
-    WarpLockableBottomSheet(
+    WarpBottomSheet(
         onDismissRequest = onDismissRequest,
-        locked = saving,
         topAppBar = TopAppBarConfiguration(title = "Save changes"),
+        lock = BottomSheetLock(locked = saving),
     ) { dismiss ->
         if (saving) {
             LaunchedEffect(Unit) {
@@ -290,6 +322,63 @@ private fun SearchAndTabsSheet(onDismissRequest: () -> Unit) {
                 )
                 WarpDivider()
             }
+        }
+    }
+}
+
+/**
+ * Not a WarpBottomSheet: a look-alike built from M3's sheet and a regular 64dp WarpTopAppBar, to
+ * compare with WarpBottomSheet's 48dp bar. Same content as the "Title and action" sample.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TallTopAppBarSheet(onDismissRequest: () -> Unit) {
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    val dismiss: () -> Unit = {
+        scope.launch { sheetState.hide() }.invokeOnCompletion {
+            if (!sheetState.isVisible) onDismissRequest()
+        }
+    }
+    ModalBottomSheet(
+        onDismissRequest = onDismissRequest,
+        modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top)),
+        sheetState = sheetState,
+        containerColor = WarpBottomSheetDefaults.containerColor,
+        contentColor = colors.text.default,
+        contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal) },
+        dragHandle = { BottomSheetDefaults.DragHandle(color = colors.background.subtleActive) },
+    ) {
+        WarpTopAppBar(
+            configuration = TopAppBarConfiguration(
+                title = "Sort by",
+                actions = listOf(
+                    TopAppBarAction.Icon(
+                        icon = icons.close,
+                        label = stringResource(com.schibsted.nmp.warp.R.string.top_app_bar_close),
+                        onClick = dismiss,
+                    )
+                ),
+            ),
+            windowInsets = WindowInsets(0),
+            topBarColors = TopAppBarDefaults.topAppBarColors(
+                containerColor = WarpBottomSheetDefaults.containerColor,
+                scrolledContainerColor = WarpBottomSheetDefaults.containerColor,
+                titleContentColor = colors.text.default,
+                actionIconContentColor = colors.icon.default,
+            ),
+        )
+        Column(modifier = Modifier.padding(dimensions.space2)) {
+            WarpText(text = "Newest first", style = WarpTextStyle.Body)
+            WarpText(text = "Oldest first", style = WarpTextStyle.Body)
+            WarpButton(
+                text = "Done",
+                onClick = dismiss,
+                style = WarpButtonStyle.Primary,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = dimensions.space2),
+            )
         }
     }
 }

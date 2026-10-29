@@ -1,7 +1,6 @@
 package com.schibsted.nmp.warp
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -15,11 +14,12 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
 import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.schibsted.nmp.warp.components.BottomSheetLock
 import com.schibsted.nmp.warp.components.DiscouragedWarpApi
 import com.schibsted.nmp.warp.components.TopAppBarConfiguration
 import com.schibsted.nmp.warp.components.TopAppBarNavigation
 import com.schibsted.nmp.warp.components.WarpButton
-import com.schibsted.nmp.warp.components.WarpLockableBottomSheet
+import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import org.junit.Assert.assertEquals
@@ -28,32 +28,32 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Instrumented tests for WarpLockableBottomSheet's lock.
+ * Instrumented tests for locking a WarpBottomSheet with a BottomSheetLock.
  */
 @OptIn(DiscouragedWarpApi::class)
 @RunWith(AndroidJUnit4::class)
-class WarpLockableBottomSheetTest {
+class WarpBottomSheetLockTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
     private var dismissCount = 0
+    private var backClicks = 0
     private var backButtonDescription = ""
     private var closeButtonDescription = ""
 
     private fun setSheet(locked: Boolean) {
         composeTestRule.setContent {
             var shown by remember { mutableStateOf(true) }
-            var backClicks by remember { mutableIntStateOf(0) }
             backButtonDescription = icons.arrowLeft.description
             closeButtonDescription = icons.close.description
             if (shown) {
-                WarpLockableBottomSheet(
+                WarpBottomSheet(
                     onDismissRequest = {
                         dismissCount++
                         shown = false
                     },
-                    locked = locked,
+                    lock = BottomSheetLock(locked),
                     topAppBar = TopAppBarConfiguration(
                         title = "Title",
                         navigation = TopAppBarNavigation.Back { backClicks++ },
@@ -68,8 +68,31 @@ class WarpLockableBottomSheetTest {
     }
 
     @Test
-    fun unlocked_backPress_dismisses() {
+    fun unlocked_backPressWithBackButton_runsBackAction() {
         setSheet(locked = false)
+
+        Espresso.pressBack()
+        composeTestRule.waitForIdle()
+
+        assertEquals(1, backClicks)
+        assertEquals(0, dismissCount)
+        composeTestRule.onNodeWithText("Sheet content").assertExists()
+    }
+
+    @Test
+    fun locked_backPressWithBackButton_doesNothing() {
+        setSheet(locked = true)
+
+        Espresso.pressBack()
+        composeTestRule.waitForIdle()
+
+        assertEquals(0, backClicks)
+        assertEquals(0, dismissCount)
+    }
+
+    @Test
+    fun unlocked_backPressWithoutBackButton_dismisses() {
+        setSheetWithoutBackButton(locked = false)
 
         Espresso.pressBack()
 
@@ -84,12 +107,12 @@ class WarpLockableBottomSheetTest {
             var shown by remember { mutableStateOf(true) }
             var locked by remember { mutableStateOf(false) }
             if (shown) {
-                WarpLockableBottomSheet(
+                WarpBottomSheet(
                     onDismissRequest = {
                         dismissCount++
                         shown = false
                     },
-                    locked = locked,
+                    lock = BottomSheetLock(locked),
                 ) {
                     WarpText(text = "Sheet content")
                     WarpButton(text = "Lock", onClick = { locked = true })
@@ -166,12 +189,12 @@ class WarpLockableBottomSheetTest {
             var shown by remember { mutableStateOf(true) }
             closeButtonDescription = icons.close.description
             if (shown) {
-                WarpLockableBottomSheet(
+                WarpBottomSheet(
                     onDismissRequest = {
                         dismissCount++
                         shown = false
                     },
-                    locked = locked,
+                    lock = BottomSheetLock(locked),
                     topAppBar = TopAppBarConfiguration(title = "Title"),
                 ) {
                     WarpText(text = "Sheet content")

@@ -6,5 +6,5 @@ package com.schibsted.nmp.warp.components
  */
 @RequiresOptIn(message = "This supports a pattern the design guidelines advise against. See its docs for the preferred alternative.")
 @Retention(AnnotationRetention.BINARY)
-@Target(AnnotationTarget.FUNCTION)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CONSTRUCTOR)
 annotation class DiscouragedWarpApi
