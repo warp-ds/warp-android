@@ -10,12 +10,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.schibsted.nmp.warp.components.BottomSheetLock
+import com.schibsted.nmp.warp.components.DiscouragedWarpApi
 import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpBottomSheetHeader
 import com.schibsted.nmp.warp.components.WarpButton
@@ -26,6 +29,8 @@ import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun BottomSheetScreen(onUp: () -> Unit) {
@@ -37,7 +42,7 @@ fun BottomSheetScreen(onUp: () -> Unit) {
     }
 }
 
-private enum class SampleSheet { Title, Categories, NoTitle, CustomHeader }
+private enum class SampleSheet { Title, Categories, NoTitle, CustomHeader, Locked }
 
 @Composable
 fun BottomSheetScreenContent() {
@@ -58,6 +63,7 @@ fun BottomSheetScreenContent() {
         }
         SheetButton("No title") { openSheet = SampleSheet.NoTitle }
         SheetButton("Custom header") { openSheet = SampleSheet.CustomHeader }
+        SheetButton("Locked while saving") { openSheet = SampleSheet.Locked }
     }
 
     when (openSheet) {
@@ -106,6 +112,8 @@ fun BottomSheetScreenContent() {
 
         SampleSheet.CustomHeader -> CustomHeaderSheet(onDismissRequest = closeSheet)
 
+        SampleSheet.Locked -> SavingSheet(onDismissRequest = closeSheet)
+
         null -> Unit
     }
 }
@@ -118,6 +126,39 @@ private fun SheetButton(text: String, onClick: () -> Unit) {
         onClick = onClick,
         style = WarpButtonStyle.Primary,
     )
+}
+
+@OptIn(DiscouragedWarpApi::class)
+@Composable
+private fun SavingSheet(onDismissRequest: () -> Unit) {
+    var saving by rememberSaveable { mutableStateOf(false) }
+    WarpBottomSheet(
+        onDismissRequest = onDismissRequest,
+        header = WarpBottomSheetHeader(title = "Save changes"),
+        lock = BottomSheetLock(locked = saving),
+    ) { dismiss ->
+        if (saving) {
+            LaunchedEffect(Unit) {
+                delay(2000.milliseconds)
+                dismiss()
+            }
+        }
+        Column(modifier = Modifier.padding(dimensions.space2)) {
+            WarpText(
+                text = "The sheet can't be dismissed while saving.",
+                style = WarpTextStyle.Body,
+            )
+            WarpButton(
+                text = "Save",
+                onClick = { saving = true },
+                style = WarpButtonStyle.Primary,
+                loading = saving,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = dimensions.space2),
+            )
+        }
+    }
 }
 
 /**

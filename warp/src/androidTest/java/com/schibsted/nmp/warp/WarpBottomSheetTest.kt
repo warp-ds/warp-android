@@ -7,6 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.isHeading
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -17,18 +19,22 @@ import androidx.compose.ui.test.swipeDown
 import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.schibsted.nmp.warp.components.BottomSheetLock
+import com.schibsted.nmp.warp.components.DiscouragedWarpApi
 import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpBottomSheetHeader
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpResources.icons
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Instrumented tests for WarpBottomSheet's header and close button.
+ * Instrumented tests for WarpBottomSheet's header, close button and lock.
  */
+@OptIn(DiscouragedWarpApi::class)
 @RunWith(AndroidJUnit4::class)
 class WarpBottomSheetTest {
 
@@ -40,9 +46,10 @@ class WarpBottomSheetTest {
     private var dismissCount = 0
     private var closeIconDescription = ""
 
-    private fun setSheet() {
+    private fun setSheet(locked: Boolean = false, lockAfterOpening: Boolean = false) {
         composeTestRule.setContent {
             var shown by remember { mutableStateOf(true) }
+            var isLocked by remember { mutableStateOf(locked) }
             closeIconDescription = icons.close.description
             if (shown) {
                 WarpBottomSheet(
@@ -51,13 +58,21 @@ class WarpBottomSheetTest {
                         shown = false
                     },
                     header = WarpBottomSheetHeader(title = "Title"),
+                    lock = BottomSheetLock(isLocked),
                 ) { dismiss ->
                     WarpText(text = "Sheet content")
                     WarpButton(text = "Done", onClick = dismiss)
+                    if (lockAfterOpening) WarpButton(text = "Lock", onClick = { isLocked = true })
                 }
             }
         }
         composeTestRule.waitForIdle()
+    }
+
+    private fun assertStillOpen() {
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithText("Sheet content").assertExists()
+        assertEquals(0, dismissCount)
     }
 
     private fun waitUntilDismissed() {
@@ -113,4 +128,35 @@ class WarpBottomSheetTest {
         waitUntilDismissed()
     }
 
+    @Test
+    fun locked_closeButtonIsDisabledAndBackSwipeDoNothing() {
+        setSheet(locked = true)
+
+        composeTestRule.onNodeWithContentDescription(closeLabel).assertIsNotEnabled()
+        Espresso.pressBack()
+        composeTestRule.onNodeWithText("Sheet content").performTouchInput { swipeDown(endY = bottom + 1_000f) }
+
+        assertStillOpen()
+    }
+
+    @Test
+    fun lockedAfterOpening_backPressDoesNothing() {
+        // M3 reads shouldDismissOnBackPress only when the sheet opens, so lock after opening.
+        setSheet(lockAfterOpening = true)
+        composeTestRule.onNodeWithContentDescription(closeLabel).assertIsEnabled()
+        composeTestRule.onNodeWithText("Lock").performClick()
+
+        Espresso.pressBack()
+
+        assertStillOpen()
+    }
+
+    @Test
+    fun locked_ownDismissStillClosesTheSheet() {
+        setSheet(locked = true)
+
+        composeTestRule.onNodeWithText("Done").performClick()
+
+        waitUntilDismissed()
+    }
 }

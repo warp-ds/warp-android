@@ -1,6 +1,8 @@
 package com.schibsted.nmp.warp.components
 
 import android.content.res.Configuration
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.findViewTreeOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -18,13 +20,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -68,6 +75,8 @@ data class WarpBottomSheetHeader(val title: String? = null)
  * instead. That header should then close the sheet with `dismiss`.
  * @param modifier Applied to the sheet surface.
  * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
+ * @param lock Locks the sheet while an operation the user must not leave is in progress; see
+ * [BottomSheetLock]. Prefer not locking.
  * @param content Sheet body; receives `dismiss` (see [onDismissRequest]).
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,8 +86,10 @@ fun WarpBottomSheet(
     header: WarpBottomSheetHeader?,
     modifier: Modifier = Modifier,
     skipPartiallyExpanded: Boolean = false,
+    lock: BottomSheetLock? = null,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
 ) {
+    val locked = lock?.locked == true
     val scope = rememberCoroutineScope()
     val sheetState = if (LocalBottomSheetStartsOpen.current) {
         rememberOpenSheetState(skipPartiallyExpanded)
@@ -91,6 +102,7 @@ fun WarpBottomSheet(
         }
     }
 
+    val dragHandleColor = WarpTheme.colors.background.subtleActive
     val closeLabel = stringResource(R.string.bottom_sheet_close)
 
     ModalBottomSheet(
@@ -104,8 +116,12 @@ fun WarpBottomSheet(
         contentColor = WarpTheme.colors.text.default,
         // Top excluded - already handled by the modifier above.
         contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal) },
-        dragHandle = { BottomSheetDefaults.DragHandle(color = WarpTheme.colors.background.subtleActive) },
+        sheetGesturesEnabled = !locked,
+        properties = ModalBottomSheetProperties(shouldDismissOnClickOutside = !locked),
+        dragHandle = if (locked) null else { { BottomSheetDefaults.DragHandle(color = dragHandleColor) } },
     ) {
+        BlockBack(enabled = locked)
+        if (locked) LockedDragHandle(color = dragHandleColor)
         if (header != null) {
             Row(
                 // No top padding - M3's 48dp handle already spaces the header from the top edge.
@@ -132,15 +148,37 @@ fun WarpBottomSheet(
                 // Merged before the icon's own description, so it reads e.g. "Close, X".
                 IconButton(
                     onClick = dismiss,
+                    enabled = !locked,
                     modifier = Modifier.semantics { contentDescription = closeLabel },
                 ) {
                     WarpIcon(
                         icon = icons.close,
+                        color = if (locked) WarpTheme.colors.icon.disabled else WarpTheme.colors.icon.default,
                     )
                 }
             }
         }
         content(dismiss)
+    }
+}
+
+/**
+ * Swallows back presses while [enabled]. M3 reads `shouldDismissOnBackPress` only when the sheet
+ * opens, so a sheet locked later needs this. Registered on the sheet's own window, after M3's
+ * callback, so it takes priority.
+ */
+@Composable
+private fun BlockBack(enabled: Boolean) {
+    val callback = remember {
+        object : OnBackPressedCallback(enabled) {
+            override fun handleOnBackPressed() = Unit
+        }
+    }
+    SideEffect { callback.isEnabled = enabled }
+    val view = LocalView.current
+    DisposableEffect(view) {
+        view.findViewTreeOnBackPressedDispatcherOwner()?.onBackPressedDispatcher?.addCallback(callback)
+        onDispose { callback.remove() }
     }
 }
 
