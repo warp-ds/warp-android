@@ -32,7 +32,6 @@ import kotlinx.coroutines.flow.filterNotNull
  * @param type The type of the date picker. Defaults to [WarpDatePickerType.DIALOG].
  * @param selectableDates The selectable dates to be used. Defaults to [DatePickerDefaults.AllDates].
  */
-@Suppress("DEPRECATION")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WarpDatePicker(

@@ -33,7 +33,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param quietButtonText An optional text for a quiet button. Defaults to null
  * @param quietButtonAction An optional action for the quiet button. Defaults to null
  */
-@Suppress("DEPRECATION")
 @Composable
 fun WarpAlert(
     modifier: Modifier = Modifier,

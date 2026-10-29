@@ -176,11 +176,6 @@ internal fun LegacyWarpButton(
         LocalDimensions provides dimensions
     ) {
         val warpButtonColors: WarpButtonStyleColors = when (style) {
-            WarpButtonStyle.Primary -> buttonStylePrimary()
-            WarpButtonStyle.Secondary -> buttonStyleSecondary()
-            WarpButtonStyle.Quiet -> buttonStyleQuiet()
-            WarpButtonStyle.Negative -> buttonStyleNegative()
-            WarpButtonStyle.NegativeQuiet -> buttonStyleNegativeQuiet()
             WarpButtonStyle.Utility -> buttonStyleUtility()
             WarpButtonStyle.UtilityOverlay -> buttonStyleUtilityOverlay()
             WarpButtonStyle.UtilityQuiet -> buttonStyleUtilityQuiet()

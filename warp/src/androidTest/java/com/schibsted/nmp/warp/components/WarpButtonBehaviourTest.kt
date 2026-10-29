@@ -170,7 +170,7 @@ class WarpButtonBehaviourTest {
     fun newStyleWithSmallFlagMatchesSmallSize() {
         compose.setContent {
             Column {
-                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Prominent, small = true, modifier = Modifier.testTag("flag"))
+                WarpButton(text = "Save", onClick = {}, style = WarpButtonStyle.Primary, small = true, modifier = Modifier.testTag("flag"))
                 WarpButton(text = "Save", onClick = {}, size = WarpButtonSize.Small, modifier = Modifier.testTag("small"))
                 WarpButton(text = "Save", onClick = {}, size = WarpButtonSize.Medium, modifier = Modifier.testTag("medium"))
             }
@@ -278,7 +278,7 @@ class WarpButtonBehaviourTest {
                 WarpButton(
                     text = "Click me",
                     onClick = {},
-                    style = WarpButtonStyle.Prominent,
+                    style = WarpButtonStyle.Primary,
                     modifier = Modifier.testTag("b")
                 )
             }

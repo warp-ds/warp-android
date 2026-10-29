@@ -16,7 +16,7 @@ import com.schibsted.nmp.warp.theme.WarpIconResource
  * described by something else on screen
  * @param onClick lambda to be invoked when clicked
  * @param modifier Modifier for the button
- * @param style Appearance of the button. Defaults to [WarpButtonStyle.Prominent]
+ * @param style Appearance of the button. Defaults to [WarpButtonStyle.Primary]
  * @param size 32dp, 40dp or 48dp circle; smaller sizes keep a 48dp touch target
  * @param enabled set to false to disable the button
  * @param loading shows the loading state; clicks are ignored while loading
@@ -28,7 +28,7 @@ fun WarpIconButton(
     contentDescription: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    style: WarpButtonStyle = WarpButtonStyle.Primary,
     size: WarpButtonSize = WarpButtonSize.Medium,
     enabled: Boolean = true,
     loading: Boolean = false,
@@ -59,7 +59,7 @@ fun WarpIconButton(
     onClick: () -> Unit,
     forcedState: WarpButtonState,
     modifier: Modifier = Modifier,
-    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    style: WarpButtonStyle = WarpButtonStyle.Primary,
     size: WarpButtonSize = WarpButtonSize.Medium,
     loading: Boolean = false,
 ) {

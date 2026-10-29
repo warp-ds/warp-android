@@ -7,14 +7,9 @@ import org.junit.Test
 @Suppress("DEPRECATION")
 class WarpButtonStyleMappingTest {
     private val replacements = mapOf(
-        WarpButtonStyle.Primary to WarpButtonStyle.Prominent,
-        WarpButtonStyle.Secondary to WarpButtonStyle.Tonal,
-        WarpButtonStyle.Quiet to WarpButtonStyle.Text,
-        WarpButtonStyle.Negative to WarpButtonStyle.Destructive,
-        WarpButtonStyle.NegativeQuiet to WarpButtonStyle.DestructiveText,
-        WarpButtonStyle.Utility to WarpButtonStyle.Flat,
-        WarpButtonStyle.UtilityQuiet to WarpButtonStyle.Text,
-        WarpButtonStyle.UtilityOverlay to WarpButtonStyle.Elevated,
+        WarpButtonStyle.Utility to WarpButtonStyle.Overlay,
+        WarpButtonStyle.UtilityQuiet to WarpButtonStyle.Quiet,
+        WarpButtonStyle.UtilityOverlay to WarpButtonStyle.OverlayElevated,
     )
 
     @Test
@@ -25,7 +20,7 @@ class WarpButtonStyleMappingTest {
     }
 
     @Test
-    fun onlyTheEightOldStylesAreLegacy() {
+    fun onlyTheThreeUtilityStylesAreLegacy() {
         assertEquals(replacements.keys, WarpButtonStyle.values().filter { it.isLegacy }.toSet())
     }
 

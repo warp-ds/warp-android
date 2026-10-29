@@ -37,30 +37,25 @@ import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
 
 private val newStyles = listOf(
-    WarpButtonStyle.Prominent,
-    WarpButtonStyle.Tonal,
-    WarpButtonStyle.Text,
-    WarpButtonStyle.Flat,
-    WarpButtonStyle.Elevated,
-    WarpButtonStyle.Static,
-    WarpButtonStyle.InvertedStatic,
-    WarpButtonStyle.Destructive,
-    WarpButtonStyle.DestructiveText,
+    WarpButtonStyle.Primary,
+    WarpButtonStyle.Secondary,
+    WarpButtonStyle.Quiet,
+    WarpButtonStyle.Overlay,
+    WarpButtonStyle.OverlayElevated,
+    WarpButtonStyle.OverlayInvertedStatic,
+    WarpButtonStyle.SecondaryInvertedStatic,
+    WarpButtonStyle.Negative,
+    WarpButtonStyle.NegativeQuiet,
 )
 
 @Suppress("DEPRECATION")
 private val deprecatedStyles = listOf(
-    WarpButtonStyle.Primary,
-    WarpButtonStyle.Secondary,
-    WarpButtonStyle.Quiet,
-    WarpButtonStyle.Negative,
-    WarpButtonStyle.NegativeQuiet,
     WarpButtonStyle.Utility,
     WarpButtonStyle.UtilityQuiet,
     WarpButtonStyle.UtilityOverlay,
 )
 
-// Stand-in for the photo or video the static styles sit on.
+// Stand-in for the photo or video the inverted-static styles sit on.
 private val ImageStandIn = Color(0xFF6E6E78)
 
 @Composable
@@ -95,14 +90,14 @@ private fun NewButtonsSection() {
             WarpButton(
                 text = option.name,
                 onClick = { size = option },
-                style = if (option == size) WarpButtonStyle.Prominent else WarpButtonStyle.Tonal,
+                style = if (option == size) WarpButtonStyle.Primary else WarpButtonStyle.Secondary,
                 size = WarpButtonSize.Small
             )
         }
     }
     for (style in newStyles) {
         SectionTitle(style.name)
-        val onImage = style == WarpButtonStyle.Static || style == WarpButtonStyle.InvertedStatic
+        val onImage = style == WarpButtonStyle.OverlayInvertedStatic || style == WarpButtonStyle.SecondaryInvertedStatic
         Column(
             modifier = Modifier
                 .fillMaxWidth()

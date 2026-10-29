@@ -40,18 +40,18 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 private val ModernStyles = listOf(
-    WarpButtonStyle.Prominent,
-    WarpButtonStyle.Tonal,
-    WarpButtonStyle.Text,
-    WarpButtonStyle.Flat,
-    WarpButtonStyle.Elevated,
-    WarpButtonStyle.Static,
-    WarpButtonStyle.InvertedStatic,
-    WarpButtonStyle.Destructive,
-    WarpButtonStyle.DestructiveText,
+    WarpButtonStyle.Primary,
+    WarpButtonStyle.Secondary,
+    WarpButtonStyle.Quiet,
+    WarpButtonStyle.Overlay,
+    WarpButtonStyle.OverlayElevated,
+    WarpButtonStyle.OverlayInvertedStatic,
+    WarpButtonStyle.SecondaryInvertedStatic,
+    WarpButtonStyle.Negative,
+    WarpButtonStyle.NegativeQuiet,
 )
 
-// Stand-in for the photo or video the static styles sit on.
+// Stand-in for the photo or video the inverted-static styles sit on.
 private val ImageStandIn = Color(0xFF6E6E78)
 
 private const val LongLabel = "A very long button label that cannot fit on a single line"
@@ -142,7 +142,7 @@ class WarpButtonStylesTest(
     @Test
     fun warp_button_loading() {
         snapshot {
-            listOf(WarpButtonStyle.Prominent, WarpButtonStyle.Elevated).forEach { style ->
+            listOf(WarpButtonStyle.Primary, WarpButtonStyle.OverlayElevated).forEach { style ->
                 WarpButtonSize.values().forEach { size ->
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(dimensions.space1),
@@ -172,7 +172,7 @@ class WarpButtonStylesTest(
                 WarpButton(
                     text = "Both ${size.name}",
                     onClick = {},
-                    style = WarpButtonStyle.Tonal,
+                    style = WarpButtonStyle.Secondary,
                     size = size,
                     leadingIcon = R.drawable.warp_animalpaw,
                     trailingIcon = R.drawable.warp_animalpaw
@@ -190,7 +190,7 @@ class WarpButtonStylesTest(
     @Test
     fun warp_button_slot_icons() {
         snapshot {
-            listOf(WarpButtonStyle.Prominent, WarpButtonStyle.DestructiveText).forEach { style ->
+            listOf(WarpButtonStyle.Primary, WarpButtonStyle.NegativeQuiet).forEach { style ->
                 listOf(true, false).forEach { enabled ->
                     WarpButton(
                         text = "${style.name} slot icon",
@@ -222,7 +222,7 @@ class WarpButtonStylesTest(
             WarpButton(
                 text = LongLabel,
                 onClick = {},
-                style = WarpButtonStyle.Tonal,
+                style = WarpButtonStyle.Secondary,
                 maxLines = 2,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -238,7 +238,7 @@ class WarpButtonStylesTest(
                     WarpButton(
                         text = "Trailing",
                         onClick = {},
-                        style = WarpButtonStyle.Tonal,
+                        style = WarpButtonStyle.Secondary,
                         trailingIcon = R.drawable.warp_animalpaw
                     )
                     WarpButton(
@@ -253,7 +253,7 @@ class WarpButtonStylesTest(
     }
 
     @Test
-    fun warp_button_static_on_image() {
+    fun warp_button_inverted_static_on_image() {
         snapshot {
             Column(
                 modifier = Modifier
@@ -262,7 +262,7 @@ class WarpButtonStylesTest(
                     .padding(dimensions.space2),
                 verticalArrangement = Arrangement.spacedBy(dimensions.space2)
             ) {
-                listOf(WarpButtonStyle.Static, WarpButtonStyle.InvertedStatic).forEach { style ->
+                listOf(WarpButtonStyle.OverlayInvertedStatic, WarpButtonStyle.SecondaryInvertedStatic).forEach { style ->
                     WarpButtonState.values().forEach { state ->
                         WarpButton(text = "${style.name} ${state.name}", onClick = {}, forcedState = state, style = style)
                     }

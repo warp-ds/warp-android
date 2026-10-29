@@ -696,7 +696,6 @@ fun stepIndicatorStyle() = WarpStepIndicatorColors(
     icon = colors.icon.inverted
 )
 
-@Suppress("DEPRECATION")
 @Preview
 @Composable
 fun HorizontalPreview() {
@@ -720,7 +719,6 @@ fun HorizontalPreview() {
     }
 }
 
-@Suppress("DEPRECATION")
 @Preview
 @Composable
 internal fun VerticalPreview() {

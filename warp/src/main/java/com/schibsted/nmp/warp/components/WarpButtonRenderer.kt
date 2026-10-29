@@ -77,7 +77,7 @@ private val FocusRingWidth = 3.dp
 private class WarpButtonPalette(
     val fill: Color,
     val hoverFill: Color,
-    val pressedFill: Color,
+    val activeFill: Color,
     val content: Color,
     val icon: Color,
     val disabledFill: Color,
@@ -87,11 +87,11 @@ private class WarpButtonPalette(
 
 // Styles with default text/icon colours that turn to the disabled text/icon colours.
 @Composable
-private fun neutralContentPalette(fill: Color, hoverFill: Color, pressedFill: Color, disabledFill: Color) =
+private fun neutralContentPalette(fill: Color, hoverFill: Color, activeFill: Color, disabledFill: Color) =
     WarpButtonPalette(
         fill = fill,
         hoverFill = hoverFill,
-        pressedFill = pressedFill,
+        activeFill = activeFill,
         content = colors.text.default,
         icon = colors.icon.default,
         disabledFill = disabledFill,
@@ -101,68 +101,68 @@ private fun neutralContentPalette(fill: Color, hoverFill: Color, pressedFill: Co
 
 @Composable
 private fun warpButtonPalette(style: WarpButtonStyle): WarpButtonPalette = when (style) {
-    WarpButtonStyle.Prominent -> WarpButtonPalette(
+    WarpButtonStyle.Primary -> WarpButtonPalette(
         fill = colors.components.button.primaryBackground,
         hoverFill = colors.components.button.primaryBackgroundHover,
-        pressedFill = colors.components.button.primaryBackgroundActive,
+        activeFill = colors.components.button.primaryBackgroundActive,
         content = colors.text.inverted,
         icon = colors.icon.inverted,
         disabledFill = colors.background.disabled,
         disabledContent = colors.text.inverted,
         disabledIcon = colors.icon.inverted,
     )
-    WarpButtonStyle.Tonal -> neutralContentPalette(
+    WarpButtonStyle.Secondary -> neutralContentPalette(
         fill = WarpButtonInterimColors.neutral,
         hoverFill = WarpButtonInterimColors.neutralHover,
-        pressedFill = WarpButtonInterimColors.neutralActive,
+        activeFill = WarpButtonInterimColors.neutralActive,
         disabledFill = WarpButtonInterimColors.neutral,
     )
-    WarpButtonStyle.Text -> neutralContentPalette(
+    WarpButtonStyle.Quiet -> neutralContentPalette(
         fill = Color.Transparent,
         hoverFill = WarpButtonInterimColors.neutralHover,
-        pressedFill = WarpButtonInterimColors.neutralActive,
+        activeFill = WarpButtonInterimColors.neutralActive,
         disabledFill = Color.Transparent,
     )
-    WarpButtonStyle.Flat, WarpButtonStyle.Elevated -> neutralContentPalette(
+    WarpButtonStyle.Overlay, WarpButtonStyle.OverlayElevated -> neutralContentPalette(
         fill = colors.surface.elevated300,
         hoverFill = colors.surface.elevated300Hover,
-        pressedFill = colors.surface.elevated300Active,
+        activeFill = colors.surface.elevated300Active,
         disabledFill = colors.background.disabledSubtle,
     )
-    WarpButtonStyle.Static -> WarpButtonPalette(
-        fill = WarpButtonInterimColors.static,
-        hoverFill = WarpButtonInterimColors.staticHover,
-        pressedFill = WarpButtonInterimColors.staticActive,
+    WarpButtonStyle.OverlayInvertedStatic -> WarpButtonPalette(
+        fill = WarpButtonInterimColors.overlayInvertedStatic,
+        hoverFill = WarpButtonInterimColors.overlayInvertedStaticHover,
+        activeFill = WarpButtonInterimColors.overlayInvertedStaticActive,
         content = colors.text.invertedStatic,
         icon = colors.icon.invertedStatic,
-        disabledFill = WarpButtonInterimColors.static,
+        disabledFill = WarpButtonInterimColors.overlayInvertedStatic,
         disabledContent = colors.text.disabled,
         disabledIcon = colors.icon.disabled,
     )
-    WarpButtonStyle.InvertedStatic -> WarpButtonPalette(
-        fill = WarpButtonInterimColors.invertedStatic,
-        hoverFill = WarpButtonInterimColors.invertedStaticHover,
-        pressedFill = WarpButtonInterimColors.invertedStaticActive,
+    WarpButtonStyle.SecondaryInvertedStatic -> WarpButtonPalette(
+        fill = WarpButtonInterimColors.secondaryInvertedStatic,
+        hoverFill = WarpButtonInterimColors.secondaryInvertedStaticHover,
+        activeFill = WarpButtonInterimColors.secondaryInvertedStaticActive,
         content = colors.text.invertedStatic,
         icon = colors.icon.invertedStatic,
         disabledFill = Color.Transparent,
         disabledContent = colors.text.disabled,
         disabledIcon = colors.icon.disabled,
     )
-    WarpButtonStyle.Destructive -> WarpButtonPalette(
+    WarpButtonStyle.Negative -> WarpButtonPalette(
         fill = colors.background.negative,
         hoverFill = colors.background.negativeHover,
-        pressedFill = colors.background.negativeActive,
+        activeFill = colors.background.negativeActive,
         content = colors.text.inverted,
         icon = colors.icon.inverted,
         disabledFill = colors.background.disabled,
         disabledContent = colors.text.inverted,
         disabledIcon = colors.icon.inverted,
     )
-    WarpButtonStyle.DestructiveText -> WarpButtonPalette(
+    WarpButtonStyle.NegativeQuiet -> WarpButtonPalette(
         fill = Color.Transparent,
         hoverFill = WarpButtonInterimColors.negativeHover,
-        pressedFill = WarpButtonInterimColors.negativeActive,
+        activeFill = WarpButtonInterimColors.negativeActive,
         content = colors.text.negative,
         icon = colors.icon.negative,
         disabledFill = Color.Transparent,
@@ -198,7 +198,7 @@ internal fun WarpButtonSurface(
     val isPressed by source.collectIsPressedAsState()
     val state = forcedState ?: when {
         !enabled -> WarpButtonState.Disabled
-        isPressed -> WarpButtonState.Pressed
+        isPressed -> WarpButtonState.Active
         isHovered -> WarpButtonState.Hover
         isFocused -> WarpButtonState.Focus
         else -> WarpButtonState.Default
@@ -210,7 +210,7 @@ internal fun WarpButtonSurface(
     val fill = when {
         loading -> Color.Transparent
         disabled -> palette.disabledFill
-        state == WarpButtonState.Pressed -> palette.pressedFill
+        state == WarpButtonState.Active -> palette.activeFill
         state == WarpButtonState.Hover -> palette.hoverFill
         else -> palette.fill
     }
@@ -224,7 +224,7 @@ internal fun WarpButtonSurface(
         disabled -> palette.disabledIcon
         else -> palette.icon
     }
-    val elevated = style.modernEquivalent() == WarpButtonStyle.Elevated && !loading
+    val elevated = style.modernEquivalent() == WarpButtonStyle.OverlayElevated && !loading
     //disable click when button is in loading state
     val clickAction: () -> Unit = if (loading) {
         {}

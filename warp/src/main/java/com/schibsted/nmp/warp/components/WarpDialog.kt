@@ -38,7 +38,6 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  * @param dismissOnClickOutside Whether the dialog is dismissed when the scrim is tapped.
  * @param dismissOnBackPress Whether the dialog is dismissed on back press.
  */
-@Suppress("DEPRECATION")
 @Composable
 fun WarpDialog(
     title: String,

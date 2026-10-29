@@ -36,7 +36,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * For more info, look [here](https://warp-ds.github.io/tech-docs/components/buttons/)
  *
  * Slot icons are drawn as given: pass `color = LocalContentColor.current` to [WarpIcon] so they
- * follow the button's content colour (e.g. on [WarpButtonStyle.Prominent] or when disabled).
+ * follow the button's content colour (e.g. on [WarpButtonStyle.Primary] or when disabled).
  *
  * The slot content ([leadingIcon], [trailingIcon]) is measured with intrinsic sizes so the button
  * can size itself to its content. It must therefore support intrinsic measurement: do not use
@@ -46,7 +46,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.shapes
  * @param onClick lambda to be invoked when clicked
  * @param modifier Modifier for the button
  * @param enabled set to false to disable the button
- * @param style Appearance of the button. Defaults to [WarpButtonStyle.Prominent]
+ * @param style Appearance of the button. Defaults to [WarpButtonStyle.Primary]
  * @param maxLines limits the lines of the text on the button
  * @param loading shows the loading state; clicks are ignored while loading
  * @param leadingIcon composable shown before the text
@@ -60,7 +60,7 @@ fun WarpButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    style: WarpButtonStyle = WarpButtonStyle.Primary,
     maxLines: Int = 1,
     loading: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -115,7 +115,7 @@ fun WarpButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    style: WarpButtonStyle = WarpButtonStyle.Primary,
     maxLines: Int = 1,
     loading: Boolean = false,
     @DrawableRes leadingIcon: Int? = null,
@@ -180,7 +180,7 @@ fun WarpButton(
  * @param onClick lambda to be invoked when clicked
  * @param modifier Modifier for the button. Default value is Modifier
  * @param enabled set to false to disable the button. Default value is true
- * @param style Appearance of the button. Defaults to [WarpButtonStyle.Prominent]
+ * @param style Appearance of the button. Defaults to [WarpButtonStyle.Primary]
  * @param loading shows the loading state; clicks are ignored while loading. Default value is false
  * @param size Size of the button. Defaults to [WarpButtonSize.Medium]
  * @param interactionSource Optional source for hover/focus/press interactions
@@ -191,7 +191,7 @@ fun WarpButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    style: WarpButtonStyle = WarpButtonStyle.Primary,
     loading: Boolean = false,
     size: WarpButtonSize = WarpButtonSize.Medium,
     interactionSource: MutableInteractionSource? = null,
@@ -235,7 +235,7 @@ fun WarpButton(
     onClick: () -> Unit,
     forcedState: WarpButtonState,
     modifier: Modifier = Modifier,
-    style: WarpButtonStyle = WarpButtonStyle.Prominent,
+    style: WarpButtonStyle = WarpButtonStyle.Primary,
     size: WarpButtonSize = WarpButtonSize.Medium,
     loading: Boolean = false,
     @DrawableRes leadingIcon: Int? = null,
@@ -265,7 +265,6 @@ fun WarpButton(
     }
 }
 
-@Suppress("DEPRECATION")
 @Deprecated(
     message = "Use the overload with size: WarpButtonSize",
     replaceWith = ReplaceWith(
@@ -300,7 +299,6 @@ fun WarpButton(
     )
 }
 
-@Suppress("DEPRECATION")
 @Deprecated(
     message = "Use the overload with size: WarpButtonSize",
     replaceWith = ReplaceWith(
@@ -341,7 +339,6 @@ fun WarpButton(
     )
 }
 
-@Suppress("DEPRECATION")
 @Deprecated(
     message = "Use the overload with size: WarpButtonSize",
     replaceWith = ReplaceWith(
@@ -371,34 +368,24 @@ fun WarpButton(
 }
 
 /**
- * Visual style of a [WarpButton] / [WarpIconButton]. The first nine values follow the Android
- * Button design; the remaining eight are the previous styles, kept with their previous look.
+ * Visual style of a [WarpButton] / [WarpIconButton], named after the `Type` variants of the Warp
+ * Buttons design. The last three are the previous utility styles, kept with their previous look.
  */
 enum class WarpButtonStyle {
-    Prominent,
-    Tonal,
-    Text,
-    Flat,
-    Elevated,
-    Static,
-    InvertedStatic,
-    Destructive,
-    DestructiveText,
-    @Deprecated("Use Prominent", ReplaceWith("WarpButtonStyle.Prominent"))
     Primary,
-    @Deprecated("Use Tonal", ReplaceWith("WarpButtonStyle.Tonal"))
     Secondary,
-    @Deprecated("Use Text", ReplaceWith("WarpButtonStyle.Text"))
     Quiet,
-    @Deprecated("Use Destructive", ReplaceWith("WarpButtonStyle.Destructive"))
+    Overlay,
+    OverlayElevated,
+    OverlayInvertedStatic,
+    SecondaryInvertedStatic,
     Negative,
-    @Deprecated("Use DestructiveText", ReplaceWith("WarpButtonStyle.DestructiveText"))
     NegativeQuiet,
-    @Deprecated("Use Flat", ReplaceWith("WarpButtonStyle.Flat"))
+    @Deprecated("Use Overlay", ReplaceWith("WarpButtonStyle.Overlay"))
     Utility,
-    @Deprecated("Use Text", ReplaceWith("WarpButtonStyle.Text"))
+    @Deprecated("Use Quiet", ReplaceWith("WarpButtonStyle.Quiet"))
     UtilityQuiet,
-    @Deprecated("Use Elevated", ReplaceWith("WarpButtonStyle.Elevated"))
+    @Deprecated("Use OverlayElevated", ReplaceWith("WarpButtonStyle.OverlayElevated"))
     UtilityOverlay,
 }
 
@@ -411,17 +398,12 @@ enum class WarpButtonSize { ExtraSmall, Small, Medium }
 /**
  * Visual states of a [WarpButton] / [WarpIconButton]. Only used to force a state in snapshots/previews.
  */
-enum class WarpButtonState { Default, Hover, Focus, Pressed, Disabled }
+enum class WarpButtonState { Default, Hover, Active, Focus, Disabled }
 
-// The previous styles, which keep rendering through LegacyWarpButton.
+// The previous utility styles, which keep rendering through LegacyWarpButton.
 @Suppress("DEPRECATION")
 internal val WarpButtonStyle.isLegacy: Boolean
     get() = when (this) {
-        WarpButtonStyle.Primary,
-        WarpButtonStyle.Secondary,
-        WarpButtonStyle.Quiet,
-        WarpButtonStyle.Negative,
-        WarpButtonStyle.NegativeQuiet,
         WarpButtonStyle.Utility,
         WarpButtonStyle.UtilityQuiet,
         WarpButtonStyle.UtilityOverlay -> true
@@ -431,14 +413,9 @@ internal val WarpButtonStyle.isLegacy: Boolean
 // Closest new style for a previous one; keep in sync with the @Deprecated ReplaceWith targets.
 @Suppress("DEPRECATION")
 internal fun WarpButtonStyle.modernEquivalent(): WarpButtonStyle = when (this) {
-    WarpButtonStyle.Primary -> WarpButtonStyle.Prominent
-    WarpButtonStyle.Secondary -> WarpButtonStyle.Tonal
-    WarpButtonStyle.Quiet -> WarpButtonStyle.Text
-    WarpButtonStyle.Negative -> WarpButtonStyle.Destructive
-    WarpButtonStyle.NegativeQuiet -> WarpButtonStyle.DestructiveText
-    WarpButtonStyle.Utility -> WarpButtonStyle.Flat
-    WarpButtonStyle.UtilityQuiet -> WarpButtonStyle.Text
-    WarpButtonStyle.UtilityOverlay -> WarpButtonStyle.Elevated
+    WarpButtonStyle.Utility -> WarpButtonStyle.Overlay
+    WarpButtonStyle.UtilityQuiet -> WarpButtonStyle.Quiet
+    WarpButtonStyle.UtilityOverlay -> WarpButtonStyle.OverlayElevated
     else -> this
 }
 
@@ -451,59 +428,6 @@ data class WarpButtonStyleColors(
 data class WarpButtonElementColors(
     val default: Color,
     val active: Color
-)
-
-@Composable
-internal fun buttonStylePrimary() = WarpButtonStyleColors(
-    text = colors.text.inverted,
-    background = WarpButtonElementColors(
-        default = colors.components.button.primaryBackground,
-        active = colors.components.button.primaryBackgroundActive
-    ),
-    border = null,
-)
-
-@Composable
-internal fun buttonStyleSecondary() = WarpButtonStyleColors(
-    text = colors.text.link,
-    background = WarpButtonElementColors(
-        default = colors.background.default,
-        active = colors.background.active
-    ),
-    border = WarpButtonElementColors(
-        default = colors.border.default,
-        active = colors.border.active
-    )
-)
-
-@Composable
-internal fun buttonStyleQuiet() = WarpButtonStyleColors(
-    text = colors.text.link,
-    background = WarpButtonElementColors(
-        default = Transparent,
-        active = colors.background.active
-    ),
-    border = null
-)
-
-@Composable
-internal fun buttonStyleNegative() = WarpButtonStyleColors(
-    text = colors.text.inverted,
-    background = WarpButtonElementColors(
-        default = colors.background.negative,
-        active = colors.background.negativeActive
-    ),
-    border = null
-)
-
-@Composable
-internal fun buttonStyleNegativeQuiet() = WarpButtonStyleColors(
-    text = colors.text.negative,
-    background = WarpButtonElementColors(
-        default = Transparent,
-        active = colors.background.negativeSubtleActive
-    ),
-    border = null
 )
 
 @Composable
@@ -597,13 +521,13 @@ fun WarpButtonPreview(
     Column(
         verticalArrangement = Arrangement.spacedBy(dimensions.space1)
     ) {
-        WarpButton(text = "Take me to NMP", onClick = {}, style = WarpButtonStyle.Prominent)
-        WarpButton(text = "Buy a duck", onClick = {}, style = WarpButtonStyle.Tonal)
-        WarpButton(text = "Sell a duck", onClick = {}, style = WarpButtonStyle.Text)
-        WarpButton(text = "Duck", onClick = {}, style = WarpButtonStyle.Flat)
-        WarpButton(text = "Duck duck", onClick = {}, style = WarpButtonStyle.Elevated)
-        WarpButton(text = "This duck cannot be sold!", onClick = {}, style = WarpButtonStyle.Destructive)
-        WarpButton(text = "This duck was already sold!", onClick = {}, style = WarpButtonStyle.DestructiveText)
+        WarpButton(text = "Take me to NMP", onClick = {}, style = WarpButtonStyle.Primary)
+        WarpButton(text = "Buy a duck", onClick = {}, style = WarpButtonStyle.Secondary)
+        WarpButton(text = "Sell a duck", onClick = {}, style = WarpButtonStyle.Quiet)
+        WarpButton(text = "Duck", onClick = {}, style = WarpButtonStyle.Overlay)
+        WarpButton(text = "Duck duck", onClick = {}, style = WarpButtonStyle.OverlayElevated)
+        WarpButton(text = "This duck cannot be sold!", onClick = {}, style = WarpButtonStyle.Negative)
+        WarpButton(text = "This duck was already sold!", onClick = {}, style = WarpButtonStyle.NegativeQuiet)
         WarpButton(text = "Loading", loading = true, onClick = {})
         WarpButton(text = "Small", onClick = {}, size = WarpButtonSize.Small)
         WarpButton(
