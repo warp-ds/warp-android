@@ -365,4 +365,7 @@
     <string name="printer">Skriver</string>
     <string name="shareandroid">Tre prikker</string>
     <string name="clear_field">Tøm felt</string>
+
+    <string name="bottom_sheet_close">Lukk</string>
+
 </resources>

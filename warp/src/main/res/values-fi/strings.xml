@@ -365,4 +365,7 @@
     <string name="printer">Tulostin</string>
     <string name="shareandroid">Kolme pistettä</string>
     <string name="clear_field">Tyhjennä kenttä</string>
+
+    <string name="bottom_sheet_close">Sulje</string>
+
 </resources>
