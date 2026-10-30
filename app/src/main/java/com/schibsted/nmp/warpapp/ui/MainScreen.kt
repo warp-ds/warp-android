@@ -131,6 +131,11 @@ fun MainScreen() {
                     navController.navigateUp()
                 }
             }
+            composable("bottomSheet") {
+                BottomSheetScreen {
+                    navController.navigateUp()
+                }
+            }
             composable("spinner") {
                 SpinnerScreen {
                     navController.navigateUp()
@@ -297,6 +302,7 @@ fun ComponentListScreen(onNavigate: (String) -> Unit) {
                         "alert" to "WarpAlert",
                         "badges" to "WarpBadge",
                         "navigationBar" to "WarpNavigationBar",
+                        "bottomSheet" to "WarpBottomSheet",
                         "box" to "WarpBox",
                         "buttons" to "WarpButton",
                         "callout" to "WarpCallout",

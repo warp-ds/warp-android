@@ -365,4 +365,6 @@
     <string name="shareandroid">Three connected dots</string>
     <string name="clear_field">Clear field</string>
 
+    <string name="bottom_sheet_close">Close</string>
+
 </resources>
