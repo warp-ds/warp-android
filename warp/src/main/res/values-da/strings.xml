@@ -365,7 +365,5 @@
     <string name="printer">Printer</string>
     <string name="shareandroid">Tre forbundne prikker</string>
     <string name="clear_field">Ryd felt</string>
-
     <string name="bottom_sheet_close">Luk</string>
-
 </resources>
