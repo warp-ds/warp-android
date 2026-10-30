@@ -41,6 +41,10 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
+@Deprecated(
+    message = "Use WarpDialog instead.",
+    level = DeprecationLevel.WARNING
+)
 fun WarpModal(
     modifier: Modifier = Modifier,
     title: String,
