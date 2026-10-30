@@ -26,6 +26,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.schibsted.nmp.warp.components.WarpBottomSheet
+import com.schibsted.nmp.warp.components.WarpBottomSheetHeader
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpFullScreenDialog
@@ -314,7 +315,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     var value by remember { mutableStateOf(listName.withCursorAtEnd()) }
                     WarpBottomSheet(
                         onDismissRequest = { showSheet = false },
-                        title = "Rename list",
+                        header = WarpBottomSheetHeader(title = "Rename list"),
                     ) { dismiss ->
                         Column(modifier = Modifier.padding(16.dp)) {
                             AutoFocusTextField(value = value, onValueChange = { value = it })
