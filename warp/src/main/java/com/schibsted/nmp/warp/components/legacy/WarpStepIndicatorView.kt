@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
@@ -12,6 +13,9 @@ import androidx.core.content.withStyledAttributes
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
 import com.schibsted.nmp.warp.components.VerticalWarpStepIndicator
+import com.schibsted.nmp.warp.components.WarpStepIndicatorType
+import com.schibsted.nmp.warp.components.WarpStepState
+import com.schibsted.nmp.warp.components.linearStepStates
 import org.koin.java.KoinJavaComponent
 
 /**
@@ -21,6 +25,8 @@ import org.koin.java.KoinJavaComponent
  * app:steps number of steps in the indicator
  * app:activeStep the currently active step
  * app:stepIndicatorOrientation the orientation of the indicator, horizontal or vertical
+ * app:stepIndicatorType what the indicators show, dot (default) or numbered
+ * @param stepStates the state of each step. Overrides steps and activeStep when set. Must be set programmatically
  * @param stepTitle a lambda that returns the title for a given step. Must be set programmatically
  * @param stepContentDescription a lambda that returns the content description for a given step. Must be set programmatically
  * @param stepDescription a lambda that returns the description for a given step. Must be set programmatically
@@ -48,6 +54,14 @@ class WarpStepIndicatorView @JvmOverloads constructor(
         }
 
     var activeStep: Int by mutableIntStateOf(0)
+
+    var type: WarpStepIndicatorType = WarpStepIndicatorType.Default
+        set(value) {
+            field = value
+            disposeComposition()
+        }
+
+    var stepStates: List<WarpStepState>? by mutableStateOf(null)
 
     var stepTitle: ((Int) -> String)? = null
         set(value) {
@@ -96,6 +110,13 @@ class WarpStepIndicatorView @JvmOverloads constructor(
                     throw IllegalArgumentException("Invalid orientation")
                 }
             }
+            type = when (getInt(R.styleable.WarpStepIndicator_stepIndicatorType, 0)) {
+                0 -> WarpStepIndicatorType.Default
+                1 -> WarpStepIndicatorType.Numbered
+                else -> {
+                    throw IllegalArgumentException("Invalid type")
+                }
+            }
         }
     }
 
@@ -104,8 +125,8 @@ class WarpStepIndicatorView @JvmOverloads constructor(
         theme {
             if (orientation == WarpStepIndicatorOrientation.Horizontal) {
                 HorizontalWarpStepIndicator(
-                    steps = steps,
-                    activeStep = activeStep,
+                    steps = stepStates ?: linearStepStates(steps, activeStep),
+                    type = type,
                     onStepClicked = {
                         activeStep = it
                         onStepClicked?.invoke(it)
@@ -118,8 +139,8 @@ class WarpStepIndicatorView @JvmOverloads constructor(
             } else if (orientation == WarpStepIndicatorOrientation.Vertical) {
                 VerticalWarpStepIndicator(
                     modifier = Modifier,
-                    steps = steps,
-                    activeStep = activeStep,
+                    steps = stepStates ?: linearStepStates(steps, activeStep),
+                    type = type,
                     onStepClicked = {
                         activeStep = it
                         onStepClicked?.invoke(it)

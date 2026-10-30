@@ -365,6 +365,10 @@
     <string name="printer">Skriver</string>
     <string name="shareandroid">Tre prikker</string>
     <string name="clear_field">Tøm felt</string>
+    <string name="step_indicator_state_incomplete">Ikke påbegynt</string>
+    <string name="step_indicator_state_in_progress">Pågår</string>
+    <string name="step_indicator_state_complete">Fullført</string>
+    <string name="step_indicator_state_error">Feil</string>
 
     <string name="bottom_sheet_close">Lukk</string>
 

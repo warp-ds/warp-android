@@ -16,6 +16,8 @@ import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
 import com.schibsted.nmp.warp.components.VerticalWarpStepIndicator
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
+import com.schibsted.nmp.warp.components.WarpStepIndicatorType
+import com.schibsted.nmp.warp.components.WarpStepState
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -34,6 +36,7 @@ fun StepIndicatorScreen(onUp: () -> Unit) {
 private fun StepIndicatorScreenContent() {
     var wState by remember { mutableIntStateOf(0) }
     var hState by remember { mutableIntStateOf(0) }
+    var nState by remember { mutableIntStateOf(1) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -57,6 +60,37 @@ private fun StepIndicatorScreenContent() {
             stepContentDescription =  { labels[it] },
             stepTitle = { labels[it] },
             stepDescription = { descriptions[it] }
+        )
+
+        WarpText(
+            modifier = Modifier.padding(top = dimensions.space3),
+            text = "Horizontal numbered",
+            style = WarpTextStyle.Title3
+        )
+        HorizontalWarpStepIndicator(
+            modifier = Modifier,
+            steps = 4,
+            activeStep = nState,
+            type = WarpStepIndicatorType.Numbered,
+            onStepClicked = { nState = it },
+            stepContentDescription = { labels[it] },
+            stepTitle = { labels[it] }
+        )
+
+        WarpText(
+            modifier = Modifier.padding(top = dimensions.space3),
+            text = "Horizontal with error",
+            style = WarpTextStyle.Title3
+        )
+        HorizontalWarpStepIndicator(
+            modifier = Modifier,
+            steps = listOf(
+                WarpStepState.Complete,
+                WarpStepState.Error,
+                WarpStepState.InProgress,
+                WarpStepState.Incomplete
+            ),
+            stepTitle = { labels[it] }
         )
 
         WarpText(
