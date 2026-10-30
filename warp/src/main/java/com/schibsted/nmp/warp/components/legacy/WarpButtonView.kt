@@ -27,6 +27,7 @@ import org.koin.java.KoinJavaComponent.inject
  * @param app:buttonTrailingIcon sets the icon to be displayed in the button after the text, reference id
  * @param app:buttonTrailingIconContentDescr sets the content description for the icon
  */
+@Suppress("DEPRECATION")
 class WarpButtonView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

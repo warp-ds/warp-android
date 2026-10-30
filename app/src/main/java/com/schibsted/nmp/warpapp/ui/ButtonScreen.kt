@@ -2,6 +2,8 @@
 
 package com.schibsted.nmp.warpapp.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,18 +13,50 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.components.WarpButton
+import com.schibsted.nmp.warp.components.WarpButtonSize
 import com.schibsted.nmp.warp.components.WarpButtonStyle
+import com.schibsted.nmp.warp.components.WarpIconButton
 import com.schibsted.nmp.warp.components.WarpText
+import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
 import com.schibsted.nmp.warpapp.BrandTheme
+
+private val newStyles = listOf(
+    WarpButtonStyle.Primary,
+    WarpButtonStyle.Secondary,
+    WarpButtonStyle.Quiet,
+    WarpButtonStyle.Overlay,
+    WarpButtonStyle.OverlayElevated,
+    WarpButtonStyle.OverlayInvertedStatic,
+    WarpButtonStyle.SecondaryInvertedStatic,
+    WarpButtonStyle.Negative,
+    WarpButtonStyle.NegativeQuiet,
+)
+
+@Suppress("DEPRECATION")
+private val deprecatedStyles = listOf(
+    WarpButtonStyle.Utility,
+    WarpButtonStyle.UtilityQuiet,
+    WarpButtonStyle.UtilityOverlay,
+)
+
+// Stand-in for the photo or video the inverted-static styles sit on.
+private val ImageStandIn = Color(0xFF6E6E78)
 
 @Composable
 fun ButtonScreen(onUp: () -> Unit) {
@@ -32,6 +66,75 @@ fun ButtonScreen(onUp: () -> Unit) {
 }
 
 @Composable
+private fun SectionTitle(text: String) {
+    WarpText(
+        text = text,
+        modifier = Modifier.padding(
+            top = dimensions.space2,
+            bottom = dimensions.space05,
+            start = dimensions.space2,
+            end = dimensions.space2
+        )
+    )
+}
+
+@Composable
+private fun NewButtonsSection() {
+    var size by rememberSaveable { mutableStateOf(WarpButtonSize.Medium) }
+    SectionTitle("Size")
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(dimensions.space1),
+        modifier = Modifier.padding(horizontal = dimensions.space2)
+    ) {
+        WarpButtonSize.values().forEach { option ->
+            WarpButton(
+                text = option.name,
+                onClick = { size = option },
+                style = if (option == size) WarpButtonStyle.Primary else WarpButtonStyle.Secondary,
+                size = WarpButtonSize.Small
+            )
+        }
+    }
+    for (style in newStyles) {
+        SectionTitle(style.name)
+        val onImage = style == WarpButtonStyle.OverlayInvertedStatic || style == WarpButtonStyle.SecondaryInvertedStatic
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(if (onImage) Modifier.background(ImageStandIn) else Modifier)
+                .padding(horizontal = dimensions.space2, vertical = dimensions.space1),
+            verticalArrangement = Arrangement.spacedBy(dimensions.space1)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(dimensions.space1),
+                modifier = Modifier.horizontalScroll(rememberScrollState())
+            ) {
+                WarpButton(text = "Click me", onClick = {}, style = style, size = size)
+                WarpButton(text = "Loading", onClick = {}, style = style, size = size, loading = true)
+                WarpButton(text = "Disabled", onClick = {}, style = style, size = size, enabled = false)
+            }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(dimensions.space1),
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.horizontalScroll(rememberScrollState())
+            ) {
+                WarpIconButton(icon = icons.share, contentDescription = "Share", onClick = {}, style = style, size = size)
+                WarpIconButton(icon = icons.share, contentDescription = "Share", onClick = {}, style = style, size = size, loading = true)
+                WarpIconButton(icon = icons.share, contentDescription = "Share", onClick = {}, style = style, size = size, enabled = false)
+                WarpButton(
+                    text = "With icon",
+                    onClick = {},
+                    style = style,
+                    size = size,
+                    leadingIcon = R.drawable.warp_animalpaw
+                )
+            }
+        }
+    }
+}
+
+@Suppress("DEPRECATION")
+@Composable
 private fun ButtonScreenContent() {
     Column(
         modifier = Modifier
@@ -39,7 +142,9 @@ private fun ButtonScreenContent() {
             .verticalScroll(rememberScrollState())
             .padding(vertical = dimensions.space2)
     ) {
-        for (style in WarpButtonStyle.values()) {
+        NewButtonsSection()
+        SectionTitle("Deprecated styles")
+        for (style in deprecatedStyles) {
             WarpText(
                 text = style.name,
                 modifier = Modifier.padding(
