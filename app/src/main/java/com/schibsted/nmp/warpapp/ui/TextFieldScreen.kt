@@ -12,13 +12,23 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.schibsted.nmp.warp.components.WarpBottomSheet
+import com.schibsted.nmp.warp.components.WarpButton
+import com.schibsted.nmp.warp.components.WarpButtonStyle
+import com.schibsted.nmp.warp.components.WarpFullScreenDialog
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextField
 import com.schibsted.nmp.warp.components.WarpTextStyle
@@ -261,7 +271,92 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     textStyle = WarpTextStyle.Title1,
                 )
             }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                WarpText(
+                    "Auto focus with cursor at end (TextFieldValue)",
+                    style = WarpTextStyle.Body,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+                var listName by remember { mutableStateOf("My favourite list") }
+                var showDialog by remember { mutableStateOf(false) }
+                var showSheet by remember { mutableStateOf(false) }
+                WarpButton(
+                    text = "Rename in dialog",
+                    onClick = { showDialog = true },
+                    style = WarpButtonStyle.Primary,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                WarpButton(
+                    text = "Rename in bottom sheet",
+                    onClick = { showSheet = true },
+                    style = WarpButtonStyle.Secondary,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                )
+                if (showDialog) {
+                    var value by remember { mutableStateOf(listName.withCursorAtEnd()) }
+                    WarpFullScreenDialog(
+                        title = "Rename list",
+                        onDismiss = { showDialog = false },
+                        actionText = "Save",
+                        onActionClick = {
+                            listName = value.text
+                            showDialog = false
+                        },
+                    ) {
+                        AutoFocusTextField(value = value, onValueChange = { value = it })
+                    }
+                }
+                if (showSheet) {
+                    var value by remember { mutableStateOf(listName.withCursorAtEnd()) }
+                    WarpBottomSheet(
+                        onDismissRequest = { showSheet = false },
+                        title = "Rename list",
+                    ) { dismiss ->
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            AutoFocusTextField(value = value, onValueChange = { value = it })
+                            WarpButton(
+                                text = "Save",
+                                onClick = {
+                                    listName = value.text
+                                    dismiss()
+                                },
+                                style = WarpButtonStyle.Primary,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 16.dp)
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
+private fun String.withCursorAtEnd() = TextFieldValue(this, selection = TextRange(length))
+
+@Composable
+private fun AutoFocusTextField(value: TextFieldValue, onValueChange: (TextFieldValue) -> Unit) {
+    val focusRequester = remember { FocusRequester() }
+    val windowFocused = LocalWindowInfo.current.isWindowFocused
+    var hasRequestedFocus by remember { mutableStateOf(false) }
+    LaunchedEffect(windowFocused) {
+        if (windowFocused && !hasRequestedFocus) {
+            focusRequester.requestFocus()
+            hasRequestedFocus = true
+        }
+    }
+    WarpTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = "List name",
+        singleLine = true,
+        modifier = Modifier
+            .fillMaxWidth()
+            .focusRequester(focusRequester)
+    )
+}

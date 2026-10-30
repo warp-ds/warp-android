@@ -24,10 +24,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -82,6 +84,141 @@ fun WarpTextField(
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     textStyle: WarpTextStyle = WarpTextStyle.Body,
+) {
+    WarpTextFieldLayout(
+        displayedText = value,
+        modifier = modifier,
+        label = label,
+        enabled = enabled,
+        readOnly = readOnly,
+        optionalLabel = optionalLabel,
+        placeholderText = placeholderText,
+        helpText = helpText,
+        prefixText = prefixText,
+        suffixText = suffixText,
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
+        isError = isError,
+        visualTransformation = visualTransformation,
+        singleLine = singleLine,
+        interactionSource = interactionSource,
+        textStyle = textStyle,
+    ) { mergedTextStyle, cursorBrush, decorationBox ->
+        BasicTextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            readOnly = readOnly,
+            textStyle = mergedTextStyle,
+            cursorBrush = cursorBrush,
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            singleLine = singleLine,
+            maxLines = maxLines,
+            minLines = minLines,
+            interactionSource = interactionSource,
+            decorationBox = decorationBox,
+        )
+    }
+}
+
+/**
+ * A [WarpTextField] that takes a [TextFieldValue] instead of a [String], so the caller controls
+ * the selection and cursor position, e.g. placing the cursor at the end of prefilled text.
+ * All other parameters behave as in the [String] overload.
+ * @param value The text entered by user, together with its selection and composition
+ * @param onValueChange lambda to be invoked when the text or selection is changed
+ */
+@Composable
+fun WarpTextField(
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    modifier: Modifier = Modifier,
+    label: String? = null,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
+    optionalLabel: String? = null,
+    placeholderText: String? = null,
+    helpText: String? = null,
+    prefixText: String? = null,
+    suffixText: String? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    isError: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    singleLine: Boolean = false,
+    minLines: Int = 1,
+    maxLines: Int = Int.MAX_VALUE,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    textStyle: WarpTextStyle = WarpTextStyle.Body,
+) {
+    WarpTextFieldLayout(
+        displayedText = value.text,
+        modifier = modifier,
+        label = label,
+        enabled = enabled,
+        readOnly = readOnly,
+        optionalLabel = optionalLabel,
+        placeholderText = placeholderText,
+        helpText = helpText,
+        prefixText = prefixText,
+        suffixText = suffixText,
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
+        isError = isError,
+        visualTransformation = visualTransformation,
+        singleLine = singleLine,
+        interactionSource = interactionSource,
+        textStyle = textStyle,
+    ) { mergedTextStyle, cursorBrush, decorationBox ->
+        BasicTextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            readOnly = readOnly,
+            textStyle = mergedTextStyle,
+            cursorBrush = cursorBrush,
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            singleLine = singleLine,
+            maxLines = maxLines,
+            minLines = minLines,
+            interactionSource = interactionSource,
+            decorationBox = decorationBox,
+        )
+    }
+}
+
+@Composable
+private fun WarpTextFieldLayout(
+    displayedText: String,
+    modifier: Modifier,
+    label: String?,
+    enabled: Boolean,
+    readOnly: Boolean,
+    optionalLabel: String?,
+    placeholderText: String?,
+    helpText: String?,
+    prefixText: String?,
+    suffixText: String?,
+    leadingIcon: @Composable (() -> Unit)?,
+    trailingIcon: @Composable (() -> Unit)?,
+    isError: Boolean,
+    visualTransformation: VisualTransformation,
+    singleLine: Boolean,
+    interactionSource: MutableInteractionSource,
+    textStyle: WarpTextStyle,
+    basicTextField: @Composable (
+        mergedTextStyle: TextStyle,
+        cursorBrush: Brush,
+        decorationBox: @Composable (innerTextField: @Composable () -> Unit) -> Unit,
+    ) -> Unit,
 ) {
     val textFieldColors = warpTextFieldColors(readOnly)
 
@@ -160,56 +297,40 @@ fun WarpTextField(
         CompositionLocalProvider(
             LocalTextSelectionColors provides customTextSelectionColors
         ) {
-            BasicTextField(
-                value = value,
-                onValueChange = onValueChange,
-                modifier = Modifier.fillMaxWidth(),
-                enabled = enabled,
-                readOnly = readOnly,
-                textStyle = mergedTextStyle,
-                cursorBrush = SolidColor(cursorColor),
-                visualTransformation = visualTransformation,
-                keyboardOptions = keyboardOptions,
-                keyboardActions = keyboardActions,
-                singleLine = singleLine,
-                maxLines = maxLines,
-                minLines = minLines,
-                interactionSource = interactionSource,
-                decorationBox = @Composable { innerTextField ->
-                    OutlinedTextFieldDefaults.DecorationBox(
-                        value = value,
-                        visualTransformation = visualTransformation,
-                        innerTextField = innerTextField,
-                        placeholder = placeholder,
-                        label = null,
-                        leadingIcon = leadingIcon,
-                        trailingIcon = trailingIcon,
-                        prefix = prefix,
-                        suffix = suffix,
-                        supportingText = null,
-                        singleLine = singleLine,
-                        enabled = enabled,
-                        isError = isError,
-                        interactionSource = interactionSource,
-                        colors = textFieldColors,
-                        contentPadding = PaddingValues(
-                            start = dimensions.space2.ifTrueOtherwise(!readOnly) { 0.dp },
-                            top = dimensions.space2,
-                            end = dimensions.space2,
-                            bottom = dimensions.space2
-                        ),
-                        container = {
-                            OutlinedTextFieldDefaults.ContainerBox(
-                                enabled,
-                                isError,
-                                interactionSource,
-                                textFieldColors,
-                                OutlinedTextFieldDefaults.shape
-                            )
-                        }
-                    )
-                }
-            )
+            basicTextField(mergedTextStyle, SolidColor(cursorColor)) { innerTextField ->
+                OutlinedTextFieldDefaults.DecorationBox(
+                    value = displayedText,
+                    visualTransformation = visualTransformation,
+                    innerTextField = innerTextField,
+                    placeholder = placeholder,
+                    label = null,
+                    leadingIcon = leadingIcon,
+                    trailingIcon = trailingIcon,
+                    prefix = prefix,
+                    suffix = suffix,
+                    supportingText = null,
+                    singleLine = singleLine,
+                    enabled = enabled,
+                    isError = isError,
+                    interactionSource = interactionSource,
+                    colors = textFieldColors,
+                    contentPadding = PaddingValues(
+                        start = dimensions.space2.ifTrueOtherwise(!readOnly) { 0.dp },
+                        top = dimensions.space2,
+                        end = dimensions.space2,
+                        bottom = dimensions.space2
+                    ),
+                    container = {
+                        OutlinedTextFieldDefaults.ContainerBox(
+                            enabled,
+                            isError,
+                            interactionSource,
+                            textFieldColors,
+                            OutlinedTextFieldDefaults.shape
+                        )
+                    }
+                )
+            }
         }
         helpText?.let {
             Row(
