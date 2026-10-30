@@ -98,11 +98,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Oldest supported (minSdk).
-        # TODO: Add the newest API level ('37.0'). On CI it needs more emulator resources to
-        #  boot (cores: 4, ram-size: 4096M, disk-size: 6000M, emulator-boot-timeout: 900),
-        #  and even then the system crashed mid-run. Those settings also stop API 24 from booting.
-        api-level: [24]
+        # Oldest supported (minSdk) and newest
+        include:
+          - api-level: 24
+          - api-level: '37.0'
+            ram-size: 3072M
 
     steps:
       - name: Checkout repository
@@ -123,18 +123,44 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
+      # The runner's preinstalled avdmanager writes target=android-0 for minor-versioned
+      # packages (android-37.0), and surfaceflinger on that AVD crash-loops on colour buffer
+      # reads. android-emulator-runner keeps whatever cmdline-tools the runner ships.
+      - name: Update SDK cmdline-tools
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "cmdline-tools;latest" > /dev/null
+          # sdkmanager won't overwrite the preinstalled dir, it installs to latest-2
+          if [ -d "$ANDROID_HOME/cmdline-tools/latest-2" ]; then
+            rm -rf "$ANDROID_HOME/cmdline-tools/latest"
+            mv "$ANDROID_HOME/cmdline-tools/latest-2" "$ANDROID_HOME/cmdline-tools/latest"
+          fi
+
+      # Compile before the emulator starts so the two don't compete for CPU
+      - name: Build test APKs
+        run: |
+          ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :warp:assembleDebugAndroidTest
+          ./gradlew --stop
+
       - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
           target: google_apis
           arch: x86_64
-          script: ./gradlew :app:connectedDebugAndroidTest :warp:connectedDebugAndroidTest --continue
+          ram-size: ${{ matrix.ram-size }}
+          # Capture logcat from the first moment of boot, so a crash before the script runs is recorded
+          pre-emulator-launch-script: nohup sh -c 'adb wait-for-device && adb logcat -v threadtime -b all' > logcat.txt 2>&1 &
+          # Each line runs in its own shell
+          script: |
+            bash .github/scripts/wait-for-emulator.sh 300 30
+            ./gradlew :app:connectedDebugAndroidTest :warp:connectedDebugAndroidTest --continue
 
       - name: Upload instrumented test reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: instrumented-test-reports-api-${{ matrix.api-level }}
-          path: '**/build/reports/androidTests/connected/'
+          path: |
+            logcat.txt
+            **/build/reports/androidTests/connected/
           if-no-files-found: ignore
