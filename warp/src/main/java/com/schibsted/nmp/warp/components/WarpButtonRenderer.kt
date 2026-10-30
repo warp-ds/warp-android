@@ -51,8 +51,9 @@ import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
 
-// Heights follow the Android Button design; paddings, icon sizes and the gap follow Material 3
-// (ButtonXSmallTokens / ButtonSmallTokens / ButtonDefaults.ContentPadding, *IconButtonTokens).
+// Heights and paddings follow the Warp Buttons design: the container pads the content
+// (icons sit horizontalPadding from the edge) and the label adds LabelPadding on each side.
+// Icon sizes follow Material 3 (*IconButtonTokens).
 internal class WarpButtonMetrics(
     val height: Dp,
     val horizontalPadding: Dp,
@@ -62,17 +63,18 @@ internal class WarpButtonMetrics(
 
 internal val WarpButtonSize.metrics: WarpButtonMetrics
     get() = when (this) {
-        WarpButtonSize.Medium -> WarpButtonMetrics(height = 48.dp, horizontalPadding = 24.dp, iconSize = 24.dp, iconOnlyIconSize = 24.dp)
-        WarpButtonSize.Small -> WarpButtonMetrics(height = 40.dp, horizontalPadding = 16.dp, iconSize = 20.dp, iconOnlyIconSize = 24.dp)
-        WarpButtonSize.ExtraSmall -> WarpButtonMetrics(height = 32.dp, horizontalPadding = 16.dp, iconSize = 20.dp, iconOnlyIconSize = 20.dp)
+        WarpButtonSize.Medium -> WarpButtonMetrics(height = 48.dp, horizontalPadding = 16.dp, iconSize = 24.dp, iconOnlyIconSize = 24.dp)
+        WarpButtonSize.Small -> WarpButtonMetrics(height = 40.dp, horizontalPadding = 12.dp, iconSize = 20.dp, iconOnlyIconSize = 24.dp)
+        WarpButtonSize.ExtraSmall -> WarpButtonMetrics(height = 32.dp, horizontalPadding = 12.dp, iconSize = 20.dp, iconOnlyIconSize = 20.dp)
     }
 
 private val WarpButtonSize.textStyle: TextStyle
     @Composable get() = if (this == WarpButtonSize.ExtraSmall) typography.title5 else typography.title4
 
-private val IconGap = 8.dp
+private val ContentGap = 4.dp
+private val LabelPadding = 4.dp
 private val FocusGapWidth = 1.dp
-private val FocusRingWidth = 3.dp
+private val FocusRingWidth = 2.dp
 
 private class WarpButtonPalette(
     val fill: Color,
@@ -264,7 +266,7 @@ internal fun WarpButtonSurface(
                             .heightIn(min = metrics.height)
                             .padding(horizontal = metrics.horizontalPadding, vertical = verticalPadding)
                     },
-                    horizontalArrangement = Arrangement.spacedBy(IconGap, Alignment.CenterHorizontally),
+                    horizontalArrangement = Arrangement.spacedBy(ContentGap, Alignment.CenterHorizontally),
                     verticalAlignment = Alignment.CenterVertically,
                     content = content
                 )
@@ -297,7 +299,9 @@ private fun DrawScope.drawPillOutline(offset: Float, strokeWidth: Float, color: 
 internal fun RowScope.WarpButtonLabel(text: String, maxLines: Int) {
     Text(
         text = text,
-        modifier = Modifier.weight(1f, fill = false),
+        modifier = Modifier
+            .weight(1f, fill = false)
+            .padding(horizontal = LabelPadding),
         maxLines = maxLines,
         overflow = TextOverflow.Ellipsis,
         textAlign = TextAlign.Center
