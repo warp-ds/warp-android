@@ -84,16 +84,12 @@ private fun StepIndicatorScreenContent() {
         )
         HorizontalWarpStepIndicator(
             modifier = Modifier,
-            steps = 4,
-            activeStep = 2,
-            stepState = {
-                when {
-                    it == 1 -> WarpStepState.Error
-                    it < 2 -> WarpStepState.Complete
-                    it == 2 -> WarpStepState.InProgress
-                    else -> WarpStepState.Incomplete
-                }
-            },
+            steps = listOf(
+                WarpStepState.Complete,
+                WarpStepState.Error,
+                WarpStepState.InProgress,
+                WarpStepState.Incomplete
+            ),
             stepTitle = { labels[it] }
         )
 

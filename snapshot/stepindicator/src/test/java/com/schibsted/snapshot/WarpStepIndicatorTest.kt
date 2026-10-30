@@ -84,11 +84,7 @@ class WarpStepIndicatorTest(
         snapshot {
             HorizontalWarpStepIndicator(
                 modifier = Modifier.fillMaxWidth(),
-                steps = 3,
-                activeStep = 1,
-                stepState = {
-                    if (it == 1) WarpStepState.Error else defaultState(it, activeStep = 1)
-                },
+                steps = listOf(WarpStepState.Complete, WarpStepState.Error, WarpStepState.Incomplete),
                 stepTitle = { titles[it] },
                 stepDescription = { descriptions[it] }
             )
@@ -100,12 +96,13 @@ class WarpStepIndicatorTest(
         snapshot {
             VerticalWarpStepIndicator(
                 modifier = Modifier.fillMaxWidth(),
-                steps = 4,
-                activeStep = 2,
+                steps = listOf(
+                    WarpStepState.Complete,
+                    WarpStepState.Error,
+                    WarpStepState.InProgress,
+                    WarpStepState.Incomplete
+                ),
                 type = WarpStepIndicatorType.Numbered,
-                stepState = {
-                    if (it == 1) WarpStepState.Error else defaultState(it, activeStep = 2)
-                },
                 stepTitle = { titles[it] },
                 stepDescription = { descriptions[it] }
             ) {
@@ -136,9 +133,3 @@ class WarpStepIndicatorTest(
 
 private val titles = listOf("Start", "Profile", "Payment", "Done")
 private val descriptions = listOf("Your journey", "About you", "Pay up", "All set")
-
-private fun defaultState(step: Int, activeStep: Int) = when {
-    step < activeStep -> WarpStepState.Complete
-    step == activeStep -> WarpStepState.InProgress
-    else -> WarpStepState.Incomplete
-}

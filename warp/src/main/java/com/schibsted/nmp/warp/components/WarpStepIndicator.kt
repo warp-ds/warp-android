@@ -60,11 +60,10 @@ import kotlin.math.floor
  * A vertical component to show a user where they are in a user journey
  * For more info [see](https://warp-ds.github.io/tech-docs/components/steps/)
  * @param modifier Modifier applied to the component
- * @param steps Amount of steps. Must be greater than 1
- * @param activeStep Currently active step
+ * @param steps The state of each step. Must contain more than 1 step. The track after a step is
+ * filled when the step is [WarpStepState.Complete]. For a linear journey, use the overload taking
+ * an active step
  * @param type Whether the indicators show a dot or the step number. See [WarpStepIndicatorType]
- * @param stepState Function to provide the state of each step. Defaults to steps before
- * [activeStep] being complete, [activeStep] being in progress and the rest being incomplete
  * @param onStepClicked will be invoked if a step is clicked
  * @param stepContentDescription Function to provide content descriptions for the steps, this will
  * only be used if onStepClicked is not null
@@ -75,35 +74,34 @@ import kotlin.math.floor
 @Composable
 fun VerticalWarpStepIndicator(
     modifier: Modifier = Modifier,
-    steps: Int,
-    activeStep: Int = 0,
+    steps: List<WarpStepState>,
     type: WarpStepIndicatorType = WarpStepIndicatorType.Default,
-    stepState: (Int) -> WarpStepState = { defaultStepState(it, activeStep) },
     onStepClicked: ((Int) -> Unit)? = null,
     stepContentDescription: (@Composable (Int) -> String)? = null,
     stepTitle: ((Int) -> String)? = null,
     stepDescription: ((Int) -> String)? = null,
     stepContent: @Composable (Int) -> Unit
 ) {
-    require(steps > 1) { "StepIndicator must have more than 1 step" }
+    require(steps.size > 1) { "StepIndicator must have more than 1 step" }
 
     val colors = stepIndicatorStyle()
 
+    val progress = steps.progress()
     val animatedStep =
-        animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
+        animateFloatAsState(targetValue = progress.toFloat(), label = "lineAnimation").value
     val componentDimensions = dimensions.components.stepIndicator
 
     val checkIcon = rememberStepIcon(R.drawable.step_indicator_checkmark)
     val errorIcon = rememberStepIcon(R.drawable.step_indicator_cross)
-    val numbers = rememberStepNumbers(steps, type)
+    val numbers = rememberStepNumbers(steps.size, type)
 
-    val thresholds = remember { FloatArray(steps - 1) { 1.0f } }
+    val thresholds = remember(steps.size) { FloatArray(steps.size - 1) { 1.0f } }
 
     Layout(
         measurePolicy = customVerticalMeasurePolicy(componentDimensions),
         modifier = modifier,
         content = {
-            for (i in 0 until steps - 1) {
+            for (i in 0 until steps.lastIndex) {
                 Canvas(
                     modifier = Modifier.layoutId(StepIndicatorIds.TRACK)
                 ) {
@@ -121,9 +119,10 @@ fun VerticalWarpStepIndicator(
                             strokeWidth = componentDimensions.placeholderTrackWidth.toPx()
                         )
                     } else if (i > floor(animatedStep.toDouble())) {
-                        // The track index is greater than the currently animated one so it is inactive
+                        // The track index is greater than the currently animated one, so it follows
+                        // the state of the step before it
                         drawLine(
-                            color = colors.border,
+                            color = if (steps[i] == WarpStepState.Complete) colors.backgroundTrackActive else colors.border,
                             start = Offset(size.width / 2, 0f),
                             end = Offset(size.width / 2, size.height),
                             strokeWidth = componentDimensions.placeholderTrackWidth.toPx()
@@ -162,8 +161,8 @@ fun VerticalWarpStepIndicator(
                 }
             }
 
-            for (i in 0 until steps) {
-                val stateDescriptionText = stepState(i).description()
+            for (i in steps.indices) {
+                val stateDescriptionText = steps[i].description()
                 Canvas(
                     modifier = Modifier
                         .layoutId(StepIndicatorIds.INDICATOR)
@@ -189,8 +188,8 @@ fun VerticalWarpStepIndicator(
                 ) {
                     drawStepIndicator(
                         step = i,
-                        state = stepState(i),
-                        animate = stepState(i) == defaultStepState(i, activeStep),
+                        state = steps[i],
+                        animate = steps[i] == defaultStepState(i, progress),
                         animatedStep = animatedStep,
                         threshold = if (i > 0) thresholds[i - 1] else 1.0f,
                         orientation = StepIndicatorOrientation.Vertical,
@@ -202,7 +201,7 @@ fun VerticalWarpStepIndicator(
                     )
                 }
             }
-            for (i in 0 until steps) {
+            for (i in steps.indices) {
                 Column(
                     modifier = Modifier
                         .layoutId(StepIndicatorIds.LABEL)
@@ -211,14 +210,14 @@ fun VerticalWarpStepIndicator(
                     stepTitle?.let {
                         WarpText(
                             it(i),
-                            color = colors.labelColor(stepState(i)),
+                            color = colors.labelColor(steps[i]),
                             style = WarpTextStyle.BodyStrong
                         )
                     }
                     stepDescription?.let {
                         WarpText(
                             it(i),
-                            color = colors.labelColor(stepState(i)),
+                            color = colors.labelColor(steps[i]),
                             style = WarpTextStyle.Caption
                         )
                     }
@@ -234,6 +233,36 @@ fun VerticalWarpStepIndicator(
         }
     )
 }
+
+/**
+ * A vertical step indicator for a linear journey: steps before [activeStep] are complete,
+ * [activeStep] is in progress and the rest are incomplete. Use the overload taking a list of
+ * [WarpStepState] for other states, like errors.
+ * @param steps Amount of steps. Must be greater than 1
+ * @param activeStep Currently active step. Equal to [steps] completes all steps
+ * @see VerticalWarpStepIndicator
+ */
+@Composable
+fun VerticalWarpStepIndicator(
+    modifier: Modifier = Modifier,
+    steps: Int,
+    activeStep: Int = 0,
+    type: WarpStepIndicatorType = WarpStepIndicatorType.Default,
+    onStepClicked: ((Int) -> Unit)? = null,
+    stepContentDescription: (@Composable (Int) -> String)? = null,
+    stepTitle: ((Int) -> String)? = null,
+    stepDescription: ((Int) -> String)? = null,
+    stepContent: @Composable (Int) -> Unit
+) = VerticalWarpStepIndicator(
+    modifier = modifier,
+    steps = linearStepStates(steps, activeStep),
+    type = type,
+    onStepClicked = onStepClicked,
+    stepContentDescription = stepContentDescription,
+    stepTitle = stepTitle,
+    stepDescription = stepDescription,
+    stepContent = stepContent
+)
 
 private fun customVerticalMeasurePolicy(
     dimensions: StepIndicatorDimensions
@@ -352,13 +381,12 @@ private fun customVerticalMeasurePolicy(
 /**
  * A component for showing progress through a series of steps.
  * @param modifier Modifier to be applied to the component
- * @param steps Number of steps to display in the component. Must be greater than 1
+ * @param steps The state of each step. Must contain more than 1 step. The track after a step is
+ * filled when the step is [WarpStepState.Complete]. For a linear journey, use the overload taking
+ * an active step
  * @param highestEnabledStep Steps with an index greater than this number will not be clickable.
- * Defaults to steps - 1
- * @param activeStep The currently active step
+ * Defaults to the last step
  * @param type Whether the indicators show a dot or the step number. See [WarpStepIndicatorType]
- * @param stepState Function to provide the state of each step. Defaults to steps before
- * [activeStep] being complete, [activeStep] being in progress and the rest being incomplete
  * @param onStepClicked Optional callback for when a step is clicked
  * @param stepContentDescription Optional function to provide content descriptions for each step
  * @param stepTitle Function to provide titles for each step
@@ -367,39 +395,38 @@ private fun customVerticalMeasurePolicy(
 @Composable
 fun HorizontalWarpStepIndicator(
     modifier: Modifier = Modifier,
-    steps: Int,
-    activeStep: Int = 0,
-    highestEnabledStep: Int = steps - 1,
+    steps: List<WarpStepState>,
+    highestEnabledStep: Int = steps.lastIndex,
     type: WarpStepIndicatorType = WarpStepIndicatorType.Default,
-    stepState: (Int) -> WarpStepState = { defaultStepState(it, activeStep) },
     onStepClicked: ((Int) -> Unit)? = null,
     stepContentDescription: (@Composable (Int) -> String)? = null,
     stepTitle: ((Int) -> String)? = null,
     stepDescription: ((Int) -> String)? = null
 ) {
-    require(steps > 1) { "StepIndicator must have more than 1 step" }
+    require(steps.size > 1) { "StepIndicator must have more than 1 step" }
 
     val colors = stepIndicatorStyle()
 
+    val progress = steps.progress()
     val animatedStep =
-        animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
+        animateFloatAsState(targetValue = progress.toFloat(), label = "lineAnimation").value
     val dimensions = dimensions.components.stepIndicator
 
     val checkIcon = rememberStepIcon(R.drawable.step_indicator_checkmark)
     val errorIcon = rememberStepIcon(R.drawable.step_indicator_cross)
-    val numbers = rememberStepNumbers(steps, type)
+    val numbers = rememberStepNumbers(steps.size, type)
 
     var threshold by remember { mutableFloatStateOf(1.0f) }
 
     Layout(
         measurePolicy = customHorizontalMeasurePolicy(
-            steps,
+            steps.size,
             dimensions
         ),
         modifier = modifier,
         content = {
             // Draw up the lines between the dots
-            for (i in 0 until steps - 1) {
+            for (i in 0 until steps.lastIndex) {
                 Canvas(
                     Modifier
                         .layoutId(StepIndicatorIds.TRACK)
@@ -418,9 +445,9 @@ fun HorizontalWarpStepIndicator(
                         )
 
                     } else if (i > floor(animatedStep.toDouble())) {
-                        // The line is between two dots that haven't been visited so it should be the regular color
+                        // The line is past the animated step, so it follows the state of the dot before it
                         drawLine(
-                            color = colors.border,
+                            color = if (steps[i] == WarpStepState.Complete) colors.backgroundTrackActive else colors.border,
                             start = Offset(0f, size.height / 2),
                             end = Offset(size.width, size.height / 2),
                             strokeWidth = dimensions.placeholderTrackWidth.toPx()
@@ -455,8 +482,8 @@ fun HorizontalWarpStepIndicator(
             }
 
             // Draw the dots
-            for (i in 0 until steps) {
-                val stateDescriptionText = stepState(i).description()
+            for (i in steps.indices) {
+                val stateDescriptionText = steps[i].description()
                 Canvas(
                     Modifier
                         .layoutId(StepIndicatorIds.INDICATOR)
@@ -482,8 +509,8 @@ fun HorizontalWarpStepIndicator(
                 ) {
                     drawStepIndicator(
                         step = i,
-                        state = stepState(i),
-                        animate = stepState(i) == defaultStepState(i, activeStep),
+                        state = steps[i],
+                        animate = steps[i] == defaultStepState(i, progress),
                         animatedStep = animatedStep,
                         threshold = threshold,
                         orientation = StepIndicatorOrientation.Horizontal,
@@ -497,7 +524,7 @@ fun HorizontalWarpStepIndicator(
             }
 
             // Draw the labels
-            for (i in 0 until steps) {
+            for (i in steps.indices) {
                 Column(
                     modifier = Modifier.layoutId(StepIndicatorIds.LABEL),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -505,7 +532,7 @@ fun HorizontalWarpStepIndicator(
                     stepTitle?.let {
                         WarpText(
                             it(i),
-                            color = colors.labelColor(stepState(i)),
+                            color = colors.labelColor(steps[i]),
                             textAlign = TextAlign.Center,
                             style = WarpTextStyle.BodyStrong
                         )
@@ -514,7 +541,7 @@ fun HorizontalWarpStepIndicator(
                     stepDescription?.let {
                         WarpText(
                             it(i),
-                            color = colors.labelColor(stepState(i)),
+                            color = colors.labelColor(steps[i]),
                             textAlign = TextAlign.Center,
                             style = WarpTextStyle.Caption
                         )
@@ -526,6 +553,36 @@ fun HorizontalWarpStepIndicator(
     )
 
 }
+
+/**
+ * A horizontal step indicator for a linear journey: steps before [activeStep] are complete,
+ * [activeStep] is in progress and the rest are incomplete. Use the overload taking a list of
+ * [WarpStepState] for other states, like errors.
+ * @param steps Number of steps. Must be greater than 1
+ * @param activeStep The currently active step. Equal to [steps] completes all steps
+ * @see HorizontalWarpStepIndicator
+ */
+@Composable
+fun HorizontalWarpStepIndicator(
+    modifier: Modifier = Modifier,
+    steps: Int,
+    activeStep: Int = 0,
+    highestEnabledStep: Int = steps - 1,
+    type: WarpStepIndicatorType = WarpStepIndicatorType.Default,
+    onStepClicked: ((Int) -> Unit)? = null,
+    stepContentDescription: (@Composable (Int) -> String)? = null,
+    stepTitle: ((Int) -> String)? = null,
+    stepDescription: ((Int) -> String)? = null
+) = HorizontalWarpStepIndicator(
+    modifier = modifier,
+    steps = linearStepStates(steps, activeStep),
+    highestEnabledStep = highestEnabledStep,
+    type = type,
+    onStepClicked = onStepClicked,
+    stepContentDescription = stepContentDescription,
+    stepTitle = stepTitle,
+    stepDescription = stepDescription
+)
 
 private fun customHorizontalMeasurePolicy(
     steps: Int,
@@ -622,11 +679,19 @@ private fun WarpStepState.description() = stringResource(
     }
 )
 
-internal fun defaultStepState(step: Int, activeStep: Int) = when {
+internal fun linearStepStates(steps: Int, activeStep: Int): List<WarpStepState> =
+    List(steps) { defaultStepState(it, activeStep) }
+
+private fun defaultStepState(step: Int, activeStep: Int) = when {
     step < activeStep -> WarpStepState.Complete
     step == activeStep -> WarpStepState.InProgress
     else -> WarpStepState.Incomplete
 }
+
+// The first step that is not complete. The tracks animate up to it, later tracks follow the state
+// of the step before them
+internal fun List<WarpStepState>.progress(): Int =
+    indexOfFirst { it != WarpStepState.Complete }.takeIf { it >= 0 } ?: size
 
 private enum class StepIndicatorOrientation { Horizontal, Vertical }
 
@@ -648,8 +713,8 @@ private fun rememberStepNumbers(steps: Int, type: WarpStepIndicatorType): List<T
 }
 
 /**
- * Draws a single indicator. Steps that are in the state given by [activeStep][defaultStepState]
- * animate between states, steps with a custom state are drawn as is.
+ * Draws a single indicator. Steps whose state matches their position relative to the progress
+ * animate between states, other steps are drawn as is.
  */
 private fun DrawScope.drawStepIndicator(
     step: Int,

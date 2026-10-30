@@ -32,16 +32,12 @@ class WarpStepIndicatorStateSemanticsTest {
     fun horizontal_nonClickableStepsAnnounceTheirState() {
         composeTestRule.setContent {
             HorizontalWarpStepIndicator(
-                steps = 4,
-                activeStep = 2,
-                stepState = {
-                    when (it) {
-                        0 -> WarpStepState.Complete
-                        1 -> WarpStepState.Error
-                        2 -> WarpStepState.InProgress
-                        else -> WarpStepState.Incomplete
-                    }
-                },
+                steps = listOf(
+                    WarpStepState.Complete,
+                    WarpStepState.Error,
+                    WarpStepState.InProgress,
+                    WarpStepState.Incomplete
+                ),
                 stepTitle = { "Step $it" }
             )
         }
