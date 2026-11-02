@@ -30,6 +30,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -45,6 +46,14 @@ object WarpBottomSheetDefaults {
     val containerColor: Color
         @Composable
         get() = WarpTheme.colors.surface.elevated100
+
+    /**
+     * The header title's horizontal inset. Pad sheet content with it, so the content lines up with the
+     * title and follows if the header's inset changes.
+     */
+    val contentHorizontalPadding: Dp
+        @Composable
+        get() = WarpTheme.dimensions.space2
 }
 
 /**
@@ -68,7 +77,8 @@ data class WarpBottomSheetHeader(val title: String? = null)
  * instead. That header should then close the sheet with `dismiss`.
  * @param modifier Applied to the sheet surface.
  * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
- * @param content Sheet body; receives `dismiss` (see [onDismissRequest]).
+ * @param content Sheet body; receives `dismiss` (see [onDismissRequest]). Pad it horizontally with
+ * [WarpBottomSheetDefaults.contentHorizontalPadding] to line up with the header's title.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -114,7 +124,10 @@ fun WarpBottomSheet(
                 // The close button's own 12dp inset plus this 4dp puts its icon 16dp from the edge.
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = WarpTheme.dimensions.space2, end = WarpTheme.dimensions.space05)
+                    .padding(
+                        start = WarpBottomSheetDefaults.contentHorizontalPadding,
+                        end = WarpTheme.dimensions.space05,
+                    )
                     .heightIn(min = LocalMinimumInteractiveComponentSize.current),
                 verticalAlignment = Alignment.CenterVertically,
             ) {

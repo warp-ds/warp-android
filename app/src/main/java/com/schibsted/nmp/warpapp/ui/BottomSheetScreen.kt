@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.schibsted.nmp.warp.components.WarpBottomSheet
+import com.schibsted.nmp.warp.components.WarpBottomSheetDefaults
 import com.schibsted.nmp.warp.components.WarpBottomSheetHeader
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
@@ -65,7 +66,12 @@ fun BottomSheetScreenContent() {
             onDismissRequest = closeSheet,
             header = WarpBottomSheetHeader(title = "Sort by"),
         ) { dismiss ->
-            Column(modifier = Modifier.padding(dimensions.space2)) {
+            Column(
+                modifier = Modifier.padding(
+                    horizontal = WarpBottomSheetDefaults.contentHorizontalPadding,
+                    vertical = dimensions.space2,
+                ),
+            ) {
                 WarpText(text = "Newest first", style = WarpTextStyle.Body)
                 WarpText(text = "Oldest first", style = WarpTextStyle.Body)
                 WarpButton(
@@ -88,7 +94,12 @@ fun BottomSheetScreenContent() {
             onDismissRequest = closeSheet,
             header = WarpBottomSheetHeader(),
         ) { dismiss ->
-            Column(modifier = Modifier.padding(dimensions.space2)) {
+            Column(
+                modifier = Modifier.padding(
+                    horizontal = WarpBottomSheetDefaults.contentHorizontalPadding,
+                    vertical = dimensions.space2,
+                ),
+            ) {
                 WarpText(
                     text = "A sheet without a title: the header only holds the close button.",
                     style = WarpTextStyle.Body,
@@ -130,7 +141,7 @@ private fun CustomHeaderSheet(onDismissRequest: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = dimensions.space2, end = dimensions.space05),
+                .padding(start = WarpBottomSheetDefaults.contentHorizontalPadding, end = dimensions.space05),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             WarpText(text = "Saved search", style = WarpTextStyle.Title3, modifier = Modifier.weight(1f))
@@ -140,7 +151,10 @@ private fun CustomHeaderSheet(onDismissRequest: () -> Unit) {
         WarpText(
             text = "The content draws its own header, here with a share action, and closes the sheet with dismiss.",
             style = WarpTextStyle.Body,
-            modifier = Modifier.padding(dimensions.space2),
+            modifier = Modifier.padding(
+                horizontal = WarpBottomSheetDefaults.contentHorizontalPadding,
+                vertical = dimensions.space2,
+            ),
         )
     }
 }
