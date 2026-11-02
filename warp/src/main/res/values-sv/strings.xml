@@ -365,7 +365,5 @@
     <string name="printer">Skrivare</string>
     <string name="shareandroid">Tre anslutna prickar</string>
     <string name="clear_field">Rensa fält</string>
-
     <string name="bottom_sheet_close">Stäng</string>
-
 </resources>
