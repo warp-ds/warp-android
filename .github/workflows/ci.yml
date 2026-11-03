@@ -148,6 +148,8 @@ jobs:
           target: google_apis
           arch: x86_64
           ram-size: ${{ matrix.ram-size }}
+          # The default 12G userdata partition doesn't always fit in the runner's free disk space
+          disk-size: 4096M
           # Capture logcat from the first moment of boot, so a crash before the script runs is recorded
           pre-emulator-launch-script: nohup sh -c 'adb wait-for-device && adb logcat -v threadtime -b all' > logcat.txt 2>&1 &
           # Each line runs in its own shell
