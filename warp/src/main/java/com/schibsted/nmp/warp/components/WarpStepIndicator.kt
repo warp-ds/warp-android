@@ -36,6 +36,8 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.AlignmentLine
+import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.Placeable
@@ -58,6 +60,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.TextUnit
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.StepIndicatorDimensions
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -66,6 +69,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import java.lang.Float.min
 import kotlin.math.floor
+import kotlin.math.roundToInt
 
 
 /**
@@ -110,7 +114,8 @@ fun VerticalWarpStepIndicator(
         measurePolicy = customVerticalMeasurePolicy(
             dimensions = componentDimensions,
             trackGap = dimensions.space05,
-            stepSpacing = dimensions.space3 + dimensions.space05
+            stepSpacing = dimensions.space3 + dimensions.space05,
+            titleFontSize = typography.bodyStrong.fontSize
         ),
         modifier = modifier.semantics { isTraversalGroup = true },
         content = {
@@ -241,7 +246,8 @@ fun VerticalWarpStepIndicator(
 private fun customVerticalMeasurePolicy(
     dimensions: StepIndicatorDimensions,
     trackGap: Dp,
-    stepSpacing: Dp
+    stepSpacing: Dp,
+    titleFontSize: TextUnit
 ) = MeasurePolicy { measurables, constraints ->
     val width = constraints.maxWidth
     // First measure the indicators, their size is determined by the theme and not by available space
@@ -271,21 +277,31 @@ private fun customVerticalMeasurePolicy(
     val linePlacements = mutableListOf<Pair<Placeable, IntOffset>>()
     var offset = IntOffset(0, 0)
 
-    // First place out indicators, titles and descriptions. The indicator and the title are top
-    // aligned, like in the Figma spec, and the next step starts below both after the step spacing
+    // First place out indicators, titles and descriptions. The indicator is centered on the capital
+    // letters of the first line of the label, so it stays next to the text at any font scale. At
+    // the default font scale this top aligns it with the title, like in the Figma spec. The next
+    // step starts below both after the step spacing
     val spacing = stepSpacing.roundToPx()
+    // Without a known font size, like outside a Warp theme, the indicator is top aligned
+    val capHeight = if (titleFontSize.isSp) titleFontSize.toPx() * CAP_HEIGHT_RATIO else null
     indicatorPlaceables.forEachIndexed { index, indicator ->
         val label = labelPlaceables[index]
         val description = descriptionPlaceables[index]
 
-        indicatorPlacements.add(indicator to offset)
+        val baseline = label[FirstBaseline]
+        val indicatorY = if (capHeight == null || baseline == AlignmentLine.Unspecified) {
+            0
+        } else {
+            (baseline - capHeight / 2 - indicator.height / 2f).roundToInt().coerceAtLeast(0)
+        }
+        indicatorPlacements.add(indicator to offset.copy(y = offset.y + indicatorY))
         labelPlacements.add(label to offset.copy(x = indicatorSize))
         descriptionPlacements.add(
             description to offset.copy(x = indicatorSize, y = offset.y + label.height)
         )
         val stepBottom = maxOf(
             offset.y + label.height + description.height,
-            offset.y + indicator.height
+            offset.y + indicatorY + indicator.height
         )
         offset = offset.copy(y = stepBottom + spacing)
     }
@@ -827,6 +843,9 @@ private fun DrawScope.drawCenteredText(
         alpha = alpha
     )
 }
+
+// The height of capital letters relative to the font size, for typical fonts
+private const val CAP_HEIGHT_RATIO = 0.7f
 
 private object StepIndicatorIds {
     const val TRACK = "track"
