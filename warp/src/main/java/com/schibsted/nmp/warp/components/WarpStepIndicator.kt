@@ -1,16 +1,17 @@
 package com.schibsted.nmp.warp.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -21,25 +22,42 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.traversalIndex
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.StepIndicatorDimensions
+import com.schibsted.nmp.warp.theme.WarpTheme
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
+import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import java.lang.Float.min
 import kotlin.math.floor
 
@@ -48,49 +66,56 @@ import kotlin.math.floor
  * A vertical component to show a user where they are in a user journey
  * For more info [see](https://warp-ds.github.io/tech-docs/components/steps/)
  * @param modifier Modifier applied to the component
- * @param steps Amount of steps. Must be greater than 1
- * @param activeStep Currently active step
- * @param onStepClicked will be invoked if a step is clicked
- * @param stepContentDescription Function to provide content descriptions for the steps, this will
- * only be used if onStepClicked is not null
- * @param stepTitle Function to provide titles for the steps
- * @param stepDescription Function to provide descriptions for the steps
- * @param stepContent Composable containing the content of each step
+ * @param steps The steps, in order. Must contain more than 1 step. The track after a step is
+ * filled when the step is [WarpStepState.Complete]
+ * @param highestEnabledStep Index of the last clickable step, counting from 0. Defaults to the
+ * last step
+ * @param type Whether the indicators show a dot or the step number. See [WarpStepIndicatorType]
+ * @param onStepClicked Invoked with the index of the clicked step, counting from 0
+ * @param stepContent Composable containing the content of each step, given its index counting
+ * from 0
  */
 @Composable
 fun VerticalWarpStepIndicator(
     modifier: Modifier = Modifier,
-    steps: Int,
-    activeStep: Int = 0,
+    steps: List<WarpStep>,
+    highestEnabledStep: Int = steps.lastIndex,
+    type: WarpStepIndicatorType = WarpStepIndicatorType.Default,
     onStepClicked: ((Int) -> Unit)? = null,
-    stepContentDescription: (@Composable (Int) -> String)? = null,
-    stepTitle: ((Int) -> String)? = null,
-    stepDescription: ((Int) -> String)? = null,
     stepContent: @Composable (Int) -> Unit
 ) {
-    require(steps > 1) { "StepIndicator must have more than 1 step" }
+    require(steps.size > 1) { "StepIndicator must have more than 1 step" }
 
     val colors = stepIndicatorStyle()
 
+    val states = remember(steps) { steps.map { it.state } }
+    val progress = states.progress()
     val animatedStep =
-        animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
+        animateFloatAsState(targetValue = progress.toFloat(), label = "lineAnimation").value
     val componentDimensions = dimensions.components.stepIndicator
 
+    val checkIcon = rememberStepIcon(R.drawable.step_indicator_checkmark)
+    val errorIcon = rememberStepIcon(R.drawable.step_indicator_cross)
+    val numbers = rememberStepNumbers(steps.size, type)
 
-    val thresholds = remember { FloatArray(steps - 1) { 1.0f } }
+    val thresholds = remember(steps.size) { FloatArray(steps.size - 1) { 1.0f } }
 
     Layout(
-        measurePolicy = customVerticalMeasurePolicy(componentDimensions),
-        modifier = modifier,
+        measurePolicy = customVerticalMeasurePolicy(
+            dimensions = componentDimensions,
+            trackGap = dimensions.space05,
+            stepSpacing = dimensions.space3 + dimensions.space05
+        ),
+        modifier = modifier.semantics { isTraversalGroup = true },
         content = {
-            for (i in 0 until steps - 1) {
+            for (i in 0 until steps.lastIndex) {
                 Canvas(
                     modifier = Modifier.layoutId(StepIndicatorIds.TRACK)
                 ) {
                     // In the vertical configuration the tracks have different length so we need to
                     // calculate the break point for each individually
                     thresholds[i] =
-                        1 - (componentDimensions.placeholderIndicatorSize.toPx() / (componentDimensions.placeholderIndicatorSize.toPx() + size.height))
+                        1 - (componentDimensions.indicatorSize.toPx() / (componentDimensions.indicatorSize.toPx() + size.height))
 
                     if (i < floor(animatedStep.toDouble())) {
                         // The track index is below the currently animated one so it is completed
@@ -98,15 +123,16 @@ fun VerticalWarpStepIndicator(
                             color = colors.backgroundTrackActive,
                             start = Offset(size.width / 2, 0f),
                             end = Offset(size.width / 2, size.height),
-                            strokeWidth = componentDimensions.placeholderTrackWidth.toPx()
+                            strokeWidth = componentDimensions.trackWidth.toPx()
                         )
                     } else if (i > floor(animatedStep.toDouble())) {
-                        // The track index is greater than the currently animated one so it is inactive
+                        // The track index is greater than the currently animated one, so it follows
+                        // the state of the step before it
                         drawLine(
-                            color = colors.backgroundTrack,
+                            color = if (states[i] == WarpStepState.Complete) colors.backgroundTrackActive else colors.border,
                             start = Offset(size.width / 2, 0f),
                             end = Offset(size.width / 2, size.height),
-                            strokeWidth = componentDimensions.placeholderTrackWidth.toPx()
+                            strokeWidth = componentDimensions.trackWidth.toPx()
                         )
                     } else {
                         // The track index is the one currently being animated
@@ -126,139 +152,69 @@ fun VerticalWarpStepIndicator(
                                 color = colors.backgroundTrackActive,
                                 start = Offset(size.width / 2, 0f),
                                 end = Offset(size.width / 2, fracHeight),
-                                strokeWidth = componentDimensions.placeholderTrackWidth.toPx()
+                                strokeWidth = componentDimensions.trackWidth.toPx()
                             )
                         }
                         // Some part of the track should be "inactive"
                         if (fracHeight < size.height) {
                             drawLine(
-                                color = colors.backgroundTrack,
+                                color = colors.border,
                                 start = Offset(size.width / 2, fracHeight),
                                 end = Offset(size.width / 2, size.height),
-                                strokeWidth = componentDimensions.placeholderTrackWidth.toPx()
+                                strokeWidth = componentDimensions.trackWidth.toPx()
                             )
                         }
                     }
                 }
             }
 
-            val icon = rememberVectorPainter(image = Icons.Filled.Check)
-
-            for (i in 0 until steps) {
+            for (i in steps.indices) {
                 Canvas(
                     modifier = Modifier
                         .layoutId(StepIndicatorIds.INDICATOR)
                         .clip(CircleShape)
-                        .let {
-                            if (onStepClicked != null) {
-                                val mod = it.clickable {
-                                    onStepClicked(i)
-                                }
-                                if (stepContentDescription != null) {
-                                    val contentDescription = stepContentDescription(i)
-                                    mod.semantics {
-                                        this.contentDescription = contentDescription
-                                    }
-                                } else {
-                                    mod
-                                }
-                            } else {
-                                it
-                            }
-                        }
+                        .screenReaderOrder(3f * i) // Indicator, label and content of each step in turn
+                        .stepIndicatorSemantics(
+                            step = i,
+                            steps = states,
+                            highestEnabledStep = highestEnabledStep,
+                            onStepClicked = onStepClicked
+                        )
                 ) {
-                    when {
-                        // Indicator is already passed so it should have the active color and an icon
-                        (i < floor(animatedStep.toDouble())) -> {
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - componentDimensions.placeholderIconSize.toPx() / 2,
-                                top = size.height / 2 - componentDimensions.placeholderIconSize.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(
-                                            componentDimensions.placeholderIconSize.toPx(),
-                                            componentDimensions.placeholderIconSize.toPx()
-                                        ),
-                                        colorFilter = ColorFilter.tint(colors.icon)
-                                    )
-                                }
-
-                            }
-                        }
-                        // Indicator is the one we just passed so animate in the icon by adjusting the alpha
-                        (i.toDouble() == floor(animatedStep.toDouble())) -> {
-                            val frac = animatedStep - i
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - componentDimensions.placeholderIconSize.toPx() / 2,
-                                top = size.height / 2 - componentDimensions.placeholderIconSize.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(
-                                            componentDimensions.placeholderIconSize.toPx(),
-                                            componentDimensions.placeholderIconSize.toPx()
-                                        ),
-                                        alpha = frac,
-                                        colorFilter = ColorFilter.tint(colors.icon)
-                                    )
-                                }
-
-                            }
-                        }
-                        // Indicator index is greater than the one we are animating towards
-                        (i > floor(animatedStep.toDouble() + 1)) -> {
-                            drawCircle(
-                                colors.background,
-                                style = Stroke(componentDimensions.placeholderBorderWidth.toPx()),
-                                radius = size.minDimension / 2f // - dimensions.placeholderBorderWidth.toPx()/2
-                            )
-                        }
-                        // Indicator is the one we are currently animating towards
-                        else -> {
-                            val frac = animatedStep - (i - 1)
-                            // First draw a regular indicator
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(componentDimensions.placeholderBorderWidth.toPx()),
-                                radius = size.minDimension / 2f // - dimensions.placeholderBorderWidth.toPx()/2
-                            )
-                            // Check if the animation is above the threshold for when the indicator
-                            // should start its animation
-                            if (frac > thresholds[i - 1]) {
-                                // Calculate the progress of the indicator part
-                                val indicatorFraction =
-                                    (frac - thresholds[i - 1]) / (1 - thresholds[i - 1])
-                                // Just paint over the current fraction of the height with BlendMode.SrcAtop
-                                // to tint the indicator
-                                drawRect(
-                                    color = colors.backgroundActive,
-                                    topLeft = Offset.Zero,
-                                    size = size.copy(height = size.height * indicatorFraction),
-                                    blendMode = BlendMode.SrcAtop
-                                )
-                            }
-                        }
-                    }
+                    drawStepIndicator(
+                        step = i,
+                        state = states[i],
+                        animate = states[i] == defaultStepState(i, progress),
+                        animatedStep = animatedStep,
+                        threshold = if (i > 0) thresholds[i - 1] else 1.0f,
+                        orientation = StepIndicatorOrientation.Vertical,
+                        colors = colors,
+                        dimensions = componentDimensions,
+                        checkIcon = checkIcon,
+                        errorIcon = errorIcon,
+                        number = numbers?.get(i)
+                    )
                 }
             }
-            for (i in 0 until steps) {
+            for (i in steps.indices) {
                 Column(
                     modifier = Modifier
                         .layoutId(StepIndicatorIds.LABEL)
-                        .padding(start = dimensions.space3)
+                        .padding(start = dimensions.space1)
+                        .screenReaderOrder(3f * i + 1), // Label after its indicator
+                    verticalArrangement = Arrangement.spacedBy(dimensions.space05)
                 ) {
-                    stepTitle?.let {
+                    steps[i].title?.let {
                         WarpText(
-                            it(i),
+                            it,
+                            color = colors.labelColor(states[i]),
                             style = WarpTextStyle.BodyStrong
                         )
                     }
-                    stepDescription?.let {
+                    steps[i].description?.let {
                         WarpText(
-                            it(i),
+                            it,
+                            color = colors.labelColor(states[i]),
                             style = WarpTextStyle.Caption
                         )
                     }
@@ -266,7 +222,8 @@ fun VerticalWarpStepIndicator(
                 Box(
                     modifier = Modifier
                         .layoutId(StepIndicatorIds.CONTENT)
-                        .padding(start = dimensions.space3)
+                        .padding(start = dimensions.space1)
+                        .screenReaderOrder(3f * i + 2) // Content after its label
                 ) {
                     stepContent(i)
                 }
@@ -276,15 +233,17 @@ fun VerticalWarpStepIndicator(
 }
 
 private fun customVerticalMeasurePolicy(
-    dimensions: StepIndicatorDimensions
+    dimensions: StepIndicatorDimensions,
+    trackGap: Dp,
+    stepSpacing: Dp
 ) = MeasurePolicy { measurables, constraints ->
     val width = constraints.maxWidth
     // First measure the indicators, their size is determined by the theme and not by available space
     val indicatorConstraint = Constraints(
-        minWidth = dimensions.placeholderIndicatorSize.roundToPx(),
-        maxWidth = dimensions.placeholderIndicatorSize.roundToPx(),
-        minHeight = dimensions.placeholderIndicatorSize.roundToPx(),
-        maxHeight = dimensions.placeholderIndicatorSize.roundToPx()
+        minWidth = dimensions.indicatorSize.roundToPx(),
+        maxWidth = dimensions.indicatorSize.roundToPx(),
+        minHeight = dimensions.indicatorSize.roundToPx(),
+        maxHeight = dimensions.indicatorSize.roundToPx()
     )
     val indicatorPlaceables = measurables.filter { it.layoutId == StepIndicatorIds.INDICATOR }.map {
         it.measure(indicatorConstraint)
@@ -306,38 +265,23 @@ private fun customVerticalMeasurePolicy(
     val linePlacements = mutableListOf<Pair<Placeable, IntOffset>>()
     var offset = IntOffset(0, 0)
 
-    // First place out indicators, titles and descriptions
-    indicatorPlaceables.mapIndexed { index, indicator ->
+    // First place out indicators, titles and descriptions. The indicator and the title are top
+    // aligned, like in the Figma spec, and the next step starts below both after the step spacing
+    val spacing = stepSpacing.roundToPx()
+    indicatorPlaceables.forEachIndexed { index, indicator ->
         val label = labelPlaceables[index]
         val description = descriptionPlaceables[index]
 
-        // If indicator is bigger than the label then the indicator decides placement,
-        // otherwise the label does
-        if (indicator.height > label.height) {
-            indicatorPlacements.add(indicator to offset)
-            val labelY = offset.y + indicator.height / 2 - label.height / 2
-            labelPlacements.add(label to offset.copy(x = indicatorSize, y = labelY))
-            descriptionPlacements.add(
-                description to offset.copy(
-                    x = indicatorSize,
-                    y = labelY + label.height
-                )
-            )
-            // Adjust the offset for the next round
-            offset = offset.copy(y = labelY + label.height + description.height)
-        } else {
-            labelPlacements.add(label to offset.copy(x = indicatorSize))
-            val indicatorY = offset.y + label.height / 2 - indicator.height / 2
-            indicatorPlacements.add(indicator to offset.copy(y = indicatorY))
-            descriptionPlacements.add(
-                description to offset.copy(
-                    x = indicatorSize,
-                    y = offset.y + label.height
-                )
-            )
-            // Adjust the offset for the next round
-            offset = offset.copy(y = offset.y + label.height + description.height)
-        }
+        indicatorPlacements.add(indicator to offset)
+        labelPlacements.add(label to offset.copy(x = indicatorSize))
+        descriptionPlacements.add(
+            description to offset.copy(x = indicatorSize, y = offset.y + label.height)
+        )
+        val stepBottom = maxOf(
+            offset.y + label.height + description.height,
+            offset.y + indicator.height
+        )
+        offset = offset.copy(y = stepBottom + spacing)
     }
 
     val lines = measurables.filter { it.layoutId == StepIndicatorIds.TRACK }
@@ -345,30 +289,32 @@ private fun customVerticalMeasurePolicy(
     // Not that indicators have been placed the lines can be measured.
     indicatorPlacements.windowed(2).mapIndexed { index, pairs ->
         val measurable = lines[index]
-        // The height should be just a little bigger than the space between the indicators so we do
-        // not get a gap from the curvature
-        val h = pairs.last().second.y - pairs.first().second.y - indicatorSize + 2
+        // The track leaves a gap to the indicators on both ends, like in the Figma spec
+        val gap = trackGap.roundToPx()
+        val h = (pairs.last().second.y - pairs.first().second.y - indicatorSize - 2 * gap)
+            .coerceAtLeast(0)
 
         val line = measurable.measure(
             Constraints(
                 minHeight = h,
                 maxHeight = h,
-                minWidth = dimensions.placeholderTrackWidth.roundToPx(),
-                maxWidth = dimensions.placeholderTrackWidth.roundToPx()
+                minWidth = dimensions.trackWidth.roundToPx(),
+                maxWidth = dimensions.trackWidth.roundToPx()
             )
         )
 
         val x = pairs.first().second.x + indicatorSize / 2 - line.width / 2
-        val y = pairs.first().second.y + indicatorSize - 1
+        val y = pairs.first().second.y + indicatorSize + gap
         linePlacements.add(line to IntOffset(x, y))
     }
 
-    val height = descriptionPlacements.last().second.y + descriptionPlacements.last().first.height
+    val height = maxOf(
+        descriptionPlacements.last().second.y + descriptionPlacements.last().first.height,
+        indicatorPlacements.last().second.y + indicatorSize
+    )
     layout(width, height) {
         indicatorPlacements.forEach { (placeable, offset) ->
-            // The dots have a different z index to be on the top because the line is a bit larger
-            // than the space so we do not gaps.
-            placeable.place(offset, 1f)
+            placeable.place(offset)
         }
         labelPlacements.forEach { (placeable, offset) ->
             placeable.place(offset)
@@ -386,51 +332,55 @@ private fun customVerticalMeasurePolicy(
 /**
  * A component for showing progress through a series of steps.
  * @param modifier Modifier to be applied to the component
- * @param steps Number of steps to display in the component. Must be greater than 1
- * @param highestEnabledStep Steps with an index greater than this number will not be clickable.
- * Defaults to steps - 1
- * @param activeStep The currently active step
- * @param onStepClicked Optional callback for when a step is clicked
- * @param stepContentDescription Optional function to provide content descriptions for each step
- * @param stepTitle Function to provide titles for each step
- * @param stepDescription Optional function to provide descriptions for each step
+ * @param steps The steps, in order. Must contain more than 1 step. The track after a step is
+ * filled when the step is [WarpStepState.Complete]
+ * @param highestEnabledStep Index of the last clickable step, counting from 0. Defaults to the
+ * last step
+ * @param type Whether the indicators show a dot or the step number. See [WarpStepIndicatorType]
+ * @param onStepClicked Optional callback invoked with the index of the clicked step, counting
+ * from 0
  */
 @Composable
 fun HorizontalWarpStepIndicator(
     modifier: Modifier = Modifier,
-    steps: Int,
-    activeStep: Int = 0,
-    highestEnabledStep: Int = steps - 1,
-    onStepClicked: ((Int) -> Unit)? = null,
-    stepContentDescription: (@Composable (Int) -> String)? = null,
-    stepTitle: ((Int) -> String)? = null,
-    stepDescription: ((Int) -> String)? = null
+    steps: List<WarpStep>,
+    highestEnabledStep: Int = steps.lastIndex,
+    type: WarpStepIndicatorType = WarpStepIndicatorType.Default,
+    onStepClicked: ((Int) -> Unit)? = null
 ) {
-    require(steps > 1) { "StepIndicator must have more than 1 step" }
+    require(steps.size > 1) { "StepIndicator must have more than 1 step" }
 
     val colors = stepIndicatorStyle()
 
+    val states = remember(steps) { steps.map { it.state } }
+    val progress = states.progress()
     val animatedStep =
-        animateFloatAsState(targetValue = activeStep.toFloat(), label = "lineAnimation").value
+        animateFloatAsState(targetValue = progress.toFloat(), label = "lineAnimation").value
     val dimensions = dimensions.components.stepIndicator
+
+    val checkIcon = rememberStepIcon(R.drawable.step_indicator_checkmark)
+    val errorIcon = rememberStepIcon(R.drawable.step_indicator_cross)
+    val numbers = rememberStepNumbers(steps.size, type)
 
     var threshold by remember { mutableFloatStateOf(1.0f) }
 
     Layout(
         measurePolicy = customHorizontalMeasurePolicy(
-            steps,
-            dimensions
+            steps = steps.size,
+            dimensions = dimensions,
+            labelGap = WarpTheme.dimensions.space1,
+            trackGap = WarpTheme.dimensions.space05
         ),
-        modifier = modifier,
+        modifier = modifier.semantics { isTraversalGroup = true },
         content = {
             // Draw up the lines between the dots
-            for (i in 0 until steps - 1) {
+            for (i in 0 until steps.lastIndex) {
                 Canvas(
                     Modifier
                         .layoutId(StepIndicatorIds.TRACK)
                         .fillMaxWidth()
                 ) {
-                    val indicatorSize = dimensions.placeholderIndicatorSize.toPx()
+                    val indicatorSize = dimensions.indicatorSize.toPx()
                     // set the threshold now that we have the size
                     threshold = 1 - (indicatorSize / (indicatorSize + size.width))
                     if (i < floor(animatedStep.toDouble())) {
@@ -439,16 +389,16 @@ fun HorizontalWarpStepIndicator(
                             color = colors.backgroundTrackActive,
                             start = Offset(0f, size.height / 2),
                             end = Offset(size.width, size.height / 2),
-                            strokeWidth = dimensions.placeholderTrackWidth.toPx()
+                            strokeWidth = dimensions.trackWidth.toPx()
                         )
 
                     } else if (i > floor(animatedStep.toDouble())) {
-                        // The line is between two dots that haven't been visited so it should be the regular color
+                        // The line is past the animated step, so it follows the state of the dot before it
                         drawLine(
-                            color = colors.backgroundTrack,
+                            color = if (states[i] == WarpStepState.Complete) colors.backgroundTrackActive else colors.border,
                             start = Offset(0f, size.height / 2),
                             end = Offset(size.width, size.height / 2),
-                            strokeWidth = dimensions.placeholderTrackWidth.toPx()
+                            strokeWidth = dimensions.trackWidth.toPx()
                         )
 
                     } else {
@@ -463,135 +413,75 @@ fun HorizontalWarpStepIndicator(
                                 color = colors.backgroundTrackActive,
                                 start = Offset(0f, size.height / 2),
                                 end = Offset(fracWidth, size.height / 2),
-                                strokeWidth = dimensions.placeholderTrackWidth.toPx()
+                                strokeWidth = dimensions.trackWidth.toPx()
                             )
                         }
                         // A portion should be in the regular color
                         if (fracWidth < size.width) {
                             drawLine(
-                                color = colors.backgroundTrack,
+                                color = colors.border,
                                 start = Offset(fracWidth, size.height / 2),
                                 end = Offset(size.width, size.height / 2),
-                                strokeWidth = dimensions.placeholderTrackWidth.toPx()
+                                strokeWidth = dimensions.trackWidth.toPx()
                             )
                         }
                     }
                 }
             }
 
-            val icon = rememberVectorPainter(image = Icons.Filled.Check)
             // Draw the dots
-            for (i in 0 until steps) {
+            for (i in steps.indices) {
                 Canvas(
                     Modifier
                         .layoutId(StepIndicatorIds.INDICATOR)
                         .clip(CircleShape)
-                        .let {
-                            if (onStepClicked != null && i <= highestEnabledStep) {
-                                val mod = it.clickable {
-                                    onStepClicked(i)
-                                }
-                                if (stepContentDescription != null) {
-                                    val contentDescription = stepContentDescription(i)
-                                    mod.semantics {
-                                        this.contentDescription = contentDescription
-                                    }
-                                } else {
-                                    mod
-                                }
-                            } else {
-                                it
-                            }
-                        }
+                        .screenReaderOrder(2f * i) // Indicator and label of each step in turn
+                        .stepIndicatorSemantics(
+                            step = i,
+                            steps = states,
+                            highestEnabledStep = highestEnabledStep,
+                            onStepClicked = onStepClicked
+                        )
                 ) {
-                    when {
-                        (i < floor(animatedStep.toDouble())) -> {
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - dimensions.placeholderIconSize.toPx() / 2,
-                                top = size.height / 2 - dimensions.placeholderIconSize.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(
-                                            dimensions.placeholderIconSize.toPx(),
-                                            dimensions.placeholderIconSize.toPx()
-                                        ),
-                                        colorFilter = ColorFilter.tint(colors.icon)
-                                    )
-                                }
-
-                            }
-                        }
-
-                        (i.toDouble() == floor(animatedStep.toDouble())) -> {
-                            val frac = animatedStep - i
-                            drawCircle(colors.backgroundActive)
-                            translate(
-                                left = size.width / 2 - dimensions.placeholderIconSize.toPx() / 2,
-                                top = size.height / 2 - dimensions.placeholderIconSize.toPx() / 2,
-                            ) {
-                                with(icon) {
-                                    draw(
-                                        size = Size(
-                                            dimensions.placeholderIconSize.toPx(),
-                                            dimensions.placeholderIconSize.toPx()
-                                        ),
-                                        alpha = frac,
-                                        colorFilter = ColorFilter.tint(colors.icon)
-                                    )
-                                }
-
-                            }
-                        }
-
-                        (i > floor(animatedStep.toDouble() + 1)) -> {
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(dimensions.placeholderBorderWidth.toPx()),
-                                radius = size.minDimension / 2f - dimensions.placeholderBorderWidth.toPx() / 2
-                            )
-                        }
-
-                        else -> {
-                            if (threshold == 0.0f) return@Canvas
-                            val frac = animatedStep - (i - 1)
-                            drawCircle(
-                                color = colors.background,
-                                style = Stroke(dimensions.placeholderBorderWidth.toPx()),
-                                radius = size.minDimension / 2f - dimensions.placeholderBorderWidth.toPx() / 2
-                            )
-                            if (frac > threshold) {
-                                val tFrac = (frac - threshold) / (1 - threshold)
-                                drawRect(
-                                    colors.backgroundActive,
-                                    Offset.Zero,
-                                    size.copy(width = size.width * tFrac),
-                                    blendMode = BlendMode.SrcAtop
-                                )
-                            }
-                        }
-                    }
+                    drawStepIndicator(
+                        step = i,
+                        state = states[i],
+                        animate = states[i] == defaultStepState(i, progress),
+                        animatedStep = animatedStep,
+                        threshold = threshold,
+                        orientation = StepIndicatorOrientation.Horizontal,
+                        colors = colors,
+                        dimensions = dimensions,
+                        checkIcon = checkIcon,
+                        errorIcon = errorIcon,
+                        number = numbers?.get(i)
+                    )
                 }
             }
 
             // Draw the labels
-            for (i in 0 until steps) {
+            for (i in steps.indices) {
                 Column(
-                    modifier = Modifier.layoutId(StepIndicatorIds.LABEL),
+                    modifier = Modifier
+                        .layoutId(StepIndicatorIds.LABEL)
+                        .screenReaderOrder(2f * i + 1) // Label after its indicator
+                        .padding(horizontal = WarpTheme.dimensions.space1),
+                    verticalArrangement = Arrangement.spacedBy(WarpTheme.dimensions.space05),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    stepTitle?.let {
+                    steps[i].title?.let {
                         WarpText(
-                            it(i),
+                            it,
+                            color = colors.labelColor(states[i]),
                             textAlign = TextAlign.Center,
                             style = WarpTextStyle.BodyStrong
                         )
                     }
 
-                    stepDescription?.let {
+                    steps[i].description?.let {
                         WarpText(
-                            it(i),
+                            it,
+                            color = colors.labelColor(states[i]),
                             textAlign = TextAlign.Center,
                             style = WarpTextStyle.Caption
                         )
@@ -606,7 +496,9 @@ fun HorizontalWarpStepIndicator(
 
 private fun customHorizontalMeasurePolicy(
     steps: Int,
-    dimensions: StepIndicatorDimensions
+    dimensions: StepIndicatorDimensions,
+    labelGap: Dp,
+    trackGap: Dp
 ) = MeasurePolicy { measurables, constraints ->
     val width = constraints.maxWidth
     // First measure labels and indicators
@@ -619,10 +511,10 @@ private fun customHorizontalMeasurePolicy(
     val indicatorPlaceables = measurables.filter { it.layoutId == StepIndicatorIds.INDICATOR }.map {
         it.measure(
             Constraints(
-                minWidth = dimensions.placeholderIndicatorSize.roundToPx(),
-                maxWidth = dimensions.placeholderIndicatorSize.roundToPx(),
-                minHeight = dimensions.placeholderIndicatorSize.roundToPx(),
-                maxHeight = dimensions.placeholderIndicatorSize.roundToPx()
+                minWidth = dimensions.indicatorSize.roundToPx(),
+                maxWidth = dimensions.indicatorSize.roundToPx(),
+                minHeight = dimensions.indicatorSize.roundToPx(),
+                maxHeight = dimensions.indicatorSize.roundToPx()
             )
         )
     }
@@ -630,42 +522,282 @@ private fun customHorizontalMeasurePolicy(
 
     // Check if the labels or indicators on the end are widest
 
+    // Leave room at the ends for the widest label, centered on the first and last indicator
     val maxLabel = labelPlaceables.maxBy { it.width }.width
-    val (labelPadding, indicatorPadding) = if (maxLabel > indicatorWidth) {
-        0 to ((maxLabel - indicatorWidth) / 2)
-    } else {
-        (indicatorWidth / 2) to 0
-    }
-
+    val indicatorPadding = ((maxLabel - indicatorWidth) / 2).coerceAtLeast(0)
 
     val space = (width - indicatorWidth * steps - indicatorPadding * 2) / (steps - 1)
+    // The tracks leave a gap to the indicators on both ends, like in the Figma spec
+    val gap = trackGap.roundToPx()
+    val trackWidth = (space - 2 * gap).coerceAtLeast(0)
     val linePlaceables = measurables.filter { it.layoutId == StepIndicatorIds.TRACK }.map {
-        // Adjust the width just a little so we do not get gaps from the curvature of the indicators
-        it.measure(constraints.copy(minWidth = space + 2, maxWidth = space + 2))
+        it.measure(constraints.copy(minWidth = trackWidth, maxWidth = trackWidth))
     }
 
     val labelHeight = labelPlaceables.maxByOrNull { it.height }?.height ?: 0
+    // Only leave a gap below the labels when there are labels
+    val indicatorY = if (labelHeight > 0) labelHeight + labelGap.roundToPx() else 0
 
-    val height = indicatorPlaceables.first().height + labelHeight
+    val height = indicatorY + indicatorPlaceables.first().height
 
     layout(width, height) {
+        fun indicatorX(index: Int) = indicatorPadding + (space + indicatorWidth) * index
 
         linePlaceables.forEachIndexed { index, placeable ->
-            val padding = if (indicatorPadding > 0) indicatorPadding else 0
-            val xPos = padding + space * index + indicatorWidth * (index + 1) - 1
-            placeable.place(xPos, labelHeight + indicatorWidth / 2)
+            placeable.place(indicatorX(index) + indicatorWidth + gap, indicatorY + indicatorWidth / 2)
         }
         indicatorPlaceables.forEachIndexed { index, placeable ->
-            val padding = if (indicatorPadding > 0) indicatorPadding else 0
-            val xPos = padding + space * index + indicatorWidth * index
-            placeable.place(xPos, labelHeight)
+            placeable.place(indicatorX(index), indicatorY)
         }
         labelPlaceables.forEachIndexed { index, placeable ->
-            val padding = if (labelPadding > 0) labelPadding - placeable.width / 2 else 0
-            val xPos = padding + space * index + indicatorWidth * index
-            placeable.place(xPos, 0)
+            placeable.place(indicatorX(index) + indicatorWidth / 2 - placeable.width / 2, 0)
         }
     }
+}
+
+/**
+ * What the step indicators show
+ */
+enum class WarpStepIndicatorType {
+    /** Indicators show a dot */
+    Default,
+
+    /** Incomplete and in progress indicators show the step number */
+    Numbered
+}
+
+/**
+ * A single step in a step indicator
+ * @param state The state of the step
+ * @param title Optional title shown next to the indicator
+ * @param description Optional description shown below the title
+ */
+@Immutable
+data class WarpStep(
+    val state: WarpStepState,
+    val title: String? = null,
+    val description: String? = null
+)
+
+/**
+ * The state of a single step
+ */
+enum class WarpStepState {
+    Incomplete,
+    InProgress,
+    Complete,
+    Error
+}
+
+/**
+ * Announces what the indicator draws: the position and state of the step. Clickable steps are
+ * announced as disabled after [highestEnabledStep]
+ */
+@Composable
+private fun Modifier.stepIndicatorSemantics(
+    step: Int,
+    steps: List<WarpStepState>,
+    highestEnabledStep: Int,
+    onStepClicked: ((Int) -> Unit)?
+): Modifier {
+    // The position also names clickable steps, the title is read right after the indicator
+    val contentDescriptionText =
+        stringResource(R.string.step_indicator_position, step + 1, steps.size)
+    val stateDescriptionText = steps[step].description()
+    return this
+        .let {
+            if (onStepClicked != null) {
+                it.clickable(enabled = step <= highestEnabledStep) { onStepClicked(step) }
+            } else {
+                it
+            }
+        }
+        .semantics {
+            contentDescription = contentDescriptionText
+            stateDescription = stateDescriptionText
+        }
+}
+
+// The labels are laid out apart from the indicators, so screen readers need to be told to read
+// the parts of each step together, in order
+private fun Modifier.screenReaderOrder(index: Float) = semantics {
+    isTraversalGroup = true
+    traversalIndex = index
+}
+
+@Composable
+private fun WarpStepState.description() = stringResource(
+    when (this) {
+        WarpStepState.Incomplete -> R.string.step_indicator_state_incomplete
+        WarpStepState.InProgress -> R.string.step_indicator_state_in_progress
+        WarpStepState.Complete -> R.string.step_indicator_state_complete
+        WarpStepState.Error -> R.string.step_indicator_state_error
+    }
+)
+
+internal fun linearStepStates(steps: Int, activeStep: Int): List<WarpStepState> =
+    List(steps) { defaultStepState(it, activeStep) }
+
+private fun defaultStepState(step: Int, activeStep: Int) = when {
+    step < activeStep -> WarpStepState.Complete
+    step == activeStep -> WarpStepState.InProgress
+    else -> WarpStepState.Incomplete
+}
+
+// The first step that is not complete. The tracks animate up to it, later tracks follow the state
+// of the step before them
+internal fun List<WarpStepState>.progress(): Int =
+    indexOfFirst { it != WarpStepState.Complete }.takeIf { it >= 0 } ?: size
+
+private enum class StepIndicatorOrientation { Horizontal, Vertical }
+
+// The glyphs are drawn on a canvas the size of the indicator, like in the Figma spec
+@Composable
+private fun rememberStepIcon(@DrawableRes id: Int) =
+    rememberVectorPainter(ImageVector.vectorResource(id))
+
+@Composable
+private fun rememberStepNumbers(steps: Int, type: WarpStepIndicatorType): List<TextLayoutResult>? {
+    if (type != WarpStepIndicatorType.Numbered) return null
+    val textMeasurer = rememberTextMeasurer()
+    val style = typography.detailStrong
+    // The indicator has a fixed size, so the number ignores the font scale to stay inside it
+    val density = Density(LocalDensity.current.density, fontScale = 1f)
+    return remember(steps, style, textMeasurer, density) {
+        List(steps) { textMeasurer.measure("${it + 1}", style, density = density) }
+    }
+}
+
+/**
+ * Draws a single indicator. Steps whose state matches their position relative to the progress
+ * animate between states, other steps are drawn as is.
+ */
+private fun DrawScope.drawStepIndicator(
+    step: Int,
+    state: WarpStepState,
+    animate: Boolean,
+    animatedStep: Float,
+    threshold: Float,
+    orientation: StepIndicatorOrientation,
+    colors: WarpStepIndicatorColors,
+    dimensions: StepIndicatorDimensions,
+    checkIcon: Painter,
+    errorIcon: Painter,
+    number: TextLayoutResult?
+) {
+    val iconSize = size.minDimension
+    // Keep the whole stroke inside the indicator, which is clipped to a circle
+    val ringRadius = size.minDimension / 2f - dimensions.borderWidth.toPx() / 2
+    val ring = Stroke(dimensions.borderWidth.toPx())
+
+    if (state == WarpStepState.Error) {
+        drawCircle(colors.border, style = ring, radius = ringRadius)
+        drawCenteredIcon(errorIcon, iconSize, colors.iconError)
+        return
+    }
+
+    if (!animate) {
+        when (state) {
+            WarpStepState.Complete -> {
+                drawCircle(colors.backgroundActive)
+                drawCircle(colors.borderActive, style = ring, radius = ringRadius)
+                drawCenteredIcon(checkIcon, iconSize, colors.icon)
+            }
+
+            WarpStepState.InProgress -> {
+                drawCircle(colors.borderActive, style = ring, radius = ringRadius)
+                number?.let { drawCenteredText(it, colors.text) }
+            }
+
+            else -> {
+                drawCircle(colors.border, style = ring, radius = ringRadius)
+                number?.let { drawCenteredText(it, colors.text) }
+            }
+        }
+        return
+    }
+
+    when {
+        // Indicator is already passed so it should have the active color and an icon
+        (step < floor(animatedStep.toDouble())) -> {
+            drawCircle(colors.backgroundActive)
+            drawCircle(colors.borderActive, style = ring, radius = ringRadius)
+            drawCenteredIcon(checkIcon, iconSize, colors.icon)
+        }
+        // Indicator is in progress, or the one we just passed so fade in the fill and icon by
+        // adjusting the alpha
+        (step.toDouble() == floor(animatedStep.toDouble())) -> {
+            val frac = animatedStep - step
+            drawCircle(colors.backgroundActive, alpha = frac)
+            drawCircle(colors.borderActive, style = ring, radius = ringRadius)
+            number?.let { drawCenteredText(it, colors.text, alpha = 1 - frac) }
+            drawCenteredIcon(checkIcon, iconSize, colors.icon, alpha = frac)
+        }
+        // Indicator index is greater than the one we are animating towards
+        (step > floor(animatedStep.toDouble() + 1)) -> {
+            drawCircle(colors.border, style = ring, radius = ringRadius)
+            number?.let { drawCenteredText(it, colors.text) }
+        }
+        // Indicator is the one we are currently animating towards
+        else -> {
+            if (orientation == StepIndicatorOrientation.Horizontal && threshold == 0.0f) return
+            val frac = animatedStep - (step - 1)
+            // First draw a regular indicator
+            drawCircle(colors.border, style = ring, radius = ringRadius)
+            // Check if the animation is above the threshold for when the indicator
+            // should start its animation
+            if (frac > threshold) {
+                // Calculate the progress of the indicator part
+                val indicatorFraction = (frac - threshold) / (1 - threshold)
+                // Draw the active ring over the current fraction of the indicator
+                val tinted = when (orientation) {
+                    StepIndicatorOrientation.Horizontal -> size.copy(width = size.width * indicatorFraction)
+                    StepIndicatorOrientation.Vertical -> size.copy(height = size.height * indicatorFraction)
+                }
+                clipRect(right = tinted.width, bottom = tinted.height) {
+                    drawCircle(colors.borderActive, style = ring, radius = ringRadius)
+                }
+            }
+            // Draw the number on top of the ring
+            number?.let { drawCenteredText(it, colors.text) }
+        }
+    }
+}
+
+private fun DrawScope.drawCenteredIcon(
+    icon: Painter,
+    iconSize: Float,
+    color: Color,
+    alpha: Float = 1f
+) {
+    translate(
+        left = size.width / 2 - iconSize / 2,
+        top = size.height / 2 - iconSize / 2,
+    ) {
+        with(icon) {
+            draw(
+                size = Size(iconSize, iconSize),
+                alpha = alpha,
+                colorFilter = ColorFilter.tint(color)
+            )
+        }
+    }
+}
+
+private fun DrawScope.drawCenteredText(
+    text: TextLayoutResult,
+    color: Color,
+    alpha: Float = 1f
+) {
+    drawText(
+        textLayoutResult = text,
+        color = color,
+        topLeft = Offset(
+            x = size.width / 2 - text.size.width / 2,
+            y = size.height / 2 - text.size.height / 2
+        ),
+        alpha = alpha
+    )
 }
 
 private object StepIndicatorIds {
@@ -682,8 +814,14 @@ data class WarpStepIndicatorColors(
     val backgroundTrackActive: Color,
     val border: Color,
     val borderActive: Color,
-    val icon: Color
+    val icon: Color,
+    val iconError: Color,
+    val text: Color,
+    val textSubtle: Color
 )
+
+private fun WarpStepIndicatorColors.labelColor(state: WarpStepState) =
+    if (state == WarpStepState.Incomplete) textSubtle else text
 
 @Composable
 fun stepIndicatorStyle() = WarpStepIndicatorColors(
@@ -693,7 +831,10 @@ fun stepIndicatorStyle() = WarpStepIndicatorColors(
     backgroundTrackActive = colors.background.primary,
     border = colors.border.default,
     borderActive = colors.border.primary,
-    icon = colors.icon.inverted
+    icon = colors.icon.inverted,
+    iconError = colors.icon.default,
+    text = colors.text.default,
+    textSubtle = colors.text.subtle
 )
 
 @Preview
@@ -703,11 +844,10 @@ fun HorizontalPreview() {
     Column {
         HorizontalWarpStepIndicator(
             modifier = Modifier,
-            steps = 5,
-            activeStep = active,
-            onStepClicked = { active = it },
-            stepTitle = { "$it" },
-            stepDescription = { "Description $it" }
+            steps = linearStepStates(steps = 5, activeStep = active).mapIndexed { i, state ->
+                WarpStep(state = state, title = "$i", description = "Description $i")
+            },
+            onStepClicked = { active = it }
         )
 
         WarpButton(
@@ -727,10 +867,10 @@ internal fun VerticalPreview() {
     Column {
         VerticalWarpStepIndicator(
             modifier = Modifier,
-            steps = 5,
-            activeStep = active,
+            steps = linearStepStates(steps = 5, activeStep = active).mapIndexed { i, state ->
+                WarpStep(state = state, title = "Step ${i + 1}")
+            },
             onStepClicked = { active = it },
-            stepTitle = { "Step ${it + 1}" },
             stepContent = { WarpText("Content", style = WarpTextStyle.Caption) }
         )
         WarpButton(

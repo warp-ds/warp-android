@@ -108,10 +108,9 @@ object CalloutDimensions {
 }
 
 object StepIndicatorDimensions {
-    val placeholderIndicatorSize = 24.dp
-    val placeholderIconSize = 16.dp
-    val placeholderBorderWidth = 2.dp
-    val placeholderTrackWidth = 2.dp
+    val indicatorSize = 20.dp
+    val borderWidth = 2.dp
+    val trackWidth = 2.dp
 }
 
 object CheckboxDimensions {
