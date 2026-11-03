@@ -42,6 +42,7 @@ private fun StepIndicatorScreenContent() {
     var nState by remember { mutableIntStateOf(1) }
     var eState by remember { mutableIntStateOf(0) }
     var eFurthest by remember { mutableIntStateOf(0) }
+    var mState by remember { mutableIntStateOf(0) }
     var wState by remember { mutableIntStateOf(0) }
     var wFurthest by remember { mutableIntStateOf(0) }
     val labels = listOf("Start", "Profile", "Payment", "Add-ons", "Thanks!")
@@ -131,6 +132,35 @@ private fun StepIndicatorScreenContent() {
         }
 
         StepIndicatorDemoSection(
+            title = "Many steps",
+            description = "Steps are never narrower than the longest word of their title or " +
+                "description. When they don't fit, the step indicator scrolls and keeps the " +
+                "active step centered. Use Back and Next to move the active step."
+        ) {
+            HorizontalWarpStepIndicator(
+                steps = linearSteps(activeStep = mState, titles = manyLabels, descriptions = manyDescriptions),
+                onStepClicked = { mState = it }
+            )
+            Row(
+                modifier = Modifier.padding(top = dimensions.space2),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.space1)
+            ) {
+                WarpButton(
+                    text = "Back",
+                    onClick = { mState-- },
+                    enabled = mState > 0,
+                    style = WarpButtonStyle.Secondary
+                )
+                WarpButton(
+                    text = "Next",
+                    onClick = { mState++ },
+                    enabled = mState < manyLabels.size,
+                    style = WarpButtonStyle.Primary
+                )
+            }
+        }
+
+        StepIndicatorDemoSection(
             title = "Vertical with content",
             description = "Each step has content below its title. Finish step moves on and Reset " +
                 "returns to an earlier step. Like above, steps up to the furthest one reached can " +
@@ -192,6 +222,11 @@ private fun StepIndicatorDemoSection(
         content()
     }
 }
+
+private val manyLabels =
+    listOf("Start", "Profile", "Payment", "Shipping", "Add-ons", "Review", "Confirm", "Done")
+private val manyDescriptions =
+    listOf("Your journey", "About you", "Pay up", "Where to", "Extras", "Check it", "Sign", "All set")
 
 // A linear journey: steps before the active one are complete, the active one is in progress
 private fun linearSteps(
