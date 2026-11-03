@@ -1,6 +1,8 @@
 package com.schibsted.nmp.warpapp.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -16,8 +18,12 @@ import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
 import com.schibsted.nmp.warp.components.VerticalWarpStepIndicator
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
+import com.schibsted.nmp.warp.components.WarpStep
+import com.schibsted.nmp.warp.components.WarpStepIndicatorType
+import com.schibsted.nmp.warp.components.WarpStepState
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
@@ -32,76 +38,211 @@ fun StepIndicatorScreen(onUp: () -> Unit) {
 
 @Composable
 private fun StepIndicatorScreenContent() {
-    var wState by remember { mutableIntStateOf(0) }
     var hState by remember { mutableIntStateOf(0) }
+    var nState by remember { mutableIntStateOf(1) }
+    var eState by remember { mutableIntStateOf(0) }
+    var eFurthest by remember { mutableIntStateOf(0) }
+    var mState by remember { mutableIntStateOf(0) }
+    var wState by remember { mutableIntStateOf(0) }
+    var wFurthest by remember { mutableIntStateOf(0) }
+    val labels = listOf("Start", "Profile", "Payment", "Add-ons", "Thanks!")
+    val descriptions = listOf(
+        "Start your journey here",
+        "Something about you",
+        "Nothing is for free",
+        "Extra everything?",
+        "Have a nice day!"
+    )
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(dimensions.space2)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(dimensions.space5)
     ) {
-        WarpText("Horizontal", style = WarpTextStyle.Title3)
-        val labels = listOf("Start", "Profile", "Payment", "Add-ons", "Thanks!")
-        val descriptions = listOf(
-            "Start your journey here",
-            "Something about you",
-            "Nothing is for free",
-            "Extra everything?",
-            "Have a nice day!"
-        )
-        HorizontalWarpStepIndicator(
-            modifier = Modifier,
-            steps = 3,
-            activeStep = hState,
-            onStepClicked = { hState = it },
-            stepContentDescription =  { labels[it] },
-            stepTitle = { labels[it] },
-            stepDescription = { descriptions[it] }
-        )
-
-        WarpText(
-            modifier = Modifier.padding(top = dimensions.space3),
-            text = "Vertical",
-            style = WarpTextStyle.Title3
-        )
-        VerticalWarpStepIndicator(
-            modifier = Modifier.fillMaxWidth(),
-            steps = 5,
-            activeStep = wState,
-            onStepClicked = { wState = it },
-            stepContentDescription =  { labels[it] },
-            stepTitle = { labels[it] },
-            stepDescription = { descriptions[it] }
+        StepIndicatorDemoSection(
+            title = "Horizontal",
+            description = "Steps with a title and a description. Tap any step to make it the " +
+                "active one, every step is clickable by default."
         ) {
-            Column(modifier = Modifier.padding(vertical = dimensions.space1)) {
-                WarpText(
-                    "Custom content! Maybe some text and maybe something else?",
-                    style = WarpTextStyle.Body
+            HorizontalWarpStepIndicator(
+                steps = linearSteps(activeStep = hState, titles = labels.take(3), descriptions = descriptions),
+                onStepClicked = { hState = it }
+            )
+        }
+
+        StepIndicatorDemoSection(
+            title = "Numbered",
+            description = "type = Numbered shows the step number in steps that are not complete. " +
+                "Screen readers announce the position of every step, numbered or not."
+        ) {
+            HorizontalWarpStepIndicator(
+                steps = linearSteps(activeStep = nState, titles = labels.take(4)),
+                type = WarpStepIndicatorType.Numbered,
+                onStepClicked = { nState = it }
+            )
+        }
+
+        StepIndicatorDemoSection(
+            title = "Error",
+            description = "A step in error can sit anywhere in the journey. The track after it is " +
+                "not filled. Without onStepClicked, no step is clickable."
+        ) {
+            HorizontalWarpStepIndicator(
+                steps = listOf(
+                    WarpStep(state = WarpStepState.Complete, title = labels[0]),
+                    WarpStep(state = WarpStepState.Error, title = labels[1]),
+                    WarpStep(state = WarpStepState.InProgress, title = labels[2]),
+                    WarpStep(state = WarpStepState.Incomplete, title = labels[3])
                 )
-                if (wState == it) {
-                    WarpButton(
-                        modifier = Modifier.padding(
-                            top = dimensions.space1,
-                            bottom = dimensions.space3
-                        ),
-                        onClick = { wState++ },
-                        style = WarpButtonStyle.Primary,
-                        text = "Finish step"
+            )
+        }
+
+        StepIndicatorDemoSection(
+            title = "Disabled steps",
+            description = "highestEnabledStep limits which steps are clickable. Use Next to move " +
+                "on and Back to return: steps up to the furthest one reached can be tapped, later " +
+                "steps are disabled and announced as disabled by screen readers."
+        ) {
+            HorizontalWarpStepIndicator(
+                steps = linearSteps(activeStep = eState, titles = labels.take(4)),
+                highestEnabledStep = eFurthest,
+                onStepClicked = { eState = it }
+            )
+            Row(
+                modifier = Modifier.padding(top = dimensions.space2),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.space1)
+            ) {
+                WarpButton(
+                    text = "Back",
+                    onClick = { eState-- },
+                    enabled = eState > 0,
+                    style = WarpButtonStyle.Secondary
+                )
+                WarpButton(
+                    text = "Next",
+                    onClick = {
+                        eState++
+                        eFurthest = maxOf(eFurthest, eState)
+                    },
+                    enabled = eState < 4,
+                    style = WarpButtonStyle.Primary
+                )
+            }
+        }
+
+        StepIndicatorDemoSection(
+            title = "Many steps",
+            description = "Steps are never narrower than the longest word of their title or " +
+                "description. When they don't fit, the step indicator scrolls and keeps the " +
+                "active step centered. Use Back and Next to move the active step."
+        ) {
+            HorizontalWarpStepIndicator(
+                steps = linearSteps(activeStep = mState, titles = manyLabels, descriptions = manyDescriptions),
+                onStepClicked = { mState = it }
+            )
+            Row(
+                modifier = Modifier.padding(top = dimensions.space2),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.space1)
+            ) {
+                WarpButton(
+                    text = "Back",
+                    onClick = { mState-- },
+                    enabled = mState > 0,
+                    style = WarpButtonStyle.Secondary
+                )
+                WarpButton(
+                    text = "Next",
+                    onClick = { mState++ },
+                    enabled = mState < manyLabels.size,
+                    style = WarpButtonStyle.Primary
+                )
+            }
+        }
+
+        StepIndicatorDemoSection(
+            title = "Vertical with content",
+            description = "Each step has content below its title. Finish step moves on and Reset " +
+                "returns to an earlier step. Like above, steps up to the furthest one reached can " +
+                "be tapped and later steps are disabled."
+        ) {
+            VerticalWarpStepIndicator(
+                modifier = Modifier.fillMaxWidth(),
+                steps = linearSteps(activeStep = wState, titles = labels, descriptions = descriptions),
+                highestEnabledStep = wFurthest,
+                onStepClicked = { wState = it }
+            ) {
+                Column(modifier = Modifier.padding(top = dimensions.space1)) {
+                    WarpText(
+                        "Custom content! Maybe some text and maybe something else?",
+                        style = WarpTextStyle.Body
                     )
-                } else {
-                    WarpButton(
-                        modifier = Modifier.padding(
-                            top = dimensions.space1,
-                            bottom = dimensions.space3
-                        ),
-                        onClick = { wState = it },
-                        style = WarpButtonStyle.Primary,
-                        text = "Reset"
-                    )
+                    if (wState == it) {
+                        WarpButton(
+                            modifier = Modifier.padding(top = dimensions.space1),
+                            onClick = {
+                                wState++
+                                wFurthest = maxOf(wFurthest, wState)
+                            },
+                            style = WarpButtonStyle.Primary,
+                            text = "Finish step"
+                        )
+                    } else if (it < wState) {
+                        WarpButton(
+                            modifier = Modifier.padding(top = dimensions.space1),
+                            onClick = { wState = it },
+                            style = WarpButtonStyle.Primary,
+                            text = "Reset"
+                        )
+                    }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun StepIndicatorDemoSection(
+    title: String,
+    description: String,
+    content: @Composable () -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        WarpText(
+            text = title,
+            style = WarpTextStyle.Title3,
+            modifier = Modifier.padding(bottom = dimensions.space1)
+        )
+        WarpText(
+            text = description,
+            style = WarpTextStyle.Body,
+            color = colors.text.subtle,
+            modifier = Modifier.padding(bottom = dimensions.space2)
+        )
+        content()
+    }
+}
+
+private val manyLabels =
+    listOf("Start", "Profile", "Payment", "Shipping", "Add-ons", "Review", "Confirm", "Done")
+private val manyDescriptions =
+    listOf("Your journey", "About you", "Pay up", "Where to", "Extras", "Check it", "Sign", "All set")
+
+// A linear journey: steps before the active one are complete, the active one is in progress
+private fun linearSteps(
+    activeStep: Int,
+    titles: List<String>,
+    descriptions: List<String> = emptyList()
+) = titles.mapIndexed { i, title ->
+    WarpStep(
+        state = when {
+            i < activeStep -> WarpStepState.Complete
+            i == activeStep -> WarpStepState.InProgress
+            else -> WarpStepState.Incomplete
+        },
+        title = title,
+        description = descriptions.getOrNull(i)
+    )
 }
 
 @Composable

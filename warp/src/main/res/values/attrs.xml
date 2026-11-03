@@ -138,15 +138,6 @@
 
     </declare-styleable>
 
-    <declare-styleable name="WarpStepIndicator">
-        <attr name="stepIndicatorOrientation" format="enum">
-            <enum name="horizontal" value="0" />
-            <enum name="vertical" value="1" />
-        </attr>
-        <attr name="steps" format="integer" />
-        <attr name="activeStep" format="integer" />
-    </declare-styleable>
-
     <declare-styleable name="WarpCheckbox">
         <attr name="warpCheckboxStyle" format="enum">
             <enum name="neutral" value="0" />
