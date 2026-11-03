@@ -6,7 +6,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.schibsted.nmp.warp.components.VerticalWarpStepIndicator
 import com.schibsted.nmp.warp.components.WarpStep
-import com.schibsted.nmp.warp.components.linearStepStates
+import com.schibsted.nmp.warp.components.WarpStepState
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -22,8 +22,8 @@ class WarpStepIndicatorVerticalLayoutTest {
     fun stepsShorterThanTheIndicator_doNotOverlap() {
         composeTestRule.setContent {
             VerticalWarpStepIndicator(
-                steps = linearStepStates(steps = 3, activeStep = 0).mapIndexed { i, state ->
-                    WarpStep(state = state, title = "Step $i")
+                steps = List(3) { i ->
+                    WarpStep(state = WarpStepState.linear(i, activeStep = 0), title = "Step $i")
                 },
                 stepContent = {}
             )
