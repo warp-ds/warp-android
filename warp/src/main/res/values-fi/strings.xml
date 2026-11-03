@@ -366,8 +366,8 @@
     <string name="shareandroid">Kolme pistettä</string>
     <string name="clear_field">Tyhjennä kenttä</string>
     <string name="step_indicator_state_incomplete">Ei aloitettu</string>
-    <string name="step_indicator_state_in_progress">Kesken</string>
-    <string name="step_indicator_state_complete">Valmis</string>
+    <string name="step_indicator_state_in_progress">Käynnissä</string>
+    <string name="step_indicator_state_complete">Suoritettu</string>
     <string name="step_indicator_state_error">Virhe</string>
     <string name="step_indicator_position">Vaihe %1$d/%2$d</string>
     <string name="bottom_sheet_close">Sulje</string>
