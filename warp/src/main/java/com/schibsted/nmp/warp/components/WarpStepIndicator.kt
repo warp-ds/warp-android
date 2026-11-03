@@ -190,7 +190,7 @@ fun VerticalWarpStepIndicator(
                     drawStepIndicator(
                         step = i,
                         state = states[i],
-                        animate = states[i] == defaultStepState(i, progress),
+                        animate = states[i] == WarpStepState.linear(i, progress),
                         animatedStep = animatedStep,
                         threshold = if (i > 0) thresholds[i - 1] else 1.0f,
                         orientation = StepIndicatorOrientation.Vertical,
@@ -480,7 +480,7 @@ fun HorizontalWarpStepIndicator(
                         drawStepIndicator(
                             step = i,
                             state = states[i],
-                            animate = states[i] == defaultStepState(i, progress),
+                            animate = states[i] == WarpStepState.linear(i, progress),
                             animatedStep = animatedStep,
                             threshold = threshold,
                             orientation = StepIndicatorOrientation.Horizontal,
@@ -610,7 +610,20 @@ enum class WarpStepState {
     Incomplete,
     InProgress,
     Complete,
-    Error
+    Error;
+
+    companion object {
+        /**
+         * The state of [step] in a linear journey: the steps before [activeStep] are complete,
+         * [activeStep] is in progress and the steps after it are incomplete. Both count from 0, and
+         * an [activeStep] equal to the number of steps completes all steps
+         */
+        fun linear(step: Int, activeStep: Int): WarpStepState = when {
+            step < activeStep -> Complete
+            step == activeStep -> InProgress
+            else -> Incomplete
+        }
+    }
 }
 
 /**
@@ -658,15 +671,6 @@ private fun WarpStepState.description() = stringResource(
         WarpStepState.Error -> R.string.step_indicator_state_error
     }
 )
-
-internal fun linearStepStates(steps: Int, activeStep: Int): List<WarpStepState> =
-    List(steps) { defaultStepState(it, activeStep) }
-
-private fun defaultStepState(step: Int, activeStep: Int) = when {
-    step < activeStep -> WarpStepState.Complete
-    step == activeStep -> WarpStepState.InProgress
-    else -> WarpStepState.Incomplete
-}
 
 // The first step that is not complete. The tracks animate up to it, later tracks follow the state
 // of the step before them
@@ -868,8 +872,12 @@ fun HorizontalPreview() {
     Column {
         HorizontalWarpStepIndicator(
             modifier = Modifier,
-            steps = linearStepStates(steps = 5, activeStep = active).mapIndexed { i, state ->
-                WarpStep(state = state, title = "$i", description = "Description $i")
+            steps = List(5) { i ->
+                WarpStep(
+                    state = WarpStepState.linear(i, activeStep = active),
+                    title = "$i",
+                    description = "Description $i"
+                )
             },
             onStepClicked = { active = it }
         )
@@ -891,8 +899,8 @@ internal fun VerticalPreview() {
     Column {
         VerticalWarpStepIndicator(
             modifier = Modifier,
-            steps = linearStepStates(steps = 5, activeStep = active).mapIndexed { i, state ->
-                WarpStep(state = state, title = "Step ${i + 1}")
+            steps = List(5) { i ->
+                WarpStep(state = WarpStepState.linear(i, activeStep = active), title = "Step ${i + 1}")
             },
             onStepClicked = { active = it },
             stepContent = { WarpText("Content", style = WarpTextStyle.Caption) }
