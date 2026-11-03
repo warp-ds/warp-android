@@ -1,11 +1,14 @@
 package com.schibsted.nmp.warp
 
+import androidx.compose.foundation.layout.width
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.schibsted.nmp.warp.components.HorizontalWarpStepIndicator
@@ -17,6 +20,7 @@ import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.linearStepStates
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -244,5 +248,35 @@ class WarpStepIndicatorStateSemanticsTest {
         }
 
         assertFalse(indicatorNodes().any { SemanticsProperties.Disabled in it.config })
+    }
+
+    private fun horizontalScrollRange() = composeTestRule
+        .onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsProperties.HorizontalScrollAxisRange))
+        .fetchSemanticsNodes()
+        .single()
+        .config[SemanticsProperties.HorizontalScrollAxisRange]
+
+    @Test
+    fun horizontal_scrollsWhenTheStepsDoNotFit() {
+        composeTestRule.setContent {
+            HorizontalWarpStepIndicator(
+                modifier = Modifier.width(200.dp),
+                steps = linearSteps(8, title = { "Step$it-with-a-long-title" })
+            )
+        }
+
+        assertTrue(horizontalScrollRange().maxValue() > 0f)
+    }
+
+    @Test
+    fun horizontal_doesNotScrollWhenTheStepsFit() {
+        composeTestRule.setContent {
+            HorizontalWarpStepIndicator(
+                modifier = Modifier.width(360.dp),
+                steps = linearSteps(2, title = { "Step $it" })
+            )
+        }
+
+        assertEquals(0f, horizontalScrollRange().maxValue())
     }
 }
