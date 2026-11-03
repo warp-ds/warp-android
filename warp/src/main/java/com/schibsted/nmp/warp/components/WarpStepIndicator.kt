@@ -277,22 +277,22 @@ private fun customVerticalMeasurePolicy(
     val linePlacements = mutableListOf<Pair<Placeable, IntOffset>>()
     var offset = IntOffset(0, 0)
 
-    // First place out indicators, titles and descriptions. The indicator is centered on the capital
-    // letters of the first line of the label, so it stays next to the text at any font scale. At
-    // the default font scale this top aligns it with the title, like in the Figma spec. The next
-    // step starts below both after the step spacing
+    // First place out indicators, titles and descriptions. The indicator is centered on the first
+    // line of the label, so it stays next to the text at any font scale. At the default font scale
+    // this top aligns it with the title, like in the Figma spec. The next step starts below both
+    // after the step spacing
     val spacing = stepSpacing.roundToPx()
     // Without a known font size, like outside a Warp theme, the indicator is top aligned
-    val capHeight = if (titleFontSize.isSp) titleFontSize.toPx() * CAP_HEIGHT_RATIO else null
+    val lineCenter = if (titleFontSize.isSp) titleFontSize.toPx() * FIRST_LINE_CENTER_RATIO else null
     indicatorPlaceables.forEachIndexed { index, indicator ->
         val label = labelPlaceables[index]
         val description = descriptionPlaceables[index]
 
         val baseline = label[FirstBaseline]
-        val indicatorY = if (capHeight == null || baseline == AlignmentLine.Unspecified) {
+        val indicatorY = if (lineCenter == null || baseline == AlignmentLine.Unspecified) {
             0
         } else {
-            (baseline - capHeight / 2 - indicator.height / 2f).roundToInt().coerceAtLeast(0)
+            (baseline - lineCenter - indicator.height / 2f).roundToInt().coerceAtLeast(0)
         }
         indicatorPlacements.add(indicator to offset.copy(y = offset.y + indicatorY))
         labelPlacements.add(label to offset.copy(x = indicatorSize))
@@ -844,8 +844,9 @@ private fun DrawScope.drawCenteredText(
     )
 }
 
-// The height of capital letters relative to the font size, for typical fonts
-private const val CAP_HEIGHT_RATIO = 0.7f
+// How far the middle of a line of text is above its baseline, relative to the font size, for
+// typical fonts. It does not depend on the letters, so lowercase and capitalized text align alike
+private const val FIRST_LINE_CENTER_RATIO = 0.35f
 
 private object StepIndicatorIds {
     const val TRACK = "track"
