@@ -36,6 +36,8 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.AlignmentLine
+import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.Placeable
@@ -58,6 +60,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.TextUnit
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.StepIndicatorDimensions
 import com.schibsted.nmp.warp.theme.WarpTheme
@@ -66,6 +69,7 @@ import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 import com.schibsted.nmp.warp.theme.WarpTheme.typography
 import java.lang.Float.min
 import kotlin.math.floor
+import kotlin.math.roundToInt
 
 
 /**
@@ -110,7 +114,8 @@ fun VerticalWarpStepIndicator(
         measurePolicy = customVerticalMeasurePolicy(
             dimensions = componentDimensions,
             trackGap = dimensions.space05,
-            stepSpacing = dimensions.space3 + dimensions.space05
+            stepSpacing = dimensions.space3 + dimensions.space05,
+            titleFontSize = typography.bodyStrong.fontSize
         ),
         modifier = modifier.semantics { isTraversalGroup = true },
         content = {
@@ -190,7 +195,7 @@ fun VerticalWarpStepIndicator(
                     drawStepIndicator(
                         step = i,
                         state = states[i],
-                        animate = states[i] == defaultStepState(i, progress),
+                        animate = states[i] == WarpStepState.linear(i, progress),
                         animatedStep = animatedStep,
                         threshold = if (i > 0) thresholds[i - 1] else 1.0f,
                         orientation = StepIndicatorOrientation.Vertical,
@@ -241,7 +246,8 @@ fun VerticalWarpStepIndicator(
 private fun customVerticalMeasurePolicy(
     dimensions: StepIndicatorDimensions,
     trackGap: Dp,
-    stepSpacing: Dp
+    stepSpacing: Dp,
+    titleFontSize: TextUnit
 ) = MeasurePolicy { measurables, constraints ->
     val width = constraints.maxWidth
     // First measure the indicators, their size is determined by the theme and not by available space
@@ -271,21 +277,31 @@ private fun customVerticalMeasurePolicy(
     val linePlacements = mutableListOf<Pair<Placeable, IntOffset>>()
     var offset = IntOffset(0, 0)
 
-    // First place out indicators, titles and descriptions. The indicator and the title are top
-    // aligned, like in the Figma spec, and the next step starts below both after the step spacing
+    // First place out indicators, titles and descriptions. The indicator is centered on the first
+    // line of the label, so it stays next to the text at any font scale. At the default font scale
+    // this top aligns it with the title, like in the Figma spec. The next step starts below both
+    // after the step spacing
     val spacing = stepSpacing.roundToPx()
+    // Without a known font size, like outside a Warp theme, the indicator is top aligned
+    val lineCenter = if (titleFontSize.isSp) titleFontSize.toPx() * FIRST_LINE_CENTER_RATIO else null
     indicatorPlaceables.forEachIndexed { index, indicator ->
         val label = labelPlaceables[index]
         val description = descriptionPlaceables[index]
 
-        indicatorPlacements.add(indicator to offset)
+        val baseline = label[FirstBaseline]
+        val indicatorY = if (lineCenter == null || baseline == AlignmentLine.Unspecified) {
+            0
+        } else {
+            (baseline - lineCenter - indicator.height / 2f).roundToInt().coerceAtLeast(0)
+        }
+        indicatorPlacements.add(indicator to offset.copy(y = offset.y + indicatorY))
         labelPlacements.add(label to offset.copy(x = indicatorSize))
         descriptionPlacements.add(
             description to offset.copy(x = indicatorSize, y = offset.y + label.height)
         )
         val stepBottom = maxOf(
             offset.y + label.height + description.height,
-            offset.y + indicator.height
+            offset.y + indicatorY + indicator.height
         )
         offset = offset.copy(y = stepBottom + spacing)
     }
@@ -480,7 +496,7 @@ fun HorizontalWarpStepIndicator(
                         drawStepIndicator(
                             step = i,
                             state = states[i],
-                            animate = states[i] == defaultStepState(i, progress),
+                            animate = states[i] == WarpStepState.linear(i, progress),
                             animatedStep = animatedStep,
                             threshold = threshold,
                             orientation = StepIndicatorOrientation.Horizontal,
@@ -610,7 +626,20 @@ enum class WarpStepState {
     Incomplete,
     InProgress,
     Complete,
-    Error
+    Error;
+
+    companion object {
+        /**
+         * The state of [step] in a linear journey: the steps before [activeStep] are complete,
+         * [activeStep] is in progress and the steps after it are incomplete. Both count from 0, and
+         * an [activeStep] equal to the number of steps completes all steps
+         */
+        fun linear(step: Int, activeStep: Int): WarpStepState = when {
+            step < activeStep -> Complete
+            step == activeStep -> InProgress
+            else -> Incomplete
+        }
+    }
 }
 
 /**
@@ -658,15 +687,6 @@ private fun WarpStepState.description() = stringResource(
         WarpStepState.Error -> R.string.step_indicator_state_error
     }
 )
-
-internal fun linearStepStates(steps: Int, activeStep: Int): List<WarpStepState> =
-    List(steps) { defaultStepState(it, activeStep) }
-
-private fun defaultStepState(step: Int, activeStep: Int) = when {
-    step < activeStep -> WarpStepState.Complete
-    step == activeStep -> WarpStepState.InProgress
-    else -> WarpStepState.Incomplete
-}
 
 // The first step that is not complete. The tracks animate up to it, later tracks follow the state
 // of the step before them
@@ -824,6 +844,10 @@ private fun DrawScope.drawCenteredText(
     )
 }
 
+// How far the middle of a line of text is above its baseline, relative to the font size, for
+// typical fonts. It does not depend on the letters, so lowercase and capitalized text align alike
+private const val FIRST_LINE_CENTER_RATIO = 0.35f
+
 private object StepIndicatorIds {
     const val TRACK = "track"
     const val LABEL = "label"
@@ -868,8 +892,12 @@ fun HorizontalPreview() {
     Column {
         HorizontalWarpStepIndicator(
             modifier = Modifier,
-            steps = linearStepStates(steps = 5, activeStep = active).mapIndexed { i, state ->
-                WarpStep(state = state, title = "$i", description = "Description $i")
+            steps = List(5) { i ->
+                WarpStep(
+                    state = WarpStepState.linear(i, activeStep = active),
+                    title = "$i",
+                    description = "Description $i"
+                )
             },
             onStepClicked = { active = it }
         )
@@ -891,8 +919,8 @@ internal fun VerticalPreview() {
     Column {
         VerticalWarpStepIndicator(
             modifier = Modifier,
-            steps = linearStepStates(steps = 5, activeStep = active).mapIndexed { i, state ->
-                WarpStep(state = state, title = "Step ${i + 1}")
+            steps = List(5) { i ->
+                WarpStep(state = WarpStepState.linear(i, activeStep = active), title = "Step ${i + 1}")
             },
             onStepClicked = { active = it },
             stepContent = { WarpText("Content", style = WarpTextStyle.Caption) }

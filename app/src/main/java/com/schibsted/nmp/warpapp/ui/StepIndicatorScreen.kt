@@ -235,11 +235,7 @@ private fun linearSteps(
     descriptions: List<String> = emptyList()
 ) = titles.mapIndexed { i, title ->
     WarpStep(
-        state = when {
-            i < activeStep -> WarpStepState.Complete
-            i == activeStep -> WarpStepState.InProgress
-            else -> WarpStepState.Incomplete
-        },
+        state = WarpStepState.linear(i, activeStep),
         title = title,
         description = descriptions.getOrNull(i)
     )

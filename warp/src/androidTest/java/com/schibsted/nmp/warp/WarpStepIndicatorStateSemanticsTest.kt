@@ -17,7 +17,6 @@ import com.schibsted.nmp.warp.components.WarpStep
 import com.schibsted.nmp.warp.components.WarpStepIndicatorType
 import com.schibsted.nmp.warp.components.WarpStepState
 import com.schibsted.nmp.warp.components.WarpText
-import com.schibsted.nmp.warp.components.linearStepStates
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -50,8 +49,12 @@ class WarpStepIndicatorStateSemanticsTest {
         activeStep: Int = 0,
         title: ((Int) -> String)? = null,
         description: ((Int) -> String)? = null
-    ) = linearStepStates(count, activeStep).mapIndexed { i, state ->
-        WarpStep(state = state, title = title?.invoke(i), description = description?.invoke(i))
+    ) = List(count) { i ->
+        WarpStep(
+            state = WarpStepState.linear(i, activeStep),
+            title = title?.invoke(i),
+            description = description?.invoke(i)
+        )
     }
 
     @Test

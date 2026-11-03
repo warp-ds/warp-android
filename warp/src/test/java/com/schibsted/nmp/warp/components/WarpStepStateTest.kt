@@ -10,18 +10,18 @@ import org.junit.Test
 class WarpStepStateTest {
 
     @Test
-    fun linearStepStates_completesStepsBeforeTheActiveStep() {
+    fun linear_completesStepsBeforeTheActiveStep() {
         assertEquals(
             listOf(Complete, InProgress, Incomplete),
-            linearStepStates(steps = 3, activeStep = 1)
+            List(3) { WarpStepState.linear(it, activeStep = 1) }
         )
     }
 
     @Test
-    fun linearStepStates_pastTheLastStep_completesAllSteps() {
+    fun linear_pastTheLastStep_completesAllSteps() {
         assertEquals(
             listOf(Complete, Complete, Complete),
-            linearStepStates(steps = 3, activeStep = 3)
+            List(3) { WarpStepState.linear(it, activeStep = 3) }
         )
     }
 

@@ -152,11 +152,7 @@ private val manyDescriptions = listOf(
 
 private fun manySteps(count: Int, activeStep: Int) = List(count) { i ->
     WarpStep(
-        state = when {
-            i < activeStep -> WarpStepState.Complete
-            i == activeStep -> WarpStepState.InProgress
-            else -> WarpStepState.Incomplete
-        },
+        state = WarpStepState.linear(i, activeStep),
         title = manyTitles[i],
         description = manyDescriptions[i]
     )
