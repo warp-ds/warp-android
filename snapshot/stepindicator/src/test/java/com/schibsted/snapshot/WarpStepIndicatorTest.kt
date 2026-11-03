@@ -85,6 +85,26 @@ class WarpStepIndicatorTest(
     }
 
     @Test
+    fun warp_step_indicator_horizontal_five_steps() {
+        snapshot {
+            HorizontalWarpStepIndicator(
+                modifier = Modifier.fillMaxWidth(),
+                steps = manySteps(count = 5, activeStep = 2)
+            )
+        }
+    }
+
+    @Test
+    fun warp_step_indicator_horizontal_eight_steps() {
+        snapshot {
+            HorizontalWarpStepIndicator(
+                modifier = Modifier.fillMaxWidth(),
+                steps = manySteps(count = 8, activeStep = 3)
+            )
+        }
+    }
+
+    @Test
     fun warp_step_indicator_vertical() {
         snapshot {
             VerticalWarpStepIndicator(
@@ -124,6 +144,23 @@ class WarpStepIndicatorTest(
 
 private val titles = listOf("Start", "Profile", "Payment", "Done")
 private val descriptions = listOf("Your journey", "About you", "Pay up", "All set")
+
+private val manyTitles = listOf("Start", "Profile", "Payment", "Shipping", "Add-ons", "Review", "Confirm", "Done")
+private val manyDescriptions = listOf(
+    "Your journey", "About you", "Pay up", "Where to", "Extras", "Check it", "Sign", "All set"
+)
+
+private fun manySteps(count: Int, activeStep: Int) = List(count) { i ->
+    WarpStep(
+        state = when {
+            i < activeStep -> WarpStepState.Complete
+            i == activeStep -> WarpStepState.InProgress
+            else -> WarpStepState.Incomplete
+        },
+        title = manyTitles[i],
+        description = manyDescriptions[i]
+    )
+}
 
 private fun steps(vararg states: WarpStepState) = states.mapIndexed { i, state ->
     WarpStep(state = state, title = titles[i], description = descriptions[i])
