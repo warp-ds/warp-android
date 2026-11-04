@@ -40,7 +40,9 @@ class WarpBottomSheetTest {
     private var dismissCount = 0
     private var closeIconDescription = ""
 
-    private fun setSheet() {
+    private fun setSheet(
+        header: WarpBottomSheetHeader = WarpBottomSheetHeader(title = "Title", showCloseButton = true),
+    ) {
         composeTestRule.setContent {
             var shown by remember { mutableStateOf(true) }
             closeIconDescription = icons.close.description
@@ -50,7 +52,7 @@ class WarpBottomSheetTest {
                         dismissCount++
                         shown = false
                     },
-                    header = WarpBottomSheetHeader(title = "Title"),
+                    header = header,
                 ) { dismiss ->
                     WarpText(text = "Sheet content")
                     WarpButton(text = "Done", onClick = dismiss)
@@ -84,12 +86,25 @@ class WarpBottomSheetTest {
     }
 
     @Test
-    fun noHeader_showsNoWarpCloseButton() {
-        composeTestRule.setContent {
-            WarpBottomSheet(onDismissRequest = {}, header = null) {
-                WarpText(text = "Sheet content")
-            }
-        }
+    fun titleOnly_showsNoCloseButton() {
+        setSheet(WarpBottomSheetHeader(title = "Title"))
+
+        composeTestRule.onNodeWithText("Title").assert(isHeading())
+        composeTestRule.onNodeWithContentDescription(closeLabel).assertDoesNotExist()
+    }
+
+    @Test
+    fun closeButtonOnly_dismisses() {
+        setSheet(WarpBottomSheetHeader(showCloseButton = true))
+
+        composeTestRule.onNodeWithContentDescription(closeLabel).performClick()
+
+        waitUntilDismissed()
+    }
+
+    @Test
+    fun emptyHeader_showsNoWarpCloseButton() {
+        setSheet(WarpBottomSheetHeader())
 
         composeTestRule.onNodeWithText("Sheet content").assertExists()
         composeTestRule.onNodeWithContentDescription(closeLabel).assertDoesNotExist()

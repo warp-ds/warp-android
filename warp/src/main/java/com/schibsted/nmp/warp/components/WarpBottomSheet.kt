@@ -57,24 +57,30 @@ object WarpBottomSheetDefaults {
 }
 
 /**
- * The header Warp draws at the top of a [WarpBottomSheet]: an optional title and the close button.
+ * The header Warp draws at the top of a [WarpBottomSheet]: an optional title and an optional close
+ * button. With neither, Warp draws no header, for sheets whose content draws its own.
  *
  * @param title Optional plain-text heading. Use it for the sheet's heading rather than a heading in
  * the sheet's content.
+ * @param showCloseButton Shows a close button top right. The sheet can be closed without it too, by
+ * swiping down, tapping the scrim, pressing back or with the drag handle's accessibility action.
  */
-data class WarpBottomSheetHeader(val title: String? = null)
+data class WarpBottomSheetHeader(
+    val title: String? = null,
+    val showCloseButton: Boolean = false,
+)
 
 /**
- * A modal bottom sheet. With a [header], Warp draws a title and a close button top right above
- * [content]. Content taller than about half the screen opens half-expanded first, unless
+ * A modal bottom sheet. Warp draws the [header], a title and an optional close button top right,
+ * above [content]. Content taller than about half the screen opens half-expanded first, unless
  * [skipPartiallyExpanded] is set. Swiping down, tapping the scrim, pressing back and the close
  * button all close it.
  *
  * @param onDismissRequest Called once the hide animation completes. Also passed to [content] as
  * `dismiss`, so in-sheet actions can close the sheet the same way.
- * @param header Warp's header with the close button. Prefer it: pass null only when the sheet needs
- * no header, or when its header needs more than a title, e.g. actions, and [content] draws it
- * instead. That header should then close the sheet with `dismiss`.
+ * @param header Warp's header. Pass `WarpBottomSheetHeader(title = null, showCloseButton = false)`
+ * when [content] draws its own header, e.g. one with actions; it should then close the sheet with
+ * `dismiss`.
  * @param modifier Applied to the sheet surface.
  * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
  * @param content Sheet body; receives `dismiss` (see [onDismissRequest]). Pad it horizontally with
@@ -84,7 +90,7 @@ data class WarpBottomSheetHeader(val title: String? = null)
 @Composable
 fun WarpBottomSheet(
     onDismissRequest: () -> Unit,
-    header: WarpBottomSheetHeader?,
+    header: WarpBottomSheetHeader,
     modifier: Modifier = Modifier,
     skipPartiallyExpanded: Boolean = false,
     content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
@@ -116,17 +122,22 @@ fun WarpBottomSheet(
         contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal) },
         dragHandle = { BottomSheetDefaults.DragHandle(color = WarpTheme.colors.background.subtleActive) },
     ) {
-        if (header != null) {
+        if (header.title != null || header.showCloseButton) {
             Row(
                 // No top padding - M3's 48dp handle already spaces the header from the top edge.
                 // No bottom padding - content owns its spacing below the header.
-                // Min height is a touch target, so the header grows with a long title instead of clipping.
+                // Min height is a touch target, so the header grows with a long title instead of clipping,
+                // and a title sits at the same height with or without the close button.
                 // The close button's own 12dp inset plus this 4dp puts its icon 16dp from the edge.
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
                         start = WarpBottomSheetDefaults.contentHorizontalPadding,
-                        end = WarpTheme.dimensions.space05,
+                        end = if (header.showCloseButton) {
+                            WarpTheme.dimensions.space05
+                        } else {
+                            WarpBottomSheetDefaults.contentHorizontalPadding
+                        },
                     )
                     .heightIn(min = LocalMinimumInteractiveComponentSize.current),
                 verticalAlignment = Alignment.CenterVertically,
@@ -142,14 +153,16 @@ fun WarpBottomSheet(
                 } else {
                     Spacer(Modifier.weight(1f))
                 }
-                // Merged before the icon's own description, so it reads e.g. "Close, X".
-                IconButton(
-                    onClick = dismiss,
-                    modifier = Modifier.semantics { contentDescription = closeLabel },
-                ) {
-                    WarpIcon(
-                        icon = icons.close,
-                    )
+                if (header.showCloseButton) {
+                    // Merged before the icon's own description, so it reads e.g. "Close, X".
+                    IconButton(
+                        onClick = dismiss,
+                        modifier = Modifier.semantics { contentDescription = closeLabel },
+                    ) {
+                        WarpIcon(
+                            icon = icons.close,
+                        )
+                    }
                 }
             }
         }
@@ -163,7 +176,7 @@ fun WarpBottomSheet(
 private fun WarpBottomSheetTitlePreview() {
     WarpBottomSheet(
         onDismissRequest = {},
-        header = WarpBottomSheetHeader(title = "Sort by"),
+        header = WarpBottomSheetHeader(title = "Sort by", showCloseButton = true),
     ) { dismiss ->
         Column(modifier = Modifier.padding(WarpTheme.dimensions.space2)) {
             WarpText(text = "Newest first", style = WarpTextStyle.Body)
@@ -183,7 +196,7 @@ private fun WarpBottomSheetTitlePreview() {
 @Preview(name = "No title", showBackground = true)
 @Composable
 private fun WarpBottomSheetNoTitlePreview() {
-    WarpBottomSheet(onDismissRequest = {}, header = WarpBottomSheetHeader()) {
+    WarpBottomSheet(onDismissRequest = {}, header = WarpBottomSheetHeader(showCloseButton = true)) {
         WarpText(
             text = "A sheet without a title: the header only holds the close button.",
             style = WarpTextStyle.Body,
