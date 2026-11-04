@@ -315,7 +315,7 @@ fun TextFieldScreen(onUp: () -> Unit) {
                     var value by remember { mutableStateOf(listName.withCursorAtEnd()) }
                     WarpBottomSheet(
                         onDismissRequest = { showSheet = false },
-                        header = WarpBottomSheetHeader(title = "Rename list"),
+                        header = WarpBottomSheetHeader(title = "Rename list", showCloseButton = true),
                     ) { dismiss ->
                         Column(modifier = Modifier.padding(16.dp)) {
                             AutoFocusTextField(value = value, onValueChange = { value = it })

@@ -64,7 +64,7 @@ fun BottomSheetScreenContent() {
     when (openSheet) {
         SampleSheet.Title -> WarpBottomSheet(
             onDismissRequest = closeSheet,
-            header = WarpBottomSheetHeader(title = "Sort by"),
+            header = WarpBottomSheetHeader(title = "Sort by", showCloseButton = true),
         ) { dismiss ->
             Column(
                 modifier = Modifier.padding(
@@ -92,7 +92,7 @@ fun BottomSheetScreenContent() {
 
         SampleSheet.NoTitle -> WarpBottomSheet(
             onDismissRequest = closeSheet,
-            header = WarpBottomSheetHeader(),
+            header = WarpBottomSheetHeader(showCloseButton = true),
         ) { dismiss ->
             Column(
                 modifier = Modifier.padding(
@@ -132,12 +132,12 @@ private fun SheetButton(text: String, onClick: () -> Unit) {
 }
 
 /**
- * A sheet whose header needs more than a title, so it passes no Warp header and draws its own.
- * Prefer [WarpBottomSheetHeader] whenever a title and the close button are enough.
+ * A sheet whose header needs more than a title, so it passes an empty Warp header and draws its own.
+ * Prefer [WarpBottomSheetHeader]'s title and close button whenever they are enough.
  */
 @Composable
 private fun CustomHeaderSheet(onDismissRequest: () -> Unit) {
-    WarpBottomSheet(onDismissRequest = onDismissRequest, header = null) { dismiss ->
+    WarpBottomSheet(onDismissRequest = onDismissRequest, header = WarpBottomSheetHeader()) { dismiss ->
         Row(
             modifier = Modifier
                 .fillMaxWidth()
