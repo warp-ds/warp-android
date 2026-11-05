@@ -2,8 +2,6 @@ package com.schibsted.nmp.warp.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.NavigationItemColors
 import androidx.compose.material3.NavigationItemIconPosition
 import androidx.compose.material3.ShortNavigationBar
@@ -30,22 +28,16 @@ enum class WarpNavBarLayout { Auto, Vertical, Horizontal }
  * @param icon Composable icon slot receiving the active [Color] and [isSelected] state.
  *   Use [WarpIcon] with the provided color, and switch between filled/outline variants based on [isSelected].
  *   For avatar images that don't tint, ignore the color parameter.
- * @param badgeCount Number to display in the badge. 0 means no badge. Must be >= 0.
- * @param showDot True to show a dot badge (no number). Ignored if [badgeCount] > 0.
+ * @param badge The notification badge on the icon, or null for no badge.
  * @param modifier Modifier applied to this item's [ShortNavigationBarItem]. Use to add semantics,
  *   test tags, or other per-item decoration. Defaults to [Modifier].
  */
 data class WarpNavItem(
     val label: String,
     val icon: @Composable (color: Color, isSelected: Boolean) -> Unit,
-    val badgeCount: Int = 0,
-    val showDot: Boolean = false,
+    val badge: WarpNotificationBadgeContent? = null,
     val modifier: Modifier = Modifier,
-) {
-    init {
-        require(badgeCount >= 0) { "badgeCount must be >= 0, was $badgeCount" }
-    }
-}
+)
 
 /**
  * A bottom navigation bar following the Warp design system.
@@ -124,22 +116,11 @@ fun WarpNavigationBarItem(
         selected = isSelected,
         onClick = onClick,
         icon = {
-            when {
-                item.badgeCount > 0 -> BadgedBox(
-                    badge = {
-                        Badge(containerColor = warpColors.background.negative) {
-                            WarpText(
-                                text = item.badgeCount.toString(),
-                                color = warpColors.text.invertedStatic,
-                                style = WarpTextStyle.Detail,
-                            )
-                        }
-                    }
-                ) { item.icon(iconColor, isSelected) }
-                item.showDot -> BadgedBox(
-                    badge = { Badge(containerColor = warpColors.background.notification) }
-                ) { item.icon(iconColor, isSelected) }
-                else -> item.icon(iconColor, isSelected)
+            val badge = item.badge
+            if (badge != null) {
+                WarpNotificationBadge(badge = badge) { item.icon(iconColor, isSelected) }
+            } else {
+                item.icon(iconColor, isSelected)
             }
         },
         label = {
@@ -163,8 +144,8 @@ fun WarpNavigationBarPreview() {
         items = listOf(
             WarpNavItem("Home", { color, sel -> WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color) }),
             WarpNavItem("Activity", { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) }),
-            WarpNavItem("Sell", { color, sel -> WarpIcon(icon = if (sel) icons.circlePlusFilled else icons.circlePlus, color = color) }, showDot = true),
-            WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badgeCount = 3),
+            WarpNavItem("Sell", { color, sel -> WarpIcon(icon = if (sel) icons.circlePlusFilled else icons.circlePlus, color = color) }, badge = WarpNotificationBadgeContent.Dot),
+            WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badge = WarpNotificationBadgeContent.Count(3)),
             WarpNavItem("Profile", { color, sel -> WarpIcon(icon = if (sel) icons.circleUserFilled else icons.circleUser, color = color) }),
         ),
         selectedIndex = 0,
@@ -180,7 +161,7 @@ fun WarpNavigationBarHorizontalPreview() {
             WarpNavItem("Home", { color, sel -> WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color) }),
             WarpNavItem("Activity", { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) }),
             WarpNavItem("Sell", { color, sel -> WarpIcon(icon = if (sel) icons.circlePlusFilled else icons.circlePlus, color = color) }),
-            WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badgeCount = 4),
+            WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badge = WarpNotificationBadgeContent.Count(4)),
             WarpNavItem("Profile", { color, sel -> WarpIcon(icon = if (sel) icons.circleUserFilled else icons.circleUser, color = color) }),
         ),
         selectedIndex = 0,

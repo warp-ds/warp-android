@@ -17,6 +17,7 @@ import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpNavBarLayout
 import com.schibsted.nmp.warp.components.WarpNavItem
 import com.schibsted.nmp.warp.components.WarpNavigationBar
+import com.schibsted.nmp.warp.components.WarpNotificationBadgeContent
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.utils.FlavorPreviewProvider
@@ -43,7 +44,7 @@ private fun NavigationBarContent() {
         WarpNavItem(
             label = "Activity",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.bellFilled else icons.bell, color = color) },
-            showDot = true,
+            badge = WarpNotificationBadgeContent.Dot,
         ),
         WarpNavItem(
             label = "Sell",
@@ -52,7 +53,7 @@ private fun NavigationBarContent() {
         WarpNavItem(
             label = "Messages",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.messagesFilled else icons.messages, color = color) },
-            badgeCount = 4,
+            badge = WarpNotificationBadgeContent.Count(4),
         ),
         WarpNavItem(
             label = "Profile",
@@ -98,9 +99,9 @@ internal fun WarpNavBarHorizontalPreview(
         WarpNavigationBar(
             items = listOf(
                 WarpNavItem("Home", { color, sel -> WarpIcon(icon = if (sel) icons.houseFilled else icons.house, color = color) }),
-                WarpNavItem("Activity", { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) }, showDot = true),
+                WarpNavItem("Activity", { color, sel -> WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color) }, badge = WarpNotificationBadgeContent.Dot),
                 WarpNavItem("Sell", { color, sel -> WarpIcon(icon = if (sel) icons.circlePlusFilled else icons.circlePlus, color = color) }),
-                WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badgeCount = 4),
+                WarpNavItem("Messages", { color, sel -> WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color) }, badge = WarpNotificationBadgeContent.Count(4)),
                 WarpNavItem("Profile", { color, sel -> WarpIcon(icon = if (sel) icons.circleUserFilled else icons.circleUser, color = color) }),
             ),
             selectedIndex = 0,

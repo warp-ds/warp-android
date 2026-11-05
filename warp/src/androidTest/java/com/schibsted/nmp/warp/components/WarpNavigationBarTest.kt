@@ -78,7 +78,7 @@ class WarpNavigationBarTest {
         WarpNavItem(
             label = "Activity",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.bellFilled else icons.bell, color = color) },
-            showDot = true
+            badge = WarpNotificationBadgeContent.Dot
         ),
         WarpNavItem(
             label = "Sell",
@@ -87,7 +87,7 @@ class WarpNavigationBarTest {
         WarpNavItem(
             label = "Messages",
             icon = { color, selected -> WarpIcon(icon = if (selected) icons.messagesFilled else icons.messages, color = color) },
-            badgeCount = 4
+            badge = WarpNotificationBadgeContent.Count(4)
         ),
         WarpNavItem(
             label = "Profile",

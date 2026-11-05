@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LeadingIconTab
@@ -110,25 +108,12 @@ fun WarpTab(
         onClick = onClick,
         modifier = modifier,
         text = {
-            BadgedBox(
-                badge = {
-                    if (hasBadge)
-                        Badge(
-                            containerColor = colors.background.notification,
-                        )
+            if (hasBadge) {
+                WarpNotificationBadge(badge = WarpNotificationBadgeContent.Dot) {
+                    TabText(text = text, modifier = Modifier.padding(end = dimensions.space1))
                 }
-            ) {
-                WarpText(
-                    modifier = if (hasBadge) {
-                        Modifier.padding(end = dimensions.space1)
-                    } else {
-                        Modifier
-                    },
-                    text = text,
-                    style = WarpTextStyle.Title4,
-                    softWrap = false,
-                    color = Color.Unspecified,
-                )
+            } else {
+                TabText(text = text)
             }
         },
         selectedContentColor = colors.text.link,
@@ -145,6 +130,17 @@ fun WarpTab(
             }
         },
         interactionSource = interactionSource
+    )
+}
+
+@Composable
+private fun TabText(text: String, modifier: Modifier = Modifier) {
+    WarpText(
+        modifier = modifier,
+        text = text,
+        style = WarpTextStyle.Title4,
+        softWrap = false,
+        color = Color.Unspecified,
     )
 }
 

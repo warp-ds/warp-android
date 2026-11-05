@@ -15,6 +15,7 @@ import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpNavBarLayout
 import com.schibsted.nmp.warp.components.WarpNavItem
 import com.schibsted.nmp.warp.components.WarpNavigationBar
+import com.schibsted.nmp.warp.components.WarpNotificationBadgeContent
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import org.junit.Rule
 import org.junit.Test
@@ -87,7 +88,7 @@ class WarpNavigationBarHorizontalTest(
             icon = { color: Color, sel: Boolean ->
                 WarpIcon(icon = if (sel) icons.bellFilled else icons.bell, color = color)
             },
-            showDot = true
+            badge = WarpNotificationBadgeContent.Dot
         ),
         WarpNavItem(
             label = "Sell",
@@ -100,7 +101,7 @@ class WarpNavigationBarHorizontalTest(
             icon = { color: Color, sel: Boolean ->
                 WarpIcon(icon = if (sel) icons.messagesFilled else icons.messages, color = color)
             },
-            badgeCount = 4
+            badge = WarpNotificationBadgeContent.Count(4)
         ),
         WarpNavItem(
             label = "Profile",
