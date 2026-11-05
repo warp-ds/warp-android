@@ -3,6 +3,7 @@
 package com.schibsted.nmp.warpapp.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
@@ -14,7 +15,12 @@ import com.schibsted.nmp.warp.components.WarpTopAppBar
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 
 @Composable
-internal fun DetailsScaffold(title: String, onUp: () -> Unit, content: @Composable () -> Unit) {
+internal fun DetailsScaffold(
+    title: String,
+    onUp: () -> Unit,
+    actions: @Composable RowScope.() -> Unit = {},
+    content: @Composable () -> Unit,
+) {
     val currentFlavor = rememberCurrentFlavor()
 
     WarpScaffold(
@@ -27,6 +33,7 @@ internal fun DetailsScaffold(title: String, onUp: () -> Unit, content: @Composab
                 },
                 titleText = "$title ($currentFlavor)",
                 actions = {
+                    actions()
                     FlavorSwitcher()
                 }
             )

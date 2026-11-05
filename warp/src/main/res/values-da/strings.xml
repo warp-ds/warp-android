@@ -370,5 +370,7 @@
     <string name="step_indicator_state_complete">Gennemført</string>
     <string name="step_indicator_state_error">Fejl</string>
     <string name="step_indicator_position">Trin %1$d af %2$d</string>
+    <string name="notification_badge_new">ny aktivitet</string>
+    <string name="notification_badge_count">ny aktivitet, %1$s</string>
     <string name="bottom_sheet_close">Luk</string>
 </resources>

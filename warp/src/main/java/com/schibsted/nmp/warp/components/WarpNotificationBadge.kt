@@ -9,7 +9,11 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.tooling.preview.Preview
+import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
@@ -56,12 +60,13 @@ fun WarpNotificationBadge(
  */
 sealed interface WarpNotificationBadgeContent {
     /**
-     * A small dot indicating a new item.
+     * A small dot indicating a new item. Screen readers announce it as "new activity".
      */
     data object Dot : WarpNotificationBadgeContent
 
     /**
      * An item count. Counts above [max] are shown as e.g. "99+". Counts of 0 or less are not shown.
+     * Screen readers announce it as "new activity" followed by the count.
      *
      * @param count The number of items.
      * @param max The highest count shown before it is capped. Defaults to
@@ -100,8 +105,14 @@ private fun NotificationBadge(
         WarpNotificationBadgeStyle.Primary -> colors.background.primary
     }
     val textColor = colors.text.inverted
+    val description = if (text == null) {
+        stringResource(R.string.notification_badge_new)
+    } else {
+        stringResource(R.string.notification_badge_count, text)
+    }
 
     Badge(
+        modifier = Modifier.clearAndSetSemantics { contentDescription = description },
         containerColor = containerColor,
         contentColor = textColor,
         content = text?.let {
