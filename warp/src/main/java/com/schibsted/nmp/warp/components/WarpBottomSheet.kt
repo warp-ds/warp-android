@@ -2,6 +2,7 @@ package com.schibsted.nmp.warp.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
@@ -31,6 +33,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -38,11 +42,14 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.max
+import androidx.compose.ui.unit.takeOrElse
 import com.schibsted.nmp.warp.R
 import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 /**
  * Values used by [WarpBottomSheet].
@@ -154,11 +161,21 @@ fun WarpBottomSheet(
         dragHandle = { BottomSheetDefaults.DragHandle(color = WarpTheme.colors.background.subtleActive) },
     ) {
         if (header.icon != null || header.title != null || header.showCloseButton) {
+            // The first row is a touch target tall, or one title line if that's taller. The title's first line,
+            // the icon and the close button are centred in it, so a long title grows downwards and the icon and
+            // close button stay put. The title keeps the same space below its last line.
+            val minRowHeight = LocalMinimumInteractiveComponentSize.current
+            val titleStyle = WarpTheme.typography.title3
+            val titleLineHeightUnit = titleStyle.lineHeight.takeOrElse { titleStyle.fontSize }
+            val titleLineHeight = if (titleLineHeightUnit.isSp) {
+                with(LocalDensity.current) { titleLineHeightUnit.toDp() }
+            } else {
+                minRowHeight
+            }
+            val firstRowHeight = max(minRowHeight, titleLineHeight)
+            val titleVerticalPadding = (firstRowHeight - titleLineHeight) / 2
             Row(
                 // No top padding - M3's 48dp handle already spaces the header from the top edge.
-                // No bottom padding - content owns its spacing below the header.
-                // Min height is a touch target, so the header grows with a long title instead of clipping,
-                // and a title sits at the same height with or without the close button.
                 // The close button's own 12dp inset plus this 4dp puts its icon 16dp from the edge.
                 modifier = Modifier
                     .fillMaxWidth()
@@ -170,11 +187,13 @@ fun WarpBottomSheet(
                             WarpBottomSheetDefaults.contentHorizontalPadding
                         },
                     )
-                    .heightIn(min = LocalMinimumInteractiveComponentSize.current),
-                verticalAlignment = Alignment.CenterVertically,
+                    .heightIn(min = minRowHeight),
+                verticalAlignment = Alignment.Top,
             ) {
                 if (header.icon != null) {
-                    HeaderIcon(header.icon)
+                    Box(Modifier.height(firstRowHeight), contentAlignment = Alignment.Center) {
+                        HeaderIcon(header.icon)
+                    }
                     Spacer(Modifier.width(WarpBottomSheetDefaults.contentHorizontalPadding))
                 }
                 if (header.title != null) {
@@ -183,25 +202,43 @@ fun WarpBottomSheet(
                         style = WarpTextStyle.Title3,
                         modifier = Modifier
                             .weight(1f)
+                            .firstLineCentered(firstRowHeight, titleVerticalPadding)
                             .semantics { heading() },
                     )
                 } else {
                     Spacer(Modifier.weight(1f))
                 }
                 if (header.showCloseButton) {
-                    // Merged before the icon's own description, so it reads e.g. "Close, X".
-                    IconButton(
-                        onClick = dismiss,
-                        modifier = Modifier.semantics { contentDescription = closeLabel },
-                    ) {
-                        WarpIcon(
-                            icon = icons.close,
-                        )
+                    Box(Modifier.height(firstRowHeight), contentAlignment = Alignment.Center) {
+                        // Merged before the icon's own description, so it reads e.g. "Close, X".
+                        IconButton(
+                            onClick = dismiss,
+                            modifier = Modifier.semantics { contentDescription = closeLabel },
+                        ) {
+                            WarpIcon(
+                                icon = icons.close,
+                            )
+                        }
                     }
                 }
             }
         }
         content(dismiss)
+    }
+}
+
+/**
+ * A title of one line is centred in [rowHeight], as a row would centre it. A taller title starts [padding] down and
+ * keeps the same [padding] below, so its first line sits where a single line would.
+ */
+private fun Modifier.firstLineCentered(rowHeight: Dp, padding: Dp) = layout { measurable, constraints ->
+    val placeable = measurable.measure(constraints.copy(minHeight = 0))
+    val rowPx = rowHeight.roundToPx()
+    if (placeable.height <= rowPx) {
+        layout(placeable.width, rowPx) { placeable.place(0, ((rowPx - placeable.height) / 2f).roundToInt()) }
+    } else {
+        val paddingPx = padding.roundToPx()
+        layout(placeable.width, placeable.height + 2 * paddingPx) { placeable.place(0, paddingPx) }
     }
 }
 
