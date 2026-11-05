@@ -37,6 +37,7 @@ listOf(
     "logo",
     "menu",
     "navigationbar",
+    "notificationbadge",
     "pageindicator",
     "pill",
     "popover",
