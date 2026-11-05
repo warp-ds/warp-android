@@ -105,7 +105,7 @@ class WarpBottomSheetTest {
 
     @Test
     fun emptyHeader_showsNoWarpCloseButton() {
-        setSheet(WarpBottomSheetHeader())
+        setSheet(WarpBottomSheetHeader.empty())
 
         composeTestRule.onNodeWithText("Sheet content").assertExists()
         composeTestRule.onNodeWithContentDescription(closeLabel).assertDoesNotExist()

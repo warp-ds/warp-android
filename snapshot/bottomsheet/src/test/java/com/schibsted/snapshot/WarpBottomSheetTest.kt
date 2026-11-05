@@ -69,7 +69,7 @@ class WarpBottomSheetTest(
     fun warp_bottom_sheet_close_only() = snapshotSheet(WarpBottomSheetHeader(showCloseButton = true))
 
     @Test
-    fun warp_bottom_sheet_no_header() = snapshotSheet(WarpBottomSheetHeader())
+    fun warp_bottom_sheet_no_header() = snapshotSheet(WarpBottomSheetHeader.empty())
 
     @Test
     fun warp_bottom_sheet_leading_icon() = snapshotSheet {

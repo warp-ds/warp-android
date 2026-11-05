@@ -184,7 +184,7 @@ private fun SheetButton(text: String, onClick: () -> Unit) {
  */
 @Composable
 private fun CustomHeaderSheet(onDismissRequest: () -> Unit) {
-    WarpBottomSheet(onDismissRequest = onDismissRequest, header = WarpBottomSheetHeader()) { dismiss ->
+    WarpBottomSheet(onDismissRequest = onDismissRequest, header = WarpBottomSheetHeader.empty()) { dismiss ->
         Row(
             modifier = Modifier
                 .fillMaxWidth()

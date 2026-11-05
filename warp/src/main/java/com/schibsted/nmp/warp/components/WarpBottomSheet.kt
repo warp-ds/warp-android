@@ -66,8 +66,7 @@ object WarpBottomSheetDefaults {
 
 /**
  * The header Warp draws at the top of a [WarpBottomSheet]: an optional icon, an optional title and an
- * optional close button. With none of them, Warp draws no header, for sheets whose content draws its
- * own.
+ * optional close button. With none of them, Warp draws no header; see [empty].
  *
  * @param title Optional plain-text heading. Use it for the sheet's heading rather than a heading in
  * the sheet's content.
@@ -79,7 +78,12 @@ data class WarpBottomSheetHeader(
     val title: String? = null,
     val showCloseButton: Boolean = false,
     val icon: WarpBottomSheetHeaderIcon? = null,
-)
+) {
+    companion object {
+        /** A header that draws nothing, for sheets whose content keeps its own header. */
+        fun empty() = WarpBottomSheetHeader()
+    }
+}
 
 /** The icon left of a [WarpBottomSheetHeader]'s title. Both kinds share one fixed 24dp slot. */
 sealed interface WarpBottomSheetHeaderIcon {
@@ -106,9 +110,8 @@ sealed interface WarpBottomSheetHeaderIcon {
  *
  * @param onDismissRequest Called once the hide animation completes. Also passed to [content] as
  * `dismiss`, so in-sheet actions can close the sheet the same way.
- * @param header Warp's header. Pass `WarpBottomSheetHeader(title = null, showCloseButton = false)`
- * when [content] draws its own header, e.g. one with actions; it should then close the sheet with
- * `dismiss`.
+ * @param header Warp's header. Pass [WarpBottomSheetHeader.empty] when [content] draws its own
+ * header, e.g. one with actions; it should then close the sheet with `dismiss`.
  * @param modifier Applied to the sheet surface.
  * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
  * @param content Sheet body; receives `dismiss` (see [onDismissRequest]). Pad it horizontally with
