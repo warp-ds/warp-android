@@ -1,6 +1,7 @@
 package com.schibsted.nmp.warp.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,13 +28,18 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.takeOrElse
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.schibsted.nmp.warp.R
+import com.schibsted.nmp.warp.theme.WarpIconResource
 import com.schibsted.nmp.warp.theme.WarpResources.icons
 import com.schibsted.nmp.warp.theme.WarpTheme
 import kotlinx.coroutines.launch
@@ -57,18 +65,43 @@ object WarpBottomSheetDefaults {
 }
 
 /**
- * The header Warp draws at the top of a [WarpBottomSheet]: an optional title and an optional close
- * button. With neither, Warp draws no header, for sheets whose content draws its own.
+ * The header Warp draws at the top of a [WarpBottomSheet]: an optional title, an optional icon left of
+ * it and an optional close button. With neither title nor close button, Warp draws no header, for
+ * sheets whose content draws its own.
  *
  * @param title Optional plain-text heading. Use it for the sheet's heading rather than a heading in
  * the sheet's content.
  * @param showCloseButton Shows a close button top right. The sheet can be closed without it too, by
  * swiping down, tapping the scrim, pressing back or with the drag handle's accessibility action.
+ * @param icon Optional decorative icon left of the title, e.g. in place of an illustration above a
+ * heading. Requires a [title]. Warp owns its size; TalkBack reads only the title.
  */
 data class WarpBottomSheetHeader(
     val title: String? = null,
     val showCloseButton: Boolean = false,
-)
+    val icon: WarpBottomSheetHeaderIcon? = null,
+) {
+    init {
+        require(icon == null || title != null) { "A header icon needs a title" }
+    }
+}
+
+/** The icon left of a [WarpBottomSheetHeader]'s title. Both kinds share one fixed 24dp slot. */
+sealed interface WarpBottomSheetHeaderIcon {
+
+    /**
+     * A Warp icon.
+     *
+     * @param color The icon's tint. Unspecified uses the default icon color.
+     */
+    data class Icon(
+        val icon: WarpIconResource,
+        val color: Color = Color.Unspecified,
+    ) : WarpBottomSheetHeaderIcon
+
+    /** An untinted image, e.g. a logo or a badge, fitted into the slot. */
+    data class Image(val painter: Painter) : WarpBottomSheetHeaderIcon
+}
 
 /**
  * A modal bottom sheet. Warp draws the [header], a title and an optional close button top right,
@@ -142,6 +175,10 @@ fun WarpBottomSheet(
                     .heightIn(min = LocalMinimumInteractiveComponentSize.current),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
+                if (header.icon != null) {
+                    HeaderIcon(header.icon)
+                    Spacer(Modifier.width(WarpBottomSheetDefaults.contentHorizontalPadding))
+                }
                 if (header.title != null) {
                     WarpText(
                         text = header.title,
@@ -167,6 +204,25 @@ fun WarpBottomSheet(
             }
         }
         content(dismiss)
+    }
+}
+
+@Composable
+private fun HeaderIcon(icon: WarpBottomSheetHeaderIcon) {
+    // Decorative: the title carries the meaning.
+    val modifier = Modifier.clearAndSetSemantics {}
+    when (icon) {
+        is WarpBottomSheetHeaderIcon.Icon -> WarpIcon(
+            icon = icon.icon,
+            color = icon.color.takeOrElse { WarpTheme.colors.icon.default },
+            modifier = modifier,
+        )
+        is WarpBottomSheetHeaderIcon.Image -> Image(
+            painter = icon.painter,
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = modifier.size(WarpTheme.dimensions.icon.default),
+        )
     }
 }
 
@@ -199,6 +255,25 @@ private fun WarpBottomSheetNoTitlePreview() {
     WarpBottomSheet(onDismissRequest = {}, header = WarpBottomSheetHeader(showCloseButton = true)) {
         WarpText(
             text = "A sheet without a title: the header only holds the close button.",
+            style = WarpTextStyle.Body,
+            modifier = Modifier.padding(WarpTheme.dimensions.space2),
+        )
+    }
+}
+
+@Preview(name = "Leading icon", showBackground = true)
+@Composable
+private fun WarpBottomSheetLeadingIconPreview() {
+    WarpBottomSheet(
+        onDismissRequest = {},
+        header = WarpBottomSheetHeader(
+            title = "About the short version",
+            showCloseButton = true,
+            icon = WarpBottomSheetHeaderIcon.Icon(icons.sparkles),
+        ),
+    ) {
+        WarpText(
+            text = "A decorative icon left of the title.",
             style = WarpTextStyle.Body,
             modifier = Modifier.padding(WarpTheme.dimensions.space2),
         )

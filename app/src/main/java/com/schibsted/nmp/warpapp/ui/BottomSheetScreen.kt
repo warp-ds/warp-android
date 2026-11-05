@@ -16,9 +16,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import com.schibsted.nmp.warpapp.R
 import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpBottomSheetDefaults
 import com.schibsted.nmp.warp.components.WarpBottomSheetHeader
+import com.schibsted.nmp.warp.components.WarpBottomSheetHeaderIcon
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpButtonStyle
 import com.schibsted.nmp.warp.components.WarpDivider
@@ -26,6 +29,7 @@ import com.schibsted.nmp.warp.components.WarpIcon
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.components.WarpTextStyle
 import com.schibsted.nmp.warp.theme.WarpResources.icons
+import com.schibsted.nmp.warp.theme.WarpTheme.colors
 import com.schibsted.nmp.warp.theme.WarpTheme.dimensions
 
 @Composable
@@ -38,7 +42,7 @@ fun BottomSheetScreen(onUp: () -> Unit) {
     }
 }
 
-private enum class SampleSheet { Title, Categories, NoTitle, CustomHeader }
+private enum class SampleSheet { Title, Categories, NoTitle, LeadingIcon, LeadingImage, CustomHeader }
 
 @Composable
 fun BottomSheetScreenContent() {
@@ -58,6 +62,8 @@ fun BottomSheetScreenContent() {
             WarpText(text = "Selected: $it", style = WarpTextStyle.Body)
         }
         SheetButton("No title") { openSheet = SampleSheet.NoTitle }
+        SheetButton("Leading icon") { openSheet = SampleSheet.LeadingIcon }
+        SheetButton("Leading image") { openSheet = SampleSheet.LeadingImage }
         SheetButton("Custom header") { openSheet = SampleSheet.CustomHeader }
     }
 
@@ -115,9 +121,50 @@ fun BottomSheetScreenContent() {
             }
         }
 
+        SampleSheet.LeadingIcon -> LeadingIconSheet(
+            header = WarpBottomSheetHeader(
+                title = "About the short version",
+                icon = WarpBottomSheetHeaderIcon.Icon(icons.sparkles, color = colors.icon.primary),
+            ),
+            text = "A Warp icon left of the title, here tinted with the primary icon color.",
+            onDismissRequest = closeSheet,
+        )
+
+        SampleSheet.LeadingImage -> LeadingIconSheet(
+            header = WarpBottomSheetHeader(
+                title = "Verify with your bank",
+                showCloseButton = true,
+                icon = WarpBottomSheetHeaderIcon.Image(painterResource(R.drawable.blocket_badge)),
+            ),
+            text = "An untinted image left of the title, e.g. a logo, in the same 24dp slot.",
+            onDismissRequest = closeSheet,
+        )
+
         SampleSheet.CustomHeader -> CustomHeaderSheet(onDismissRequest = closeSheet)
 
         null -> Unit
+    }
+}
+
+@Composable
+private fun LeadingIconSheet(header: WarpBottomSheetHeader, text: String, onDismissRequest: () -> Unit) {
+    WarpBottomSheet(onDismissRequest = onDismissRequest, header = header) { dismiss ->
+        Column(
+            modifier = Modifier.padding(
+                horizontal = WarpBottomSheetDefaults.contentHorizontalPadding,
+                vertical = dimensions.space2,
+            ),
+        ) {
+            WarpText(text = text, style = WarpTextStyle.Body)
+            WarpButton(
+                text = "Got it",
+                onClick = dismiss,
+                style = WarpButtonStyle.Secondary,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = dimensions.space2),
+            )
+        }
     }
 }
 

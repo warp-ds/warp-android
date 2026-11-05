@@ -4,6 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
@@ -19,6 +21,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpBottomSheetHeader
+import com.schibsted.nmp.warp.components.WarpBottomSheetHeaderIcon
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -108,6 +111,31 @@ class WarpBottomSheetTest {
 
         composeTestRule.onNodeWithText("Sheet content").assertExists()
         composeTestRule.onNodeWithContentDescription(closeLabel).assertDoesNotExist()
+    }
+
+    @Test
+    fun headerIcon_isDecorative() {
+        var iconDescription = ""
+        composeTestRule.setContent {
+            iconDescription = icons.sparkles.description
+            WarpBottomSheet(
+                onDismissRequest = {},
+                header = WarpBottomSheetHeader(
+                    title = "Title",
+                    icon = WarpBottomSheetHeaderIcon.Icon(icons.sparkles),
+                ),
+            ) {
+                WarpText(text = "Sheet content")
+            }
+        }
+
+        composeTestRule.onNodeWithText("Title").assert(isHeading())
+        composeTestRule.onNodeWithContentDescription(iconDescription).assertDoesNotExist()
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun headerIcon_withoutTitle_isRejected() {
+        WarpBottomSheetHeader(icon = WarpBottomSheetHeaderIcon.Image(ColorPainter(Color.Red)))
     }
 
     @Test
