@@ -4,8 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
@@ -131,11 +129,6 @@ class WarpBottomSheetTest {
 
         composeTestRule.onNodeWithText("Title").assert(isHeading())
         composeTestRule.onNodeWithContentDescription(iconDescription).assertDoesNotExist()
-    }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun headerIcon_withoutTitle_isRejected() {
-        WarpBottomSheetHeader(icon = WarpBottomSheetHeaderIcon.Image(ColorPainter(Color.Red)))
     }
 
     @Test

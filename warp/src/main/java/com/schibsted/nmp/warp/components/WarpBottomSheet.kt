@@ -65,26 +65,21 @@ object WarpBottomSheetDefaults {
 }
 
 /**
- * The header Warp draws at the top of a [WarpBottomSheet]: an optional title, an optional icon left of
- * it and an optional close button. With neither title nor close button, Warp draws no header, for
- * sheets whose content draws its own.
+ * The header Warp draws at the top of a [WarpBottomSheet]: an optional icon, an optional title and an
+ * optional close button. With none of them, Warp draws no header, for sheets whose content draws its
+ * own.
  *
  * @param title Optional plain-text heading. Use it for the sheet's heading rather than a heading in
  * the sheet's content.
  * @param showCloseButton Shows a close button top right. The sheet can be closed without it too, by
  * swiping down, tapping the scrim, pressing back or with the drag handle's accessibility action.
- * @param icon Optional decorative icon left of the title, e.g. in place of an illustration above a
- * heading. Requires a [title]. Warp owns its size; TalkBack reads only the title.
+ * @param icon Optional decorative icon left of the title. Warp owns its size, and TalkBack skips it.
  */
 data class WarpBottomSheetHeader(
     val title: String? = null,
     val showCloseButton: Boolean = false,
     val icon: WarpBottomSheetHeaderIcon? = null,
-) {
-    init {
-        require(icon == null || title != null) { "A header icon needs a title" }
-    }
-}
+)
 
 /** The icon left of a [WarpBottomSheetHeader]'s title. Both kinds share one fixed 24dp slot. */
 sealed interface WarpBottomSheetHeaderIcon {
@@ -155,7 +150,7 @@ fun WarpBottomSheet(
         contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal) },
         dragHandle = { BottomSheetDefaults.DragHandle(color = WarpTheme.colors.background.subtleActive) },
     ) {
-        if (header.title != null || header.showCloseButton) {
+        if (header.icon != null || header.title != null || header.showCloseButton) {
             Row(
                 // No top padding - M3's 48dp handle already spaces the header from the top edge.
                 // No bottom padding - content owns its spacing below the header.
