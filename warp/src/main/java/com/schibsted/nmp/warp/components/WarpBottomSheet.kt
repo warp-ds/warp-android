@@ -92,11 +92,11 @@ data class WarpBottomSheetHeader(
     }
 }
 
-/** The icon left of a [WarpBottomSheetHeader]'s title. Both kinds share one fixed 32dp slot. */
+/** The icon left of a [WarpBottomSheetHeader]'s title. */
 sealed interface WarpBottomSheetHeaderIcon {
 
     /**
-     * A Warp icon.
+     * A Warp icon, the same size as the close button.
      *
      * @param color The icon's tint. Unspecified uses the default icon color.
      */
@@ -105,8 +105,18 @@ sealed interface WarpBottomSheetHeaderIcon {
         val color: Color = Color.Unspecified,
     ) : WarpBottomSheetHeaderIcon
 
-    /** An untinted image, e.g. a logo or a badge, fitted into the slot. */
-    data class Image(val painter: Painter) : WarpBottomSheetHeaderIcon
+    /**
+     * An untinted image, e.g. a logo or a badge, fitted into a square of [size].
+     *
+     * @param size [ImageSize.Default] matches an [Icon]; [ImageSize.Large] is for artwork that needs more room.
+     */
+    data class Image(
+        val painter: Painter,
+        val size: ImageSize = ImageSize.Default,
+    ) : WarpBottomSheetHeaderIcon
+
+    /** The sizes an [Image] can take. */
+    enum class ImageSize { Default, Large }
 }
 
 /**
@@ -246,11 +256,10 @@ private fun Modifier.firstLineCentered(rowHeight: Dp, padding: Dp) = layout { me
 private fun HeaderIcon(icon: WarpBottomSheetHeaderIcon) {
     // Decorative: the title carries the meaning.
     val modifier = Modifier.clearAndSetSemantics {}
-    val size = WarpTheme.dimensions.icon.large
     when (icon) {
         is WarpBottomSheetHeaderIcon.Icon -> WarpIcon(
             icon = icon.icon,
-            size = size,
+            size = WarpTheme.dimensions.icon.default,
             color = icon.color.takeOrElse { WarpTheme.colors.icon.default },
             modifier = modifier,
         )
@@ -258,7 +267,12 @@ private fun HeaderIcon(icon: WarpBottomSheetHeaderIcon) {
             painter = icon.painter,
             contentDescription = null,
             contentScale = ContentScale.Fit,
-            modifier = modifier.size(size),
+            modifier = modifier.size(
+                when (icon.size) {
+                    WarpBottomSheetHeaderIcon.ImageSize.Default -> WarpTheme.dimensions.icon.default
+                    WarpBottomSheetHeaderIcon.ImageSize.Large -> WarpTheme.dimensions.icon.large
+                },
+            ),
         )
     }
 }

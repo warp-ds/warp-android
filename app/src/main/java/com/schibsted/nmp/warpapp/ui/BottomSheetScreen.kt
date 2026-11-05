@@ -53,6 +53,7 @@ private enum class HeaderSample(val label: String) {
     IconAndTitle("Icon and title"),
     IconTitleAndClose("Icon, title and close button"),
     ImageTitleAndClose("Image, title and close button"),
+    LargeImageTitleAndClose("Large image, title and close button"),
     IconOnly("Icon only"),
     LongTitle("Long title and close button"),
     LongTitleWithIcon("Long title, icon and close button"),
@@ -81,6 +82,14 @@ private fun HeaderSample.header(): WarpBottomSheetHeader {
             title = "Verify with your bank",
             showCloseButton = true,
             icon = WarpBottomSheetHeaderIcon.Image(painterResource(R.drawable.blocket_badge)),
+        )
+        HeaderSample.LargeImageTitleAndClose -> WarpBottomSheetHeader(
+            title = "Verify with your bank",
+            showCloseButton = true,
+            icon = WarpBottomSheetHeaderIcon.Image(
+                painterResource(R.drawable.blocket_badge),
+                size = WarpBottomSheetHeaderIcon.ImageSize.Large,
+            ),
         )
         HeaderSample.IconOnly -> WarpBottomSheetHeader(icon = sparkles)
         HeaderSample.LongTitle -> WarpBottomSheetHeader(title = LONG_TITLE, showCloseButton = true)

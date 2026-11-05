@@ -90,6 +90,18 @@ class WarpBottomSheetTest(
     }
 
     @Test
+    fun warp_bottom_sheet_leading_image_large() = snapshotSheet {
+        WarpBottomSheetHeader(
+            title = "Verify with your bank",
+            showCloseButton = true,
+            icon = WarpBottomSheetHeaderIcon.Image(
+                painterResource(R.drawable.warp_finn),
+                size = WarpBottomSheetHeaderIcon.ImageSize.Large,
+            ),
+        )
+    }
+
+    @Test
     fun warp_bottom_sheet_long_title_with_icon() = snapshotSheet {
         WarpBottomSheetHeader(
             title = "What will we use the information you share with us for?",
