@@ -136,7 +136,7 @@ fun BottomSheetScreenContent() {
                 showCloseButton = true,
                 icon = WarpBottomSheetHeaderIcon.Image(painterResource(R.drawable.blocket_badge)),
             ),
-            text = "An untinted image left of the title, e.g. a logo, in the same 24dp slot.",
+            text = "An untinted image left of the title, e.g. a logo, in the same 32dp slot.",
             onDismissRequest = closeSheet,
         )
 
