@@ -73,7 +73,7 @@ object WarpBottomSheetDefaults {
  * the sheet's content.
  * @param showCloseButton Shows a close button top right. The sheet can be closed without it too, by
  * swiping down, tapping the scrim, pressing back or with the drag handle's accessibility action.
- * @param icon Optional decorative icon left of the title. Warp owns its size, and TalkBack skips it.
+ * @param icon Optional decorative icon left of the title. Warp owns its size.
  */
 data class WarpBottomSheetHeader(
     val title: String? = null,
