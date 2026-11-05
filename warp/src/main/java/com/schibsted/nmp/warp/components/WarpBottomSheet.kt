@@ -85,7 +85,7 @@ data class WarpBottomSheetHeader(
     }
 }
 
-/** The icon left of a [WarpBottomSheetHeader]'s title. Both kinds share one fixed 24dp slot. */
+/** The icon left of a [WarpBottomSheetHeader]'s title. Both kinds share one fixed 32dp slot. */
 sealed interface WarpBottomSheetHeaderIcon {
 
     /**
@@ -209,9 +209,11 @@ fun WarpBottomSheet(
 private fun HeaderIcon(icon: WarpBottomSheetHeaderIcon) {
     // Decorative: the title carries the meaning.
     val modifier = Modifier.clearAndSetSemantics {}
+    val size = WarpTheme.dimensions.icon.large
     when (icon) {
         is WarpBottomSheetHeaderIcon.Icon -> WarpIcon(
             icon = icon.icon,
+            size = size,
             color = icon.color.takeOrElse { WarpTheme.colors.icon.default },
             modifier = modifier,
         )
@@ -219,7 +221,7 @@ private fun HeaderIcon(icon: WarpBottomSheetHeaderIcon) {
             painter = icon.painter,
             contentDescription = null,
             contentScale = ContentScale.Fit,
-            modifier = modifier.size(WarpTheme.dimensions.icon.default),
+            modifier = modifier.size(size),
         )
     }
 }
