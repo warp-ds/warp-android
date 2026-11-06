@@ -19,6 +19,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.schibsted.nmp.warp.components.WarpBottomSheet
 import com.schibsted.nmp.warp.components.WarpBottomSheetHeader
+import com.schibsted.nmp.warp.components.WarpBottomSheetHeaderIcon
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpResources.icons
@@ -104,10 +105,30 @@ class WarpBottomSheetTest {
 
     @Test
     fun emptyHeader_showsNoWarpCloseButton() {
-        setSheet(WarpBottomSheetHeader())
+        setSheet(WarpBottomSheetHeader.empty())
 
         composeTestRule.onNodeWithText("Sheet content").assertExists()
         composeTestRule.onNodeWithContentDescription(closeLabel).assertDoesNotExist()
+    }
+
+    @Test
+    fun headerIcon_isDecorative() {
+        var iconDescription = ""
+        composeTestRule.setContent {
+            iconDescription = icons.sparkles.description
+            WarpBottomSheet(
+                onDismissRequest = {},
+                header = WarpBottomSheetHeader(
+                    title = "Title",
+                    icon = WarpBottomSheetHeaderIcon.Icon(icons.sparkles),
+                ),
+            ) {
+                WarpText(text = "Sheet content")
+            }
+        }
+
+        composeTestRule.onNodeWithText("Title").assert(isHeading())
+        composeTestRule.onNodeWithContentDescription(iconDescription).assertDoesNotExist()
     }
 
     @Test

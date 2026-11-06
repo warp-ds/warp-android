@@ -24,6 +24,7 @@ listOf(
     "test-utils",
     "alert",
     "badge",
+    "bottomsheet",
     "box",
     "button",
     "callout",
