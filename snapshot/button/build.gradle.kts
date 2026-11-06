@@ -33,4 +33,5 @@ android {
 
 dependencies {
     implementation(project(":snapshot:snapshot-test-utils"))
+    testImplementation(Dependencies.composeMaterial3)
 }

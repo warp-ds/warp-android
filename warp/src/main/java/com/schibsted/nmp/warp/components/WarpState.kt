@@ -188,7 +188,8 @@ private fun WarpStateView(
             primaryButtonText?.let {
                 WarpButton(
                     text = it,
-                    onClick = onPrimaryButtonClicked
+                    onClick = onPrimaryButtonClicked,
+                    style = WarpButtonStyle.Primary
                 )
             }
             Spacer(Modifier.size(dimensions.space1))
