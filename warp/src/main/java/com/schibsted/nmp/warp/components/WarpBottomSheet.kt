@@ -26,7 +26,10 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -120,18 +123,39 @@ sealed interface WarpBottomSheetHeaderIcon {
 }
 
 /**
+ * Closes a [WarpBottomSheet] with its hide animation; [WarpBottomSheet] passes it to its content.
+ * Call it as `dismiss()`, or pass it where a `() -> Unit` is expected.
+ */
+@Stable
+class WarpBottomSheetDismiss internal constructor(
+    private val onDismissRequest: () -> Unit,
+    private val hide: (onHidden: () -> Unit) -> Unit,
+) : () -> Unit {
+
+    /** Closes the sheet; `onDismissRequest` runs once it has hidden. */
+    override fun invoke() = hide(onDismissRequest)
+
+    /**
+     * Closes the sheet and runs [onHidden] instead of `onDismissRequest` once it has hidden, e.g.
+     * for a confirmed action. [onHidden] should also remove the sheet. Nothing runs if the user
+     * stops the hide by grabbing the sheet.
+     */
+    operator fun invoke(onHidden: () -> Unit) = hide(onHidden)
+}
+
+/**
  * A modal bottom sheet. Warp draws the [header], a title and an optional close button top right,
  * above [content]. Content taller than about half the screen opens half-expanded first, unless
  * [skipPartiallyExpanded] is set. Swiping down, tapping the scrim, pressing back and the close
  * button all close it.
  *
- * @param onDismissRequest Called once the hide animation completes. Also passed to [content] as
- * `dismiss`, so in-sheet actions can close the sheet the same way.
+ * @param onDismissRequest Called once the hide animation completes. In-sheet actions close the
+ * sheet the same way with the `dismiss` passed to [content].
  * @param header Warp's header. Pass [WarpBottomSheetHeader.empty] when [content] draws its own
  * header, e.g. one with actions; it should then close the sheet with `dismiss`.
  * @param modifier Applied to the sheet surface.
  * @param skipPartiallyExpanded Always open fully expanded, e.g. for forms that would be cut off.
- * @param content Sheet body; receives `dismiss` (see [onDismissRequest]). Pad it horizontally with
+ * @param content Sheet body; receives [WarpBottomSheetDismiss]. Pad it horizontally with
  * [WarpBottomSheetDefaults.contentHorizontalPadding] to line up with the header's title.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -141,7 +165,7 @@ fun WarpBottomSheet(
     header: WarpBottomSheetHeader,
     modifier: Modifier = Modifier,
     skipPartiallyExpanded: Boolean = false,
-    content: @Composable ColumnScope.(dismiss: () -> Unit) -> Unit,
+    content: @Composable ColumnScope.(dismiss: WarpBottomSheetDismiss) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val sheetState = if (LocalBottomSheetStartsOpen.current) {
@@ -149,9 +173,12 @@ fun WarpBottomSheet(
     } else {
         rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
     }
-    val dismiss: () -> Unit = {
-        scope.launch { sheetState.hide() }.invokeOnCompletion {
-            if (!sheetState.isVisible) onDismissRequest()
+    val currentOnDismissRequest by rememberUpdatedState(onDismissRequest)
+    val dismiss = remember(scope, sheetState) {
+        WarpBottomSheetDismiss(onDismissRequest = { currentOnDismissRequest() }) { onHidden ->
+            scope.launch { sheetState.hide() }.invokeOnCompletion {
+                if (!sheetState.isVisible) onHidden()
+            }
         }
     }
 

@@ -23,12 +23,13 @@ import com.schibsted.nmp.warp.components.WarpBottomSheetHeaderIcon
 import com.schibsted.nmp.warp.components.WarpButton
 import com.schibsted.nmp.warp.components.WarpText
 import com.schibsted.nmp.warp.theme.WarpResources.icons
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Instrumented tests for WarpBottomSheet's header and close button.
+ * Instrumented tests for WarpBottomSheet's header, close button and dismiss.
  */
 @RunWith(AndroidJUnit4::class)
 class WarpBottomSheetTest {
@@ -39,6 +40,7 @@ class WarpBottomSheetTest {
     private val closeLabel = InstrumentationRegistry.getInstrumentation().targetContext
         .getString(R.string.bottom_sheet_close)
     private var dismissCount = 0
+    private var onHiddenCount = 0
     private var closeIconDescription = ""
 
     private fun setSheet(
@@ -57,6 +59,15 @@ class WarpBottomSheetTest {
                 ) { dismiss ->
                     WarpText(text = "Sheet content")
                     WarpButton(text = "Done", onClick = dismiss)
+                    WarpButton(
+                        text = "Confirm",
+                        onClick = {
+                            dismiss {
+                                onHiddenCount++
+                                shown = false
+                            }
+                        },
+                    )
                 }
             }
         }
@@ -129,6 +140,26 @@ class WarpBottomSheetTest {
 
         composeTestRule.onNodeWithText("Title").assert(isHeading())
         composeTestRule.onNodeWithContentDescription(iconDescription).assertDoesNotExist()
+    }
+
+    @Test
+    fun dismiss_callsOnDismissRequest() {
+        setSheet()
+
+        composeTestRule.onNodeWithText("Done").performClick()
+
+        waitUntilDismissed()
+    }
+
+    @Test
+    fun dismissWithOnHidden_runsItInsteadOfOnDismissRequest() {
+        setSheet()
+
+        composeTestRule.onNodeWithText("Confirm").performClick()
+
+        composeTestRule.waitUntil(timeoutMillis = 5_000) { onHiddenCount == 1 }
+        composeTestRule.onNodeWithText("Sheet content").assertDoesNotExist()
+        assertEquals(0, dismissCount)
     }
 
     @Test
